@@ -6,6 +6,7 @@ apis:
     name: ZoomInfo
     tags:
       - Contacts
+      - Data
     humanURL: https://api-docs.zoominfo.com/
     properties:
       - url: https://api-docs.zoominfo.com/
@@ -13,9 +14,9 @@ apis:
       - url: properties/zoominfo-openapi.yml
         type: OpenAPI
     description: >-
-      The ZoomInfo API is a set of HTTPS endpoints you can use to
-      programmatically retrieve and integrate ZoomInfo data into your existing
-      technology stack and ...
+      Welcome to ZoomInfo's API. ZoomInfo is the leading data intelligence
+      platform for B2B go-to-market teams, presenting a trifecta of the
+      broadest, deepest and highest quality B2B data.
 name: ZoomInfo
 tags:
   - API
