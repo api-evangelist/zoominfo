@@ -16,10 +16,41 @@ apis:
       technology stack and ...
 name: ZoomInfo
 tags:
-  - API
+  - Contacts
+  - Data
+  - B2B
 type: Contract
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
+common:
+  - url: https://www.zoominfo.com/pricing
+    name: Pricing | ZoomInfo
+    type: Pricing
+    description: 'null'
+  - url: https://pipeline.zoominfo.com/
+    name: B2B Sales and Marketing Content | ZoomInfo Blog
+    type: Blog
+    description: 'null'
+  - url: https://www.zoominfo.com/about/case-studies
+    name: Case Studies | Customer Success | ZoomInfo
+    type: CaseStudies
+    description: 'null'
+  - url: https://www.zoominfo.com/partner
+    name: Program Partnership Benefits | Partner with ZoomInfo
+    type: Partners
+    description: 'null'
+  - url: https://www.zoominfo.com/about/help-center
+    name: Help Center | ZoomInfo
+    type: Support
+    description: 'null'
+  - url: https://www.zoominfo.com/faqs/business
+    name: Frequently Asked Questions About ZoomInfos Business
+    type: FAQ
+    description: 'null'
+  - url: https://pipeline.zoominfo.com/glossary
+    name: Go-to-Market Glossary | ZoomInfo Blog
+    type: Glossary
+    description: 'null'
 created: '2025-02-09'
 modified: '2025-02-09'
 position: Consuming
@@ -31,32 +62,3 @@ maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
 specificationVersion: '0.19'
-common:
-  - name: Pricing | ZoomInfo
-    description: 'null'
-    url: https://www.zoominfo.com/pricing
-    type: Pricing
-  - name: B2B Sales and Marketing Content | ZoomInfo Blog
-    description: 'null'
-    url: https://pipeline.zoominfo.com/
-    type: Blog
-  - name: Case Studies | Customer Success | ZoomInfo
-    description: 'null'
-    url: https://www.zoominfo.com/about/case-studies
-    type: CaseStudies
-  - name: Program Partnership Benefits | Partner with ZoomInfo
-    description: 'null'
-    url: https://www.zoominfo.com/partner
-    type: Partners
-  - name: Help Center | ZoomInfo
-    description: 'null'
-    url: https://www.zoominfo.com/about/help-center
-    type: Support
-  - name: Frequently Asked Questions About ZoomInfos Business
-    description: 'null'
-    url: https://www.zoominfo.com/faqs/business
-    type: FAQ
-  - name: Go-to-Market Glossary | ZoomInfo Blog
-    description: 'null'
-    url: https://pipeline.zoominfo.com/glossary
-    type: Glossary
