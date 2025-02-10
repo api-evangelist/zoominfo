@@ -2,9 +2,9 @@ openapi: 3.1.0
 info:
   title: ZoomInfo
   description: >-
-    The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically
-    retrieve and integrate ZoomInfo data into your existing technology stack and
-    ...
+    Welcome to ZoomInfo's API. ZoomInfo is the leading data intelligence
+    platform for B2B go-to-market teams, presenting a trifecta of the broadest,
+    deepest and highest quality B2B data.
   contact: {}
   version: '1.0'
 jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
