@@ -10,6 +10,8 @@ apis:
     properties:
       - url: https://api-docs.zoominfo.com/
         type: Documentation
+      - type: OpenAPI
+        url: properties/zoominfo-openapi.yml
     description: >-
       The ZoomInfo API is a set of HTTPS endpoints you can use to
       programmatically retrieve and integrate ZoomInfo data into your existing
