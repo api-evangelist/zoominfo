@@ -10,6 +10,8 @@ apis:
     properties:
       - url: https://www.zoominfo.com/solutions/data-as-a-service/enterprise-api
         type: Documentation
+      - type: OpenAPI
+        url: properties/zoominfo-openapi.yml
     description: >-
       The ZoomInfo API is a set of HTTPS endpoints you can use to
       programmatically retrieve and integrate ZoomInfo data into your existing
@@ -44,7 +46,7 @@ common:
     type: Support
     description: 'null'
   - url: https://www.zoominfo.com/faqs/business
-    name: Frequently Asked Questions About ZoomInfos Business
+    name: Frequently Asked Questions About ZoomInfos Business
     type: FAQ
     description: 'null'
   - url: https://pipeline.zoominfo.com/glossary
