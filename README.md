@@ -1,5 +1,5 @@
 # ZoomInfo (zoominfo)
-Welcome to ZoomInfo's API. ZoomInfo is the leading data intelligence platform for B2B go-to-market teams, presenting a trifecta of the broadest, deepest and highest quality B2B data.
+ZoomInfo is a leading B2B contact database and sales intelligence platform that provides detailed company and contact information, helping sales and marketing teams identify and connect with potential customers.
 
 **URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/zoominfo/refs/heads/main/apis.yml)
 
@@ -11,7 +11,7 @@ Welcome to ZoomInfo's API. ZoomInfo is the leading data intelligence platform fo
 
 ## Tags:
 
- - Contacts, Data, B2B
+ - B2B, B2B Data, Company Data, Contact Database, Contacts, Data, Lead Generation, Marketing Intelligence, Sales Intelligence
 
 ## Timestamps
 
@@ -33,6 +33,7 @@ The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically ret
 #### Properties
 
 - [Documentation](https://www.zoominfo.com/solutions/data-as-a-service/enterprise-api)
+- [OpenAPI](openapi/zoominfo-openapi.yml)
 
 ## Common Properties
 
@@ -43,10 +44,18 @@ The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically ret
 - [Support](https://www.zoominfo.com/about/help-center)
 - [FAQ](https://www.zoominfo.com/faqs/business)
 - [Glossary](https://pipeline.zoominfo.com/glossary)
+- [Authentication](https://api-docs.zoominfo.com/#authentication)
+- [Getting Started](https://api-docs.zoominfo.com/getting-started)
+- [Rate Limits](https://api-docs.zoominfo.com/rate-limits)
+- [Terms of Service](https://www.zoominfo.com/about/terms-of-service)
+- [Privacy Policy](https://www.zoominfo.com/about/privacy-policy)
+- [Status Page](https://status.zoominfo.com)
 
 ## Maintainers
 
 **FN:** Kin Lane
 
 **Email:** info@apievangelist.com
+**FN:** ZoomInfo API Team
 
+**Email:** api-support@zoominfo.com
