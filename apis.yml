@@ -68,13 +68,10 @@ common:
 - url: https://status.zoominfo.com
   type: Status Page
 created: '2025-02-09'
-modified: '2025-02-09'
+modified: '2026-03-16'
 position: Consuming
 description: ZoomInfo is a leading B2B contact database and sales intelligence platform that provides detailed company and contact information, helping sales and marketing teams identify and connect with potential customers.
 maintainers:
 - FN: Kin Lane
-  email: info@apievangelist.com
-- name: ZoomInfo API Team
-  email: api-support@zoominfo.com
-  url: https://www.zoominfo.com
+  email: kin@apievangelist.com
 specificationVersion: '0.19'
