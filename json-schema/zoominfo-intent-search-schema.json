@@ -1,0 +1,147 @@
+{
+  "type": "object",
+  "properties": {
+    "maxResults": {
+      "type": "integer",
+      "example": 100
+    },
+    "totalResults": {
+      "type": "integer",
+      "example": 100
+    },
+    "currentPage": {
+      "type": "integer",
+      "example": 1
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "500123"
+          },
+          "category": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "topic": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "signalScore": {
+            "type": "integer",
+            "example": 85
+          },
+          "audienceStrength": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "newSignal": {
+            "type": "boolean",
+            "example": true
+          },
+          "signalDate": {
+            "type": "string",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "trend": {
+            "type": "integer",
+            "example": 100
+          },
+          "recommendedContacts": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 500123
+                },
+                "firstName": {
+                  "type": "string",
+                  "example": "Acme Corporation"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Acme Corporation"
+                },
+                "jobTitle": {
+                  "type": "string",
+                  "example": "Vice President of Sales"
+                },
+                "jobFunction": {
+                  "type": "array",
+                  "description": "",
+                  "example": [],
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "firstName",
+                "lastName",
+                "jobTitle",
+                "jobFunction"
+              ]
+            }
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "example": 500123
+              },
+              "name": {
+                "type": "string",
+                "example": "Acme Corporation"
+              },
+              "website": {
+                "type": "string",
+                "example": "example_value"
+              },
+              "hasOtherTopicConsumption": {
+                "type": "boolean",
+                "example": true
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "website",
+              "hasOtherTopicConsumption"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "category",
+          "topic",
+          "signalScore",
+          "audienceStrength",
+          "newSignal",
+          "signalDate",
+          "trend",
+          "recommendedContacts",
+          "company"
+        ]
+      }
+    }
+  },
+  "required": [
+    "maxResults",
+    "totalResults",
+    "currentPage",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IntentSearch"
+}

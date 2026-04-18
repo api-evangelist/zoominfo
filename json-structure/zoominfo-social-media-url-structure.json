@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "name": "SocialMediaUrl",
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "followerCount": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "url",
+    "followerCount"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

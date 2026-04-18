@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "companyname": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "personfirstname": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "personlastname": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "personemailaddress": {
+      "type": "string",
+      "example": "jsmith@example.com"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Input17"
+}

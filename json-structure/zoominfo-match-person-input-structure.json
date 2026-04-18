@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "name": "MatchPersonInput",
+  "properties": {
+    "personId": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "personId"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "targetUrl": {
+      "type": "string",
+      "example": "https://www.example.com/resource"
+    },
+    "objectType": {
+      "type": "string",
+      "example": "standard"
+    },
+    "fullPayload": {
+      "type": "boolean",
+      "example": true
+    }
+  },
+  "required": [
+    "targetUrl",
+    "objectType",
+    "fullPayload"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ValidateTargetURLRequest"
+}

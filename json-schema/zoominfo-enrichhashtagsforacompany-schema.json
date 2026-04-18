@@ -1,0 +1,87 @@
+{
+  "type": "object",
+  "properties": {
+    "maxResults": {
+      "type": "integer",
+      "example": 100
+    },
+    "totalResults": {
+      "type": "integer",
+      "example": 100
+    },
+    "currentPage": {
+      "type": "integer",
+      "example": 1
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "external_id": {
+            "type": "['string', 'null']",
+            "example": "500123"
+          },
+          "searchString": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "description": {
+            "type": "string",
+            "example": "Enterprise software company"
+          },
+          "group": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "score": {
+            "type": "['string', 'null']",
+            "example": "example_value"
+          },
+          "priority": {
+            "type": "object",
+            "example": "example_value"
+          },
+          "parentCategory": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "categorizedFlag": {
+            "type": "boolean",
+            "example": true
+          },
+          "label": {
+            "type": "string",
+            "example": "example_value"
+          }
+        },
+        "required": [
+          "tag",
+          "external_id",
+          "searchString",
+          "description",
+          "group",
+          "score",
+          "priority",
+          "parentCategory",
+          "categorizedFlag",
+          "label"
+        ]
+      }
+    }
+  },
+  "required": [
+    "maxResults",
+    "totalResults",
+    "currentPage",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Enrichhashtagsforacompany"
+}

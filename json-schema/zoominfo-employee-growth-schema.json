@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "properties": {
+    "oneYearGrowthRate": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "twoYearGrowthRate": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "employeeGrowthDataPoints": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "employeeCount": {
+            "type": "integer",
+            "example": 250
+          }
+        },
+        "required": [
+          "label",
+          "employeeCount"
+        ]
+      }
+    }
+  },
+  "required": [
+    "oneYearGrowthRate",
+    "twoYearGrowthRate",
+    "employeeGrowthDataPoints"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EmployeeGrowth"
+}

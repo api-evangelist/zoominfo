@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "name": "Input3",
+  "properties": {
+    "personid": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "personid"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

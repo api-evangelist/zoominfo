@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "location_long": {
+      "type": "number",
+      "example": 75.5
+    },
+    "location_lat": {
+      "type": "number",
+      "example": 75.5
+    },
+    "country_code": {
+      "type": "string",
+      "example": "US"
+    },
+    "province": {
+      "type": "string",
+      "example": "example_value"
+    }
+  },
+  "required": [
+    "location_long",
+    "location_lat",
+    "country_code",
+    "province"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GeoLocation"
+}

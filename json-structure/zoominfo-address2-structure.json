@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "name": "Address2",
+  "properties": {
+    "zi_c_country": {
+      "type": "string"
+    },
+    "zi_c_state": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "zi_c_country",
+    "zi_c_state"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

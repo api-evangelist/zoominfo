@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "name": "BulkCompanySearch-Redeem",
+  "properties": {
+    "jobId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "jobId"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

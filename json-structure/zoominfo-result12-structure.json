@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "name": "Result12",
+  "properties": {
+    "statusCode": {
+      "type": "integer"
+    },
+    "input": {
+      "type": "object",
+      "properties": {
+        "zi_c_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "zi_c_id"
+      ]
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "errorMessage": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "errorMessage"
+      ]
+    }
+  },
+  "required": [
+    "statusCode",
+    "input",
+    "data"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

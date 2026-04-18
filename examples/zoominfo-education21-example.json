@@ -1,0 +1,8 @@
+{
+  "school": "example_value",
+  "educationDegree": {
+    "degree": "example_value",
+    "areaOfStudy": "example_value"
+  },
+  "graduationDate": "2025-03-15T14:30:00Z"
+}

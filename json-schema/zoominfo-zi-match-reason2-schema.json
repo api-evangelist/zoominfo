@@ -1,0 +1,84 @@
+{
+  "type": "object",
+  "properties": {
+    "zi_match_reason_building_name": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "zi_match_reason_building_number": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "zi_match_reason_business_type": {
+      "type": "string",
+      "example": "standard"
+    },
+    "zi_match_reason_city": {
+      "type": "string",
+      "example": "San Francisco"
+    },
+    "zi_match_reason_company_phone": {
+      "type": "string",
+      "example": "+1-555-555-1234"
+    },
+    "zi_match_reason_country": {
+      "type": "string",
+      "example": "US"
+    },
+    "zi_match_reason_directional": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "zi_match_reason_name": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "zi_match_reason_road_name": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "zi_match_reason_road_type": {
+      "type": "string",
+      "example": "standard"
+    },
+    "zi_match_reason_state": {
+      "type": "string",
+      "example": "CA"
+    },
+    "zi_match_reason_unit": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "zi_match_reason_website": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "zi_match_reason_zip": {
+      "type": "string",
+      "example": "94105"
+    },
+    "zi_match_score": {
+      "type": "integer",
+      "example": 85
+    }
+  },
+  "required": [
+    "zi_match_reason_building_name",
+    "zi_match_reason_building_number",
+    "zi_match_reason_business_type",
+    "zi_match_reason_city",
+    "zi_match_reason_company_phone",
+    "zi_match_reason_country",
+    "zi_match_reason_directional",
+    "zi_match_reason_name",
+    "zi_match_reason_road_name",
+    "zi_match_reason_road_type",
+    "zi_match_reason_state",
+    "zi_match_reason_unit",
+    "zi_match_reason_website",
+    "zi_match_reason_zip",
+    "zi_match_score"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ZiMatchReason2"
+}

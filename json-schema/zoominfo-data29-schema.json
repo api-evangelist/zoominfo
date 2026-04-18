@@ -1,0 +1,87 @@
+{
+  "type": "object",
+  "properties": {
+    "zi_c_location_id": {
+      "type": "integer",
+      "example": 500123
+    },
+    "zi_es_ecid": {
+      "type": "integer",
+      "example": 500123
+    },
+    "zi_es_location_id": {
+      "type": "string",
+      "example": "500123"
+    },
+    "zi_c_is_hq": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "zi_c_company_name": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "zi_c_tier_grade": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "zi_c_name": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "zi_c_name_display": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "zi_c_url": {
+      "type": "string",
+      "example": "https://www.example.com/resource"
+    },
+    "zi_c_street": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "zi_c_city": {
+      "type": "string",
+      "example": "San Francisco"
+    },
+    "zi_c_state": {
+      "type": "string",
+      "example": "CA"
+    },
+    "zi_c_zip": {
+      "type": "string",
+      "example": "94105"
+    },
+    "zi_c_country": {
+      "type": "string",
+      "example": "US"
+    },
+    "zi_c_legal_entity_type": {
+      "type": "string",
+      "example": "standard"
+    },
+    "zi_c_street_2": {
+      "type": "string",
+      "example": "example_value"
+    }
+  },
+  "required": [
+    "zi_c_location_id",
+    "zi_es_ecid",
+    "zi_es_location_id",
+    "zi_c_is_hq",
+    "zi_c_company_name",
+    "zi_c_tier_grade",
+    "zi_c_name",
+    "zi_c_name_display",
+    "zi_c_url",
+    "zi_c_street",
+    "zi_c_city",
+    "zi_c_state",
+    "zi_c_zip",
+    "zi_c_country"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Data29"
+}

@@ -1,0 +1,209 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "ZoomInfo Sales Prospecting"
+  description: "Workflow for sales teams to find, qualify, and enrich prospect data. Combines contact search, company search, intent signals, and enrichment for targeted outreach."
+  tags:
+    - ZoomInfo
+    - Sales Prospecting
+    - Lead Generation
+    - Contact Search
+    - Company Search
+    - Intent Data
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      ZOOMINFO_USERNAME: ZOOMINFO_USERNAME
+      ZOOMINFO_PASSWORD: ZOOMINFO_PASSWORD
+
+capability:
+  consumes:
+    - import: zoominfo-api
+      location: ./shared/zoominfo-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: sales-prospecting-api
+      description: "Unified REST API for sales prospecting workflows."
+      resources:
+        - path: /v1/contacts/search
+          name: contact-search
+          description: "Search and discover contacts"
+          operations:
+            - method: POST
+              name: search-contacts
+              description: "Search for contacts matching sales criteria"
+              call: "zoominfo-api.search-contacts"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/companies/search
+          name: company-search
+          description: "Search and discover companies"
+          operations:
+            - method: POST
+              name: search-companies
+              description: "Search for companies matching ideal customer profile"
+              call: "zoominfo-api.search-companies"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/contacts/enrich
+          name: contact-enrich
+          description: "Enrich contact records"
+          operations:
+            - method: POST
+              name: enrich-contact
+              description: "Enrich a contact with verified data"
+              call: "zoominfo-api.enrich-contact"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/companies/enrich
+          name: company-enrich
+          description: "Enrich company records"
+          operations:
+            - method: POST
+              name: enrich-company
+              description: "Enrich a company with firmographic data"
+              call: "zoominfo-api.enrich-company"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/intent
+          name: intent
+          description: "Buyer intent signals"
+          operations:
+            - method: POST
+              name: search-intent
+              description: "Find companies showing buying intent"
+              call: "zoominfo-api.search-intent"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/scoops
+          name: scoops
+          description: "Business intelligence scoops"
+          operations:
+            - method: POST
+              name: search-scoops
+              description: "Search for business scoops about companies"
+              call: "zoominfo-api.search-scoops"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: sales-prospecting-mcp
+      transport: http
+      description: "MCP server for AI-assisted sales prospecting workflows."
+      tools:
+        - name: search-contacts
+          description: "Search ZoomInfo for contacts by job title, company, location, and industry"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo-api.search-contacts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: search-companies
+          description: "Search ZoomInfo for companies by industry, revenue, employee count, and tech stack"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo-api.search-companies"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: enrich-contact
+          description: "Enrich a contact record with verified email, phone, and professional details"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo-api.enrich-contact"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: enrich-company
+          description: "Enrich a company with firmographic data including revenue and employee count"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo-api.enrich-company"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: search-intent
+          description: "Find companies showing buying intent signals in your category"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo-api.search-intent"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: enrich-intent
+          description: "Get intent data for a specific company"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo-api.enrich-intent"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: search-scoops
+          description: "Search for business intelligence scoops about target companies"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo-api.search-scoops"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: enrich-technology
+          description: "Get technology stack details for a target company"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo-api.enrich-technology"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: enrich-orgchart
+          description: "Get org chart to identify decision makers at target company"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo-api.enrich-orgchart"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: search-news
+          description: "Search for recent news about target companies"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo-api.search-news"
+          outputParameters:
+            - type: object
+              mapping: "$."

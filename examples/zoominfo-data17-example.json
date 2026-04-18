@@ -1,0 +1,28 @@
+{
+  "id": 500123,
+  "ticker": "example_value",
+  "name": "Acme Corporation",
+  "website": "example_value",
+  "domainList": [],
+  "logo": "example_value",
+  "socialMediaUrls": "https://www.example.com",
+  "revenue": 100,
+  "employeeCount": 250,
+  "numberOfContactsInZoomInfo": 100,
+  "phone": "+1-555-555-1234",
+  "fax": "example_value",
+  "street": "example_value",
+  "city": "San Francisco",
+  "state": "CA",
+  "zipCode": "94105",
+  "country": "US",
+  "continent": "example_value",
+  "companyStatus": "active",
+  "companyStatusDate": "active",
+  "employeeGrowth": {
+    "oneYearGrowthRate": "example_value",
+    "twoYearGrowthRate": "example_value",
+    "employeeGrowthDataPoints": []
+  },
+  "type": "standard"
+}

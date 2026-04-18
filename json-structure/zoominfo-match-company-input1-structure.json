@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "name": "MatchCompanyInput1",
+  "properties": {
+    "zi_c_url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "zi_c_url"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

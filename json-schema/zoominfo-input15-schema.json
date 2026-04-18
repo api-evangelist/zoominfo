@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "properties": {
+    "companyname": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "companyid": {
+      "type": "integer",
+      "example": 500123
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Input15"
+}

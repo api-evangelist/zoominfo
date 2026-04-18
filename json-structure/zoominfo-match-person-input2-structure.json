@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "name": "MatchPersonInput2",
+  "properties": {
+    "companyName": {
+      "type": "string"
+    },
+    "personFirstName": {
+      "type": "string"
+    },
+    "personLastName": {
+      "type": "string"
+    },
+    "personEmailAddress": {
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

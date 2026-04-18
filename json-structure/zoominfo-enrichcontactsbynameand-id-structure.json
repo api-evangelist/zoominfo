@@ -1,0 +1,197 @@
+{
+  "type": "object",
+  "name": "EnrichcontactsbynameandID",
+  "properties": {
+    "success": {
+      "type": "boolean"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "outputFields": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "result": {
+          "type": "array",
+          "description": "",
+          "items": {
+            "type": "object",
+            "properties": {
+              "input": {
+                "type": "object",
+                "properties": {
+                  "emailaddress": {
+                    "type": "string"
+                  },
+                  "personid": {
+                    "type": "integer"
+                  },
+                  "companyname": {
+                    "type": "string"
+                  },
+                  "fullname": {
+                    "type": "string"
+                  }
+                }
+              },
+              "data": {
+                "type": "array",
+                "description": "",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "object"
+                    },
+                    "firstName": {
+                      "type": "object"
+                    },
+                    "middleName": {
+                      "type": "object"
+                    },
+                    "lastName": {
+                      "type": "object"
+                    },
+                    "email": {
+                      "type": "object"
+                    },
+                    "hasCanadianEmail": {
+                      "type": "object"
+                    },
+                    "phone": {
+                      "type": "object"
+                    },
+                    "directPhoneDoNotCall": {
+                      "type": "object"
+                    },
+                    "street": {
+                      "type": "object"
+                    },
+                    "city": {
+                      "type": "object"
+                    },
+                    "region": {
+                      "type": "object"
+                    },
+                    "metroArea": {
+                      "type": "object"
+                    },
+                    "zipCode": {
+                      "type": "object"
+                    },
+                    "state": {
+                      "type": "object"
+                    },
+                    "country": {
+                      "type": "object"
+                    },
+                    "personHasMoved": {
+                      "type": "object"
+                    },
+                    "withinEu": {
+                      "type": "object"
+                    },
+                    "withinCalifornia": {
+                      "type": "object"
+                    },
+                    "withinCanada": {
+                      "type": "object"
+                    },
+                    "lastUpdatedDate": {
+                      "type": "object"
+                    },
+                    "noticeProvidedDate": {
+                      "type": "object"
+                    },
+                    "salutation": {
+                      "type": "object"
+                    },
+                    "suffix": {
+                      "type": "object"
+                    },
+                    "jobTitle": {
+                      "type": "object"
+                    },
+                    "jobFunction": {
+                      "type": "object"
+                    },
+                    "education": {
+                      "type": "object"
+                    },
+                    "hashedEmails": {
+                      "type": "object"
+                    },
+                    "picture": {
+                      "type": "object"
+                    },
+                    "mobilePhoneDoNotCall": {
+                      "type": "object"
+                    },
+                    "externalUrls": {
+                      "type": "object"
+                    },
+                    "company": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "firstName",
+                    "middleName",
+                    "lastName",
+                    "email",
+                    "hasCanadianEmail",
+                    "phone",
+                    "directPhoneDoNotCall",
+                    "street",
+                    "city",
+                    "region",
+                    "metroArea",
+                    "zipCode",
+                    "state",
+                    "country",
+                    "personHasMoved",
+                    "withinEu",
+                    "withinCalifornia",
+                    "withinCanada",
+                    "lastUpdatedDate",
+                    "noticeProvidedDate",
+                    "salutation",
+                    "suffix",
+                    "jobTitle",
+                    "jobFunction",
+                    "education",
+                    "hashedEmails",
+                    "picture",
+                    "mobilePhoneDoNotCall",
+                    "externalUrls",
+                    "company"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "input",
+              "data"
+            ]
+          }
+        }
+      },
+      "required": [
+        "outputFields",
+        "result"
+      ]
+    }
+  },
+  "required": [
+    "success",
+    "data"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

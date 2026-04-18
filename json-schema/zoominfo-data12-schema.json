@@ -1,0 +1,390 @@
+{
+  "type": "object",
+  "properties": {
+    "outputFields": {
+      "type": "array",
+      "example": [],
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "result": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "object",
+            "properties": {
+              "companyid": {
+                "type": "integer",
+                "example": 500123
+              }
+            },
+            "required": [
+              "companyid"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 500123
+                },
+                "ticker": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Acme Corporation"
+                },
+                "website": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "domainList": {
+                  "type": "array",
+                  "description": "",
+                  "example": [],
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "logo": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "socialMediaUrls": {
+                  "type": "array",
+                  "description": "",
+                  "example": "https://www.example.com",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "revenue": {
+                  "type": "integer",
+                  "example": 100
+                },
+                "employeeCount": {
+                  "type": "integer",
+                  "example": 250
+                },
+                "numberOfContactsInZoomInfo": {
+                  "type": "integer",
+                  "example": 100
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "+1-555-555-1234"
+                },
+                "fax": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "street": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "city": {
+                  "type": "string",
+                  "example": "San Francisco"
+                },
+                "state": {
+                  "type": "string",
+                  "example": "CA"
+                },
+                "zipCode": {
+                  "type": "string",
+                  "example": "94105"
+                },
+                "country": {
+                  "type": "string",
+                  "example": "US"
+                },
+                "continent": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "companyStatus": {
+                  "type": "string",
+                  "example": "active"
+                },
+                "companyStatusDate": {
+                  "type": "string",
+                  "example": "active"
+                },
+                "descriptionList": {
+                  "type": "array",
+                  "description": "",
+                  "example": [],
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "sicCodes": {
+                  "type": "array",
+                  "description": "",
+                  "example": [],
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "naicsCodes": {
+                  "type": "array",
+                  "description": "",
+                  "example": [],
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "competitors": {
+                  "type": "array",
+                  "description": "",
+                  "example": [],
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "ultimateParentId": {
+                  "type": "integer",
+                  "example": 500123
+                },
+                "ultimateParentName": {
+                  "type": "string",
+                  "example": "Acme Corporation"
+                },
+                "ultimateParentRevenue": {
+                  "type": "integer",
+                  "example": 100
+                },
+                "ultimateParentEmployees": {
+                  "type": "integer",
+                  "example": 100
+                },
+                "subUnitCodes": {
+                  "type": "array",
+                  "description": "",
+                  "example": [],
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "subUnitType": {
+                  "type": "string",
+                  "example": "standard"
+                },
+                "subUnitIndustries": {
+                  "type": "array",
+                  "description": "",
+                  "example": [],
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "primaryIndustry": {
+                  "type": "array",
+                  "description": "",
+                  "example": [],
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "industries": {
+                  "type": "array",
+                  "description": "",
+                  "example": [],
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "parentId": {
+                  "type": "integer",
+                  "example": 500123
+                },
+                "parentName": {
+                  "type": "string",
+                  "example": "Acme Corporation"
+                },
+                "locationCount": {
+                  "type": "integer",
+                  "example": 250
+                },
+                "alexaRank": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "metroArea": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "lastUpdatedDate": {
+                  "type": "string",
+                  "example": "2025-03-15T14:30:00Z"
+                },
+                "createdDate": {
+                  "type": "string",
+                  "example": "2025-03-15T14:30:00Z"
+                },
+                "certificationDate": {
+                  "type": "string",
+                  "example": "2025-03-15T14:30:00Z"
+                },
+                "certified": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "hashtags": {
+                  "type": "array",
+                  "description": "",
+                  "example": [],
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "products": {
+                  "type": "array",
+                  "description": "",
+                  "example": [],
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "techAttributes": {
+                  "type": "array",
+                  "description": "",
+                  "example": [],
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "revenueRange": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "employeeRange": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "companyFunding": {
+                  "type": "array",
+                  "description": "",
+                  "example": [],
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "recentFundingAmount": {
+                  "type": "integer",
+                  "example": 100
+                },
+                "recentFundingDate": {
+                  "type": "string",
+                  "example": "2025-03-15T14:30:00Z"
+                },
+                "totalFundingAmount": {
+                  "type": "integer",
+                  "example": 100
+                },
+                "employeeGrowth": {
+                  "type": "object",
+                  "properties": {
+                    "oneYearGrowthRate": {
+                      "type": "object"
+                    },
+                    "twoYearGrowthRate": {
+                      "type": "object"
+                    },
+                    "employeeGrowthDataPoints": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "oneYearGrowthRate",
+                    "twoYearGrowthRate",
+                    "employeeGrowthDataPoints"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "ticker",
+                "name",
+                "website",
+                "domainList",
+                "logo",
+                "socialMediaUrls",
+                "revenue",
+                "employeeCount",
+                "numberOfContactsInZoomInfo",
+                "phone",
+                "fax",
+                "street",
+                "city",
+                "state",
+                "zipCode",
+                "country",
+                "continent",
+                "companyStatus",
+                "companyStatusDate",
+                "descriptionList",
+                "sicCodes",
+                "naicsCodes",
+                "competitors",
+                "ultimateParentId",
+                "ultimateParentName",
+                "ultimateParentRevenue",
+                "ultimateParentEmployees",
+                "subUnitCodes",
+                "subUnitType",
+                "subUnitIndustries",
+                "primaryIndustry",
+                "industries",
+                "parentId",
+                "parentName",
+                "locationCount",
+                "alexaRank",
+                "metroArea",
+                "lastUpdatedDate",
+                "createdDate",
+                "certificationDate",
+                "certified",
+                "hashtags",
+                "products",
+                "techAttributes",
+                "revenueRange",
+                "employeeRange",
+                "companyFunding",
+                "recentFundingAmount",
+                "recentFundingDate",
+                "totalFundingAmount",
+                "employeeGrowth"
+              ]
+            }
+          }
+        },
+        "required": [
+          "input",
+          "data"
+        ]
+      }
+    }
+  },
+  "required": [
+    "outputFields",
+    "result"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Data12"
+}

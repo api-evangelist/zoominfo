@@ -1,0 +1,84 @@
+{
+  "type": "object",
+  "name": "FamilyNode1",
+  "properties": {
+    "companyId": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "subUnitTypeInfo": {
+      "type": "object",
+      "properties": {
+        "typeId": {
+          "type": "integer"
+        },
+        "typeDescription": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "typeId",
+        "typeDescription"
+      ]
+    },
+    "familyNodes": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "companyId": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "subUnitTypeInfo": {
+            "type": "object",
+            "properties": {
+              "typeId": {
+                "type": "integer"
+              },
+              "typeDescription": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "typeId",
+              "typeDescription"
+            ]
+          }
+        },
+        "required": [
+          "companyId",
+          "name",
+          "city",
+          "state",
+          "subUnitTypeInfo"
+        ]
+      }
+    }
+  },
+  "required": [
+    "companyId",
+    "name",
+    "city",
+    "state",
+    "subUnitTypeInfo"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

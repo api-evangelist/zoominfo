@@ -1,0 +1,155 @@
+{
+  "type": "object",
+  "properties": {
+    "maxResults": {
+      "type": "integer",
+      "example": 100
+    },
+    "totalResults": {
+      "type": "integer",
+      "example": 100
+    },
+    "currentPage": {
+      "type": "integer",
+      "example": 1
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 500123
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "middleName": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "validDate": {
+            "type": "string",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "lastUpdatedDate": {
+            "type": "string",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "jobTitle": {
+            "type": "string",
+            "example": "Vice President of Sales"
+          },
+          "contactAccuracyScore": {
+            "type": "integer",
+            "example": 85
+          },
+          "hasEmail": {
+            "type": "boolean",
+            "example": true
+          },
+          "hasSupplementalEmail": {
+            "type": "boolean",
+            "example": true
+          },
+          "hasDirectPhone": {
+            "type": "boolean",
+            "example": true
+          },
+          "hasMobilePhone": {
+            "type": "boolean",
+            "example": true
+          },
+          "hasCompanyIndustry": {
+            "type": "boolean",
+            "example": true
+          },
+          "hasCompanyPhone": {
+            "type": "boolean",
+            "example": true
+          },
+          "hasCompanyStreet": {
+            "type": "boolean",
+            "example": true
+          },
+          "hasCompanyState": {
+            "type": "boolean",
+            "example": true
+          },
+          "hasCompanyZipCode": {
+            "type": "boolean",
+            "example": true
+          },
+          "hasCompanyCountry": {
+            "type": "boolean",
+            "example": true
+          },
+          "hasCompanyRevenue": {
+            "type": "boolean",
+            "example": true
+          },
+          "hasCompanyEmployeeCount": {
+            "type": "boolean",
+            "example": true
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "example": 500123
+              },
+              "name": {
+                "type": "string",
+                "example": "Acme Corporation"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "middleName",
+          "lastName",
+          "validDate",
+          "lastUpdatedDate",
+          "jobTitle",
+          "contactAccuracyScore",
+          "hasEmail",
+          "hasSupplementalEmail",
+          "hasDirectPhone",
+          "hasMobilePhone",
+          "hasCompanyIndustry",
+          "hasCompanyPhone",
+          "hasCompanyStreet",
+          "hasCompanyState",
+          "hasCompanyZipCode",
+          "hasCompanyCountry",
+          "hasCompanyRevenue",
+          "hasCompanyEmployeeCount",
+          "company"
+        ]
+      }
+    }
+  },
+  "required": [
+    "maxResults",
+    "totalResults",
+    "currentPage",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SearchcontactsbyZipCoderadius"
+}

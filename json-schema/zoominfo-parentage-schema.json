@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "properties": {
+    "companyId": {
+      "type": "string",
+      "example": "500123"
+    },
+    "companyName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "city": {
+      "type": "string",
+      "example": "San Francisco"
+    },
+    "state": {
+      "type": "string",
+      "example": "CA"
+    },
+    "subUnitType": {
+      "type": "string",
+      "example": "standard"
+    },
+    "subUnitDesc": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "acquiredByDate": {
+      "type": "string",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Parentage"
+}

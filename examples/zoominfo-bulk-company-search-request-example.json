@@ -1,0 +1,7 @@
+{
+  "jobType": "standard",
+  "query": {
+    "address": "123 Main Street"
+  },
+  "outputFields": []
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/refs/heads/main/json-schema/zoominfo-i-p-enrich-request-schema.json",
+  "title": "IPEnrichRequest",
+  "description": "IPEnrichRequest schema from ZoomInfo API",
+  "type": "object",
+  "properties": {
+    "ipAddress": {
+      "type": "string",
+      "example": "123 Main Street"
+    }
+  },
+  "required": [
+    "ipAddress"
+  ]
+}

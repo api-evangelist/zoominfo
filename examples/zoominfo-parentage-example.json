@@ -1,0 +1,9 @@
+{
+  "companyId": "500123",
+  "companyName": "Acme Corporation",
+  "city": "San Francisco",
+  "state": "CA",
+  "subUnitType": "standard",
+  "subUnitDesc": "example_value",
+  "acquiredByDate": "2025-03-15T14:30:00Z"
+}

@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "name": "Parentage1",
+  "properties": {
+    "companyId": {
+      "type": "string"
+    },
+    "companyName": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "subUnitType": {
+      "type": "string"
+    },
+    "subUnitDesc": {
+      "type": "string"
+    },
+    "acquiredByDate": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "companyId",
+    "companyName",
+    "city",
+    "state",
+    "subUnitType",
+    "subUnitDesc",
+    "acquiredByDate"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

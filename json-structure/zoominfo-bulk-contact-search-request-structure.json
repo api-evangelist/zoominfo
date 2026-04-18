@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "name": "BulkContactSearchRequest",
+  "properties": {
+    "jobType": {
+      "type": "string"
+    },
+    "query": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "companyName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "firstName",
+        "companyName"
+      ]
+    }
+  },
+  "required": [
+    "jobType",
+    "query"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,25 @@
+{
+  "input": [],
+  "data": {
+    "company": {
+      "city": "San Francisco",
+      "country": "US",
+      "employeeCount": 250,
+      "id": 500123,
+      "industries": [],
+      "name": "Acme Corporation",
+      "revenue": 100,
+      "state": "CA",
+      "street": "example_value",
+      "ticker": "example_value",
+      "website": "example_value",
+      "zipCode": "94105"
+    },
+    "geoLocation": {
+      "location_long": 75.5,
+      "location_lat": 75.5,
+      "country_code": "US",
+      "province": "example_value"
+    }
+  }
+}

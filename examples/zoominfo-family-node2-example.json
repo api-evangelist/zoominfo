@@ -1,0 +1,10 @@
+{
+  "companyId": 500123,
+  "name": "Acme Corporation",
+  "city": "San Francisco",
+  "state": "CA",
+  "subUnitTypeInfo": {
+    "typeId": 500123,
+    "typeDescription": "Enterprise software company"
+  }
+}

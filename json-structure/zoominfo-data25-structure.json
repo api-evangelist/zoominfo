@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "name": "Data25",
+  "properties": {
+    "errorMessage": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "errorMessage"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

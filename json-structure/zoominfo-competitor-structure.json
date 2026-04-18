@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "name": "Competitor",
+  "properties": {
+    "rank": {
+      "type": "integer"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "employeeCount": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "rank",
+    "id",
+    "name",
+    "website",
+    "employeeCount"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "example": 500123
+    },
+    "name": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "website": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "hasOtherTopicConsumption": {
+      "type": "boolean",
+      "example": true
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "website",
+    "hasOtherTopicConsumption"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Company8"
+}

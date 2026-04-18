@@ -1,0 +1,9 @@
+{
+  "status": "active",
+  "jobType": "standard",
+  "entityType": "standard",
+  "totalRecords": 100,
+  "totalPages": 1,
+  "successfulPagesCount": 250,
+  "successfulPages": []
+}

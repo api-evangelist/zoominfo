@@ -1,0 +1,19 @@
+{
+  "id": 500123,
+  "firstName": "Acme Corporation",
+  "middleName": "Acme Corporation",
+  "lastName": "Acme Corporation",
+  "lastUpdatedDate": "2025-03-15T14:30:00Z",
+  "title": "Vice President of Sales",
+  "hasEmail": true,
+  "hasDirectPhone": true,
+  "department": "example_value",
+  "jobFunction": "example_value",
+  "orgChartTier": 100,
+  "orgChartSubTier": 100,
+  "contactAccuracyScore": 85,
+  "company": {
+    "id": 500123,
+    "name": "Acme Corporation"
+  }
+}

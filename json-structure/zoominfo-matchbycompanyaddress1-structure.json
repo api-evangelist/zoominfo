@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "name": "Matchbycompanyaddress1",
+  "properties": {
+    "responseCode": {
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    },
+    "invalidOutputFields": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "responseCode",
+    "message",
+    "invalidOutputFields"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

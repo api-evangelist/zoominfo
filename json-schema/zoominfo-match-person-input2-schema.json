@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "companyName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "personFirstName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "personLastName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "personEmailAddress": {
+      "type": "string",
+      "example": "jsmith@example.com"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MatchPersonInput2"
+}

@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "name": "Data24",
+  "properties": {
+    "outputFields": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "result": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer"
+          },
+          "input": {
+            "type": "object",
+            "properties": {
+              "zi_c_id": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "zi_c_id"
+            ]
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "errorMessage": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "errorMessage"
+            ]
+          }
+        },
+        "required": [
+          "statusCode",
+          "input",
+          "data"
+        ]
+      }
+    }
+  },
+  "required": [
+    "outputFields",
+    "result"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

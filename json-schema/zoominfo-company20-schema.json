@@ -1,0 +1,34 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "example": 500123
+    },
+    "addressStatus": {
+      "type": "string",
+      "example": "123 Main Street"
+    },
+    "subUnitType": {
+      "type": "string",
+      "example": "standard"
+    },
+    "locationName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "locationEmployeeCount": {
+      "type": "integer",
+      "example": 250
+    }
+  },
+  "required": [
+    "id",
+    "addressStatus",
+    "subUnitType",
+    "locationName",
+    "locationEmployeeCount"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Company20"
+}

@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "name": "GetSubscriptionTypes",
+  "properties": {
+    "objectTypes": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "eventTypes": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "objectTypes",
+    "eventTypes"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

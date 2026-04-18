@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "properties": {
+    "zi_c_location_id": {
+      "type": "integer",
+      "example": 500123
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "zi_c_country": {
+          "type": "string",
+          "example": "US"
+        },
+        "zi_c_state": {
+          "type": "string",
+          "example": "CA"
+        }
+      },
+      "required": [
+        "zi_c_country",
+        "zi_c_state"
+      ]
+    },
+    "zi_c_url": {
+      "type": "string",
+      "example": "https://www.example.com/resource"
+    },
+    "phone": {
+      "type": "object",
+      "properties": {
+        "zi_c_country": {
+          "type": "string",
+          "example": "US"
+        },
+        "zi_c_phone": {
+          "type": "string",
+          "example": "+1-555-555-1234"
+        }
+      },
+      "required": [
+        "zi_c_country",
+        "zi_c_phone"
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Input14"
+}

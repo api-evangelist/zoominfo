@@ -1,0 +1,173 @@
+{
+  "type": "object",
+  "name": "Company10",
+  "properties": {
+    "division": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "descriptionList": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "description"
+        ]
+      }
+    },
+    "phone": {
+      "type": "string"
+    },
+    "fax": {
+      "type": "string"
+    },
+    "street": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zipCode": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "logo": {
+      "type": "string"
+    },
+    "sicCodes": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      }
+    },
+    "naicsCodes": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      }
+    },
+    "website": {
+      "type": "string"
+    },
+    "revenue": {
+      "type": "string"
+    },
+    "revenueNumeric": {
+      "type": "integer"
+    },
+    "employeeCount": {
+      "type": "integer"
+    },
+    "type": {
+      "type": "string"
+    },
+    "ticker": {
+      "type": "string"
+    },
+    "ranking": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "socialMediaUrls": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "primaryIndustry": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "industries": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "revenueRange": {
+      "type": "string"
+    },
+    "employeeRange": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "division",
+    "id",
+    "name",
+    "descriptionList",
+    "phone",
+    "fax",
+    "street",
+    "city",
+    "state",
+    "zipCode",
+    "country",
+    "logo",
+    "sicCodes",
+    "naicsCodes",
+    "website",
+    "revenue",
+    "revenueNumeric",
+    "employeeCount",
+    "type",
+    "ticker",
+    "ranking",
+    "socialMediaUrls",
+    "primaryIndustry",
+    "industries",
+    "revenueRange",
+    "employeeRange"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

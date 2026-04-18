@@ -1,0 +1,79 @@
+{
+  "type": "object",
+  "name": "Enrichcorporatehierarchy-multiplecompanies",
+  "properties": {
+    "success": {
+      "type": "boolean"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "outputFields": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "result": {
+          "type": "array",
+          "description": "",
+          "items": {
+            "type": "object",
+            "properties": {
+              "input": {
+                "type": "object",
+                "properties": {
+                  "companyname": {
+                    "type": "string"
+                  },
+                  "companyid": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "data": {
+                "type": "array",
+                "description": "",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "parentage": {
+                      "type": "object"
+                    },
+                    "familyTree": {
+                      "type": "object"
+                    },
+                    "companyId": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "parentage",
+                    "familyTree",
+                    "companyId"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "input",
+              "data"
+            ]
+          }
+        }
+      },
+      "required": [
+        "outputFields",
+        "result"
+      ]
+    }
+  },
+  "required": [
+    "success",
+    "data"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

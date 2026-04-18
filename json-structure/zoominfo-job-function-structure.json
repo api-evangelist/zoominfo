@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "name": "JobFunction",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "department": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "department"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

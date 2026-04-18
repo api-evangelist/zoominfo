@@ -1,0 +1,107 @@
+{
+  "type": "object",
+  "name": "Enrichcompanybylocation",
+  "properties": {
+    "success": {
+      "type": "boolean"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "outputFields": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "result": {
+          "type": "array",
+          "description": "",
+          "items": {
+            "type": "object",
+            "properties": {
+              "input": {
+                "type": "object",
+                "properties": {
+                  "companycity": {
+                    "type": "string"
+                  },
+                  "companyname": {
+                    "type": "string"
+                  },
+                  "companystate": {
+                    "type": "string"
+                  },
+                  "companystreet": {
+                    "type": "string"
+                  },
+                  "companywebsite": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "companycity",
+                  "companyname",
+                  "companystate",
+                  "companystreet",
+                  "companywebsite"
+                ]
+              },
+              "data": {
+                "type": "array",
+                "description": "",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "object"
+                    },
+                    "name": {
+                      "type": "object"
+                    },
+                    "locationMatch": {
+                      "type": "object"
+                    },
+                    "website": {
+                      "type": "object"
+                    },
+                    "state": {
+                      "type": "object"
+                    },
+                    "city": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "locationMatch",
+                    "website",
+                    "state",
+                    "city"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "input",
+              "data"
+            ]
+          }
+        }
+      },
+      "required": [
+        "outputFields",
+        "result"
+      ]
+    }
+  },
+  "required": [
+    "success",
+    "data"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "name": "Company18",
+  "properties": {
+    "id": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "id"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

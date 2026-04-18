@@ -1,0 +1,163 @@
+{
+  "type": "object",
+  "properties": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "companyname": {
+          "type": "string",
+          "example": "Acme Corporation"
+        },
+        "personfirstname": {
+          "type": "string",
+          "example": "Acme Corporation"
+        },
+        "personlastname": {
+          "type": "string",
+          "example": "Acme Corporation"
+        },
+        "personemailaddress": {
+          "type": "string",
+          "example": "jsmith@example.com"
+        }
+      }
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 500123
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "title": {
+            "type": "string",
+            "example": "Vice President of Sales"
+          },
+          "employmentHistory": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "companyName": {
+                  "type": "string",
+                  "example": "Acme Corporation"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Vice President of Sales"
+                }
+              },
+              "required": [
+                "companyName",
+                "title"
+              ]
+            }
+          },
+          "emailAddresses": {
+            "type": "array",
+            "description": "",
+            "example": "user@example.com",
+            "items": {
+              "type": "string"
+            }
+          },
+          "pastEmailAddresses": {
+            "type": "array",
+            "description": "",
+            "example": "user@example.com",
+            "items": {
+              "type": "string"
+            }
+          },
+          "withinEu": {
+            "type": "boolean",
+            "example": true
+          },
+          "hasCanadianEmail": {
+            "type": "string",
+            "example": "jsmith@example.com"
+          },
+          "withinCalifornia": {
+            "type": "boolean",
+            "example": true
+          },
+          "withinCanada": {
+            "type": "boolean",
+            "example": true
+          },
+          "noticeProvidedDate": {
+            "type": "string",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "hasMoved": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "looksLikeEu": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "looksLikeCalifornia": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "looksLikeCanada": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Acme Corporation"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "title",
+          "employmentHistory",
+          "emailAddresses",
+          "pastEmailAddresses",
+          "withinEu",
+          "hasCanadianEmail",
+          "withinCalifornia",
+          "withinCanada",
+          "noticeProvidedDate",
+          "hasMoved",
+          "looksLikeEu",
+          "looksLikeCalifornia",
+          "looksLikeCanada",
+          "company"
+        ]
+      }
+    }
+  },
+  "required": [
+    "input",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Result19"
+}

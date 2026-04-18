@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "zi_c_name": {
+      "type": "string",
+      "example": "Acme Corporation"
+    }
+  },
+  "required": [
+    "zi_c_name"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MatchReason"
+}

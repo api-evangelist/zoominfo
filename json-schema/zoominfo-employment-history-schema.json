@@ -1,0 +1,61 @@
+{
+  "type": "object",
+  "properties": {
+    "jobTitle": {
+      "type": "string",
+      "example": "Vice President of Sales"
+    },
+    "managementLevel": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "fromDate": {
+      "type": "string",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "toDate": {
+      "type": "string",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "company": {
+      "type": "object",
+      "properties": {
+        "companyId": {
+          "type": "integer",
+          "example": 500123
+        },
+        "companyName": {
+          "type": "string",
+          "example": "Acme Corporation"
+        },
+        "companyPhone": {
+          "type": "string",
+          "example": "+1-555-555-1234"
+        },
+        "companyWebsite": {
+          "type": "string",
+          "example": "example_value"
+        }
+      },
+      "required": [
+        "companyId",
+        "companyName",
+        "companyPhone",
+        "companyWebsite"
+      ]
+    }
+  },
+  "required": [
+    "jobTitle",
+    "managementLevel",
+    "fromDate",
+    "toDate",
+    "company"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EmploymentHistory"
+}

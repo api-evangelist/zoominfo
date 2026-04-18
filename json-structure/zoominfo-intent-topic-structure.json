@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "name": "IntentTopic",
+  "properties": {
+    "Name": {
+      "type": "string"
+    },
+    "Category": {
+      "type": "string"
+    },
+    "Department": {
+      "type": "string"
+    },
+    "JobFunction": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "Name",
+    "Category",
+    "Department",
+    "JobFunction",
+    "Description"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

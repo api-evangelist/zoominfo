@@ -1,0 +1,16 @@
+{
+  "phone": "+1-555-555-1234",
+  "fax": "example_value",
+  "street": "example_value",
+  "city": "San Francisco",
+  "state": "CA",
+  "zipCode": "94105",
+  "country": "US",
+  "company": {
+    "id": 500123,
+    "addressStatus": "123 Main Street",
+    "subUnitType": "standard",
+    "locationName": "Acme Corporation",
+    "locationEmployeeCount": 250
+  }
+}

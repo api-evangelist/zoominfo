@@ -1,0 +1,637 @@
+{
+  "type": "object",
+  "properties": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "companyid": {
+          "type": "integer",
+          "example": 500123
+        }
+      },
+      "required": [
+        "companyid"
+      ]
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 500123
+          },
+          "ticker": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "name": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "website": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "domainList": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "string"
+            }
+          },
+          "logo": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "socialMediaUrls": {
+            "type": "array",
+            "description": "",
+            "example": "https://www.example.com",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "standard"
+                },
+                "url": {
+                  "type": "string",
+                  "example": "https://www.example.com/resource"
+                },
+                "followerCount": {
+                  "type": "string",
+                  "example": "example_value"
+                }
+              },
+              "required": [
+                "type",
+                "url",
+                "followerCount"
+              ]
+            }
+          },
+          "revenue": {
+            "type": "integer",
+            "example": 100
+          },
+          "employeeCount": {
+            "type": "integer",
+            "example": 250
+          },
+          "numberOfContactsInZoomInfo": {
+            "type": "integer",
+            "example": 100
+          },
+          "phone": {
+            "type": "string",
+            "example": "+1-555-555-1234"
+          },
+          "fax": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "street": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "city": {
+            "type": "string",
+            "example": "San Francisco"
+          },
+          "state": {
+            "type": "string",
+            "example": "CA"
+          },
+          "zipCode": {
+            "type": "string",
+            "example": "94105"
+          },
+          "country": {
+            "type": "string",
+            "example": "US"
+          },
+          "continent": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "companyStatus": {
+            "type": "string",
+            "example": "active"
+          },
+          "companyStatusDate": {
+            "type": "string",
+            "example": "active"
+          },
+          "descriptionList": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "example": "Enterprise software company"
+                }
+              },
+              "required": [
+                "description"
+              ]
+            }
+          },
+          "sicCodes": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "500123"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Acme Corporation"
+                }
+              },
+              "required": [
+                "id",
+                "name"
+              ]
+            }
+          },
+          "naicsCodes": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "500123"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Acme Corporation"
+                }
+              },
+              "required": [
+                "id",
+                "name"
+              ]
+            }
+          },
+          "competitors": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "rank": {
+                  "type": "integer",
+                  "example": 100
+                },
+                "id": {
+                  "type": "integer",
+                  "example": 500123
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Acme Corporation"
+                },
+                "website": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "employeeCount": {
+                  "type": "integer",
+                  "example": 250
+                }
+              },
+              "required": [
+                "rank",
+                "id",
+                "name",
+                "website",
+                "employeeCount"
+              ]
+            }
+          },
+          "ultimateParentId": {
+            "type": "integer",
+            "example": 500123
+          },
+          "ultimateParentName": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "ultimateParentRevenue": {
+            "type": "integer",
+            "example": 100
+          },
+          "ultimateParentEmployees": {
+            "type": "integer",
+            "example": 100
+          },
+          "subUnitCodes": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "string"
+            }
+          },
+          "subUnitType": {
+            "type": "string",
+            "example": "standard"
+          },
+          "subUnitIndustries": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "string"
+            }
+          },
+          "primaryIndustry": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "string"
+            }
+          },
+          "industries": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "string"
+            }
+          },
+          "parentId": {
+            "type": "integer",
+            "example": 500123
+          },
+          "parentName": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "locationCount": {
+            "type": "integer",
+            "example": 250
+          },
+          "alexaRank": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "metroArea": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "lastUpdatedDate": {
+            "type": "string",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "createdDate": {
+            "type": "string",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "certificationDate": {
+            "type": "string",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "certified": {
+            "type": "boolean",
+            "example": true
+          },
+          "hashtags": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "tag": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "external_id": {
+                  "type": "['string', 'null']",
+                  "example": "500123"
+                },
+                "searchString": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "displayLabel": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Enterprise software company"
+                },
+                "group": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "score": {
+                  "type": "['string', 'null']",
+                  "example": "example_value"
+                },
+                "priority": {
+                  "type": "object",
+                  "example": "example_value"
+                },
+                "parentCategory": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "displayScore": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "inverseScoreBase": {
+                  "type": "object",
+                  "example": "example_value"
+                },
+                "scoreMultipler": {
+                  "type": "['string', 'null']",
+                  "example": "example_value"
+                },
+                "scoreUnit": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "hidden": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "label": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "categorizedFlag": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "required": [
+                "tag",
+                "external_id",
+                "searchString",
+                "displayLabel",
+                "description",
+                "group",
+                "score",
+                "priority",
+                "parentCategory",
+                "displayScore",
+                "inverseScoreBase",
+                "scoreMultipler",
+                "scoreUnit",
+                "hidden",
+                "label",
+                "categorizedFlag"
+              ]
+            }
+          },
+          "products": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "string"
+            }
+          },
+          "techAttributes": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "tag": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "categoryParent": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "category": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "vendor": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "product": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "attribute": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "website": {
+                  "type": "string",
+                  "example": "example_value"
+                },
+                "logo": {
+                  "type": "['string', 'null']",
+                  "example": "example_value"
+                },
+                "domain": {
+                  "type": "['string', 'null']",
+                  "example": "example_value"
+                },
+                "createdTime": {
+                  "type": "string",
+                  "example": "2025-03-15T14:30:00Z"
+                },
+                "modifiedTime": {
+                  "type": "string",
+                  "example": "2025-03-15T14:30:00Z"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Enterprise software company"
+                }
+              },
+              "required": [
+                "tag",
+                "categoryParent",
+                "category",
+                "vendor",
+                "product",
+                "attribute",
+                "website",
+                "logo",
+                "domain",
+                "createdTime",
+                "modifiedTime",
+                "description"
+              ]
+            }
+          },
+          "revenueRange": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "employeeRange": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "companyFunding": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "example": "2025-03-15T14:30:00Z"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "standard"
+                },
+                "amount": {
+                  "type": "integer",
+                  "example": 100
+                }
+              },
+              "required": [
+                "date",
+                "type",
+                "amount"
+              ]
+            }
+          },
+          "recentFundingAmount": {
+            "type": "integer",
+            "example": 100
+          },
+          "recentFundingDate": {
+            "type": "string",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "totalFundingAmount": {
+            "type": "integer",
+            "example": 100
+          },
+          "employeeGrowth": {
+            "type": "object",
+            "properties": {
+              "oneYearGrowthRate": {
+                "type": "string",
+                "example": "example_value"
+              },
+              "twoYearGrowthRate": {
+                "type": "string",
+                "example": "example_value"
+              },
+              "employeeGrowthDataPoints": {
+                "type": "array",
+                "description": "",
+                "example": [],
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "object"
+                    },
+                    "employeeCount": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "employeeCount"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "oneYearGrowthRate",
+              "twoYearGrowthRate",
+              "employeeGrowthDataPoints"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "ticker",
+          "name",
+          "website",
+          "domainList",
+          "logo",
+          "socialMediaUrls",
+          "revenue",
+          "employeeCount",
+          "numberOfContactsInZoomInfo",
+          "phone",
+          "fax",
+          "street",
+          "city",
+          "state",
+          "zipCode",
+          "country",
+          "continent",
+          "companyStatus",
+          "companyStatusDate",
+          "descriptionList",
+          "sicCodes",
+          "naicsCodes",
+          "competitors",
+          "ultimateParentId",
+          "ultimateParentName",
+          "ultimateParentRevenue",
+          "ultimateParentEmployees",
+          "subUnitCodes",
+          "subUnitType",
+          "subUnitIndustries",
+          "primaryIndustry",
+          "industries",
+          "parentId",
+          "parentName",
+          "locationCount",
+          "alexaRank",
+          "metroArea",
+          "lastUpdatedDate",
+          "createdDate",
+          "certificationDate",
+          "certified",
+          "hashtags",
+          "products",
+          "techAttributes",
+          "revenueRange",
+          "employeeRange",
+          "companyFunding",
+          "recentFundingAmount",
+          "recentFundingDate",
+          "totalFundingAmount",
+          "employeeGrowth"
+        ]
+      }
+    }
+  },
+  "required": [
+    "input",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Result6"
+}

@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "name": "ContactSearchRequest",
+  "properties": {
+    "managementLevel": {
+      "type": "string"
+    },
+    "companyType": {
+      "type": "string"
+    },
+    "zipCode": {
+      "type": "string"
+    },
+    "locationSearchType": {
+      "type": "string"
+    },
+    "zipCodeRadiusMiles": {
+      "type": "string"
+    },
+    "techAttributeTagList": {
+      "type": "string"
+    },
+    "requiredFields": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "managementLevel",
+    "companyType",
+    "zipCode",
+    "locationSearchType",
+    "zipCodeRadiusMiles",
+    "techAttributeTagList",
+    "requiredFields"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

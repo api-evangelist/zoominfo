@@ -1,0 +1,99 @@
+{
+  "type": "object",
+  "name": "Data41",
+  "properties": {
+    "outputFields": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "result": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "array",
+            "description": "",
+            "items": {
+              "type": "string"
+            }
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "geoLocation": {
+                "type": "object",
+                "properties": {
+                  "location_long": {
+                    "type": "number"
+                  },
+                  "location_lat": {
+                    "type": "number"
+                  },
+                  "country_code": {
+                    "type": "string"
+                  },
+                  "province": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "location_long",
+                  "location_lat",
+                  "country_code",
+                  "province"
+                ]
+              },
+              "ispInfo": {
+                "type": "object",
+                "properties": {
+                  "domain": {
+                    "type": "string"
+                  },
+                  "ip_hi_string": {
+                    "type": "string"
+                  },
+                  "ip_lo_string": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "domain",
+                  "ip_hi_string",
+                  "ip_lo_string",
+                  "name",
+                  "type"
+                ]
+              }
+            },
+            "required": [
+              "geoLocation",
+              "ispInfo"
+            ]
+          }
+        },
+        "required": [
+          "input",
+          "data"
+        ]
+      }
+    }
+  },
+  "required": [
+    "outputFields",
+    "result"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "properties": {
+    "companyName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "publishedStartDate": {
+      "type": "string",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "publishedEndDate": {
+      "type": "string",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "scoopType": {
+      "type": "string",
+      "example": "standard"
+    },
+    "department": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "sortBy": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "sortOrder": {
+      "type": "string",
+      "example": "example_value"
+    }
+  },
+  "required": [
+    "companyName",
+    "publishedStartDate",
+    "publishedEndDate",
+    "scoopType",
+    "department",
+    "sortBy",
+    "sortOrder"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ScoopEnrichRequest"
+}

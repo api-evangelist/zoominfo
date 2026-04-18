@@ -1,0 +1,61 @@
+{
+  "type": "object",
+  "name": "IntentEnrichRequest",
+  "properties": {
+    "companyName": {
+      "type": "string"
+    },
+    "companyWebsite": {
+      "type": "string"
+    },
+    "companyId": {
+      "type": "integer"
+    },
+    "topics": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "signalStartDate": {
+      "type": "string"
+    },
+    "signalEndDate": {
+      "type": "string"
+    },
+    "signalScoreMin": {
+      "type": "integer"
+    },
+    "signalScoreMax": {
+      "type": "integer"
+    },
+    "audienceStrengthMin": {
+      "type": "string"
+    },
+    "audienceStrengthMax": {
+      "type": "string"
+    },
+    "sortBy": {
+      "type": "string"
+    },
+    "sortOrder": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "companyName",
+    "companyWebsite",
+    "companyId",
+    "topics",
+    "signalStartDate",
+    "signalEndDate",
+    "signalScoreMin",
+    "signalScoreMax",
+    "audienceStrengthMin",
+    "audienceStrengthMax",
+    "sortBy",
+    "sortOrder"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

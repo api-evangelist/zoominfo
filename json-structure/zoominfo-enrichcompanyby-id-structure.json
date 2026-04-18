@@ -1,0 +1,275 @@
+{
+  "type": "object",
+  "name": "EnrichcompanybyID",
+  "properties": {
+    "success": {
+      "type": "boolean"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "outputFields": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "result": {
+          "type": "array",
+          "description": "",
+          "items": {
+            "type": "object",
+            "properties": {
+              "input": {
+                "type": "object",
+                "properties": {
+                  "companyid": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "companyid"
+                ]
+              },
+              "data": {
+                "type": "array",
+                "description": "",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "object"
+                    },
+                    "ticker": {
+                      "type": "object"
+                    },
+                    "name": {
+                      "type": "object"
+                    },
+                    "website": {
+                      "type": "object"
+                    },
+                    "domainList": {
+                      "type": "object"
+                    },
+                    "logo": {
+                      "type": "object"
+                    },
+                    "socialMediaUrls": {
+                      "type": "object"
+                    },
+                    "revenue": {
+                      "type": "object"
+                    },
+                    "employeeCount": {
+                      "type": "object"
+                    },
+                    "numberOfContactsInZoomInfo": {
+                      "type": "object"
+                    },
+                    "phone": {
+                      "type": "object"
+                    },
+                    "fax": {
+                      "type": "object"
+                    },
+                    "street": {
+                      "type": "object"
+                    },
+                    "city": {
+                      "type": "object"
+                    },
+                    "state": {
+                      "type": "object"
+                    },
+                    "zipCode": {
+                      "type": "object"
+                    },
+                    "country": {
+                      "type": "object"
+                    },
+                    "continent": {
+                      "type": "object"
+                    },
+                    "companyStatus": {
+                      "type": "object"
+                    },
+                    "companyStatusDate": {
+                      "type": "object"
+                    },
+                    "descriptionList": {
+                      "type": "object"
+                    },
+                    "sicCodes": {
+                      "type": "object"
+                    },
+                    "naicsCodes": {
+                      "type": "object"
+                    },
+                    "competitors": {
+                      "type": "object"
+                    },
+                    "ultimateParentId": {
+                      "type": "object"
+                    },
+                    "ultimateParentName": {
+                      "type": "object"
+                    },
+                    "ultimateParentRevenue": {
+                      "type": "object"
+                    },
+                    "ultimateParentEmployees": {
+                      "type": "object"
+                    },
+                    "subUnitCodes": {
+                      "type": "object"
+                    },
+                    "subUnitType": {
+                      "type": "object"
+                    },
+                    "subUnitIndustries": {
+                      "type": "object"
+                    },
+                    "primaryIndustry": {
+                      "type": "object"
+                    },
+                    "industries": {
+                      "type": "object"
+                    },
+                    "parentId": {
+                      "type": "object"
+                    },
+                    "parentName": {
+                      "type": "object"
+                    },
+                    "locationCount": {
+                      "type": "object"
+                    },
+                    "alexaRank": {
+                      "type": "object"
+                    },
+                    "metroArea": {
+                      "type": "object"
+                    },
+                    "lastUpdatedDate": {
+                      "type": "object"
+                    },
+                    "createdDate": {
+                      "type": "object"
+                    },
+                    "certificationDate": {
+                      "type": "object"
+                    },
+                    "certified": {
+                      "type": "object"
+                    },
+                    "hashtags": {
+                      "type": "object"
+                    },
+                    "products": {
+                      "type": "object"
+                    },
+                    "techAttributes": {
+                      "type": "object"
+                    },
+                    "revenueRange": {
+                      "type": "object"
+                    },
+                    "employeeRange": {
+                      "type": "object"
+                    },
+                    "companyFunding": {
+                      "type": "object"
+                    },
+                    "recentFundingAmount": {
+                      "type": "object"
+                    },
+                    "recentFundingDate": {
+                      "type": "object"
+                    },
+                    "totalFundingAmount": {
+                      "type": "object"
+                    },
+                    "employeeGrowth": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "ticker",
+                    "name",
+                    "website",
+                    "domainList",
+                    "logo",
+                    "socialMediaUrls",
+                    "revenue",
+                    "employeeCount",
+                    "numberOfContactsInZoomInfo",
+                    "phone",
+                    "fax",
+                    "street",
+                    "city",
+                    "state",
+                    "zipCode",
+                    "country",
+                    "continent",
+                    "companyStatus",
+                    "companyStatusDate",
+                    "descriptionList",
+                    "sicCodes",
+                    "naicsCodes",
+                    "competitors",
+                    "ultimateParentId",
+                    "ultimateParentName",
+                    "ultimateParentRevenue",
+                    "ultimateParentEmployees",
+                    "subUnitCodes",
+                    "subUnitType",
+                    "subUnitIndustries",
+                    "primaryIndustry",
+                    "industries",
+                    "parentId",
+                    "parentName",
+                    "locationCount",
+                    "alexaRank",
+                    "metroArea",
+                    "lastUpdatedDate",
+                    "createdDate",
+                    "certificationDate",
+                    "certified",
+                    "hashtags",
+                    "products",
+                    "techAttributes",
+                    "revenueRange",
+                    "employeeRange",
+                    "companyFunding",
+                    "recentFundingAmount",
+                    "recentFundingDate",
+                    "totalFundingAmount",
+                    "employeeGrowth"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "input",
+              "data"
+            ]
+          }
+        }
+      },
+      "required": [
+        "outputFields",
+        "result"
+      ]
+    }
+  },
+  "required": [
+    "success",
+    "data"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

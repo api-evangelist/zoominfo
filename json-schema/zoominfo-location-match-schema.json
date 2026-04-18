@@ -1,0 +1,52 @@
+{
+  "type": "object",
+  "properties": {
+    "companyId": {
+      "type": "integer",
+      "example": 500123
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "street": {
+          "type": "string",
+          "example": "example_value"
+        },
+        "city": {
+          "type": "string",
+          "example": "San Francisco"
+        },
+        "state": {
+          "type": "string",
+          "example": "CA"
+        },
+        "country": {
+          "type": "string",
+          "example": "US"
+        },
+        "zipCode": {
+          "type": "string",
+          "example": "94105"
+        }
+      },
+      "required": [
+        "street",
+        "city",
+        "state",
+        "country",
+        "zipCode"
+      ]
+    },
+    "addressStatus": {
+      "type": "string",
+      "example": "123 Main Street"
+    }
+  },
+  "required": [
+    "companyId",
+    "address",
+    "addressStatus"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LocationMatch"
+}

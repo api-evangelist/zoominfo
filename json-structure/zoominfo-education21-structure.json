@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "name": "Education21",
+  "properties": {
+    "school": {
+      "type": "string"
+    },
+    "educationDegree": {
+      "type": "object",
+      "properties": {
+        "degree": {
+          "type": "string"
+        },
+        "areaOfStudy": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "degree",
+        "areaOfStudy"
+      ]
+    },
+    "graduationDate": {
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

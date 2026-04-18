@@ -1,0 +1,129 @@
+{
+  "type": "object",
+  "name": "Searchcontactsbyemployeegrowthrate",
+  "properties": {
+    "maxResults": {
+      "type": "integer"
+    },
+    "totalResults": {
+      "type": "integer"
+    },
+    "currentPage": {
+      "type": "integer"
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "validDate": {
+            "type": "string"
+          },
+          "lastUpdatedDate": {
+            "type": "string"
+          },
+          "jobTitle": {
+            "type": "string"
+          },
+          "contactAccuracyScore": {
+            "type": "integer"
+          },
+          "hasEmail": {
+            "type": "boolean"
+          },
+          "hasSupplementalEmail": {
+            "type": "boolean"
+          },
+          "hasDirectPhone": {
+            "type": "boolean"
+          },
+          "hasMobilePhone": {
+            "type": "boolean"
+          },
+          "hasCompanyIndustry": {
+            "type": "boolean"
+          },
+          "hasCompanyPhone": {
+            "type": "boolean"
+          },
+          "hasCompanyStreet": {
+            "type": "boolean"
+          },
+          "hasCompanyState": {
+            "type": "boolean"
+          },
+          "hasCompanyZipCode": {
+            "type": "boolean"
+          },
+          "hasCompanyCountry": {
+            "type": "boolean"
+          },
+          "hasCompanyRevenue": {
+            "type": "boolean"
+          },
+          "hasCompanyEmployeeCount": {
+            "type": "boolean"
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "middleName",
+          "lastName",
+          "validDate",
+          "lastUpdatedDate",
+          "jobTitle",
+          "contactAccuracyScore",
+          "hasEmail",
+          "hasSupplementalEmail",
+          "hasDirectPhone",
+          "hasMobilePhone",
+          "hasCompanyIndustry",
+          "hasCompanyPhone",
+          "hasCompanyStreet",
+          "hasCompanyState",
+          "hasCompanyZipCode",
+          "hasCompanyCountry",
+          "hasCompanyRevenue",
+          "hasCompanyEmployeeCount",
+          "company"
+        ]
+      }
+    }
+  },
+  "required": [
+    "maxResults",
+    "totalResults",
+    "currentPage",
+    "data"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

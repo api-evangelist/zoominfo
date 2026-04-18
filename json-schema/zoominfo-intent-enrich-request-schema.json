@@ -1,0 +1,73 @@
+{
+  "type": "object",
+  "properties": {
+    "companyName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "companyWebsite": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "companyId": {
+      "type": "integer",
+      "example": 500123
+    },
+    "topics": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "signalStartDate": {
+      "type": "string",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "signalEndDate": {
+      "type": "string",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "signalScoreMin": {
+      "type": "integer",
+      "example": 85
+    },
+    "signalScoreMax": {
+      "type": "integer",
+      "example": 85
+    },
+    "audienceStrengthMin": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "audienceStrengthMax": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "sortBy": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "sortOrder": {
+      "type": "string",
+      "example": "example_value"
+    }
+  },
+  "required": [
+    "companyName",
+    "companyWebsite",
+    "companyId",
+    "topics",
+    "signalStartDate",
+    "signalEndDate",
+    "signalScoreMin",
+    "signalScoreMax",
+    "audienceStrengthMin",
+    "audienceStrengthMax",
+    "sortBy",
+    "sortOrder"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IntentEnrichRequest"
+}

@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "name": "RecommendedContact",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "jobTitle": {
+      "type": "string"
+    },
+    "jobFunction": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "department": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "department"
+        ]
+      }
+    }
+  },
+  "required": [
+    "id",
+    "firstName",
+    "lastName",
+    "jobTitle",
+    "jobFunction"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

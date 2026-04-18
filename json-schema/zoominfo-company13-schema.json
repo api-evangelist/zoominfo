@@ -1,0 +1,77 @@
+{
+  "type": "object",
+  "properties": {
+    "division": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "id": {
+      "type": "integer",
+      "example": 500123
+    },
+    "name": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "descriptionList": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "example": "Enterprise software company"
+          }
+        },
+        "required": [
+          "description"
+        ]
+      }
+    },
+    "phone": {
+      "type": "string",
+      "example": "+1-555-555-1234"
+    },
+    "fax": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "street": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "city": {
+      "type": "string",
+      "example": "San Francisco"
+    },
+    "state": {
+      "type": "string",
+      "example": "CA"
+    },
+    "zipCode": {
+      "type": "string",
+      "example": "94105"
+    },
+    "country": {
+      "type": "string",
+      "example": "US"
+    }
+  },
+  "required": [
+    "division",
+    "id",
+    "name",
+    "descriptionList",
+    "phone",
+    "fax",
+    "street",
+    "city",
+    "state",
+    "zipCode",
+    "country"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Company13"
+}

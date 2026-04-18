@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "school": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "educationDegree": {
+      "type": "object",
+      "properties": {
+        "degree": {
+          "type": "string",
+          "example": "example_value"
+        },
+        "areaOfStudy": {
+          "type": "string",
+          "example": "example_value"
+        }
+      },
+      "required": [
+        "degree",
+        "areaOfStudy"
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Education2"
+}

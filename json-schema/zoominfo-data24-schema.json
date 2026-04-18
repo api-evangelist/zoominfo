@@ -1,0 +1,62 @@
+{
+  "type": "object",
+  "properties": {
+    "outputFields": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "result": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "example": 100
+          },
+          "input": {
+            "type": "object",
+            "properties": {
+              "zi_c_id": {
+                "type": "integer",
+                "example": 500123
+              }
+            },
+            "required": [
+              "zi_c_id"
+            ]
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "errorMessage": {
+                "type": "string",
+                "example": "example_value"
+              }
+            },
+            "required": [
+              "errorMessage"
+            ]
+          }
+        },
+        "required": [
+          "statusCode",
+          "input",
+          "data"
+        ]
+      }
+    }
+  },
+  "required": [
+    "outputFields",
+    "result"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Data24"
+}

@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "name": "EmployeeGrowthDataPoint1",
+  "properties": {
+    "label": {
+      "type": "string"
+    },
+    "employeeCount": {
+      "type": "integer"
+    }
+  },
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,125 @@
+{
+  "type": "object",
+  "name": "IntentEnrich",
+  "properties": {
+    "maxResults": {
+      "type": "integer"
+    },
+    "totalResults": {
+      "type": "integer"
+    },
+    "currentPage": {
+      "type": "integer"
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "signalScore": {
+            "type": "integer"
+          },
+          "audienceStrength": {
+            "type": "string"
+          },
+          "newSignal": {
+            "type": "boolean"
+          },
+          "signalDate": {
+            "type": "string"
+          },
+          "trend": {
+            "type": "integer"
+          },
+          "recommendedContacts": {
+            "type": "array",
+            "description": "",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "firstName": {
+                  "type": "string"
+                },
+                "lastName": {
+                  "type": "string"
+                },
+                "jobTitle": {
+                  "type": "string"
+                },
+                "jobFunction": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "firstName",
+                "lastName",
+                "jobTitle",
+                "jobFunction"
+              ]
+            }
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "website": {
+                "type": "string"
+              },
+              "hasOtherTopicConsumption": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "website",
+              "hasOtherTopicConsumption"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "category",
+          "topic",
+          "signalScore",
+          "audienceStrength",
+          "newSignal",
+          "signalDate",
+          "trend",
+          "recommendedContacts",
+          "company"
+        ]
+      }
+    }
+  },
+  "required": [
+    "maxResults",
+    "totalResults",
+    "currentPage",
+    "data"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

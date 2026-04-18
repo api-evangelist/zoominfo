@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "username": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "password": {
+      "type": "string",
+      "example": "password"
+    }
+  },
+  "required": [
+    "username",
+    "password"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AuthenticateRequest"
+}

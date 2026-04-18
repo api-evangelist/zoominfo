@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "companyid": {
+      "type": "integer",
+      "example": 500123
+    }
+  },
+  "required": [
+    "companyid"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Input6"
+}

@@ -1,0 +1,36 @@
+name: zoominfo API Vocabulary
+provider: zoominfo
+created: '2026-04-18'
+modified: '2026-04-18'
+apis:
+- name: zoominfo-openapi-review.yml
+  version: ''
+- name: ZoomInfo
+  version: '1.0'
+resources: 7
+operations: 99
+schemas: 278
+tags:
+- Authentication
+- Bulk
+- Company Enrich
+- Company Location Enrich
+- Company Master Data Enrich
+- Company Search
+- Compliance API
+- Contact Enrich
+- Contact Search
+- Corporate Hierarchy Enrich
+- Hashtags Enrich
+- Intent Enrich
+- Intent Search
+- Lookup
+- Monitoring API/Webhooks
+- News Enrich
+- News Search
+- OrgChart Enrich
+- Scoop Enrich
+- Scoop Search
+- Technology Enrich
+- Usage
+- WebSights API

@@ -1,0 +1,39 @@
+{
+  "type": "object",
+  "properties": {
+    "createdDate": {
+      "type": "string",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "modifiedDate": {
+      "type": "string",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "eventType": {
+      "type": "string",
+      "example": "standard"
+    },
+    "objectType": {
+      "type": "string",
+      "example": "standard"
+    },
+    "fullPayload": {
+      "type": "boolean",
+      "example": true
+    },
+    "subscriptionId": {
+      "type": "string",
+      "example": "500123"
+    }
+  },
+  "required": [
+    "createdDate",
+    "modifiedDate",
+    "eventType",
+    "objectType",
+    "fullPayload",
+    "subscriptionId"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Subscription1"
+}

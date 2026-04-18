@@ -1,0 +1,88 @@
+{
+  "type": "object",
+  "properties": {
+    "currentPage": {
+      "type": "integer",
+      "example": 1
+    },
+    "maxResults": {
+      "type": "integer",
+      "example": 100
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "example": "example.com"
+          },
+          "title": {
+            "type": "string",
+            "example": "Vice President of Sales"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://www.example.com/resource"
+          },
+          "imageUrl": {
+            "type": "string",
+            "example": "https://www.example.com/resource"
+          },
+          "pageDate": {
+            "type": "string",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "categories": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "string"
+            }
+          },
+          "company": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 500123
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Acme Corporation"
+                }
+              },
+              "required": [
+                "id",
+                "name"
+              ]
+            }
+          }
+        },
+        "required": [
+          "domain",
+          "title",
+          "url",
+          "pageDate",
+          "categories",
+          "company"
+        ]
+      }
+    }
+  },
+  "required": [
+    "currentPage",
+    "maxResults",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NewsSearchusingpartialinputs"
+}

@@ -1,0 +1,18 @@
+{
+  "id": 500123,
+  "name": "Acme Corporation",
+  "locationMatch": {
+    "companyId": 500123,
+    "address": {
+      "street": "example_value",
+      "city": "San Francisco",
+      "state": "CA",
+      "country": "US",
+      "zipCode": "94105"
+    },
+    "addressStatus": "123 Main Street"
+  },
+  "website": "example_value",
+  "state": "CA",
+  "city": "San Francisco"
+}

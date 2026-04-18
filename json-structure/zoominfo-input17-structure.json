@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "name": "Input17",
+  "properties": {
+    "companyname": {
+      "type": "string"
+    },
+    "personfirstname": {
+      "type": "string"
+    },
+    "personlastname": {
+      "type": "string"
+    },
+    "personemailaddress": {
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

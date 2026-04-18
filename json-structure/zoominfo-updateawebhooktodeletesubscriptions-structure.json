@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "name": "Updateawebhooktodeletesubscriptions",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "targetUrl": {
+      "type": "string"
+    },
+    "createdDate": {
+      "type": "string"
+    },
+    "subscriptions": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "title",
+    "enabled",
+    "targetUrl",
+    "createdDate",
+    "subscriptions"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

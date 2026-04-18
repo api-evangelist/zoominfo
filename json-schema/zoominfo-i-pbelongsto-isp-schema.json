@@ -1,0 +1,115 @@
+{
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "example": true
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "outputFields": {
+          "type": "array",
+          "example": [],
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "result": {
+          "type": "array",
+          "description": "",
+          "example": [],
+          "items": {
+            "type": "object",
+            "properties": {
+              "input": {
+                "type": "array",
+                "description": "",
+                "example": [],
+                "items": {
+                  "type": "string"
+                }
+              },
+              "data": {
+                "type": "object",
+                "properties": {
+                  "geoLocation": {
+                    "type": "object",
+                    "properties": {
+                      "location_long": {
+                        "type": "object"
+                      },
+                      "location_lat": {
+                        "type": "object"
+                      },
+                      "country_code": {
+                        "type": "object"
+                      },
+                      "province": {
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "location_long",
+                      "location_lat",
+                      "country_code",
+                      "province"
+                    ]
+                  },
+                  "ispInfo": {
+                    "type": "object",
+                    "properties": {
+                      "domain": {
+                        "type": "object"
+                      },
+                      "ip_hi_string": {
+                        "type": "object"
+                      },
+                      "ip_lo_string": {
+                        "type": "object"
+                      },
+                      "name": {
+                        "type": "object"
+                      },
+                      "type": {
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "domain",
+                      "ip_hi_string",
+                      "ip_lo_string",
+                      "name",
+                      "type"
+                    ]
+                  }
+                },
+                "required": [
+                  "geoLocation",
+                  "ispInfo"
+                ]
+              }
+            },
+            "required": [
+              "input",
+              "data"
+            ]
+          }
+        }
+      },
+      "required": [
+        "outputFields",
+        "result"
+      ]
+    }
+  },
+  "required": [
+    "success",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IPbelongstoISP"
+}

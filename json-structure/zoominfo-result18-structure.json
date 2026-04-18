@@ -1,0 +1,109 @@
+{
+  "type": "object",
+  "name": "Result18",
+  "properties": {
+    "input": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "company": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "employeeCount": {
+              "type": "integer"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "industries": {
+              "type": "array",
+              "description": "",
+              "items": {
+                "type": "string"
+              }
+            },
+            "name": {
+              "type": "string"
+            },
+            "revenue": {
+              "type": "integer"
+            },
+            "state": {
+              "type": "string"
+            },
+            "street": {
+              "type": "string"
+            },
+            "ticker": {
+              "type": "string"
+            },
+            "website": {
+              "type": "string"
+            },
+            "zipCode": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "city",
+            "country",
+            "employeeCount",
+            "id",
+            "industries",
+            "name",
+            "revenue",
+            "state",
+            "street",
+            "ticker",
+            "website",
+            "zipCode"
+          ]
+        },
+        "geoLocation": {
+          "type": "object",
+          "properties": {
+            "location_long": {
+              "type": "number"
+            },
+            "location_lat": {
+              "type": "number"
+            },
+            "country_code": {
+              "type": "string"
+            },
+            "province": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "location_long",
+            "location_lat",
+            "country_code",
+            "province"
+          ]
+        }
+      },
+      "required": [
+        "company",
+        "geoLocation"
+      ]
+    }
+  },
+  "required": [
+    "input",
+    "data"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

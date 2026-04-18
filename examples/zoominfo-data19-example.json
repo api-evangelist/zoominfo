@@ -1,0 +1,33 @@
+{
+  "zi_c_location_id": 500123,
+  "zi_es_ecid": 500123,
+  "zi_es_location_id": "500123",
+  "zi_c_is_hq": "example_value",
+  "zi_c_tier_grade": "example_value",
+  "zi_c_name": "Acme Corporation",
+  "zi_c_name_display": "Acme Corporation",
+  "zi_c_url": "https://www.example.com/resource",
+  "zi_c_street": "example_value",
+  "zi_c_city": "San Francisco",
+  "zi_c_state": "CA",
+  "zi_c_zip": "94105",
+  "zi_c_country": "US",
+  "zi_match_reason": {
+    "zi_match_name": "Acme Corporation",
+    "zi_match_reason_building_name": "Acme Corporation",
+    "zi_match_reason_building_number": "example_value",
+    "zi_match_reason_business_type": "standard",
+    "zi_match_reason_city": "San Francisco",
+    "zi_match_reason_company_phone": "+1-555-555-1234",
+    "zi_match_reason_country": "US",
+    "zi_match_reason_directional": "example_value",
+    "zi_match_reason_name": "Acme Corporation",
+    "zi_match_reason_road_name": "Acme Corporation",
+    "zi_match_reason_road_type": "standard",
+    "zi_match_reason_state": "CA",
+    "zi_match_reason_unit": "example_value",
+    "zi_match_reason_website": "example_value",
+    "zi_match_reason_zip": "94105",
+    "zi_match_score": "example_value"
+  }
+}

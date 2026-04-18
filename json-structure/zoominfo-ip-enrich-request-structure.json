@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "name": "IPEnrichRequest",
+  "properties": {
+    "ipAddress": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "ipAddress"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

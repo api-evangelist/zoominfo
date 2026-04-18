@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "name": "GetCompanyRanking",
+  "properties": {
+    "Id": {
+      "type": "string"
+    },
+    "Name": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "Id",
+    "Name"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,125 @@
+{
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "example": true
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "outputFields": {
+          "type": "array",
+          "example": [],
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "result": {
+          "type": "array",
+          "description": "",
+          "example": [],
+          "items": {
+            "type": "object",
+            "properties": {
+              "input": {
+                "type": "object",
+                "properties": {
+                  "personid": {
+                    "type": "integer",
+                    "example": 500123
+                  }
+                },
+                "required": [
+                  "personid"
+                ]
+              },
+              "data": {
+                "type": "array",
+                "description": "",
+                "example": [],
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "object"
+                    },
+                    "firstName": {
+                      "type": "object"
+                    },
+                    "middleName": {
+                      "type": "object"
+                    },
+                    "lastName": {
+                      "type": "object"
+                    },
+                    "email": {
+                      "type": "object"
+                    },
+                    "hasCanadianEmail": {
+                      "type": "object"
+                    },
+                    "phone": {
+                      "type": "object"
+                    },
+                    "street": {
+                      "type": "object"
+                    },
+                    "city": {
+                      "type": "object"
+                    },
+                    "region": {
+                      "type": "object"
+                    },
+                    "company": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "firstName",
+                    "middleName",
+                    "lastName",
+                    "email",
+                    "hasCanadianEmail",
+                    "phone",
+                    "street",
+                    "city",
+                    "region",
+                    "company"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "input",
+              "data"
+            ]
+          }
+        },
+        "requiredFields": {
+          "type": "array",
+          "description": "",
+          "example": [],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "outputFields",
+        "result",
+        "requiredFields"
+      ]
+    }
+  },
+  "required": [
+    "success",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Enrichcontactsusingrequiredfields"
+}

@@ -1,0 +1,34 @@
+{
+  "type": "object",
+  "properties": {
+    "Name": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "Category": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "Department": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "JobFunction": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "Description": {
+      "type": "string",
+      "example": "Enterprise software company"
+    }
+  },
+  "required": [
+    "Name",
+    "Category",
+    "Department",
+    "JobFunction",
+    "Description"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IntentTopic"
+}

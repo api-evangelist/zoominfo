@@ -1,0 +1,541 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "example": 500123
+    },
+    "firstName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "middleName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "lastName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "email": {
+      "type": "string",
+      "example": "jsmith@example.com"
+    },
+    "hasCanadianEmail": {
+      "type": "string",
+      "example": "jsmith@example.com"
+    },
+    "phone": {
+      "type": "string",
+      "example": "+1-555-555-1234"
+    },
+    "directPhoneDoNotCall": {
+      "type": "boolean",
+      "example": true
+    },
+    "street": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "city": {
+      "type": "string",
+      "example": "San Francisco"
+    },
+    "region": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "metroArea": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "zipCode": {
+      "type": "string",
+      "example": "94105"
+    },
+    "state": {
+      "type": "string",
+      "example": "CA"
+    },
+    "country": {
+      "type": "string",
+      "example": "US"
+    },
+    "personHasMoved": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "withinEu": {
+      "type": "boolean",
+      "example": true
+    },
+    "withinCalifornia": {
+      "type": "boolean",
+      "example": true
+    },
+    "withinCanada": {
+      "type": "boolean",
+      "example": true
+    },
+    "lastUpdatedDate": {
+      "type": "string",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "noticeProvidedDate": {
+      "type": "string",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "salutation": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "suffix": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "jobTitle": {
+      "type": "string",
+      "example": "Vice President of Sales"
+    },
+    "jobFunction": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "department": {
+            "type": "string",
+            "example": "example_value"
+          }
+        },
+        "required": [
+          "name",
+          "department"
+        ]
+      }
+    },
+    "education": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "school": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "educationDegree": {
+            "type": "object",
+            "properties": {
+              "degree": {
+                "type": "string",
+                "example": "example_value"
+              },
+              "areaOfStudy": {
+                "type": "string",
+                "example": "example_value"
+              }
+            },
+            "required": [
+              "degree",
+              "areaOfStudy"
+            ]
+          }
+        },
+        "required": [
+          "school",
+          "educationDegree"
+        ]
+      }
+    },
+    "hashedEmails": {
+      "type": "array",
+      "description": "",
+      "example": "user@example.com",
+      "items": {
+        "type": "string"
+      }
+    },
+    "picture": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "mobilePhoneDoNotCall": {
+      "type": "boolean",
+      "example": true
+    },
+    "externalUrls": {
+      "type": "array",
+      "description": "",
+      "example": "https://www.example.com",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "standard"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://www.example.com/resource"
+          }
+        },
+        "required": [
+          "type",
+          "url"
+        ]
+      }
+    },
+    "contactAccuracyScore": {
+      "type": "integer",
+      "example": 85
+    },
+    "isDefunct": {
+      "type": "boolean",
+      "example": true
+    },
+    "employmentHistory": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "jobTitle": {
+            "type": "string",
+            "example": "Vice President of Sales"
+          },
+          "managementLevel": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "string"
+            }
+          },
+          "fromDate": {
+            "type": "string",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "toDate": {
+            "type": "string",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "companyId": {
+                "type": "integer",
+                "example": 500123
+              },
+              "companyName": {
+                "type": "string",
+                "example": "Acme Corporation"
+              },
+              "companyPhone": {
+                "type": "string",
+                "example": "+1-555-555-1234"
+              },
+              "companyWebsite": {
+                "type": "string",
+                "example": "example_value"
+              }
+            },
+            "required": [
+              "companyId",
+              "companyName",
+              "companyPhone",
+              "companyWebsite"
+            ]
+          }
+        },
+        "required": [
+          "jobTitle",
+          "managementLevel",
+          "fromDate",
+          "toDate",
+          "company"
+        ]
+      }
+    },
+    "managementLevel": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "locationCompanyId": {
+      "type": "integer",
+      "example": 500123
+    },
+    "company": {
+      "type": "object",
+      "properties": {
+        "division": {
+          "type": "string",
+          "example": "example_value"
+        },
+        "id": {
+          "type": "integer",
+          "example": 500123
+        },
+        "name": {
+          "type": "string",
+          "example": "Acme Corporation"
+        },
+        "descriptionList": {
+          "type": "array",
+          "description": "",
+          "example": [],
+          "items": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string",
+                "example": "Enterprise software company"
+              }
+            },
+            "required": [
+              "description"
+            ]
+          }
+        },
+        "phone": {
+          "type": "string",
+          "example": "+1-555-555-1234"
+        },
+        "fax": {
+          "type": "string",
+          "example": "example_value"
+        },
+        "street": {
+          "type": "string",
+          "example": "example_value"
+        },
+        "city": {
+          "type": "string",
+          "example": "San Francisco"
+        },
+        "state": {
+          "type": "string",
+          "example": "CA"
+        },
+        "zipCode": {
+          "type": "string",
+          "example": "94105"
+        },
+        "country": {
+          "type": "string",
+          "example": "US"
+        },
+        "logo": {
+          "type": "string",
+          "example": "example_value"
+        },
+        "sicCodes": {
+          "type": "array",
+          "description": "",
+          "example": [],
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "500123"
+              },
+              "name": {
+                "type": "string",
+                "example": "Acme Corporation"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        "naicsCodes": {
+          "type": "array",
+          "description": "",
+          "example": [],
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "500123"
+              },
+              "name": {
+                "type": "string",
+                "example": "Acme Corporation"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        "website": {
+          "type": "string",
+          "example": "example_value"
+        },
+        "revenue": {
+          "type": "string",
+          "example": "example_value"
+        },
+        "revenueNumeric": {
+          "type": "integer",
+          "example": 100
+        },
+        "employeeCount": {
+          "type": "integer",
+          "example": 250
+        },
+        "type": {
+          "type": "string",
+          "example": "standard"
+        },
+        "ticker": {
+          "type": "string",
+          "example": "example_value"
+        },
+        "ranking": {
+          "type": "array",
+          "description": "",
+          "example": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "socialMediaUrls": {
+          "type": "array",
+          "description": "",
+          "example": "https://www.example.com",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "standard"
+              },
+              "url": {
+                "type": "string",
+                "example": "https://www.example.com/resource"
+              },
+              "followerCount": {
+                "type": "string",
+                "example": "example_value"
+              }
+            },
+            "required": [
+              "type",
+              "url",
+              "followerCount"
+            ]
+          }
+        },
+        "primaryIndustry": {
+          "type": "array",
+          "description": "",
+          "example": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "industries": {
+          "type": "array",
+          "description": "",
+          "example": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "revenueRange": {
+          "type": "string",
+          "example": "example_value"
+        },
+        "employeeRange": {
+          "type": "string",
+          "example": "example_value"
+        }
+      },
+      "required": [
+        "division",
+        "id",
+        "name",
+        "descriptionList",
+        "phone",
+        "fax",
+        "street",
+        "city",
+        "state",
+        "zipCode",
+        "country",
+        "logo",
+        "sicCodes",
+        "naicsCodes",
+        "website",
+        "revenue",
+        "revenueNumeric",
+        "employeeCount",
+        "type",
+        "ticker",
+        "ranking",
+        "socialMediaUrls",
+        "primaryIndustry",
+        "industries",
+        "revenueRange",
+        "employeeRange"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "firstName",
+    "middleName",
+    "lastName",
+    "email",
+    "hasCanadianEmail",
+    "phone",
+    "directPhoneDoNotCall",
+    "street",
+    "city",
+    "region",
+    "metroArea",
+    "zipCode",
+    "state",
+    "country",
+    "personHasMoved",
+    "withinEu",
+    "withinCalifornia",
+    "withinCanada",
+    "lastUpdatedDate",
+    "noticeProvidedDate",
+    "salutation",
+    "suffix",
+    "jobTitle",
+    "jobFunction",
+    "education",
+    "hashedEmails",
+    "picture",
+    "mobilePhoneDoNotCall",
+    "externalUrls",
+    "contactAccuracyScore",
+    "isDefunct",
+    "employmentHistory",
+    "managementLevel",
+    "locationCompanyId",
+    "company"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Data3"
+}

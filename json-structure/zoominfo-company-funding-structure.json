@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "name": "CompanyFunding",
+  "properties": {
+    "date": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "date",
+    "type",
+    "amount"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

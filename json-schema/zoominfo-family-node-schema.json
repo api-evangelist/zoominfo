@@ -1,0 +1,145 @@
+{
+  "type": "object",
+  "properties": {
+    "companyId": {
+      "type": "integer",
+      "example": 500123
+    },
+    "name": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "city": {
+      "type": "string",
+      "example": "San Francisco"
+    },
+    "state": {
+      "type": "string",
+      "example": "CA"
+    },
+    "subUnitTypeInfo": {
+      "type": "object",
+      "properties": {
+        "typeId": {
+          "type": "integer",
+          "example": 500123
+        },
+        "typeDescription": {
+          "type": "string",
+          "example": "Enterprise software company"
+        }
+      },
+      "required": [
+        "typeId",
+        "typeDescription"
+      ]
+    },
+    "familyNodes": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "companyId": {
+            "type": "integer",
+            "example": 500123
+          },
+          "name": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "city": {
+            "type": "string",
+            "example": "San Francisco"
+          },
+          "state": {
+            "type": "string",
+            "example": "CA"
+          },
+          "subUnitTypeInfo": {
+            "type": "object",
+            "properties": {
+              "typeId": {
+                "type": "integer",
+                "example": 500123
+              },
+              "typeDescription": {
+                "type": "string",
+                "example": "Enterprise software company"
+              }
+            },
+            "required": [
+              "typeId",
+              "typeDescription"
+            ]
+          },
+          "familyNodes": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "companyId": {
+                  "type": "integer",
+                  "example": 500123
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Acme Corporation"
+                },
+                "city": {
+                  "type": "string",
+                  "example": "San Francisco"
+                },
+                "state": {
+                  "type": "string",
+                  "example": "CA"
+                },
+                "subUnitTypeInfo": {
+                  "type": "object",
+                  "properties": {
+                    "typeId": {
+                      "type": "object"
+                    },
+                    "typeDescription": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "typeId",
+                    "typeDescription"
+                  ]
+                }
+              },
+              "required": [
+                "companyId",
+                "name",
+                "city",
+                "state",
+                "subUnitTypeInfo"
+              ]
+            }
+          }
+        },
+        "required": [
+          "companyId",
+          "name",
+          "city",
+          "state",
+          "subUnitTypeInfo"
+        ]
+      }
+    }
+  },
+  "required": [
+    "companyId",
+    "name",
+    "city",
+    "state",
+    "subUnitTypeInfo"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FamilyNode"
+}

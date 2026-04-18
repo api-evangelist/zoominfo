@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "success": {
+      "type": "boolean",
+      "example": true
+    },
+    "responseCode": {
+      "type": "integer",
+      "example": 100
+    }
+  },
+  "required": [
+    "message",
+    "success",
+    "responseCode"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ValidateTargetURLisaccessible"
+}

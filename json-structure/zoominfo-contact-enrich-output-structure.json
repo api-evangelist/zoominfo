@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "name": "ContactEnrichOutput",
+  "properties": {
+    "fieldName": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "accessGranted": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "fieldName",
+    "description",
+    "accessGranted"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

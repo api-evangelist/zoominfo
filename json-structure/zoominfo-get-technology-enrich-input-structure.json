@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "name": "GetTechnologyEnrichInput",
+  "properties": {
+    "fieldName": {
+      "type": "string"
+    },
+    "fieldType": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "fieldName",
+    "fieldType",
+    "description"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

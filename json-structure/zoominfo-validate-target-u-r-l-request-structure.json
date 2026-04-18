@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/refs/heads/main/json-structure/zoominfo-validate-target-u-r-l-request-structure.json",
+  "name": "ValidateTargetURLRequest",
+  "description": "ValidateTargetURLRequest schema from ZoomInfo API",
+  "type": "object",
+  "properties": {
+    "targetUrl": {
+      "type": "string",
+      "example": "https://www.example.com/resource"
+    },
+    "objectType": {
+      "type": "string",
+      "example": "standard"
+    },
+    "fullPayload": {
+      "type": "boolean",
+      "example": true
+    }
+  },
+  "required": [
+    "targetUrl",
+    "objectType",
+    "fullPayload"
+  ]
+}

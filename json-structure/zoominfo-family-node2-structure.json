@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "name": "FamilyNode2",
+  "properties": {
+    "companyId": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "subUnitTypeInfo": {
+      "type": "object",
+      "properties": {
+        "typeId": {
+          "type": "integer"
+        },
+        "typeDescription": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "typeId",
+        "typeDescription"
+      ]
+    }
+  },
+  "required": [
+    "companyId",
+    "name",
+    "city",
+    "state",
+    "subUnitTypeInfo"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

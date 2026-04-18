@@ -1,0 +1,26 @@
+{
+  "id": 500123,
+  "firstName": "Acme Corporation",
+  "middleName": "Acme Corporation",
+  "lastName": "Acme Corporation",
+  "validDate": "2025-03-15T14:30:00Z",
+  "lastUpdatedDate": "2025-03-15T14:30:00Z",
+  "jobTitle": "Vice President of Sales",
+  "contactAccuracyScore": 85,
+  "hasEmail": true,
+  "hasSupplementalEmail": true,
+  "hasDirectPhone": true,
+  "hasMobilePhone": true,
+  "hasCompanyIndustry": true,
+  "hasCompanyPhone": true,
+  "hasCompanyStreet": true,
+  "hasCompanyState": true,
+  "hasCompanyZipCode": true,
+  "hasCompanyCountry": true,
+  "hasCompanyRevenue": true,
+  "hasCompanyEmployeeCount": true,
+  "company": {
+    "id": 500123,
+    "name": "Acme Corporation"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "fieldName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "fieldType": {
+      "type": "string",
+      "example": "standard"
+    },
+    "description": {
+      "type": "string",
+      "example": "Enterprise software company"
+    }
+  },
+  "required": [
+    "fieldName",
+    "fieldType",
+    "description"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NewsEnrichInput"
+}

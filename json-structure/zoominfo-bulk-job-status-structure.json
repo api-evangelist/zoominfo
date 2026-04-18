@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "name": "BulkJobStatus",
+  "properties": {
+    "status": {
+      "type": "string"
+    },
+    "jobType": {
+      "type": "string"
+    },
+    "entityType": {
+      "type": "string"
+    },
+    "totalRecords": {
+      "type": "integer"
+    },
+    "totalPages": {
+      "type": "integer"
+    },
+    "successfulPagesCount": {
+      "type": "integer"
+    },
+    "successfulPages": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "integer"
+      }
+    }
+  },
+  "required": [
+    "status",
+    "jobType",
+    "entityType",
+    "totalRecords",
+    "totalPages",
+    "successfulPagesCount",
+    "successfulPages"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "zi_c_country": {
+      "type": "string",
+      "example": "US"
+    },
+    "zi_c_phone": {
+      "type": "string",
+      "example": "+1-555-555-1234"
+    }
+  },
+  "required": [
+    "zi_c_country",
+    "zi_c_phone"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Phone"
+}

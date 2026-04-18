@@ -1,0 +1,69 @@
+{
+  "type": "object",
+  "name": "ZiMatchReason2",
+  "properties": {
+    "zi_match_reason_building_name": {
+      "type": "string"
+    },
+    "zi_match_reason_building_number": {
+      "type": "string"
+    },
+    "zi_match_reason_business_type": {
+      "type": "string"
+    },
+    "zi_match_reason_city": {
+      "type": "string"
+    },
+    "zi_match_reason_company_phone": {
+      "type": "string"
+    },
+    "zi_match_reason_country": {
+      "type": "string"
+    },
+    "zi_match_reason_directional": {
+      "type": "string"
+    },
+    "zi_match_reason_name": {
+      "type": "string"
+    },
+    "zi_match_reason_road_name": {
+      "type": "string"
+    },
+    "zi_match_reason_road_type": {
+      "type": "string"
+    },
+    "zi_match_reason_state": {
+      "type": "string"
+    },
+    "zi_match_reason_unit": {
+      "type": "string"
+    },
+    "zi_match_reason_website": {
+      "type": "string"
+    },
+    "zi_match_reason_zip": {
+      "type": "string"
+    },
+    "zi_match_score": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "zi_match_reason_building_name",
+    "zi_match_reason_building_number",
+    "zi_match_reason_business_type",
+    "zi_match_reason_city",
+    "zi_match_reason_company_phone",
+    "zi_match_reason_country",
+    "zi_match_reason_directional",
+    "zi_match_reason_name",
+    "zi_match_reason_road_name",
+    "zi_match_reason_road_type",
+    "zi_match_reason_state",
+    "zi_match_reason_unit",
+    "zi_match_reason_website",
+    "zi_match_reason_zip",
+    "zi_match_score"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "name": "Input",
+  "properties": {
+    "companyid": {
+      "type": "integer"
+    },
+    "firstname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "companyid",
+    "firstname",
+    "lastname"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,15 @@
+{
+  "geoLocation": {
+    "location_long": 75.5,
+    "location_lat": 75.5,
+    "country_code": "US",
+    "province": "example_value"
+  },
+  "ispInfo": {
+    "domain": "example.com",
+    "ip_hi_string": "example_value",
+    "ip_lo_string": "example_value",
+    "name": "Acme Corporation",
+    "type": "standard"
+  }
+}

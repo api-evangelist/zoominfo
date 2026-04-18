@@ -1,0 +1,65 @@
+{
+  "type": "object",
+  "name": "Company13",
+  "properties": {
+    "division": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "descriptionList": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "description"
+        ]
+      }
+    },
+    "phone": {
+      "type": "string"
+    },
+    "fax": {
+      "type": "string"
+    },
+    "street": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zipCode": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "division",
+    "id",
+    "name",
+    "descriptionList",
+    "phone",
+    "fax",
+    "street",
+    "city",
+    "state",
+    "zipCode",
+    "country"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

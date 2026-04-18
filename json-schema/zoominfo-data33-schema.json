@@ -1,0 +1,82 @@
+{
+  "type": "object",
+  "properties": {
+    "outputFields": {
+      "type": "array",
+      "example": [],
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "result": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "object",
+            "properties": {
+              "companyname": {
+                "type": "string",
+                "example": "Acme Corporation"
+              }
+            },
+            "required": [
+              "companyname"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "parentage": {
+                  "type": "array",
+                  "description": "",
+                  "example": [],
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "familyTree": {
+                  "type": "array",
+                  "description": "",
+                  "example": [],
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "companyId": {
+                  "type": "integer",
+                  "example": 500123
+                }
+              },
+              "required": [
+                "parentage",
+                "familyTree",
+                "companyId"
+              ]
+            }
+          }
+        },
+        "required": [
+          "input",
+          "data"
+        ]
+      }
+    }
+  },
+  "required": [
+    "outputFields",
+    "result"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Data33"
+}

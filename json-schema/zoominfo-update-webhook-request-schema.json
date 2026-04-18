@@ -1,0 +1,47 @@
+{
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "example": "Vice President of Sales"
+    },
+    "enabled": {
+      "type": "boolean",
+      "example": true
+    },
+    "subscriptions": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "subscriptionId": {
+            "type": "string",
+            "example": "500123"
+          },
+          "objectType": {
+            "type": "string",
+            "example": "standard"
+          },
+          "fullPayload": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "subscriptionId",
+          "objectType",
+          "fullPayload"
+        ]
+      }
+    }
+  },
+  "required": [
+    "title",
+    "enabled",
+    "subscriptions"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateWebhookRequest"
+}

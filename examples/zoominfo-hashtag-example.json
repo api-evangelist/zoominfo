@@ -1,0 +1,18 @@
+{
+  "tag": "example_value",
+  "external_id": "500123",
+  "searchString": "example_value",
+  "displayLabel": "example_value",
+  "description": "Enterprise software company",
+  "group": "example_value",
+  "score": "example_value",
+  "priority": "example_value",
+  "parentCategory": "example_value",
+  "displayScore": "example_value",
+  "inverseScoreBase": "example_value",
+  "scoreMultipler": "example_value",
+  "scoreUnit": "example_value",
+  "hidden": true,
+  "label": "example_value",
+  "categorizedFlag": true
+}

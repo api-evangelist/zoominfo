@@ -1,0 +1,65 @@
+{
+  "type": "object",
+  "name": "Data35",
+  "properties": {
+    "phone": {
+      "type": "string"
+    },
+    "fax": {
+      "type": "string"
+    },
+    "street": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zipCode": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "company": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "addressStatus": {
+          "type": "string"
+        },
+        "subUnitType": {
+          "type": "string"
+        },
+        "locationName": {
+          "type": "string"
+        },
+        "locationEmployeeCount": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "addressStatus",
+        "subUnitType",
+        "locationName",
+        "locationEmployeeCount"
+      ]
+    }
+  },
+  "required": [
+    "phone",
+    "fax",
+    "street",
+    "city",
+    "state",
+    "zipCode",
+    "country",
+    "company"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,16 @@
+{
+  "id": 500123,
+  "publishedDate": "2025-03-15T14:30:00Z",
+  "originalPublishedDate": "2025-03-15T14:30:00Z",
+  "linkText": "example_value",
+  "link": "example_value",
+  "description": "Enterprise software company",
+  "topics": [],
+  "updateText": "2025-03-15T14:30:00Z",
+  "types": [],
+  "contacts": [],
+  "company": {
+    "id": 500123,
+    "name": "Acme Corporation"
+  }
+}

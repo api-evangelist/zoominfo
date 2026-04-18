@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "name": "IspInfo",
+  "properties": {
+    "domain": {
+      "type": "string"
+    },
+    "ip_hi_string": {
+      "type": "string"
+    },
+    "ip_lo_string": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "domain",
+    "ip_hi_string",
+    "ip_lo_string",
+    "name",
+    "type"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

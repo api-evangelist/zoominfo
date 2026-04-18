@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "name": "BulkContactEnrichRequest",
+  "properties": {
+    "matchPersonInput": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "personId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "personId"
+        ]
+      }
+    },
+    "outputFields": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "matchPersonInput",
+    "outputFields"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

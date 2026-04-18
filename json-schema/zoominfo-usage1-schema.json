@@ -1,0 +1,34 @@
+{
+  "type": "object",
+  "properties": {
+    "limitType": {
+      "type": "string",
+      "example": "standard"
+    },
+    "description": {
+      "type": "string",
+      "example": "Enterprise software company"
+    },
+    "limit": {
+      "type": "integer",
+      "example": 100
+    },
+    "currentUsage": {
+      "type": "integer",
+      "example": 100
+    },
+    "usageRemaining": {
+      "type": "integer",
+      "example": 100
+    }
+  },
+  "required": [
+    "limitType",
+    "description",
+    "limit",
+    "currentUsage",
+    "usageRemaining"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Usage1"
+}

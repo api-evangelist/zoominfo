@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "name": "Subscription3",
+  "properties": {
+    "subscriptionId": {
+      "type": "string"
+    },
+    "objectType": {
+      "type": "string"
+    },
+    "fullPayload": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "subscriptionId",
+    "objectType",
+    "fullPayload"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

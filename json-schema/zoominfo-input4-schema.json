@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "emailaddress": {
+      "type": "string",
+      "example": "jsmith@example.com"
+    }
+  },
+  "required": [
+    "emailaddress"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Input4"
+}

@@ -1,0 +1,111 @@
+{
+  "type": "object",
+  "name": "Data14",
+  "properties": {
+    "outputFields": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "result": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "object",
+            "properties": {
+              "companycity": {
+                "type": "string"
+              },
+              "companyname": {
+                "type": "string"
+              },
+              "companystate": {
+                "type": "string"
+              },
+              "companystreet": {
+                "type": "string"
+              },
+              "companywebsite": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "companycity",
+              "companyname",
+              "companystate",
+              "companystreet",
+              "companywebsite"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "description": "",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "locationMatch": {
+                  "type": "object",
+                  "properties": {
+                    "companyId": {
+                      "type": "object"
+                    },
+                    "address": {
+                      "type": "object"
+                    },
+                    "addressStatus": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "companyId",
+                    "address",
+                    "addressStatus"
+                  ]
+                },
+                "website": {
+                  "type": "string"
+                },
+                "state": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "locationMatch",
+                "website",
+                "state",
+                "city"
+              ]
+            }
+          }
+        },
+        "required": [
+          "input",
+          "data"
+        ]
+      }
+    }
+  },
+  "required": [
+    "outputFields",
+    "result"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

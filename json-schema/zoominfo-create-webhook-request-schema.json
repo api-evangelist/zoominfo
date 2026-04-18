@@ -1,0 +1,52 @@
+{
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "example": "Vice President of Sales"
+    },
+    "enabled": {
+      "type": "boolean",
+      "example": true
+    },
+    "targetUrl": {
+      "type": "string",
+      "example": "https://www.example.com/resource"
+    },
+    "subscriptions": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "eventType": {
+            "type": "string",
+            "example": "standard"
+          },
+          "objectType": {
+            "type": "string",
+            "example": "standard"
+          },
+          "fullPayload": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "eventType",
+          "objectType",
+          "fullPayload"
+        ]
+      }
+    }
+  },
+  "required": [
+    "title",
+    "enabled",
+    "targetUrl",
+    "subscriptions"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateWebhookRequest"
+}

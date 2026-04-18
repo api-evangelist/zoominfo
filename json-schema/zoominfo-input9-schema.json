@@ -1,0 +1,60 @@
+{
+  "type": "object",
+  "properties": {
+    "address": {
+      "type": "object",
+      "properties": {
+        "zi_c_city": {
+          "type": "string",
+          "example": "San Francisco"
+        },
+        "zi_c_country": {
+          "type": "string",
+          "example": "US"
+        },
+        "zi_c_state": {
+          "type": "string",
+          "example": "CA"
+        },
+        "zi_c_zip": {
+          "type": "string",
+          "example": "94105"
+        }
+      },
+      "required": [
+        "zi_c_city",
+        "zi_c_country",
+        "zi_c_state",
+        "zi_c_zip"
+      ]
+    },
+    "match_reasons": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "zi_c_name": {
+            "type": "string",
+            "example": "Acme Corporation"
+          }
+        },
+        "required": [
+          "zi_c_name"
+        ]
+      }
+    },
+    "zi_c_name": {
+      "type": "string",
+      "example": "Acme Corporation"
+    }
+  },
+  "required": [
+    "address",
+    "match_reasons",
+    "zi_c_name"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Input9"
+}

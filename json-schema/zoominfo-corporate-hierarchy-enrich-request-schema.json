@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "properties": {
+    "matchCompanyInput": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "companyName": {
+            "type": "string",
+            "example": "Acme Corporation"
+          }
+        },
+        "required": [
+          "companyName"
+        ]
+      }
+    },
+    "outputFields": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "matchCompanyInput",
+    "outputFields"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CorporateHierarchyEnrichRequest"
+}

@@ -1,0 +1,34 @@
+{
+  "type": "object",
+  "properties": {
+    "companycity": {
+      "type": "string",
+      "example": "San Francisco"
+    },
+    "companyname": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "companystate": {
+      "type": "string",
+      "example": "CA"
+    },
+    "companystreet": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "companywebsite": {
+      "type": "string",
+      "example": "example_value"
+    }
+  },
+  "required": [
+    "companycity",
+    "companyname",
+    "companystate",
+    "companystreet",
+    "companywebsite"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Input7"
+}

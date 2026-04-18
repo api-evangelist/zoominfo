@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "example": "standard"
+    },
+    "url": {
+      "type": "string",
+      "example": "https://www.example.com/resource"
+    },
+    "followerCount": {
+      "type": "string",
+      "example": "example_value"
+    }
+  },
+  "required": [
+    "type",
+    "url",
+    "followerCount"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SocialMediaUrl"
+}

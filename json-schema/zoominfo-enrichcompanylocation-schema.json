@@ -1,0 +1,105 @@
+{
+  "type": "object",
+  "properties": {
+    "maxResults": {
+      "type": "integer",
+      "example": 100
+    },
+    "totalResults": {
+      "type": "integer",
+      "example": 100
+    },
+    "currentPage": {
+      "type": "integer",
+      "example": 1
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string",
+            "example": "+1-555-555-1234"
+          },
+          "fax": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "street": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "city": {
+            "type": "string",
+            "example": "San Francisco"
+          },
+          "state": {
+            "type": "string",
+            "example": "CA"
+          },
+          "zipCode": {
+            "type": "string",
+            "example": "94105"
+          },
+          "country": {
+            "type": "string",
+            "example": "US"
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "example": 500123
+              },
+              "addressStatus": {
+                "type": "string",
+                "example": "123 Main Street"
+              },
+              "subUnitType": {
+                "type": "string",
+                "example": "standard"
+              },
+              "locationName": {
+                "type": "string",
+                "example": "Acme Corporation"
+              },
+              "locationEmployeeCount": {
+                "type": "integer",
+                "example": 250
+              }
+            },
+            "required": [
+              "id",
+              "addressStatus",
+              "subUnitType",
+              "locationName",
+              "locationEmployeeCount"
+            ]
+          }
+        },
+        "required": [
+          "phone",
+          "fax",
+          "street",
+          "city",
+          "state",
+          "zipCode",
+          "country",
+          "company"
+        ]
+      }
+    }
+  },
+  "required": [
+    "maxResults",
+    "totalResults",
+    "currentPage",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Enrichcompanylocation"
+}

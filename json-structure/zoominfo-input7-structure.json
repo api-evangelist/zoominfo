@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "name": "Input7",
+  "properties": {
+    "companycity": {
+      "type": "string"
+    },
+    "companyname": {
+      "type": "string"
+    },
+    "companystate": {
+      "type": "string"
+    },
+    "companystreet": {
+      "type": "string"
+    },
+    "companywebsite": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "companycity",
+    "companyname",
+    "companystate",
+    "companystreet",
+    "companywebsite"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

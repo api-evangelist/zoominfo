@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "name": "Company8",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "hasOtherTopicConsumption": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "website",
+    "hasOtherTopicConsumption"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

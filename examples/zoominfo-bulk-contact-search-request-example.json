@@ -1,0 +1,7 @@
+{
+  "jobType": "standard",
+  "query": {
+    "firstName": "Acme Corporation",
+    "companyName": "Acme Corporation"
+  }
+}

@@ -1,0 +1,335 @@
+{
+  "type": "object",
+  "name": "Data12",
+  "properties": {
+    "outputFields": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "result": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "object",
+            "properties": {
+              "companyid": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "companyid"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "description": "",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "ticker": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "website": {
+                  "type": "string"
+                },
+                "domainList": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "logo": {
+                  "type": "string"
+                },
+                "socialMediaUrls": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "revenue": {
+                  "type": "integer"
+                },
+                "employeeCount": {
+                  "type": "integer"
+                },
+                "numberOfContactsInZoomInfo": {
+                  "type": "integer"
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "fax": {
+                  "type": "string"
+                },
+                "street": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "state": {
+                  "type": "string"
+                },
+                "zipCode": {
+                  "type": "string"
+                },
+                "country": {
+                  "type": "string"
+                },
+                "continent": {
+                  "type": "string"
+                },
+                "companyStatus": {
+                  "type": "string"
+                },
+                "companyStatusDate": {
+                  "type": "string"
+                },
+                "descriptionList": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "sicCodes": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "naicsCodes": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "competitors": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "ultimateParentId": {
+                  "type": "integer"
+                },
+                "ultimateParentName": {
+                  "type": "string"
+                },
+                "ultimateParentRevenue": {
+                  "type": "integer"
+                },
+                "ultimateParentEmployees": {
+                  "type": "integer"
+                },
+                "subUnitCodes": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "subUnitType": {
+                  "type": "string"
+                },
+                "subUnitIndustries": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "primaryIndustry": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "industries": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "parentId": {
+                  "type": "integer"
+                },
+                "parentName": {
+                  "type": "string"
+                },
+                "locationCount": {
+                  "type": "integer"
+                },
+                "alexaRank": {
+                  "type": "string"
+                },
+                "metroArea": {
+                  "type": "string"
+                },
+                "lastUpdatedDate": {
+                  "type": "string"
+                },
+                "createdDate": {
+                  "type": "string"
+                },
+                "certificationDate": {
+                  "type": "string"
+                },
+                "certified": {
+                  "type": "boolean"
+                },
+                "hashtags": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "products": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "techAttributes": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "revenueRange": {
+                  "type": "string"
+                },
+                "employeeRange": {
+                  "type": "string"
+                },
+                "companyFunding": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "recentFundingAmount": {
+                  "type": "integer"
+                },
+                "recentFundingDate": {
+                  "type": "string"
+                },
+                "totalFundingAmount": {
+                  "type": "integer"
+                },
+                "employeeGrowth": {
+                  "type": "object",
+                  "properties": {
+                    "oneYearGrowthRate": {
+                      "type": "object"
+                    },
+                    "twoYearGrowthRate": {
+                      "type": "object"
+                    },
+                    "employeeGrowthDataPoints": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "oneYearGrowthRate",
+                    "twoYearGrowthRate",
+                    "employeeGrowthDataPoints"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "ticker",
+                "name",
+                "website",
+                "domainList",
+                "logo",
+                "socialMediaUrls",
+                "revenue",
+                "employeeCount",
+                "numberOfContactsInZoomInfo",
+                "phone",
+                "fax",
+                "street",
+                "city",
+                "state",
+                "zipCode",
+                "country",
+                "continent",
+                "companyStatus",
+                "companyStatusDate",
+                "descriptionList",
+                "sicCodes",
+                "naicsCodes",
+                "competitors",
+                "ultimateParentId",
+                "ultimateParentName",
+                "ultimateParentRevenue",
+                "ultimateParentEmployees",
+                "subUnitCodes",
+                "subUnitType",
+                "subUnitIndustries",
+                "primaryIndustry",
+                "industries",
+                "parentId",
+                "parentName",
+                "locationCount",
+                "alexaRank",
+                "metroArea",
+                "lastUpdatedDate",
+                "createdDate",
+                "certificationDate",
+                "certified",
+                "hashtags",
+                "products",
+                "techAttributes",
+                "revenueRange",
+                "employeeRange",
+                "companyFunding",
+                "recentFundingAmount",
+                "recentFundingDate",
+                "totalFundingAmount",
+                "employeeGrowth"
+              ]
+            }
+          }
+        },
+        "required": [
+          "input",
+          "data"
+        ]
+      }
+    }
+  },
+  "required": [
+    "outputFields",
+    "result"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

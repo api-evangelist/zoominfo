@@ -1,0 +1,56 @@
+{
+  "type": "object",
+  "name": "Datum9",
+  "properties": {
+    "domain": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "imageUrl": {
+      "type": "string"
+    },
+    "pageDate": {
+      "type": "string"
+    },
+    "categories": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "company": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      }
+    }
+  },
+  "required": [
+    "domain",
+    "title",
+    "url",
+    "pageDate",
+    "categories",
+    "company"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

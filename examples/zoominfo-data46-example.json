@@ -1,0 +1,21 @@
+{
+  "id": 500123,
+  "firstName": "Acme Corporation",
+  "lastName": "Acme Corporation",
+  "title": "Vice President of Sales",
+  "employmentHistory": [],
+  "emailAddresses": "user@example.com",
+  "pastEmailAddresses": "user@example.com",
+  "withinEu": true,
+  "hasCanadianEmail": "jsmith@example.com",
+  "withinCalifornia": true,
+  "withinCanada": true,
+  "noticeProvidedDate": "2025-03-15T14:30:00Z",
+  "hasMoved": "example_value",
+  "looksLikeEu": "example_value",
+  "looksLikeCalifornia": "example_value",
+  "looksLikeCanada": "example_value",
+  "company": {
+    "name": "Acme Corporation"
+  }
+}

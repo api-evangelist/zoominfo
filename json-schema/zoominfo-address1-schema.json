@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "zi_c_city": {
+      "type": "string",
+      "example": "San Francisco"
+    },
+    "zi_c_country": {
+      "type": "string",
+      "example": "US"
+    },
+    "zi_c_state": {
+      "type": "string",
+      "example": "CA"
+    },
+    "zi_c_zip": {
+      "type": "string",
+      "example": "94105"
+    }
+  },
+  "required": [
+    "zi_c_city",
+    "zi_c_country",
+    "zi_c_state",
+    "zi_c_zip"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Address1"
+}

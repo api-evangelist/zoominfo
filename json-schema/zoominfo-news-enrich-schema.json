@@ -1,0 +1,99 @@
+{
+  "type": "object",
+  "properties": {
+    "maxResults": {
+      "type": "integer",
+      "example": 100
+    },
+    "totalResults": {
+      "type": "integer",
+      "example": 100
+    },
+    "currentPage": {
+      "type": "integer",
+      "example": 1
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "example": "example.com"
+          },
+          "title": {
+            "type": "string",
+            "example": "Vice President of Sales"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://www.example.com/resource"
+          },
+          "imageUrl": {
+            "type": "string",
+            "example": "https://www.example.com/resource"
+          },
+          "pageDate": {
+            "type": "string",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "categories": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": "string",
+            "example": "Enterprise software company"
+          },
+          "company": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 500123
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Acme Corporation"
+                }
+              },
+              "required": [
+                "id",
+                "name"
+              ]
+            }
+          }
+        },
+        "required": [
+          "domain",
+          "title",
+          "url",
+          "imageUrl",
+          "pageDate",
+          "categories",
+          "description",
+          "company"
+        ]
+      }
+    }
+  },
+  "required": [
+    "maxResults",
+    "totalResults",
+    "currentPage",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NewsEnrich"
+}

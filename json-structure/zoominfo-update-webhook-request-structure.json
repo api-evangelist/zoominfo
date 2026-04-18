@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "name": "UpdateWebhookRequest",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "subscriptions": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "subscriptionId": {
+            "type": "string"
+          },
+          "objectType": {
+            "type": "string"
+          },
+          "fullPayload": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "subscriptionId",
+          "objectType",
+          "fullPayload"
+        ]
+      }
+    }
+  },
+  "required": [
+    "title",
+    "enabled",
+    "subscriptions"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

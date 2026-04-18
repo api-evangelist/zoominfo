@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "example": "active"
+    },
+    "jobType": {
+      "type": "string",
+      "example": "standard"
+    },
+    "entityType": {
+      "type": "string",
+      "example": "standard"
+    },
+    "totalRecords": {
+      "type": "integer",
+      "example": 100
+    },
+    "totalPages": {
+      "type": "integer",
+      "example": 1
+    },
+    "successfulPagesCount": {
+      "type": "integer",
+      "example": 250
+    },
+    "successfulPages": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "integer"
+      }
+    }
+  },
+  "required": [
+    "status",
+    "jobType",
+    "entityType",
+    "totalRecords",
+    "totalPages",
+    "successfulPagesCount",
+    "successfulPages"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BulkJobStatus"
+}

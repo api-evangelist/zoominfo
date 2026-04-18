@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "errorMessage": {
+      "type": "string",
+      "example": "example_value"
+    }
+  },
+  "required": [
+    "errorMessage"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Data25"
+}

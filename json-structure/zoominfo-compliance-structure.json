@@ -1,0 +1,131 @@
+{
+  "type": "object",
+  "name": "Compliance",
+  "properties": {
+    "success": {
+      "type": "boolean"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "array",
+          "description": "",
+          "items": {
+            "type": "object",
+            "properties": {
+              "input": {
+                "type": "object",
+                "properties": {
+                  "companyname": {
+                    "type": "string"
+                  },
+                  "personfirstname": {
+                    "type": "string"
+                  },
+                  "personlastname": {
+                    "type": "string"
+                  },
+                  "personemailaddress": {
+                    "type": "string"
+                  }
+                }
+              },
+              "data": {
+                "type": "array",
+                "description": "",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "object"
+                    },
+                    "firstName": {
+                      "type": "object"
+                    },
+                    "lastName": {
+                      "type": "object"
+                    },
+                    "title": {
+                      "type": "object"
+                    },
+                    "employmentHistory": {
+                      "type": "object"
+                    },
+                    "emailAddresses": {
+                      "type": "object"
+                    },
+                    "pastEmailAddresses": {
+                      "type": "object"
+                    },
+                    "withinEu": {
+                      "type": "object"
+                    },
+                    "hasCanadianEmail": {
+                      "type": "object"
+                    },
+                    "withinCalifornia": {
+                      "type": "object"
+                    },
+                    "withinCanada": {
+                      "type": "object"
+                    },
+                    "noticeProvidedDate": {
+                      "type": "object"
+                    },
+                    "hasMoved": {
+                      "type": "object"
+                    },
+                    "looksLikeEu": {
+                      "type": "object"
+                    },
+                    "looksLikeCalifornia": {
+                      "type": "object"
+                    },
+                    "looksLikeCanada": {
+                      "type": "object"
+                    },
+                    "company": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "firstName",
+                    "lastName",
+                    "title",
+                    "employmentHistory",
+                    "emailAddresses",
+                    "pastEmailAddresses",
+                    "withinEu",
+                    "hasCanadianEmail",
+                    "withinCalifornia",
+                    "withinCanada",
+                    "noticeProvidedDate",
+                    "hasMoved",
+                    "looksLikeEu",
+                    "looksLikeCalifornia",
+                    "looksLikeCanada",
+                    "company"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "input",
+              "data"
+            ]
+          }
+        }
+      },
+      "required": [
+        "result"
+      ]
+    }
+  },
+  "required": [
+    "success",
+    "data"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

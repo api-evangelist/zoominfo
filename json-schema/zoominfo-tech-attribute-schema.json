@@ -1,0 +1,69 @@
+{
+  "type": "object",
+  "properties": {
+    "tag": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "categoryParent": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "category": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "vendor": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "product": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "attribute": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "website": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "logo": {
+      "type": "['string', 'null']",
+      "example": "example_value"
+    },
+    "domain": {
+      "type": "['string', 'null']",
+      "example": "example_value"
+    },
+    "createdTime": {
+      "type": "string",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "modifiedTime": {
+      "type": "string",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "description": {
+      "type": "string",
+      "example": "Enterprise software company"
+    }
+  },
+  "required": [
+    "tag",
+    "categoryParent",
+    "category",
+    "vendor",
+    "product",
+    "attribute",
+    "website",
+    "logo",
+    "domain",
+    "createdTime",
+    "modifiedTime",
+    "description"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TechAttribute"
+}

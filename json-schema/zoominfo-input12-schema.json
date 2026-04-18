@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "zi_c_id": {
+      "type": "integer",
+      "example": 500123
+    }
+  },
+  "required": [
+    "zi_c_id"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Input12"
+}

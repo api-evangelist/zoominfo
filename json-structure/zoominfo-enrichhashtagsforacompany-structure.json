@@ -1,0 +1,73 @@
+{
+  "type": "object",
+  "name": "Enrichhashtagsforacompany",
+  "properties": {
+    "maxResults": {
+      "type": "integer"
+    },
+    "totalResults": {
+      "type": "integer"
+    },
+    "currentPage": {
+      "type": "integer"
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string"
+          },
+          "external_id": {
+            "type": "['string', 'null']"
+          },
+          "searchString": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "group": {
+            "type": "string"
+          },
+          "score": {
+            "type": "['string', 'null']"
+          },
+          "priority": {
+            "type": "object"
+          },
+          "parentCategory": {
+            "type": "string"
+          },
+          "categorizedFlag": {
+            "type": "boolean"
+          },
+          "label": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "tag",
+          "external_id",
+          "searchString",
+          "description",
+          "group",
+          "score",
+          "priority",
+          "parentCategory",
+          "categorizedFlag",
+          "label"
+        ]
+      }
+    }
+  },
+  "required": [
+    "maxResults",
+    "totalResults",
+    "currentPage",
+    "data"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

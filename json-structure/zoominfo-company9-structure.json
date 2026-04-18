@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "name": "Company9",
+  "properties": {
+    "companyId": {
+      "type": "integer"
+    },
+    "companyName": {
+      "type": "string"
+    },
+    "companyPhone": {
+      "type": "string"
+    },
+    "companyWebsite": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "companyId",
+    "companyName",
+    "companyPhone",
+    "companyWebsite"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

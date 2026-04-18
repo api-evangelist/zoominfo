@@ -1,0 +1,195 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "ZoomInfo Monitoring And Compliance"
+  description: "Unified capability for monitoring and compliance workflows combining webhook management, API usage tracking, and compliance operations. Used by platform admins and data governance teams to manage data monitoring, ensure compliance, and track API consumption."
+  tags:
+    - ZoomInfo
+    - Monitoring
+    - Compliance
+    - Webhooks
+    - API Usage
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      ZOOMINFO_USERNAME: ZOOMINFO_USERNAME
+      ZOOMINFO_PASSWORD: ZOOMINFO_PASSWORD
+
+capability:
+  consumes:
+    - import: zoominfo
+      location: ./shared/zoominfo.yaml
+
+  exposes:
+    - type: rest
+      port: 8082
+      namespace: monitoring-and-compliance-api
+      description: "Unified REST API for monitoring and compliance workflows."
+      resources:
+        - path: /v1/webhooks
+          name: webhooks
+          description: "Webhook subscription management."
+          operations:
+            - method: POST
+              name: create-webhook
+              description: "Create a new webhook subscription."
+              call: "zoominfo.create-webhook"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: list-webhooks
+              description: "List all webhook subscriptions."
+              call: "zoominfo.list-webhooks"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/webhooks/{webhookId}
+          name: webhook-management
+          description: "Individual webhook management."
+          operations:
+            - method: PUT
+              name: update-webhook
+              description: "Update an existing webhook subscription."
+              call: "zoominfo.update-webhook"
+              with:
+                webhookId: "rest.webhookId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: delete-webhook
+              description: "Delete a webhook subscription."
+              call: "zoominfo.delete-webhook"
+              with:
+                webhookId: "rest.webhookId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/webhooks/validate
+          name: webhook-validation
+          description: "Webhook target URL validation."
+          operations:
+            - method: POST
+              name: validate-target-url
+              description: "Validate a webhook target URL."
+              call: "zoominfo.validate-target-url"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/webhooks/subscription-types
+          name: subscription-types
+          description: "Available webhook subscription types."
+          operations:
+            - method: GET
+              name: get-subscription-types
+              description: "Get available webhook subscription types."
+              call: "zoominfo.get-subscription-types"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/compliance
+          name: compliance
+          description: "Data compliance operations."
+          operations:
+            - method: POST
+              name: check-compliance
+              description: "Check compliance status for specified contacts."
+              call: "zoominfo.check-compliance"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/usage
+          name: usage
+          description: "API usage tracking."
+          operations:
+            - method: GET
+              name: get-usage
+              description: "Get API usage data."
+              call: "zoominfo.lookup-usage"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9092
+      namespace: monitoring-and-compliance-mcp
+      transport: http
+      description: "MCP server for AI-assisted monitoring and compliance management."
+      tools:
+        - name: create-webhook
+          description: "Create a new webhook subscription for data change notifications."
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "zoominfo.create-webhook"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-webhooks
+          description: "List all configured webhook subscriptions."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "zoominfo.list-webhooks"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-webhook
+          description: "Update an existing webhook subscription."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "zoominfo.update-webhook"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: delete-webhook
+          description: "Delete a webhook subscription."
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "zoominfo.delete-webhook"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: validate-target-url
+          description: "Validate a webhook target URL is reachable."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "zoominfo.validate-target-url"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-subscription-types
+          description: "Get available webhook subscription types."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "zoominfo.get-subscription-types"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: check-compliance
+          description: "Check data compliance status for specified contacts."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.check-compliance"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-usage
+          description: "Get API usage data and consumption metrics."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "zoominfo.lookup-usage"
+          outputParameters:
+            - type: object
+              mapping: "$."

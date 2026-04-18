@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "companyid": {
+      "type": "integer",
+      "example": 500123
+    },
+    "fullname": {
+      "type": "string",
+      "example": "Acme Corporation"
+    }
+  },
+  "required": [
+    "companyid",
+    "fullname"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Input1"
+}

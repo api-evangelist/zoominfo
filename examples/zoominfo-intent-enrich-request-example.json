@@ -1,0 +1,14 @@
+{
+  "companyName": "Acme Corporation",
+  "companyWebsite": "example_value",
+  "companyId": 500123,
+  "topics": [],
+  "signalStartDate": "2025-03-15T14:30:00Z",
+  "signalEndDate": "2025-03-15T14:30:00Z",
+  "signalScoreMin": 85,
+  "signalScoreMax": 85,
+  "audienceStrengthMin": "example_value",
+  "audienceStrengthMax": "example_value",
+  "sortBy": "example_value",
+  "sortOrder": "example_value"
+}

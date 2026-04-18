@@ -1,0 +1,43 @@
+{
+  "type": "object",
+  "name": "Input14",
+  "properties": {
+    "zi_c_location_id": {
+      "type": "integer"
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "zi_c_country": {
+          "type": "string"
+        },
+        "zi_c_state": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "zi_c_country",
+        "zi_c_state"
+      ]
+    },
+    "zi_c_url": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "object",
+      "properties": {
+        "zi_c_country": {
+          "type": "string"
+        },
+        "zi_c_phone": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "zi_c_country",
+        "zi_c_phone"
+      ]
+    }
+  },
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

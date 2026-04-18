@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "name": "Query",
+  "properties": {
+    "firstName": {
+      "type": "string"
+    },
+    "companyName": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "firstName",
+    "companyName"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

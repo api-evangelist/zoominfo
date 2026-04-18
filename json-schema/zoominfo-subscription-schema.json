@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "eventType": {
+      "type": "string",
+      "example": "standard"
+    },
+    "objectType": {
+      "type": "string",
+      "example": "standard"
+    },
+    "fullPayload": {
+      "type": "boolean",
+      "example": true
+    }
+  },
+  "required": [
+    "eventType",
+    "objectType",
+    "fullPayload"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Subscription"
+}

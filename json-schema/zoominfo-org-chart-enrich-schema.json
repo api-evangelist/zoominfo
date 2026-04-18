@@ -1,0 +1,120 @@
+{
+  "type": "object",
+  "properties": {
+    "maxResults": {
+      "type": "integer",
+      "example": 100
+    },
+    "totalResults": {
+      "type": "integer",
+      "example": 100
+    },
+    "currentPage": {
+      "type": "integer",
+      "example": 1
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 500123
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "middleName": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "lastUpdatedDate": {
+            "type": "string",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "title": {
+            "type": "string",
+            "example": "Vice President of Sales"
+          },
+          "hasEmail": {
+            "type": "boolean",
+            "example": true
+          },
+          "hasDirectPhone": {
+            "type": "boolean",
+            "example": true
+          },
+          "department": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "jobFunction": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "orgChartTier": {
+            "type": "integer",
+            "example": 100
+          },
+          "orgChartSubTier": {
+            "type": "integer",
+            "example": 100
+          },
+          "contactAccuracyScore": {
+            "type": "integer",
+            "example": 85
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "example": 500123
+              },
+              "name": {
+                "type": "string",
+                "example": "Acme Corporation"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "middleName",
+          "lastName",
+          "lastUpdatedDate",
+          "title",
+          "hasEmail",
+          "hasDirectPhone",
+          "department",
+          "jobFunction",
+          "orgChartTier",
+          "orgChartSubTier",
+          "contactAccuracyScore",
+          "company"
+        ]
+      }
+    }
+  },
+  "required": [
+    "maxResults",
+    "totalResults",
+    "currentPage",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OrgChartEnrich"
+}

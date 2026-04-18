@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "properties": {
+    "jobType": {
+      "type": "string",
+      "example": "standard"
+    },
+    "query": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string",
+          "example": "123 Main Street"
+        }
+      },
+      "required": [
+        "address"
+      ]
+    },
+    "outputFields": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "jobType",
+    "query",
+    "outputFields"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BulkCompanySearchRequest"
+}

@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "typeId": {
+      "type": "integer",
+      "example": 500123
+    },
+    "typeDescription": {
+      "type": "string",
+      "example": "Enterprise software company"
+    }
+  },
+  "required": [
+    "typeId",
+    "typeDescription"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SubUnitTypeInfo"
+}

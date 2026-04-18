@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "label": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "employeeCount": {
+      "type": "integer",
+      "example": 250
+    }
+  },
+  "required": [
+    "label",
+    "employeeCount"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EmployeeGrowthDataPoint"
+}

@@ -1,0 +1,81 @@
+{
+  "type": "object",
+  "name": "NewsSearchusingallinputs",
+  "properties": {
+    "maxResults": {
+      "type": "integer"
+    },
+    "totalResults": {
+      "type": "integer"
+    },
+    "currentPage": {
+      "type": "integer"
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "pageDate": {
+            "type": "string"
+          },
+          "categories": {
+            "type": "array",
+            "description": "",
+            "items": {
+              "type": "string"
+            }
+          },
+          "company": {
+            "type": "array",
+            "description": "",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name"
+              ]
+            }
+          }
+        },
+        "required": [
+          "domain",
+          "title",
+          "url",
+          "imageUrl",
+          "pageDate",
+          "categories",
+          "company"
+        ]
+      }
+    }
+  },
+  "required": [
+    "maxResults",
+    "totalResults",
+    "currentPage",
+    "data"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

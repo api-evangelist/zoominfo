@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "companyId": {
+      "type": "string",
+      "example": "500123"
+    },
+    "department": {
+      "type": "string",
+      "example": "example_value"
+    }
+  },
+  "required": [
+    "companyId",
+    "department"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OrgChartEnrichRequest"
+}

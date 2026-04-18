@@ -1,0 +1,15 @@
+{
+  "id": 500123,
+  "firstName": "Acme Corporation",
+  "middleName": "Acme Corporation",
+  "lastName": "Acme Corporation",
+  "email": "jsmith@example.com",
+  "hasCanadianEmail": "jsmith@example.com",
+  "phone": "+1-555-555-1234",
+  "street": "example_value",
+  "city": "San Francisco",
+  "region": "example_value",
+  "company": {
+    "id": 500123
+  }
+}

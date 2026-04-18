@@ -1,0 +1,72 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "example": 500123
+    },
+    "firstName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "middleName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "lastName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "email": {
+      "type": "string",
+      "example": "jsmith@example.com"
+    },
+    "hasCanadianEmail": {
+      "type": "string",
+      "example": "jsmith@example.com"
+    },
+    "phone": {
+      "type": "string",
+      "example": "+1-555-555-1234"
+    },
+    "street": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "city": {
+      "type": "string",
+      "example": "San Francisco"
+    },
+    "region": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "company": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 500123
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "firstName",
+    "middleName",
+    "lastName",
+    "email",
+    "hasCanadianEmail",
+    "phone",
+    "street",
+    "city",
+    "region",
+    "company"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Data11"
+}

@@ -1,0 +1,139 @@
+{
+  "type": "object",
+  "name": "Data45",
+  "properties": {
+    "result": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "object",
+            "properties": {
+              "companyname": {
+                "type": "string"
+              },
+              "personfirstname": {
+                "type": "string"
+              },
+              "personlastname": {
+                "type": "string"
+              },
+              "personemailaddress": {
+                "type": "string"
+              }
+            }
+          },
+          "data": {
+            "type": "array",
+            "description": "",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "firstName": {
+                  "type": "string"
+                },
+                "lastName": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "employmentHistory": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "emailAddresses": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "pastEmailAddresses": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "withinEu": {
+                  "type": "boolean"
+                },
+                "hasCanadianEmail": {
+                  "type": "string"
+                },
+                "withinCalifornia": {
+                  "type": "boolean"
+                },
+                "withinCanada": {
+                  "type": "boolean"
+                },
+                "noticeProvidedDate": {
+                  "type": "string"
+                },
+                "hasMoved": {
+                  "type": "string"
+                },
+                "looksLikeEu": {
+                  "type": "string"
+                },
+                "looksLikeCalifornia": {
+                  "type": "string"
+                },
+                "looksLikeCanada": {
+                  "type": "string"
+                },
+                "company": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "firstName",
+                "lastName",
+                "title",
+                "employmentHistory",
+                "emailAddresses",
+                "pastEmailAddresses",
+                "withinEu",
+                "hasCanadianEmail",
+                "withinCalifornia",
+                "withinCanada",
+                "noticeProvidedDate",
+                "hasMoved",
+                "looksLikeEu",
+                "looksLikeCalifornia",
+                "looksLikeCanada",
+                "company"
+              ]
+            }
+          }
+        },
+        "required": [
+          "input",
+          "data"
+        ]
+      }
+    }
+  },
+  "required": [
+    "result"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

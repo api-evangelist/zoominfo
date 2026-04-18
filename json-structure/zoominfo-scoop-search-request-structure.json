@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "name": "ScoopSearchRequest",
+  "properties": {
+    "companyName": {
+      "type": "string"
+    },
+    "publishedStartDate": {
+      "type": "string"
+    },
+    "publishedEndDate": {
+      "type": "string"
+    },
+    "scoopType": {
+      "type": "string"
+    },
+    "updatedSinceCreation": {
+      "type": "boolean"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "companyName",
+    "publishedStartDate",
+    "publishedEndDate",
+    "scoopType",
+    "updatedSinceCreation",
+    "description"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

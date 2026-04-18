@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "properties": {
+    "matchCompanyInput": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "zi_c_url": {
+            "type": "string",
+            "example": "https://www.example.com/resource"
+          }
+        },
+        "required": [
+          "zi_c_url"
+        ]
+      }
+    },
+    "outputFields": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "matchCompanyInput",
+    "outputFields"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CompanyMasterDataEnrichRequest"
+}

@@ -1,0 +1,39 @@
+{
+  "type": "object",
+  "properties": {
+    "companyName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "publishedStartDate": {
+      "type": "string",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "publishedEndDate": {
+      "type": "string",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "scoopType": {
+      "type": "string",
+      "example": "standard"
+    },
+    "updatedSinceCreation": {
+      "type": "boolean",
+      "example": true
+    },
+    "description": {
+      "type": "string",
+      "example": "Enterprise software company"
+    }
+  },
+  "required": [
+    "companyName",
+    "publishedStartDate",
+    "publishedEndDate",
+    "scoopType",
+    "updatedSinceCreation",
+    "description"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ScoopSearchRequest"
+}

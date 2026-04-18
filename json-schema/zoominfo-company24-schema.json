@@ -1,0 +1,73 @@
+{
+  "type": "object",
+  "properties": {
+    "city": {
+      "type": "string",
+      "example": "San Francisco"
+    },
+    "country": {
+      "type": "string",
+      "example": "US"
+    },
+    "employeeCount": {
+      "type": "integer",
+      "example": 250
+    },
+    "id": {
+      "type": "integer",
+      "example": 500123
+    },
+    "industries": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "name": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "revenue": {
+      "type": "integer",
+      "example": 100
+    },
+    "state": {
+      "type": "string",
+      "example": "CA"
+    },
+    "street": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "ticker": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "website": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "zipCode": {
+      "type": "string",
+      "example": "94105"
+    }
+  },
+  "required": [
+    "city",
+    "country",
+    "employeeCount",
+    "id",
+    "industries",
+    "name",
+    "revenue",
+    "state",
+    "street",
+    "ticker",
+    "website",
+    "zipCode"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Company24"
+}

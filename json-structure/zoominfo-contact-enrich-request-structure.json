@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "name": "ContactEnrichRequest",
+  "properties": {
+    "outputFields": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "matchPersonInput": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "personId": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "personId"
+        ]
+      }
+    }
+  },
+  "required": [
+    "outputFields",
+    "matchPersonInput"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

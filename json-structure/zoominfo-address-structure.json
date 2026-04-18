@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "name": "Address",
+  "properties": {
+    "street": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "zipCode": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "street",
+    "city",
+    "state",
+    "country",
+    "zipCode"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

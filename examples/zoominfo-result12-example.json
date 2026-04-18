@@ -1,0 +1,9 @@
+{
+  "statusCode": 100,
+  "input": {
+    "zi_c_id": 500123
+  },
+  "data": {
+    "errorMessage": "example_value"
+  }
+}

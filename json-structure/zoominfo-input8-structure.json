@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "name": "Input8",
+  "properties": {
+    "companyname": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "companyname"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "500123",
+  "category": "example_value",
+  "topic": "example_value",
+  "signalScore": 85,
+  "audienceStrength": "example_value",
+  "newSignal": true,
+  "signalDate": "2025-03-15T14:30:00Z",
+  "trend": 100,
+  "recommendedContacts": [],
+  "company": {
+    "id": 500123,
+    "name": "Acme Corporation",
+    "website": "example_value",
+    "hasOtherTopicConsumption": true
+  }
+}

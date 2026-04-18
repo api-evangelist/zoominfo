@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "name": "CorporateHierarchyEnrichRequest",
+  "properties": {
+    "matchCompanyInput": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "companyName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "companyName"
+        ]
+      }
+    },
+    "outputFields": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "matchCompanyInput",
+    "outputFields"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

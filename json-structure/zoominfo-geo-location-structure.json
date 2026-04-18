@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "name": "GeoLocation",
+  "properties": {
+    "location_long": {
+      "type": "number"
+    },
+    "location_lat": {
+      "type": "number"
+    },
+    "country_code": {
+      "type": "string"
+    },
+    "province": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "location_long",
+    "location_lat",
+    "country_code",
+    "province"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

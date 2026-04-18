@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "name": "Usage",
+  "properties": {
+    "usage": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "limitType": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "currentUsage": {
+            "type": "integer"
+          },
+          "usageRemaining": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "limitType",
+          "description",
+          "limit",
+          "currentUsage",
+          "usageRemaining"
+        ]
+      }
+    }
+  },
+  "required": [
+    "usage"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

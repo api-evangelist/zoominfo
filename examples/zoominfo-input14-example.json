@@ -1,0 +1,12 @@
+{
+  "zi_c_location_id": 500123,
+  "address": {
+    "zi_c_country": "US",
+    "zi_c_state": "CA"
+  },
+  "zi_c_url": "https://www.example.com/resource",
+  "phone": {
+    "zi_c_country": "US",
+    "zi_c_phone": "+1-555-555-1234"
+  }
+}

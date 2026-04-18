@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "name": "ValidateTargetURLRequest",
+  "properties": {
+    "targetUrl": {
+      "type": "string"
+    },
+    "objectType": {
+      "type": "string"
+    },
+    "fullPayload": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "targetUrl",
+    "objectType",
+    "fullPayload"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

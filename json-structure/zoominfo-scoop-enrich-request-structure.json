@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "name": "ScoopEnrichRequest",
+  "properties": {
+    "companyName": {
+      "type": "string"
+    },
+    "publishedStartDate": {
+      "type": "string"
+    },
+    "publishedEndDate": {
+      "type": "string"
+    },
+    "scoopType": {
+      "type": "string"
+    },
+    "department": {
+      "type": "string"
+    },
+    "sortBy": {
+      "type": "string"
+    },
+    "sortOrder": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "companyName",
+    "publishedStartDate",
+    "publishedEndDate",
+    "scoopType",
+    "department",
+    "sortBy",
+    "sortOrder"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

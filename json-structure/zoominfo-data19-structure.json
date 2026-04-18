@@ -1,0 +1,133 @@
+{
+  "type": "object",
+  "name": "Data19",
+  "properties": {
+    "zi_c_location_id": {
+      "type": "integer"
+    },
+    "zi_es_ecid": {
+      "type": "integer"
+    },
+    "zi_es_location_id": {
+      "type": "string"
+    },
+    "zi_c_is_hq": {
+      "type": "string"
+    },
+    "zi_c_tier_grade": {
+      "type": "string"
+    },
+    "zi_c_name": {
+      "type": "string"
+    },
+    "zi_c_name_display": {
+      "type": "string"
+    },
+    "zi_c_url": {
+      "type": "string"
+    },
+    "zi_c_street": {
+      "type": "string"
+    },
+    "zi_c_city": {
+      "type": "string"
+    },
+    "zi_c_state": {
+      "type": "string"
+    },
+    "zi_c_zip": {
+      "type": "string"
+    },
+    "zi_c_country": {
+      "type": "string"
+    },
+    "zi_match_reason": {
+      "type": "object",
+      "properties": {
+        "zi_match_name": {
+          "type": "string"
+        },
+        "zi_match_reason_building_name": {
+          "type": "string"
+        },
+        "zi_match_reason_building_number": {
+          "type": "string"
+        },
+        "zi_match_reason_business_type": {
+          "type": "string"
+        },
+        "zi_match_reason_city": {
+          "type": "string"
+        },
+        "zi_match_reason_company_phone": {
+          "type": "string"
+        },
+        "zi_match_reason_country": {
+          "type": "string"
+        },
+        "zi_match_reason_directional": {
+          "type": "string"
+        },
+        "zi_match_reason_name": {
+          "type": "string"
+        },
+        "zi_match_reason_road_name": {
+          "type": "string"
+        },
+        "zi_match_reason_road_type": {
+          "type": "string"
+        },
+        "zi_match_reason_state": {
+          "type": "string"
+        },
+        "zi_match_reason_unit": {
+          "type": "string"
+        },
+        "zi_match_reason_website": {
+          "type": "string"
+        },
+        "zi_match_reason_zip": {
+          "type": "string"
+        },
+        "zi_match_score": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "zi_match_name",
+        "zi_match_reason_building_name",
+        "zi_match_reason_building_number",
+        "zi_match_reason_business_type",
+        "zi_match_reason_city",
+        "zi_match_reason_company_phone",
+        "zi_match_reason_country",
+        "zi_match_reason_directional",
+        "zi_match_reason_name",
+        "zi_match_reason_road_name",
+        "zi_match_reason_road_type",
+        "zi_match_reason_state",
+        "zi_match_reason_unit",
+        "zi_match_reason_website",
+        "zi_match_reason_zip",
+        "zi_match_score"
+      ]
+    }
+  },
+  "required": [
+    "zi_c_location_id",
+    "zi_es_ecid",
+    "zi_es_location_id",
+    "zi_c_is_hq",
+    "zi_c_tier_grade",
+    "zi_c_name",
+    "zi_c_name_display",
+    "zi_c_url",
+    "zi_c_street",
+    "zi_c_city",
+    "zi_c_state",
+    "zi_c_zip",
+    "zi_c_country",
+    "zi_match_reason"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

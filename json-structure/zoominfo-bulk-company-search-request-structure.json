@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "name": "BulkCompanySearchRequest",
+  "properties": {
+    "jobType": {
+      "type": "string"
+    },
+    "query": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "address"
+      ]
+    },
+    "outputFields": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "jobType",
+    "query",
+    "outputFields"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

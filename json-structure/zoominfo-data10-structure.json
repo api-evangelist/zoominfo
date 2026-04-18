@@ -1,0 +1,115 @@
+{
+  "type": "object",
+  "name": "Data10",
+  "properties": {
+    "outputFields": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "result": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "object",
+            "properties": {
+              "personid": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "personid"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "description": "",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "firstName": {
+                  "type": "string"
+                },
+                "middleName": {
+                  "type": "string"
+                },
+                "lastName": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hasCanadianEmail": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "street": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "region": {
+                  "type": "string"
+                },
+                "company": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "firstName",
+                "middleName",
+                "lastName",
+                "email",
+                "hasCanadianEmail",
+                "phone",
+                "street",
+                "city",
+                "region",
+                "company"
+              ]
+            }
+          }
+        },
+        "required": [
+          "input",
+          "data"
+        ]
+      }
+    },
+    "requiredFields": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "outputFields",
+    "result",
+    "requiredFields"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,81 @@
+{
+  "type": "object",
+  "name": "Result16",
+  "properties": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "companyname": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "companyname"
+      ]
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "parentage": {
+            "type": "array",
+            "description": "",
+            "items": {
+              "type": "string"
+            }
+          },
+          "familyTree": {
+            "type": "array",
+            "description": "",
+            "items": {
+              "type": "object",
+              "properties": {
+                "companyId": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "state": {
+                  "type": "string"
+                },
+                "familyNodes": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "required": [
+                "companyId",
+                "name",
+                "city",
+                "state",
+                "familyNodes"
+              ]
+            }
+          },
+          "companyId": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "parentage",
+          "familyTree",
+          "companyId"
+        ]
+      }
+    }
+  },
+  "required": [
+    "input",
+    "data"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

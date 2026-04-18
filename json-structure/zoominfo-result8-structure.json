@@ -1,0 +1,165 @@
+{
+  "type": "object",
+  "name": "Result8",
+  "properties": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "companyname": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "companyname"
+      ]
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "ticker": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string"
+          },
+          "domainList": {
+            "type": "array",
+            "description": "",
+            "items": {
+              "type": "string"
+            }
+          },
+          "logo": {
+            "type": "string"
+          },
+          "socialMediaUrls": {
+            "type": "array",
+            "description": "",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "followerCount": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "url",
+                "followerCount"
+              ]
+            }
+          },
+          "revenue": {
+            "type": "integer"
+          },
+          "employeeCount": {
+            "type": "integer"
+          },
+          "numberOfContactsInZoomInfo": {
+            "type": "integer"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "fax": {
+            "type": "string"
+          },
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "continent": {
+            "type": "string"
+          },
+          "companyStatus": {
+            "type": "string"
+          },
+          "companyStatusDate": {
+            "type": "string"
+          },
+          "employeeGrowth": {
+            "type": "object",
+            "properties": {
+              "oneYearGrowthRate": {
+                "type": "string"
+              },
+              "twoYearGrowthRate": {
+                "type": "string"
+              },
+              "employeeGrowthDataPoints": {
+                "type": "array",
+                "description": "",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "oneYearGrowthRate",
+              "twoYearGrowthRate",
+              "employeeGrowthDataPoints"
+            ]
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "ticker",
+          "name",
+          "website",
+          "domainList",
+          "logo",
+          "socialMediaUrls",
+          "revenue",
+          "employeeCount",
+          "numberOfContactsInZoomInfo",
+          "phone",
+          "fax",
+          "street",
+          "city",
+          "state",
+          "zipCode",
+          "country",
+          "continent",
+          "companyStatus",
+          "companyStatusDate",
+          "employeeGrowth",
+          "type"
+        ]
+      }
+    }
+  },
+  "required": [
+    "input",
+    "data"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

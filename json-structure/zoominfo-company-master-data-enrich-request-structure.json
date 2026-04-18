@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "name": "CompanyMasterDataEnrichRequest",
+  "properties": {
+    "matchCompanyInput": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "zi_c_url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "zi_c_url"
+        ]
+      }
+    },
+    "outputFields": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "matchCompanyInput",
+    "outputFields"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,7 @@
+{
+  "domain": "example.com",
+  "ip_hi_string": "example_value",
+  "ip_lo_string": "example_value",
+  "name": "Acme Corporation",
+  "type": "standard"
+}

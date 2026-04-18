@@ -1,0 +1,89 @@
+{
+  "type": "object",
+  "name": "Datum8",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "publishedDate": {
+      "type": "string"
+    },
+    "originalPublishedDate": {
+      "type": "string"
+    },
+    "linkText": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "topics": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "updateText": {
+      "type": "string"
+    },
+    "types": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ]
+      }
+    },
+    "contacts": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "company": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "publishedDate",
+    "originalPublishedDate",
+    "linkText",
+    "link",
+    "description",
+    "topics",
+    "updateText",
+    "types",
+    "contacts",
+    "company"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

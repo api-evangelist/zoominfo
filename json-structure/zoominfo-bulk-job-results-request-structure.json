@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "name": "BulkJobResultsRequest",
+  "properties": {
+    "jobId": {
+      "type": "string"
+    },
+    "page": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "jobId",
+    "page"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

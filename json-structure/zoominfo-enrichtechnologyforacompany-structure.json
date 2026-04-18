@@ -1,0 +1,81 @@
+{
+  "type": "object",
+  "name": "Enrichtechnologyforacompany",
+  "properties": {
+    "maxResults": {
+      "type": "integer"
+    },
+    "totalResults": {
+      "type": "integer"
+    },
+    "currentPage": {
+      "type": "integer"
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string"
+          },
+          "categoryParent": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "vendor": {
+            "type": "string"
+          },
+          "product": {
+            "type": "string"
+          },
+          "attribute": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string"
+          },
+          "logo": {
+            "type": "['string', 'null']"
+          },
+          "domain": {
+            "type": "['string', 'null']"
+          },
+          "createdTime": {
+            "type": "string"
+          },
+          "modifiedTime": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "tag",
+          "categoryParent",
+          "category",
+          "vendor",
+          "product",
+          "attribute",
+          "website",
+          "logo",
+          "domain",
+          "createdTime",
+          "modifiedTime",
+          "description"
+        ]
+      }
+    }
+  },
+  "required": [
+    "maxResults",
+    "totalResults",
+    "currentPage",
+    "data"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

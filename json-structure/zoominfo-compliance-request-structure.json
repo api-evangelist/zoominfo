@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "name": "ComplianceRequest",
+  "properties": {
+    "matchPersonInput": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "companyName": {
+            "type": "string"
+          },
+          "personFirstName": {
+            "type": "string"
+          },
+          "personLastName": {
+            "type": "string"
+          },
+          "personEmailAddress": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "matchPersonInput"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "name": "NewsEnrichRequest",
+  "properties": {
+    "companyId": {
+      "type": "integer"
+    },
+    "categories": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "url": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "pageDateMin": {
+      "type": "string"
+    },
+    "pageDateMax": {
+      "type": "string"
+    },
+    "limit": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "companyId",
+    "categories",
+    "url",
+    "pageDateMin",
+    "pageDateMax",
+    "limit"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

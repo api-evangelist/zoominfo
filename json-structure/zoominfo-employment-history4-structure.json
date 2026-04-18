@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "name": "EmploymentHistory4",
+  "properties": {
+    "companyName": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "companyName",
+    "title"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

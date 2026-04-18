@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "name": "IntentSearchRequest",
+  "properties": {
+    "topics": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "signalScoreMin": {
+      "type": "integer"
+    },
+    "signalScoreMax": {
+      "type": "integer"
+    },
+    "audienceStrengthMin": {
+      "type": "string"
+    },
+    "audienceStrengthMax": {
+      "type": "string"
+    },
+    "metroRegion": {
+      "type": "string"
+    },
+    "industryCodes": {
+      "type": "string"
+    },
+    "sortBy": {
+      "type": "string"
+    },
+    "sortOrder": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "topics",
+    "signalScoreMin",
+    "signalScoreMax",
+    "audienceStrengthMin",
+    "audienceStrengthMax",
+    "metroRegion",
+    "industryCodes",
+    "sortBy",
+    "sortOrder"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

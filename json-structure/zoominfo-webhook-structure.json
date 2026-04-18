@@ -1,0 +1,63 @@
+{
+  "type": "object",
+  "name": "Webhook",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "targetUrl": {
+      "type": "string"
+    },
+    "createdDate": {
+      "type": "string"
+    },
+    "subscriptions": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "createdDate": {
+            "type": "string"
+          },
+          "modifiedDate": {
+            "type": "string"
+          },
+          "eventType": {
+            "type": "string"
+          },
+          "objectType": {
+            "type": "string"
+          },
+          "fullPayload": {
+            "type": "boolean"
+          },
+          "subscriptionId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "createdDate",
+          "modifiedDate",
+          "eventType",
+          "objectType",
+          "subscriptionId"
+        ]
+      }
+    }
+  },
+  "required": [
+    "id",
+    "enabled",
+    "targetUrl",
+    "createdDate",
+    "subscriptions"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

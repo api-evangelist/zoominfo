@@ -1,0 +1,91 @@
+{
+  "type": "object",
+  "properties": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "companyname": {
+          "type": "string",
+          "example": "Acme Corporation"
+        }
+      },
+      "required": [
+        "companyname"
+      ]
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "parentage": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "string"
+            }
+          },
+          "familyTree": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "companyId": {
+                  "type": "integer",
+                  "example": 500123
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Acme Corporation"
+                },
+                "city": {
+                  "type": "string",
+                  "example": "San Francisco"
+                },
+                "state": {
+                  "type": "string",
+                  "example": "CA"
+                },
+                "familyNodes": {
+                  "type": "array",
+                  "description": "",
+                  "example": [],
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "required": [
+                "companyId",
+                "name",
+                "city",
+                "state",
+                "familyNodes"
+              ]
+            }
+          },
+          "companyId": {
+            "type": "integer",
+            "example": 500123
+          }
+        },
+        "required": [
+          "parentage",
+          "familyTree",
+          "companyId"
+        ]
+      }
+    }
+  },
+  "required": [
+    "input",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Result16"
+}

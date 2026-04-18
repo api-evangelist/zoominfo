@@ -1,0 +1,7 @@
+{
+  "limitType": "standard",
+  "description": "Enterprise software company",
+  "limit": 100,
+  "currentUsage": 100,
+  "usageRemaining": 100
+}

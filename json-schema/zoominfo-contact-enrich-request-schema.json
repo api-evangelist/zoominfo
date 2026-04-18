@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "properties": {
+    "outputFields": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "matchPersonInput": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "personId": {
+            "type": "integer",
+            "example": 500123
+          }
+        },
+        "required": [
+          "personId"
+        ]
+      }
+    }
+  },
+  "required": [
+    "outputFields",
+    "matchPersonInput"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ContactEnrichRequest"
+}

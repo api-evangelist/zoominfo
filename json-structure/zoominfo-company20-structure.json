@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "name": "Company20",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "addressStatus": {
+      "type": "string"
+    },
+    "subUnitType": {
+      "type": "string"
+    },
+    "locationName": {
+      "type": "string"
+    },
+    "locationEmployeeCount": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "id",
+    "addressStatus",
+    "subUnitType",
+    "locationName",
+    "locationEmployeeCount"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

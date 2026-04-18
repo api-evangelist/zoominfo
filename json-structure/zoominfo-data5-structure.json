@@ -1,0 +1,221 @@
+{
+  "type": "object",
+  "name": "Data5",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "middleName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "hasCanadianEmail": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "directPhoneDoNotCall": {
+      "type": "boolean"
+    },
+    "street": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string"
+    },
+    "metroArea": {
+      "type": "string"
+    },
+    "zipCode": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "personHasMoved": {
+      "type": "string"
+    },
+    "withinEu": {
+      "type": "boolean"
+    },
+    "withinCalifornia": {
+      "type": "boolean"
+    },
+    "withinCanada": {
+      "type": "boolean"
+    },
+    "lastUpdatedDate": {
+      "type": "string"
+    },
+    "noticeProvidedDate": {
+      "type": "string"
+    },
+    "salutation": {
+      "type": "string"
+    },
+    "suffix": {
+      "type": "string"
+    },
+    "jobTitle": {
+      "type": "string"
+    },
+    "jobFunction": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object"
+      }
+    },
+    "education": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object"
+      }
+    },
+    "hashedEmails": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "picture": {
+      "type": "string"
+    },
+    "mobilePhoneDoNotCall": {
+      "type": "boolean"
+    },
+    "externalUrls": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "url"
+        ]
+      }
+    },
+    "company": {
+      "type": "object",
+      "properties": {
+        "division": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "descriptionList": {
+          "type": "array",
+          "description": "",
+          "items": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "description"
+            ]
+          }
+        },
+        "phone": {
+          "type": "string"
+        },
+        "fax": {
+          "type": "string"
+        },
+        "street": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "zipCode": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "division",
+        "id",
+        "name",
+        "descriptionList",
+        "phone",
+        "fax",
+        "street",
+        "city",
+        "state",
+        "zipCode",
+        "country"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "firstName",
+    "middleName",
+    "lastName",
+    "email",
+    "hasCanadianEmail",
+    "phone",
+    "directPhoneDoNotCall",
+    "street",
+    "city",
+    "region",
+    "metroArea",
+    "zipCode",
+    "state",
+    "country",
+    "personHasMoved",
+    "withinEu",
+    "withinCalifornia",
+    "withinCanada",
+    "lastUpdatedDate",
+    "noticeProvidedDate",
+    "salutation",
+    "suffix",
+    "jobTitle",
+    "jobFunction",
+    "education",
+    "hashedEmails",
+    "picture",
+    "mobilePhoneDoNotCall",
+    "externalUrls",
+    "company"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

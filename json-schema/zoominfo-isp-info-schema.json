@@ -1,0 +1,34 @@
+{
+  "type": "object",
+  "properties": {
+    "domain": {
+      "type": "string",
+      "example": "example.com"
+    },
+    "ip_hi_string": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "ip_lo_string": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "name": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "type": {
+      "type": "string",
+      "example": "standard"
+    }
+  },
+  "required": [
+    "domain",
+    "ip_hi_string",
+    "ip_lo_string",
+    "name",
+    "type"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IspInfo"
+}

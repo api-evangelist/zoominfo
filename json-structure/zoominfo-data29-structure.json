@@ -1,0 +1,71 @@
+{
+  "type": "object",
+  "name": "Data29",
+  "properties": {
+    "zi_c_location_id": {
+      "type": "integer"
+    },
+    "zi_es_ecid": {
+      "type": "integer"
+    },
+    "zi_es_location_id": {
+      "type": "string"
+    },
+    "zi_c_is_hq": {
+      "type": "string"
+    },
+    "zi_c_company_name": {
+      "type": "string"
+    },
+    "zi_c_tier_grade": {
+      "type": "string"
+    },
+    "zi_c_name": {
+      "type": "string"
+    },
+    "zi_c_name_display": {
+      "type": "string"
+    },
+    "zi_c_url": {
+      "type": "string"
+    },
+    "zi_c_street": {
+      "type": "string"
+    },
+    "zi_c_city": {
+      "type": "string"
+    },
+    "zi_c_state": {
+      "type": "string"
+    },
+    "zi_c_zip": {
+      "type": "string"
+    },
+    "zi_c_country": {
+      "type": "string"
+    },
+    "zi_c_legal_entity_type": {
+      "type": "string"
+    },
+    "zi_c_street_2": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "zi_c_location_id",
+    "zi_es_ecid",
+    "zi_es_location_id",
+    "zi_c_is_hq",
+    "zi_c_company_name",
+    "zi_c_tier_grade",
+    "zi_c_name",
+    "zi_c_name_display",
+    "zi_c_url",
+    "zi_c_street",
+    "zi_c_city",
+    "zi_c_state",
+    "zi_c_zip",
+    "zi_c_country"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

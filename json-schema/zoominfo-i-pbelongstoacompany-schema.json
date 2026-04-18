@@ -1,0 +1,143 @@
+{
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "example": true
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "outputFields": {
+          "type": "array",
+          "example": [],
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "result": {
+          "type": "array",
+          "description": "",
+          "example": [],
+          "items": {
+            "type": "object",
+            "properties": {
+              "input": {
+                "type": "array",
+                "description": "",
+                "example": [],
+                "items": {
+                  "type": "string"
+                }
+              },
+              "data": {
+                "type": "object",
+                "properties": {
+                  "company": {
+                    "type": "object",
+                    "properties": {
+                      "city": {
+                        "type": "object"
+                      },
+                      "country": {
+                        "type": "object"
+                      },
+                      "employeeCount": {
+                        "type": "object"
+                      },
+                      "id": {
+                        "type": "object"
+                      },
+                      "industries": {
+                        "type": "object"
+                      },
+                      "name": {
+                        "type": "object"
+                      },
+                      "revenue": {
+                        "type": "object"
+                      },
+                      "state": {
+                        "type": "object"
+                      },
+                      "street": {
+                        "type": "object"
+                      },
+                      "ticker": {
+                        "type": "object"
+                      },
+                      "website": {
+                        "type": "object"
+                      },
+                      "zipCode": {
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "city",
+                      "country",
+                      "employeeCount",
+                      "id",
+                      "industries",
+                      "name",
+                      "revenue",
+                      "state",
+                      "street",
+                      "ticker",
+                      "website",
+                      "zipCode"
+                    ]
+                  },
+                  "geoLocation": {
+                    "type": "object",
+                    "properties": {
+                      "location_long": {
+                        "type": "object"
+                      },
+                      "location_lat": {
+                        "type": "object"
+                      },
+                      "country_code": {
+                        "type": "object"
+                      },
+                      "province": {
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "location_long",
+                      "location_lat",
+                      "country_code",
+                      "province"
+                    ]
+                  }
+                },
+                "required": [
+                  "company",
+                  "geoLocation"
+                ]
+              }
+            },
+            "required": [
+              "input",
+              "data"
+            ]
+          }
+        }
+      },
+      "required": [
+        "outputFields",
+        "result"
+      ]
+    }
+  },
+  "required": [
+    "success",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IPbelongstoacompany"
+}

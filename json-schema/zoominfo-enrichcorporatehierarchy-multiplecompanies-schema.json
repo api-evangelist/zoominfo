@@ -1,0 +1,85 @@
+{
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "example": true
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "outputFields": {
+          "type": "array",
+          "example": [],
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "result": {
+          "type": "array",
+          "description": "",
+          "example": [],
+          "items": {
+            "type": "object",
+            "properties": {
+              "input": {
+                "type": "object",
+                "properties": {
+                  "companyname": {
+                    "type": "string",
+                    "example": "Acme Corporation"
+                  },
+                  "companyid": {
+                    "type": "integer",
+                    "example": 500123
+                  }
+                }
+              },
+              "data": {
+                "type": "array",
+                "description": "",
+                "example": [],
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "parentage": {
+                      "type": "object"
+                    },
+                    "familyTree": {
+                      "type": "object"
+                    },
+                    "companyId": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "parentage",
+                    "familyTree",
+                    "companyId"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "input",
+              "data"
+            ]
+          }
+        }
+      },
+      "required": [
+        "outputFields",
+        "result"
+      ]
+    }
+  },
+  "required": [
+    "success",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Enrichcorporatehierarchy-multiplecompanies"
+}

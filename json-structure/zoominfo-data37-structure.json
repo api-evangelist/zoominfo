@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "name": "Data37",
+  "properties": {
+    "tag": {
+      "type": "string"
+    },
+    "external_id": {
+      "type": "['string', 'null']"
+    },
+    "searchString": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "group": {
+      "type": "string"
+    },
+    "score": {
+      "type": "['string', 'null']"
+    },
+    "priority": {
+      "type": "object"
+    },
+    "parentCategory": {
+      "type": "string"
+    },
+    "categorizedFlag": {
+      "type": "boolean"
+    },
+    "label": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "tag",
+    "external_id",
+    "searchString",
+    "description",
+    "group",
+    "score",
+    "priority",
+    "parentCategory",
+    "categorizedFlag",
+    "label"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

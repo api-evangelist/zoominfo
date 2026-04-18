@@ -1,0 +1,131 @@
+{
+  "type": "object",
+  "properties": {
+    "maxResults": {
+      "type": "integer",
+      "example": 100
+    },
+    "totalResults": {
+      "type": "integer",
+      "example": 100
+    },
+    "currentPage": {
+      "type": "integer",
+      "example": 1
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 500123
+          },
+          "publishedDate": {
+            "type": "string",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "originalPublishedDate": {
+            "type": "string",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "linkText": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "link": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "description": {
+            "type": "string",
+            "example": "Enterprise software company"
+          },
+          "topics": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "string"
+            }
+          },
+          "updateText": {
+            "type": "string",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "types": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 500123
+                },
+                "type": {
+                  "type": "string",
+                  "example": "standard"
+                }
+              },
+              "required": [
+                "id",
+                "type"
+              ]
+            }
+          },
+          "contacts": {
+            "type": "array",
+            "description": "",
+            "example": [],
+            "items": {
+              "type": "string"
+            }
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "example": 500123
+              },
+              "name": {
+                "type": "string",
+                "example": "Acme Corporation"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "publishedDate",
+          "originalPublishedDate",
+          "linkText",
+          "link",
+          "description",
+          "topics",
+          "updateText",
+          "types",
+          "contacts",
+          "company"
+        ]
+      }
+    }
+  },
+  "required": [
+    "maxResults",
+    "totalResults",
+    "currentPage",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ScoopEnrich"
+}

@@ -1,0 +1,14 @@
+{
+  "city": "San Francisco",
+  "country": "US",
+  "employeeCount": 250,
+  "id": 500123,
+  "industries": [],
+  "name": "Acme Corporation",
+  "revenue": 100,
+  "state": "CA",
+  "street": "example_value",
+  "ticker": "example_value",
+  "website": "example_value",
+  "zipCode": "94105"
+}

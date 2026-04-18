@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "example": 500123
+    },
+    "type": {
+      "type": "string",
+      "example": "standard"
+    }
+  },
+  "required": [
+    "id",
+    "type"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Type"
+}

@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "name": "OrgChartEnrichRequest",
+  "properties": {
+    "companyId": {
+      "type": "string"
+    },
+    "department": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "companyId",
+    "department"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "verificationToken": {
+      "type": "string",
+      "example": "example_value"
+    }
+  },
+  "required": [
+    "verificationToken"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GenerateVerificationToken"
+}

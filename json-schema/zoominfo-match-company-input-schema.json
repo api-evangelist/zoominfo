@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "companyId": {
+      "type": "integer",
+      "example": 500123
+    }
+  },
+  "required": [
+    "companyId"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MatchCompanyInput"
+}

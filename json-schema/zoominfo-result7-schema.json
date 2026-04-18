@@ -1,0 +1,131 @@
+{
+  "type": "object",
+  "properties": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "companycity": {
+          "type": "string",
+          "example": "San Francisco"
+        },
+        "companyname": {
+          "type": "string",
+          "example": "Acme Corporation"
+        },
+        "companystate": {
+          "type": "string",
+          "example": "CA"
+        },
+        "companystreet": {
+          "type": "string",
+          "example": "example_value"
+        },
+        "companywebsite": {
+          "type": "string",
+          "example": "example_value"
+        }
+      },
+      "required": [
+        "companycity",
+        "companyname",
+        "companystate",
+        "companystreet",
+        "companywebsite"
+      ]
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 500123
+          },
+          "name": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "locationMatch": {
+            "type": "object",
+            "properties": {
+              "companyId": {
+                "type": "integer",
+                "example": 500123
+              },
+              "address": {
+                "type": "object",
+                "properties": {
+                  "street": {
+                    "type": "string",
+                    "example": "example_value"
+                  },
+                  "city": {
+                    "type": "string",
+                    "example": "San Francisco"
+                  },
+                  "state": {
+                    "type": "string",
+                    "example": "CA"
+                  },
+                  "country": {
+                    "type": "string",
+                    "example": "US"
+                  },
+                  "zipCode": {
+                    "type": "string",
+                    "example": "94105"
+                  }
+                },
+                "required": [
+                  "street",
+                  "city",
+                  "state",
+                  "country",
+                  "zipCode"
+                ]
+              },
+              "addressStatus": {
+                "type": "string",
+                "example": "123 Main Street"
+              }
+            },
+            "required": [
+              "companyId",
+              "address",
+              "addressStatus"
+            ]
+          },
+          "website": {
+            "type": "string",
+            "example": "example_value"
+          },
+          "state": {
+            "type": "string",
+            "example": "CA"
+          },
+          "city": {
+            "type": "string",
+            "example": "San Francisco"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "locationMatch",
+          "website",
+          "state",
+          "city"
+        ]
+      }
+    }
+  },
+  "required": [
+    "input",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Result7"
+}

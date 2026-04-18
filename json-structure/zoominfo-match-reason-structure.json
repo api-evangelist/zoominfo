@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "name": "MatchReason",
+  "properties": {
+    "zi_c_name": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "zi_c_name"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,47 @@
+{
+  "type": "object",
+  "properties": {
+    "companyId": {
+      "type": "integer",
+      "example": 500123
+    },
+    "categories": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "url": {
+      "type": "array",
+      "description": "",
+      "example": "https://www.example.com",
+      "items": {
+        "type": "string"
+      }
+    },
+    "pageDateMin": {
+      "type": "string",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "pageDateMax": {
+      "type": "string",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "limit": {
+      "type": "integer",
+      "example": 100
+    }
+  },
+  "required": [
+    "companyId",
+    "categories",
+    "url",
+    "pageDateMin",
+    "pageDateMax",
+    "limit"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NewsEnrichRequest"
+}

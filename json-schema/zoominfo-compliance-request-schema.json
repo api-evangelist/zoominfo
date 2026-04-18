@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "properties": {
+    "matchPersonInput": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "companyName": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "personFirstName": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "personLastName": {
+            "type": "string",
+            "example": "Acme Corporation"
+          },
+          "personEmailAddress": {
+            "type": "string",
+            "example": "jsmith@example.com"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "matchPersonInput"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ComplianceRequest"
+}

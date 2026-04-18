@@ -1,0 +1,58 @@
+{
+  "type": "object",
+  "properties": {
+    "topics": {
+      "type": "array",
+      "description": "",
+      "example": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "signalScoreMin": {
+      "type": "integer",
+      "example": 85
+    },
+    "signalScoreMax": {
+      "type": "integer",
+      "example": 85
+    },
+    "audienceStrengthMin": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "audienceStrengthMax": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "metroRegion": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "industryCodes": {
+      "type": "string",
+      "example": "Software"
+    },
+    "sortBy": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "sortOrder": {
+      "type": "string",
+      "example": "example_value"
+    }
+  },
+  "required": [
+    "topics",
+    "signalScoreMin",
+    "signalScoreMax",
+    "audienceStrengthMin",
+    "audienceStrengthMax",
+    "metroRegion",
+    "industryCodes",
+    "sortBy",
+    "sortOrder"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IntentSearchRequest"
+}

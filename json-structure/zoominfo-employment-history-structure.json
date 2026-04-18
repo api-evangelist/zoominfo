@@ -1,0 +1,53 @@
+{
+  "type": "object",
+  "name": "EmploymentHistory",
+  "properties": {
+    "jobTitle": {
+      "type": "string"
+    },
+    "managementLevel": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "fromDate": {
+      "type": "string"
+    },
+    "toDate": {
+      "type": "string"
+    },
+    "company": {
+      "type": "object",
+      "properties": {
+        "companyId": {
+          "type": "integer"
+        },
+        "companyName": {
+          "type": "string"
+        },
+        "companyPhone": {
+          "type": "string"
+        },
+        "companyWebsite": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "companyId",
+        "companyName",
+        "companyPhone",
+        "companyWebsite"
+      ]
+    }
+  },
+  "required": [
+    "jobTitle",
+    "managementLevel",
+    "fromDate",
+    "toDate",
+    "company"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

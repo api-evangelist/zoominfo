@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "name": "CompanySearchRequest",
+  "properties": {
+    "metroRegion": {
+      "type": "string"
+    },
+    "industryCodes": {
+      "type": "string"
+    },
+    "techAttributeTagList": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "metroRegion",
+    "industryCodes",
+    "techAttributeTagList"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

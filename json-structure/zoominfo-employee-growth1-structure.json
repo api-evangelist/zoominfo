@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "name": "EmployeeGrowth1",
+  "properties": {
+    "oneYearGrowthRate": {
+      "type": "string"
+    },
+    "twoYearGrowthRate": {
+      "type": "string"
+    },
+    "employeeGrowthDataPoints": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "required": [
+    "oneYearGrowthRate",
+    "twoYearGrowthRate",
+    "employeeGrowthDataPoints"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

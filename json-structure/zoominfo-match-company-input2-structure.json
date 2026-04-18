@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "name": "MatchCompanyInput2",
+  "properties": {
+    "companyName": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "companyName"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

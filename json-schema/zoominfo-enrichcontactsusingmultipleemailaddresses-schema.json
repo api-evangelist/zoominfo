@@ -1,0 +1,212 @@
+{
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "example": true
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "outputFields": {
+          "type": "array",
+          "example": [],
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "result": {
+          "type": "array",
+          "description": "",
+          "example": [],
+          "items": {
+            "type": "object",
+            "properties": {
+              "input": {
+                "type": "object",
+                "properties": {
+                  "emailaddress": {
+                    "type": "string",
+                    "example": "jsmith@example.com"
+                  }
+                },
+                "required": [
+                  "emailaddress"
+                ]
+              },
+              "data": {
+                "type": "array",
+                "description": "",
+                "example": [],
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "object"
+                    },
+                    "firstName": {
+                      "type": "object"
+                    },
+                    "middleName": {
+                      "type": "object"
+                    },
+                    "lastName": {
+                      "type": "object"
+                    },
+                    "email": {
+                      "type": "object"
+                    },
+                    "hasCanadianEmail": {
+                      "type": "object"
+                    },
+                    "phone": {
+                      "type": "object"
+                    },
+                    "directPhoneDoNotCall": {
+                      "type": "object"
+                    },
+                    "street": {
+                      "type": "object"
+                    },
+                    "city": {
+                      "type": "object"
+                    },
+                    "region": {
+                      "type": "object"
+                    },
+                    "metroArea": {
+                      "type": "object"
+                    },
+                    "zipCode": {
+                      "type": "object"
+                    },
+                    "state": {
+                      "type": "object"
+                    },
+                    "country": {
+                      "type": "object"
+                    },
+                    "personHasMoved": {
+                      "type": "object"
+                    },
+                    "withinEu": {
+                      "type": "object"
+                    },
+                    "withinCalifornia": {
+                      "type": "object"
+                    },
+                    "withinCanada": {
+                      "type": "object"
+                    },
+                    "lastUpdatedDate": {
+                      "type": "object"
+                    },
+                    "noticeProvidedDate": {
+                      "type": "object"
+                    },
+                    "salutation": {
+                      "type": "object"
+                    },
+                    "suffix": {
+                      "type": "object"
+                    },
+                    "jobTitle": {
+                      "type": "object"
+                    },
+                    "jobFunction": {
+                      "type": "object"
+                    },
+                    "education": {
+                      "type": "object"
+                    },
+                    "hashedEmails": {
+                      "type": "object"
+                    },
+                    "picture": {
+                      "type": "object"
+                    },
+                    "mobilePhoneDoNotCall": {
+                      "type": "object"
+                    },
+                    "externalUrls": {
+                      "type": "object"
+                    },
+                    "contactAccuracyScore": {
+                      "type": "object"
+                    },
+                    "isDefunct": {
+                      "type": "object"
+                    },
+                    "employmentHistory": {
+                      "type": "object"
+                    },
+                    "managementLevel": {
+                      "type": "object"
+                    },
+                    "company": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "firstName",
+                    "middleName",
+                    "lastName",
+                    "email",
+                    "hasCanadianEmail",
+                    "phone",
+                    "directPhoneDoNotCall",
+                    "street",
+                    "city",
+                    "region",
+                    "metroArea",
+                    "zipCode",
+                    "state",
+                    "country",
+                    "personHasMoved",
+                    "withinEu",
+                    "withinCalifornia",
+                    "withinCanada",
+                    "lastUpdatedDate",
+                    "noticeProvidedDate",
+                    "salutation",
+                    "suffix",
+                    "jobTitle",
+                    "jobFunction",
+                    "education",
+                    "hashedEmails",
+                    "picture",
+                    "mobilePhoneDoNotCall",
+                    "externalUrls",
+                    "contactAccuracyScore",
+                    "isDefunct",
+                    "employmentHistory",
+                    "managementLevel",
+                    "company"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "input",
+              "data"
+            ]
+          }
+        }
+      },
+      "required": [
+        "outputFields",
+        "result"
+      ]
+    }
+  },
+  "required": [
+    "success",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Enrichcontactsusingmultipleemailaddresses"
+}

@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "companyName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "title": {
+      "type": "string",
+      "example": "Vice President of Sales"
+    }
+  },
+  "required": [
+    "companyName",
+    "title"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EmploymentHistory4"
+}

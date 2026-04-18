@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "name": "LocationMatch",
+  "properties": {
+    "companyId": {
+      "type": "integer"
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "street": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "zipCode": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "street",
+        "city",
+        "state",
+        "country",
+        "zipCode"
+      ]
+    },
+    "addressStatus": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "companyId",
+    "address",
+    "addressStatus"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

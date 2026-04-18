@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "name": "TechAttribute",
+  "properties": {
+    "tag": {
+      "type": "string"
+    },
+    "categoryParent": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "vendor": {
+      "type": "string"
+    },
+    "product": {
+      "type": "string"
+    },
+    "attribute": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "logo": {
+      "type": "['string', 'null']"
+    },
+    "domain": {
+      "type": "['string', 'null']"
+    },
+    "createdTime": {
+      "type": "string"
+    },
+    "modifiedTime": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "tag",
+    "categoryParent",
+    "category",
+    "vendor",
+    "product",
+    "attribute",
+    "website",
+    "logo",
+    "domain",
+    "createdTime",
+    "modifiedTime",
+    "description"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

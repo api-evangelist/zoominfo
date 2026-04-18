@@ -1,0 +1,160 @@
+{
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "example": true
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "outputFields": {
+          "type": "array",
+          "example": [],
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "result": {
+          "type": "array",
+          "description": "",
+          "example": [],
+          "items": {
+            "type": "object",
+            "properties": {
+              "input": {
+                "type": "object",
+                "properties": {
+                  "companyname": {
+                    "type": "string",
+                    "example": "Acme Corporation"
+                  }
+                },
+                "required": [
+                  "companyname"
+                ]
+              },
+              "data": {
+                "type": "array",
+                "description": "",
+                "example": [],
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "object"
+                    },
+                    "ticker": {
+                      "type": "object"
+                    },
+                    "name": {
+                      "type": "object"
+                    },
+                    "website": {
+                      "type": "object"
+                    },
+                    "domainList": {
+                      "type": "object"
+                    },
+                    "logo": {
+                      "type": "object"
+                    },
+                    "socialMediaUrls": {
+                      "type": "object"
+                    },
+                    "revenue": {
+                      "type": "object"
+                    },
+                    "employeeCount": {
+                      "type": "object"
+                    },
+                    "numberOfContactsInZoomInfo": {
+                      "type": "object"
+                    },
+                    "phone": {
+                      "type": "object"
+                    },
+                    "fax": {
+                      "type": "object"
+                    },
+                    "street": {
+                      "type": "object"
+                    },
+                    "city": {
+                      "type": "object"
+                    },
+                    "state": {
+                      "type": "object"
+                    },
+                    "zipCode": {
+                      "type": "object"
+                    },
+                    "country": {
+                      "type": "object"
+                    },
+                    "continent": {
+                      "type": "object"
+                    },
+                    "companyStatus": {
+                      "type": "object"
+                    },
+                    "companyStatusDate": {
+                      "type": "object"
+                    },
+                    "employeeGrowth": {
+                      "type": "object"
+                    },
+                    "type": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "ticker",
+                    "name",
+                    "website",
+                    "domainList",
+                    "logo",
+                    "socialMediaUrls",
+                    "revenue",
+                    "employeeCount",
+                    "numberOfContactsInZoomInfo",
+                    "phone",
+                    "fax",
+                    "street",
+                    "city",
+                    "state",
+                    "zipCode",
+                    "country",
+                    "continent",
+                    "companyStatus",
+                    "companyStatusDate",
+                    "employeeGrowth",
+                    "type"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "input",
+              "data"
+            ]
+          }
+        }
+      },
+      "required": [
+        "outputFields",
+        "result"
+      ]
+    }
+  },
+  "required": [
+    "success",
+    "data"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Enrichcompaniesbyname"
+}

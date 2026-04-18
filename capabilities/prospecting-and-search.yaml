@@ -1,0 +1,257 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "ZoomInfo Prospecting And Search"
+  description: "Unified capability for B2B prospecting workflows combining contact search, company search, intent signals, news, and scoops. Used by sales development reps and account executives to identify and prioritize target accounts and contacts."
+  tags:
+    - ZoomInfo
+    - Prospecting
+    - Sales Intelligence
+    - B2B Data
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      ZOOMINFO_USERNAME: ZOOMINFO_USERNAME
+      ZOOMINFO_PASSWORD: ZOOMINFO_PASSWORD
+
+capability:
+  consumes:
+    - import: zoominfo
+      location: ./shared/zoominfo.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: prospecting-and-search-api
+      description: "Unified REST API for B2B prospecting and search workflows."
+      resources:
+        - path: /v1/contacts
+          name: contacts
+          description: "Search for contacts matching prospecting criteria."
+          operations:
+            - method: POST
+              name: search-contacts
+              description: "Search ZoomInfo contacts by criteria such as job title, company, location, and more."
+              call: "zoominfo.search-contacts"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/companies
+          name: companies
+          description: "Search for companies matching prospecting criteria."
+          operations:
+            - method: POST
+              name: search-companies
+              description: "Search ZoomInfo companies by criteria such as industry, revenue, employee count, and more."
+              call: "zoominfo.search-companies"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/scoops
+          name: scoops
+          description: "Search for buying signals and scoops."
+          operations:
+            - method: POST
+              name: search-scoops
+              description: "Search ZoomInfo scoops for buying signals like funding, expansion, and leadership changes."
+              call: "zoominfo.search-scoops"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/news
+          name: news
+          description: "Search for company news articles."
+          operations:
+            - method: POST
+              name: search-news
+              description: "Search ZoomInfo news for recent company events and announcements."
+              call: "zoominfo.search-news"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/intent
+          name: intent
+          description: "Search for buyer intent signals."
+          operations:
+            - method: POST
+              name: search-intent
+              description: "Search ZoomInfo intent data to identify companies actively researching topics."
+              call: "zoominfo.search-intent"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/lookups/industries
+          name: lookup-industries
+          description: "Reference data for industry codes."
+          operations:
+            - method: GET
+              name: get-industries
+              description: "Get available industry code lookup values."
+              call: "zoominfo.lookup-industry"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/lookups/departments
+          name: lookup-departments
+          description: "Reference data for contact departments."
+          operations:
+            - method: GET
+              name: get-departments
+              description: "Get available department lookup values."
+              call: "zoominfo.lookup-department"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/lookups/job-functions
+          name: lookup-job-functions
+          description: "Reference data for job functions."
+          operations:
+            - method: GET
+              name: get-job-functions
+              description: "Get available job function lookup values."
+              call: "zoominfo.lookup-job-function"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/lookups/management-levels
+          name: lookup-management-levels
+          description: "Reference data for management levels."
+          operations:
+            - method: GET
+              name: get-management-levels
+              description: "Get available management level lookup values."
+              call: "zoominfo.lookup-management-levels"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/lookups/revenue-ranges
+          name: lookup-revenue-ranges
+          description: "Reference data for revenue ranges."
+          operations:
+            - method: GET
+              name: get-revenue-ranges
+              description: "Get available revenue range lookup values."
+              call: "zoominfo.lookup-revenue-range"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/lookups/intent-topics
+          name: lookup-intent-topics
+          description: "Reference data for intent topics."
+          operations:
+            - method: GET
+              name: get-intent-topics
+              description: "Get available intent topic lookup values."
+              call: "zoominfo.lookup-intent-topics"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: prospecting-and-search-mcp
+      transport: http
+      description: "MCP server for AI-assisted B2B prospecting and search."
+      tools:
+        - name: search-contacts
+          description: "Search ZoomInfo contacts by criteria such as job title, company, location, and more."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.search-contacts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-companies
+          description: "Search ZoomInfo companies by criteria such as industry, revenue, employee count, and more."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.search-companies"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-scoops
+          description: "Search ZoomInfo scoops for buying signals like funding, expansion, and leadership changes."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.search-scoops"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-news
+          description: "Search ZoomInfo news for recent company events and announcements."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.search-news"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-intent
+          description: "Search ZoomInfo intent data to identify companies actively researching topics."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.search-intent"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-industries
+          description: "Get available industry code lookup values for filtering searches."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "zoominfo.lookup-industry"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-departments
+          description: "Get available department lookup values for filtering contact searches."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "zoominfo.lookup-department"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-job-functions
+          description: "Get available job function lookup values for filtering contact searches."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "zoominfo.lookup-job-function"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-management-levels
+          description: "Get available management level lookup values."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "zoominfo.lookup-management-levels"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-revenue-ranges
+          description: "Get available revenue range lookup values."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "zoominfo.lookup-revenue-range"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-intent-topics
+          description: "Get available intent topic lookup values."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "zoominfo.lookup-intent-topics"
+          outputParameters:
+            - type: object
+              mapping: "$."

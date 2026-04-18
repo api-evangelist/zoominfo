@@ -1,0 +1,89 @@
+{
+  "type": "object",
+  "name": "Enrichcompanylocation",
+  "properties": {
+    "maxResults": {
+      "type": "integer"
+    },
+    "totalResults": {
+      "type": "integer"
+    },
+    "currentPage": {
+      "type": "integer"
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string"
+          },
+          "fax": {
+            "type": "string"
+          },
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "addressStatus": {
+                "type": "string"
+              },
+              "subUnitType": {
+                "type": "string"
+              },
+              "locationName": {
+                "type": "string"
+              },
+              "locationEmployeeCount": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "addressStatus",
+              "subUnitType",
+              "locationName",
+              "locationEmployeeCount"
+            ]
+          }
+        },
+        "required": [
+          "phone",
+          "fax",
+          "street",
+          "city",
+          "state",
+          "zipCode",
+          "country",
+          "company"
+        ]
+      }
+    }
+  },
+  "required": [
+    "maxResults",
+    "totalResults",
+    "currentPage",
+    "data"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "metroRegion": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "industryCodes": {
+      "type": "string",
+      "example": "Software"
+    },
+    "techAttributeTagList": {
+      "type": "string",
+      "example": "example_value"
+    }
+  },
+  "required": [
+    "metroRegion",
+    "industryCodes",
+    "techAttributeTagList"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CompanySearchRequest"
+}

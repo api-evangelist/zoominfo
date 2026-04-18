@@ -1,0 +1,339 @@
+{
+  "type": "object",
+  "name": "Data",
+  "properties": {
+    "outputFields": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "result": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "object",
+            "properties": {
+              "companyid": {
+                "type": "integer"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "companyid",
+              "firstname",
+              "lastname"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "description": "",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "firstName": {
+                  "type": "string"
+                },
+                "middleName": {
+                  "type": "string"
+                },
+                "lastName": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hasCanadianEmail": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "directPhoneDoNotCall": {
+                  "type": "boolean"
+                },
+                "street": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "region": {
+                  "type": "string"
+                },
+                "metroArea": {
+                  "type": "string"
+                },
+                "zipCode": {
+                  "type": "string"
+                },
+                "state": {
+                  "type": "string"
+                },
+                "country": {
+                  "type": "string"
+                },
+                "personHasMoved": {
+                  "type": "string"
+                },
+                "withinEu": {
+                  "type": "boolean"
+                },
+                "withinCalifornia": {
+                  "type": "boolean"
+                },
+                "withinCanada": {
+                  "type": "boolean"
+                },
+                "lastUpdatedDate": {
+                  "type": "string"
+                },
+                "noticeProvidedDate": {
+                  "type": "string"
+                },
+                "salutation": {
+                  "type": "string"
+                },
+                "suffix": {
+                  "type": "string"
+                },
+                "jobTitle": {
+                  "type": "string"
+                },
+                "jobFunction": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "education": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "hashedEmails": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "picture": {
+                  "type": "string"
+                },
+                "mobilePhoneDoNotCall": {
+                  "type": "boolean"
+                },
+                "externalUrls": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "contactAccuracyScore": {
+                  "type": "integer"
+                },
+                "isDefunct": {
+                  "type": "boolean"
+                },
+                "employmentHistory": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "managementLevel": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "locationCompanyId": {
+                  "type": "integer"
+                },
+                "company": {
+                  "type": "object",
+                  "properties": {
+                    "division": {
+                      "type": "object"
+                    },
+                    "id": {
+                      "type": "object"
+                    },
+                    "name": {
+                      "type": "object"
+                    },
+                    "descriptionList": {
+                      "type": "object"
+                    },
+                    "phone": {
+                      "type": "object"
+                    },
+                    "fax": {
+                      "type": "object"
+                    },
+                    "street": {
+                      "type": "object"
+                    },
+                    "city": {
+                      "type": "object"
+                    },
+                    "state": {
+                      "type": "object"
+                    },
+                    "zipCode": {
+                      "type": "object"
+                    },
+                    "country": {
+                      "type": "object"
+                    },
+                    "logo": {
+                      "type": "object"
+                    },
+                    "sicCodes": {
+                      "type": "object"
+                    },
+                    "naicsCodes": {
+                      "type": "object"
+                    },
+                    "website": {
+                      "type": "object"
+                    },
+                    "revenue": {
+                      "type": "object"
+                    },
+                    "revenueNumeric": {
+                      "type": "object"
+                    },
+                    "employeeCount": {
+                      "type": "object"
+                    },
+                    "type": {
+                      "type": "object"
+                    },
+                    "ticker": {
+                      "type": "object"
+                    },
+                    "ranking": {
+                      "type": "object"
+                    },
+                    "socialMediaUrls": {
+                      "type": "object"
+                    },
+                    "primaryIndustry": {
+                      "type": "object"
+                    },
+                    "industries": {
+                      "type": "object"
+                    },
+                    "revenueRange": {
+                      "type": "object"
+                    },
+                    "employeeRange": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "division",
+                    "id",
+                    "name",
+                    "descriptionList",
+                    "phone",
+                    "fax",
+                    "street",
+                    "city",
+                    "state",
+                    "zipCode",
+                    "country",
+                    "logo",
+                    "sicCodes",
+                    "naicsCodes",
+                    "website",
+                    "revenue",
+                    "revenueNumeric",
+                    "employeeCount",
+                    "type",
+                    "ticker",
+                    "ranking",
+                    "socialMediaUrls",
+                    "primaryIndustry",
+                    "industries",
+                    "revenueRange",
+                    "employeeRange"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "firstName",
+                "middleName",
+                "lastName",
+                "email",
+                "hasCanadianEmail",
+                "phone",
+                "directPhoneDoNotCall",
+                "street",
+                "city",
+                "region",
+                "metroArea",
+                "zipCode",
+                "state",
+                "country",
+                "personHasMoved",
+                "withinEu",
+                "withinCalifornia",
+                "withinCanada",
+                "lastUpdatedDate",
+                "noticeProvidedDate",
+                "salutation",
+                "suffix",
+                "jobTitle",
+                "jobFunction",
+                "education",
+                "hashedEmails",
+                "picture",
+                "mobilePhoneDoNotCall",
+                "externalUrls",
+                "contactAccuracyScore",
+                "isDefunct",
+                "employmentHistory",
+                "managementLevel",
+                "locationCompanyId",
+                "company"
+              ]
+            }
+          }
+        },
+        "required": [
+          "input",
+          "data"
+        ]
+      }
+    }
+  },
+  "required": [
+    "outputFields",
+    "result"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

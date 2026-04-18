@@ -1,0 +1,11 @@
+{
+  "topics": [],
+  "signalScoreMin": 85,
+  "signalScoreMax": 85,
+  "audienceStrengthMin": "example_value",
+  "audienceStrengthMax": "example_value",
+  "metroRegion": "example_value",
+  "industryCodes": "Software",
+  "sortBy": "example_value",
+  "sortOrder": "example_value"
+}

@@ -1,0 +1,53 @@
+{
+  "type": "object",
+  "name": "Input9",
+  "properties": {
+    "address": {
+      "type": "object",
+      "properties": {
+        "zi_c_city": {
+          "type": "string"
+        },
+        "zi_c_country": {
+          "type": "string"
+        },
+        "zi_c_state": {
+          "type": "string"
+        },
+        "zi_c_zip": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "zi_c_city",
+        "zi_c_country",
+        "zi_c_state",
+        "zi_c_zip"
+      ]
+    },
+    "match_reasons": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "zi_c_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "zi_c_name"
+        ]
+      }
+    },
+    "zi_c_name": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "address",
+    "match_reasons",
+    "zi_c_name"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

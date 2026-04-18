@@ -1,0 +1,101 @@
+{
+  "type": "object",
+  "name": "OrgChartEnrich",
+  "properties": {
+    "maxResults": {
+      "type": "integer"
+    },
+    "totalResults": {
+      "type": "integer"
+    },
+    "currentPage": {
+      "type": "integer"
+    },
+    "data": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "lastUpdatedDate": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "hasEmail": {
+            "type": "boolean"
+          },
+          "hasDirectPhone": {
+            "type": "boolean"
+          },
+          "department": {
+            "type": "string"
+          },
+          "jobFunction": {
+            "type": "string"
+          },
+          "orgChartTier": {
+            "type": "integer"
+          },
+          "orgChartSubTier": {
+            "type": "integer"
+          },
+          "contactAccuracyScore": {
+            "type": "integer"
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "middleName",
+          "lastName",
+          "lastUpdatedDate",
+          "title",
+          "hasEmail",
+          "hasDirectPhone",
+          "department",
+          "jobFunction",
+          "orgChartTier",
+          "orgChartSubTier",
+          "contactAccuracyScore",
+          "company"
+        ]
+      }
+    }
+  },
+  "required": [
+    "maxResults",
+    "totalResults",
+    "currentPage",
+    "data"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

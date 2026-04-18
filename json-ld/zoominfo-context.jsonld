@@ -1,0 +1,6151 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "schema": "https://schema.org/",
+    "AuthenticateRequest": {
+      "@id": "ns:AuthenticateRequest",
+      "@context": {
+        "username": {
+          "@id": "ns:username",
+          "@type": "xsd:string"
+        },
+        "password": {
+          "@id": "ns:password",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ContactSearchRequest": {
+      "@id": "ns:ContactSearchRequest",
+      "@context": {
+        "managementLevel": {
+          "@id": "ns:managementLevel",
+          "@type": "xsd:string"
+        },
+        "companyType": {
+          "@id": "ns:companyType",
+          "@type": "xsd:string"
+        },
+        "zipCode": {
+          "@id": "ns:zipCode",
+          "@type": "xsd:string"
+        },
+        "locationSearchType": {
+          "@id": "ns:locationSearchType",
+          "@type": "xsd:string"
+        },
+        "zipCodeRadiusMiles": {
+          "@id": "ns:zipCodeRadiusMiles",
+          "@type": "xsd:string"
+        },
+        "techAttributeTagList": {
+          "@id": "ns:techAttributeTagList",
+          "@type": "xsd:string"
+        },
+        "requiredFields": {
+          "@id": "ns:requiredFields",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "SearchcontactsbyZipCoderadius": {
+      "@id": "ns:SearchcontactsbyZipCoderadius",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Datum": {
+      "@id": "ns:Datum",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "firstName": {
+          "@id": "ns:firstName",
+          "@type": "xsd:string"
+        },
+        "middleName": {
+          "@id": "ns:middleName",
+          "@type": "xsd:string"
+        },
+        "lastName": {
+          "@id": "ns:lastName",
+          "@type": "xsd:string"
+        },
+        "validDate": {
+          "@id": "ns:validDate",
+          "@type": "xsd:string"
+        },
+        "lastUpdatedDate": {
+          "@id": "ns:lastUpdatedDate",
+          "@type": "xsd:string"
+        },
+        "jobTitle": {
+          "@id": "ns:jobTitle",
+          "@type": "xsd:string"
+        },
+        "contactAccuracyScore": {
+          "@id": "ns:contactAccuracyScore",
+          "@type": "xsd:integer"
+        },
+        "hasEmail": {
+          "@id": "ns:hasEmail",
+          "@type": "xsd:boolean"
+        },
+        "hasSupplementalEmail": {
+          "@id": "ns:hasSupplementalEmail",
+          "@type": "xsd:boolean"
+        },
+        "hasDirectPhone": {
+          "@id": "ns:hasDirectPhone",
+          "@type": "xsd:boolean"
+        },
+        "hasMobilePhone": {
+          "@id": "ns:hasMobilePhone",
+          "@type": "xsd:boolean"
+        },
+        "hasCompanyIndustry": {
+          "@id": "ns:hasCompanyIndustry",
+          "@type": "xsd:boolean"
+        },
+        "hasCompanyPhone": {
+          "@id": "ns:hasCompanyPhone",
+          "@type": "xsd:boolean"
+        },
+        "hasCompanyStreet": {
+          "@id": "ns:hasCompanyStreet",
+          "@type": "xsd:boolean"
+        },
+        "hasCompanyState": {
+          "@id": "ns:hasCompanyState",
+          "@type": "xsd:boolean"
+        },
+        "hasCompanyZipCode": {
+          "@id": "ns:hasCompanyZipCode",
+          "@type": "xsd:boolean"
+        },
+        "hasCompanyCountry": {
+          "@id": "ns:hasCompanyCountry",
+          "@type": "xsd:boolean"
+        },
+        "hasCompanyRevenue": {
+          "@id": "ns:hasCompanyRevenue",
+          "@type": "xsd:boolean"
+        },
+        "hasCompanyEmployeeCount": {
+          "@id": "ns:hasCompanyEmployeeCount",
+          "@type": "xsd:boolean"
+        },
+        "company": {
+          "@id": "ns:company",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Company": {
+      "@id": "ns:Company",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Searchcontactsbymanagementlevelregionindustry": {
+      "@id": "ns:Searchcontactsbymanagementlevelregionindustry",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Searchcontactsbystockticker": {
+      "@id": "ns:Searchcontactsbystockticker",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Datum2": {
+      "@id": "ns:Datum2",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "firstName": {
+          "@id": "ns:firstName",
+          "@type": "xsd:string"
+        },
+        "middleName": {
+          "@id": "ns:middleName",
+          "@type": "xsd:string"
+        },
+        "lastName": {
+          "@id": "ns:lastName",
+          "@type": "xsd:string"
+        },
+        "validDate": {
+          "@id": "ns:validDate",
+          "@type": "xsd:string"
+        },
+        "lastUpdatedDate": {
+          "@id": "ns:lastUpdatedDate",
+          "@type": "xsd:string"
+        },
+        "jobTitle": {
+          "@id": "ns:jobTitle",
+          "@type": "xsd:string"
+        },
+        "contactAccuracyScore": {
+          "@id": "ns:contactAccuracyScore",
+          "@type": "xsd:integer"
+        },
+        "hasEmail": {
+          "@id": "ns:hasEmail",
+          "@type": "xsd:boolean"
+        },
+        "hasSupplementalEmail": {
+          "@id": "ns:hasSupplementalEmail",
+          "@type": "xsd:boolean"
+        },
+        "hasDirectPhone": {
+          "@id": "ns:hasDirectPhone",
+          "@type": "xsd:boolean"
+        },
+        "hasMobilePhone": {
+          "@id": "ns:hasMobilePhone",
+          "@type": "xsd:boolean"
+        },
+        "hasCompanyIndustry": {
+          "@id": "ns:hasCompanyIndustry",
+          "@type": "xsd:boolean"
+        },
+        "hasCompanyPhone": {
+          "@id": "ns:hasCompanyPhone",
+          "@type": "xsd:boolean"
+        },
+        "hasCompanyStreet": {
+          "@id": "ns:hasCompanyStreet",
+          "@type": "xsd:boolean"
+        },
+        "hasCompanyState": {
+          "@id": "ns:hasCompanyState",
+          "@type": "xsd:boolean"
+        },
+        "hasCompanyZipCode": {
+          "@id": "ns:hasCompanyZipCode",
+          "@type": "xsd:boolean"
+        },
+        "hasCompanyCountry": {
+          "@id": "ns:hasCompanyCountry",
+          "@type": "xsd:boolean"
+        },
+        "hasCompanyRevenue": {
+          "@id": "ns:hasCompanyRevenue",
+          "@type": "xsd:boolean"
+        },
+        "hasCompanyEmployeeCount": {
+          "@id": "ns:hasCompanyEmployeeCount",
+          "@type": "xsd:boolean"
+        },
+        "company": {
+          "@id": "ns:company",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Searchcontactsbyemployeegrowthrate": {
+      "@id": "ns:Searchcontactsbyemployeegrowthrate",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Searchcontactsbydepartmentandcompanylocation": {
+      "@id": "ns:Searchcontactsbydepartmentandcompanylocation",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "ContactSearchInput": {
+      "@id": "ns:ContactSearchInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        },
+        "accessGranted": {
+          "@id": "ns:accessGranted",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ContactSearchOutput": {
+      "@id": "ns:ContactSearchOutput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        },
+        "accessGranted": {
+          "@id": "ns:accessGranted",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "CompanySearchRequest": {
+      "@id": "ns:CompanySearchRequest",
+      "@context": {
+        "metroRegion": {
+          "@id": "ns:metroRegion",
+          "@type": "xsd:string"
+        },
+        "industryCodes": {
+          "@id": "ns:industryCodes",
+          "@type": "xsd:string"
+        },
+        "techAttributeTagList": {
+          "@id": "ns:techAttributeTagList",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Searchcompaniesbyemployeegrowthrate": {
+      "@id": "ns:Searchcompaniesbyemployeegrowthrate",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Datum5": {
+      "@id": "ns:Datum5",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Searchcompanieswithsortingandpaging": {
+      "@id": "ns:Searchcompanieswithsortingandpaging",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Searchcompaniesbymetroindustryandtechattributes": {
+      "@id": "ns:Searchcompaniesbymetroindustryandtechattributes",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "CompanySearchInput": {
+      "@id": "ns:CompanySearchInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        },
+        "accessGranted": {
+          "@id": "ns:accessGranted",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "GetCompanySearchOutputField": {
+      "@id": "ns:GetCompanySearchOutputField",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ScoopSearchRequest": {
+      "@id": "ns:ScoopSearchRequest",
+      "@context": {
+        "companyName": {
+          "@id": "ns:companyName",
+          "@type": "xsd:string"
+        },
+        "publishedStartDate": {
+          "@id": "ns:publishedStartDate",
+          "@type": "xsd:string"
+        },
+        "publishedEndDate": {
+          "@id": "ns:publishedEndDate",
+          "@type": "xsd:string"
+        },
+        "scoopType": {
+          "@id": "ns:scoopType",
+          "@type": "xsd:string"
+        },
+        "updatedSinceCreation": {
+          "@id": "ns:updatedSinceCreation",
+          "@type": "xsd:boolean"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ScoopSearch": {
+      "@id": "ns:ScoopSearch",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Datum8": {
+      "@id": "ns:Datum8",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "publishedDate": {
+          "@id": "ns:publishedDate",
+          "@type": "xsd:string"
+        },
+        "originalPublishedDate": {
+          "@id": "ns:originalPublishedDate",
+          "@type": "xsd:string"
+        },
+        "linkText": {
+          "@id": "ns:linkText",
+          "@type": "xsd:string"
+        },
+        "link": {
+          "@id": "ns:link",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        },
+        "topics": "ns:topics",
+        "updateText": {
+          "@id": "ns:updateText",
+          "@type": "xsd:string"
+        },
+        "types": "ns:types",
+        "contacts": "ns:contacts",
+        "company": {
+          "@id": "ns:company",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Type": {
+      "@id": "ns:Type",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "type": {
+          "@id": "ns:type",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ScoopSearchInput": {
+      "@id": "ns:ScoopSearchInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ScoopSearchOutput": {
+      "@id": "ns:ScoopSearchOutput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "NewsSearchRequest": {
+      "@id": "ns:NewsSearchRequest",
+      "@context": {
+        "categories": "ns:categories",
+        "url": "ns:url",
+        "pageDateMin": {
+          "@id": "ns:pageDateMin",
+          "@type": "xsd:string"
+        },
+        "pageDateMax": {
+          "@id": "ns:pageDateMax",
+          "@type": "xsd:string"
+        },
+        "page": {
+          "@id": "ns:page",
+          "@type": "xsd:integer"
+        },
+        "rpp": {
+          "@id": "ns:rpp",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "NewsSearchusingpartialinputs": {
+      "@id": "ns:NewsSearchusingpartialinputs",
+      "@context": {
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Datum9": {
+      "@id": "ns:Datum9",
+      "@context": {
+        "domain": {
+          "@id": "ns:domain",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "ns:title",
+          "@type": "xsd:string"
+        },
+        "url": {
+          "@id": "ns:url",
+          "@type": "xsd:string"
+        },
+        "imageUrl": {
+          "@id": "ns:imageUrl",
+          "@type": "xsd:string"
+        },
+        "pageDate": {
+          "@id": "ns:pageDate",
+          "@type": "xsd:string"
+        },
+        "categories": "ns:categories",
+        "company": "ns:company"
+      }
+    },
+    "NewsSearchusingallinputs": {
+      "@id": "ns:NewsSearchusingallinputs",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Datum10": {
+      "@id": "ns:Datum10",
+      "@context": {
+        "domain": {
+          "@id": "ns:domain",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "ns:title",
+          "@type": "xsd:string"
+        },
+        "url": {
+          "@id": "ns:url",
+          "@type": "xsd:string"
+        },
+        "imageUrl": {
+          "@id": "ns:imageUrl",
+          "@type": "xsd:string"
+        },
+        "pageDate": {
+          "@id": "ns:pageDate",
+          "@type": "xsd:string"
+        },
+        "categories": "ns:categories",
+        "company": "ns:company"
+      }
+    },
+    "NewsSearchInput": {
+      "@id": "ns:NewsSearchInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "NewsSearchOutput": {
+      "@id": "ns:NewsSearchOutput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "IntentSearchRequest": {
+      "@id": "ns:IntentSearchRequest",
+      "@context": {
+        "topics": "ns:topics",
+        "signalScoreMin": {
+          "@id": "ns:signalScoreMin",
+          "@type": "xsd:integer"
+        },
+        "signalScoreMax": {
+          "@id": "ns:signalScoreMax",
+          "@type": "xsd:integer"
+        },
+        "audienceStrengthMin": {
+          "@id": "ns:audienceStrengthMin",
+          "@type": "xsd:string"
+        },
+        "audienceStrengthMax": {
+          "@id": "ns:audienceStrengthMax",
+          "@type": "xsd:string"
+        },
+        "metroRegion": {
+          "@id": "ns:metroRegion",
+          "@type": "xsd:string"
+        },
+        "industryCodes": {
+          "@id": "ns:industryCodes",
+          "@type": "xsd:string"
+        },
+        "sortBy": {
+          "@id": "ns:sortBy",
+          "@type": "xsd:string"
+        },
+        "sortOrder": {
+          "@id": "ns:sortOrder",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "IntentSearch": {
+      "@id": "ns:IntentSearch",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Datum11": {
+      "@id": "ns:Datum11",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:string"
+        },
+        "category": {
+          "@id": "ns:category",
+          "@type": "xsd:string"
+        },
+        "topic": {
+          "@id": "ns:topic",
+          "@type": "xsd:string"
+        },
+        "signalScore": {
+          "@id": "ns:signalScore",
+          "@type": "xsd:integer"
+        },
+        "audienceStrength": {
+          "@id": "ns:audienceStrength",
+          "@type": "xsd:string"
+        },
+        "newSignal": {
+          "@id": "ns:newSignal",
+          "@type": "xsd:boolean"
+        },
+        "signalDate": {
+          "@id": "ns:signalDate",
+          "@type": "xsd:string"
+        },
+        "trend": {
+          "@id": "ns:trend",
+          "@type": "xsd:integer"
+        },
+        "recommendedContacts": "ns:recommendedContacts",
+        "company": {
+          "@id": "ns:company",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "RecommendedContact": {
+      "@id": "ns:RecommendedContact",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "firstName": {
+          "@id": "ns:firstName",
+          "@type": "xsd:string"
+        },
+        "lastName": {
+          "@id": "ns:lastName",
+          "@type": "xsd:string"
+        },
+        "jobTitle": {
+          "@id": "ns:jobTitle",
+          "@type": "xsd:string"
+        },
+        "jobFunction": "ns:jobFunction"
+      }
+    },
+    "JobFunction": {
+      "@id": "ns:JobFunction",
+      "@context": {
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        },
+        "department": {
+          "@id": "ns:department",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Company8": {
+      "@id": "ns:Company8",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        },
+        "website": {
+          "@id": "ns:website",
+          "@type": "xsd:string"
+        },
+        "hasOtherTopicConsumption": {
+          "@id": "ns:hasOtherTopicConsumption",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+    "IntentSearchInput": {
+      "@id": "ns:IntentSearchInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "IntentSearchOutput": {
+      "@id": "ns:IntentSearchOutput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ContactEnrichRequest": {
+      "@id": "ns:ContactEnrichRequest",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "matchPersonInput": "ns:matchPersonInput"
+      }
+    },
+    "MatchPersonInput": {
+      "@id": "ns:MatchPersonInput",
+      "@context": {
+        "personId": {
+          "@id": "ns:personId",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "EnrichcontactbyfirstnamelastnamecompanyId": {
+      "@id": "ns:EnrichcontactbyfirstnamelastnamecompanyId",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data": {
+      "@id": "ns:Data",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result"
+      }
+    },
+    "Result": {
+      "@id": "ns:Result",
+      "@context": {
+        "input": {
+          "@id": "ns:input",
+          "@type": "xsd:string"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Input": {
+      "@id": "ns:Input",
+      "@context": {
+        "companyid": {
+          "@id": "ns:companyid",
+          "@type": "xsd:integer"
+        },
+        "firstname": {
+          "@id": "ns:firstname",
+          "@type": "xsd:string"
+        },
+        "lastname": {
+          "@id": "ns:lastname",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data1": {
+      "@id": "ns:Data1",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "firstName": {
+          "@id": "ns:firstName",
+          "@type": "xsd:string"
+        },
+        "middleName": {
+          "@id": "ns:middleName",
+          "@type": "xsd:string"
+        },
+        "lastName": {
+          "@id": "ns:lastName",
+          "@type": "xsd:string"
+        },
+        "email": {
+          "@id": "ns:email",
+          "@type": "xsd:string"
+        },
+        "hasCanadianEmail": {
+          "@id": "ns:hasCanadianEmail",
+          "@type": "xsd:string"
+        },
+        "phone": {
+          "@id": "ns:phone",
+          "@type": "xsd:string"
+        },
+        "directPhoneDoNotCall": {
+          "@id": "ns:directPhoneDoNotCall",
+          "@type": "xsd:boolean"
+        },
+        "street": {
+          "@id": "ns:street",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "region": {
+          "@id": "ns:region",
+          "@type": "xsd:string"
+        },
+        "metroArea": {
+          "@id": "ns:metroArea",
+          "@type": "xsd:string"
+        },
+        "zipCode": {
+          "@id": "ns:zipCode",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "country": {
+          "@id": "ns:country",
+          "@type": "xsd:string"
+        },
+        "personHasMoved": {
+          "@id": "ns:personHasMoved",
+          "@type": "xsd:string"
+        },
+        "withinEu": {
+          "@id": "ns:withinEu",
+          "@type": "xsd:boolean"
+        },
+        "withinCalifornia": {
+          "@id": "ns:withinCalifornia",
+          "@type": "xsd:boolean"
+        },
+        "withinCanada": {
+          "@id": "ns:withinCanada",
+          "@type": "xsd:boolean"
+        },
+        "lastUpdatedDate": {
+          "@id": "ns:lastUpdatedDate",
+          "@type": "xsd:string"
+        },
+        "noticeProvidedDate": {
+          "@id": "ns:noticeProvidedDate",
+          "@type": "xsd:string"
+        },
+        "salutation": {
+          "@id": "ns:salutation",
+          "@type": "xsd:string"
+        },
+        "suffix": {
+          "@id": "ns:suffix",
+          "@type": "xsd:string"
+        },
+        "jobTitle": {
+          "@id": "ns:jobTitle",
+          "@type": "xsd:string"
+        },
+        "jobFunction": "ns:jobFunction",
+        "education": "ns:education",
+        "hashedEmails": "ns:hashedEmails",
+        "picture": {
+          "@id": "ns:picture",
+          "@type": "xsd:string"
+        },
+        "mobilePhoneDoNotCall": {
+          "@id": "ns:mobilePhoneDoNotCall",
+          "@type": "xsd:boolean"
+        },
+        "externalUrls": "ns:externalUrls",
+        "contactAccuracyScore": {
+          "@id": "ns:contactAccuracyScore",
+          "@type": "xsd:integer"
+        },
+        "isDefunct": {
+          "@id": "ns:isDefunct",
+          "@type": "xsd:boolean"
+        },
+        "employmentHistory": "ns:employmentHistory",
+        "managementLevel": "ns:managementLevel",
+        "locationCompanyId": {
+          "@id": "ns:locationCompanyId",
+          "@type": "xsd:integer"
+        },
+        "company": {
+          "@id": "ns:company",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Education": {
+      "@id": "ns:Education",
+      "@context": {
+        "school": {
+          "@id": "ns:school",
+          "@type": "xsd:string"
+        },
+        "educationDegree": {
+          "@id": "ns:educationDegree",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "EducationDegree": {
+      "@id": "ns:EducationDegree",
+      "@context": {
+        "degree": {
+          "@id": "ns:degree",
+          "@type": "xsd:string"
+        },
+        "areaOfStudy": {
+          "@id": "ns:areaOfStudy",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ExternalUrl": {
+      "@id": "ns:ExternalUrl",
+      "@context": {
+        "type": {
+          "@id": "ns:type",
+          "@type": "xsd:string"
+        },
+        "url": {
+          "@id": "ns:url",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "EmploymentHistory": {
+      "@id": "ns:EmploymentHistory",
+      "@context": {
+        "jobTitle": {
+          "@id": "ns:jobTitle",
+          "@type": "xsd:string"
+        },
+        "managementLevel": "ns:managementLevel",
+        "fromDate": {
+          "@id": "ns:fromDate",
+          "@type": "xsd:string"
+        },
+        "toDate": {
+          "@id": "ns:toDate",
+          "@type": "xsd:string"
+        },
+        "company": {
+          "@id": "ns:company",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Company9": {
+      "@id": "ns:Company9",
+      "@context": {
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:integer"
+        },
+        "companyName": {
+          "@id": "ns:companyName",
+          "@type": "xsd:string"
+        },
+        "companyPhone": {
+          "@id": "ns:companyPhone",
+          "@type": "xsd:string"
+        },
+        "companyWebsite": {
+          "@id": "ns:companyWebsite",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Company10": {
+      "@id": "ns:Company10",
+      "@context": {
+        "division": {
+          "@id": "ns:division",
+          "@type": "xsd:string"
+        },
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        },
+        "descriptionList": "ns:descriptionList",
+        "phone": {
+          "@id": "ns:phone",
+          "@type": "xsd:string"
+        },
+        "fax": {
+          "@id": "ns:fax",
+          "@type": "xsd:string"
+        },
+        "street": {
+          "@id": "ns:street",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "zipCode": {
+          "@id": "ns:zipCode",
+          "@type": "xsd:string"
+        },
+        "country": {
+          "@id": "ns:country",
+          "@type": "xsd:string"
+        },
+        "logo": {
+          "@id": "ns:logo",
+          "@type": "xsd:string"
+        },
+        "sicCodes": "ns:sicCodes",
+        "naicsCodes": "ns:naicsCodes",
+        "website": {
+          "@id": "ns:website",
+          "@type": "xsd:string"
+        },
+        "revenue": {
+          "@id": "ns:revenue",
+          "@type": "xsd:string"
+        },
+        "revenueNumeric": {
+          "@id": "ns:revenueNumeric",
+          "@type": "xsd:integer"
+        },
+        "employeeCount": {
+          "@id": "ns:employeeCount",
+          "@type": "xsd:integer"
+        },
+        "type": {
+          "@id": "ns:type",
+          "@type": "xsd:string"
+        },
+        "ticker": {
+          "@id": "ns:ticker",
+          "@type": "xsd:string"
+        },
+        "ranking": "ns:ranking",
+        "socialMediaUrls": "ns:socialMediaUrls",
+        "primaryIndustry": "ns:primaryIndustry",
+        "industries": "ns:industries",
+        "revenueRange": {
+          "@id": "ns:revenueRange",
+          "@type": "xsd:string"
+        },
+        "employeeRange": {
+          "@id": "ns:employeeRange",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "DescriptionList": {
+      "@id": "ns:DescriptionList",
+      "@context": {
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "SicCode": {
+      "@id": "ns:SicCode",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "NaicsCode": {
+      "@id": "ns:NaicsCode",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "EnrichcontactusingfullnameandcompanyId": {
+      "@id": "ns:EnrichcontactusingfullnameandcompanyId",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data2": {
+      "@id": "ns:Data2",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result"
+      }
+    },
+    "Result1": {
+      "@id": "ns:Result1",
+      "@context": {
+        "input": {
+          "@id": "ns:input",
+          "@type": "xsd:string"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Input1": {
+      "@id": "ns:Input1",
+      "@context": {
+        "companyid": {
+          "@id": "ns:companyid",
+          "@type": "xsd:integer"
+        },
+        "fullname": {
+          "@id": "ns:fullname",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data3": {
+      "@id": "ns:Data3",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "firstName": {
+          "@id": "ns:firstName",
+          "@type": "xsd:string"
+        },
+        "middleName": {
+          "@id": "ns:middleName",
+          "@type": "xsd:string"
+        },
+        "lastName": {
+          "@id": "ns:lastName",
+          "@type": "xsd:string"
+        },
+        "email": {
+          "@id": "ns:email",
+          "@type": "xsd:string"
+        },
+        "hasCanadianEmail": {
+          "@id": "ns:hasCanadianEmail",
+          "@type": "xsd:string"
+        },
+        "phone": {
+          "@id": "ns:phone",
+          "@type": "xsd:string"
+        },
+        "directPhoneDoNotCall": {
+          "@id": "ns:directPhoneDoNotCall",
+          "@type": "xsd:boolean"
+        },
+        "street": {
+          "@id": "ns:street",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "region": {
+          "@id": "ns:region",
+          "@type": "xsd:string"
+        },
+        "metroArea": {
+          "@id": "ns:metroArea",
+          "@type": "xsd:string"
+        },
+        "zipCode": {
+          "@id": "ns:zipCode",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "country": {
+          "@id": "ns:country",
+          "@type": "xsd:string"
+        },
+        "personHasMoved": {
+          "@id": "ns:personHasMoved",
+          "@type": "xsd:string"
+        },
+        "withinEu": {
+          "@id": "ns:withinEu",
+          "@type": "xsd:boolean"
+        },
+        "withinCalifornia": {
+          "@id": "ns:withinCalifornia",
+          "@type": "xsd:boolean"
+        },
+        "withinCanada": {
+          "@id": "ns:withinCanada",
+          "@type": "xsd:boolean"
+        },
+        "lastUpdatedDate": {
+          "@id": "ns:lastUpdatedDate",
+          "@type": "xsd:string"
+        },
+        "noticeProvidedDate": {
+          "@id": "ns:noticeProvidedDate",
+          "@type": "xsd:string"
+        },
+        "salutation": {
+          "@id": "ns:salutation",
+          "@type": "xsd:string"
+        },
+        "suffix": {
+          "@id": "ns:suffix",
+          "@type": "xsd:string"
+        },
+        "jobTitle": {
+          "@id": "ns:jobTitle",
+          "@type": "xsd:string"
+        },
+        "jobFunction": "ns:jobFunction",
+        "education": "ns:education",
+        "hashedEmails": "ns:hashedEmails",
+        "picture": {
+          "@id": "ns:picture",
+          "@type": "xsd:string"
+        },
+        "mobilePhoneDoNotCall": {
+          "@id": "ns:mobilePhoneDoNotCall",
+          "@type": "xsd:boolean"
+        },
+        "externalUrls": "ns:externalUrls",
+        "contactAccuracyScore": {
+          "@id": "ns:contactAccuracyScore",
+          "@type": "xsd:integer"
+        },
+        "isDefunct": {
+          "@id": "ns:isDefunct",
+          "@type": "xsd:boolean"
+        },
+        "employmentHistory": "ns:employmentHistory",
+        "managementLevel": "ns:managementLevel",
+        "locationCompanyId": {
+          "@id": "ns:locationCompanyId",
+          "@type": "xsd:integer"
+        },
+        "company": {
+          "@id": "ns:company",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Company12": {
+      "@id": "ns:Company12",
+      "@context": {
+        "division": {
+          "@id": "ns:division",
+          "@type": "xsd:string"
+        },
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        },
+        "descriptionList": "ns:descriptionList",
+        "phone": {
+          "@id": "ns:phone",
+          "@type": "xsd:string"
+        },
+        "fax": {
+          "@id": "ns:fax",
+          "@type": "xsd:string"
+        },
+        "street": {
+          "@id": "ns:street",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "zipCode": {
+          "@id": "ns:zipCode",
+          "@type": "xsd:string"
+        },
+        "country": {
+          "@id": "ns:country",
+          "@type": "xsd:string"
+        },
+        "logo": {
+          "@id": "ns:logo",
+          "@type": "xsd:string"
+        },
+        "sicCodes": "ns:sicCodes",
+        "naicsCodes": "ns:naicsCodes",
+        "website": {
+          "@id": "ns:website",
+          "@type": "xsd:string"
+        },
+        "revenue": {
+          "@id": "ns:revenue",
+          "@type": "xsd:string"
+        },
+        "revenueNumeric": {
+          "@id": "ns:revenueNumeric",
+          "@type": "xsd:integer"
+        },
+        "employeeCount": {
+          "@id": "ns:employeeCount",
+          "@type": "xsd:integer"
+        },
+        "type": {
+          "@id": "ns:type",
+          "@type": "xsd:string"
+        },
+        "ticker": {
+          "@id": "ns:ticker",
+          "@type": "xsd:string"
+        },
+        "ranking": "ns:ranking",
+        "socialMediaUrls": "ns:socialMediaUrls",
+        "primaryIndustry": "ns:primaryIndustry",
+        "industries": "ns:industries",
+        "revenueRange": {
+          "@id": "ns:revenueRange",
+          "@type": "xsd:string"
+        },
+        "employeeRange": {
+          "@id": "ns:employeeRange",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "SocialMediaUrl": {
+      "@id": "ns:SocialMediaUrl",
+      "@context": {
+        "type": {
+          "@id": "ns:type",
+          "@type": "xsd:string"
+        },
+        "url": {
+          "@id": "ns:url",
+          "@type": "xsd:string"
+        },
+        "followerCount": {
+          "@id": "ns:followerCount",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "EnrichcontactsbynameandID": {
+      "@id": "ns:EnrichcontactsbynameandID",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data4": {
+      "@id": "ns:Data4",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result"
+      }
+    },
+    "Result2": {
+      "@id": "ns:Result2",
+      "@context": {
+        "input": {
+          "@id": "ns:input",
+          "@type": "xsd:string"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Input2": {
+      "@id": "ns:Input2",
+      "@context": {
+        "emailaddress": {
+          "@id": "ns:emailaddress",
+          "@type": "xsd:string"
+        },
+        "personid": {
+          "@id": "ns:personid",
+          "@type": "xsd:integer"
+        },
+        "companyname": {
+          "@id": "ns:companyname",
+          "@type": "xsd:string"
+        },
+        "fullname": {
+          "@id": "ns:fullname",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data5": {
+      "@id": "ns:Data5",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "firstName": {
+          "@id": "ns:firstName",
+          "@type": "xsd:string"
+        },
+        "middleName": {
+          "@id": "ns:middleName",
+          "@type": "xsd:string"
+        },
+        "lastName": {
+          "@id": "ns:lastName",
+          "@type": "xsd:string"
+        },
+        "email": {
+          "@id": "ns:email",
+          "@type": "xsd:string"
+        },
+        "hasCanadianEmail": {
+          "@id": "ns:hasCanadianEmail",
+          "@type": "xsd:string"
+        },
+        "phone": {
+          "@id": "ns:phone",
+          "@type": "xsd:string"
+        },
+        "directPhoneDoNotCall": {
+          "@id": "ns:directPhoneDoNotCall",
+          "@type": "xsd:boolean"
+        },
+        "street": {
+          "@id": "ns:street",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "region": {
+          "@id": "ns:region",
+          "@type": "xsd:string"
+        },
+        "metroArea": {
+          "@id": "ns:metroArea",
+          "@type": "xsd:string"
+        },
+        "zipCode": {
+          "@id": "ns:zipCode",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "country": {
+          "@id": "ns:country",
+          "@type": "xsd:string"
+        },
+        "personHasMoved": {
+          "@id": "ns:personHasMoved",
+          "@type": "xsd:string"
+        },
+        "withinEu": {
+          "@id": "ns:withinEu",
+          "@type": "xsd:boolean"
+        },
+        "withinCalifornia": {
+          "@id": "ns:withinCalifornia",
+          "@type": "xsd:boolean"
+        },
+        "withinCanada": {
+          "@id": "ns:withinCanada",
+          "@type": "xsd:boolean"
+        },
+        "lastUpdatedDate": {
+          "@id": "ns:lastUpdatedDate",
+          "@type": "xsd:string"
+        },
+        "noticeProvidedDate": {
+          "@id": "ns:noticeProvidedDate",
+          "@type": "xsd:string"
+        },
+        "salutation": {
+          "@id": "ns:salutation",
+          "@type": "xsd:string"
+        },
+        "suffix": {
+          "@id": "ns:suffix",
+          "@type": "xsd:string"
+        },
+        "jobTitle": {
+          "@id": "ns:jobTitle",
+          "@type": "xsd:string"
+        },
+        "jobFunction": "ns:jobFunction",
+        "education": "ns:education",
+        "hashedEmails": "ns:hashedEmails",
+        "picture": {
+          "@id": "ns:picture",
+          "@type": "xsd:string"
+        },
+        "mobilePhoneDoNotCall": {
+          "@id": "ns:mobilePhoneDoNotCall",
+          "@type": "xsd:boolean"
+        },
+        "externalUrls": "ns:externalUrls",
+        "company": {
+          "@id": "ns:company",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "JobFunction3": {
+      "@id": "ns:JobFunction3",
+      "@context": {
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        },
+        "department": {
+          "@id": "ns:department",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Education2": {
+      "@id": "ns:Education2",
+      "@context": {
+        "school": {
+          "@id": "ns:school",
+          "@type": "xsd:string"
+        },
+        "educationDegree": {
+          "@id": "ns:educationDegree",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Education21": {
+      "@id": "ns:Education21",
+      "@context": {
+        "school": {
+          "@id": "ns:school",
+          "@type": "xsd:string"
+        },
+        "educationDegree": {
+          "@id": "ns:educationDegree",
+          "@type": "xsd:string"
+        },
+        "graduationDate": {
+          "@id": "ns:graduationDate",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Company13": {
+      "@id": "ns:Company13",
+      "@context": {
+        "division": {
+          "@id": "ns:division",
+          "@type": "xsd:string"
+        },
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        },
+        "descriptionList": "ns:descriptionList",
+        "phone": {
+          "@id": "ns:phone",
+          "@type": "xsd:string"
+        },
+        "fax": {
+          "@id": "ns:fax",
+          "@type": "xsd:string"
+        },
+        "street": {
+          "@id": "ns:street",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "zipCode": {
+          "@id": "ns:zipCode",
+          "@type": "xsd:string"
+        },
+        "country": {
+          "@id": "ns:country",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "EnrichcontactusingpersonId": {
+      "@id": "ns:EnrichcontactusingpersonId",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data6": {
+      "@id": "ns:Data6",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result"
+      }
+    },
+    "Result3": {
+      "@id": "ns:Result3",
+      "@context": {
+        "input": {
+          "@id": "ns:input",
+          "@type": "xsd:string"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Input3": {
+      "@id": "ns:Input3",
+      "@context": {
+        "personid": {
+          "@id": "ns:personid",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "Data7": {
+      "@id": "ns:Data7",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "firstName": {
+          "@id": "ns:firstName",
+          "@type": "xsd:string"
+        },
+        "middleName": {
+          "@id": "ns:middleName",
+          "@type": "xsd:string"
+        },
+        "lastName": {
+          "@id": "ns:lastName",
+          "@type": "xsd:string"
+        },
+        "email": {
+          "@id": "ns:email",
+          "@type": "xsd:string"
+        },
+        "hasCanadianEmail": {
+          "@id": "ns:hasCanadianEmail",
+          "@type": "xsd:string"
+        },
+        "phone": {
+          "@id": "ns:phone",
+          "@type": "xsd:string"
+        },
+        "directPhoneDoNotCall": {
+          "@id": "ns:directPhoneDoNotCall",
+          "@type": "xsd:boolean"
+        },
+        "street": {
+          "@id": "ns:street",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "region": {
+          "@id": "ns:region",
+          "@type": "xsd:string"
+        },
+        "metroArea": {
+          "@id": "ns:metroArea",
+          "@type": "xsd:string"
+        },
+        "zipCode": {
+          "@id": "ns:zipCode",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "country": {
+          "@id": "ns:country",
+          "@type": "xsd:string"
+        },
+        "continent": {
+          "@id": "ns:continent",
+          "@type": "xsd:string"
+        },
+        "personHasMoved": {
+          "@id": "ns:personHasMoved",
+          "@type": "xsd:string"
+        },
+        "withinEu": {
+          "@id": "ns:withinEu",
+          "@type": "xsd:boolean"
+        },
+        "withinCalifornia": {
+          "@id": "ns:withinCalifornia",
+          "@type": "xsd:boolean"
+        },
+        "withinCanada": {
+          "@id": "ns:withinCanada",
+          "@type": "xsd:boolean"
+        },
+        "lastUpdatedDate": {
+          "@id": "ns:lastUpdatedDate",
+          "@type": "xsd:string"
+        },
+        "validDate": {
+          "@id": "ns:validDate",
+          "@type": "xsd:string"
+        },
+        "noticeProvidedDate": {
+          "@id": "ns:noticeProvidedDate",
+          "@type": "xsd:string"
+        },
+        "salutation": {
+          "@id": "ns:salutation",
+          "@type": "xsd:string"
+        },
+        "suffix": {
+          "@id": "ns:suffix",
+          "@type": "xsd:string"
+        },
+        "jobTitle": {
+          "@id": "ns:jobTitle",
+          "@type": "xsd:string"
+        },
+        "jobFunction": "ns:jobFunction",
+        "education": "ns:education",
+        "hashedEmails": "ns:hashedEmails",
+        "picture": {
+          "@id": "ns:picture",
+          "@type": "xsd:string"
+        },
+        "mobilePhoneDoNotCall": {
+          "@id": "ns:mobilePhoneDoNotCall",
+          "@type": "xsd:boolean"
+        },
+        "externalUrls": "ns:externalUrls",
+        "contactAccuracyScore": {
+          "@id": "ns:contactAccuracyScore",
+          "@type": "xsd:integer"
+        },
+        "isDefunct": {
+          "@id": "ns:isDefunct",
+          "@type": "xsd:boolean"
+        },
+        "employmentHistory": "ns:employmentHistory",
+        "managementLevel": "ns:managementLevel",
+        "locationCompanyId": {
+          "@id": "ns:locationCompanyId",
+          "@type": "xsd:integer"
+        },
+        "company": {
+          "@id": "ns:company",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Company15": {
+      "@id": "ns:Company15",
+      "@context": {
+        "division": {
+          "@id": "ns:division",
+          "@type": "xsd:string"
+        },
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        },
+        "descriptionList": "ns:descriptionList",
+        "phone": {
+          "@id": "ns:phone",
+          "@type": "xsd:string"
+        },
+        "fax": {
+          "@id": "ns:fax",
+          "@type": "xsd:string"
+        },
+        "street": {
+          "@id": "ns:street",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "zipCode": {
+          "@id": "ns:zipCode",
+          "@type": "xsd:string"
+        },
+        "country": {
+          "@id": "ns:country",
+          "@type": "xsd:string"
+        },
+        "continent": {
+          "@id": "ns:continent",
+          "@type": "xsd:string"
+        },
+        "logo": {
+          "@id": "ns:logo",
+          "@type": "xsd:string"
+        },
+        "sicCodes": "ns:sicCodes",
+        "naicsCodes": "ns:naicsCodes",
+        "website": {
+          "@id": "ns:website",
+          "@type": "xsd:string"
+        },
+        "revenue": {
+          "@id": "ns:revenue",
+          "@type": "xsd:string"
+        },
+        "revenueNumeric": {
+          "@id": "ns:revenueNumeric",
+          "@type": "xsd:integer"
+        },
+        "employeeCount": {
+          "@id": "ns:employeeCount",
+          "@type": "xsd:integer"
+        },
+        "type": {
+          "@id": "ns:type",
+          "@type": "xsd:string"
+        },
+        "ticker": {
+          "@id": "ns:ticker",
+          "@type": "xsd:string"
+        },
+        "ranking": "ns:ranking",
+        "socialMediaUrls": "ns:socialMediaUrls",
+        "primaryIndustry": "ns:primaryIndustry",
+        "industries": "ns:industries",
+        "revenueRange": {
+          "@id": "ns:revenueRange",
+          "@type": "xsd:string"
+        },
+        "employeeRange": {
+          "@id": "ns:employeeRange",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Enrichcontactsusingmultipleemailaddresses": {
+      "@id": "ns:Enrichcontactsusingmultipleemailaddresses",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data8": {
+      "@id": "ns:Data8",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result"
+      }
+    },
+    "Result4": {
+      "@id": "ns:Result4",
+      "@context": {
+        "input": {
+          "@id": "ns:input",
+          "@type": "xsd:string"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Input4": {
+      "@id": "ns:Input4",
+      "@context": {
+        "emailaddress": {
+          "@id": "ns:emailaddress",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data9": {
+      "@id": "ns:Data9",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "firstName": {
+          "@id": "ns:firstName",
+          "@type": "xsd:string"
+        },
+        "middleName": {
+          "@id": "ns:middleName",
+          "@type": "xsd:string"
+        },
+        "lastName": {
+          "@id": "ns:lastName",
+          "@type": "xsd:string"
+        },
+        "email": {
+          "@id": "ns:email",
+          "@type": "xsd:string"
+        },
+        "hasCanadianEmail": {
+          "@id": "ns:hasCanadianEmail",
+          "@type": "xsd:string"
+        },
+        "phone": {
+          "@id": "ns:phone",
+          "@type": "xsd:string"
+        },
+        "directPhoneDoNotCall": {
+          "@id": "ns:directPhoneDoNotCall",
+          "@type": "xsd:boolean"
+        },
+        "street": {
+          "@id": "ns:street",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "region": {
+          "@id": "ns:region",
+          "@type": "xsd:string"
+        },
+        "metroArea": {
+          "@id": "ns:metroArea",
+          "@type": "xsd:string"
+        },
+        "zipCode": {
+          "@id": "ns:zipCode",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "country": {
+          "@id": "ns:country",
+          "@type": "xsd:string"
+        },
+        "personHasMoved": {
+          "@id": "ns:personHasMoved",
+          "@type": "xsd:string"
+        },
+        "withinEu": {
+          "@id": "ns:withinEu",
+          "@type": "xsd:boolean"
+        },
+        "withinCalifornia": {
+          "@id": "ns:withinCalifornia",
+          "@type": "xsd:boolean"
+        },
+        "withinCanada": {
+          "@id": "ns:withinCanada",
+          "@type": "xsd:boolean"
+        },
+        "lastUpdatedDate": {
+          "@id": "ns:lastUpdatedDate",
+          "@type": "xsd:string"
+        },
+        "noticeProvidedDate": {
+          "@id": "ns:noticeProvidedDate",
+          "@type": "xsd:string"
+        },
+        "salutation": {
+          "@id": "ns:salutation",
+          "@type": "xsd:string"
+        },
+        "suffix": {
+          "@id": "ns:suffix",
+          "@type": "xsd:string"
+        },
+        "jobTitle": {
+          "@id": "ns:jobTitle",
+          "@type": "xsd:string"
+        },
+        "jobFunction": "ns:jobFunction",
+        "education": "ns:education",
+        "hashedEmails": "ns:hashedEmails",
+        "picture": {
+          "@id": "ns:picture",
+          "@type": "xsd:string"
+        },
+        "mobilePhoneDoNotCall": {
+          "@id": "ns:mobilePhoneDoNotCall",
+          "@type": "xsd:boolean"
+        },
+        "externalUrls": "ns:externalUrls",
+        "contactAccuracyScore": {
+          "@id": "ns:contactAccuracyScore",
+          "@type": "xsd:integer"
+        },
+        "isDefunct": {
+          "@id": "ns:isDefunct",
+          "@type": "xsd:boolean"
+        },
+        "employmentHistory": "ns:employmentHistory",
+        "managementLevel": "ns:managementLevel",
+        "company": {
+          "@id": "ns:company",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Enrichcontactsusingrequiredfields": {
+      "@id": "ns:Enrichcontactsusingrequiredfields",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data10": {
+      "@id": "ns:Data10",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result",
+        "requiredFields": "ns:requiredFields"
+      }
+    },
+    "Result5": {
+      "@id": "ns:Result5",
+      "@context": {
+        "input": {
+          "@id": "ns:input",
+          "@type": "xsd:string"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Data11": {
+      "@id": "ns:Data11",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "firstName": {
+          "@id": "ns:firstName",
+          "@type": "xsd:string"
+        },
+        "middleName": {
+          "@id": "ns:middleName",
+          "@type": "xsd:string"
+        },
+        "lastName": {
+          "@id": "ns:lastName",
+          "@type": "xsd:string"
+        },
+        "email": {
+          "@id": "ns:email",
+          "@type": "xsd:string"
+        },
+        "hasCanadianEmail": {
+          "@id": "ns:hasCanadianEmail",
+          "@type": "xsd:string"
+        },
+        "phone": {
+          "@id": "ns:phone",
+          "@type": "xsd:string"
+        },
+        "street": {
+          "@id": "ns:street",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "region": {
+          "@id": "ns:region",
+          "@type": "xsd:string"
+        },
+        "company": {
+          "@id": "ns:company",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Company18": {
+      "@id": "ns:Company18",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "ContactEnrichInput": {
+      "@id": "ns:ContactEnrichInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ContactEnrichOutput": {
+      "@id": "ns:ContactEnrichOutput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        },
+        "accessGranted": {
+          "@id": "ns:accessGranted",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "CompanyEnrichRequest": {
+      "@id": "ns:CompanyEnrichRequest",
+      "@context": {
+        "matchCompanyInput": "ns:matchCompanyInput",
+        "outputFields": "ns:outputFields"
+      }
+    },
+    "MatchCompanyInput": {
+      "@id": "ns:MatchCompanyInput",
+      "@context": {
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "EnrichcompanybyID": {
+      "@id": "ns:EnrichcompanybyID",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data12": {
+      "@id": "ns:Data12",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result"
+      }
+    },
+    "Result6": {
+      "@id": "ns:Result6",
+      "@context": {
+        "input": {
+          "@id": "ns:input",
+          "@type": "xsd:string"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Input6": {
+      "@id": "ns:Input6",
+      "@context": {
+        "companyid": {
+          "@id": "ns:companyid",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "Data13": {
+      "@id": "ns:Data13",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "ticker": {
+          "@id": "ns:ticker",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        },
+        "website": {
+          "@id": "ns:website",
+          "@type": "xsd:string"
+        },
+        "domainList": "ns:domainList",
+        "logo": {
+          "@id": "ns:logo",
+          "@type": "xsd:string"
+        },
+        "socialMediaUrls": "ns:socialMediaUrls",
+        "revenue": {
+          "@id": "ns:revenue",
+          "@type": "xsd:integer"
+        },
+        "employeeCount": {
+          "@id": "ns:employeeCount",
+          "@type": "xsd:integer"
+        },
+        "numberOfContactsInZoomInfo": {
+          "@id": "ns:numberOfContactsInZoomInfo",
+          "@type": "xsd:integer"
+        },
+        "phone": {
+          "@id": "ns:phone",
+          "@type": "xsd:string"
+        },
+        "fax": {
+          "@id": "ns:fax",
+          "@type": "xsd:string"
+        },
+        "street": {
+          "@id": "ns:street",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "zipCode": {
+          "@id": "ns:zipCode",
+          "@type": "xsd:string"
+        },
+        "country": {
+          "@id": "ns:country",
+          "@type": "xsd:string"
+        },
+        "continent": {
+          "@id": "ns:continent",
+          "@type": "xsd:string"
+        },
+        "companyStatus": {
+          "@id": "ns:companyStatus",
+          "@type": "xsd:string"
+        },
+        "companyStatusDate": {
+          "@id": "ns:companyStatusDate",
+          "@type": "xsd:string"
+        },
+        "descriptionList": "ns:descriptionList",
+        "sicCodes": "ns:sicCodes",
+        "naicsCodes": "ns:naicsCodes",
+        "competitors": "ns:competitors",
+        "ultimateParentId": {
+          "@id": "ns:ultimateParentId",
+          "@type": "xsd:integer"
+        },
+        "ultimateParentName": {
+          "@id": "ns:ultimateParentName",
+          "@type": "xsd:string"
+        },
+        "ultimateParentRevenue": {
+          "@id": "ns:ultimateParentRevenue",
+          "@type": "xsd:integer"
+        },
+        "ultimateParentEmployees": {
+          "@id": "ns:ultimateParentEmployees",
+          "@type": "xsd:integer"
+        },
+        "subUnitCodes": "ns:subUnitCodes",
+        "subUnitType": {
+          "@id": "ns:subUnitType",
+          "@type": "xsd:string"
+        },
+        "subUnitIndustries": "ns:subUnitIndustries",
+        "primaryIndustry": "ns:primaryIndustry",
+        "industries": "ns:industries",
+        "parentId": {
+          "@id": "ns:parentId",
+          "@type": "xsd:integer"
+        },
+        "parentName": {
+          "@id": "ns:parentName",
+          "@type": "xsd:string"
+        },
+        "locationCount": {
+          "@id": "ns:locationCount",
+          "@type": "xsd:integer"
+        },
+        "alexaRank": {
+          "@id": "ns:alexaRank",
+          "@type": "xsd:string"
+        },
+        "metroArea": {
+          "@id": "ns:metroArea",
+          "@type": "xsd:string"
+        },
+        "lastUpdatedDate": {
+          "@id": "ns:lastUpdatedDate",
+          "@type": "xsd:string"
+        },
+        "createdDate": {
+          "@id": "ns:createdDate",
+          "@type": "xsd:string"
+        },
+        "certificationDate": {
+          "@id": "ns:certificationDate",
+          "@type": "xsd:string"
+        },
+        "certified": {
+          "@id": "ns:certified",
+          "@type": "xsd:boolean"
+        },
+        "hashtags": "ns:hashtags",
+        "products": "ns:products",
+        "techAttributes": "ns:techAttributes",
+        "revenueRange": {
+          "@id": "ns:revenueRange",
+          "@type": "xsd:string"
+        },
+        "employeeRange": {
+          "@id": "ns:employeeRange",
+          "@type": "xsd:string"
+        },
+        "companyFunding": "ns:companyFunding",
+        "recentFundingAmount": {
+          "@id": "ns:recentFundingAmount",
+          "@type": "xsd:integer"
+        },
+        "recentFundingDate": {
+          "@id": "ns:recentFundingDate",
+          "@type": "xsd:string"
+        },
+        "totalFundingAmount": {
+          "@id": "ns:totalFundingAmount",
+          "@type": "xsd:integer"
+        },
+        "employeeGrowth": {
+          "@id": "ns:employeeGrowth",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Competitor": {
+      "@id": "ns:Competitor",
+      "@context": {
+        "rank": {
+          "@id": "ns:rank",
+          "@type": "xsd:integer"
+        },
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        },
+        "website": {
+          "@id": "ns:website",
+          "@type": "xsd:string"
+        },
+        "employeeCount": {
+          "@id": "ns:employeeCount",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "Hashtag": {
+      "@id": "ns:Hashtag",
+      "@context": {
+        "tag": {
+          "@id": "ns:tag",
+          "@type": "xsd:string"
+        },
+        "external_id": "ns:external_id",
+        "searchString": {
+          "@id": "ns:searchString",
+          "@type": "xsd:string"
+        },
+        "displayLabel": {
+          "@id": "ns:displayLabel",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        },
+        "group": {
+          "@id": "ns:group",
+          "@type": "xsd:string"
+        },
+        "score": "ns:score",
+        "priority": {
+          "@id": "ns:priority",
+          "@type": "xsd:string"
+        },
+        "parentCategory": {
+          "@id": "ns:parentCategory",
+          "@type": "xsd:string"
+        },
+        "displayScore": {
+          "@id": "ns:displayScore",
+          "@type": "xsd:string"
+        },
+        "inverseScoreBase": {
+          "@id": "ns:inverseScoreBase",
+          "@type": "xsd:string"
+        },
+        "scoreMultipler": "ns:scoreMultipler",
+        "scoreUnit": {
+          "@id": "ns:scoreUnit",
+          "@type": "xsd:string"
+        },
+        "hidden": {
+          "@id": "ns:hidden",
+          "@type": "xsd:boolean"
+        },
+        "label": {
+          "@id": "ns:label",
+          "@type": "xsd:string"
+        },
+        "categorizedFlag": {
+          "@id": "ns:categorizedFlag",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+    "TechAttribute": {
+      "@id": "ns:TechAttribute",
+      "@context": {
+        "tag": {
+          "@id": "ns:tag",
+          "@type": "xsd:string"
+        },
+        "categoryParent": {
+          "@id": "ns:categoryParent",
+          "@type": "xsd:string"
+        },
+        "category": {
+          "@id": "ns:category",
+          "@type": "xsd:string"
+        },
+        "vendor": {
+          "@id": "ns:vendor",
+          "@type": "xsd:string"
+        },
+        "product": {
+          "@id": "ns:product",
+          "@type": "xsd:string"
+        },
+        "attribute": {
+          "@id": "ns:attribute",
+          "@type": "xsd:string"
+        },
+        "website": {
+          "@id": "ns:website",
+          "@type": "xsd:string"
+        },
+        "logo": "ns:logo",
+        "domain": "ns:domain",
+        "createdTime": {
+          "@id": "ns:createdTime",
+          "@type": "xsd:string"
+        },
+        "modifiedTime": {
+          "@id": "ns:modifiedTime",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "CompanyFunding": {
+      "@id": "ns:CompanyFunding",
+      "@context": {
+        "date": {
+          "@id": "ns:date",
+          "@type": "xsd:string"
+        },
+        "type": {
+          "@id": "ns:type",
+          "@type": "xsd:string"
+        },
+        "amount": {
+          "@id": "ns:amount",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "EmployeeGrowth": {
+      "@id": "ns:EmployeeGrowth",
+      "@context": {
+        "oneYearGrowthRate": {
+          "@id": "ns:oneYearGrowthRate",
+          "@type": "xsd:string"
+        },
+        "twoYearGrowthRate": {
+          "@id": "ns:twoYearGrowthRate",
+          "@type": "xsd:string"
+        },
+        "employeeGrowthDataPoints": "ns:employeeGrowthDataPoints"
+      }
+    },
+    "EmployeeGrowthDataPoint": {
+      "@id": "ns:EmployeeGrowthDataPoint",
+      "@context": {
+        "label": {
+          "@id": "ns:label",
+          "@type": "xsd:string"
+        },
+        "employeeCount": {
+          "@id": "ns:employeeCount",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "Enrichcompanybylocation": {
+      "@id": "ns:Enrichcompanybylocation",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data14": {
+      "@id": "ns:Data14",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result"
+      }
+    },
+    "Result7": {
+      "@id": "ns:Result7",
+      "@context": {
+        "input": {
+          "@id": "ns:input",
+          "@type": "xsd:string"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Input7": {
+      "@id": "ns:Input7",
+      "@context": {
+        "companycity": {
+          "@id": "ns:companycity",
+          "@type": "xsd:string"
+        },
+        "companyname": {
+          "@id": "ns:companyname",
+          "@type": "xsd:string"
+        },
+        "companystate": {
+          "@id": "ns:companystate",
+          "@type": "xsd:string"
+        },
+        "companystreet": {
+          "@id": "ns:companystreet",
+          "@type": "xsd:string"
+        },
+        "companywebsite": {
+          "@id": "ns:companywebsite",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data15": {
+      "@id": "ns:Data15",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        },
+        "locationMatch": {
+          "@id": "ns:locationMatch",
+          "@type": "xsd:string"
+        },
+        "website": {
+          "@id": "ns:website",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "LocationMatch": {
+      "@id": "ns:LocationMatch",
+      "@context": {
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:integer"
+        },
+        "address": {
+          "@id": "ns:address",
+          "@type": "xsd:string"
+        },
+        "addressStatus": {
+          "@id": "ns:addressStatus",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Address": {
+      "@id": "ns:Address",
+      "@context": {
+        "street": {
+          "@id": "ns:street",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "country": {
+          "@id": "ns:country",
+          "@type": "xsd:string"
+        },
+        "zipCode": {
+          "@id": "ns:zipCode",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Enrichcompaniesbyname": {
+      "@id": "ns:Enrichcompaniesbyname",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data16": {
+      "@id": "ns:Data16",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result"
+      }
+    },
+    "Result8": {
+      "@id": "ns:Result8",
+      "@context": {
+        "input": {
+          "@id": "ns:input",
+          "@type": "xsd:string"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Input8": {
+      "@id": "ns:Input8",
+      "@context": {
+        "companyname": {
+          "@id": "ns:companyname",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data17": {
+      "@id": "ns:Data17",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "ticker": {
+          "@id": "ns:ticker",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        },
+        "website": {
+          "@id": "ns:website",
+          "@type": "xsd:string"
+        },
+        "domainList": "ns:domainList",
+        "logo": {
+          "@id": "ns:logo",
+          "@type": "xsd:string"
+        },
+        "socialMediaUrls": "ns:socialMediaUrls",
+        "revenue": {
+          "@id": "ns:revenue",
+          "@type": "xsd:integer"
+        },
+        "employeeCount": {
+          "@id": "ns:employeeCount",
+          "@type": "xsd:integer"
+        },
+        "numberOfContactsInZoomInfo": {
+          "@id": "ns:numberOfContactsInZoomInfo",
+          "@type": "xsd:integer"
+        },
+        "phone": {
+          "@id": "ns:phone",
+          "@type": "xsd:string"
+        },
+        "fax": {
+          "@id": "ns:fax",
+          "@type": "xsd:string"
+        },
+        "street": {
+          "@id": "ns:street",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "zipCode": {
+          "@id": "ns:zipCode",
+          "@type": "xsd:string"
+        },
+        "country": {
+          "@id": "ns:country",
+          "@type": "xsd:string"
+        },
+        "continent": {
+          "@id": "ns:continent",
+          "@type": "xsd:string"
+        },
+        "companyStatus": {
+          "@id": "ns:companyStatus",
+          "@type": "xsd:string"
+        },
+        "companyStatusDate": {
+          "@id": "ns:companyStatusDate",
+          "@type": "xsd:string"
+        },
+        "employeeGrowth": {
+          "@id": "ns:employeeGrowth",
+          "@type": "xsd:string"
+        },
+        "type": {
+          "@id": "ns:type",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "EmployeeGrowth1": {
+      "@id": "ns:EmployeeGrowth1",
+      "@context": {
+        "oneYearGrowthRate": {
+          "@id": "ns:oneYearGrowthRate",
+          "@type": "xsd:string"
+        },
+        "twoYearGrowthRate": {
+          "@id": "ns:twoYearGrowthRate",
+          "@type": "xsd:string"
+        },
+        "employeeGrowthDataPoints": "ns:employeeGrowthDataPoints"
+      }
+    },
+    "EmployeeGrowthDataPoint1": {
+      "@id": "ns:EmployeeGrowthDataPoint1",
+      "@context": {
+        "label": {
+          "@id": "ns:label",
+          "@type": "xsd:string"
+        },
+        "employeeCount": {
+          "@id": "ns:employeeCount",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "CompanyEnrichInput": {
+      "@id": "ns:CompanyEnrichInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "CompanyEnrichOutput": {
+      "@id": "ns:CompanyEnrichOutput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        },
+        "accessGranted": {
+          "@id": "ns:accessGranted",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "CompanyMasterDataEnrichRequest": {
+      "@id": "ns:CompanyMasterDataEnrichRequest",
+      "@context": {
+        "matchCompanyInput": "ns:matchCompanyInput",
+        "outputFields": "ns:outputFields"
+      }
+    },
+    "MatchCompanyInput1": {
+      "@id": "ns:MatchCompanyInput1",
+      "@context": {
+        "zi_c_url": {
+          "@id": "ns:zi_c_url",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Nameaddressandmatchreason": {
+      "@id": "ns:Nameaddressandmatchreason",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data18": {
+      "@id": "ns:Data18",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result"
+      }
+    },
+    "Result9": {
+      "@id": "ns:Result9",
+      "@context": {
+        "statusCode": {
+          "@id": "ns:statusCode",
+          "@type": "xsd:integer"
+        },
+        "input": {
+          "@id": "ns:input",
+          "@type": "xsd:string"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Input9": {
+      "@id": "ns:Input9",
+      "@context": {
+        "address": {
+          "@id": "ns:address",
+          "@type": "xsd:string"
+        },
+        "match_reasons": "ns:match_reasons",
+        "zi_c_name": {
+          "@id": "ns:zi_c_name",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Address1": {
+      "@id": "ns:Address1",
+      "@context": {
+        "zi_c_city": {
+          "@id": "ns:zi_c_city",
+          "@type": "xsd:string"
+        },
+        "zi_c_country": {
+          "@id": "ns:zi_c_country",
+          "@type": "xsd:string"
+        },
+        "zi_c_state": {
+          "@id": "ns:zi_c_state",
+          "@type": "xsd:string"
+        },
+        "zi_c_zip": {
+          "@id": "ns:zi_c_zip",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "MatchReason": {
+      "@id": "ns:MatchReason",
+      "@context": {
+        "zi_c_name": {
+          "@id": "ns:zi_c_name",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data19": {
+      "@id": "ns:Data19",
+      "@context": {
+        "zi_c_location_id": {
+          "@id": "ns:zi_c_location_id",
+          "@type": "xsd:integer"
+        },
+        "zi_es_ecid": {
+          "@id": "ns:zi_es_ecid",
+          "@type": "xsd:integer"
+        },
+        "zi_es_location_id": {
+          "@id": "ns:zi_es_location_id",
+          "@type": "xsd:string"
+        },
+        "zi_c_is_hq": {
+          "@id": "ns:zi_c_is_hq",
+          "@type": "xsd:string"
+        },
+        "zi_c_tier_grade": {
+          "@id": "ns:zi_c_tier_grade",
+          "@type": "xsd:string"
+        },
+        "zi_c_name": {
+          "@id": "ns:zi_c_name",
+          "@type": "xsd:string"
+        },
+        "zi_c_name_display": {
+          "@id": "ns:zi_c_name_display",
+          "@type": "xsd:string"
+        },
+        "zi_c_url": {
+          "@id": "ns:zi_c_url",
+          "@type": "xsd:string"
+        },
+        "zi_c_street": {
+          "@id": "ns:zi_c_street",
+          "@type": "xsd:string"
+        },
+        "zi_c_city": {
+          "@id": "ns:zi_c_city",
+          "@type": "xsd:string"
+        },
+        "zi_c_state": {
+          "@id": "ns:zi_c_state",
+          "@type": "xsd:string"
+        },
+        "zi_c_zip": {
+          "@id": "ns:zi_c_zip",
+          "@type": "xsd:string"
+        },
+        "zi_c_country": {
+          "@id": "ns:zi_c_country",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason": {
+          "@id": "ns:zi_match_reason",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ZiMatchReason": {
+      "@id": "ns:ZiMatchReason",
+      "@context": {
+        "zi_match_name": {
+          "@id": "ns:zi_match_name",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_building_name": {
+          "@id": "ns:zi_match_reason_building_name",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_building_number": {
+          "@id": "ns:zi_match_reason_building_number",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_business_type": {
+          "@id": "ns:zi_match_reason_business_type",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_city": {
+          "@id": "ns:zi_match_reason_city",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_company_phone": {
+          "@id": "ns:zi_match_reason_company_phone",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_country": {
+          "@id": "ns:zi_match_reason_country",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_directional": {
+          "@id": "ns:zi_match_reason_directional",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_name": {
+          "@id": "ns:zi_match_reason_name",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_road_name": {
+          "@id": "ns:zi_match_reason_road_name",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_road_type": {
+          "@id": "ns:zi_match_reason_road_type",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_state": {
+          "@id": "ns:zi_match_reason_state",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_unit": {
+          "@id": "ns:zi_match_reason_unit",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_website": {
+          "@id": "ns:zi_match_reason_website",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_zip": {
+          "@id": "ns:zi_match_reason_zip",
+          "@type": "xsd:string"
+        },
+        "zi_match_score": {
+          "@id": "ns:zi_match_score",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Matchbyphonenumber": {
+      "@id": "ns:Matchbyphonenumber",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data20": {
+      "@id": "ns:Data20",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result"
+      }
+    },
+    "Result10": {
+      "@id": "ns:Result10",
+      "@context": {
+        "statusCode": {
+          "@id": "ns:statusCode",
+          "@type": "xsd:integer"
+        },
+        "input": {
+          "@id": "ns:input",
+          "@type": "xsd:string"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Input10": {
+      "@id": "ns:Input10",
+      "@context": {
+        "phone": {
+          "@id": "ns:phone",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Phone": {
+      "@id": "ns:Phone",
+      "@context": {
+        "zi_c_country": {
+          "@id": "ns:zi_c_country",
+          "@type": "xsd:string"
+        },
+        "zi_c_phone": {
+          "@id": "ns:zi_c_phone",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data21": {
+      "@id": "ns:Data21",
+      "@context": {
+        "zi_c_location_id": {
+          "@id": "ns:zi_c_location_id",
+          "@type": "xsd:integer"
+        },
+        "zi_es_ecid": {
+          "@id": "ns:zi_es_ecid",
+          "@type": "xsd:integer"
+        },
+        "zi_es_location_id": {
+          "@id": "ns:zi_es_location_id",
+          "@type": "xsd:string"
+        },
+        "zi_c_is_hq": {
+          "@id": "ns:zi_c_is_hq",
+          "@type": "xsd:string"
+        },
+        "zi_c_tier_grade": {
+          "@id": "ns:zi_c_tier_grade",
+          "@type": "xsd:string"
+        },
+        "zi_c_name": {
+          "@id": "ns:zi_c_name",
+          "@type": "xsd:string"
+        },
+        "zi_c_name_display": {
+          "@id": "ns:zi_c_name_display",
+          "@type": "xsd:string"
+        },
+        "zi_c_legal_entity_type": {
+          "@id": "ns:zi_c_legal_entity_type",
+          "@type": "xsd:string"
+        },
+        "zi_c_url": {
+          "@id": "ns:zi_c_url",
+          "@type": "xsd:string"
+        },
+        "zi_c_street": {
+          "@id": "ns:zi_c_street",
+          "@type": "xsd:string"
+        },
+        "zi_c_street_2": {
+          "@id": "ns:zi_c_street_2",
+          "@type": "xsd:string"
+        },
+        "zi_c_city": {
+          "@id": "ns:zi_c_city",
+          "@type": "xsd:string"
+        },
+        "zi_c_state": {
+          "@id": "ns:zi_c_state",
+          "@type": "xsd:string"
+        },
+        "zi_c_zip": {
+          "@id": "ns:zi_c_zip",
+          "@type": "xsd:string"
+        },
+        "zi_c_country": {
+          "@id": "ns:zi_c_country",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason": {
+          "@id": "ns:zi_match_reason",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "MatchbycompanyURL": {
+      "@id": "ns:MatchbycompanyURL",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data22": {
+      "@id": "ns:Data22",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result"
+      }
+    },
+    "Result11": {
+      "@id": "ns:Result11",
+      "@context": {
+        "statusCode": {
+          "@id": "ns:statusCode",
+          "@type": "xsd:integer"
+        },
+        "input": {
+          "@id": "ns:input",
+          "@type": "xsd:string"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Input11": {
+      "@id": "ns:Input11",
+      "@context": {
+        "zi_c_url": {
+          "@id": "ns:zi_c_url",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data23": {
+      "@id": "ns:Data23",
+      "@context": {
+        "zi_c_location_id": {
+          "@id": "ns:zi_c_location_id",
+          "@type": "xsd:integer"
+        },
+        "zi_es_ecid": {
+          "@id": "ns:zi_es_ecid",
+          "@type": "xsd:integer"
+        },
+        "zi_es_location_id": {
+          "@id": "ns:zi_es_location_id",
+          "@type": "xsd:string"
+        },
+        "zi_c_is_hq": {
+          "@id": "ns:zi_c_is_hq",
+          "@type": "xsd:string"
+        },
+        "zi_c_tier_grade": {
+          "@id": "ns:zi_c_tier_grade",
+          "@type": "xsd:string"
+        },
+        "zi_c_name": {
+          "@id": "ns:zi_c_name",
+          "@type": "xsd:string"
+        },
+        "zi_c_name_display": {
+          "@id": "ns:zi_c_name_display",
+          "@type": "xsd:string"
+        },
+        "zi_c_url": {
+          "@id": "ns:zi_c_url",
+          "@type": "xsd:string"
+        },
+        "zi_c_street": {
+          "@id": "ns:zi_c_street",
+          "@type": "xsd:string"
+        },
+        "zi_c_street_2": {
+          "@id": "ns:zi_c_street_2",
+          "@type": "xsd:string"
+        },
+        "zi_c_city": {
+          "@id": "ns:zi_c_city",
+          "@type": "xsd:string"
+        },
+        "zi_c_state": {
+          "@id": "ns:zi_c_state",
+          "@type": "xsd:string"
+        },
+        "zi_c_zip": {
+          "@id": "ns:zi_c_zip",
+          "@type": "xsd:string"
+        },
+        "zi_c_country": {
+          "@id": "ns:zi_c_country",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason": {
+          "@id": "ns:zi_match_reason",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ZiMatchReason2": {
+      "@id": "ns:ZiMatchReason2",
+      "@context": {
+        "zi_match_reason_building_name": {
+          "@id": "ns:zi_match_reason_building_name",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_building_number": {
+          "@id": "ns:zi_match_reason_building_number",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_business_type": {
+          "@id": "ns:zi_match_reason_business_type",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_city": {
+          "@id": "ns:zi_match_reason_city",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_company_phone": {
+          "@id": "ns:zi_match_reason_company_phone",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_country": {
+          "@id": "ns:zi_match_reason_country",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_directional": {
+          "@id": "ns:zi_match_reason_directional",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_name": {
+          "@id": "ns:zi_match_reason_name",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_road_name": {
+          "@id": "ns:zi_match_reason_road_name",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_road_type": {
+          "@id": "ns:zi_match_reason_road_type",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_state": {
+          "@id": "ns:zi_match_reason_state",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_unit": {
+          "@id": "ns:zi_match_reason_unit",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_website": {
+          "@id": "ns:zi_match_reason_website",
+          "@type": "xsd:string"
+        },
+        "zi_match_reason_zip": {
+          "@id": "ns:zi_match_reason_zip",
+          "@type": "xsd:string"
+        },
+        "zi_match_score": {
+          "@id": "ns:zi_match_score",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "Matchbycompanyaddress1": {
+      "@id": "ns:Matchbycompanyaddress1",
+      "@context": {
+        "responseCode": {
+          "@id": "ns:responseCode",
+          "@type": "xsd:integer"
+        },
+        "message": {
+          "@id": "ns:message",
+          "@type": "xsd:string"
+        },
+        "invalidOutputFields": "ns:invalidOutputFields"
+      }
+    },
+    "Data24": {
+      "@id": "ns:Data24",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result"
+      }
+    },
+    "Result12": {
+      "@id": "ns:Result12",
+      "@context": {
+        "statusCode": {
+          "@id": "ns:statusCode",
+          "@type": "xsd:integer"
+        },
+        "input": {
+          "@id": "ns:input",
+          "@type": "xsd:string"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Input12": {
+      "@id": "ns:Input12",
+      "@context": {
+        "zi_c_id": {
+          "@id": "ns:zi_c_id",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "Data25": {
+      "@id": "ns:Data25",
+      "@context": {
+        "errorMessage": {
+          "@id": "ns:errorMessage",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "MatchbyZoomInfocompanyID1": {
+      "@id": "ns:MatchbyZoomInfocompanyID1",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Enrichmultiplecompanies": {
+      "@id": "ns:Enrichmultiplecompanies",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data28": {
+      "@id": "ns:Data28",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result"
+      }
+    },
+    "Result14": {
+      "@id": "ns:Result14",
+      "@context": {
+        "statusCode": {
+          "@id": "ns:statusCode",
+          "@type": "xsd:integer"
+        },
+        "input": {
+          "@id": "ns:input",
+          "@type": "xsd:string"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Input14": {
+      "@id": "ns:Input14",
+      "@context": {
+        "zi_c_location_id": {
+          "@id": "ns:zi_c_location_id",
+          "@type": "xsd:integer"
+        },
+        "address": {
+          "@id": "ns:address",
+          "@type": "xsd:string"
+        },
+        "zi_c_url": {
+          "@id": "ns:zi_c_url",
+          "@type": "xsd:string"
+        },
+        "phone": {
+          "@id": "ns:phone",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Address2": {
+      "@id": "ns:Address2",
+      "@context": {
+        "zi_c_country": {
+          "@id": "ns:zi_c_country",
+          "@type": "xsd:string"
+        },
+        "zi_c_state": {
+          "@id": "ns:zi_c_state",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data29": {
+      "@id": "ns:Data29",
+      "@context": {
+        "zi_c_location_id": {
+          "@id": "ns:zi_c_location_id",
+          "@type": "xsd:integer"
+        },
+        "zi_es_ecid": {
+          "@id": "ns:zi_es_ecid",
+          "@type": "xsd:integer"
+        },
+        "zi_es_location_id": {
+          "@id": "ns:zi_es_location_id",
+          "@type": "xsd:string"
+        },
+        "zi_c_is_hq": {
+          "@id": "ns:zi_c_is_hq",
+          "@type": "xsd:string"
+        },
+        "zi_c_company_name": {
+          "@id": "ns:zi_c_company_name",
+          "@type": "xsd:string"
+        },
+        "zi_c_tier_grade": {
+          "@id": "ns:zi_c_tier_grade",
+          "@type": "xsd:string"
+        },
+        "zi_c_name": {
+          "@id": "ns:zi_c_name",
+          "@type": "xsd:string"
+        },
+        "zi_c_name_display": {
+          "@id": "ns:zi_c_name_display",
+          "@type": "xsd:string"
+        },
+        "zi_c_url": {
+          "@id": "ns:zi_c_url",
+          "@type": "xsd:string"
+        },
+        "zi_c_street": {
+          "@id": "ns:zi_c_street",
+          "@type": "xsd:string"
+        },
+        "zi_c_city": {
+          "@id": "ns:zi_c_city",
+          "@type": "xsd:string"
+        },
+        "zi_c_state": {
+          "@id": "ns:zi_c_state",
+          "@type": "xsd:string"
+        },
+        "zi_c_zip": {
+          "@id": "ns:zi_c_zip",
+          "@type": "xsd:string"
+        },
+        "zi_c_country": {
+          "@id": "ns:zi_c_country",
+          "@type": "xsd:string"
+        },
+        "zi_c_legal_entity_type": {
+          "@id": "ns:zi_c_legal_entity_type",
+          "@type": "xsd:string"
+        },
+        "zi_c_street_2": {
+          "@id": "ns:zi_c_street_2",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "CompanyMasterDataEnrichInput": {
+      "@id": "ns:CompanyMasterDataEnrichInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "CompanyMasterDataEnrichOutput": {
+      "@id": "ns:CompanyMasterDataEnrichOutput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "dataType": {
+          "@id": "ns:dataType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "OrgChartEnrichRequest": {
+      "@id": "ns:OrgChartEnrichRequest",
+      "@context": {
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:string"
+        },
+        "department": {
+          "@id": "ns:department",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "OrgChartEnrich": {
+      "@id": "ns:OrgChartEnrich",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Data30": {
+      "@id": "ns:Data30",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "firstName": {
+          "@id": "ns:firstName",
+          "@type": "xsd:string"
+        },
+        "middleName": {
+          "@id": "ns:middleName",
+          "@type": "xsd:string"
+        },
+        "lastName": {
+          "@id": "ns:lastName",
+          "@type": "xsd:string"
+        },
+        "lastUpdatedDate": {
+          "@id": "ns:lastUpdatedDate",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "ns:title",
+          "@type": "xsd:string"
+        },
+        "hasEmail": {
+          "@id": "ns:hasEmail",
+          "@type": "xsd:boolean"
+        },
+        "hasDirectPhone": {
+          "@id": "ns:hasDirectPhone",
+          "@type": "xsd:boolean"
+        },
+        "department": {
+          "@id": "ns:department",
+          "@type": "xsd:string"
+        },
+        "jobFunction": {
+          "@id": "ns:jobFunction",
+          "@type": "xsd:string"
+        },
+        "orgChartTier": {
+          "@id": "ns:orgChartTier",
+          "@type": "xsd:integer"
+        },
+        "orgChartSubTier": {
+          "@id": "ns:orgChartSubTier",
+          "@type": "xsd:integer"
+        },
+        "contactAccuracyScore": {
+          "@id": "ns:contactAccuracyScore",
+          "@type": "xsd:integer"
+        },
+        "company": {
+          "@id": "ns:company",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "OrgChartEnrichInput": {
+      "@id": "ns:OrgChartEnrichInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "OrgChartEnrichOutput": {
+      "@id": "ns:OrgChartEnrichOutput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "CorporateHierarchyEnrichRequest": {
+      "@id": "ns:CorporateHierarchyEnrichRequest",
+      "@context": {
+        "matchCompanyInput": "ns:matchCompanyInput",
+        "outputFields": "ns:outputFields"
+      }
+    },
+    "MatchCompanyInput2": {
+      "@id": "ns:MatchCompanyInput2",
+      "@context": {
+        "companyName": {
+          "@id": "ns:companyName",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Enrichcorporatehierarchy-multiplecompanies": {
+      "@id": "ns:Enrichcorporatehierarchy-multiplecompanies",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data31": {
+      "@id": "ns:Data31",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result"
+      }
+    },
+    "Result15": {
+      "@id": "ns:Result15",
+      "@context": {
+        "input": {
+          "@id": "ns:input",
+          "@type": "xsd:string"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Input15": {
+      "@id": "ns:Input15",
+      "@context": {
+        "companyname": {
+          "@id": "ns:companyname",
+          "@type": "xsd:string"
+        },
+        "companyid": {
+          "@id": "ns:companyid",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "Data32": {
+      "@id": "ns:Data32",
+      "@context": {
+        "parentage": "ns:parentage",
+        "familyTree": "ns:familyTree",
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "Parentage": {
+      "@id": "ns:Parentage",
+      "@context": {
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:string"
+        },
+        "companyName": {
+          "@id": "ns:companyName",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "subUnitType": {
+          "@id": "ns:subUnitType",
+          "@type": "xsd:string"
+        },
+        "subUnitDesc": {
+          "@id": "ns:subUnitDesc",
+          "@type": "xsd:string"
+        },
+        "acquiredByDate": {
+          "@id": "ns:acquiredByDate",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Parentage1": {
+      "@id": "ns:Parentage1",
+      "@context": {
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:string"
+        },
+        "companyName": {
+          "@id": "ns:companyName",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "subUnitType": {
+          "@id": "ns:subUnitType",
+          "@type": "xsd:string"
+        },
+        "subUnitDesc": {
+          "@id": "ns:subUnitDesc",
+          "@type": "xsd:string"
+        },
+        "acquiredByDate": {
+          "@id": "ns:acquiredByDate",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "FamilyTree": {
+      "@id": "ns:FamilyTree",
+      "@context": {
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:integer"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "familyNodes": "ns:familyNodes"
+      }
+    },
+    "FamilyNode": {
+      "@id": "ns:FamilyNode",
+      "@context": {
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:integer"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "subUnitTypeInfo": {
+          "@id": "ns:subUnitTypeInfo",
+          "@type": "xsd:string"
+        },
+        "familyNodes": "ns:familyNodes"
+      }
+    },
+    "SubUnitTypeInfo": {
+      "@id": "ns:SubUnitTypeInfo",
+      "@context": {
+        "typeId": {
+          "@id": "ns:typeId",
+          "@type": "xsd:integer"
+        },
+        "typeDescription": {
+          "@id": "ns:typeDescription",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "FamilyNode1": {
+      "@id": "ns:FamilyNode1",
+      "@context": {
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:integer"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "subUnitTypeInfo": {
+          "@id": "ns:subUnitTypeInfo",
+          "@type": "xsd:string"
+        },
+        "familyNodes": "ns:familyNodes"
+      }
+    },
+    "FamilyNode2": {
+      "@id": "ns:FamilyNode2",
+      "@context": {
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:integer"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "subUnitTypeInfo": {
+          "@id": "ns:subUnitTypeInfo",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Enrichcorporatehierarchy-singlecompany": {
+      "@id": "ns:Enrichcorporatehierarchy-singlecompany",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data33": {
+      "@id": "ns:Data33",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result"
+      }
+    },
+    "Result16": {
+      "@id": "ns:Result16",
+      "@context": {
+        "input": {
+          "@id": "ns:input",
+          "@type": "xsd:string"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Data34": {
+      "@id": "ns:Data34",
+      "@context": {
+        "parentage": "ns:parentage",
+        "familyTree": "ns:familyTree",
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "GetCorporateHierarchyEnrichInput": {
+      "@id": "ns:GetCorporateHierarchyEnrichInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "GetCorporateHierarchyEnrichOutput": {
+      "@id": "ns:GetCorporateHierarchyEnrichOutput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "LocationEnrichRequest": {
+      "@id": "ns:LocationEnrichRequest",
+      "@context": {
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Enrichcompanylocation": {
+      "@id": "ns:Enrichcompanylocation",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Data35": {
+      "@id": "ns:Data35",
+      "@context": {
+        "phone": {
+          "@id": "ns:phone",
+          "@type": "xsd:string"
+        },
+        "fax": {
+          "@id": "ns:fax",
+          "@type": "xsd:string"
+        },
+        "street": {
+          "@id": "ns:street",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "zipCode": {
+          "@id": "ns:zipCode",
+          "@type": "xsd:string"
+        },
+        "country": {
+          "@id": "ns:country",
+          "@type": "xsd:string"
+        },
+        "company": {
+          "@id": "ns:company",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Company20": {
+      "@id": "ns:Company20",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "addressStatus": {
+          "@id": "ns:addressStatus",
+          "@type": "xsd:string"
+        },
+        "subUnitType": {
+          "@id": "ns:subUnitType",
+          "@type": "xsd:string"
+        },
+        "locationName": {
+          "@id": "ns:locationName",
+          "@type": "xsd:string"
+        },
+        "locationEmployeeCount": {
+          "@id": "ns:locationEmployeeCount",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "GetLocationEnrichInput": {
+      "@id": "ns:GetLocationEnrichInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "LocationEnrichOutput": {
+      "@id": "ns:LocationEnrichOutput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "TechnologyEnrichRequest": {
+      "@id": "ns:TechnologyEnrichRequest",
+      "@context": {
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Enrichtechnologyforacompany": {
+      "@id": "ns:Enrichtechnologyforacompany",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Data36": {
+      "@id": "ns:Data36",
+      "@context": {
+        "tag": {
+          "@id": "ns:tag",
+          "@type": "xsd:string"
+        },
+        "categoryParent": {
+          "@id": "ns:categoryParent",
+          "@type": "xsd:string"
+        },
+        "category": {
+          "@id": "ns:category",
+          "@type": "xsd:string"
+        },
+        "vendor": {
+          "@id": "ns:vendor",
+          "@type": "xsd:string"
+        },
+        "product": {
+          "@id": "ns:product",
+          "@type": "xsd:string"
+        },
+        "attribute": {
+          "@id": "ns:attribute",
+          "@type": "xsd:string"
+        },
+        "website": {
+          "@id": "ns:website",
+          "@type": "xsd:string"
+        },
+        "logo": "ns:logo",
+        "domain": "ns:domain",
+        "createdTime": {
+          "@id": "ns:createdTime",
+          "@type": "xsd:string"
+        },
+        "modifiedTime": {
+          "@id": "ns:modifiedTime",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "GetTechnologyEnrichInput": {
+      "@id": "ns:GetTechnologyEnrichInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "HashtagsEnrichRequest": {
+      "@id": "ns:HashtagsEnrichRequest",
+      "@context": {
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Enrichhashtagsforacompany": {
+      "@id": "ns:Enrichhashtagsforacompany",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Data37": {
+      "@id": "ns:Data37",
+      "@context": {
+        "tag": {
+          "@id": "ns:tag",
+          "@type": "xsd:string"
+        },
+        "external_id": "ns:external_id",
+        "searchString": {
+          "@id": "ns:searchString",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        },
+        "group": {
+          "@id": "ns:group",
+          "@type": "xsd:string"
+        },
+        "score": "ns:score",
+        "priority": {
+          "@id": "ns:priority",
+          "@type": "xsd:string"
+        },
+        "parentCategory": {
+          "@id": "ns:parentCategory",
+          "@type": "xsd:string"
+        },
+        "categorizedFlag": {
+          "@id": "ns:categorizedFlag",
+          "@type": "xsd:boolean"
+        },
+        "label": {
+          "@id": "ns:label",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "GetHashtagEnrichInput": {
+      "@id": "ns:GetHashtagEnrichInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "IntentEnrichRequest": {
+      "@id": "ns:IntentEnrichRequest",
+      "@context": {
+        "companyName": {
+          "@id": "ns:companyName",
+          "@type": "xsd:string"
+        },
+        "companyWebsite": {
+          "@id": "ns:companyWebsite",
+          "@type": "xsd:string"
+        },
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:integer"
+        },
+        "topics": "ns:topics",
+        "signalStartDate": {
+          "@id": "ns:signalStartDate",
+          "@type": "xsd:string"
+        },
+        "signalEndDate": {
+          "@id": "ns:signalEndDate",
+          "@type": "xsd:string"
+        },
+        "signalScoreMin": {
+          "@id": "ns:signalScoreMin",
+          "@type": "xsd:integer"
+        },
+        "signalScoreMax": {
+          "@id": "ns:signalScoreMax",
+          "@type": "xsd:integer"
+        },
+        "audienceStrengthMin": {
+          "@id": "ns:audienceStrengthMin",
+          "@type": "xsd:string"
+        },
+        "audienceStrengthMax": {
+          "@id": "ns:audienceStrengthMax",
+          "@type": "xsd:string"
+        },
+        "sortBy": {
+          "@id": "ns:sortBy",
+          "@type": "xsd:string"
+        },
+        "sortOrder": {
+          "@id": "ns:sortOrder",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "IntentEnrich": {
+      "@id": "ns:IntentEnrich",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Data38": {
+      "@id": "ns:Data38",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:string"
+        },
+        "category": {
+          "@id": "ns:category",
+          "@type": "xsd:string"
+        },
+        "topic": {
+          "@id": "ns:topic",
+          "@type": "xsd:string"
+        },
+        "signalScore": {
+          "@id": "ns:signalScore",
+          "@type": "xsd:integer"
+        },
+        "audienceStrength": {
+          "@id": "ns:audienceStrength",
+          "@type": "xsd:string"
+        },
+        "newSignal": {
+          "@id": "ns:newSignal",
+          "@type": "xsd:boolean"
+        },
+        "signalDate": {
+          "@id": "ns:signalDate",
+          "@type": "xsd:string"
+        },
+        "trend": {
+          "@id": "ns:trend",
+          "@type": "xsd:integer"
+        },
+        "recommendedContacts": "ns:recommendedContacts",
+        "company": {
+          "@id": "ns:company",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "RecommendedContact1": {
+      "@id": "ns:RecommendedContact1",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "firstName": {
+          "@id": "ns:firstName",
+          "@type": "xsd:string"
+        },
+        "lastName": {
+          "@id": "ns:lastName",
+          "@type": "xsd:string"
+        },
+        "jobTitle": {
+          "@id": "ns:jobTitle",
+          "@type": "xsd:string"
+        },
+        "jobFunction": "ns:jobFunction"
+      }
+    },
+    "IntentEnrichInput": {
+      "@id": "ns:IntentEnrichInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "IntentEnrichOutput": {
+      "@id": "ns:IntentEnrichOutput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "NewsEnrichRequest": {
+      "@id": "ns:NewsEnrichRequest",
+      "@context": {
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:integer"
+        },
+        "categories": "ns:categories",
+        "url": "ns:url",
+        "pageDateMin": {
+          "@id": "ns:pageDateMin",
+          "@type": "xsd:string"
+        },
+        "pageDateMax": {
+          "@id": "ns:pageDateMax",
+          "@type": "xsd:string"
+        },
+        "limit": {
+          "@id": "ns:limit",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "NewsEnrich": {
+      "@id": "ns:NewsEnrich",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Data39": {
+      "@id": "ns:Data39",
+      "@context": {
+        "domain": {
+          "@id": "ns:domain",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "ns:title",
+          "@type": "xsd:string"
+        },
+        "url": {
+          "@id": "ns:url",
+          "@type": "xsd:string"
+        },
+        "imageUrl": {
+          "@id": "ns:imageUrl",
+          "@type": "xsd:string"
+        },
+        "pageDate": {
+          "@id": "ns:pageDate",
+          "@type": "xsd:string"
+        },
+        "categories": "ns:categories",
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        },
+        "company": "ns:company"
+      }
+    },
+    "NewsEnrichInput": {
+      "@id": "ns:NewsEnrichInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "NewsEnrichOutput": {
+      "@id": "ns:NewsEnrichOutput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ScoopEnrichRequest": {
+      "@id": "ns:ScoopEnrichRequest",
+      "@context": {
+        "companyName": {
+          "@id": "ns:companyName",
+          "@type": "xsd:string"
+        },
+        "publishedStartDate": {
+          "@id": "ns:publishedStartDate",
+          "@type": "xsd:string"
+        },
+        "publishedEndDate": {
+          "@id": "ns:publishedEndDate",
+          "@type": "xsd:string"
+        },
+        "scoopType": {
+          "@id": "ns:scoopType",
+          "@type": "xsd:string"
+        },
+        "department": {
+          "@id": "ns:department",
+          "@type": "xsd:string"
+        },
+        "sortBy": {
+          "@id": "ns:sortBy",
+          "@type": "xsd:string"
+        },
+        "sortOrder": {
+          "@id": "ns:sortOrder",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ScoopEnrich": {
+      "@id": "ns:ScoopEnrich",
+      "@context": {
+        "maxResults": {
+          "@id": "ns:maxResults",
+          "@type": "xsd:integer"
+        },
+        "totalResults": {
+          "@id": "ns:totalResults",
+          "@type": "xsd:integer"
+        },
+        "currentPage": {
+          "@id": "ns:currentPage",
+          "@type": "xsd:integer"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Data40": {
+      "@id": "ns:Data40",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "publishedDate": {
+          "@id": "ns:publishedDate",
+          "@type": "xsd:string"
+        },
+        "originalPublishedDate": {
+          "@id": "ns:originalPublishedDate",
+          "@type": "xsd:string"
+        },
+        "linkText": {
+          "@id": "ns:linkText",
+          "@type": "xsd:string"
+        },
+        "link": {
+          "@id": "ns:link",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        },
+        "topics": "ns:topics",
+        "updateText": {
+          "@id": "ns:updateText",
+          "@type": "xsd:string"
+        },
+        "types": "ns:types",
+        "contacts": "ns:contacts",
+        "company": {
+          "@id": "ns:company",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ScoopEnrichInput": {
+      "@id": "ns:ScoopEnrichInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ScoopEnrichOutput": {
+      "@id": "ns:ScoopEnrichOutput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "GetCompanyRanking": {
+      "@id": "ns:GetCompanyRanking",
+      "@context": {
+        "Id": {
+          "@id": "ns:Id",
+          "@type": "xsd:string"
+        },
+        "Name": {
+          "@id": "ns:Name",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "IntentTopic": {
+      "@id": "ns:IntentTopic",
+      "@context": {
+        "Name": {
+          "@id": "ns:Name",
+          "@type": "xsd:string"
+        },
+        "Category": {
+          "@id": "ns:Category",
+          "@type": "xsd:string"
+        },
+        "Department": {
+          "@id": "ns:Department",
+          "@type": "xsd:string"
+        },
+        "JobFunction": {
+          "@id": "ns:JobFunction",
+          "@type": "xsd:string"
+        },
+        "Description": {
+          "@id": "ns:Description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Usage": {
+      "@id": "ns:Usage",
+      "@context": {
+        "usage": "ns:usage"
+      }
+    },
+    "Usage1": {
+      "@id": "ns:Usage1",
+      "@context": {
+        "limitType": {
+          "@id": "ns:limitType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        },
+        "limit": {
+          "@id": "ns:limit",
+          "@type": "xsd:integer"
+        },
+        "currentUsage": {
+          "@id": "ns:currentUsage",
+          "@type": "xsd:integer"
+        },
+        "usageRemaining": {
+          "@id": "ns:usageRemaining",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "CreateWebhookRequest": {
+      "@id": "ns:CreateWebhookRequest",
+      "@context": {
+        "title": {
+          "@id": "ns:title",
+          "@type": "xsd:string"
+        },
+        "enabled": {
+          "@id": "ns:enabled",
+          "@type": "xsd:boolean"
+        },
+        "targetUrl": {
+          "@id": "ns:targetUrl",
+          "@type": "xsd:string"
+        },
+        "subscriptions": "ns:subscriptions"
+      }
+    },
+    "Subscription": {
+      "@id": "ns:Subscription",
+      "@context": {
+        "eventType": {
+          "@id": "ns:eventType",
+          "@type": "xsd:string"
+        },
+        "objectType": {
+          "@id": "ns:objectType",
+          "@type": "xsd:string"
+        },
+        "fullPayload": {
+          "@id": "ns:fullPayload",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+    "Createawebhook-multipleobjecttypes": {
+      "@id": "ns:Createawebhook-multipleobjecttypes",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "ns:title",
+          "@type": "xsd:string"
+        },
+        "enabled": {
+          "@id": "ns:enabled",
+          "@type": "xsd:boolean"
+        },
+        "targetUrl": {
+          "@id": "ns:targetUrl",
+          "@type": "xsd:string"
+        },
+        "createdDate": {
+          "@id": "ns:createdDate",
+          "@type": "xsd:string"
+        },
+        "verificationToken": {
+          "@id": "ns:verificationToken",
+          "@type": "xsd:string"
+        },
+        "subscriptions": "ns:subscriptions"
+      }
+    },
+    "Subscription1": {
+      "@id": "ns:Subscription1",
+      "@context": {
+        "createdDate": {
+          "@id": "ns:createdDate",
+          "@type": "xsd:string"
+        },
+        "modifiedDate": {
+          "@id": "ns:modifiedDate",
+          "@type": "xsd:string"
+        },
+        "eventType": {
+          "@id": "ns:eventType",
+          "@type": "xsd:string"
+        },
+        "objectType": {
+          "@id": "ns:objectType",
+          "@type": "xsd:string"
+        },
+        "fullPayload": {
+          "@id": "ns:fullPayload",
+          "@type": "xsd:boolean"
+        },
+        "subscriptionId": {
+          "@id": "ns:subscriptionId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Createasimplewebhook": {
+      "@id": "ns:Createasimplewebhook",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "ns:title",
+          "@type": "xsd:string"
+        },
+        "enabled": {
+          "@id": "ns:enabled",
+          "@type": "xsd:boolean"
+        },
+        "targetUrl": {
+          "@id": "ns:targetUrl",
+          "@type": "xsd:string"
+        },
+        "createdDate": {
+          "@id": "ns:createdDate",
+          "@type": "xsd:string"
+        },
+        "verificationToken": {
+          "@id": "ns:verificationToken",
+          "@type": "xsd:string"
+        },
+        "subscriptions": "ns:subscriptions"
+      }
+    },
+    "UpdateWebhookRequest": {
+      "@id": "ns:UpdateWebhookRequest",
+      "@context": {
+        "title": {
+          "@id": "ns:title",
+          "@type": "xsd:string"
+        },
+        "enabled": {
+          "@id": "ns:enabled",
+          "@type": "xsd:boolean"
+        },
+        "subscriptions": "ns:subscriptions"
+      }
+    },
+    "Subscription3": {
+      "@id": "ns:Subscription3",
+      "@context": {
+        "subscriptionId": {
+          "@id": "ns:subscriptionId",
+          "@type": "xsd:string"
+        },
+        "objectType": {
+          "@id": "ns:objectType",
+          "@type": "xsd:string"
+        },
+        "fullPayload": {
+          "@id": "ns:fullPayload",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+    "AddanobjectTypetoasubscription": {
+      "@id": "ns:AddanobjectTypetoasubscription",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "ns:title",
+          "@type": "xsd:string"
+        },
+        "enabled": {
+          "@id": "ns:enabled",
+          "@type": "xsd:boolean"
+        },
+        "targetUrl": {
+          "@id": "ns:targetUrl",
+          "@type": "xsd:string"
+        },
+        "createdDate": {
+          "@id": "ns:createdDate",
+          "@type": "xsd:string"
+        },
+        "subscriptions": "ns:subscriptions"
+      }
+    },
+    "ChangetheobjectTypeforasubscription": {
+      "@id": "ns:ChangetheobjectTypeforasubscription",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "ns:title",
+          "@type": "xsd:string"
+        },
+        "enabled": {
+          "@id": "ns:enabled",
+          "@type": "xsd:boolean"
+        },
+        "targetUrl": {
+          "@id": "ns:targetUrl",
+          "@type": "xsd:string"
+        },
+        "createdDate": {
+          "@id": "ns:createdDate",
+          "@type": "xsd:string"
+        },
+        "subscriptions": "ns:subscriptions"
+      }
+    },
+    "Updateawebhooktodeletesubscriptions": {
+      "@id": "ns:Updateawebhooktodeletesubscriptions",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "ns:title",
+          "@type": "xsd:string"
+        },
+        "enabled": {
+          "@id": "ns:enabled",
+          "@type": "xsd:boolean"
+        },
+        "targetUrl": {
+          "@id": "ns:targetUrl",
+          "@type": "xsd:string"
+        },
+        "createdDate": {
+          "@id": "ns:createdDate",
+          "@type": "xsd:string"
+        },
+        "subscriptions": "ns:subscriptions"
+      }
+    },
+    "Updateawebhooktoenableit": {
+      "@id": "ns:Updateawebhooktoenableit",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "ns:title",
+          "@type": "xsd:string"
+        },
+        "enabled": {
+          "@id": "ns:enabled",
+          "@type": "xsd:boolean"
+        },
+        "targetUrl": {
+          "@id": "ns:targetUrl",
+          "@type": "xsd:string"
+        },
+        "createdDate": {
+          "@id": "ns:createdDate",
+          "@type": "xsd:string"
+        },
+        "subscriptions": "ns:subscriptions"
+      }
+    },
+    "DeleteWebhook": {
+      "@id": "ns:DeleteWebhook",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:string"
+        },
+        "targetUrl": {
+          "@id": "ns:targetUrl",
+          "@type": "xsd:string"
+        },
+        "createdDate": {
+          "@id": "ns:createdDate",
+          "@type": "xsd:string"
+        },
+        "status": {
+          "@id": "ns:status",
+          "@type": "xsd:string"
+        },
+        "subscriptions": "ns:subscriptions"
+      }
+    },
+    "Getallwebhooks": {
+      "@id": "ns:Getallwebhooks",
+      "@context": {
+        "webhooks": "ns:webhooks"
+      }
+    },
+    "Webhook": {
+      "@id": "ns:Webhook",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "ns:title",
+          "@type": "xsd:string"
+        },
+        "enabled": {
+          "@id": "ns:enabled",
+          "@type": "xsd:boolean"
+        },
+        "targetUrl": {
+          "@id": "ns:targetUrl",
+          "@type": "xsd:string"
+        },
+        "createdDate": {
+          "@id": "ns:createdDate",
+          "@type": "xsd:string"
+        },
+        "subscriptions": "ns:subscriptions"
+      }
+    },
+    "Subscription8": {
+      "@id": "ns:Subscription8",
+      "@context": {
+        "createdDate": {
+          "@id": "ns:createdDate",
+          "@type": "xsd:string"
+        },
+        "modifiedDate": {
+          "@id": "ns:modifiedDate",
+          "@type": "xsd:string"
+        },
+        "eventType": {
+          "@id": "ns:eventType",
+          "@type": "xsd:string"
+        },
+        "objectType": {
+          "@id": "ns:objectType",
+          "@type": "xsd:string"
+        },
+        "fullPayload": {
+          "@id": "ns:fullPayload",
+          "@type": "xsd:boolean"
+        },
+        "subscriptionId": {
+          "@id": "ns:subscriptionId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Getaspecificwebhook": {
+      "@id": "ns:Getaspecificwebhook",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "ns:title",
+          "@type": "xsd:string"
+        },
+        "enabled": {
+          "@id": "ns:enabled",
+          "@type": "xsd:boolean"
+        },
+        "targetUrl": {
+          "@id": "ns:targetUrl",
+          "@type": "xsd:string"
+        },
+        "createdDate": {
+          "@id": "ns:createdDate",
+          "@type": "xsd:string"
+        },
+        "subscriptions": "ns:subscriptions"
+      }
+    },
+    "ValidateTargetURLRequest": {
+      "@id": "ns:ValidateTargetURLRequest",
+      "@context": {
+        "targetUrl": {
+          "@id": "ns:targetUrl",
+          "@type": "xsd:string"
+        },
+        "objectType": {
+          "@id": "ns:objectType",
+          "@type": "xsd:string"
+        },
+        "fullPayload": {
+          "@id": "ns:fullPayload",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+    "ValidateTargetURLisaccessible": {
+      "@id": "ns:ValidateTargetURLisaccessible",
+      "@context": {
+        "message": {
+          "@id": "ns:message",
+          "@type": "xsd:string"
+        },
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "responseCode": {
+          "@id": "ns:responseCode",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "GenerateVerificationToken": {
+      "@id": "ns:GenerateVerificationToken",
+      "@context": {
+        "verificationToken": {
+          "@id": "ns:verificationToken",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "GetSubscriptionTypes": {
+      "@id": "ns:GetSubscriptionTypes",
+      "@context": {
+        "objectTypes": "ns:objectTypes",
+        "eventTypes": "ns:eventTypes"
+      }
+    },
+    "BulkContactSearchRequest": {
+      "@id": "ns:BulkContactSearchRequest",
+      "@context": {
+        "jobType": {
+          "@id": "ns:jobType",
+          "@type": "xsd:string"
+        },
+        "query": {
+          "@id": "ns:query",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Query": {
+      "@id": "ns:Query",
+      "@context": {
+        "firstName": {
+          "@id": "ns:firstName",
+          "@type": "xsd:string"
+        },
+        "companyName": {
+          "@id": "ns:companyName",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "BulkContactSearch-Preview": {
+      "@id": "ns:BulkContactSearch-Preview",
+      "@context": {
+        "jobId": {
+          "@id": "ns:jobId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "BulkContactSearch-Redeem": {
+      "@id": "ns:BulkContactSearch-Redeem",
+      "@context": {
+        "jobId": {
+          "@id": "ns:jobId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "BulkCompanySearchRequest": {
+      "@id": "ns:BulkCompanySearchRequest",
+      "@context": {
+        "jobType": {
+          "@id": "ns:jobType",
+          "@type": "xsd:string"
+        },
+        "query": {
+          "@id": "ns:query",
+          "@type": "xsd:string"
+        },
+        "outputFields": "ns:outputFields"
+      }
+    },
+    "Query1": {
+      "@id": "ns:Query1",
+      "@context": {
+        "address": {
+          "@id": "ns:address",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "BulkCompanySearch-Preview": {
+      "@id": "ns:BulkCompanySearch-Preview",
+      "@context": {
+        "jobId": {
+          "@id": "ns:jobId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "BulkCompanySearch-Redeem": {
+      "@id": "ns:BulkCompanySearch-Redeem",
+      "@context": {
+        "jobId": {
+          "@id": "ns:jobId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "BulkContactEnrichRequest": {
+      "@id": "ns:BulkContactEnrichRequest",
+      "@context": {
+        "matchPersonInput": "ns:matchPersonInput",
+        "outputFields": "ns:outputFields"
+      }
+    },
+    "MatchPersonInput1": {
+      "@id": "ns:MatchPersonInput1",
+      "@context": {
+        "personId": {
+          "@id": "ns:personId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "BulkContactEnrich": {
+      "@id": "ns:BulkContactEnrich",
+      "@context": {
+        "jobId": {
+          "@id": "ns:jobId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "BulkContactEnrichwithRequiredFields": {
+      "@id": "ns:BulkContactEnrichwithRequiredFields",
+      "@context": {
+        "jobId": {
+          "@id": "ns:jobId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "BulkCompanyEnrichRequest": {
+      "@id": "ns:BulkCompanyEnrichRequest",
+      "@context": {
+        "matchCompanyInput": "ns:matchCompanyInput",
+        "outputFields": "ns:outputFields"
+      }
+    },
+    "MatchCompanyInput3": {
+      "@id": "ns:MatchCompanyInput3",
+      "@context": {
+        "companyId": {
+          "@id": "ns:companyId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "BulkCompanyEnrich": {
+      "@id": "ns:BulkCompanyEnrich",
+      "@context": {
+        "jobId": {
+          "@id": "ns:jobId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "BulkCompanyEnrichwithRequiredFields": {
+      "@id": "ns:BulkCompanyEnrichwithRequiredFields",
+      "@context": {
+        "jobId": {
+          "@id": "ns:jobId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "BulkJobStatusRequest": {
+      "@id": "ns:BulkJobStatusRequest",
+      "@context": {
+        "jobId": {
+          "@id": "ns:jobId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "BulkJobStatus": {
+      "@id": "ns:BulkJobStatus",
+      "@context": {
+        "status": {
+          "@id": "ns:status",
+          "@type": "xsd:string"
+        },
+        "jobType": {
+          "@id": "ns:jobType",
+          "@type": "xsd:string"
+        },
+        "entityType": {
+          "@id": "ns:entityType",
+          "@type": "xsd:string"
+        },
+        "totalRecords": {
+          "@id": "ns:totalRecords",
+          "@type": "xsd:integer"
+        },
+        "totalPages": {
+          "@id": "ns:totalPages",
+          "@type": "xsd:integer"
+        },
+        "successfulPagesCount": {
+          "@id": "ns:successfulPagesCount",
+          "@type": "xsd:integer"
+        },
+        "successfulPages": "ns:successfulPages"
+      }
+    },
+    "BulkJobResultsRequest": {
+      "@id": "ns:BulkJobResultsRequest",
+      "@context": {
+        "jobId": {
+          "@id": "ns:jobId",
+          "@type": "xsd:string"
+        },
+        "page": {
+          "@id": "ns:page",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "IPEnrichRequest": {
+      "@id": "ns:IPEnrichRequest",
+      "@context": {
+        "ipAddress": {
+          "@id": "ns:ipAddress",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "IPbelongstoISP": {
+      "@id": "ns:IPbelongstoISP",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data41": {
+      "@id": "ns:Data41",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result"
+      }
+    },
+    "Result17": {
+      "@id": "ns:Result17",
+      "@context": {
+        "input": "ns:input",
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data42": {
+      "@id": "ns:Data42",
+      "@context": {
+        "geoLocation": {
+          "@id": "ns:geoLocation",
+          "@type": "xsd:string"
+        },
+        "ispInfo": {
+          "@id": "ns:ispInfo",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "GeoLocation": {
+      "@id": "ns:GeoLocation",
+      "@context": {
+        "location_long": {
+          "@id": "ns:location_long",
+          "@type": "xsd:decimal"
+        },
+        "location_lat": {
+          "@id": "ns:location_lat",
+          "@type": "xsd:decimal"
+        },
+        "country_code": {
+          "@id": "ns:country_code",
+          "@type": "xsd:string"
+        },
+        "province": {
+          "@id": "ns:province",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "IspInfo": {
+      "@id": "ns:IspInfo",
+      "@context": {
+        "domain": {
+          "@id": "ns:domain",
+          "@type": "xsd:string"
+        },
+        "ip_hi_string": {
+          "@id": "ns:ip_hi_string",
+          "@type": "xsd:string"
+        },
+        "ip_lo_string": {
+          "@id": "ns:ip_lo_string",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        },
+        "type": {
+          "@id": "ns:type",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "IPbelongstoacompany": {
+      "@id": "ns:IPbelongstoacompany",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data43": {
+      "@id": "ns:Data43",
+      "@context": {
+        "outputFields": "ns:outputFields",
+        "result": "ns:result"
+      }
+    },
+    "Result18": {
+      "@id": "ns:Result18",
+      "@context": {
+        "input": "ns:input",
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data44": {
+      "@id": "ns:Data44",
+      "@context": {
+        "company": {
+          "@id": "ns:company",
+          "@type": "xsd:string"
+        },
+        "geoLocation": {
+          "@id": "ns:geoLocation",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Company24": {
+      "@id": "ns:Company24",
+      "@context": {
+        "city": {
+          "@id": "ns:city",
+          "@type": "xsd:string"
+        },
+        "country": {
+          "@id": "ns:country",
+          "@type": "xsd:string"
+        },
+        "employeeCount": {
+          "@id": "ns:employeeCount",
+          "@type": "xsd:integer"
+        },
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "industries": "ns:industries",
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        },
+        "revenue": {
+          "@id": "ns:revenue",
+          "@type": "xsd:integer"
+        },
+        "state": {
+          "@id": "ns:state",
+          "@type": "xsd:string"
+        },
+        "street": {
+          "@id": "ns:street",
+          "@type": "xsd:string"
+        },
+        "ticker": {
+          "@id": "ns:ticker",
+          "@type": "xsd:string"
+        },
+        "website": {
+          "@id": "ns:website",
+          "@type": "xsd:string"
+        },
+        "zipCode": {
+          "@id": "ns:zipCode",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "GetIPEnrichInput": {
+      "@id": "ns:GetIPEnrichInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "IPEnrichOutput": {
+      "@id": "ns:IPEnrichOutput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ComplianceRequest": {
+      "@id": "ns:ComplianceRequest",
+      "@context": {
+        "matchPersonInput": "ns:matchPersonInput"
+      }
+    },
+    "MatchPersonInput2": {
+      "@id": "ns:MatchPersonInput2",
+      "@context": {
+        "companyName": {
+          "@id": "ns:companyName",
+          "@type": "xsd:string"
+        },
+        "personFirstName": {
+          "@id": "ns:personFirstName",
+          "@type": "xsd:string"
+        },
+        "personLastName": {
+          "@id": "ns:personLastName",
+          "@type": "xsd:string"
+        },
+        "personEmailAddress": {
+          "@id": "ns:personEmailAddress",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Compliance": {
+      "@id": "ns:Compliance",
+      "@context": {
+        "success": {
+          "@id": "ns:success",
+          "@type": "xsd:boolean"
+        },
+        "data": {
+          "@id": "ns:data",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data45": {
+      "@id": "ns:Data45",
+      "@context": {
+        "result": "ns:result"
+      }
+    },
+    "Result19": {
+      "@id": "ns:Result19",
+      "@context": {
+        "input": {
+          "@id": "ns:input",
+          "@type": "xsd:string"
+        },
+        "data": "ns:data"
+      }
+    },
+    "Input17": {
+      "@id": "ns:Input17",
+      "@context": {
+        "companyname": {
+          "@id": "ns:companyname",
+          "@type": "xsd:string"
+        },
+        "personfirstname": {
+          "@id": "ns:personfirstname",
+          "@type": "xsd:string"
+        },
+        "personlastname": {
+          "@id": "ns:personlastname",
+          "@type": "xsd:string"
+        },
+        "personemailaddress": {
+          "@id": "ns:personemailaddress",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Data46": {
+      "@id": "ns:Data46",
+      "@context": {
+        "id": {
+          "@id": "ns:id",
+          "@type": "xsd:integer"
+        },
+        "firstName": {
+          "@id": "ns:firstName",
+          "@type": "xsd:string"
+        },
+        "lastName": {
+          "@id": "ns:lastName",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "ns:title",
+          "@type": "xsd:string"
+        },
+        "employmentHistory": "ns:employmentHistory",
+        "emailAddresses": "ns:emailAddresses",
+        "pastEmailAddresses": "ns:pastEmailAddresses",
+        "withinEu": {
+          "@id": "ns:withinEu",
+          "@type": "xsd:boolean"
+        },
+        "hasCanadianEmail": {
+          "@id": "ns:hasCanadianEmail",
+          "@type": "xsd:string"
+        },
+        "withinCalifornia": {
+          "@id": "ns:withinCalifornia",
+          "@type": "xsd:boolean"
+        },
+        "withinCanada": {
+          "@id": "ns:withinCanada",
+          "@type": "xsd:boolean"
+        },
+        "noticeProvidedDate": {
+          "@id": "ns:noticeProvidedDate",
+          "@type": "xsd:string"
+        },
+        "hasMoved": {
+          "@id": "ns:hasMoved",
+          "@type": "xsd:string"
+        },
+        "looksLikeEu": {
+          "@id": "ns:looksLikeEu",
+          "@type": "xsd:string"
+        },
+        "looksLikeCalifornia": {
+          "@id": "ns:looksLikeCalifornia",
+          "@type": "xsd:string"
+        },
+        "looksLikeCanada": {
+          "@id": "ns:looksLikeCanada",
+          "@type": "xsd:string"
+        },
+        "company": {
+          "@id": "ns:company",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "EmploymentHistory4": {
+      "@id": "ns:EmploymentHistory4",
+      "@context": {
+        "companyName": {
+          "@id": "ns:companyName",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "ns:title",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Company25": {
+      "@id": "ns:Company25",
+      "@context": {
+        "name": {
+          "@id": "ns:name",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ComplianceInput": {
+      "@id": "ns:ComplianceInput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "fieldType": {
+          "@id": "ns:fieldType",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "ComplianceOutput": {
+      "@id": "ns:ComplianceOutput",
+      "@context": {
+        "fieldName": {
+          "@id": "ns:fieldName",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "ns:description",
+          "@type": "xsd:string"
+        }
+      }
+    }
+  }
+}

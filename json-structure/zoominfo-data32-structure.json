@@ -1,0 +1,100 @@
+{
+  "type": "object",
+  "name": "Data32",
+  "properties": {
+    "parentage": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object"
+      }
+    },
+    "familyTree": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "companyId": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "familyNodes": {
+            "type": "array",
+            "description": "",
+            "items": {
+              "type": "object",
+              "properties": {
+                "companyId": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "state": {
+                  "type": "string"
+                },
+                "subUnitTypeInfo": {
+                  "type": "object",
+                  "properties": {
+                    "typeId": {
+                      "type": "object"
+                    },
+                    "typeDescription": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "typeId",
+                    "typeDescription"
+                  ]
+                },
+                "familyNodes": {
+                  "type": "array",
+                  "description": "",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "required": [
+                "companyId",
+                "name",
+                "city",
+                "state",
+                "subUnitTypeInfo"
+              ]
+            }
+          }
+        },
+        "required": [
+          "companyId",
+          "name",
+          "city",
+          "state",
+          "familyNodes"
+        ]
+      }
+    },
+    "companyId": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "parentage",
+    "familyTree",
+    "companyId"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

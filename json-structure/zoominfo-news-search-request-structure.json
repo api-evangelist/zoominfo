@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "name": "NewsSearchRequest",
+  "properties": {
+    "categories": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "url": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string"
+      }
+    },
+    "pageDateMin": {
+      "type": "string"
+    },
+    "pageDateMax": {
+      "type": "string"
+    },
+    "page": {
+      "type": "integer"
+    },
+    "rpp": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "categories",
+    "url",
+    "pageDateMin",
+    "pageDateMax",
+    "page",
+    "rpp"
+  ],
+  "$schema": "https://json-structure.org/draft/2020-12/schema"
+}

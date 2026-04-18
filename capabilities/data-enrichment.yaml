@@ -1,0 +1,395 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "ZoomInfo Data Enrichment"
+  description: "Unified capability for B2B data enrichment workflows combining contact, company, org chart, corporate hierarchy, location, technology, intent, and IP enrichment. Used by sales ops, marketing ops, and data teams to enrich CRM and marketing automation records."
+  tags:
+    - ZoomInfo
+    - Data Enrichment
+    - CRM Integration
+    - B2B Data
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      ZOOMINFO_USERNAME: ZOOMINFO_USERNAME
+      ZOOMINFO_PASSWORD: ZOOMINFO_PASSWORD
+
+capability:
+  consumes:
+    - import: zoominfo
+      location: ./shared/zoominfo.yaml
+
+  exposes:
+    - type: rest
+      port: 8081
+      namespace: data-enrichment-api
+      description: "Unified REST API for B2B data enrichment workflows."
+      resources:
+        - path: /v1/contacts/enrich
+          name: contact-enrichment
+          description: "Enrich contact records with ZoomInfo data."
+          operations:
+            - method: POST
+              name: enrich-contact
+              description: "Enrich a contact record with ZoomInfo person data."
+              call: "zoominfo.enrich-contact"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/companies/enrich
+          name: company-enrichment
+          description: "Enrich company records with ZoomInfo data."
+          operations:
+            - method: POST
+              name: enrich-company
+              description: "Enrich a company record with ZoomInfo firmographic data."
+              call: "zoominfo.enrich-company"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/companies/master-enrich
+          name: company-master-enrichment
+          description: "Enrich company records with ZoomInfo master data."
+          operations:
+            - method: POST
+              name: enrich-company-master
+              description: "Enrich a company record with ZoomInfo master company data."
+              call: "zoominfo.enrich-company-master"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/org-charts
+          name: org-charts
+          description: "Retrieve organizational chart data."
+          operations:
+            - method: POST
+              name: enrich-orgchart
+              description: "Get org chart data for a company."
+              call: "zoominfo.enrich-orgchart"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/corporate-hierarchies
+          name: corporate-hierarchies
+          description: "Retrieve corporate hierarchy data."
+          operations:
+            - method: POST
+              name: enrich-corporate-hierarchy
+              description: "Get corporate hierarchy data showing parent/subsidiary relationships."
+              call: "zoominfo.enrich-corporate-hierarchy"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/locations
+          name: locations
+          description: "Retrieve company location data."
+          operations:
+            - method: POST
+              name: enrich-location
+              description: "Get location data for a company."
+              call: "zoominfo.enrich-location"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/technologies
+          name: technologies
+          description: "Retrieve technology stack data."
+          operations:
+            - method: POST
+              name: enrich-technology
+              description: "Get technology stack data for a company."
+              call: "zoominfo.enrich-technology"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/hashtags
+          name: hashtags
+          description: "Retrieve contact hashtag data."
+          operations:
+            - method: POST
+              name: enrich-hashtags
+              description: "Get hashtag data for a contact."
+              call: "zoominfo.enrich-hashtags"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/intent/enrich
+          name: intent-enrichment
+          description: "Retrieve intent signal enrichment data."
+          operations:
+            - method: POST
+              name: enrich-intent
+              description: "Get intent signal data for a company."
+              call: "zoominfo.enrich-intent"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/news/enrich
+          name: news-enrichment
+          description: "Retrieve news enrichment data."
+          operations:
+            - method: POST
+              name: enrich-news
+              description: "Get news data for a company."
+              call: "zoominfo.enrich-news"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/scoops/enrich
+          name: scoop-enrichment
+          description: "Retrieve scoop enrichment data."
+          operations:
+            - method: POST
+              name: enrich-scoop
+              description: "Get scoop data for a company."
+              call: "zoominfo.enrich-scoop"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/ip-addresses
+          name: ip-enrichment
+          description: "Enrich IP addresses with company data."
+          operations:
+            - method: POST
+              name: enrich-ip
+              description: "Get company data associated with an IP address."
+              call: "zoominfo.enrich-ip"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/bulk/contacts
+          name: bulk-contact-operations
+          description: "Bulk contact search and enrichment."
+          operations:
+            - method: POST
+              name: bulk-search-contacts
+              description: "Submit a bulk contact search job."
+              call: "zoominfo.bulk-search-contacts"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: bulk-enrich-contacts
+              path: /enrich
+              description: "Submit a bulk contact enrichment job."
+              call: "zoominfo.bulk-enrich-contacts"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/bulk/companies
+          name: bulk-company-operations
+          description: "Bulk company search and enrichment."
+          operations:
+            - method: POST
+              name: bulk-search-companies
+              description: "Submit a bulk company search job."
+              call: "zoominfo.bulk-search-companies"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: bulk-enrich-companies
+              path: /enrich
+              description: "Submit a bulk company enrichment job."
+              call: "zoominfo.bulk-enrich-companies"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/bulk/jobs/{jobId}/status
+          name: bulk-job-status
+          description: "Check bulk job status."
+          operations:
+            - method: GET
+              name: get-bulk-job-status
+              description: "Get the status of a bulk job."
+              call: "zoominfo.get-bulk-job-status"
+              with:
+                jobId: "rest.jobId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/bulk/jobs/{jobId}/results
+          name: bulk-job-results
+          description: "Retrieve bulk job results."
+          operations:
+            - method: GET
+              name: get-bulk-job-results
+              description: "Get the results of a completed bulk job."
+              call: "zoominfo.get-bulk-job-results"
+              with:
+                jobId: "rest.jobId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9091
+      namespace: data-enrichment-mcp
+      transport: http
+      description: "MCP server for AI-assisted B2B data enrichment."
+      tools:
+        - name: enrich-contact
+          description: "Enrich a contact record with ZoomInfo person data including email, phone, title, and company."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.enrich-contact"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: enrich-company
+          description: "Enrich a company record with ZoomInfo firmographic data including revenue, employees, and industry."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.enrich-company"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: enrich-company-master
+          description: "Enrich a company record with ZoomInfo master company data."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.enrich-company-master"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: enrich-orgchart
+          description: "Get organizational chart data for a company."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.enrich-orgchart"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: enrich-corporate-hierarchy
+          description: "Get corporate hierarchy showing parent/subsidiary relationships."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.enrich-corporate-hierarchy"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: enrich-location
+          description: "Get location data for a company."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.enrich-location"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: enrich-technology
+          description: "Get technology stack data for a company."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.enrich-technology"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: enrich-hashtags
+          description: "Get hashtag data for a contact."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.enrich-hashtags"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: enrich-intent
+          description: "Get intent signal data for a company."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.enrich-intent"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: enrich-news
+          description: "Get news data for a company."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.enrich-news"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: enrich-scoop
+          description: "Get scoop data for a company."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.enrich-scoop"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: enrich-ip
+          description: "Get company data associated with an IP address."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.enrich-ip"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: bulk-search-contacts
+          description: "Submit a bulk contact search job."
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "zoominfo.bulk-search-contacts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: bulk-search-companies
+          description: "Submit a bulk company search job."
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "zoominfo.bulk-search-companies"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: bulk-enrich-contacts
+          description: "Submit a bulk contact enrichment job."
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "zoominfo.bulk-enrich-contacts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: bulk-enrich-companies
+          description: "Submit a bulk company enrichment job."
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "zoominfo.bulk-enrich-companies"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-bulk-job-status
+          description: "Get the status of a bulk job."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "zoominfo.get-bulk-job-status"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-bulk-job-results
+          description: "Get the results of a completed bulk job."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "zoominfo.get-bulk-job-results"
+          outputParameters:
+            - type: object
+              mapping: "$."

@@ -1,0 +1,966 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "ZoomInfo"
+  description: "The ZoomInfo API provides programmatic access to ZoomInfo's B2B contact and company intelligence data, including search, enrichment, intent signals, news, scoops, technographics, webhooks, bulk operations, IP enrichment, and compliance."
+  tags:
+    - ZoomInfo
+    - Sales Intelligence
+    - B2B Data
+    - Contact Enrichment
+    - Company Enrichment
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      ZOOMINFO_USERNAME: ZOOMINFO_USERNAME
+      ZOOMINFO_PASSWORD: ZOOMINFO_PASSWORD
+
+capability:
+  consumes:
+    - type: http
+      namespace: zoominfo
+      baseUri: https://api.zoominfo.com
+      description: "ZoomInfo B2B intelligence API for contact, company, intent, news, scoop, and technographic data."
+      authentication:
+        type: bearer
+        token: "{{ZOOMINFO_JWT_TOKEN}}"
+      resources:
+        - name: authentication
+          path: /
+          description: "Authentication operations for obtaining JWT tokens."
+          operations:
+            - name: authenticate
+              method: POST
+              path: /authenticate
+              description: "Return a valid JWT access token by inputting your ZoomInfo username and password."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  username: "{{tools.username}}"
+                  password: "{{tools.password}}"
+
+        - name: contact-search
+          path: /search
+          description: "Search and lookup operations for ZoomInfo contacts."
+          operations:
+            - name: search-contacts
+              method: POST
+              path: /contact
+              description: "Returns a list of contacts from ZoomInfo's data that meet the specified search criteria."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  rpp: "{{tools.rpp}}"
+                  page: "{{tools.page}}"
+            - name: get-contact-search-inputs
+              method: GET
+              path: /contact
+              description: "Returns the available input fields for contact search."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-contact-search-outputs
+              method: GET
+              path: /contact
+              description: "Returns the available output fields for contact search."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: company-search
+          path: /search
+          description: "Search and lookup operations for ZoomInfo companies."
+          operations:
+            - name: search-companies
+              method: POST
+              path: /company
+              description: "Returns a list of companies from ZoomInfo's data that meet the specified search criteria."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  rpp: "{{tools.rpp}}"
+                  page: "{{tools.page}}"
+            - name: get-company-search-inputs
+              method: GET
+              path: /company
+              description: "Returns the available input fields for company search."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-company-search-outputs
+              method: GET
+              path: /company
+              description: "Returns the available output fields for company search."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: scoop-search
+          path: /search
+          description: "Search operations for ZoomInfo scoops (buying signals)."
+          operations:
+            - name: search-scoops
+              method: POST
+              path: /scoop
+              description: "Returns a list of scoops that meet the specified search criteria."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  rpp: "{{tools.rpp}}"
+                  page: "{{tools.page}}"
+
+        - name: news-search
+          path: /search
+          description: "Search operations for ZoomInfo news."
+          operations:
+            - name: search-news
+              method: POST
+              path: /news
+              description: "Returns a list of news articles that meet the specified search criteria."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  rpp: "{{tools.rpp}}"
+                  page: "{{tools.page}}"
+
+        - name: intent-search
+          path: /search
+          description: "Search operations for ZoomInfo intent signals."
+          operations:
+            - name: search-intent
+              method: POST
+              path: /intent
+              description: "Returns intent signal data that meets the specified search criteria."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  rpp: "{{tools.rpp}}"
+                  page: "{{tools.page}}"
+
+        - name: contact-enrich
+          path: /enrich
+          description: "Contact enrichment operations."
+          operations:
+            - name: enrich-contact
+              method: POST
+              path: /contact
+              description: "Enriches contact records with ZoomInfo data."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  matchPersonInput: "{{tools.match_person_input}}"
+
+        - name: company-enrich
+          path: /enrich
+          description: "Company enrichment operations."
+          operations:
+            - name: enrich-company
+              method: POST
+              path: /company
+              description: "Enriches company records with ZoomInfo data."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  matchCompanyInput: "{{tools.match_company_input}}"
+            - name: enrich-company-master
+              method: POST
+              path: /company-master
+              description: "Enriches company records with ZoomInfo master data."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  matchCompanyInput: "{{tools.match_company_input}}"
+
+        - name: orgchart-enrich
+          path: /enrich
+          description: "Org chart enrichment operations."
+          operations:
+            - name: enrich-orgchart
+              method: POST
+              path: /orgchart
+              description: "Returns org chart data for a specified company."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  companyId: "{{tools.company_id}}"
+
+        - name: hierarchy-enrich
+          path: /enrich
+          description: "Corporate hierarchy enrichment operations."
+          operations:
+            - name: enrich-corporate-hierarchy
+              method: POST
+              path: /corporatehierarchy
+              description: "Returns corporate hierarchy data for a specified company."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  companyId: "{{tools.company_id}}"
+
+        - name: location-enrich
+          path: /enrich
+          description: "Company location enrichment operations."
+          operations:
+            - name: enrich-location
+              method: POST
+              path: /location
+              description: "Returns location data for a specified company."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  companyId: "{{tools.company_id}}"
+
+        - name: technology-enrich
+          path: /enrich
+          description: "Technology stack enrichment operations."
+          operations:
+            - name: enrich-technology
+              method: POST
+              path: /tech
+              description: "Returns technology stack data for a specified company."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  companyId: "{{tools.company_id}}"
+
+        - name: hashtag-enrich
+          path: /enrich
+          description: "Hashtag enrichment operations."
+          operations:
+            - name: enrich-hashtags
+              method: POST
+              path: /hashtag
+              description: "Returns hashtag data for contacts."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  personId: "{{tools.person_id}}"
+
+        - name: intent-enrich
+          path: /enrich
+          description: "Intent signal enrichment operations."
+          operations:
+            - name: enrich-intent
+              method: POST
+              path: /intent
+              description: "Returns intent signal data for a specified company."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  companyId: "{{tools.company_id}}"
+
+        - name: news-enrich
+          path: /enrich
+          description: "News enrichment operations."
+          operations:
+            - name: enrich-news
+              method: POST
+              path: /news
+              description: "Returns news data for a specified company."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  companyId: "{{tools.company_id}}"
+
+        - name: scoop-enrich
+          path: /enrich
+          description: "Scoop enrichment operations."
+          operations:
+            - name: enrich-scoop
+              method: POST
+              path: /scoop
+              description: "Returns scoop data for a specified company."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  companyId: "{{tools.company_id}}"
+
+        - name: ip-enrich
+          path: /enrich
+          description: "IP address enrichment operations."
+          operations:
+            - name: enrich-ip
+              method: POST
+              path: /ip
+              description: "Returns company data associated with a given IP address."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  ipAddress: "{{tools.ip_address}}"
+
+        - name: lookup
+          path: /lookup
+          description: "Lookup reference data operations."
+          operations:
+            - name: lookup-company-ranking
+              method: GET
+              path: /companyranking
+              description: "Returns company ranking lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-continent
+              method: GET
+              path: /continent
+              description: "Returns continent lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-country
+              method: GET
+              path: /country
+              description: "Returns country lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-state
+              method: GET
+              path: /state
+              description: "Returns state lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-department
+              method: GET
+              path: /department
+              description: "Returns contact department lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-employee-count
+              method: GET
+              path: /employeecount
+              description: "Returns employee count range lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-sic-codes
+              method: GET
+              path: /siccode
+              description: "Returns SIC code lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-naics-codes
+              method: GET
+              path: /naicscode
+              description: "Returns NAICS code lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-industry
+              method: GET
+              path: /industry
+              description: "Returns industry code lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-job-title-hierarchy
+              method: GET
+              path: /jobtitlehierarchy
+              description: "Returns job title hierarchy lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-job-function
+              method: GET
+              path: /jobfunction
+              description: "Returns job function lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-metro-area
+              method: GET
+              path: /metroarea
+              description: "Returns metro area lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-revenue-range
+              method: GET
+              path: /revenuerange
+              description: "Returns revenue range lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-scoop-topics
+              method: GET
+              path: /scooptopic
+              description: "Returns scoop topic lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-company-type
+              method: GET
+              path: /companytype
+              description: "Returns company type lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-management-levels
+              method: GET
+              path: /managementLevel
+              description: "Returns management level lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-tech-categories
+              method: GET
+              path: /tech/category
+              description: "Returns technology category lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-tech-vendors
+              method: GET
+              path: /tech/vendor
+              description: "Returns technology vendor lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-tech-products
+              method: GET
+              path: /tech/product
+              description: "Returns technology product lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-intent-topics
+              method: GET
+              path: /intent/topics
+              description: "Returns intent topic lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-news-categories
+              method: GET
+              path: /news/categories
+              description: "Returns news category lookup values."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: lookup-usage
+              method: GET
+              path: /usage
+              description: "Returns API usage data."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: webhooks
+          path: /webhooks
+          description: "Webhook management operations."
+          operations:
+            - name: create-webhook
+              method: POST
+              path: /
+              description: "Creates a new webhook subscription."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  targetUrl: "{{tools.target_url}}"
+                  subscriptionType: "{{tools.subscription_type}}"
+            - name: list-webhooks
+              method: GET
+              path: /
+              description: "Returns a list of all webhooks."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-webhook
+              method: PUT
+              path: /{webhookId}
+              description: "Updates an existing webhook subscription."
+              inputParameters:
+                - name: webhookId
+                  in: path
+                  type: string
+                  required: true
+                  description: "The webhook ID to update."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  targetUrl: "{{tools.target_url}}"
+            - name: delete-webhook
+              method: DELETE
+              path: /{webhookId}
+              description: "Deletes a webhook subscription."
+              inputParameters:
+                - name: webhookId
+                  in: path
+                  type: string
+                  required: true
+                  description: "The webhook ID to delete."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: validate-target-url
+              method: POST
+              path: /validate
+              description: "Validates a webhook target URL."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  targetUrl: "{{tools.target_url}}"
+            - name: get-subscription-types
+              method: GET
+              path: /subscriptiontypes
+              description: "Returns the available webhook subscription types."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: bulk
+          path: /bulk
+          description: "Bulk search and enrichment operations."
+          operations:
+            - name: bulk-search-contacts
+              method: POST
+              path: /search/contact
+              description: "Submits a bulk contact search job."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  inputData: "{{tools.input_data}}"
+            - name: bulk-search-companies
+              method: POST
+              path: /search/company
+              description: "Submits a bulk company search job."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  inputData: "{{tools.input_data}}"
+            - name: bulk-enrich-contacts
+              method: POST
+              path: /enrich/contact
+              description: "Submits a bulk contact enrichment job."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  inputData: "{{tools.input_data}}"
+            - name: bulk-enrich-companies
+              method: POST
+              path: /enrich/company
+              description: "Submits a bulk company enrichment job."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  inputData: "{{tools.input_data}}"
+            - name: get-bulk-job-status
+              method: GET
+              path: /job/status
+              description: "Returns the status of a bulk job."
+              inputParameters:
+                - name: jobId
+                  in: query
+                  type: string
+                  required: true
+                  description: "The bulk job ID."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-bulk-job-results
+              method: GET
+              path: /job/results
+              description: "Returns the results of a completed bulk job."
+              inputParameters:
+                - name: jobId
+                  in: query
+                  type: string
+                  required: true
+                  description: "The bulk job ID."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: compliance
+          path: /compliance
+          description: "Compliance operations."
+          operations:
+            - name: check-compliance
+              method: POST
+              path: /
+              description: "Returns compliance data for specified contacts."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  matchPersonInput: "{{tools.match_person_input}}"
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: zoominfo-api
+      resources:
+        - path: /v1/contacts
+          name: contacts
+          description: "Contact search and enrichment."
+          operations:
+            - method: POST
+              name: search-contacts
+              description: "Search ZoomInfo contacts."
+              call: "zoominfo.search-contacts"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: enrich-contact
+              path: /enrich
+              description: "Enrich contact records."
+              call: "zoominfo.enrich-contact"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/companies
+          name: companies
+          description: "Company search and enrichment."
+          operations:
+            - method: POST
+              name: search-companies
+              description: "Search ZoomInfo companies."
+              call: "zoominfo.search-companies"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: enrich-company
+              path: /enrich
+              description: "Enrich company records."
+              call: "zoominfo.enrich-company"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: zoominfo-mcp
+      transport: http
+      tools:
+        - name: authenticate
+          description: "Obtain a JWT access token."
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "zoominfo.authenticate"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-contacts
+          description: "Search ZoomInfo contacts by criteria."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.search-contacts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-companies
+          description: "Search ZoomInfo companies by criteria."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.search-companies"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-scoops
+          description: "Search ZoomInfo scoops by criteria."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.search-scoops"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-news
+          description: "Search ZoomInfo news by criteria."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.search-news"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-intent
+          description: "Search ZoomInfo intent signals by criteria."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.search-intent"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: enrich-contact
+          description: "Enrich contact records with ZoomInfo data."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.enrich-contact"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: enrich-company
+          description: "Enrich company records with ZoomInfo data."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.enrich-company"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: enrich-ip
+          description: "Enrich an IP address with company data."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "zoominfo.enrich-ip"
+          outputParameters:
+            - type: object
+              mapping: "$."

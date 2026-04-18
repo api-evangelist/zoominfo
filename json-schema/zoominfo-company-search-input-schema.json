@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "fieldName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "fieldType": {
+      "type": "string",
+      "example": "standard"
+    },
+    "description": {
+      "type": "string",
+      "example": "Enterprise software company"
+    },
+    "accessGranted": {
+      "type": "string",
+      "example": "example_value"
+    }
+  },
+  "required": [
+    "fieldName",
+    "fieldType",
+    "description",
+    "accessGranted"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CompanySearchInput"
+}

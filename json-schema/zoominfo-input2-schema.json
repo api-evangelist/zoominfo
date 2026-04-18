@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "emailaddress": {
+      "type": "string",
+      "example": "jsmith@example.com"
+    },
+    "personid": {
+      "type": "integer",
+      "example": 500123
+    },
+    "companyname": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "fullname": {
+      "type": "string",
+      "example": "Acme Corporation"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Input2"
+}
