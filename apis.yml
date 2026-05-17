@@ -556,7 +556,7 @@ tags:
 - Lead Generation
 - Marketing Intelligence
 - Sales Intelligence
-type: Contract
+kind: contract
 image: https://www.zoominfo.com/assets/img/zoominfo-logo.png
 access: 3rd-Party
 common:
