@@ -1,0 +1,153 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: ZoomInfo — Company Master Data Enrich
+  description: 'ZoomInfo — Company Master Data Enrich. 3 operations. Lead operation: Zoominfo Company Master Data Enrich.
+    Self-contained Naftiko capability covering one Zoominfo business surface.'
+  tags:
+  - Zoominfo
+  - Company Master Data Enrich
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ZOOMINFO_API_KEY: ZOOMINFO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: zoominfo-company-master-data-enrich
+    baseUri: https://api.zoominfo.com
+    description: ZoomInfo — Company Master Data Enrich business capability. Self-contained, no shared references.
+    resources:
+    - name: enrich-company-master
+      path: /enrich/company-master
+      operations:
+      - name: companymasterdataenrich
+        method: POST
+        description: Zoominfo Company Master Data Enrich
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: lookup-inputfields-company-master-enrich
+      path: /lookup/inputfields/company-master/enrich
+      operations:
+      - name: companymasterdataenrichinputs
+        method: GET
+        description: Zoominfo Company Master Data Enrich Inputs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: lookup-outputfields-company-master-enrich
+      path: /lookup/outputfields/company-master/enrich
+      operations:
+      - name: companymasterdataenrichoutputs
+        method: GET
+        description: Zoominfo Company Master Data Enrich Outputs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.ZOOMINFO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: zoominfo-company-master-data-enrich-rest
+    port: 8080
+    description: REST adapter for ZoomInfo — Company Master Data Enrich. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/enrich/company-master
+      name: enrich-company-master
+      description: REST surface for enrich-company-master.
+      operations:
+      - method: POST
+        name: companymasterdataenrich
+        description: Zoominfo Company Master Data Enrich
+        call: zoominfo-company-master-data-enrich.companymasterdataenrich
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lookup/inputfields/company-master/enrich
+      name: lookup-inputfields-company-master-enrich
+      description: REST surface for lookup-inputfields-company-master-enrich.
+      operations:
+      - method: GET
+        name: companymasterdataenrichinputs
+        description: Zoominfo Company Master Data Enrich Inputs
+        call: zoominfo-company-master-data-enrich.companymasterdataenrichinputs
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lookup/outputfields/company-master/enrich
+      name: lookup-outputfields-company-master-enrich
+      description: REST surface for lookup-outputfields-company-master-enrich.
+      operations:
+      - method: GET
+        name: companymasterdataenrichoutputs
+        description: Zoominfo Company Master Data Enrich Outputs
+        call: zoominfo-company-master-data-enrich.companymasterdataenrichoutputs
+        with:
+          Content-Type: rest.Content-Type
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: zoominfo-company-master-data-enrich-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ZoomInfo — Company Master Data Enrich. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: zoominfo-company-master-data-enrich
+      description: Zoominfo Company Master Data Enrich
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: zoominfo-company-master-data-enrich.companymasterdataenrich
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: zoominfo-company-master-data-enrich-2
+      description: Zoominfo Company Master Data Enrich Inputs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: zoominfo-company-master-data-enrich.companymasterdataenrichinputs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: zoominfo-company-master-data-enrich-3
+      description: Zoominfo Company Master Data Enrich Outputs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: zoominfo-company-master-data-enrich.companymasterdataenrichoutputs
+      with:
+        Content-Type: tools.Content-Type
+      outputParameters:
+      - type: object
+        mapping: $.

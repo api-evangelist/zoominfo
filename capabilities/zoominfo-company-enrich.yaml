@@ -1,0 +1,144 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: ZoomInfo — Company Enrich
+  description: 'ZoomInfo — Company Enrich. 3 operations. Lead operation: Zoominfo Company Enrich. Self-contained Naftiko capability
+    covering one Zoominfo business surface.'
+  tags:
+  - Zoominfo
+  - Company Enrich
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ZOOMINFO_API_KEY: ZOOMINFO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: zoominfo-company-enrich
+    baseUri: https://api.zoominfo.com
+    description: ZoomInfo — Company Enrich business capability. Self-contained, no shared references.
+    resources:
+    - name: enrich-company
+      path: /enrich/company
+      operations:
+      - name: companyenrich
+        method: POST
+        description: Zoominfo Company Enrich
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: lookup-inputfields-company-enrich
+      path: /lookup/inputfields/company/enrich
+      operations:
+      - name: companyenrichinputs
+        method: GET
+        description: Zoominfo Company Enrich Inputs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: lookup-outputfields-company-enrich
+      path: /lookup/outputfields/company/enrich
+      operations:
+      - name: companyenrichoutputs
+        method: GET
+        description: Zoominfo Company Enrich Outputs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.ZOOMINFO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: zoominfo-company-enrich-rest
+    port: 8080
+    description: REST adapter for ZoomInfo — Company Enrich. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/enrich/company
+      name: enrich-company
+      description: REST surface for enrich-company.
+      operations:
+      - method: POST
+        name: companyenrich
+        description: Zoominfo Company Enrich
+        call: zoominfo-company-enrich.companyenrich
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lookup/inputfields/company/enrich
+      name: lookup-inputfields-company-enrich
+      description: REST surface for lookup-inputfields-company-enrich.
+      operations:
+      - method: GET
+        name: companyenrichinputs
+        description: Zoominfo Company Enrich Inputs
+        call: zoominfo-company-enrich.companyenrichinputs
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lookup/outputfields/company/enrich
+      name: lookup-outputfields-company-enrich
+      description: REST surface for lookup-outputfields-company-enrich.
+      operations:
+      - method: GET
+        name: companyenrichoutputs
+        description: Zoominfo Company Enrich Outputs
+        call: zoominfo-company-enrich.companyenrichoutputs
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: zoominfo-company-enrich-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ZoomInfo — Company Enrich. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: zoominfo-company-enrich
+      description: Zoominfo Company Enrich
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: zoominfo-company-enrich.companyenrich
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: zoominfo-company-enrich-inputs
+      description: Zoominfo Company Enrich Inputs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: zoominfo-company-enrich.companyenrichinputs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: zoominfo-company-enrich-outputs
+      description: Zoominfo Company Enrich Outputs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: zoominfo-company-enrich.companyenrichoutputs
+      outputParameters:
+      - type: object
+        mapping: $.

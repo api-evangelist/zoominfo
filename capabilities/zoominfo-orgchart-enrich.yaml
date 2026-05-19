@@ -1,0 +1,144 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: ZoomInfo — OrgChart Enrich
+  description: 'ZoomInfo — OrgChart Enrich. 3 operations. Lead operation: Zoominfo Orgchart Enrich. Self-contained Naftiko
+    capability covering one Zoominfo business surface.'
+  tags:
+  - Zoominfo
+  - OrgChart Enrich
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ZOOMINFO_API_KEY: ZOOMINFO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: zoominfo-orgchart-enrich
+    baseUri: https://api.zoominfo.com
+    description: ZoomInfo — OrgChart Enrich business capability. Self-contained, no shared references.
+    resources:
+    - name: enrich-orgchart
+      path: /enrich/orgchart
+      operations:
+      - name: orgchartenrich
+        method: POST
+        description: Zoominfo Orgchart Enrich
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: lookup-inputfields-orgchart-enrich
+      path: /lookup/inputfields/orgchart/enrich
+      operations:
+      - name: orgchartenrichinputs
+        method: GET
+        description: Zoominfo Org Chart Enrich Inputs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: lookup-outputfields-orgchart-enrich
+      path: /lookup/outputfields/orgchart/enrich
+      operations:
+      - name: orgchartenrichoutputs
+        method: GET
+        description: Zoominfo Org Chart Enrich Outputs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.ZOOMINFO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: zoominfo-orgchart-enrich-rest
+    port: 8080
+    description: REST adapter for ZoomInfo — OrgChart Enrich. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/enrich/orgchart
+      name: enrich-orgchart
+      description: REST surface for enrich-orgchart.
+      operations:
+      - method: POST
+        name: orgchartenrich
+        description: Zoominfo Orgchart Enrich
+        call: zoominfo-orgchart-enrich.orgchartenrich
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lookup/inputfields/orgchart/enrich
+      name: lookup-inputfields-orgchart-enrich
+      description: REST surface for lookup-inputfields-orgchart-enrich.
+      operations:
+      - method: GET
+        name: orgchartenrichinputs
+        description: Zoominfo Org Chart Enrich Inputs
+        call: zoominfo-orgchart-enrich.orgchartenrichinputs
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lookup/outputfields/orgchart/enrich
+      name: lookup-outputfields-orgchart-enrich
+      description: REST surface for lookup-outputfields-orgchart-enrich.
+      operations:
+      - method: GET
+        name: orgchartenrichoutputs
+        description: Zoominfo Org Chart Enrich Outputs
+        call: zoominfo-orgchart-enrich.orgchartenrichoutputs
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: zoominfo-orgchart-enrich-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ZoomInfo — OrgChart Enrich. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: zoominfo-orgchart-enrich
+      description: Zoominfo Orgchart Enrich
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: zoominfo-orgchart-enrich.orgchartenrich
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: zoominfo-org-chart-enrich-inputs
+      description: Zoominfo Org Chart Enrich Inputs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: zoominfo-orgchart-enrich.orgchartenrichinputs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: zoominfo-org-chart-enrich-outputs
+      description: Zoominfo Org Chart Enrich Outputs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: zoominfo-orgchart-enrich.orgchartenrichoutputs
+      outputParameters:
+      - type: object
+        mapping: $.

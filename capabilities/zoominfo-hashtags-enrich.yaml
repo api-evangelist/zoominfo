@@ -1,0 +1,112 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: ZoomInfo — Hashtags Enrich
+  description: 'ZoomInfo — Hashtags Enrich. 2 operations. Lead operation: Zoominfo Hashtags Enrich. Self-contained Naftiko
+    capability covering one Zoominfo business surface.'
+  tags:
+  - Zoominfo
+  - Hashtags Enrich
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ZOOMINFO_API_KEY: ZOOMINFO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: zoominfo-hashtags-enrich
+    baseUri: https://api.zoominfo.com
+    description: ZoomInfo — Hashtags Enrich business capability. Self-contained, no shared references.
+    resources:
+    - name: enrich-hashtag
+      path: /enrich/hashtag
+      operations:
+      - name: hashtagsenrich
+        method: POST
+        description: Zoominfo Hashtags Enrich
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: lookup-inputfields-hashtag-enrich
+      path: /lookup/inputfields/hashtag/enrich
+      operations:
+      - name: hashtagenrichinputs
+        method: GET
+        description: Zoominfo Hashtag Enrich Inputs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.ZOOMINFO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: zoominfo-hashtags-enrich-rest
+    port: 8080
+    description: REST adapter for ZoomInfo — Hashtags Enrich. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/enrich/hashtag
+      name: enrich-hashtag
+      description: REST surface for enrich-hashtag.
+      operations:
+      - method: POST
+        name: hashtagsenrich
+        description: Zoominfo Hashtags Enrich
+        call: zoominfo-hashtags-enrich.hashtagsenrich
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lookup/inputfields/hashtag/enrich
+      name: lookup-inputfields-hashtag-enrich
+      description: REST surface for lookup-inputfields-hashtag-enrich.
+      operations:
+      - method: GET
+        name: hashtagenrichinputs
+        description: Zoominfo Hashtag Enrich Inputs
+        call: zoominfo-hashtags-enrich.hashtagenrichinputs
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: zoominfo-hashtags-enrich-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ZoomInfo — Hashtags Enrich. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: zoominfo-hashtags-enrich
+      description: Zoominfo Hashtags Enrich
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: zoominfo-hashtags-enrich.hashtagsenrich
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: zoominfo-hashtag-enrich-inputs
+      description: Zoominfo Hashtag Enrich Inputs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: zoominfo-hashtags-enrich.hashtagenrichinputs
+      outputParameters:
+      - type: object
+        mapping: $.

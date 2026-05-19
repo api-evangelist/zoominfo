@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: ZoomInfo — Usage
+  description: 'ZoomInfo — Usage. 1 operations. Lead operation: Zoominfo Usage. Self-contained Naftiko capability covering
+    one Zoominfo business surface.'
+  tags:
+  - Zoominfo
+  - Usage
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ZOOMINFO_API_KEY: ZOOMINFO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: zoominfo-usage
+    baseUri: https://api.zoominfo.com
+    description: ZoomInfo — Usage business capability. Self-contained, no shared references.
+    resources:
+    - name: lookup-usage
+      path: /lookup/usage
+      operations:
+      - name: usage
+        method: GET
+        description: Zoominfo Usage
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.ZOOMINFO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: zoominfo-usage-rest
+    port: 8080
+    description: REST adapter for ZoomInfo — Usage. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/lookup/usage
+      name: lookup-usage
+      description: REST surface for lookup-usage.
+      operations:
+      - method: GET
+        name: usage
+        description: Zoominfo Usage
+        call: zoominfo-usage.usage
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: zoominfo-usage-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ZoomInfo — Usage. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: zoominfo-usage
+      description: Zoominfo Usage
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: zoominfo-usage.usage
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,112 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: ZoomInfo — Technology Enrich
+  description: 'ZoomInfo — Technology Enrich. 2 operations. Lead operation: Zoominfo Technology Enrich. Self-contained Naftiko
+    capability covering one Zoominfo business surface.'
+  tags:
+  - Zoominfo
+  - Technology Enrich
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ZOOMINFO_API_KEY: ZOOMINFO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: zoominfo-technology-enrich
+    baseUri: https://api.zoominfo.com
+    description: ZoomInfo — Technology Enrich business capability. Self-contained, no shared references.
+    resources:
+    - name: enrich-tech
+      path: /enrich/tech
+      operations:
+      - name: technologyenrich
+        method: POST
+        description: Zoominfo Technology Enrich
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: lookup-inputfields-tech-enrich
+      path: /lookup/inputfields/tech/enrich
+      operations:
+      - name: technologyenrichinputs
+        method: GET
+        description: Zoominfo Technology Enrich Inputs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.ZOOMINFO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: zoominfo-technology-enrich-rest
+    port: 8080
+    description: REST adapter for ZoomInfo — Technology Enrich. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/enrich/tech
+      name: enrich-tech
+      description: REST surface for enrich-tech.
+      operations:
+      - method: POST
+        name: technologyenrich
+        description: Zoominfo Technology Enrich
+        call: zoominfo-technology-enrich.technologyenrich
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lookup/inputfields/tech/enrich
+      name: lookup-inputfields-tech-enrich
+      description: REST surface for lookup-inputfields-tech-enrich.
+      operations:
+      - method: GET
+        name: technologyenrichinputs
+        description: Zoominfo Technology Enrich Inputs
+        call: zoominfo-technology-enrich.technologyenrichinputs
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: zoominfo-technology-enrich-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ZoomInfo — Technology Enrich. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: zoominfo-technology-enrich
+      description: Zoominfo Technology Enrich
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: zoominfo-technology-enrich.technologyenrich
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: zoominfo-technology-enrich-inputs
+      description: Zoominfo Technology Enrich Inputs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: zoominfo-technology-enrich.technologyenrichinputs
+      outputParameters:
+      - type: object
+        mapping: $.
