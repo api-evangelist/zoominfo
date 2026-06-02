@@ -2,12 +2,20 @@
   "repo": "zoominfo",
   "feeds": [
     {
+      "source": "https://pipeline.zoominfo.com/feed.xml",
+      "feed_url": "https://pipeline.zoominfo.com/feed.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
       "source": "https://pipeline.zoominfo.com/",
       "feed_url": "https://pipeline.zoominfo.com/feed.xml",
-      "title": "The ZoomInfo Blog",
-      "saved": 49
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
     }
   ],
-  "fetched": "2026-05-17T20:20:35Z",
-  "post_count": 74
+  "fetched": "2026-06-01T23:35:02Z",
+  "post_count": 116
 }
