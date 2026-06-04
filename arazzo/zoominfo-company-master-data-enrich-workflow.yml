@@ -1,0 +1,82 @@
+arazzo: 1.0.1
+info:
+  title: ZoomInfo Resolve a Company from a URL
+  summary: Authenticate, then resolve a company website into ZoomInfo master-data fields.
+  description: >-
+    An identity-resolution flow against ZoomInfo's master data. It authenticates
+    for a JWT and then calls the Company Master Data Enrich endpoint with a
+    company website URL, returning canonical master-data fields such as the
+    ZoomInfo location id, enterprise customer id, normalized name, and full
+    address along with the match reason. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: zoominfoApi
+  url: ../openapi/zoominfo-openapi.yml
+  type: openapi
+workflows:
+- workflowId: resolve-company-from-url
+  summary: Resolve a company website into ZoomInfo master-data fields.
+  description: >-
+    Authenticates and then enriches a company by its website URL via the master
+    data endpoint, requesting the supplied master-data output fields.
+  inputs:
+    type: object
+    required:
+    - username
+    - password
+    - companyUrl
+    - outputFields
+    properties:
+      username:
+        type: string
+        description: The ZoomInfo API username.
+      password:
+        type: string
+        description: The ZoomInfo API password.
+      companyUrl:
+        type: string
+        description: The company website URL to resolve (e.g. "zoominfo.com").
+      outputFields:
+        type: array
+        description: The list of master-data output fields to return (zi_* fields).
+        items:
+          type: string
+  steps:
+  - stepId: authenticate
+    description: >-
+      Exchange the ZoomInfo username and password for a JWT access token that is
+      valid for 60 minutes.
+    operationId: Authenticate
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.username
+        password: $inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jwt: $response.body#/jwt
+  - stepId: resolveCompany
+    description: >-
+      Resolve the supplied company website URL into ZoomInfo master-data fields,
+      authenticating with the JWT.
+    operationId: CompanyMasterDataEnrich
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $steps.authenticate.outputs.jwt
+    requestBody:
+      contentType: application/json
+      payload:
+        matchCompanyInput:
+        - zi_c_url: $inputs.companyUrl
+        outputFields: $inputs.outputFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      success: $response.body#/success
+      masterData: $response.body#/data
+  outputs:
+    masterData: $steps.resolveCompany.outputs.masterData

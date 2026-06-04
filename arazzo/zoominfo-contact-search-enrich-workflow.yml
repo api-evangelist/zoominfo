@@ -1,0 +1,134 @@
+arazzo: 1.0.1
+info:
+  title: ZoomInfo Search and Enrich a Contact
+  summary: Authenticate, search contacts, then enrich the top match for phone and email.
+  description: >-
+    A contact discovery-to-detail flow against ZoomInfo's B2B data. It
+    authenticates for a JWT, runs a Contact Search scoped by management level,
+    company type, and location, and then feeds the ZoomInfo person id of the top
+    search result into the Contact Enrich endpoint to pull the requested output
+    fields such as phone and email. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: zoominfoApi
+  url: ../openapi/zoominfo-openapi.yml
+  type: openapi
+workflows:
+- workflowId: search-and-enrich-contact
+  summary: Search ZoomInfo for a contact and enrich the top-ranked match.
+  description: >-
+    Authenticates, searches contacts by management level, company type, and
+    location, then enriches the first returned contact by its ZoomInfo person
+    id, requesting the supplied output fields.
+  inputs:
+    type: object
+    required:
+    - username
+    - password
+    - managementLevel
+    - companyType
+    - zipCode
+    - locationSearchType
+    - zipCodeRadiusMiles
+    - techAttributeTagList
+    - requiredFields
+    - outputFields
+    properties:
+      username:
+        type: string
+        description: The ZoomInfo API username.
+      password:
+        type: string
+        description: The ZoomInfo API password.
+      managementLevel:
+        type: string
+        description: Contact management level to filter by (e.g. "directors").
+      companyType:
+        type: string
+        description: Company type to filter by (e.g. "public").
+      zipCode:
+        type: string
+        description: Zip Code of the company's primary address.
+      locationSearchType:
+        type: string
+        description: Location criteria for the search (e.g. "PersonAndHQ").
+      zipCodeRadiusMiles:
+        type: string
+        description: Geographical radius in miles from the supplied zipCode.
+      techAttributeTagList:
+        type: string
+        description: Technology product tags in dot notation (e.g. "333.202.*").
+      requiredFields:
+        type: string
+        description: Comma-separated list of required fields (e.g. "directPhone").
+      outputFields:
+        type: array
+        description: The list of contact output fields to return from enrichment.
+        items:
+          type: string
+  steps:
+  - stepId: authenticate
+    description: >-
+      Exchange the ZoomInfo username and password for a JWT access token that is
+      valid for 60 minutes.
+    operationId: Authenticate
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.username
+        password: $inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jwt: $response.body#/jwt
+  - stepId: searchContacts
+    description: >-
+      Search ZoomInfo for contacts matching the supplied criteria, authenticating
+      with the JWT.
+    operationId: ContactSearch
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $steps.authenticate.outputs.jwt
+    requestBody:
+      contentType: application/json
+      payload:
+        managementLevel: $inputs.managementLevel
+        companyType: $inputs.companyType
+        zipCode: $inputs.zipCode
+        locationSearchType: $inputs.locationSearchType
+        zipCodeRadiusMiles: $inputs.zipCodeRadiusMiles
+        techAttributeTagList: $inputs.techAttributeTagList
+        requiredFields: $inputs.requiredFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      totalResults: $response.body#/totalResults
+      topPersonId: $response.body#/data/0/id
+      topCompanyId: $response.body#/data/0/company/id
+  - stepId: enrichContact
+    description: >-
+      Enrich the top contact from the search result by its ZoomInfo person id,
+      requesting the supplied output fields such as phone and email.
+    operationId: ContactEnrich
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $steps.authenticate.outputs.jwt
+    requestBody:
+      contentType: application/json
+      payload:
+        outputFields: $inputs.outputFields
+        matchPersonInput:
+        - personId: $steps.searchContacts.outputs.topPersonId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      success: $response.body#/success
+      enrichedContact: $response.body#/data
+  outputs:
+    topPersonId: $steps.searchContacts.outputs.topPersonId
+    topCompanyId: $steps.searchContacts.outputs.topCompanyId
+    enrichedContact: $steps.enrichContact.outputs.enrichedContact

@@ -1,0 +1,136 @@
+arazzo: 1.0.1
+info:
+  title: ZoomInfo Discover Scoops then Refine by Department
+  summary: Authenticate, search Scoops for a company, then re-pull the top company's Scoops scoped by department.
+  description: >-
+    A two-pass Scoops flow against ZoomInfo's B2B data. It authenticates for a
+    JWT and runs a broad Scoop Search for a company; it then takes the company
+    name attached to the top Scoop result and calls the Scoop Enrich endpoint to
+    re-pull that company's Scoops scoped by a specific department, with sorting
+    applied. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: zoominfoApi
+  url: ../openapi/zoominfo-openapi.yml
+  type: openapi
+workflows:
+- workflowId: scoop-search-then-enrich
+  summary: Search Scoops then refine the top company's Scoops by department.
+  description: >-
+    Authenticates, searches Scoops for a company and date window, then enriches
+    the top company's Scoops scoped by a department using the company name from
+    the search result.
+  inputs:
+    type: object
+    required:
+    - username
+    - password
+    - companyName
+    - publishedStartDate
+    - publishedEndDate
+    - scoopType
+    - updatedSinceCreation
+    - description
+    - department
+    - sortBy
+    - sortOrder
+    properties:
+      username:
+        type: string
+        description: The ZoomInfo API username.
+      password:
+        type: string
+        description: The ZoomInfo API password.
+      companyName:
+        type: string
+        description: Company name to search Scoops for.
+      publishedStartDate:
+        type: string
+        description: Start of the Scoop published date window (ISO 8601).
+      publishedEndDate:
+        type: string
+        description: End of the Scoop published date window (ISO 8601).
+      scoopType:
+        type: string
+        description: Scoop type identifier(s) to filter by.
+      updatedSinceCreation:
+        type: boolean
+        description: Whether to only return Scoops updated since creation.
+      description:
+        type: string
+        description: Free-text description criteria for the Scoop search.
+      department:
+        type: string
+        description: Department identifier to scope the Scoop enrichment.
+      sortBy:
+        type: string
+        description: Field to sort the enriched Scoops by (e.g. "originalPublishedDate").
+      sortOrder:
+        type: string
+        description: Sort order for the enriched Scoops (e.g. "asc").
+  steps:
+  - stepId: authenticate
+    description: >-
+      Exchange the ZoomInfo username and password for a JWT access token that is
+      valid for 60 minutes.
+    operationId: Authenticate
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.username
+        password: $inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jwt: $response.body#/jwt
+  - stepId: searchScoops
+    description: >-
+      Run a broad Scoop Search for the supplied company and date window,
+      authenticating with the JWT.
+    operationId: ScoopSearch
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $steps.authenticate.outputs.jwt
+    requestBody:
+      contentType: application/json
+      payload:
+        companyName: $inputs.companyName
+        publishedStartDate: $inputs.publishedStartDate
+        publishedEndDate: $inputs.publishedEndDate
+        scoopType: $inputs.scoopType
+        updatedSinceCreation: $inputs.updatedSinceCreation
+        description: $inputs.description
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      totalResults: $response.body#/totalResults
+      topCompanyName: $response.body#/data/0/company/name
+  - stepId: enrichScoops
+    description: >-
+      Re-pull the top company's Scoops scoped by department, using the company
+      name from the search result.
+    operationId: ScoopEnrich
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $steps.authenticate.outputs.jwt
+    requestBody:
+      contentType: application/json
+      payload:
+        companyName: $steps.searchScoops.outputs.topCompanyName
+        publishedStartDate: $inputs.publishedStartDate
+        publishedEndDate: $inputs.publishedEndDate
+        scoopType: $inputs.scoopType
+        department: $inputs.department
+        sortBy: $inputs.sortBy
+        sortOrder: $inputs.sortOrder
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      totalResults: $response.body#/totalResults
+      scoops: $response.body#/data
+  outputs:
+    topCompanyName: $steps.searchScoops.outputs.topCompanyName
+    scoops: $steps.enrichScoops.outputs.scoops

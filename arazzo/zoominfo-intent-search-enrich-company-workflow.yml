@@ -1,0 +1,148 @@
+arazzo: 1.0.1
+info:
+  title: ZoomInfo Find Intent Signals and Enrich the Account
+  summary: Authenticate, search intent signals by topic, then enrich the top company showing intent.
+  description: >-
+    A buyer-intent activation flow against ZoomInfo's B2B data. It authenticates
+    for a JWT, runs an Intent Search scoped by topics, signal score, and audience
+    strength, then takes the ZoomInfo company id of the top company surfacing
+    intent and enriches it with the Company Enrich endpoint so a seller has the
+    full firmographic context behind the signal. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: zoominfoApi
+  url: ../openapi/zoominfo-openapi.yml
+  type: openapi
+workflows:
+- workflowId: intent-search-and-enrich-company
+  summary: Search intent signals and enrich the top company surfacing intent.
+  description: >-
+    Authenticates, searches intent signals by topics and signal score, then
+    enriches the first company in the intent results by its ZoomInfo company id.
+  inputs:
+    type: object
+    required:
+    - username
+    - password
+    - topics
+    - signalScoreMin
+    - signalScoreMax
+    - audienceStrengthMin
+    - audienceStrengthMax
+    - metroRegion
+    - industryCodes
+    - sortBy
+    - sortOrder
+    - outputFields
+    properties:
+      username:
+        type: string
+        description: The ZoomInfo API username.
+      password:
+        type: string
+        description: The ZoomInfo API password.
+      topics:
+        type: array
+        description: The list of intent topics to search for.
+        items:
+          type: string
+      signalScoreMin:
+        type: integer
+        description: Minimum signal score for results.
+      signalScoreMax:
+        type: integer
+        description: Maximum signal score for results.
+      audienceStrengthMin:
+        type: string
+        description: Minimum audience strength (e.g. "C").
+      audienceStrengthMax:
+        type: string
+        description: Maximum audience strength (e.g. "A").
+      metroRegion:
+        type: string
+        description: Company metro area (e.g. "usa.california.sanfrancisco").
+      industryCodes:
+        type: string
+        description: Top-level industry codes to scope the search.
+      sortBy:
+        type: string
+        description: Field to sort intent results by (e.g. "topic").
+      sortOrder:
+        type: string
+        description: Sort order for the results (e.g. "asc").
+      outputFields:
+        type: array
+        description: The list of company output fields to return from enrichment.
+        items:
+          type: string
+  steps:
+  - stepId: authenticate
+    description: >-
+      Exchange the ZoomInfo username and password for a JWT access token that is
+      valid for 60 minutes.
+    operationId: Authenticate
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.username
+        password: $inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jwt: $response.body#/jwt
+  - stepId: searchIntent
+    description: >-
+      Search ZoomInfo intent signals for the supplied topics and score range,
+      authenticating with the JWT.
+    operationId: IntentSearch
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $steps.authenticate.outputs.jwt
+    requestBody:
+      contentType: application/json
+      payload:
+        topics: $inputs.topics
+        signalScoreMin: $inputs.signalScoreMin
+        signalScoreMax: $inputs.signalScoreMax
+        audienceStrengthMin: $inputs.audienceStrengthMin
+        audienceStrengthMax: $inputs.audienceStrengthMax
+        metroRegion: $inputs.metroRegion
+        industryCodes: $inputs.industryCodes
+        sortBy: $inputs.sortBy
+        sortOrder: $inputs.sortOrder
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      totalResults: $response.body#/totalResults
+      topSignalId: $response.body#/data/0/id
+      topTopic: $response.body#/data/0/topic
+      topCompanyId: $response.body#/data/0/company/id
+      topCompanyName: $response.body#/data/0/company/name
+  - stepId: enrichCompany
+    description: >-
+      Enrich the top company surfacing intent by its ZoomInfo company id,
+      requesting the supplied output fields.
+    operationId: CompanyEnrich
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $steps.authenticate.outputs.jwt
+    requestBody:
+      contentType: application/json
+      payload:
+        matchCompanyInput:
+        - companyId: $steps.searchIntent.outputs.topCompanyId
+        outputFields: $inputs.outputFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      success: $response.body#/success
+      enrichedCompany: $response.body#/data
+  outputs:
+    topTopic: $steps.searchIntent.outputs.topTopic
+    topCompanyId: $steps.searchIntent.outputs.topCompanyId
+    topCompanyName: $steps.searchIntent.outputs.topCompanyName
+    enrichedCompany: $steps.enrichCompany.outputs.enrichedCompany

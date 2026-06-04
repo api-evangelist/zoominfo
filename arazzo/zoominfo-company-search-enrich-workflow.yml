@@ -1,0 +1,113 @@
+arazzo: 1.0.1
+info:
+  title: ZoomInfo Search and Enrich a Company
+  summary: Authenticate, find a company by metro/industry/tech, then enrich the top match.
+  description: >-
+    A full company discovery-to-detail flow against ZoomInfo's B2B data. It
+    authenticates for a JWT, runs a Company Search scoped by metro region,
+    industry codes, and technology tags, and then feeds the ZoomInfo company id
+    of the top search result into the Company Enrich endpoint to pull a rich set
+    of firmographic fields. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: zoominfoApi
+  url: ../openapi/zoominfo-openapi.yml
+  type: openapi
+workflows:
+- workflowId: search-and-enrich-company
+  summary: Search ZoomInfo for a company and enrich the top-ranked match.
+  description: >-
+    Authenticates, searches companies by metro region, industry codes, and
+    technology attributes, then enriches the first returned company by its
+    ZoomInfo company id, requesting the supplied output fields.
+  inputs:
+    type: object
+    required:
+    - username
+    - password
+    - metroRegion
+    - industryCodes
+    - techAttributeTagList
+    - outputFields
+    properties:
+      username:
+        type: string
+        description: The ZoomInfo API username.
+      password:
+        type: string
+        description: The ZoomInfo API password.
+      metroRegion:
+        type: string
+        description: Company metro area (e.g. "usa.california.sanfrancisco").
+      industryCodes:
+        type: string
+        description: Top-level industry codes to search (e.g. "education.university").
+      techAttributeTagList:
+        type: string
+        description: Technology product tags in dot notation (e.g. "333.202.*").
+      outputFields:
+        type: array
+        description: The list of company output fields to return from enrichment.
+        items:
+          type: string
+  steps:
+  - stepId: authenticate
+    description: >-
+      Exchange the ZoomInfo username and password for a JWT access token that is
+      valid for 60 minutes.
+    operationId: Authenticate
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.username
+        password: $inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jwt: $response.body#/jwt
+  - stepId: searchCompanies
+    description: >-
+      Search ZoomInfo for companies matching the supplied metro region, industry
+      codes, and technology attributes, authenticating with the JWT.
+    operationId: CompanySearch
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $steps.authenticate.outputs.jwt
+    requestBody:
+      contentType: application/json
+      payload:
+        metroRegion: $inputs.metroRegion
+        industryCodes: $inputs.industryCodes
+        techAttributeTagList: $inputs.techAttributeTagList
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      totalResults: $response.body#/totalResults
+      topCompanyId: $response.body#/data/0/id
+      topCompanyName: $response.body#/data/0/name
+  - stepId: enrichCompany
+    description: >-
+      Enrich the top company from the search result by its ZoomInfo company id,
+      requesting the supplied output fields.
+    operationId: CompanyEnrich
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $steps.authenticate.outputs.jwt
+    requestBody:
+      contentType: application/json
+      payload:
+        matchCompanyInput:
+        - companyId: $steps.searchCompanies.outputs.topCompanyId
+        outputFields: $inputs.outputFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      success: $response.body#/success
+      enrichedCompany: $response.body#/data
+  outputs:
+    topCompanyId: $steps.searchCompanies.outputs.topCompanyId
+    topCompanyName: $steps.searchCompanies.outputs.topCompanyName
+    enrichedCompany: $steps.enrichCompany.outputs.enrichedCompany

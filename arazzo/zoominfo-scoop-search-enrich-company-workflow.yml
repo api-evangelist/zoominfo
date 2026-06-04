@@ -1,0 +1,129 @@
+arazzo: 1.0.1
+info:
+  title: ZoomInfo Find Scoops and Enrich the Company
+  summary: Authenticate, search Scoops by company and date window, then enrich the company behind the top Scoop.
+  description: >-
+    A sales-trigger flow built on ZoomInfo's Scoops (timely company events). It
+    authenticates for a JWT, runs a Scoop Search scoped by company name, a
+    published date window, and Scoop type, then takes the ZoomInfo company id
+    attached to the top Scoop and enriches that company with the Company Enrich
+    endpoint. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: zoominfoApi
+  url: ../openapi/zoominfo-openapi.yml
+  type: openapi
+workflows:
+- workflowId: scoop-search-and-enrich-company
+  summary: Search Scoops and enrich the company behind the top Scoop.
+  description: >-
+    Authenticates, searches Scoops by company name and date window, then enriches
+    the company attached to the first Scoop result by its ZoomInfo company id.
+  inputs:
+    type: object
+    required:
+    - username
+    - password
+    - companyName
+    - publishedStartDate
+    - publishedEndDate
+    - scoopType
+    - updatedSinceCreation
+    - description
+    - outputFields
+    properties:
+      username:
+        type: string
+        description: The ZoomInfo API username.
+      password:
+        type: string
+        description: The ZoomInfo API password.
+      companyName:
+        type: string
+        description: Company name to search Scoops for.
+      publishedStartDate:
+        type: string
+        description: Start of the Scoop published date window (ISO 8601).
+      publishedEndDate:
+        type: string
+        description: End of the Scoop published date window (ISO 8601).
+      scoopType:
+        type: string
+        description: Scoop type identifier(s) to filter by (e.g. "6").
+      updatedSinceCreation:
+        type: boolean
+        description: Whether to only return Scoops updated since creation.
+      description:
+        type: string
+        description: Free-text description criteria for the Scoop search.
+      outputFields:
+        type: array
+        description: The list of company output fields to return from enrichment.
+        items:
+          type: string
+  steps:
+  - stepId: authenticate
+    description: >-
+      Exchange the ZoomInfo username and password for a JWT access token that is
+      valid for 60 minutes.
+    operationId: Authenticate
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.username
+        password: $inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jwt: $response.body#/jwt
+  - stepId: searchScoops
+    description: >-
+      Search ZoomInfo Scoops for the supplied company and published date window,
+      authenticating with the JWT.
+    operationId: ScoopSearch
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $steps.authenticate.outputs.jwt
+    requestBody:
+      contentType: application/json
+      payload:
+        companyName: $inputs.companyName
+        publishedStartDate: $inputs.publishedStartDate
+        publishedEndDate: $inputs.publishedEndDate
+        scoopType: $inputs.scoopType
+        updatedSinceCreation: $inputs.updatedSinceCreation
+        description: $inputs.description
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      totalResults: $response.body#/totalResults
+      topScoopId: $response.body#/data/0/id
+      topCompanyId: $response.body#/data/0/company/id
+      topCompanyName: $response.body#/data/0/company/name
+  - stepId: enrichCompany
+    description: >-
+      Enrich the company attached to the top Scoop by its ZoomInfo company id,
+      requesting the supplied output fields.
+    operationId: CompanyEnrich
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $steps.authenticate.outputs.jwt
+    requestBody:
+      contentType: application/json
+      payload:
+        matchCompanyInput:
+        - companyId: $steps.searchScoops.outputs.topCompanyId
+        outputFields: $inputs.outputFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      success: $response.body#/success
+      enrichedCompany: $response.body#/data
+  outputs:
+    topScoopId: $steps.searchScoops.outputs.topScoopId
+    topCompanyId: $steps.searchScoops.outputs.topCompanyId
+    topCompanyName: $steps.searchScoops.outputs.topCompanyName
+    enrichedCompany: $steps.enrichCompany.outputs.enrichedCompany

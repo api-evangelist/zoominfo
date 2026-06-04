@@ -1,0 +1,174 @@
+arazzo: 1.0.1
+info:
+  title: ZoomInfo Search a Company and Pull Its Intent
+  summary: Authenticate, find a company, then pull that account's intent signals when a match is found.
+  description: >-
+    An account-based intent flow against ZoomInfo's B2B data. It authenticates
+    for a JWT and runs a Company Search; when the search returns a match it
+    branches into the Intent Enrich endpoint using the matched company id to pull
+    that specific account's intent signals, and when no company matches it ends
+    without an intent call. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: zoominfoApi
+  url: ../openapi/zoominfo-openapi.yml
+  type: openapi
+workflows:
+- workflowId: company-search-then-intent
+  summary: Search a company and pull its account-level intent when a match exists.
+  description: >-
+    Authenticates, searches companies, and branches: when a company matches it
+    enriches that account's intent signals by company id, otherwise it ends.
+  inputs:
+    type: object
+    required:
+    - username
+    - password
+    - metroRegion
+    - industryCodes
+    - techAttributeTagList
+    - companyName
+    - companyWebsite
+    - topics
+    - signalStartDate
+    - signalEndDate
+    - signalScoreMin
+    - signalScoreMax
+    - audienceStrengthMin
+    - audienceStrengthMax
+    - sortBy
+    - sortOrder
+    properties:
+      username:
+        type: string
+        description: The ZoomInfo API username.
+      password:
+        type: string
+        description: The ZoomInfo API password.
+      metroRegion:
+        type: string
+        description: Company metro area to search (e.g. "usa.california.sanfrancisco").
+      industryCodes:
+        type: string
+        description: Top-level industry codes to search.
+      techAttributeTagList:
+        type: string
+        description: Technology product tags in dot notation (e.g. "333.202.*").
+      companyName:
+        type: string
+        description: Company name to scope the intent enrichment.
+      companyWebsite:
+        type: string
+        description: Company website to scope the intent enrichment.
+      topics:
+        type: array
+        description: The list of intent topics to pull.
+        items:
+          type: string
+      signalStartDate:
+        type: string
+        description: Start of the intent signal date window (ISO 8601).
+      signalEndDate:
+        type: string
+        description: End of the intent signal date window (ISO 8601).
+      signalScoreMin:
+        type: integer
+        description: Minimum signal score for results.
+      signalScoreMax:
+        type: integer
+        description: Maximum signal score for results.
+      audienceStrengthMin:
+        type: string
+        description: Minimum audience strength (e.g. "C").
+      audienceStrengthMax:
+        type: string
+        description: Maximum audience strength (e.g. "A").
+      sortBy:
+        type: string
+        description: Field to sort intent results by.
+      sortOrder:
+        type: string
+        description: Sort order for the results (e.g. "asc").
+  steps:
+  - stepId: authenticate
+    description: >-
+      Exchange the ZoomInfo username and password for a JWT access token that is
+      valid for 60 minutes.
+    operationId: Authenticate
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.username
+        password: $inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jwt: $response.body#/jwt
+  - stepId: searchCompanies
+    description: >-
+      Search ZoomInfo for companies matching the supplied criteria. Branch on
+      whether at least one company was returned.
+    operationId: CompanySearch
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $steps.authenticate.outputs.jwt
+    requestBody:
+      contentType: application/json
+      payload:
+        metroRegion: $inputs.metroRegion
+        industryCodes: $inputs.industryCodes
+        techAttributeTagList: $inputs.techAttributeTagList
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      totalResults: $response.body#/totalResults
+      topCompanyId: $response.body#/data/0/id
+      topCompanyName: $response.body#/data/0/name
+    onSuccess:
+    - name: companyFound
+      type: goto
+      stepId: enrichIntent
+      criteria:
+      - context: $response.body
+        condition: $.totalResults > 0
+        type: jsonpath
+    - name: noCompany
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.totalResults == 0
+        type: jsonpath
+  - stepId: enrichIntent
+    description: >-
+      Pull intent signals for the matched company by its ZoomInfo company id,
+      scoped by the supplied topics and signal date window.
+    operationId: IntentEnrich
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $steps.authenticate.outputs.jwt
+    requestBody:
+      contentType: application/json
+      payload:
+        companyName: $inputs.companyName
+        companyWebsite: $inputs.companyWebsite
+        companyId: $steps.searchCompanies.outputs.topCompanyId
+        topics: $inputs.topics
+        signalStartDate: $inputs.signalStartDate
+        signalEndDate: $inputs.signalEndDate
+        signalScoreMin: $inputs.signalScoreMin
+        signalScoreMax: $inputs.signalScoreMax
+        audienceStrengthMin: $inputs.audienceStrengthMin
+        audienceStrengthMax: $inputs.audienceStrengthMax
+        sortBy: $inputs.sortBy
+        sortOrder: $inputs.sortOrder
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      intentData: $response.body#/data
+  outputs:
+    topCompanyId: $steps.searchCompanies.outputs.topCompanyId
+    topCompanyName: $steps.searchCompanies.outputs.topCompanyName
+    intentData: $steps.enrichIntent.outputs.intentData

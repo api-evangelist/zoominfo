@@ -607,6 +607,33 @@ kind: contract
 image: https://www.zoominfo.com/assets/img/zoominfo-logo.png
 access: 3rd-Party
 common:
+  - type: ArazzoWorkflows
+    url: arazzo/
+    workflows:
+    - url: arazzo/zoominfo-authenticate-contact-search-workflow.yml
+      name: ZoomInfo Authenticate and Search Contacts
+      summary: Exchange ZoomInfo credentials for a JWT and search the contact database.
+    - url: arazzo/zoominfo-company-master-data-enrich-workflow.yml
+      name: ZoomInfo Resolve a Company from a URL
+      summary: Authenticate, then resolve a company website into ZoomInfo master-data fields.
+    - url: arazzo/zoominfo-company-search-enrich-workflow.yml
+      name: ZoomInfo Search and Enrich a Company
+      summary: Authenticate, find a company by metro/industry/tech, then enrich the top match.
+    - url: arazzo/zoominfo-company-search-intent-enrich-workflow.yml
+      name: ZoomInfo Search a Company and Pull Its Intent
+      summary: Authenticate, find a company, then pull that account's intent signals when a match is found.
+    - url: arazzo/zoominfo-contact-search-enrich-workflow.yml
+      name: ZoomInfo Search and Enrich a Contact
+      summary: Authenticate, search contacts, then enrich the top match for phone and email.
+    - url: arazzo/zoominfo-intent-search-enrich-company-workflow.yml
+      name: ZoomInfo Find Intent Signals and Enrich the Account
+      summary: Authenticate, search intent signals by topic, then enrich the top company showing intent.
+    - url: arazzo/zoominfo-scoop-search-enrich-company-workflow.yml
+      name: ZoomInfo Find Scoops and Enrich the Company
+      summary: Authenticate, search Scoops by company and date window, then enrich the company behind the top Scoop.
+    - url: arazzo/zoominfo-scoop-search-then-enrich-workflow.yml
+      name: ZoomInfo Discover Scoops then Refine by Department
+      summary: Authenticate, search Scoops for a company, then re-pull the top company's Scoops scoped by department.
   - type: LinkedIn
     url: https://www.linkedin.com/company/zoominfo
   - url: https://www.zoominfo.com/pricing

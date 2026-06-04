@@ -1,0 +1,110 @@
+arazzo: 1.0.1
+info:
+  title: ZoomInfo Authenticate and Search Contacts
+  summary: Exchange ZoomInfo credentials for a JWT and search the contact database.
+  description: >-
+    Establishes a ZoomInfo session by exchanging a username and password for a
+    short-lived JWT access token, then immediately uses that token to run a
+    Contact Search against ZoomInfo's B2B data. The token returned by the
+    authenticate endpoint is inlined as a Bearer credential on the search call.
+    Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: zoominfoApi
+  url: ../openapi/zoominfo-openapi.yml
+  type: openapi
+workflows:
+- workflowId: authenticate-and-search-contacts
+  summary: Authenticate to ZoomInfo and run a contact search with the resulting JWT.
+  description: >-
+    Calls the authenticate endpoint with a username and password to obtain a JWT
+    access token, then passes that token as a Bearer credential to the Contact
+    Search endpoint to retrieve contacts matching the supplied criteria.
+  inputs:
+    type: object
+    required:
+    - username
+    - password
+    - managementLevel
+    - companyType
+    - zipCode
+    - locationSearchType
+    - zipCodeRadiusMiles
+    - techAttributeTagList
+    - requiredFields
+    properties:
+      username:
+        type: string
+        description: The ZoomInfo API username.
+      password:
+        type: string
+        description: The ZoomInfo API password.
+      managementLevel:
+        type: string
+        description: Contact management level to filter by (e.g. "directors").
+      companyType:
+        type: string
+        description: Company type to filter by (e.g. "public").
+      zipCode:
+        type: string
+        description: Zip Code of the company's primary address.
+      locationSearchType:
+        type: string
+        description: Location criteria for the search (e.g. "PersonAndHQ").
+      zipCodeRadiusMiles:
+        type: string
+        description: Geographical radius in miles from the supplied zipCode.
+      techAttributeTagList:
+        type: string
+        description: Technology product tags in dot notation (e.g. "333.202.*").
+      requiredFields:
+        type: string
+        description: Comma-separated list of required fields (e.g. "directPhone").
+  steps:
+  - stepId: authenticate
+    description: >-
+      Exchange the ZoomInfo username and password for a JWT access token that is
+      valid for 60 minutes. ZoomInfo returns the token on the response body as
+      the "jwt" field.
+    operationId: Authenticate
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.username
+        password: $inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jwt: $response.body#/jwt
+  - stepId: searchContacts
+    description: >-
+      Search ZoomInfo for contacts matching the supplied criteria, authenticating
+      with the JWT obtained in the previous step.
+    operationId: ContactSearch
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $steps.authenticate.outputs.jwt
+    requestBody:
+      contentType: application/json
+      payload:
+        managementLevel: $inputs.managementLevel
+        companyType: $inputs.companyType
+        zipCode: $inputs.zipCode
+        locationSearchType: $inputs.locationSearchType
+        zipCodeRadiusMiles: $inputs.zipCodeRadiusMiles
+        techAttributeTagList: $inputs.techAttributeTagList
+        requiredFields: $inputs.requiredFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      totalResults: $response.body#/totalResults
+      currentPage: $response.body#/currentPage
+      firstContactId: $response.body#/data/0/id
+      firstCompanyId: $response.body#/data/0/company/id
+  outputs:
+    jwt: $steps.authenticate.outputs.jwt
+    totalResults: $steps.searchContacts.outputs.totalResults
+    firstContactId: $steps.searchContacts.outputs.firstContactId
+    firstCompanyId: $steps.searchContacts.outputs.firstCompanyId
