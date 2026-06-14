@@ -1,0 +1,1127 @@
+"""
+ZoomInfo GraphQL Schema
+Conceptual schema representing the ZoomInfo B2B data and intelligence API.
+Source: https://developer.zoominfo.com / https://api-docs.zoominfo.com
+"""
+
+# -----------------------------------------------------------------------
+# Root operations
+# -----------------------------------------------------------------------
+
+type Query {
+  # Contact operations
+  searchContacts(query: SearchQuery!): ContactResults
+  enrichContact(input: EnrichDetails!): EnrichResult
+  bulkEnrichContacts(input: BulkEnrich!): BulkEnrichResults
+
+  # Company operations
+  searchCompanies(query: SearchQuery!): CompanyResults
+  enrichCompany(input: EnrichDetails!): EnrichResult
+  bulkEnrichCompanies(input: BulkEnrich!): BulkEnrichResults
+
+  # Person operations
+  searchPeople(query: SearchQuery!): PersonResults
+  enrichPerson(input: EnrichDetails!): EnrichResult
+
+  # Intent
+  searchIntent(query: SearchQuery!): IntentDetails
+  enrichIntent(input: EnrichDetails!): IntentDetails
+
+  # News
+  searchNews(query: SearchQuery!): SearchResults
+  enrichNews(input: EnrichDetails!): NewsDetails
+
+  # Scoop
+  searchScoops(query: SearchQuery!): SearchResults
+  enrichScoop(input: EnrichDetails!): ScoopDetails
+
+  # Technology
+  enrichTechnology(input: EnrichDetails!): TechDetails
+
+  # Location
+  enrichLocation(input: EnrichDetails!): LocationDetails
+
+  # Lookup
+  domainLookup(input: DomainLookup!): CompanyDetails
+  ipLookup(ipAddress: String!): CompanyDetails
+
+  # Corporate hierarchy / org chart
+  corporateHierarchy(companyId: ID!): FamilyTree
+  orgChart(companyId: ID!): OrgChartNode
+
+  # Bulk job status
+  bulkJobStatus(jobId: ID!): BulkJobStatus
+  bulkJobResults(jobId: ID!): BulkEnrichResults
+
+  # Webhooks
+  listWebhooks: [Webhook]
+  getWebhook(id: ID!): Webhook
+
+  # API management
+  getAPIKey: APIKey
+  getToken: Token
+  listSegments: [Segment]
+  getAudience(segmentId: ID!): AudienceDetails
+  getPageInfo(cursor: String): PageInfo
+
+  # Compliance
+  complianceData(personId: ID!): ComplianceRecord
+
+  # Hashtags
+  enrichHashtags(domain: String!): [Hashtag]
+}
+
+type Mutation {
+  # Authentication
+  authenticate(username: String!, password: String!): Token
+  refreshToken(token: String!): Token
+
+  # Bulk jobs
+  submitBulkContactSearch(input: BulkEnrich!): BulkJobStatus
+  submitBulkCompanySearch(input: BulkEnrich!): BulkJobStatus
+  submitBulkContactEnrich(input: BulkEnrich!): BulkJobStatus
+  submitBulkCompanyEnrich(input: BulkEnrich!): BulkJobStatus
+
+  # Webhooks
+  createWebhook(input: WebhookInput!): Webhook
+  updateWebhook(id: ID!, input: WebhookInput!): Webhook
+  deleteWebhook(id: ID!): Boolean
+  validateWebhookURL(url: String!): Boolean
+
+  # Integration
+  createIntegration(input: IntegrationInput!): Integration
+  updateIntegration(id: ID!, input: IntegrationInput!): Integration
+  deleteIntegration(id: ID!): Boolean
+}
+
+# -----------------------------------------------------------------------
+# Contact domain
+# -----------------------------------------------------------------------
+
+type Contact {
+  id: ID!
+  firstName: String
+  lastName: String
+  fullName: String
+  jobTitle: String
+  jobFunction: String
+  managementLevel: String
+  department: String
+  contactDetails: ContactDetails
+  company: Company
+  location: Location
+  socialMedia: SocialMediaURLs
+  employmentHistory: [EmploymentHistory]
+  education: [Education]
+  externalUrls: [ExternalURL]
+  isDefunct: Boolean
+  lastUpdated: String
+}
+
+type ContactDetails {
+  emails: [ContactEmail]
+  phones: [ContactPhone]
+  linkedin: ContactLinkedIn
+  directDial: DirectDial
+  mobile: MobilePhone
+}
+
+type ContactEmail {
+  address: EmailAddress
+  type: String
+  isPrimary: Boolean
+  isVerified: Boolean
+  deliverability: String
+}
+
+type ContactPhone {
+  number: String
+  type: String
+  isPrimary: Boolean
+  countryCode: String
+  extension: String
+}
+
+type ContactLinkedIn {
+  profileUrl: String
+  handle: String
+}
+
+# -----------------------------------------------------------------------
+# Person domain
+# -----------------------------------------------------------------------
+
+type PersonDetails {
+  personId: ID!
+  firstName: String
+  lastName: String
+  middleName: String
+  salutation: String
+  suffix: String
+  gender: String
+  birthYear: Int
+  contactDetails: ContactDetails
+  jobTitle: String
+  department: String
+  managementLevel: String
+  jobFunction: [String]
+  companyId: ID
+  companyName: String
+  location: Location
+  education: [Education]
+  employmentHistory: [EmploymentHistory]
+  recommendedContacts: [RecommendedContact]
+  matchReasons: [MatchReason]
+  lastUpdated: String
+}
+
+type DirectDial {
+  number: String
+  countryCode: String
+  isVerified: Boolean
+  accuracy: String
+}
+
+type MobilePhone {
+  number: String
+  countryCode: String
+  isVerified: Boolean
+}
+
+type EmailAddress {
+  address: String!
+  domain: String
+  type: String
+  isVerified: Boolean
+  deliverability: String
+}
+
+type EmploymentHistory {
+  companyId: ID
+  companyName: String
+  jobTitle: String
+  startDate: String
+  endDate: String
+  isCurrent: Boolean
+  managementLevel: String
+  department: String
+}
+
+type Education {
+  institution: String
+  degree: EducationDegree
+  fieldOfStudy: String
+  startYear: Int
+  endYear: Int
+}
+
+type EducationDegree {
+  name: String
+  abbreviation: String
+  level: String
+}
+
+type RecommendedContact {
+  contactId: ID
+  firstName: String
+  lastName: String
+  jobTitle: String
+  companyName: String
+  relevanceScore: Float
+}
+
+# -----------------------------------------------------------------------
+# Company domain
+# -----------------------------------------------------------------------
+
+type Company {
+  id: ID!
+  name: String
+  ticker: String
+  website: Website
+  companyDetails: CompanyDetails
+  location: HQ
+  additionalLocations: [AdditionalLocation]
+  industry: CompanyIndustry
+  companyType: CompanyType
+  size: CompanySize
+  revenue: CompanyRevenue
+  sicCodes: [CompanySICCode]
+  naicsCodes: [CompanyNAICS]
+  technologies: [Technology]
+  funding: Funding
+  competitors: [Competitor]
+  socialMedia: SocialMediaURLs
+  news: [News]
+  scoops: [Scoop]
+  intent: [Intent]
+  orgChart: OrgChartNode
+  subUnits: [SubUnitTypeInfo]
+  hashtags: [Hashtag]
+  lastUpdated: String
+}
+
+type CompanyDetails {
+  companyId: ID!
+  name: String
+  legalName: String
+  description: String
+  founded: Int
+  parentCompanyId: ID
+  parentCompanyName: String
+  ultimateParentId: ID
+  ultimateParentName: String
+  isPublic: Boolean
+  stockExchange: String
+  ticker: String
+  alexaRank: Int
+  employeeCount: Int
+  employeeCountRange: String
+  revenue: CompanyRevenue
+  industry: CompanyIndustry
+  subIndustry: String
+  companyType: CompanyType
+  website: Website
+  location: HQ
+  sicCodes: [CompanySICCode]
+  naicsCodes: [CompanyNAICS]
+  technologies: [Technology]
+  funding: Funding
+  socialMedia: SocialMediaURLs
+  competitors: [Competitor]
+  rankings: [CompanyRanking]
+  matchReasons: [MatchReason]
+}
+
+type CompanySize {
+  employeeCount: Int
+  employeeCountRange: String
+  employeeGrowthRate: Float
+  employeeGrowthCount: Int
+}
+
+type CompanyRevenue {
+  amount: Float
+  currency: String
+  range: String
+  year: Int
+  isEstimated: Boolean
+}
+
+type CompanyIndustry {
+  primaryIndustry: String
+  subIndustry: String
+  industryGroup: String
+  sector: String
+  naicsCode: String
+  sicCode: String
+}
+
+type CompanyType {
+  type: String
+  isPublic: Boolean
+  isPrivate: Boolean
+  isNonProfit: Boolean
+  isGovernment: Boolean
+  isEducation: Boolean
+}
+
+type CompanySICCode {
+  code: String
+  description: String
+  division: String
+  majorGroup: String
+}
+
+type CompanyNAICS {
+  code: String
+  description: String
+  sector: String
+  subsector: String
+  industryGroup: String
+  industry: String
+  nationalIndustry: String
+}
+
+type CompanyRanking {
+  rankingType: String
+  rank: Int
+  rankingYear: Int
+  source: String
+}
+
+type Competitor {
+  companyId: ID
+  companyName: String
+  website: String
+  similarityScore: Float
+}
+
+type SubUnitTypeInfo {
+  subUnitTypeId: ID
+  subUnitTypeName: String
+  companyId: ID
+  companyName: String
+  website: String
+}
+
+# -----------------------------------------------------------------------
+# Website
+# -----------------------------------------------------------------------
+
+type Website {
+  url: String
+  domain: String
+  isVerified: Boolean
+}
+
+# -----------------------------------------------------------------------
+# Technology domain
+# -----------------------------------------------------------------------
+
+type Technology {
+  id: ID!
+  name: String
+  category: TechCategory
+  vendor: TechVendor
+  details: TechDetails
+  firstDetected: String
+  lastDetected: String
+  isActive: Boolean
+}
+
+type TechDetails {
+  technologyId: ID
+  technologyName: String
+  technologyCategory: TechCategory
+  vendor: TechVendor
+  description: String
+  website: String
+  firstDetected: String
+  lastDetected: String
+  attributes: [TechAttribute]
+}
+
+type TechCategory {
+  categoryId: ID
+  categoryName: String
+  parentCategory: String
+}
+
+type TechVendor {
+  vendorId: ID
+  vendorName: String
+  vendorWebsite: String
+}
+
+type TechAttribute {
+  attributeName: String
+  attributeValue: String
+}
+
+# -----------------------------------------------------------------------
+# Funding domain
+# -----------------------------------------------------------------------
+
+type Funding {
+  totalAmount: FundingAmount
+  lastFundingDate: String
+  lastFundingAmount: FundingAmount
+  lastFundingType: FundingStage
+  rounds: [FundingRound]
+  investors: [Investor]
+}
+
+type FundingRound {
+  roundId: ID
+  roundType: FundingStage
+  amount: FundingAmount
+  date: String
+  investors: [Investor]
+  leadInvestors: [Investor]
+  postMoneyValuation: FundingAmount
+  preMoneyValuation: FundingAmount
+}
+
+type FundingAmount {
+  value: Float
+  currency: String
+  formattedValue: String
+}
+
+type Investor {
+  investorId: ID
+  name: String
+  details: InvestorDetails
+  type: String
+  isLead: Boolean
+}
+
+type InvestorDetails {
+  investorId: ID
+  name: String
+  website: String
+  type: String
+  description: String
+  location: Location
+  totalInvestments: Int
+}
+
+type FundingStage {
+  stage: String
+  stageCode: String
+  description: String
+}
+
+# -----------------------------------------------------------------------
+# News domain
+# -----------------------------------------------------------------------
+
+type News {
+  id: ID!
+  title: String
+  summary: String
+  url: String
+  publishDate: String
+  source: NewsSource
+  details: NewsDetails
+  relatedCompanies: [Company]
+  relatedContacts: [Contact]
+  tags: [String]
+}
+
+type NewsDetails {
+  newsId: ID
+  title: String
+  summary: String
+  fullText: String
+  url: String
+  publishDate: String
+  source: NewsSource
+  sentiment: String
+  relevanceScore: Float
+  tags: [String]
+  relatedTopics: [String]
+}
+
+type NewsSource {
+  sourceName: String
+  sourceUrl: String
+  sourceDomain: String
+  sourceType: String
+  credibilityScore: Float
+}
+
+# -----------------------------------------------------------------------
+# Location domain
+# -----------------------------------------------------------------------
+
+type Location {
+  street: String
+  city: String
+  state: String
+  stateCode: String
+  country: String
+  countryCode: String
+  postalCode: String
+  continent: String
+  metroArea: String
+  region: String
+  latitude: Float
+  longitude: Float
+}
+
+type LocationDetails {
+  locationId: ID
+  locationName: String
+  locationType: String
+  address: Location
+  isHeadquarters: Boolean
+  employeeCount: Int
+  companyId: ID
+  companyName: String
+}
+
+type HQ {
+  street: String
+  city: String
+  state: String
+  stateCode: String
+  country: String
+  countryCode: String
+  postalCode: String
+  metroArea: String
+  region: String
+  continent: String
+  latitude: Float
+  longitude: Float
+}
+
+type AdditionalLocation {
+  locationId: ID
+  locationType: String
+  address: Location
+  employeeCount: Int
+  isPrimary: Boolean
+}
+
+# -----------------------------------------------------------------------
+# Search domain
+# -----------------------------------------------------------------------
+
+type SearchQuery {
+  terms: String
+  filters: [SearchFilter]
+  outputFields: [String]
+  sortBy: String
+  sortOrder: String
+  page: Int
+  pageSize: Int
+  cursor: String
+}
+
+input SearchQueryInput {
+  terms: String
+  filters: [SearchFilterInput]
+  outputFields: [String]
+  sortBy: String
+  sortOrder: String
+  page: Int
+  pageSize: Int
+  cursor: String
+}
+
+input SearchFilterInput {
+  field: String!
+  operator: String
+  value: String
+  values: [String]
+}
+
+type SearchFilter {
+  field: String!
+  operator: String
+  value: String
+  values: [String]
+  isRequired: Boolean
+}
+
+type SearchResults {
+  totalResults: Int
+  currentPage: Int
+  pageSize: Int
+  maxResults: Int
+  pageInfo: PageInfo
+  data: [SearchResultItem]
+}
+
+type SearchResultItem {
+  resultType: String
+  score: Float
+  data: String
+}
+
+type ContactResults {
+  totalResults: Int
+  currentPage: Int
+  pageSize: Int
+  maxResults: Int
+  pageInfo: PageInfo
+  data: [Contact]
+}
+
+type CompanyResults {
+  totalResults: Int
+  currentPage: Int
+  pageSize: Int
+  maxResults: Int
+  pageInfo: PageInfo
+  data: [Company]
+}
+
+type PersonResults {
+  totalResults: Int
+  currentPage: Int
+  pageSize: Int
+  maxResults: Int
+  pageInfo: PageInfo
+  data: [PersonDetails]
+}
+
+# -----------------------------------------------------------------------
+# Enrichment domain
+# -----------------------------------------------------------------------
+
+type Enrich {
+  inputType: String
+  inputFields: [String]
+  outputFields: [String]
+  matchThreshold: Float
+  returnMultipleMatches: Boolean
+}
+
+type EnrichDetails {
+  enrichType: String
+  inputData: [EnrichInput]
+  outputFields: [String]
+  matchThreshold: Float
+  returnMultipleMatches: Boolean
+}
+
+input EnrichDetailsInput {
+  enrichType: String!
+  inputData: [EnrichInputData]
+  outputFields: [String]
+  matchThreshold: Float
+  returnMultipleMatches: Boolean
+}
+
+input EnrichInputData {
+  field: String!
+  value: String!
+}
+
+type EnrichInput {
+  field: String
+  value: String
+}
+
+type EnrichResult {
+  matchStatus: String
+  matchedCount: Int
+  data: [EnrichedRecord]
+  pageInfo: PageInfo
+}
+
+type EnrichedRecord {
+  inputData: [EnrichInput]
+  matchStatus: String
+  matchReasons: [MatchReason]
+  contactData: Contact
+  companyData: Company
+  personData: PersonDetails
+}
+
+type MatchReason {
+  field: String
+  matchedValue: String
+  confidence: Float
+  matchType: String
+}
+
+type BulkEnrich {
+  jobType: String
+  inputData: [BulkEnrichRecord]
+  outputFields: [String]
+  notificationUrl: String
+}
+
+type BulkEnrichRecord {
+  recordId: String
+  inputFields: [EnrichInput]
+}
+
+type BulkEnrichResults {
+  jobId: ID
+  status: String
+  totalRecords: Int
+  processedRecords: Int
+  matchedRecords: Int
+  results: [EnrichedRecord]
+  downloadUrl: String
+  expiresAt: String
+}
+
+type BulkJobStatus {
+  jobId: ID!
+  jobType: String
+  status: String
+  totalRecords: Int
+  processedRecords: Int
+  submittedAt: String
+  completedAt: String
+  estimatedCompletionTime: String
+  downloadUrl: String
+  errorMessage: String
+}
+
+# -----------------------------------------------------------------------
+# Scoop domain
+# -----------------------------------------------------------------------
+
+type Scoop {
+  id: ID!
+  title: String
+  summary: String
+  scoopType: ScoopType
+  details: ScoopDetails
+  company: Company
+  contacts: [Contact]
+  publishDate: String
+  expirationDate: String
+  tags: [String]
+}
+
+type ScoopDetails {
+  scoopId: ID
+  title: String
+  summary: String
+  fullText: String
+  scoopType: ScoopType
+  company: Company
+  contacts: [Contact]
+  publishDate: String
+  expirationDate: String
+  source: NewsSource
+  department: String
+  tags: [String]
+  relevanceScore: Float
+}
+
+type ScoopType {
+  typeId: ID
+  typeName: String
+  typeCode: String
+  category: String
+  description: String
+}
+
+# -----------------------------------------------------------------------
+# Intent domain
+# -----------------------------------------------------------------------
+
+type Intent {
+  companyId: ID
+  companyName: String
+  score: Float
+  topics: [IntentTopic]
+  details: IntentDetails
+  weeklyTrend: [IntentDataPoint]
+}
+
+type IntentDetails {
+  intentId: ID
+  companyId: ID
+  companyName: String
+  topics: [IntentTopic]
+  overallScore: Float
+  scoreTrend: String
+  weeklyTrend: [IntentDataPoint]
+  firstSignalDate: String
+  lastSignalDate: String
+}
+
+type IntentTopic {
+  topicId: ID
+  topicName: String
+  topicCategory: String
+  score: Float
+  trend: String
+  weeklySignals: Int
+  firstSignalDate: String
+  lastSignalDate: String
+}
+
+type IntentDataPoint {
+  weekStart: String
+  weekEnd: String
+  score: Float
+  signalCount: Int
+}
+
+# -----------------------------------------------------------------------
+# Domain lookup
+# -----------------------------------------------------------------------
+
+type DomainLookup {
+  domain: String
+  companyId: ID
+  companyName: String
+  confidence: Float
+  matchType: String
+  companyDetails: CompanyDetails
+}
+
+# -----------------------------------------------------------------------
+# Audience and segment domain
+# -----------------------------------------------------------------------
+
+type AudienceDetails {
+  audienceId: ID
+  name: String
+  description: String
+  segmentId: ID
+  contactCount: Int
+  companyCount: Int
+  filters: [SearchFilter]
+  createdAt: String
+  updatedAt: String
+}
+
+type Segment {
+  segmentId: ID!
+  name: String
+  description: String
+  type: String
+  contactCount: Int
+  companyCount: Int
+  filters: [SearchFilter]
+  createdAt: String
+  updatedAt: String
+  isActive: Boolean
+}
+
+# -----------------------------------------------------------------------
+# Integration domain
+# -----------------------------------------------------------------------
+
+type Integration {
+  integrationId: ID!
+  name: String
+  type: String
+  status: String
+  provider: String
+  configuration: IntegrationConfig
+  createdAt: String
+  updatedAt: String
+  lastSyncAt: String
+}
+
+input IntegrationInput {
+  name: String!
+  type: String!
+  provider: String!
+  configuration: IntegrationConfigInput
+}
+
+type IntegrationConfig {
+  apiEndpoint: String
+  authType: String
+  syncFrequency: String
+  fieldMappings: [FieldMapping]
+  filters: [SearchFilter]
+}
+
+input IntegrationConfigInput {
+  apiEndpoint: String
+  authType: String
+  syncFrequency: String
+}
+
+type FieldMapping {
+  sourceField: String
+  targetField: String
+  transformation: String
+}
+
+# -----------------------------------------------------------------------
+# Auth domain
+# -----------------------------------------------------------------------
+
+type APIKey {
+  keyId: ID!
+  key: String
+  name: String
+  status: String
+  createdAt: String
+  expiresAt: String
+  lastUsedAt: String
+  permissions: [String]
+  rateLimit: RateLimit
+}
+
+type Token {
+  accessToken: String!
+  tokenType: String
+  expiresIn: Int
+  expiresAt: String
+  scope: String
+}
+
+type RateLimit {
+  requestsPerMinute: Int
+  requestsPerDay: Int
+  remainingRequests: Int
+  resetAt: String
+}
+
+# -----------------------------------------------------------------------
+# Pagination
+# -----------------------------------------------------------------------
+
+type PageInfo {
+  currentPage: Int
+  pageSize: Int
+  totalPages: Int
+  totalResults: Int
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
+  nextCursor: String
+  previousCursor: String
+}
+
+# -----------------------------------------------------------------------
+# Webhook domain
+# -----------------------------------------------------------------------
+
+type Webhook {
+  webhookId: ID!
+  name: String
+  url: String
+  status: String
+  events: [String]
+  secret: String
+  createdAt: String
+  updatedAt: String
+  lastTriggeredAt: String
+  deliveryStats: WebhookDeliveryStats
+}
+
+input WebhookInput {
+  name: String!
+  url: String!
+  events: [String]!
+  secret: String
+  isActive: Boolean
+}
+
+type WebhookDeliveryStats {
+  totalDeliveries: Int
+  successfulDeliveries: Int
+  failedDeliveries: Int
+  lastDeliveryStatus: String
+  lastDeliveryAt: String
+}
+
+# -----------------------------------------------------------------------
+# Compliance domain
+# -----------------------------------------------------------------------
+
+type ComplianceRecord {
+  personId: ID
+  hasOptedOut: Boolean
+  optOutDate: String
+  optOutRegions: [String]
+  dataCategories: [String]
+  lastReviewedAt: String
+}
+
+# -----------------------------------------------------------------------
+# Corporate hierarchy domain
+# -----------------------------------------------------------------------
+
+type FamilyTree {
+  companyId: ID!
+  companyName: String
+  ultimateParent: CompanyNode
+  immediateParent: CompanyNode
+  subsidiaries: [CompanyNode]
+  divisions: [CompanyNode]
+  totalEntities: Int
+}
+
+type CompanyNode {
+  companyId: ID
+  companyName: String
+  website: String
+  employeeCount: Int
+  revenue: CompanyRevenue
+  location: HQ
+  relationship: String
+  depth: Int
+  children: [CompanyNode]
+}
+
+type OrgChartNode {
+  personId: ID
+  firstName: String
+  lastName: String
+  jobTitle: String
+  department: String
+  managementLevel: String
+  reportsTo: OrgChartNode
+  directReports: [OrgChartNode]
+  peerCount: Int
+}
+
+# -----------------------------------------------------------------------
+# Social media
+# -----------------------------------------------------------------------
+
+type SocialMediaURLs {
+  linkedIn: String
+  twitter: String
+  facebook: String
+  instagram: String
+  youtube: String
+  crunchbase: String
+}
+
+type ExternalURL {
+  url: String
+  type: String
+  label: String
+}
+
+# -----------------------------------------------------------------------
+# Hashtag
+# -----------------------------------------------------------------------
+
+type Hashtag {
+  hashtagId: ID
+  tag: String
+  category: String
+  relevanceScore: Float
+  mentionCount: Int
+}
+
+# -----------------------------------------------------------------------
+# Description list (lookup data)
+# -----------------------------------------------------------------------
+
+type DescriptionList {
+  id: ID
+  name: String
+  description: String
+  type: String
+  items: [DescriptionListItem]
+}
+
+type DescriptionListItem {
+  value: String
+  label: String
+  description: String
+}
+
+# -----------------------------------------------------------------------
+# Usage
+# -----------------------------------------------------------------------
+
+type UsageStats {
+  period: String
+  startDate: String
+  endDate: String
+  totalRequests: Int
+  successfulRequests: Int
+  failedRequests: Int
+  creditsUsed: Int
+  creditsRemaining: Int
+  endpointBreakdown: [EndpointUsage]
+}
+
+type EndpointUsage {
+  endpoint: String
+  requests: Int
+  creditsUsed: Int
+}
+
+# -----------------------------------------------------------------------
+# Location match (enrichment output)
+# -----------------------------------------------------------------------
+
+type LocationMatch {
+  inputAddress: String
+  matchedLocation: Location
+  confidence: Float
+  matchType: String
+}
