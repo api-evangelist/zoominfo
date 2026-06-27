@@ -26,16 +26,16 @@ apis:
     type: Documentation
   - type: OpenAPI
     url: openapi/zoominfo-openapi.yml
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Zoominfo/api-auth-python-client
     title: Python SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Zoominfo/api-auth-java-client
     title: Java SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Zoominfo/api-auth-nodejs-client
     title: Node.js SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Zoominfo/api-auth-csharp-client
     title: C# SDK
   - type: JSONSchema
@@ -376,173 +376,173 @@ apis:
     url: json-structure/zoominfo-webhook-structure.json
   - type: JSONLD
     url: json-ld/zoominfo-context.jsonld
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-address-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-authenticate-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-bulk-company-enrich-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-bulk-company-search-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-bulk-contact-enrich-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-bulk-contact-search-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-bulk-job-results-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-bulk-job-status-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-company-enrich-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-company-enrich-output-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-company-enrich-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-company-funding-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-company-master-data-enrich-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-company-master-data-enrich-output-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-company-master-data-enrich-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-company-search-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-company-search-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-competitor-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-compliance-output-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-contact-enrich-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-contact-enrich-output-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-contact-enrich-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-contact-search-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-contact-search-output-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-contact-search-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-corporate-hierarchy-enrich-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-create-webhook-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-description-list-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-education-degree-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-education-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-employment-history-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-external-url-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-family-tree-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-get-company-ranking-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-get-company-search-output-field-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-get-corporate-hierarchy-enrich-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-get-corporate-hierarchy-enrich-output-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-get-hashtag-enrich-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-get-location-enrich-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-get-technology-enrich-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-hashtag-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-hashtags-enrich-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-i-p-enrich-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-intent-enrich-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-intent-enrich-output-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-intent-enrich-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-intent-search-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-intent-search-output-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-intent-search-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-intent-topic-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-location-enrich-output-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-location-enrich-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-location-match-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-match-company-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-match-person-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-match-reason-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-naics-code-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-news-enrich-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-news-enrich-output-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-news-enrich-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-news-search-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-news-search-output-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-news-search-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-org-chart-enrich-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-org-chart-enrich-output-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-org-chart-enrich-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-recommended-contact-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-scoop-enrich-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-scoop-enrich-output-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-scoop-enrich-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-scoop-search-input-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-scoop-search-output-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-scoop-search-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-sic-code-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-social-media-url-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-sub-unit-type-info-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-subscription-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-tech-attribute-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-technology-enrich-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-type-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-update-webhook-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-usage-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/zoominfo-webhook-example.json
   - url: graphql/zoominfo-graphql.md
     type: GraphQL
@@ -565,40 +565,30 @@ access: 3rd-Party
 common:
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/zoominfo/overview
-- type: ArazzoWorkflows
-  url: arazzo/
-  workflows:
-  - url: arazzo/zoominfo-authenticate-contact-search-workflow.yml
-    name: ZoomInfo Authenticate and Search Contacts
-    summary: Exchange ZoomInfo credentials for a JWT and search the contact database.
-  - url: arazzo/zoominfo-company-master-data-enrich-workflow.yml
-    name: ZoomInfo Resolve a Company from a URL
-    summary: Authenticate, then resolve a company website into ZoomInfo master-data
-      fields.
-  - url: arazzo/zoominfo-company-search-enrich-workflow.yml
-    name: ZoomInfo Search and Enrich a Company
-    summary: Authenticate, find a company by metro/industry/tech, then enrich the
-      top match.
-  - url: arazzo/zoominfo-company-search-intent-enrich-workflow.yml
-    name: ZoomInfo Search a Company and Pull Its Intent
-    summary: Authenticate, find a company, then pull that account's intent signals
-      when a match is found.
-  - url: arazzo/zoominfo-contact-search-enrich-workflow.yml
-    name: ZoomInfo Search and Enrich a Contact
-    summary: Authenticate, search contacts, then enrich the top match for phone and
-      email.
-  - url: arazzo/zoominfo-intent-search-enrich-company-workflow.yml
-    name: ZoomInfo Find Intent Signals and Enrich the Account
-    summary: Authenticate, search intent signals by topic, then enrich the top company
-      showing intent.
-  - url: arazzo/zoominfo-scoop-search-enrich-company-workflow.yml
-    name: ZoomInfo Find Scoops and Enrich the Company
-    summary: Authenticate, search Scoops by company and date window, then enrich the
-      company behind the top Scoop.
-  - url: arazzo/zoominfo-scoop-search-then-enrich-workflow.yml
-    name: ZoomInfo Discover Scoops then Refine by Department
-    summary: Authenticate, search Scoops for a company, then re-pull the top company's
-      Scoops scoped by department.
+- type: Arazzo
+  url: arazzo/zoominfo-authenticate-contact-search-workflow.yml
+  name: ZoomInfo Authenticate and Search Contacts
+- type: Arazzo
+  url: arazzo/zoominfo-company-master-data-enrich-workflow.yml
+  name: ZoomInfo Resolve a Company from a URL
+- type: Arazzo
+  url: arazzo/zoominfo-company-search-enrich-workflow.yml
+  name: ZoomInfo Search and Enrich a Company
+- type: Arazzo
+  url: arazzo/zoominfo-company-search-intent-enrich-workflow.yml
+  name: ZoomInfo Search a Company and Pull Its Intent
+- type: Arazzo
+  url: arazzo/zoominfo-contact-search-enrich-workflow.yml
+  name: ZoomInfo Search and Enrich a Contact
+- type: Arazzo
+  url: arazzo/zoominfo-intent-search-enrich-company-workflow.yml
+  name: ZoomInfo Find Intent Signals and Enrich the Account
+- type: Arazzo
+  url: arazzo/zoominfo-scoop-search-enrich-company-workflow.yml
+  name: ZoomInfo Find Scoops and Enrich the Company
+- type: Arazzo
+  url: arazzo/zoominfo-scoop-search-then-enrich-workflow.yml
+  name: ZoomInfo Discover Scoops then Refine by Department
 - type: LinkedIn
   url: https://www.linkedin.com/company/zoominfo
 - url: https://www.zoominfo.com/pricing
