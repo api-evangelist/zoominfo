@@ -563,6 +563,10 @@ kind: contract
 image: https://www.zoominfo.com/assets/img/zoominfo-logo.png
 access: 3rd-Party
 common:
+- type: DomainSecurity
+  url: security/zoominfo-domain-security.yml
+- type: Authentication
+  url: authentication/zoominfo-authentication.yml
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/zoominfo/overview
 - type: Arazzo
