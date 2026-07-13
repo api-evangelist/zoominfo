@@ -1,3 +1,20 @@
+# zoominfo — Spectral ruleset (strengthened)
+# Plain Spectral. Existing hand-authored rules preserved; measured rules added
+# from this provider's own OpenAPI conventions by strengthen_ruleset.py,
+# then self-validated against the spec.
+#
+# Provenance:
+#   - servers-https-only: 100% of servers already https (error)
+#   - servers-expected-domain: 1/1 servers on zoominfo.com
+#   - query-params-casing: snake @ 67% (n=6)
+#   - operationid-casing: pascal @ 97% (n=99)
+#   - schema-names-casing: pascal @ 98% (n=278)
+#   - schema-properties-casing: snake @ 52% (n=1349)
+#   - security: global (root) — NOT emitting operation-security-required
+#   - merge: kept 21 existing, added 6 measured, upgraded 0
+#   - added: servers-expected-domain, query-params-casing, operationid-casing, schema-names-casing, schema-properties-casing, security-schemes-defined
+extends:
+  - spectral:oas
 rules:
   info-title-required:
     description: Info title must be present and non-empty
@@ -56,7 +73,7 @@ rules:
     severity: error
     given: $.paths
     then:
-      field: "@key"
+      field: '@key'
       function: pattern
       functionOptions:
         notMatch: .+\/$$
@@ -111,10 +128,14 @@ rules:
       functionOptions:
         schema:
           anyOf:
-            - required: ["200"]
-            - required: ["201"]
-            - required: ["202"]
-            - required: ["204"]
+          - required:
+            - '200'
+          - required:
+            - '201'
+          - required:
+            - '202'
+          - required:
+            - '204'
   response-description-required:
     description: Every response must have a description
     severity: error
@@ -155,4 +176,54 @@ rules:
     given: $.paths[*][get,post,put,patch,delete]
     then:
       field: x-microcks-operation
+      function: truthy
+  servers-expected-domain:
+    description: Server URLs should be on the zoominfo.com domain.
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: zoominfo\.com
+  query-params-casing:
+    description: Query parameters should be snake_case (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[?(@.in=='query')]
+    then:
+      field: name
+      function: casing
+      functionOptions:
+        type: snake
+  operationid-casing:
+    description: Operation IDs should be PascalCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: ^[A-Z][A-Za-z0-9]*$
+  schema-names-casing:
+    description: Component schema names should be PascalCase (the dominant convention in this API).
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: '@key'
+      function: pattern
+      functionOptions:
+        match: ^[A-Z][A-Za-z0-9]*$
+  schema-properties-casing:
+    description: Schema properties should be snake_case (the dominant convention in this API).
+    severity: info
+    given: $.components.schemas[*].properties
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: snake
+  security-schemes-defined:
+    description: Security schemes should be defined in components.
+    severity: warn
+    given: $.components
+    then:
+      field: securitySchemes
       function: truthy
