@@ -563,6 +563,8 @@ kind: contract
 image: https://www.zoominfo.com/assets/img/zoominfo-logo.png
 access: 3rd-Party
 common:
+- type: AgenticAccess
+  url: agentic-access/zoominfo-agentic-access.yml
 - type: DomainSecurity
   url: security/zoominfo-domain-security.yml
 - type: Authentication
