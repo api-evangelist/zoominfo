@@ -1,0 +1,292 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication Usage API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Usage
+  description: 'You can use the Usage endpoint to find what your current API usage and limits are. '
+paths:
+  /lookup/usage:
+    parameters: []
+    get:
+      tags:
+      - Usage
+      summary: Zoominfo Usage
+      description: Retrieve current usage status using this endpoint.
+      operationId: Usage
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 05 Nov 2020 16:34:11 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 5ed7fb150b15ebec-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: W/"348-2nkTF5a9CQ8hE+FA2QLqooXzL6I"
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=e7db1952c3c428b300d7ae68283c6a1587e2640221c25672d39a1ecc58fe7f4d:3f7c2db0-1eec-11eb-bdb4-093d0d48e40a; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 063adb41230000ebec153bb000000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1604594112'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Usage'
+                - examples:
+                  - usage:
+                    - limitType: requestLimit
+                      description: The maximum number of requests you can make
+                      limit: 1000000000
+                      currentUsage: 89299
+                      usageRemaining: 999910701
+                    - limitType: recordLimit
+                      description: The maximum number of records you can retrieve
+                      limit: 1000000000
+                      currentUsage: 46650
+                      usageRemaining: 999953350
+                    - limitType: uniqueIdLimit
+                      description: The maximum number of person or company records you can redeem
+                      limit: 10000000
+                      currentUsage: 1110
+                      usageRemaining: 9998890
+                    - limitType: webSightsApiRequestLimit
+                      description: The maximum number of WebSights requests you can make
+                      limit: 100000010
+                      currentUsage: 757
+                      usageRemaining: 99999253
+                    - limitType: webSightsApiRecordLimit
+                      description: The max number of WebSights records you can retrieve
+                      limit: 10000000
+                      currentUsage: 763
+                      usageRemaining: 9999237
+                contentMediaType: application/json; charset=utf-8
+              example:
+                usage:
+                - limitType: requestLimit
+                  description: The maximum number of requests you can make
+                  limit: 1000000000
+                  currentUsage: 89299
+                  usageRemaining: 999910701
+                - limitType: recordLimit
+                  description: The maximum number of records you can retrieve
+                  limit: 1000000000
+                  currentUsage: 46650
+                  usageRemaining: 999953350
+                - limitType: uniqueIdLimit
+                  description: The maximum number of person or company records you can redeem
+                  limit: 10000000
+                  currentUsage: 1110
+                  usageRemaining: 9998890
+                - limitType: webSightsApiRequestLimit
+                  description: The maximum number of WebSights requests you can make
+                  limit: 100000010
+                  currentUsage: 757
+                  usageRemaining: 99999253
+                - limitType: webSightsApiRecordLimit
+                  description: The max number of WebSights records you can retrieve
+                  limit: 10000000
+                  currentUsage: 763
+                  usageRemaining: 9999237
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Usage1:
+      title: Usage1
+      required:
+      - limitType
+      - description
+      - limit
+      - currentUsage
+      - usageRemaining
+      type: object
+      properties:
+        limitType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+        limit:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        currentUsage:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        usageRemaining:
+          type: integer
+          contentEncoding: int32
+          example: 100
+      examples:
+      - limitType: requestLimit
+        description: The maximum number of requests you can make
+        limit: 1000000000
+        currentUsage: 89299
+        usageRemaining: 999910701
+    Usage:
+      title: Usage
+      required:
+      - usage
+      type: object
+      properties:
+        usage:
+          type: array
+          items:
+            $ref: '#/components/schemas/Usage1'
+          description: ''
+          example: []
+      examples:
+      - usage:
+        - limitType: requestLimit
+          description: The maximum number of requests you can make
+          limit: 1000000000
+          currentUsage: 89299
+          usageRemaining: 999910701
+        - limitType: recordLimit
+          description: The maximum number of records you can retrieve
+          limit: 1000000000
+          currentUsage: 46650
+          usageRemaining: 999953350
+        - limitType: uniqueIdLimit
+          description: The maximum number of person or company records you can redeem
+          limit: 10000000
+          currentUsage: 1110
+          usageRemaining: 9998890
+        - limitType: webSightsApiRequestLimit
+          description: The maximum number of WebSights requests you can make
+          limit: 100000010
+          currentUsage: 757
+          usageRemaining: 99999253
+        - limitType: webSightsApiRecordLimit
+          description: The max number of WebSights records you can retrieve
+          limit: 10000000
+          currentUsage: 763
+          usageRemaining: 9999237
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint

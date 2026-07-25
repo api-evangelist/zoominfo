@@ -1,0 +1,2178 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication Company Location Enrich API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Company Location Enrich
+  description: 'Use [Company Location Enrich](#2b221ad0-f6c2-40cb-b721-6513e90afd8d) to retrieve company location detail using valid query parameters.
+
+
+    Refer to the examples provided to build a valid JSON request:
+
+
+    *   Use the [Location Enrich Inputs](#5517cdb0-18c9-40ad-9d80-bdee7872d9e0) endpoint to retrieve a list of valid input parameters you can provide
+
+    *   Use the [Location Enrich Outputs](#d1fbccf4-2224-4ba8-b72c-5b15e250c2f7) endpoint to retrieve a list of output fields returned'
+paths:
+  /enrich/location:
+    parameters: []
+    post:
+      tags:
+      - Company Location Enrich
+      summary: Zoominfo Location Enrich
+      description: 'Use this endpoint to match company location information based on [input values](#5517cdb0-18c9-40ad-9d80-bdee7872d9e0) and return the desired [output fields](#d1fbccf4-2224-4ba8-b72c-5b15e250c2f7) in the response.
+
+
+        **Input params**
+
+
+        | Parameter | DataType | Description |
+
+        | --- | --- | --- |
+
+        | companyId | String | Required. The ID of the company for which you want to find locations. |
+
+
+        **Output fields**
+
+
+        | Field | Description |
+
+        | --- | --- |
+
+        | companyId | Unique ZoomInfo identifier for the company |
+
+        | phone | Location phone number |
+
+        | companyAddressStatus | Company address verification status |
+
+        | companySubUnitType | Company sub unit types (e.g., division, subsidiary and so on) |
+
+        | locationName | The name of the company at this physical location. Can include names of subsidiaries/child/acquired companies. |
+
+        | locationEmployeeCount | The number of employees at a physical location of a company |
+
+        | fax | Location fax number |
+
+        | street | Location street |
+
+        | city | Location city |
+
+        | state | Location state or province |
+
+        | zipCode | Location Zip Code or Postal Code |
+
+        | country | Location country |'
+      operationId: LocationEnrich
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LocationEnrichRequest'
+              - examples:
+                - companyId: '344589814'
+              contentMediaType: application/json
+            example:
+              companyId: '344589814'
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Tue, 24 Jan 2023 14:59:26 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Origin,Access-Control-Request-Method,Access-Control-Request-Headers,Accept-Encoding
+            x-usage-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999999036'
+            x-usage-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999997989'
+            x-usage-websights-api-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000010'
+            x-usage-websights-api-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99999815'
+            x-usage-websights-api-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            x-usage-websights-api-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999929'
+            x-usage-unique-id-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '81020013'
+            x-usage-unique-id-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '4979'
+            content-encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            x-ratelimit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '2000'
+            x-ratelimit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1999'
+            x-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: b4664feb-5a66-45bd-820d-73b242341423
+            x-envoy-upstream-service-time:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '129'
+            x-envoy-decorator-operation:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: apps-gateway-active.main.svc.cluster.local:8080/*
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            Alt-Svc:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: h3=":443"; ma=86400, h3-29=":443"; ma=86400
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 78e9a2078dce8c95-EWR
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Enrichcompanylocation'
+                - examples:
+                  - maxResults: 36
+                    totalResults: 36
+                    currentPage: 1
+                    data:
+                    - phone: (360) 718-5630
+                      fax: ''
+                      street: 805 Broadway St Ste 900
+                      city: Vancouver
+                      state: Washington
+                      zipCode: '98660'
+                      country: United States
+                      company:
+                        id: 346572700
+                        addressStatus: DEFUNCT
+                        subUnitType: Former_new_name
+                        locationName: DiscoverOrg
+                        locationEmployeeCount: 500
+                    - phone: (888) 381-7667
+                      fax: ''
+                      street: 465 California St 600
+                      city: San Francisco
+                      state: California
+                      zipCode: '94104'
+                      country: United States
+                      company:
+                        id: 406371967
+                        addressStatus: DEFUNCT
+                        subUnitType: Acquisition
+                        locationName: Chorus
+                        locationEmployeeCount: 170
+                    - phone: (888) 240-8088
+                      fax: (248) 927-5081
+                      street: 340 6th St Ste 202
+                      city: San Francisco
+                      state: California
+                      zipCode: '94103'
+                      country: United States
+                      company:
+                        id: 352472290
+                        addressStatus: DEFUNCT
+                        subUnitType: Acquisition
+                        locationName: Ringlead
+                        locationEmployeeCount: 80
+                    - phone: (855) 682-5572
+                      fax: ''
+                      street: 1316 3rd St 111
+                      city: Santa Monica
+                      state: California
+                      zipCode: '90401'
+                      country: United States
+                      company:
+                        id: 382321985
+                        addressStatus: CURRENT
+                        subUnitType: Subsidiary
+                        locationName: Comparably
+                        locationEmployeeCount: 25
+                    - phone: (650) 425-3937
+                      fax: ''
+                      street: 1850 Gateway Dr Ste 400
+                      city: San Mateo
+                      state: California
+                      zipCode: '94404'
+                      country: United States
+                      company:
+                        id: 358845517
+                        addressStatus: DEFUNCT
+                        subUnitType: Acquisition
+                        locationName: EverString
+                        locationEmployeeCount: 61
+                    - phone: (650) 393-5177
+                      fax: ''
+                      street: 4 W 4th Ave Ste 301
+                      city: San Mateo
+                      state: California
+                      zipCode: '94402'
+                      country: United States
+                      company:
+                        id: 356263316
+                        addressStatus: CURRENT
+                        subUnitType: Subsidiary
+                        locationName: Datanyze
+                        locationEmployeeCount: 42
+                    - phone: (617) 588-7505
+                      fax: ''
+                      street: 810 Memorial Dr Fl 3
+                      city: Cambridge
+                      state: Massachusetts
+                      zipCode: 02139
+                      country: United States
+                      company:
+                        id: 12715058
+                        addressStatus: DEFUNCT
+                        subUnitType: Subsidiary
+                        locationName: Eliyon Technologies
+                        locationEmployeeCount: 72
+                    - phone: (905) 669-8868
+                      fax: ''
+                      street: 1100 NE Campus Pkwy Ste 200
+                      city: Seattle
+                      state: Washington
+                      zipCode: '98105'
+                      country: United States
+                      company:
+                        id: 483214632
+                        addressStatus: DEFUNCT
+                        subUnitType: Acquisition
+                        locationName: Insent
+                        locationEmployeeCount: 25
+                    - phone: (425) 903-3346
+                      fax: ''
+                      street: 7826 Leary Way NE 201
+                      city: Redmond
+                      state: Washington
+                      zipCode: '98052'
+                      country: United States
+                      company:
+                        id: 371535605
+                        addressStatus: DEFUNCT
+                        subUnitType: Acquisition
+                        locationName: Komiko
+                        locationEmployeeCount: 16
+                    - phone: (877) 678-4577
+                      fax: ''
+                      street: 695 Mansell Rd Ste 250
+                      city: Roswell
+                      state: Georgia
+                      zipCode: '30076'
+                      country: United States
+                      company:
+                        id: 357413234
+                        addressStatus: CURRENT
+                        subUnitType: Subsidiary
+                        locationName: Clickagy
+                        locationEmployeeCount: 13
+                    - phone: (425) 409-9302
+                      fax: ''
+                      street: 9 Lake Bellevue Dr Ste 213
+                      city: Bellevue
+                      state: Washington
+                      zipCode: '98005'
+                      country: United States
+                      company:
+                        id: 346281805
+                        addressStatus: DEFUNCT
+                        subUnitType: Acquisition
+                        locationName: Tellwise
+                        locationEmployeeCount: 14
+                    - phone: ''
+                      fax: ''
+                      street: 4082 Orme St
+                      city: Palo Alto
+                      state: California
+                      zipCode: '94306'
+                      country: United States
+                      company:
+                        id: 458157110
+                        addressStatus: DEFUNCT
+                        subUnitType: Acquisition
+                        locationName: Dogpatch Advisors
+                        locationEmployeeCount: 5
+                    - phone: ''
+                      fax: ''
+                      street: ''
+                      city: ''
+                      state: ''
+                      zipCode: ''
+                      country: United States
+                      company:
+                        id: 548942026
+                        addressStatus: DEFUNCT
+                        subUnitType: Former_new_name
+                        locationName: DiscoverOrg
+                        locationEmployeeCount: 18
+                    - phone: ''
+                      fax: ''
+                      street: 7700 Old Georgetown Rd
+                      city: Bethesda
+                      state: Maryland
+                      zipCode: '20814'
+                      country: United States
+                      company:
+                        id: 474328614
+                        addressStatus: CURRENT
+                        subUnitType: Location
+                        locationName: Zoom Information
+                        locationEmployeeCount: 254
+                    - phone: ''
+                      fax: ''
+                      street: ''
+                      city: ''
+                      state: ''
+                      zipCode: ''
+                      country: Australia
+                      company:
+                        id: 2218043599
+                        addressStatus: INVALID
+                        subUnitType: Location
+                        locationName: Zoominfo
+                        locationEmployeeCount: 1
+                    - phone: ''
+                      fax: ''
+                      street: 133 Whitechapel High St
+                      city: London
+                      state: Essex
+                      zipCode: E1 7QA
+                      country: United Kingdom
+                      company:
+                        id: 560088004
+                        addressStatus: INVALID
+                        subUnitType: Location
+                        locationName: Zoom Information
+                        locationEmployeeCount: 3
+                    - phone: ''
+                      fax: ''
+                      street: 695 Mansell Rd Ste 250
+                      city: Roswell
+                      state: Georgia
+                      zipCode: '30076'
+                      country: United States
+                      company:
+                        id: 560118251
+                        addressStatus: VALID
+                        subUnitType: Location
+                        locationName: Zoom Information
+                        locationEmployeeCount: 16
+                    - phone: ''
+                      fax: ''
+                      street: 435 Ionia Sw Ste 200
+                      city: Grand Rapids
+                      state: Michigan
+                      zipCode: '49503'
+                      country: United States
+                      company:
+                        id: 483996375
+                        addressStatus: VALID
+                        subUnitType: Location
+                        locationName: Zoom Information
+                        locationEmployeeCount: 18
+                    - phone: ''
+                      fax: ''
+                      street: 3690 Orange Pl Ste 310
+                      city: Cleveland
+                      state: Ohio
+                      zipCode: '44133'
+                      country: United States
+                      company:
+                        id: 478161257
+                        addressStatus: VALID
+                        subUnitType: Location
+                        locationName: Zoom Information
+                        locationEmployeeCount: 19
+                    - phone: (866) 904-9666
+                      fax: ''
+                      street: 170 Tracer Ln
+                      city: Waltham
+                      state: Massachusetts
+                      zipCode: '02451'
+                      country: United States
+                      company:
+                        id: 2079041976
+                        addressStatus: PAST
+                        subUnitType: Location
+                        locationName: Zoominfo
+                        locationEmployeeCount: 1
+                    - phone: (866) 904-9666
+                      fax: ''
+                      street: 170 Data Dr
+                      city: Waltham
+                      state: Massachusetts
+                      zipCode: '02451'
+                      country: United States
+                      company:
+                        id: 476310572
+                        addressStatus: CURRENT
+                        subUnitType: Location
+                        locationName: Zoominfo
+                        locationEmployeeCount: 454
+                    - phone: ''
+                      fax: ''
+                      street: 441 E Hector St Ste 200
+                      city: Conshohocken
+                      state: Pennsylvania
+                      zipCode: '19428'
+                      country: United States
+                      company:
+                        id: 474328613
+                        addressStatus: VALID
+                        subUnitType: Location
+                        locationName: Zoom Information
+                        locationEmployeeCount: 279
+                    - phone: ''
+                      fax: ''
+                      street: 465 California St Ste 600
+                      city: San Francisco
+                      state: California
+                      zipCode: '94111'
+                      country: United States
+                      company:
+                        id: 563915395
+                        addressStatus: VALID
+                        subUnitType: Location
+                        locationName: Zoom Information
+                        locationEmployeeCount: 27
+                    - phone: ''
+                      fax: ''
+                      street: 4 Hasheizaf St
+                      city: Ra'anana
+                      state: Tel Aviv
+                      zipCode: '4366411'
+                      country: Israel
+                      company:
+                        id: 2216653193
+                        addressStatus: CURRENT
+                        subUnitType: Location
+                        locationName: Zoominfo
+                        locationEmployeeCount: 94
+                    - phone: (866) 904-9666
+                      fax: ''
+                      street: 100 Data Dr
+                      city: Waltham
+                      state: Massachusetts
+                      zipCode: '02451'
+                      country: United States
+                      company:
+                        id: 2203083854
+                        addressStatus: LIMBO
+                        subUnitType: Location
+                        locationName: Zoominfo
+                        locationEmployeeCount: 1
+                    - phone: (781) 790-7078
+                      fax: ''
+                      street: 100 Tracer Ln
+                      city: Waltham
+                      state: Massachusetts
+                      zipCode: '02452'
+                      country: United States
+                      company:
+                        id: 474630732
+                        addressStatus: VALID
+                        subUnitType: Location
+                        locationName: Zoom Information
+                        locationEmployeeCount: 22
+                    - phone: ''
+                      fax: ''
+                      street: 1850 Gateway Dr Ste 400
+                      city: San Mateo
+                      state: California
+                      zipCode: '94404'
+                      country: United States
+                      company:
+                        id: 555967205
+                        addressStatus: CURRENT
+                        subUnitType: Location
+                        locationName: Zoom Information
+                        locationEmployeeCount: 379
+                    - phone: (781) 693-7500
+                      fax: ''
+                      street: 307 Waverley Oaks Rd Ste 405
+                      city: Waltham
+                      state: Massachusetts
+                      zipCode: '02452'
+                      country: United States
+                      company:
+                        id: 2079041971
+                        addressStatus: CURRENT
+                        subUnitType: Location
+                        locationName: Zoom Information
+                        locationEmployeeCount: 103
+                    - phone: ''
+                      fax: ''
+                      street: 10818 NE 88th St
+                      city: Vancouver
+                      state: Washington
+                      zipCode: '98662'
+                      country: United States
+                      company:
+                        id: 2216627196
+                        addressStatus: CURRENT
+                        subUnitType: Location
+                        locationName: Zoom Information Inc
+                        locationEmployeeCount: 297
+                    - phone: (425) 673-4292
+                      fax: ''
+                      street: 4630 200th Street Sw St H
+                      city: Lynnwood
+                      state: Washington
+                      zipCode: '98036'
+                      country: United States
+                      company:
+                        id: 2203083856
+                        addressStatus: LIMBO
+                        subUnitType: Location
+                        locationName: Zoominfo
+                        locationEmployeeCount: 1
+                    - phone: (866) 904-9666
+                      fax: ''
+                      street: 38 Fulton St W 313
+                      city: Grand Rapids
+                      state: Michigan
+                      zipCode: '49503'
+                      country: United States
+                      company:
+                        id: 440083468
+                        addressStatus: INVALID
+                        subUnitType: Location
+                        locationName: Zoominfo
+                        locationEmployeeCount: 19
+                    - phone: (800) 914-1220
+                      fax: ''
+                      street: 805 Broadway St Ste 900
+                      city: Vancouver
+                      state: Washington
+                      zipCode: '98660'
+                      country: United States
+                      company:
+                        id: 2203083849
+                        addressStatus: CURRENT
+                        subUnitType: Location
+                        locationName: Zoom Information
+                        locationEmployeeCount: 2742
+                    - phone: ''
+                      fax: ''
+                      street: 307 Waverley Oaks Rd Ste 307
+                      city: Waltham
+                      state: Massachusetts
+                      zipCode: '02452'
+                      country: United States
+                      company:
+                        id: 2203083851
+                        addressStatus: LIMBO
+                        subUnitType: Location
+                        locationName: Zoom Information
+                        locationEmployeeCount: 1
+                    - phone: (866) 904-9666
+                      fax: ''
+                      street: 805 Broadway St Ste 800
+                      city: Vancouver
+                      state: Washington
+                      zipCode: '98660'
+                      country: United States
+                      company:
+                        id: 2203083858
+                        addressStatus: PAST
+                        subUnitType: Location
+                        locationName: Zoominfo Technologies
+                        locationEmployeeCount: 558
+                    - phone: (781) 693-7500
+                      fax: ''
+                      street: 275 Wyman St
+                      city: Waltham
+                      state: Massachusetts
+                      zipCode: '02451'
+                      country: United States
+                      company:
+                        id: 560088010
+                        addressStatus: VALID
+                        subUnitType: Location
+                        locationName: Zoom Information
+                        locationEmployeeCount: 356
+                    - phone: (360) 718-5630
+                      fax: ''
+                      street: 1750 112th Ave NE Ste D151
+                      city: Bellevue
+                      state: Washington
+                      zipCode: '98004'
+                      country: United States
+                      company:
+                        id: 560118250
+                        addressStatus: VALID
+                        subUnitType: Location
+                        locationName: Zoom Information
+                        locationEmployeeCount: 1
+                contentMediaType: application/json;charset=UTF-8
+              example:
+                maxResults: 36
+                totalResults: 36
+                currentPage: 1
+                data:
+                - phone: (360) 718-5630
+                  fax: ''
+                  street: 805 Broadway St Ste 900
+                  city: Vancouver
+                  state: Washington
+                  zipCode: '98660'
+                  country: United States
+                  company:
+                    id: 346572700
+                    addressStatus: DEFUNCT
+                    subUnitType: Former_new_name
+                    locationName: DiscoverOrg
+                    locationEmployeeCount: 500
+                - phone: (888) 381-7667
+                  fax: ''
+                  street: 465 California St 600
+                  city: San Francisco
+                  state: California
+                  zipCode: '94104'
+                  country: United States
+                  company:
+                    id: 406371967
+                    addressStatus: DEFUNCT
+                    subUnitType: Acquisition
+                    locationName: Chorus
+                    locationEmployeeCount: 170
+                - phone: (888) 240-8088
+                  fax: (248) 927-5081
+                  street: 340 6th St Ste 202
+                  city: San Francisco
+                  state: California
+                  zipCode: '94103'
+                  country: United States
+                  company:
+                    id: 352472290
+                    addressStatus: DEFUNCT
+                    subUnitType: Acquisition
+                    locationName: Ringlead
+                    locationEmployeeCount: 80
+                - phone: (855) 682-5572
+                  fax: ''
+                  street: 1316 3rd St 111
+                  city: Santa Monica
+                  state: California
+                  zipCode: '90401'
+                  country: United States
+                  company:
+                    id: 382321985
+                    addressStatus: CURRENT
+                    subUnitType: Subsidiary
+                    locationName: Comparably
+                    locationEmployeeCount: 25
+                - phone: (650) 425-3937
+                  fax: ''
+                  street: 1850 Gateway Dr Ste 400
+                  city: San Mateo
+                  state: California
+                  zipCode: '94404'
+                  country: United States
+                  company:
+                    id: 358845517
+                    addressStatus: DEFUNCT
+                    subUnitType: Acquisition
+                    locationName: EverString
+                    locationEmployeeCount: 61
+                - phone: (650) 393-5177
+                  fax: ''
+                  street: 4 W 4th Ave Ste 301
+                  city: San Mateo
+                  state: California
+                  zipCode: '94402'
+                  country: United States
+                  company:
+                    id: 356263316
+                    addressStatus: CURRENT
+                    subUnitType: Subsidiary
+                    locationName: Datanyze
+                    locationEmployeeCount: 42
+                - phone: (617) 588-7505
+                  fax: ''
+                  street: 810 Memorial Dr Fl 3
+                  city: Cambridge
+                  state: Massachusetts
+                  zipCode: 02139
+                  country: United States
+                  company:
+                    id: 12715058
+                    addressStatus: DEFUNCT
+                    subUnitType: Subsidiary
+                    locationName: Eliyon Technologies
+                    locationEmployeeCount: 72
+                - phone: (905) 669-8868
+                  fax: ''
+                  street: 1100 NE Campus Pkwy Ste 200
+                  city: Seattle
+                  state: Washington
+                  zipCode: '98105'
+                  country: United States
+                  company:
+                    id: 483214632
+                    addressStatus: DEFUNCT
+                    subUnitType: Acquisition
+                    locationName: Insent
+                    locationEmployeeCount: 25
+                - phone: (425) 903-3346
+                  fax: ''
+                  street: 7826 Leary Way NE 201
+                  city: Redmond
+                  state: Washington
+                  zipCode: '98052'
+                  country: United States
+                  company:
+                    id: 371535605
+                    addressStatus: DEFUNCT
+                    subUnitType: Acquisition
+                    locationName: Komiko
+                    locationEmployeeCount: 16
+                - phone: (877) 678-4577
+                  fax: ''
+                  street: 695 Mansell Rd Ste 250
+                  city: Roswell
+                  state: Georgia
+                  zipCode: '30076'
+                  country: United States
+                  company:
+                    id: 357413234
+                    addressStatus: CURRENT
+                    subUnitType: Subsidiary
+                    locationName: Clickagy
+                    locationEmployeeCount: 13
+                - phone: (425) 409-9302
+                  fax: ''
+                  street: 9 Lake Bellevue Dr Ste 213
+                  city: Bellevue
+                  state: Washington
+                  zipCode: '98005'
+                  country: United States
+                  company:
+                    id: 346281805
+                    addressStatus: DEFUNCT
+                    subUnitType: Acquisition
+                    locationName: Tellwise
+                    locationEmployeeCount: 14
+                - phone: ''
+                  fax: ''
+                  street: 4082 Orme St
+                  city: Palo Alto
+                  state: California
+                  zipCode: '94306'
+                  country: United States
+                  company:
+                    id: 458157110
+                    addressStatus: DEFUNCT
+                    subUnitType: Acquisition
+                    locationName: Dogpatch Advisors
+                    locationEmployeeCount: 5
+                - phone: ''
+                  fax: ''
+                  street: ''
+                  city: ''
+                  state: ''
+                  zipCode: ''
+                  country: United States
+                  company:
+                    id: 548942026
+                    addressStatus: DEFUNCT
+                    subUnitType: Former_new_name
+                    locationName: DiscoverOrg
+                    locationEmployeeCount: 18
+                - phone: ''
+                  fax: ''
+                  street: 7700 Old Georgetown Rd
+                  city: Bethesda
+                  state: Maryland
+                  zipCode: '20814'
+                  country: United States
+                  company:
+                    id: 474328614
+                    addressStatus: CURRENT
+                    subUnitType: Location
+                    locationName: Zoom Information
+                    locationEmployeeCount: 254
+                - phone: ''
+                  fax: ''
+                  street: ''
+                  city: ''
+                  state: ''
+                  zipCode: ''
+                  country: Australia
+                  company:
+                    id: 2218043599
+                    addressStatus: INVALID
+                    subUnitType: Location
+                    locationName: Zoominfo
+                    locationEmployeeCount: 1
+                - phone: ''
+                  fax: ''
+                  street: 133 Whitechapel High St
+                  city: London
+                  state: Essex
+                  zipCode: E1 7QA
+                  country: United Kingdom
+                  company:
+                    id: 560088004
+                    addressStatus: INVALID
+                    subUnitType: Location
+                    locationName: Zoom Information
+                    locationEmployeeCount: 3
+                - phone: ''
+                  fax: ''
+                  street: 695 Mansell Rd Ste 250
+                  city: Roswell
+                  state: Georgia
+                  zipCode: '30076'
+                  country: United States
+                  company:
+                    id: 560118251
+                    addressStatus: VALID
+                    subUnitType: Location
+                    locationName: Zoom Information
+                    locationEmployeeCount: 16
+                - phone: ''
+                  fax: ''
+                  street: 435 Ionia Sw Ste 200
+                  city: Grand Rapids
+                  state: Michigan
+                  zipCode: '49503'
+                  country: United States
+                  company:
+                    id: 483996375
+                    addressStatus: VALID
+                    subUnitType: Location
+                    locationName: Zoom Information
+                    locationEmployeeCount: 18
+                - phone: ''
+                  fax: ''
+                  street: 3690 Orange Pl Ste 310
+                  city: Cleveland
+                  state: Ohio
+                  zipCode: '44133'
+                  country: United States
+                  company:
+                    id: 478161257
+                    addressStatus: VALID
+                    subUnitType: Location
+                    locationName: Zoom Information
+                    locationEmployeeCount: 19
+                - phone: (866) 904-9666
+                  fax: ''
+                  street: 170 Tracer Ln
+                  city: Waltham
+                  state: Massachusetts
+                  zipCode: '02451'
+                  country: United States
+                  company:
+                    id: 2079041976
+                    addressStatus: PAST
+                    subUnitType: Location
+                    locationName: Zoominfo
+                    locationEmployeeCount: 1
+                - phone: (866) 904-9666
+                  fax: ''
+                  street: 170 Data Dr
+                  city: Waltham
+                  state: Massachusetts
+                  zipCode: '02451'
+                  country: United States
+                  company:
+                    id: 476310572
+                    addressStatus: CURRENT
+                    subUnitType: Location
+                    locationName: Zoominfo
+                    locationEmployeeCount: 454
+                - phone: ''
+                  fax: ''
+                  street: 441 E Hector St Ste 200
+                  city: Conshohocken
+                  state: Pennsylvania
+                  zipCode: '19428'
+                  country: United States
+                  company:
+                    id: 474328613
+                    addressStatus: VALID
+                    subUnitType: Location
+                    locationName: Zoom Information
+                    locationEmployeeCount: 279
+                - phone: ''
+                  fax: ''
+                  street: 465 California St Ste 600
+                  city: San Francisco
+                  state: California
+                  zipCode: '94111'
+                  country: United States
+                  company:
+                    id: 563915395
+                    addressStatus: VALID
+                    subUnitType: Location
+                    locationName: Zoom Information
+                    locationEmployeeCount: 27
+                - phone: ''
+                  fax: ''
+                  street: 4 Hasheizaf St
+                  city: Ra'anana
+                  state: Tel Aviv
+                  zipCode: '4366411'
+                  country: Israel
+                  company:
+                    id: 2216653193
+                    addressStatus: CURRENT
+                    subUnitType: Location
+                    locationName: Zoominfo
+                    locationEmployeeCount: 94
+                - phone: (866) 904-9666
+                  fax: ''
+                  street: 100 Data Dr
+                  city: Waltham
+                  state: Massachusetts
+                  zipCode: '02451'
+                  country: United States
+                  company:
+                    id: 2203083854
+                    addressStatus: LIMBO
+                    subUnitType: Location
+                    locationName: Zoominfo
+                    locationEmployeeCount: 1
+                - phone: (781) 790-7078
+                  fax: ''
+                  street: 100 Tracer Ln
+                  city: Waltham
+                  state: Massachusetts
+                  zipCode: '02452'
+                  country: United States
+                  company:
+                    id: 474630732
+                    addressStatus: VALID
+                    subUnitType: Location
+                    locationName: Zoom Information
+                    locationEmployeeCount: 22
+                - phone: ''
+                  fax: ''
+                  street: 1850 Gateway Dr Ste 400
+                  city: San Mateo
+                  state: California
+                  zipCode: '94404'
+                  country: United States
+                  company:
+                    id: 555967205
+                    addressStatus: CURRENT
+                    subUnitType: Location
+                    locationName: Zoom Information
+                    locationEmployeeCount: 379
+                - phone: (781) 693-7500
+                  fax: ''
+                  street: 307 Waverley Oaks Rd Ste 405
+                  city: Waltham
+                  state: Massachusetts
+                  zipCode: '02452'
+                  country: United States
+                  company:
+                    id: 2079041971
+                    addressStatus: CURRENT
+                    subUnitType: Location
+                    locationName: Zoom Information
+                    locationEmployeeCount: 103
+                - phone: ''
+                  fax: ''
+                  street: 10818 NE 88th St
+                  city: Vancouver
+                  state: Washington
+                  zipCode: '98662'
+                  country: United States
+                  company:
+                    id: 2216627196
+                    addressStatus: CURRENT
+                    subUnitType: Location
+                    locationName: Zoom Information Inc
+                    locationEmployeeCount: 297
+                - phone: (425) 673-4292
+                  fax: ''
+                  street: 4630 200th Street Sw St H
+                  city: Lynnwood
+                  state: Washington
+                  zipCode: '98036'
+                  country: United States
+                  company:
+                    id: 2203083856
+                    addressStatus: LIMBO
+                    subUnitType: Location
+                    locationName: Zoominfo
+                    locationEmployeeCount: 1
+                - phone: (866) 904-9666
+                  fax: ''
+                  street: 38 Fulton St W 313
+                  city: Grand Rapids
+                  state: Michigan
+                  zipCode: '49503'
+                  country: United States
+                  company:
+                    id: 440083468
+                    addressStatus: INVALID
+                    subUnitType: Location
+                    locationName: Zoominfo
+                    locationEmployeeCount: 19
+                - phone: (800) 914-1220
+                  fax: ''
+                  street: 805 Broadway St Ste 900
+                  city: Vancouver
+                  state: Washington
+                  zipCode: '98660'
+                  country: United States
+                  company:
+                    id: 2203083849
+                    addressStatus: CURRENT
+                    subUnitType: Location
+                    locationName: Zoom Information
+                    locationEmployeeCount: 2742
+                - phone: ''
+                  fax: ''
+                  street: 307 Waverley Oaks Rd Ste 307
+                  city: Waltham
+                  state: Massachusetts
+                  zipCode: '02452'
+                  country: United States
+                  company:
+                    id: 2203083851
+                    addressStatus: LIMBO
+                    subUnitType: Location
+                    locationName: Zoom Information
+                    locationEmployeeCount: 1
+                - phone: (866) 904-9666
+                  fax: ''
+                  street: 805 Broadway St Ste 800
+                  city: Vancouver
+                  state: Washington
+                  zipCode: '98660'
+                  country: United States
+                  company:
+                    id: 2203083858
+                    addressStatus: PAST
+                    subUnitType: Location
+                    locationName: Zoominfo Technologies
+                    locationEmployeeCount: 558
+                - phone: (781) 693-7500
+                  fax: ''
+                  street: 275 Wyman St
+                  city: Waltham
+                  state: Massachusetts
+                  zipCode: '02451'
+                  country: United States
+                  company:
+                    id: 560088010
+                    addressStatus: VALID
+                    subUnitType: Location
+                    locationName: Zoom Information
+                    locationEmployeeCount: 356
+                - phone: (360) 718-5630
+                  fax: ''
+                  street: 1750 112th Ave NE Ste D151
+                  city: Bellevue
+                  state: Washington
+                  zipCode: '98004'
+                  country: United States
+                  company:
+                    id: 560118250
+                    addressStatus: VALID
+                    subUnitType: Location
+                    locationName: Zoom Information
+                    locationEmployeeCount: 1
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/inputfields/location/enrich:
+    parameters: []
+    get:
+      tags:
+      - Company Location Enrich
+      summary: Zoominfo Location Enrich Inputs
+      description: Returns a list of fields you can use as input for the [Location Enrich](#2b221ad0-f6c2-40cb-b721-6513e90afd8d) endpoint.
+      operationId: LocationEnrichInputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Wed, 22 Jan 2020 20:17:07 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 559435a79f23ebec-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=dc7435039f4c5280195b59ec461e6abed3a56a2451feb3b81654a031685469ba:646e0a80-3d51-11ea-9298-b7d007b5c092; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '750'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '749'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1579724288'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetLocationEnrichInput'
+                description: ''
+                examples:
+                - - fieldName: parentId
+                    fieldType: String
+                    description: The id of the parent company for which you want to find locations
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: parentId
+                fieldType: String
+                description: The id of the parent company for which you want to find locations
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/outputfields/location/enrich:
+    parameters: []
+    get:
+      tags:
+      - Company Location Enrich
+      summary: Zoominfo Location Enrich Outputs
+      description: Returns a list of fields you can specify as output for the [Location Enrich](#e4ec4287-18ff-468f-9276-9c1fa43c8f4c) endpoint.
+      operationId: LocationEnrichOutputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Wed, 26 Aug 2020 13:41:07 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 5c8df7eecd4eff94-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=70071f10bb597f681bf32e5484a1bffce58189aa85981cea9fb1578c401445bb:2f79d591-e713-11ea-b61e-d347a7de7ad3; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 04cc99493d0000ff9485864200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1598449328'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationEnrichOutput'
+                description: ''
+                examples:
+                - - fieldName: companyId
+                    description: Unique ZoomInfo identifier for a company
+                  - fieldName: companyAddressStatus
+                    description: Company address verification status
+                  - fieldName: companySubUnitType
+                    description: Company sub unit types (e.g., division, subsidiary and so on)
+                  - fieldName: phone
+                    description: Location phone number
+                  - fieldName: fax
+                    description: Location fax number
+                  - fieldName: street
+                    description: Location street
+                  - fieldName: city
+                    description: Location city
+                  - fieldName: state
+                    description: Location state or province
+                  - fieldName: zipCode
+                    description: Location Zip Code or Postal Code
+                  - fieldName: country
+                    description: Location country
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: companyId
+                description: Unique ZoomInfo identifier for a company
+              - fieldName: companyAddressStatus
+                description: Company address verification status
+              - fieldName: companySubUnitType
+                description: Company sub unit types (e.g., division, subsidiary and so on)
+              - fieldName: phone
+                description: Location phone number
+              - fieldName: fax
+                description: Location fax number
+              - fieldName: street
+                description: Location street
+              - fieldName: city
+                description: Location city
+              - fieldName: state
+                description: Location state or province
+              - fieldName: zipCode
+                description: Location Zip Code or Postal Code
+              - fieldName: country
+                description: Location country
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    LocationEnrichOutput:
+      title: LocationEnrichOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        description: Unique ZoomInfo identifier for a company
+    Data35:
+      title: Data35
+      required:
+      - phone
+      - fax
+      - street
+      - city
+      - state
+      - zipCode
+      - country
+      - company
+      type: object
+      properties:
+        phone:
+          type: string
+          example: +1-555-555-1234
+        fax:
+          type: string
+          example: example_value
+        street:
+          type: string
+          example: example_value
+        city:
+          type: string
+          example: San Francisco
+        state:
+          type: string
+          example: CA
+        zipCode:
+          type: string
+          example: '94105'
+        country:
+          type: string
+          example: US
+        company:
+          $ref: '#/components/schemas/Company20'
+      examples:
+      - phone: (360) 718-5630
+        fax: ''
+        street: 805 Broadway St Ste 900
+        city: Vancouver
+        state: Washington
+        zipCode: '98660'
+        country: United States
+        company:
+          id: 346572700
+          addressStatus: DEFUNCT
+          subUnitType: Former_new_name
+          locationName: DiscoverOrg
+          locationEmployeeCount: 500
+    LocationEnrichRequest:
+      title: LocationEnrichRequest
+      required:
+      - companyId
+      type: object
+      properties:
+        companyId:
+          type: string
+          example: '500123'
+      examples:
+      - companyId: '344589814'
+    Enrichcompanylocation:
+      title: Enrichcompanylocation
+      required:
+      - maxResults
+      - totalResults
+      - currentPage
+      - data
+      type: object
+      properties:
+        maxResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        totalResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        currentPage:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data35'
+          description: ''
+          example: []
+      examples:
+      - maxResults: 36
+        totalResults: 36
+        currentPage: 1
+        data:
+        - phone: (360) 718-5630
+          fax: ''
+          street: 805 Broadway St Ste 900
+          city: Vancouver
+          state: Washington
+          zipCode: '98660'
+          country: United States
+          company:
+            id: 346572700
+            addressStatus: DEFUNCT
+            subUnitType: Former_new_name
+            locationName: DiscoverOrg
+            locationEmployeeCount: 500
+        - phone: (888) 381-7667
+          fax: ''
+          street: 465 California St 600
+          city: San Francisco
+          state: California
+          zipCode: '94104'
+          country: United States
+          company:
+            id: 406371967
+            addressStatus: DEFUNCT
+            subUnitType: Acquisition
+            locationName: Chorus
+            locationEmployeeCount: 170
+        - phone: (888) 240-8088
+          fax: (248) 927-5081
+          street: 340 6th St Ste 202
+          city: San Francisco
+          state: California
+          zipCode: '94103'
+          country: United States
+          company:
+            id: 352472290
+            addressStatus: DEFUNCT
+            subUnitType: Acquisition
+            locationName: Ringlead
+            locationEmployeeCount: 80
+        - phone: (855) 682-5572
+          fax: ''
+          street: 1316 3rd St 111
+          city: Santa Monica
+          state: California
+          zipCode: '90401'
+          country: United States
+          company:
+            id: 382321985
+            addressStatus: CURRENT
+            subUnitType: Subsidiary
+            locationName: Comparably
+            locationEmployeeCount: 25
+        - phone: (650) 425-3937
+          fax: ''
+          street: 1850 Gateway Dr Ste 400
+          city: San Mateo
+          state: California
+          zipCode: '94404'
+          country: United States
+          company:
+            id: 358845517
+            addressStatus: DEFUNCT
+            subUnitType: Acquisition
+            locationName: EverString
+            locationEmployeeCount: 61
+        - phone: (650) 393-5177
+          fax: ''
+          street: 4 W 4th Ave Ste 301
+          city: San Mateo
+          state: California
+          zipCode: '94402'
+          country: United States
+          company:
+            id: 356263316
+            addressStatus: CURRENT
+            subUnitType: Subsidiary
+            locationName: Datanyze
+            locationEmployeeCount: 42
+        - phone: (617) 588-7505
+          fax: ''
+          street: 810 Memorial Dr Fl 3
+          city: Cambridge
+          state: Massachusetts
+          zipCode: 02139
+          country: United States
+          company:
+            id: 12715058
+            addressStatus: DEFUNCT
+            subUnitType: Subsidiary
+            locationName: Eliyon Technologies
+            locationEmployeeCount: 72
+        - phone: (905) 669-8868
+          fax: ''
+          street: 1100 NE Campus Pkwy Ste 200
+          city: Seattle
+          state: Washington
+          zipCode: '98105'
+          country: United States
+          company:
+            id: 483214632
+            addressStatus: DEFUNCT
+            subUnitType: Acquisition
+            locationName: Insent
+            locationEmployeeCount: 25
+        - phone: (425) 903-3346
+          fax: ''
+          street: 7826 Leary Way NE 201
+          city: Redmond
+          state: Washington
+          zipCode: '98052'
+          country: United States
+          company:
+            id: 371535605
+            addressStatus: DEFUNCT
+            subUnitType: Acquisition
+            locationName: Komiko
+            locationEmployeeCount: 16
+        - phone: (877) 678-4577
+          fax: ''
+          street: 695 Mansell Rd Ste 250
+          city: Roswell
+          state: Georgia
+          zipCode: '30076'
+          country: United States
+          company:
+            id: 357413234
+            addressStatus: CURRENT
+            subUnitType: Subsidiary
+            locationName: Clickagy
+            locationEmployeeCount: 13
+        - phone: (425) 409-9302
+          fax: ''
+          street: 9 Lake Bellevue Dr Ste 213
+          city: Bellevue
+          state: Washington
+          zipCode: '98005'
+          country: United States
+          company:
+            id: 346281805
+            addressStatus: DEFUNCT
+            subUnitType: Acquisition
+            locationName: Tellwise
+            locationEmployeeCount: 14
+        - phone: ''
+          fax: ''
+          street: 4082 Orme St
+          city: Palo Alto
+          state: California
+          zipCode: '94306'
+          country: United States
+          company:
+            id: 458157110
+            addressStatus: DEFUNCT
+            subUnitType: Acquisition
+            locationName: Dogpatch Advisors
+            locationEmployeeCount: 5
+        - phone: ''
+          fax: ''
+          street: ''
+          city: ''
+          state: ''
+          zipCode: ''
+          country: United States
+          company:
+            id: 548942026
+            addressStatus: DEFUNCT
+            subUnitType: Former_new_name
+            locationName: DiscoverOrg
+            locationEmployeeCount: 18
+        - phone: ''
+          fax: ''
+          street: 7700 Old Georgetown Rd
+          city: Bethesda
+          state: Maryland
+          zipCode: '20814'
+          country: United States
+          company:
+            id: 474328614
+            addressStatus: CURRENT
+            subUnitType: Location
+            locationName: Zoom Information
+            locationEmployeeCount: 254
+        - phone: ''
+          fax: ''
+          street: ''
+          city: ''
+          state: ''
+          zipCode: ''
+          country: Australia
+          company:
+            id: 2218043599
+            addressStatus: INVALID
+            subUnitType: Location
+            locationName: Zoominfo
+            locationEmployeeCount: 1
+        - phone: ''
+          fax: ''
+          street: 133 Whitechapel High St
+          city: London
+          state: Essex
+          zipCode: E1 7QA
+          country: United Kingdom
+          company:
+            id: 560088004
+            addressStatus: INVALID
+            subUnitType: Location
+            locationName: Zoom Information
+            locationEmployeeCount: 3
+        - phone: ''
+          fax: ''
+          street: 695 Mansell Rd Ste 250
+          city: Roswell
+          state: Georgia
+          zipCode: '30076'
+          country: United States
+          company:
+            id: 560118251
+            addressStatus: VALID
+            subUnitType: Location
+            locationName: Zoom Information
+            locationEmployeeCount: 16
+        - phone: ''
+          fax: ''
+          street: 435 Ionia Sw Ste 200
+          city: Grand Rapids
+          state: Michigan
+          zipCode: '49503'
+          country: United States
+          company:
+            id: 483996375
+            addressStatus: VALID
+            subUnitType: Location
+            locationName: Zoom Information
+            locationEmployeeCount: 18
+        - phone: ''
+          fax: ''
+          street: 3690 Orange Pl Ste 310
+          city: Cleveland
+          state: Ohio
+          zipCode: '44133'
+          country: United States
+          company:
+            id: 478161257
+            addressStatus: VALID
+            subUnitType: Location
+            locationName: Zoom Information
+            locationEmployeeCount: 19
+        - phone: (866) 904-9666
+          fax: ''
+          street: 170 Tracer Ln
+          city: Waltham
+          state: Massachusetts
+          zipCode: '02451'
+          country: United States
+          company:
+            id: 2079041976
+            addressStatus: PAST
+            subUnitType: Location
+            locationName: Zoominfo
+            locationEmployeeCount: 1
+        - phone: (866) 904-9666
+          fax: ''
+          street: 170 Data Dr
+          city: Waltham
+          state: Massachusetts
+          zipCode: '02451'
+          country: United States
+          company:
+            id: 476310572
+            addressStatus: CURRENT
+            subUnitType: Location
+            locationName: Zoominfo
+            locationEmployeeCount: 454
+        - phone: ''
+          fax: ''
+          street: 441 E Hector St Ste 200
+          city: Conshohocken
+          state: Pennsylvania
+          zipCode: '19428'
+          country: United States
+          company:
+            id: 474328613
+            addressStatus: VALID
+            subUnitType: Location
+            locationName: Zoom Information
+            locationEmployeeCount: 279
+        - phone: ''
+          fax: ''
+          street: 465 California St Ste 600
+          city: San Francisco
+          state: California
+          zipCode: '94111'
+          country: United States
+          company:
+            id: 563915395
+            addressStatus: VALID
+            subUnitType: Location
+            locationName: Zoom Information
+            locationEmployeeCount: 27
+        - phone: ''
+          fax: ''
+          street: 4 Hasheizaf St
+          city: Ra'anana
+          state: Tel Aviv
+          zipCode: '4366411'
+          country: Israel
+          company:
+            id: 2216653193
+            addressStatus: CURRENT
+            subUnitType: Location
+            locationName: Zoominfo
+            locationEmployeeCount: 94
+        - phone: (866) 904-9666
+          fax: ''
+          street: 100 Data Dr
+          city: Waltham
+          state: Massachusetts
+          zipCode: '02451'
+          country: United States
+          company:
+            id: 2203083854
+            addressStatus: LIMBO
+            subUnitType: Location
+            locationName: Zoominfo
+            locationEmployeeCount: 1
+        - phone: (781) 790-7078
+          fax: ''
+          street: 100 Tracer Ln
+          city: Waltham
+          state: Massachusetts
+          zipCode: '02452'
+          country: United States
+          company:
+            id: 474630732
+            addressStatus: VALID
+            subUnitType: Location
+            locationName: Zoom Information
+            locationEmployeeCount: 22
+        - phone: ''
+          fax: ''
+          street: 1850 Gateway Dr Ste 400
+          city: San Mateo
+          state: California
+          zipCode: '94404'
+          country: United States
+          company:
+            id: 555967205
+            addressStatus: CURRENT
+            subUnitType: Location
+            locationName: Zoom Information
+            locationEmployeeCount: 379
+        - phone: (781) 693-7500
+          fax: ''
+          street: 307 Waverley Oaks Rd Ste 405
+          city: Waltham
+          state: Massachusetts
+          zipCode: '02452'
+          country: United States
+          company:
+            id: 2079041971
+            addressStatus: CURRENT
+            subUnitType: Location
+            locationName: Zoom Information
+            locationEmployeeCount: 103
+        - phone: ''
+          fax: ''
+          street: 10818 NE 88th St
+          city: Vancouver
+          state: Washington
+          zipCode: '98662'
+          country: United States
+          company:
+            id: 2216627196
+            addressStatus: CURRENT
+            subUnitType: Location
+            locationName: Zoom Information Inc
+            locationEmployeeCount: 297
+        - phone: (425) 673-4292
+          fax: ''
+          street: 4630 200th Street Sw St H
+          city: Lynnwood
+          state: Washington
+          zipCode: '98036'
+          country: United States
+          company:
+            id: 2203083856
+            addressStatus: LIMBO
+            subUnitType: Location
+            locationName: Zoominfo
+            locationEmployeeCount: 1
+        - phone: (866) 904-9666
+          fax: ''
+          street: 38 Fulton St W 313
+          city: Grand Rapids
+          state: Michigan
+          zipCode: '49503'
+          country: United States
+          company:
+            id: 440083468
+            addressStatus: INVALID
+            subUnitType: Location
+            locationName: Zoominfo
+            locationEmployeeCount: 19
+        - phone: (800) 914-1220
+          fax: ''
+          street: 805 Broadway St Ste 900
+          city: Vancouver
+          state: Washington
+          zipCode: '98660'
+          country: United States
+          company:
+            id: 2203083849
+            addressStatus: CURRENT
+            subUnitType: Location
+            locationName: Zoom Information
+            locationEmployeeCount: 2742
+        - phone: ''
+          fax: ''
+          street: 307 Waverley Oaks Rd Ste 307
+          city: Waltham
+          state: Massachusetts
+          zipCode: '02452'
+          country: United States
+          company:
+            id: 2203083851
+            addressStatus: LIMBO
+            subUnitType: Location
+            locationName: Zoom Information
+            locationEmployeeCount: 1
+        - phone: (866) 904-9666
+          fax: ''
+          street: 805 Broadway St Ste 800
+          city: Vancouver
+          state: Washington
+          zipCode: '98660'
+          country: United States
+          company:
+            id: 2203083858
+            addressStatus: PAST
+            subUnitType: Location
+            locationName: Zoominfo Technologies
+            locationEmployeeCount: 558
+        - phone: (781) 693-7500
+          fax: ''
+          street: 275 Wyman St
+          city: Waltham
+          state: Massachusetts
+          zipCode: '02451'
+          country: United States
+          company:
+            id: 560088010
+            addressStatus: VALID
+            subUnitType: Location
+            locationName: Zoom Information
+            locationEmployeeCount: 356
+        - phone: (360) 718-5630
+          fax: ''
+          street: 1750 112th Ave NE Ste D151
+          city: Bellevue
+          state: Washington
+          zipCode: '98004'
+          country: United States
+          company:
+            id: 560118250
+            addressStatus: VALID
+            subUnitType: Location
+            locationName: Zoom Information
+            locationEmployeeCount: 1
+    Company20:
+      title: Company20
+      required:
+      - id
+      - addressStatus
+      - subUnitType
+      - locationName
+      - locationEmployeeCount
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        addressStatus:
+          type: string
+          example: 123 Main Street
+        subUnitType:
+          type: string
+          example: standard
+        locationName:
+          type: string
+          example: Acme Corporation
+        locationEmployeeCount:
+          type: integer
+          contentEncoding: int32
+          example: 250
+      examples:
+      - id: 346572700
+        addressStatus: DEFUNCT
+        subUnitType: Former_new_name
+        locationName: DiscoverOrg
+        locationEmployeeCount: 500
+    GetLocationEnrichInput:
+      title: GetLocationEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: parentId
+        fieldType: String
+        description: The id of the parent company for which you want to find locations
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint

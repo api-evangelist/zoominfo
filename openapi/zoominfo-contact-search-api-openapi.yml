@@ -1,0 +1,2597 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication Contact Search API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Contact Search
+  description: 'Use [Contact Search](#2e5121fd-df42-41a4-95d6-0e8f24eebd92) to retrieve contacts using valid query parameters.
+
+
+    *   To build your request, retrieve a list of valid query parameters using [Contact Search Inputs](#74630827-dd25-4b6a-bf72-f7cfeffd6c41).
+
+    *   For requests that require you to specify supported values (e.g., job titles, industry codes and so on), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055) endpoints.
+
+    *   Use [Contact Search Outputs](#5ed629a9-f24a-41a3-bc66-89f3f09f051c) to retrieve a list of expected response fields that will be returned from [Contact Search](#2e5121fd-df42-41a4-95d6-0e8f24eebd92).'
+paths:
+  /search/contact:
+    parameters: []
+    post:
+      tags:
+      - Contact Search
+      summary: Zoominfo Contact Search
+      description: 'Returns a list of Contacts from ZoomInfo''s data that meet the specified search criteria.
+
+
+        Input parameters may require specific values, some of which are too extensive to list in the parameter descriptions. You can retrieve these values using the [Lookup](https://) endpoints.
+
+
+        **Input params**
+
+
+        | Parameter | DataType | Description |
+
+        | --- | --- | --- |
+
+        | rpp | Integer | Limits the results returned to the given number of results per page. Default is 25. |
+
+        | page | Integer | Provides the results for the given page, used in conjunction with `rpp` |
+
+        | sortOrder | String | Provide `sortBy` if specifying `sortOrder`. Valid values are `asc`, `ascending`, `desc`, and `descending`. By default, results are sorted in descending order. |
+
+        | sortBy | String | Sort results by valid output fields: `contactAccuracyScore`, `lastName`, `companyName`, `hierarchy`, `sourceCount`, `lastMentioned`, `relevance` |
+
+        | personId | String | Unique ZoomInfo identifier for the contact. Can include a comma-separated list. |
+
+        | emailAddress | String | Work email address for the contact in [example@example.com](https://) format |
+
+        | supplementalEmail | Array | Supplemental email address for the contact in [example@example.com](https://) format |
+
+        | hashedEmail | String | Hashed email value for the contact. Allows searching via an email address with the extra security of not exposing the email. Supported hash algorithms are: MD5, SHA1, SHA256 and SHA512. |
+
+        | phone | Array | List of person phones or mobile numbers. Here''s an example list - any of the following phone number formats are acceptable: `["(123)-456-7890", "1234567890", "123 456 7890", "123-445-7890"]`. Alphabetical characters are not allowed. |
+
+        | fullName | String | Contact full name |
+
+        | firstName | String | Contact first name |
+
+        | middleInitial | String | Contact middle initial |
+
+        | lastName | String | Contact last name |
+
+        | jobTitle | String | Contact title at current place of employment. Use `OR` to input multiple job titles. |
+
+        | excludeJobTitle | String | Exclude comma-separated list of job titles |
+
+        | managementLevel | String | Contact management level at current place of employment. See the **Management Levels** lookup endpoint for values. |
+
+        | excludeManagementLevel | String | Exclude contact based on management level. See the **Management Levels** lookup endpoint for values. |
+
+        | department | String | Contact department at current place of employment. See the **Contact Departments** lookup endpoint for values. |
+
+        | boardMember | String | Exclude or include board members from search results. By default, the API includes board members in results. See the **Board Members** lookup endpoint for values. |
+
+        | excludePartialProfiles | Boolean | Contacts who do not have an active company associated with them are considered partial profiles. Exclude contacts with a partial profile from search results. |
+
+        | executivesOnly | Boolean | Return only executives |
+
+        | requiredFields | String | Specify a list of required fields for each record returned. Can include `email`, `phone` (direct or company), `directPhone`, `personalEmail`, and `mobilePhone`. Can include a comma-separated list of these fields. For example, requiring direct phone (`directPhone`) will only return contacts which have the Direct Phone Number field populated. |
+
+        | contactAccuracyScoreMin | String | Minimum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99. |
+
+        | contactAccuracyScoreMax | String | Maximum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99. |
+
+        | jobFunction | String | Contact job function at their current place of employment. See the **Job Function** lookup endpoint for values. |
+
+        | lastUpdatedDateAfter | String | The date after which the contact''s profile was last updated in YYYY-MM-DD format |
+
+        | validDateAfter | String | The date after which the contact''s profile was last validated in YYYY-MM-DD format |
+
+        | lastUpdatedInMonths | Integer | Number of months within which the contact''s profile was last updated. For example, if `lastUpdatedinMonths` is `12` only contacts that were updated in the last 12 months will be returned. |
+
+        | hasBeenNotified | String | Contacts who have been notified of inclusion in ZoomInfo''s database. Values are `exclude`, `include`, and `only`. |
+
+        | companyPastOrPresent | String | Returns companies based on a contact''s work history. Values are `present` (default), `past`, and `pastAndPresent`. |
+
+        | school | String | Contact educational institution |
+
+        | degree | String | Contact education degree |
+
+        | locationCompanyId | Array | Searches by contact''s location IDs. Use the **Location Enrich** endpoint to obtain a list of location IDs for a company. |
+
+        | companyId | String | ZoomInfo unique identifier for the company. Will accept a comma-separated list. |
+
+        | companyName | String | Company name. Can use OR and NOT operators to include or exclude companies by name. For example, "Vodaphone OR Comcast NOT Verizon" |
+
+        | companyWebsite | String | URL to the company website in [http://www.example.com](https://) format |
+
+        | companyTicker | Array | Company stock ticker symbol |
+
+        | companyDescription | String | Text description unique to the company you want to use as search criteria |
+
+        | parentId | String | ZoomInfo Company ID for parent company |
+
+        | ultimateParentId | String | ZoomInfo Company ID for ultimate parent company |
+
+        | companyType | String | Company type (private, public, and so on). See the **Company Type** lookup endpoint for values. |
+
+        | address | String | Company address |
+
+        | street | String | Company street |
+
+        | state | String | Company state (U.S.) or province (Canada). You can use free text state or province names (e.g., "new hampshire"), the two-letter common abbreviation for a U.S. state (e.g., "nh"), or values provided in the **State** lookup endpoint. |
+
+        | zipCode | String | Zip Code of the company''s primary address |
+
+        | country | String | Country for the company''s primary address. You can use free text or see the **Country** lookup endpoint for values. |
+
+        | continent | String | Continent for the company''s primary address. See the **Continent** lookup endpoint for values. |
+
+        | zipCodeRadiusMiles | String | Used in conjunction with `zipCode`, designates a geographical radius (in miles) from the `zipCode` provided. |
+
+        | hashTagString | String | Hash tags for a company. Can include a comma-separated list. |
+
+        | techAttributeTagList | String | Specify technology product tags. See the **Tech - Product** lookup endpoint for values. This string uses a numerical dot notation format similar to an IP address. The notation denotes the hierarchical structure: `parent-category.category.vendor`. For example, `333.202.28`. You can use wildcards in the notation (e.g., `333.202.\\\\\\*`, `\\\\\\*.202.\\\\\\*`, and so on). |
+
+        | subUnitTypes | String | Company sub types (e.g., division, subsidiary and so on). See the **Sub Unit Type** lookup endpoint for values. |
+
+        | primaryIndustriesOnly | Boolean | Used in conjunction with the `industryCodes` input parameter. When set to `true`, any result returned must have one of the specified industries as a primary industry. If no industries are specified, then this parameter will be ignored. Default is `false`. |
+
+        | industryCodes | String | Top-level industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact''s current company. Can include a comma-separated list. See the **Industry Codes** lookup endpoint for values. |
+
+        | industryKeywords | String | Industry keywords associated with a company. Can include a comma-separated list. |
+
+        | sicCodes | String | The Standard Industrial Classification is a system for classifying industries by a four-digit code. See the **SIC Codes** lookup endpoint for values. |
+
+        | naicsCodes | String | The North American Industry Classification System (NAICS) is the standard used by Federal statistical agencies in classifying business establishments for the purpose of collecting, analyzing, and publishing statistical data related to the U.S. business economy. See the **NAICS Codes** lookup endpoint for values. |
+
+        | revenueMin | Integer | Minimum annual revenue for a company in U.S. dollars. Use with `revenueMax` to set a range. Alternatively, you can use the `revenue` parameter to search for pre-defined ranges. |
+
+        | revenueMax | Integer | Maximum annual revenue for a company in U.S. dollars. Use with `revenueMin` to set a range. Alternatively, you can use the `revenue` parameter to search for pre-defined ranges. |
+
+        | revenue | String | Annual revenue range in U.S. dollars. Accepts a comma-separated list of values. See the **Revenue Range** lookup endpoint for values. Alternatively, to get more granular ranges, you can use the `revenueMin` and `revenueMax` parameters. |
+
+        | employeeRangeMin | String | Minimum employee count for a company. Use with `employeeRangeMax` to set a range. Alternatively, you can use the `employeeCount` parameter to search for pre-defined ranges. |
+
+        | employeeRangeMax | String | Maximum employee count for a company. Use with `employeeRangeMin` to set a range. Alternatively, you can use the `employeeCount` parameter to search for pre-defined ranges. |
+
+        | employeeCount | String | Employee count range. Accepts a comma-separated list of values. See the **Employee Count** lookup endpoint for values. Alternatively, to get more granular ranges, you can use the `employeeRangeMin` and `employeeRangeMax` parameters. |
+
+        | companyRanking | String | Company ranking list (e.g., Fortune 500 and so on). See the **Company Ranking** lookup endpoint for values. |
+
+        | metroRegion | String | Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas. See the **Metro Area** lookup endpoint for values. |
+
+        | locationSearchType | String | Location criteria for search. Values are `PersonOrHQ`, `PersonAndHQ`, `Person`, `HQ`, `PersonThenHQ`. |
+
+        | fundingAmountMin | Integer | Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If `fundingAmountMin` is used without `fundingAmountMax`, the result will be the amount specified or greater. |
+
+        | fundingAmountMax | Integer | Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If `fundingAmountMax` is used without `fundingAmountMin`, the result will be the amount specified or less. |
+
+        | fundingStartDate | String | Start date of the funding in YYYY-MM-DD format. If `fundingStartDate` and `fundingEndDate` are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date. |
+
+        | fundingEndDate | String | End date of the funding in YYYY-MM-DD format. If `fundingStartDate` and `fundingEndDate` are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date. |
+
+        | excludedRegions | String | Exclude a company metro area. Accepts a comma-separated list of U.S. and Canada metro areas. See the **Metro Area** lookup endpoint for values. |
+
+        | zoominfoContactsMin | String | Minimum number of ZoomInfo contacts associated with company |
+
+        | zoominfoContactsMax | String | Maximum number of ZoomInfo contacts associated with company |
+
+        | companyStructureIncludedSubUnitTypes | String | Company hierarchical structure |
+
+        | oneYearEmployeeGrowthRateMin | String | Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range. |
+
+        | oneYearEmployeeGrowthRateMax | String | Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range. |
+
+        | twoYearEmployeeGrowthRateMin | String | Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range. |
+
+        | twoYearEmployeeGrowthRateMax | String | Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range. |
+
+        | positionStartDateMin | String | Minimum date for when a contact began current employment. Use with `positionStartDateMax` to set a range. |
+
+        | positionStartDateMax | String | Maximum date for when a contact began current employment. Use with `positionStartDateMin` to set a range. |
+
+        | webReferences | Array | List of web references for a contact. Default criteria is OR between multiple values. Should only contain english letters and numbers. |
+
+        | filterByBuyingCommittee | Boolean | Boolean flag for Buying Committee. Setting this to TRUE will filter the results based on the Buying Committees set for the account. Default is FALSE. |
+
+        | techSkills | ArrayList | List of technology skills for a contact. Default criteria is OR between multiple values. Should only contain string numbers |
+
+        | yearsOfExperience | String | Years of overall experience. Must be a comma-separated string of values. See the **Years of Experience** lookup endpoint for values. |
+
+        | engagementStartDate | String | Engagement start date in YYYY-MM-DD format. |
+
+        | engagementEndDate | String | Engagement end date in YYYY-MM-DD format. EngagementStartDate is required. |
+
+        | engagementType | Array | List of engagement types to search for. Accepted values are a list of `email`, `phone`, `online meeting`. |
+
+
+        **Response data**
+
+
+        | Field | Description |
+
+        | --- | --- |
+
+        | personId | Unique ZoomInfo identifier for the contact |
+
+        | firstName | Contact first name |
+
+        | lastName | Contact last name |
+
+        | middleName | Contact middle name |
+
+        | companyId | ZoomInfo unique identifier for the company |
+
+        | companyName | Company name |
+
+        | jobTitle | Contact job title at current place of employment |
+
+        | contactAccuracyScore | This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 75 and maximum is 99. |
+
+        | validDate | Date on which the contact record was last validated |
+
+        | lastUpdatedDate | Date on which the contact record was last updated |
+
+        | hasEmail | Indicates whether ZoomInfo has an email address for the contact |
+
+        | hasSupplementalEmail | Indicates whether ZoomInfo has a supplemental email address for the contact |
+
+        | hasDirectPhone | Indicates whether ZoomInfo has a direct phone number for the contact. If do not call is enabled for the contact, the field `directPhoneDoNotCall` is returned in the output with a value of `true`. |
+
+        | hasMobilePhone | Indicates whether ZoomInfo has a mobile phone number for the contact. If do not call is enabled for the contact, the field `mobilePhoneDoNotCall` is returned in the output with a value of `true`. |
+
+        | hasCompanyIndustry | Indicates whether ZoomInfo has company industry for the contact |
+
+        | hasCompanyPhone | Indicates whether ZoomInfo has a company phone number for the contact |
+
+        | hasCompanyStreet | Indicates whether ZoomInfo has a street address for the contact |
+
+        | hasCompanyState | Indicates whether ZoomInfo has a state for the contact |
+
+        | hasCompanyZipCode | Indicates whether ZoomInfo has a Zip Code or Postal Code for the contact |
+
+        | hasCompanyCountry | Indicates whether ZoomInfo has a country for the contact |
+
+        | hasCompanyRevenue | Indicates whether ZoomInfo has company revenue data for the contact |
+
+        | hasCompanyEmployeeCount | Indicates whether ZoomInfo has company headcount data for the contact |'
+      operationId: ContactSearch
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ContactSearchRequest'
+              - examples:
+                - managementLevel: directors
+                  companyType: public
+                  zipCode: '19101'
+                  locationSearchType: PersonAndHQ
+                  zipCodeRadiusMiles: '25'
+                  techAttributeTagList: 333.202.*
+                  requiredFields: directPhone
+              contentMediaType: application/json
+            example:
+              managementLevel: directors
+              companyType: public
+              zipCode: '19101'
+              locationSearchType: PersonAndHQ
+              zipCodeRadiusMiles: '25'
+              techAttributeTagList: 333.202.*
+              requiredFields: directPhone
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Tue, 14 Jul 2020 15:05:33 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 5b2c246a8a4febf0-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=7c92aab28a16a819b11a05bd1f2d315bc49963834ddeebd2bab7bb8578c6a9ba:59135a31-c5e3-11ea-b90a-bfcce47ec1ab; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 03ef7516990000ebf0e810a200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1498'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1594739144'
+            X-Usage-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999970321'
+            X-Usage-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999956816'
+            X-Usage-Unique-Id-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Unique-Id-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9998983'
+            X-Usage-Websights-Api-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Websights-Api-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999658'
+            X-Usage-Websights-Api-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000000'
+            X-Usage-Websights-Api-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99999658'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            X-Request-Id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 00f436bc-e0f4-490b-829e-5dd2af57eb29
+          content:
+            application/json;charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/SearchcontactsbyZipCoderadius'
+                - examples:
+                  - maxResults: 30579
+                    totalResults: 10
+                    currentPage: 1
+                    data:
+                    - id: 1434351821
+                      firstName: Daniel
+                      middleName: ''
+                      lastName: Herbert
+                      validDate: 6/19/2020 1:41 PM
+                      lastUpdatedDate: ''
+                      jobTitle: Director & Service Owner Information Technology Tools
+                      contactAccuracyScore: 96
+                      hasEmail: true
+                      hasSupplementalEmail: true
+                      hasDirectPhone: true
+                      hasMobilePhone: true
+                      hasCompanyIndustry: true
+                      hasCompanyPhone: true
+                      hasCompanyStreet: true
+                      hasCompanyState: true
+                      hasCompanyZipCode: true
+                      hasCompanyCountry: true
+                      hasCompanyRevenue: true
+                      hasCompanyEmployeeCount: true
+                      company:
+                        id: 9867169
+                        name: AmerisourceBergen
+                    - id: 1910983889
+                      firstName: Michael
+                      middleName: A.
+                      lastName: Manning
+                      validDate: 7/2/2020 9:31 AM
+                      lastUpdatedDate: ''
+                      jobTitle: Director, General Manager
+                      contactAccuracyScore: 96
+                      hasEmail: true
+                      hasSupplementalEmail: false
+                      hasDirectPhone: true
+                      hasMobilePhone: true
+                      hasCompanyIndustry: true
+                      hasCompanyPhone: true
+                      hasCompanyStreet: true
+                      hasCompanyState: true
+                      hasCompanyZipCode: true
+                      hasCompanyCountry: true
+                      hasCompanyRevenue: true
+                      hasCompanyEmployeeCount: true
+                      company:
+                        id: 103153842
+                        name: Triumph Group
+                    - id: 1458033004
+                      firstName: Carmela
+                      middleName: ''
+                      lastName: Burston
+                      validDate: 7/8/2020 3:19 AM
+                      lastUpdatedDate: ''
+                      jobTitle: Senior Director, National retail Partner Sales
+                      contactAccuracyScore: 90
+                      hasEmail: true
+                      hasSupplementalEmail: true
+                      hasDirectPhone: true
+                      hasMobilePhone: true
+                      hasCompanyIndustry: true
+                      hasCompanyPhone: true
+                      hasCompanyStreet: true
+                      hasCompanyState: true
+                      hasCompanyZipCode: true
+                      hasCompanyCountry: true
+                      hasCompanyRevenue: true
+                      hasCompanyEmployeeCount: true
+                      company:
+                        id: 8929846
+                        name: Comcast
+                    - id: 1256317471
+                      firstName: Michael
+                      middleName: ''
+                      lastName: Zedosky
+                      validDate: 7/6/2020 2:52 PM
+                      lastUpdatedDate: 7/12/2020 1:00 PM
+                      jobTitle: Senior Director, Partner Sales
+                      contactAccuracyScore: 96
+                      hasEmail: true
+                      hasSupplementalEmail: true
+                      hasDirectPhone: true
+                      hasMobilePhone: true
+                      hasCompanyIndustry: true
+                      hasCompanyPhone: true
+                      hasCompanyStreet: true
+                      hasCompanyState: true
+                      hasCompanyZipCode: true
+                      hasCompanyCountry: true
+                      hasCompanyRevenue: true
+                      hasCompanyEmployeeCount: true
+                      company:
+                        id: 8929846
+                        name: Comcast
+                    - id: 1766622792
+                      firstName: Maureen
+                      middleName: ''
+                      lastName: O'Connell
+                      validDate: 6/23/2020 8:00 PM
+                      lastUpdatedDate: 7/6/2020 11:05 PM
+                      jobTitle: Northeast Partner Sales Director
+                      contactAccuracyScore: 94
+                      hasEmail: true
+                      hasSupplementalEmail: true
+                      hasDirectPhone: true
+                      hasMobilePhone: true
+                      hasCompanyIndustry: true
+                      hasCompanyPhone: true
+                      hasCompanyStreet: true
+                      hasCompanyState: true
+                      hasCompanyZipCode: true
+                      hasCompanyCountry: true
+                      hasCompanyRevenue: true
+                      hasCompanyEmployeeCount: true
+                      company:
+                        id: 8929846
+                        name: Comcast
+                    - id: 1562524332
+                      firstName: Lori
+                      middleName: ''
+                      lastName: Miller
+                      validDate: 7/6/2020 3:00 PM
+                      lastUpdatedDate: ''
+                      jobTitle: Global HR Business Partner & Director, Supply Chain
+                      contactAccuracyScore: 92
+                      hasEmail: true
+                      hasSupplementalEmail: false
+                      hasDirectPhone: true
+                      hasMobilePhone: true
+                      hasCompanyIndustry: true
+                      hasCompanyPhone: true
+                      hasCompanyStreet: true
+                      hasCompanyState: true
+                      hasCompanyZipCode: true
+                      hasCompanyCountry: true
+                      hasCompanyRevenue: true
+                      hasCompanyEmployeeCount: true
+                      company:
+                        id: 21252521
+                        name: DuPont
+                    - id: 1759016284
+                      firstName: Nadine
+                      middleName: ''
+                      lastName: Durham
+                      validDate: 2/6/2020 4:49 AM
+                      lastUpdatedDate: 7/10/2020 9:23 AM
+                      jobTitle: Service Owner & Director, Enterprise IT Services & Revenue Management
+                      contactAccuracyScore: 89
+                      hasEmail: true
+                      hasSupplementalEmail: true
+                      hasDirectPhone: true
+                      hasMobilePhone: true
+                      hasCompanyIndustry: true
+                      hasCompanyPhone: true
+                      hasCompanyStreet: true
+                      hasCompanyState: true
+                      hasCompanyZipCode: true
+                      hasCompanyCountry: true
+                      hasCompanyRevenue: true
+                      hasCompanyEmployeeCount: true
+                      company:
+                        id: 9867169
+                        name: AmerisourceBergen
+                    - id: 4061031
+                      firstName: Michael
+                      middleName: ''
+                      lastName: McNamara
+                      validDate: 6/24/2020 8:00 PM
+                      lastUpdatedDate: ''
+                      jobTitle: Director, Finance & Corporate Controller
+                      contactAccuracyScore: 96
+                      hasEmail: true
+                      hasSupplementalEmail: true
+                      hasDirectPhone: true
+                      hasMobilePhone: true
+                      hasCompanyIndustry: true
+                      hasCompanyPhone: true
+                      hasCompanyStreet: true
+                      hasCompanyState: true
+                      hasCompanyZipCode: true
+                      hasCompanyCountry: true
+                      hasCompanyRevenue: true
+                      hasCompanyEmployeeCount: true
+                      company:
+                        id: 46302607
+                        name: Marinus Pharmaceuticals
+                    - id: 250538259
+                      firstName: Laurie
+                      middleName: ''
+                      lastName: Wajda
+                      validDate: 5/22/2020 11:23 AM
+                      lastUpdatedDate: ''
+                      jobTitle: Director, Human Resources & HR Business Partner
+                      contactAccuracyScore: 91
+                      hasEmail: true
+                      hasSupplementalEmail: true
+                      hasDirectPhone: true
+                      hasMobilePhone: true
+                      hasCompanyIndustry: true
+                      hasCompanyPhone: true
+                      hasCompanyStreet: true
+                      hasCompanyState: true
+                      hasCompanyZipCode: true
+                      hasCompanyCountry: true
+                      hasCompanyRevenue: true
+                      hasCompanyEmployeeCount: true
+                      company:
+                        id: 19108134
+                        name: Campbell Soup
+                    - id: 1811800368
+                      firstName: Rhonda
+                      middleName: ''
+                      lastName: Kelley
+                      validDate: 6/23/2020 12:28 PM
+                      lastUpdatedDate: ''
+                      jobTitle: Controller & Director, Finance
+                      contactAccuracyScore: 96
+                      hasEmail: true
+                      hasSupplementalEmail: false
+                      hasDirectPhone: true
+                      hasMobilePhone: false
+                      hasCompanyIndustry: true
+                      hasCompanyPhone: true
+                      hasCompanyStreet: true
+                      hasCompanyState: true
+                      hasCompanyZipCode: true
+                      hasCompanyCountry: true
+                      hasCompanyRevenue: true
+                      hasCompanyEmployeeCount: true
+                      company:
+                        id: 12240745
+                        name: Church & Dwight
+                contentMediaType: application/json;charset=utf-8
+              example:
+                maxResults: 30579
+                totalResults: 10
+                currentPage: 1
+                data:
+                - id: 1434351821
+                  firstName: Daniel
+                  middleName: ''
+                  lastName: Herbert
+                  validDate: 6/19/2020 1:41 PM
+                  lastUpdatedDate: ''
+                  jobTitle: Director & Service Owner Information Technology Tools
+                  contactAccuracyScore: 96
+                  hasEmail: true
+                  hasSupplementalEmail: true
+                  hasDirectPhone: true
+                  hasMobilePhone: true
+                  hasCompanyIndustry: true
+                  hasCompanyPhone: true
+                  hasCompanyStreet: true
+                  hasCompanyState: true
+                  hasCompanyZipCode: true
+                  hasCompanyCountry: true
+                  hasCompanyRevenue: true
+                  hasCompanyEmployeeCount: true
+                  company:
+                    id: 9867169
+                    name: AmerisourceBergen
+                - id: 1910983889
+                  firstName: Michael
+                  middleName: A.
+                  lastName: Manning
+                  validDate: 7/2/2020 9:31 AM
+                  lastUpdatedDate: ''
+                  jobTitle: Director, General Manager
+                  contactAccuracyScore: 96
+                  hasEmail: true
+                  hasSupplementalEmail: false
+                  hasDirectPhone: true
+                  hasMobilePhone: true
+                  hasCompanyIndustry: true
+                  hasCompanyPhone: true
+                  hasCompanyStreet: true
+                  hasCompanyState: true
+                  hasCompanyZipCode: true
+                  hasCompanyCountry: true
+                  hasCompanyRevenue: true
+                  hasCompanyEmployeeCount: true
+                  company:
+                    id: 103153842
+                    name: Triumph Group
+                - id: 1458033004
+                  firstName: Carmela
+                  middleName: ''
+                  lastName: Burston
+                  validDate: 7/8/2020 3:19 AM
+                  lastUpdatedDate: ''
+                  jobTitle: Senior Director, National retail Partner Sales
+                  contactAccuracyScore: 90
+                  hasEmail: true
+                  hasSupplementalEmail: true
+                  hasDirectPhone: true
+                  hasMobilePhone: true
+                  hasCompanyIndustry: true
+                  hasCompanyPhone: true
+                  hasCompanyStreet: true
+                  hasCompanyState: true
+                  hasCompanyZipCode: true
+                  hasCompanyCountry: true
+                  hasCompanyRevenue: true
+                  hasCompanyEmployeeCount: true
+                  company:
+                    id: 8929846
+                    name: Comcast
+                - id: 1256317471
+                  firstName: Michael
+                  middleName: ''
+                  lastName: Zedosky
+                  validDate: 7/6/2020 2:52 PM
+                  lastUpdatedDate: 7/12/2020 1:00 PM
+                  jobTitle: Senior Director, Partner Sales
+                  contactAccuracyScore: 96
+                  hasEmail: true
+                  hasSupplementalEmail: true
+                  hasDirectPhone: true
+                  hasMobilePhone: true
+                  hasCompanyIndustry: true
+                  hasCompanyPhone: true
+                  hasCompanyStreet: true
+                  hasCompanyState: true
+                  hasCompanyZipCode: true
+                  hasCompanyCountry: true
+                  hasCompanyRevenue: true
+                  hasCompanyEmployeeCount: true
+                  company:
+                    id: 8929846
+                    name: Comcast
+                - id: 1766622792
+                  firstName: Maureen
+                  middleName: ''
+                  lastName: O'Connell
+                  validDate: 6/23/2020 8:00 PM
+                  lastUpdatedDate: 7/6/2020 11:05 PM
+                  jobTitle: Northeast Partner Sales Director
+                  contactAccuracyScore: 94
+                  hasEmail: true
+                  hasSupplementalEmail: true
+                  hasDirectPhone: true
+                  hasMobilePhone: true
+                  hasCompanyIndustry: true
+                  hasCompanyPhone: true
+                  hasCompanyStreet: true
+                  hasCompanyState: true
+                  hasCompanyZipCode: true
+                  hasCompanyCountry: true
+                  hasCompanyRevenue: true
+                  hasCompanyEmployeeCount: true
+                  company:
+                    id: 8929846
+                    name: Comcast
+                - id: 1562524332
+                  firstName: Lori
+                  middleName: ''
+                  lastName: Miller
+                  validDate: 7/6/2020 3:00 PM
+                  lastUpdatedDate: ''
+                  jobTitle: Global HR Business Partner & Director, Supply Chain
+                  contactAccuracyScore: 92
+                  hasEmail: true
+                  hasSupplementalEmail: false
+                  hasDirectPhone: true
+                  hasMobilePhone: true
+                  hasCompanyIndustry: true
+                  hasCompanyPhone: true
+                  hasCompanyStreet: true
+                  hasCompanyState: true
+                  hasCompanyZipCode: true
+                  hasCompanyCountry: true
+                  hasCompanyRevenue: true
+                  hasCompanyEmployeeCount: true
+                  company:
+                    id: 21252521
+                    name: DuPont
+                - id: 1759016284
+                  firstName: Nadine
+                  middleName: ''
+                  lastName: Durham
+                  validDate: 2/6/2020 4:49 AM
+                  lastUpdatedDate: 7/10/2020 9:23 AM
+                  jobTitle: Service Owner & Director, Enterprise IT Services & Revenue Management
+                  contactAccuracyScore: 89
+                  hasEmail: true
+                  hasSupplementalEmail: true
+                  hasDirectPhone: true
+                  hasMobilePhone: true
+                  hasCompanyIndustry: true
+                  hasCompanyPhone: true
+                  hasCompanyStreet: true
+                  hasCompanyState: true
+                  hasCompanyZipCode: true
+                  hasCompanyCountry: true
+                  hasCompanyRevenue: true
+                  hasCompanyEmployeeCount: true
+                  company:
+                    id: 9867169
+                    name: AmerisourceBergen
+                - id: 4061031
+                  firstName: Michael
+                  middleName: ''
+                  lastName: McNamara
+                  validDate: 6/24/2020 8:00 PM
+                  lastUpdatedDate: ''
+                  jobTitle: Director, Finance & Corporate Controller
+                  contactAccuracyScore: 96
+                  hasEmail: true
+                  hasSupplementalEmail: true
+                  hasDirectPhone: true
+                  hasMobilePhone: true
+                  hasCompanyIndustry: true
+                  hasCompanyPhone: true
+                  hasCompanyStreet: true
+                  hasCompanyState: true
+                  hasCompanyZipCode: true
+                  hasCompanyCountry: true
+                  hasCompanyRevenue: true
+                  hasCompanyEmployeeCount: true
+                  company:
+                    id: 46302607
+                    name: Marinus Pharmaceuticals
+                - id: 250538259
+                  firstName: Laurie
+                  middleName: ''
+                  lastName: Wajda
+                  validDate: 5/22/2020 11:23 AM
+                  lastUpdatedDate: ''
+                  jobTitle: Director, Human Resources & HR Business Partner
+                  contactAccuracyScore: 91
+                  hasEmail: true
+                  hasSupplementalEmail: true
+                  hasDirectPhone: true
+                  hasMobilePhone: true
+                  hasCompanyIndustry: true
+                  hasCompanyPhone: true
+                  hasCompanyStreet: true
+                  hasCompanyState: true
+                  hasCompanyZipCode: true
+                  hasCompanyCountry: true
+                  hasCompanyRevenue: true
+                  hasCompanyEmployeeCount: true
+                  company:
+                    id: 19108134
+                    name: Campbell Soup
+                - id: 1811800368
+                  firstName: Rhonda
+                  middleName: ''
+                  lastName: Kelley
+                  validDate: 6/23/2020 12:28 PM
+                  lastUpdatedDate: ''
+                  jobTitle: Controller & Director, Finance
+                  contactAccuracyScore: 96
+                  hasEmail: true
+                  hasSupplementalEmail: false
+                  hasDirectPhone: true
+                  hasMobilePhone: false
+                  hasCompanyIndustry: true
+                  hasCompanyPhone: true
+                  hasCompanyStreet: true
+                  hasCompanyState: true
+                  hasCompanyZipCode: true
+                  hasCompanyCountry: true
+                  hasCompanyRevenue: true
+                  hasCompanyEmployeeCount: true
+                  company:
+                    id: 12240745
+                    name: Church & Dwight
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/inputfields/contact/search:
+    parameters: []
+    get:
+      tags:
+      - Contact Search
+      summary: Zoominfo Contact Search Inputs
+      description: Returns a list of fields you can use as input for the [Contact Search](#2e5121fd-df42-41a4-95d6-0e8f24eebd92) endpoint.
+      operationId: ContactSearchInputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Mon, 21 Oct 2024 19:22:13 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Origin,Access-Control-Request-Method,Access-Control-Request-Headers
+            x-envoy-upstream-service-time:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '31'
+            service:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gke
+            x-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: JUyexVcSFsUA97mZKaeFHgCcWLNsApKcJgxu
+            x-ratelimit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            x-ratelimit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            x-envoy-decorator-operation:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: apps-gateway-active.main.svc.cluster.local:8080/*
+            via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google
+            alt-svc:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: h3=":443"; ma=86400
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Origin-Trial:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: AyXGdeyTa0Lq3roJGvPBs/Ps9duHL7Vf/Q5YJQJwQN4fdGLbtMPms4BfmK2HapcHVkvBjyAVhxe5deDNI1TFXgcAAABxeyJvcmlnaW4iOiJodHRwczovL3pvb21pbmZvLmNvbTo0NDMiLCJmZWF0dXJlIjoiVHBjZCIsImV4cGlyeSI6MTczNTM0Mzk5OSwiaXNTdWJkb21haW4iOnRydWUsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 8d639d7be9ff9c67-IAD
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContactSearchInput'
+                description: ''
+                examples:
+                - - fieldName: personId
+                    fieldType: String
+                    description: Unique ZoomInfo identifier for the contact. Can include a comma-separated list.
+                    accessGranted: 'true'
+                  - fieldName: emailAddress
+                    fieldType: String
+                    description: Work email address for the contact in example@example.com format
+                    accessGranted: 'true'
+                  - fieldName: hashedEmail
+                    fieldType: String
+                    description: 'Hashed email value for the contact. Allows searching via an email address with the extra security of not exposing the email. Supported hash algorithms are: MD5, SHA1, SHA256 and SHA512.'
+                    accessGranted: 'true'
+                  - fieldName: fullName
+                    fieldType: String
+                    description: Contact full name
+                    accessGranted: 'true'
+                  - fieldName: firstName
+                    fieldType: String
+                    description: Contact first name
+                    accessGranted: 'true'
+                  - fieldName: middleInitial
+                    fieldType: String
+                    description: Contact middle initial
+                    accessGranted: 'true'
+                  - fieldName: lastName
+                    fieldType: String
+                    description: Contact last name
+                    accessGranted: 'true'
+                  - fieldName: jobTitle
+                    fieldType: String
+                    description: Contact title at current place of employment. Use OR to input multiple job titles.
+                    accessGranted: 'true'
+                  - fieldName: excludeJobTitle
+                    fieldType: String
+                    description: Exclude comma-separated list of job titles
+                    accessGranted: 'true'
+                  - fieldName: managementLevel
+                    fieldType: String
+                    description: Contact management level at current place of employment
+                    accessGranted: 'true'
+                  - fieldName: excludeManagementLevel
+                    fieldType: String
+                    description: Exclude comma separated list of management levels
+                    accessGranted: 'true'
+                  - fieldName: boardMember
+                    fieldType: String
+                    description: Exclude or include board members from search results. Values are include, exclude (the default) and only
+                    accessGranted: 'true'
+                  - fieldName: excludePartialProfiles
+                    fieldType: Boolean
+                    description: Contacts who do not have an active company associated with them are considered partial profiles. Exclude contacts with a partial profile from search results. Default is false
+                    accessGranted: 'true'
+                  - fieldName: executivesOnly
+                    fieldType: Boolean
+                    description: Return only executives. Default is false.
+                    accessGranted: 'true'
+                  - fieldName: requiredFields
+                    fieldType: String
+                    description: Specify a list of required fields for each record returned. Can include email (business email), phone (direct or company phone), directPhone (contact's direct phone), personalEmail, and mobilePhone. Can include a comma-separated list of these fields.
+                    accessGranted: 'true'
+                  - fieldName: contactAccuracyScoreMin
+                    fieldType: String
+                    description: Minimum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99.
+                    accessGranted: 'true'
+                  - fieldName: contactAccuracyScoreMax
+                    fieldType: String
+                    description: Maximum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99.
+                    accessGranted: 'true'
+                  - fieldName: jobFunction
+                    fieldType: String
+                    description: Contact job function at their current place of employment
+                    accessGranted: 'true'
+                  - fieldName: lastUpdatedInMonths
+                    fieldType: Integer
+                    description: Number of months within which the contact's profile was last updated
+                    accessGranted: 'true'
+                  - fieldName: hasBeenNotified
+                    fieldType: String
+                    description: Contacts who have been notified of inclusion in ZoomInfo's database. Values are include (the default), exclude and only
+                    accessGranted: 'true'
+                  - fieldName: companyPastOrPresent
+                    fieldType: String
+                    description: Returns companies based on a contact's work history. Values are present (default), past and pastAndPresent
+                    accessGranted: 'true'
+                  - fieldName: school
+                    fieldType: String
+                    description: Searches by contact's education
+                    accessGranted: 'true'
+                  - fieldName: degree
+                    fieldType: String
+                    description: Searches by contact's education
+                    accessGranted: 'true'
+                  - fieldName: locationCompanyId
+                    fieldType: Array
+                    description: Searches by contact's locationIds
+                    accessGranted: 'true'
+                  - fieldName: lastUpdatedDateAfter
+                    fieldType: String
+                    description: The date after which the contact's profile was last updated
+                    accessGranted: 'true'
+                  - fieldName: validDateAfter
+                    fieldType: String
+                    description: The date after which the contact's profile was last validated
+                    accessGranted: 'true'
+                  - fieldName: phone
+                    fieldType: Array
+                    description: List of person phones or mobile numbers
+                    accessGranted: 'true'
+                  - fieldName: positionStartDateMin
+                    fieldType: String
+                    description: Minimum date for when a contact began current employment. Use with positionStartDateMax to set a range
+                    accessGranted: 'true'
+                  - fieldName: positionStartDateMax
+                    fieldType: String
+                    description: Maximum date for when a contact began current employment. Use with positionStartDateMin to set a range
+                    accessGranted: 'true'
+                  - fieldName: supplementalEmail
+                    fieldType: Array
+                    description: Supplemental email address for the contact in example@example.com format
+                    accessGranted: 'true'
+                  - fieldName: webReferences
+                    fieldType: Array
+                    description: List of Web References for a contact. Default criteria is OR between multiple values. Should only contain english letters and numbers
+                    accessGranted: 'true'
+                  - fieldName: buyingGroup
+                    fieldType: Array
+                    description: Filters results based on the provided Buying Group ID. Only one ID can be submitted
+                    accessGranted: 'true'
+                  - fieldName: techSkills
+                    fieldType: Array
+                    description: List of technology skills for a contact. Default criteria is OR between multiple values. Should only contain string numbers
+                    accessGranted: 'false'
+                  - fieldName: yearsOfExperience
+                    fieldType: String
+                    description: Years of overall experience. Must be a comma-separated string of the values found at /lookup/years-of-experience
+                    accessGranted: 'true'
+                  - fieldName: department
+                    fieldType: String
+                    description: Contact department at current place of employment. Comma separated list of values from the lookup/department endpoint
+                    accessGranted: 'true'
+                  - fieldName: exactJobTitle
+                    fieldType: String
+                    description: Contact Title at current place of employment using exact match logic. Use OR to input multiple job titles.
+                    accessGranted: 'true'
+                  - fieldName: companyTicker
+                    fieldType: Array
+                    description: Company stock ticker symbol
+                    accessGranted: 'true'
+                  - fieldName: companyDescription
+                    fieldType: String
+                    description: Search for companies based on description.  Accepts a space-separated list of individual words.
+                    accessGranted: 'true'
+                  - fieldName: companyType
+                    fieldType: String
+                    description: 'Company type (private, public, etc.). Accepts a comma delimited string of types listed in the endpoint: /lookup/companytype '
+                    accessGranted: 'true'
+                  - fieldName: address
+                    fieldType: String
+                    description: Company address
+                    accessGranted: 'true'
+                  - fieldName: street
+                    fieldType: String
+                    description: Company street
+                    accessGranted: 'true'
+                  - fieldName: zipCode
+                    fieldType: String
+                    description: Zip Code of the company's primary address
+                    accessGranted: 'true'
+                  - fieldName: state
+                    fieldType: String
+                    description: Company state
+                    accessGranted: 'true'
+                  - fieldName: country
+                    fieldType: String
+                    description: Company country
+                    accessGranted: 'true'
+                  - fieldName: continent
+                    fieldType: String
+                    description: Company continent
+                    accessGranted: 'true'
+                  - fieldName: companyId
+                    fieldType: String
+                    description: ZoomInfo unique identifier for the company. Will accept a comma-separated list.
+                    accessGranted: 'true'
+                  - fieldName: companyName
+                    fieldType: String
+                    description: Company name
+                    accessGranted: 'true'
+                  - fieldName: companyWebsite
+                    fieldType: String
+                    description: Company domain. Accepts a comma-separated list.
+                    accessGranted: 'true'
+                  - fieldName: parentId
+                    fieldType: String
+                    description: ZoomInfo Company ID for parent company
+                    accessGranted: 'true'
+                  - fieldName: ultimateParentId
+                    fieldType: String
+                    description: ZoomInfo Company ID for ultimate parent company
+                    accessGranted: 'true'
+                  - fieldName: zipCodeRadiusMiles
+                    fieldType: String
+                    description: Used in conjunction with zipCode, designates a geographical radius (in miles) from the zipCode provided.
+                    accessGranted: 'true'
+                  - fieldName: hashTagString
+                    fieldType: String
+                    description: Hash tags for a company. Can include a comma-separated list.
+                    accessGranted: 'true'
+                  - fieldName: techAttributeTagList
+                    fieldType: String
+                    description: Specify technology product tags
+                    accessGranted: 'true'
+                  - fieldName: subUnitTypes
+                    fieldType: String
+                    description: 'Company sub types (e.g., division, subsidiary) from the endpoint: /lookup/subunittypes. Use this in conjunction with parentId or ultimateParentId.'
+                    accessGranted: 'true'
+                  - fieldName: primaryIndustriesOnly
+                    fieldType: Boolean
+                    description: Used in conjunction with the industryCodes input parameter. When set to true, any result returned must have one of the specified industries as a primary industry. If no industries are specified, then this parameter will be ignored. Default is false.
+                    accessGranted: 'true'
+                  - fieldName: industryCodes
+                    fieldType: String
+                    description: Top-level industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list.
+                    accessGranted: 'true'
+                  - fieldName: industryKeywords
+                    fieldType: String
+                    description: Industry keywords associated with a company. Can include either 'AND' or 'OR' operators. For example, 'software AND security' or 'software OR security'.
+                    accessGranted: 'true'
+                  - fieldName: sicCodes
+                    fieldType: String
+                    description: 'Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. Accepts a comma-separated list of values from the endpoint: /lookup/siccode.'
+                    accessGranted: 'true'
+                  - fieldName: naicsCodes
+                    fieldType: String
+                    description: 'Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. Accepts a comma-separated list of values from the endpoint: /lookup/naicscode.'
+                    accessGranted: 'true'
+                  - fieldName: revenue
+                    fieldType: String
+                    description: 'Annual revenue range in U.S. dollars. Accepts a comma-separated list of values from the endpoint: /lookup/revenuerange. Alternatively, for more granular ranges, you can use the revenueMin and revenueMax parameters.'
+                    accessGranted: 'true'
+                  - fieldName: revenueMin
+                    fieldType: Integer
+                    description: Minimum annual revenue for a company in U.S. dollars (expressed in thousands). Use with revenueMax to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.
+                    accessGranted: 'true'
+                  - fieldName: revenueMax
+                    fieldType: Integer
+                    description: Maximum annual revenue for a company in U.S. dollars (expressed in thousands). Use with revenueMin to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.
+                    accessGranted: 'true'
+                  - fieldName: employeeRangeMin
+                    fieldType: String
+                    description: Minimum employee count for a company. Use with employeeRangeMax to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+                    accessGranted: 'true'
+                  - fieldName: employeeRangeMax
+                    fieldType: String
+                    description: Maximum employee count for a company. Use with employeeRangeMin to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+                    accessGranted: 'true'
+                  - fieldName: employeeCount
+                    fieldType: String
+                    description: 'Employee count range. Accepts a comma-separated list of values from the endpoint: /lookup/employeecount. Alternatively, for more granular ranges, you can use the employeeRangeMin and employeeRangeMax parameters.'
+                    accessGranted: 'true'
+                  - fieldName: companyRanking
+                    fieldType: String
+                    description: 'Company ranking (e.g., Fortune 500).  Accepts a comma separated list of IDs from the endpoint: /lookup/companyranking.'
+                    accessGranted: 'true'
+                  - fieldName: metroRegion
+                    fieldType: String
+                    description: 'Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas from the endpoint: /lookup/metroarea.'
+                    accessGranted: 'true'
+                  - fieldName: locationSearchType
+                    fieldType: String
+                    description: Location type (PersonOrHQ, PersonAndHQ, Person, HQ, PersonThenHQ).
+                    accessGranted: 'true'
+                  - fieldName: fundingAmountMin
+                    fieldType: Integer
+                    description: Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMin is used without fundingAmountMax, the result will be the amount specified or greater.
+                    accessGranted: 'true'
+                  - fieldName: fundingAmountMax
+                    fieldType: Integer
+                    description: Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMax is used without fundingAmountMin, the result will be the amount specified or less.
+                    accessGranted: 'true'
+                  - fieldName: fundingStartDate
+                    fieldType: String
+                    description: Start date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+                    accessGranted: 'true'
+                  - fieldName: fundingEndDate
+                    fieldType: String
+                    description: End date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+                    accessGranted: 'true'
+                  - fieldName: zoominfoContactsMin
+                    fieldType: String
+                    description: Minimum number of ZoomInfo contacts associated with company
+                    accessGranted: 'true'
+                  - fieldName: zoominfoContactsMax
+                    fieldType: String
+                    description: Maximum number of ZoomInfo contacts associated with company
+                    accessGranted: 'true'
+                  - fieldName: excludedRegions
+                    fieldType: String
+                    description: 'Exclude a company state or metro area. Accepts a comma-separated list of U.S. and Canada states and metro areas from the endpoints: /lookup/state and /lookup/metroarea.'
+                    accessGranted: 'true'
+                  - fieldName: companyStructureIncludedSubUnitTypes
+                    fieldType: String
+                    description: Company hierarchical structure
+                    accessGranted: 'true'
+                  - fieldName: oneYearEmployeeGrowthRateMin
+                    fieldType: String
+                    description: Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range.
+                    accessGranted: 'true'
+                  - fieldName: oneYearEmployeeGrowthRateMax
+                    fieldType: String
+                    description: Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range.
+                    accessGranted: 'true'
+                  - fieldName: twoYearEmployeeGrowthRateMin
+                    fieldType: String
+                    description: Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range.
+                    accessGranted: 'true'
+                  - fieldName: twoYearEmployeeGrowthRateMax
+                    fieldType: String
+                    description: Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range.
+                    accessGranted: 'true'
+                  - fieldName: engagementStartDate
+                    fieldType: String
+                    description: Engagement start date in YYYY-MM-DD format.
+                    accessGranted: 'false'
+                  - fieldName: engagementEndDate
+                    fieldType: String
+                    description: Engagement end date in YYYY-MM-DD format. EngagementStartDate is required.
+                    accessGranted: 'false'
+                  - fieldName: engagementType
+                    fieldType: Array
+                    description: List of engagement types to search for. Accepted values are a list of 'email', 'phone', 'online meeting'.
+                    accessGranted: 'false'
+                  - fieldName: rpp
+                    fieldType: Integer
+                    description: Limits the results returned to the given number of results per page
+                    accessGranted: 'true'
+                  - fieldName: page
+                    fieldType: Integer
+                    description: Provides the results for the given page, used in conjunction with rpp
+                    accessGranted: 'true'
+                  - fieldName: sortBy
+                    fieldType: String
+                    description: Sorts results by valid output fields
+                    accessGranted: 'true'
+                  - fieldName: sortOrder
+                    fieldType: String
+                    description: Default value is desc. It accepts the following values { asc, ascending, desc, descending
+                    accessGranted: 'true'
+                contentMediaType: application/json
+              example:
+              - fieldName: personId
+                fieldType: String
+                description: Unique ZoomInfo identifier for the contact. Can include a comma-separated list.
+                accessGranted: 'true'
+              - fieldName: emailAddress
+                fieldType: String
+                description: Work email address for the contact in example@example.com format
+                accessGranted: 'true'
+              - fieldName: hashedEmail
+                fieldType: String
+                description: 'Hashed email value for the contact. Allows searching via an email address with the extra security of not exposing the email. Supported hash algorithms are: MD5, SHA1, SHA256 and SHA512.'
+                accessGranted: 'true'
+              - fieldName: fullName
+                fieldType: String
+                description: Contact full name
+                accessGranted: 'true'
+              - fieldName: firstName
+                fieldType: String
+                description: Contact first name
+                accessGranted: 'true'
+              - fieldName: middleInitial
+                fieldType: String
+                description: Contact middle initial
+                accessGranted: 'true'
+              - fieldName: lastName
+                fieldType: String
+                description: Contact last name
+                accessGranted: 'true'
+              - fieldName: jobTitle
+                fieldType: String
+                description: Contact title at current place of employment. Use OR to input multiple job titles.
+                accessGranted: 'true'
+              - fieldName: excludeJobTitle
+                fieldType: String
+                description: Exclude comma-separated list of job titles
+                accessGranted: 'true'
+              - fieldName: managementLevel
+                fieldType: String
+                description: Contact management level at current place of employment
+                accessGranted: 'true'
+              - fieldName: excludeManagementLevel
+                fieldType: String
+                description: Exclude comma separated list of management levels
+                accessGranted: 'true'
+              - fieldName: boardMember
+                fieldType: String
+                description: Exclude or include board members from search results. Values are include, exclude (the default) and only
+                accessGranted: 'true'
+              - fieldName: excludePartialProfiles
+                fieldType: Boolean
+                description: Contacts who do not have an active company associated with them are considered partial profiles. Exclude contacts with a partial profile from search results. Default is false
+                accessGranted: 'true'
+              - fieldName: executivesOnly
+                fieldType: Boolean
+                description: Return only executives. Default is false.
+                accessGranted: 'true'
+              - fieldName: requiredFields
+                fieldType: String
+                description: Specify a list of required fields for each record returned. Can include email (business email), phone (direct or company phone), directPhone (contact's direct phone), personalEmail, and mobilePhone. Can include a comma-separated list of these fields.
+                accessGranted: 'true'
+              - fieldName: contactAccuracyScoreMin
+                fieldType: String
+                description: Minimum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99.
+                accessGranted: 'true'
+              - fieldName: contactAccuracyScoreMax
+                fieldType: String
+                description: Maximum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99.
+                accessGranted: 'true'
+              - fieldName: jobFunction
+                fieldType: String
+                description: Contact job function at their current place of employment
+                accessGranted: 'true'
+              - fieldName: lastUpdatedInMonths
+                fieldType: Integer
+                description: Number of months within which the contact's profile was last updated
+                accessGranted: 'true'
+              - fieldName: hasBeenNotified
+                fieldType: String
+                description: Contacts who have been notified of inclusion in ZoomInfo's database. Values are include (the default), exclude and only
+                accessGranted: 'true'
+              - fieldName: companyPastOrPresent
+                fieldType: String
+                description: Returns companies based on a contact's work history. Values are present (default), past and pastAndPresent
+                accessGranted: 'true'
+              - fieldName: school
+                fieldType: String
+                description: Searches by contact's education
+                accessGranted: 'true'
+              - fieldName: degree
+                fieldType: String
+                description: Searches by contact's education
+                accessGranted: 'true'
+              - fieldName: locationCompanyId
+                fieldType: Array
+                description: Searches by contact's locationIds
+                accessGranted: 'true'
+              - fieldName: lastUpdatedDateAfter
+                fieldType: String
+                description: The date after which the contact's profile was last updated
+                accessGranted: 'true'
+              - fieldName: validDateAfter
+                fieldType: String
+                description: The date after which the contact's profile was last validated
+                accessGranted: 'true'
+              - fieldName: phone
+                fieldType: Array
+                description: List of person phones or mobile numbers
+                accessGranted: 'true'
+              - fieldName: positionStartDateMin
+                fieldType: String
+                description: Minimum date for when a contact began current employment. Use with positionStartDateMax to set a range
+                accessGranted: 'true'
+              - fieldName: positionStartDateMax
+                fieldType: String
+                description: Maximum date for when a contact began current employment. Use with positionStartDateMin to set a range
+                accessGranted: 'true'
+              - fieldName: supplementalEmail
+                fieldType: Array
+                description: Supplemental email address for the contact in example@example.com format
+                accessGranted: 'true'
+              - fieldName: webReferences
+                fieldType: Array
+                description: List of Web References for a contact. Default criteria is OR between multiple values. Should only contain english letters and numbers
+                accessGranted: 'true'
+              - fieldName: buyingGroup
+                fieldType: Array
+                description: Filters results based on the provided Buying Group ID. Only one ID can be submitted
+                accessGranted: 'true'
+              - fieldName: techSkills
+                fieldType: Array
+                description: List of technology skills for a contact. Default criteria is OR between multiple values. Should only contain string numbers
+                accessGranted: 'false'
+              - fieldName: yearsOfExperience
+                fieldType: String
+                description: Years of overall experience. Must be a comma-separated string of the values found at /lookup/years-of-experience
+                accessGranted: 'true'
+              - fieldName: department
+                fieldType: String
+                description: Contact department at current place of employment. Comma separated list of values from the lookup/department endpoint
+                accessGranted: 'true'
+              - fieldName: exactJobTitle
+                fieldType: String
+                description: Contact Title at current place of employment using exact match logic. Use OR to input multiple job titles.
+                accessGranted: 'true'
+              - fieldName: companyTicker
+                fieldType: Array
+                description: Company stock ticker symbol
+                accessGranted: 'true'
+              - fieldName: companyDescription
+                fieldType: String
+                description: Search for companies based on description.  Accepts a space-separated list of individual words.
+                accessGranted: 'true'
+              - fieldName: companyType
+                fieldType: String
+                description: 'Company type (private, public, etc.). Accepts a comma delimited string of types listed in the endpoint: /lookup/companytype '
+                accessGranted: 'true'
+              - fieldName: address
+                fieldType: String
+                description: Company address
+                accessGranted: 'true'
+              - fieldName: street
+                fieldType: String
+                description: Company street
+                accessGranted: 'true'
+              - fieldName: zipCode
+                fieldType: String
+                description: Zip Code of the company's primary address
+                accessGranted: 'true'
+              - fieldName: state
+                fieldType: String
+                description: Company state
+                accessGranted: 'true'
+              - fieldName: country
+                fieldType: String
+                description: Company country
+                accessGranted: 'true'
+              - fieldName: continent
+                fieldType: String
+                description: Company continent
+                accessGranted: 'true'
+              - fieldName: companyId
+                fieldType: String
+                description: ZoomInfo unique identifier for the company. Will accept a comma-separated list.
+                accessGranted: 'true'
+              - fieldName: companyName
+                fieldType: String
+                description: Company name
+                accessGranted: 'true'
+              - fieldName: companyWebsite
+                fieldType: String
+                description: Company domain. Accepts a comma-separated list.
+                accessGranted: 'true'
+              - fieldName: parentId
+                fieldType: String
+                description: ZoomInfo Company ID for parent company
+                accessGranted: 'true'
+              - fieldName: ultimateParentId
+                fieldType: String
+                description: ZoomInfo Company ID for ultimate parent company
+                accessGranted: 'true'
+              - fieldName: zipCodeRadiusMiles
+                fieldType: String
+                description: Used in conjunction with zipCode, designates a geographical radius (in miles) from the zipCode provided.
+                accessGranted: 'true'
+              - fieldName: hashTagString
+                fieldType: String
+                description: Hash tags for a company. Can include a comma-separated list.
+                accessGranted: 'true'
+              - fieldName: techAttributeTagList
+                fieldType: String
+                description: Specify technology product tags
+                accessGranted: 'true'
+              - fieldName: subUnitTypes
+                fieldType: String
+                description: 'Company sub types (e.g., division, subsidiary) from the endpoint: /lookup/subunittypes. Use this in conjunction with parentId or ultimateParentId.'
+                accessGranted: 'true'
+              - fieldName: primaryIndustriesOnly
+                fieldType: Boolean
+                description: Used in conjunction with the industryCodes input parameter. When set to true, any result returned must have one of the specified industries as a primary industry. If no industries are specified, then this parameter will be ignored. Default is false.
+                accessGranted: 'true'
+              - fieldName: industryCodes
+                fieldType: String
+                description: Top-level industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list.
+                accessGranted: 'true'
+              - fieldName: industryKeywords
+                fieldType: String
+                description: Industry keywords associated with a company. Can include either 'AND' or 'OR' operators. For example, 'software AND security' or 'software OR security'.
+                accessGranted: 'true'
+              - fieldName: sicCodes
+                fieldType: String
+                description: 'Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. Accepts a comma-separated list of values from the endpoint: /lookup/siccode.'
+                accessGranted: 'true'
+              - fieldName: naicsCodes
+                fieldType: String
+                description: 'Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. Accepts a comma-separated list of values from the endpoint: /lookup/naicscode.'
+                accessGranted: 'true'
+              - fieldName: revenue
+                fieldType: String
+                description: 'Annual revenue range in U.S. dollars. Accepts a comma-separated list of values from the endpoint: /lookup/revenuerange. Alternatively, for more granular ranges, you can use the revenueMin and revenueMax parameters.'
+                accessGranted: 'true'
+              - fieldName: revenueMin
+                fieldType: Integer
+                description: Minimum annual revenue for a company in U.S. dollars (expressed in thousands). Use with revenueMax to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.
+                accessGranted: 'true'
+              - fieldName: revenueMax
+                fieldType: Integer
+                description: Maximum annual revenue for a company in U.S. dollars (expressed in thousands). Use with revenueMin to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.
+                accessGranted: 'true'
+              - fieldName: employeeRangeMin
+                fieldType: String
+                description: Minimum employee count for a company. Use with employeeRangeMax to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+                accessGranted: 'true'
+              - fieldName: employeeRangeMax
+                fieldType: String
+                description: Maximum employee count for a company. Use with employeeRangeMin to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+                accessGranted: 'true'
+              - fieldName: employeeCount
+                fieldType: String
+                description: 'Employee count range. Accepts a comma-separated list of values from the endpoint: /lookup/employeecount. Alternatively, for more granular ranges, you can use the employeeRangeMin and employeeRangeMax parameters.'
+                accessGranted: 'true'
+              - fieldName: companyRanking
+                fieldType: String
+                description: 'Company ranking (e.g., Fortune 500).  Accepts a comma separated list of IDs from the endpoint: /lookup/companyranking.'
+                accessGranted: 'true'
+              - fieldName: metroRegion
+                fieldType: String
+                description: 'Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas from the endpoint: /lookup/metroarea.'
+                accessGranted: 'true'
+              - fieldName: locationSearchType
+                fieldType: String
+                description: Location type (PersonOrHQ, PersonAndHQ, Person, HQ, PersonThenHQ).
+                accessGranted: 'true'
+              - fieldName: fundingAmountMin
+                fieldType: Integer
+                description: Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMin is used without fundingAmountMax, the result will be the amount specified or greater.
+                accessGranted: 'true'
+              - fieldName: fundingAmountMax
+                fieldType: Integer
+                description: Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMax is used without fundingAmountMin, the result will be the amount specified or less.
+                accessGranted: 'true'
+              - fieldName: fundingStartDate
+                fieldType: String
+                description: Start date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+                accessGranted: 'true'
+              - fieldName: fundingEndDate
+                fieldType: String
+                description: End date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+                accessGranted: 'true'
+              - fieldName: zoominfoContactsMin
+                fieldType: String
+                description: Minimum number of ZoomInfo contacts associated with company
+                accessGranted: 'true'
+              - fieldName: zoominfoContactsMax
+                fieldType: String
+                description: Maximum number of ZoomInfo contacts associated with company
+                accessGranted: 'true'
+              - fieldName: excludedRegions
+                fieldType: String
+                description: 'Exclude a company state or metro area. Accepts a comma-separated list of U.S. and Canada states and metro areas from the endpoints: /lookup/state and /lookup/metroarea.'
+                accessGranted: 'true'
+              - fieldName: companyStructureIncludedSubUnitTypes
+                fieldType: String
+                description: Company hierarchical structure
+                accessGranted: 'true'
+              - fieldName: oneYearEmployeeGrowthRateMin
+                fieldType: String
+                description: Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range.
+                accessGranted: 'true'
+              - fieldName: oneYearEmployeeGrowthRateMax
+                fieldType: String
+                description: Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range.
+                accessGranted: 'true'
+              - fieldName: twoYearEmployeeGrowthRateMin
+                fieldType: String
+                description: Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range.
+                accessGranted: 'true'
+              - fieldName: twoYearEmployeeGrowthRateMax
+                fieldType: String
+                description: Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range.
+                accessGranted: 'true'
+              - fieldName: engagementStartDate
+                fieldType: String
+                description: Engagement start date in YYYY-MM-DD format.
+                accessGranted: 'false'
+              - fieldName: engagementEndDate
+                fieldType: String
+                description: Engagement end date in YYYY-MM-DD format. EngagementStartDate is required.
+                accessGranted: 'false'
+              - fieldName: engagementType
+                fieldType: Array
+                description: List of engagement types to search for. Accepted values are a list of 'email', 'phone', 'online meeting'.
+                accessGranted: 'false'
+              - fieldName: rpp
+                fieldType: Integer
+                description: Limits the results returned to the given number of results per page
+                accessGranted: 'true'
+              - fieldName: page
+                fieldType: Integer
+                description: Provides the results for the given page, used in conjunction with rpp
+                accessGranted: 'true'
+              - fieldName: sortBy
+                fieldType: String
+                description: Sorts results by valid output fields
+                accessGranted: 'true'
+              - fieldName: sortOrder
+                fieldType: String
+                description: Default value is desc. It accepts the following values { asc, ascending, desc, descending
+                accessGranted: 'true'
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/outputfields/contact/search:
+    parameters: []
+    get:
+      tags:
+      - Contact Search
+      summary: Zoominfo Contact Search Outputs
+      description: Returns a list of fields included in the response for the [Contact Search](#2e5121fd-df42-41a4-95d6-0e8f24eebd92) endpoint.
+      operationId: ContactSearchOutputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Mon, 21 Oct 2024 19:24:18 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Origin,Access-Control-Request-Method,Access-Control-Request-Headers
+            x-envoy-upstream-service-time:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '36'
+            service:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gke
+            x-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 6yfiNoyotV2qnxt1DUOZu7H8Zu4HuGvNL33U
+            x-ratelimit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            x-ratelimit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            x-envoy-decorator-operation:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: apps-gateway-active.main.svc.cluster.local:8080/*
+            via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google
+            alt-svc:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: h3=":443"; ma=86400
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Origin-Trial:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: AyXGdeyTa0Lq3roJGvPBs/Ps9duHL7Vf/Q5YJQJwQN4fdGLbtMPms4BfmK2HapcHVkvBjyAVhxe5deDNI1TFXgcAAABxeyJvcmlnaW4iOiJodHRwczovL3pvb21pbmZvLmNvbTo0NDMiLCJmZWF0dXJlIjoiVHBjZCIsImV4cGlyeSI6MTczNTM0Mzk5OSwiaXNTdWJkb21haW4iOnRydWUsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 8d63a089885b82d4-IAD
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContactSearchOutput'
+                description: ''
+                examples:
+                - - fieldName: id
+                    description: Unique ZoomInfo identifier for the contact
+                    accessGranted: 'true'
+                  - fieldName: firstName
+                    description: Contact first name
+                    accessGranted: 'true'
+                  - fieldName: middleName
+                    description: Contact middle name
+                    accessGranted: 'true'
+                  - fieldName: lastName
+                    description: Contact last name
+                    accessGranted: 'true'
+                  - fieldName: validDate
+                    description: Date on which the contact record was last validated
+                    accessGranted: 'true'
+                  - fieldName: lastUpdatedDate
+                    description: Date on which the contact record was last updated
+                    accessGranted: 'true'
+                  - fieldName: jobTitle
+                    description: Contact job title at current place of employment
+                    accessGranted: 'true'
+                  - fieldName: companyId
+                    description: Unique ZoomInfo identifier for a company
+                    accessGranted: 'true'
+                  - fieldName: companyName
+                    description: Company Name
+                    accessGranted: 'true'
+                  - fieldName: contactAccuracyScore
+                    description: This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 75 and maximum is 99.
+                    accessGranted: 'true'
+                  - fieldName: managementLevel
+                    description: Contact management level
+                    accessGranted: 'false'
+                  - fieldName: school
+                    description: Get last Education information
+                    accessGranted: 'false'
+                  - fieldName: hasEmail
+                    description: Indicates whether ZoomInfo has an email address for the contact
+                    accessGranted: 'true'
+                  - fieldName: hasSupplementalEmail
+                    description: Indicates whether ZoomInfo has a supplemental email address for the contact
+                    accessGranted: 'true'
+                  - fieldName: hasDirectPhone
+                    description: Indicates whether ZoomInfo has a direct phone number for the contact
+                    accessGranted: 'true'
+                  - fieldName: hasMobilePhone
+                    description: Indicates whether ZoomInfo has a mobile phone number for the contact
+                    accessGranted: 'true'
+                  - fieldName: hasCompanyIndustry
+                    description: Indicates whether ZoomInfo has company industry for the contact
+                    accessGranted: 'true'
+                  - fieldName: hasCompanyPhone
+                    description: Indicates whether ZoomInfo has a company phone number for the contact
+                    accessGranted: 'true'
+                  - fieldName: hasCompanyStreet
+                    description: Indicates whether ZoomInfo has a street address for the contact
+                    accessGranted: 'true'
+                  - fieldName: hasCompanyState
+                    description: Indicates whether ZoomInfo has a state for the contact
+                    accessGranted: 'true'
+                  - fieldName: hasCompanyZipCode
+                    description: Indicates whether ZoomInfo has a Zip Code or Postal Code for the contact
+                    accessGranted: 'true'
+                  - fieldName: hasCompanyCountry
+                    description: Indicates whether ZoomInfo has a country for the contact
+                    accessGranted: 'true'
+                  - fieldName: hasCompanyRevenue
+                    description: Indicates whether ZoomInfo has company revenue data for the contact
+                    accessGranted: 'true'
+                  - fieldName: hasCompanyEmployeeCount
+                    description: Indicates whether ZoomInfo has company headcount data for the contact
+                    accessGranted: 'true'
+                  - fieldName: directPhoneDoNotCall
+                    description: Contact flagged with do not call for direct phone
+                    accessGranted: 'true'
+                  - fieldName: mobilePhoneDoNotCall
+                    description: Contact flagged with do not call for mobile phone
+                    accessGranted: 'true'
+                contentMediaType: application/json
+              example:
+              - fieldName: id
+                description: Unique ZoomInfo identifier for the contact
+                accessGranted: 'true'
+              - fieldName: firstName
+                description: Contact first name
+                accessGranted: 'true'
+              - fieldName: middleName
+                description: Contact middle name
+                accessGranted: 'true'
+              - fieldName: lastName
+                description: Contact last name
+                accessGranted: 'true'
+              - fieldName: validDate
+                description: Date on which the contact record was last validated
+                accessGranted: 'true'
+              - fieldName: lastUpdatedDate
+                description: Date on which the contact record was last updated
+                accessGranted: 'true'
+              - fieldName: jobTitle
+                description: Contact job title at current place of employment
+                accessGranted: 'true'
+              - fieldName: companyId
+                description: Unique ZoomInfo identifier for a company
+                accessGranted: 'true'
+              - fieldName: companyName
+                description: Company Name
+                accessGranted: 'true'
+              - fieldName: contactAccuracyScore
+                description: This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 75 and maximum is 99.
+                accessGranted: 'true'
+              - fieldName: managementLevel
+                description: Contact management level
+                accessGranted: 'false'
+              - fieldName: school
+                description: Get last Education information
+                accessGranted: 'false'
+              - fieldName: hasEmail
+                description: Indicates whether ZoomInfo has an email address for the contact
+                accessGranted: 'true'
+              - fieldName: hasSupplementalEmail
+                description: Indicates whether ZoomInfo has a supplemental email address for the contact
+                accessGranted: 'true'
+              - fieldName: hasDirectPhone
+                description: Indicates whether ZoomInfo has a direct phone number for the contact
+                accessGranted: 'true'
+              - fieldName: hasMobilePhone
+                description: Indicates whether ZoomInfo has a mobile phone number for the contact
+                accessGranted: 'true'
+              - fieldName: hasCompanyIndustry
+                description: Indicates whether ZoomInfo has company industry for the contact
+                accessGranted: 'true'
+              - fieldName: hasCompanyPhone
+                description: Indicates whether ZoomInfo has a company phone number for the contact
+                accessGranted: 'true'
+              - fieldName: hasCompanyStreet
+                description: Indicates whether ZoomInfo has a street address for the contact
+                accessGranted: 'true'
+              - fieldName: hasCompanyState
+                description: Indicates whether ZoomInfo has a state for the contact
+                accessGranted: 'true'
+              - fieldName: hasCompanyZipCode
+                description: Indicates whether ZoomInfo has a Zip Code or Postal Code for the contact
+                accessGranted: 'true'
+              - fieldName: hasCompanyCountry
+                description: Indicates whether ZoomInfo has a country for the contact
+                accessGranted: 'true'
+              - fieldName: hasCompanyRevenue
+                description: Indicates whether ZoomInfo has company revenue data for the contact
+                accessGranted: 'true'
+              - fieldName: hasCompanyEmployeeCount
+                description: Indicates whether ZoomInfo has company headcount data for the contact
+                accessGranted: 'true'
+              - fieldName: directPhoneDoNotCall
+                description: Contact flagged with do not call for direct phone
+                accessGranted: 'true'
+              - fieldName: mobilePhoneDoNotCall
+                description: Contact flagged with do not call for mobile phone
+                accessGranted: 'true'
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    SearchcontactsbyZipCoderadius:
+      title: SearchcontactsbyZipCoderadius
+      required:
+      - maxResults
+      - totalResults
+      - currentPage
+      - data
+      type: object
+      properties:
+        maxResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        totalResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        currentPage:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Datum'
+          description: ''
+          example: []
+      examples:
+      - maxResults: 30579
+        totalResults: 10
+        currentPage: 1
+        data:
+        - id: 1434351821
+          firstName: Daniel
+          middleName: ''
+          lastName: Herbert
+          validDate: 6/19/2020 1:41 PM
+          lastUpdatedDate: ''
+          jobTitle: Director & Service Owner Information Technology Tools
+          contactAccuracyScore: 96
+          hasEmail: true
+          hasSupplementalEmail: true
+          hasDirectPhone: true
+          hasMobilePhone: true
+          hasCompanyIndustry: true
+          hasCompanyPhone: true
+          hasCompanyStreet: true
+          hasCompanyState: true
+          hasCompanyZipCode: true
+          hasCompanyCountry: true
+          hasCompanyRevenue: true
+          hasCompanyEmployeeCount: true
+          company:
+            id: 9867169
+            name: AmerisourceBergen
+        - id: 1910983889
+          firstName: Michael
+          middleName: A.
+          lastName: Manning
+          validDate: 7/2/2020 9:31 AM
+          lastUpdatedDate: ''
+          jobTitle: Director, General Manager
+          contactAccuracyScore: 96
+          hasEmail: true
+          hasSupplementalEmail: false
+          hasDirectPhone: true
+          hasMobilePhone: true
+          hasCompanyIndustry: true
+          hasCompanyPhone: true
+          hasCompanyStreet: true
+          hasCompanyState: true
+          hasCompanyZipCode: true
+          hasCompanyCountry: true
+          hasCompanyRevenue: true
+          hasCompanyEmployeeCount: true
+          company:
+            id: 103153842
+            name: Triumph Group
+        - id: 1458033004
+          firstName: Carmela
+          middleName: ''
+          lastName: Burston
+          validDate: 7/8/2020 3:19 AM
+          lastUpdatedDate: ''
+          jobTitle: Senior Director, National retail Partner Sales
+          contactAccuracyScore: 90
+          hasEmail: true
+          hasSupplementalEmail: true
+          hasDirectPhone: true
+          hasMobilePhone: true
+          hasCompanyIndustry: true
+          hasCompanyPhone: true
+          hasCompanyStreet: true
+          hasCompanyState: true
+          hasCompanyZipCode: true
+          hasCompanyCountry: true
+          hasCompanyRevenue: true
+          hasCompanyEmployeeCount: true
+          company:
+            id: 8929846
+            name: Comcast
+        - id: 1256317471
+          firstName: Michael
+          middleName: ''
+          lastName: Zedosky
+          validDate: 7/6/2020 2:52 PM
+          lastUpdatedDate: 7/12/2020 1:00 PM
+          jobTitle: Senior Director, Partner Sales
+          contactAccuracyScore: 96
+          hasEmail: true
+          hasSupplementalEmail: true
+          hasDirectPhone: true
+          hasMobilePhone: true
+          hasCompanyIndustry: true
+          hasCompanyPhone: true
+          hasCompanyStreet: true
+          hasCompanyState: true
+          hasCompanyZipCode: true
+          hasCompanyCountry: true
+          hasCompanyRevenue: true
+          hasCompanyEmployeeCount: true
+          company:
+            id: 8929846
+            name: Comcast
+        - id: 1766622792
+          firstName: Maureen
+          middleName: ''
+          lastName: O'Connell
+          validDate: 6/23/2020 8:00 PM
+          lastUpdatedDate: 7/6/2020 11:05 PM
+          jobTitle: Northeast Partner Sales Director
+          contactAccuracyScore: 94
+          hasEmail: true
+          hasSupplementalEmail: true
+          hasDirectPhone: true
+          hasMobilePhone: true
+          hasCompanyIndustry: true
+          hasCompanyPhone: true
+          hasCompanyStreet: true
+          hasCompanyState: true
+          hasCompanyZipCode: true
+          hasCompanyCountry: true
+          hasCompanyRevenue: true
+          hasCompanyEmployeeCount: true
+          company:
+            id: 8929846
+            name: Comcast
+        - id: 1562524332
+          firstName: Lori
+          middleName: ''
+          lastName: Miller
+          validDate: 7/6/2020 3:00 PM
+          lastUpdatedDate: ''
+          jobTitle: Global HR Business Partner & Director, Supply Chain
+          contactAccuracyScore: 92
+          hasEmail: true
+          hasSupplementalEmail: false
+          hasDirectPhone: true
+          hasMobilePhone: true
+          hasCompanyIndustry: true
+          hasCompanyPhone: true
+          hasCompanyStreet: true
+          hasCompanyState: true
+          hasCompanyZipCode: true
+          hasCompanyCountry: true
+          hasCompanyRevenue: true
+          hasCompanyEmployeeCount: true
+          company:
+            id: 21252521
+            name: DuPont
+        - id: 1759016284
+          firstName: Nadine
+          middleName: ''
+          lastName: Durham
+          validDate: 2/6/2020 4:49 AM
+          lastUpdatedDate: 7/10/2020 9:23 AM
+          jobTitle: Service Owner & Director, Enterprise IT Services & Revenue Management
+          contactAccuracyScore: 89
+          hasEmail: true
+          hasSupplementalEmail: true
+          hasDirectPhone: true
+          hasMobilePhone: true
+          hasCompanyIndustry: true
+          hasCompanyPhone: true
+          hasCompanyStreet: true
+          hasCompanyState: true
+          hasCompanyZipCode: true
+          hasCompanyCountry: true
+          hasCompanyRevenue: true
+          hasCompanyEmployeeCount: true
+          company:
+            id: 9867169
+            name: AmerisourceBergen
+        - id: 4061031
+          firstName: Michael
+          middleName: ''
+          lastName: McNamara
+          validDate: 6/24/2020 8:00 PM
+          lastUpdatedDate: ''
+          jobTitle: Director, Finance & Corporate Controller
+          contactAccuracyScore: 96
+          hasEmail: true
+          hasSupplementalEmail: true
+          hasDirectPhone: true
+          hasMobilePhone: true
+          hasCompanyIndustry: true
+          hasCompanyPhone: true
+          hasCompanyStreet: true
+          hasCompanyState: true
+          hasCompanyZipCode: true
+          hasCompanyCountry: true
+          hasCompanyRevenue: true
+          hasCompanyEmployeeCount: true
+          company:
+            id: 46302607
+            name: Marinus Pharmaceuticals
+        - id: 250538259
+          firstName: Laurie
+          middleName: ''
+          lastName: Wajda
+          validDate: 5/22/2020 11:23 AM
+          lastUpdatedDate: ''
+          jobTitle: Director, Human Resources & HR Business Partner
+          contactAccuracyScore: 91
+          hasEmail: true
+          hasSupplementalEmail: true
+          hasDirectPhone: true
+          hasMobilePhone: true
+          hasCompanyIndustry: true
+          hasCompanyPhone: true
+          hasCompanyStreet: true
+          hasCompanyState: true
+          hasCompanyZipCode: true
+          hasCompanyCountry: true
+          hasCompanyRevenue: true
+          hasCompanyEmployeeCount: true
+          company:
+            id: 19108134
+            name: Campbell Soup
+        - id: 1811800368
+          firstName: Rhonda
+          middleName: ''
+          lastName: Kelley
+          validDate: 6/23/2020 12:28 PM
+          lastUpdatedDate: ''
+          jobTitle: Controller & Director, Finance
+          contactAccuracyScore: 96
+          hasEmail: true
+          hasSupplementalEmail: false
+          hasDirectPhone: true
+          hasMobilePhone: false
+          hasCompanyIndustry: true
+          hasCompanyPhone: true
+          hasCompanyStreet: true
+          hasCompanyState: true
+          hasCompanyZipCode: true
+          hasCompanyCountry: true
+          hasCompanyRevenue: true
+          hasCompanyEmployeeCount: true
+          company:
+            id: 12240745
+            name: Church & Dwight
+    Datum:
+      title: Datum
+      required:
+      - id
+      - firstName
+      - middleName
+      - lastName
+      - validDate
+      - lastUpdatedDate
+      - jobTitle
+      - contactAccuracyScore
+      - hasEmail
+      - hasSupplementalEmail
+      - hasDirectPhone
+      - hasMobilePhone
+      - hasCompanyIndustry
+      - hasCompanyPhone
+      - hasCompanyStreet
+      - hasCompanyState
+      - hasCompanyZipCode
+      - hasCompanyCountry
+      - hasCompanyRevenue
+      - hasCompanyEmployeeCount
+      - company
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        firstName:
+          type: string
+          example: Acme Corporation
+        middleName:
+          type: string
+          example: Acme Corporation
+        lastName:
+          type: string
+          example: Acme Corporation
+        validDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        lastUpdatedDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        jobTitle:
+          type: string
+          example: Vice President of Sales
+        contactAccuracyScore:
+          type: integer
+          contentEncoding: int32
+          example: 85
+        hasEmail:
+          type: boolean
+          example: true
+        hasSupplementalEmail:
+          type: boolean
+          example: true
+        hasDirectPhone:
+          type: boolean
+          example: true
+        hasMobilePhone:
+          type: boolean
+          example: true
+        hasCompanyIndustry:
+          type: boolean
+          example: true
+        hasCompanyPhone:
+          type: boolean
+          example: true
+        hasCompanyStreet:
+          type: boolean
+          example: true
+        hasCompanyState:
+          type: boolean
+          example: true
+        hasCompanyZipCode:
+          type: boolean
+          example: true
+        hasCompanyCountry:
+          type: boolean
+          example: true
+        hasCompanyRevenue:
+          type: boolean
+          example: true
+        hasCompanyEmployeeCount:
+          type: boolean
+          example: true
+        company:
+          $ref: '#/components/schemas/Company'
+      examples:
+      - id: 1434351821
+        firstName: Daniel
+        middleName: ''
+        lastName: Herbert
+        validDate: 6/19/2020 1:41 PM
+        lastUpdatedDate: ''
+        jobTitle: Director & Service Owner Information Technology Tools
+        contactAccuracyScore: 96
+        hasEmail: true
+        hasSupplementalEmail: true
+        hasDirectPhone: true
+        hasMobilePhone: true
+        hasCompanyIndustry: true
+        hasCompanyPhone: true
+        hasCompanyStreet: true
+        hasCompanyState: true
+        hasCompanyZipCode: true
+        hasCompanyCountry: true
+        hasCompanyRevenue: true
+        hasCompanyEmployeeCount: true
+        company:
+          id: 9867169
+          name: AmerisourceBergen
+    Company:
+      title: Company
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: 9867169
+        name: AmerisourceBergen
+    ContactSearchRequest:
+      title: ContactSearchRequest
+      required:
+      - managementLevel
+      - companyType
+      - zipCode
+      - locationSearchType
+      - zipCodeRadiusMiles
+      - techAttributeTagList
+      - requiredFields
+      type: object
+      properties:
+        managementLevel:
+          type: string
+          example: example_value
+        companyType:
+          type: string
+          example: standard
+        zipCode:
+          type: string
+          example: '94105'
+        locationSearchType:
+          type: string
+          example: standard
+        zipCodeRadiusMiles:
+          type: string
+          example: '94105'
+        techAttributeTagList:
+          type: string
+          example: example_value
+        requiredFields:
+          type: string
+          example: example_value
+      examples:
+      - managementLevel: directors
+        companyType: public
+        zipCode: '19101'
+        locationSearchType: PersonAndHQ
+        zipCodeRadiusMiles: '25'
+        techAttributeTagList: 333.202.*
+        requiredFields: directPhone
+    ContactSearchInput:
+      title: ContactSearchInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      - accessGranted
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+        accessGranted:
+          type: string
+          example: example_value
+      examples:
+      - fieldName: personId
+        fieldType: String
+        description: Unique ZoomInfo identifier for the contact. Can include a comma-separated list.
+        accessGranted: 'true'
+    ContactSearchOutput:
+      title: ContactSearchOutput
+      required:
+      - fieldName
+      - description
+      - accessGranted
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+        accessGranted:
+          type: string
+          example: example_value
+      examples:
+      - fieldName: id
+        description: Unique ZoomInfo identifier for the contact
+        accessGranted: 'true'
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint

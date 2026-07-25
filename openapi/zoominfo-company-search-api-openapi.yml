@@ -1,0 +1,1384 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication Company Search API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Company Search
+  description: 'Use [Company Search](#4506f0ad-9147-4016-991f-ce8ef6700f07) to retrieve company data using valid query parameters.
+
+
+    *   To build your request, retrieve a list of valid query parameters using [Company Search Inputs](#ffd4ccc6-09d1-4026-8c4f-863d02fd703e).
+
+    *   For requests that require you to specify supported values (e.g., company type, industry codes and so on), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055) endpoints.
+
+    *   Use [Company Search Outputs](#3dd35354-8523-4a8c-935a-97ed56d059a6) to retrieve a list of expected response fields that will be returned from [Company Search](#4506f0ad-9147-4016-991f-ce8ef6700f07).'
+paths:
+  /search/company:
+    parameters: []
+    post:
+      tags:
+      - Company Search
+      summary: Zoominfo Company Search
+      description: 'Returns a list of Companies from ZoomInfo''s data which meet the specified search criteria.
+
+
+        Input parameters may require specific values, some of which are too extensive to list in the parameter descriptions. You can retrieve these values using the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055) endpoints.
+
+
+        **Input params**
+
+
+        | Parameter | DataType | Description |
+
+        | --- | --- | --- |
+
+        | rpp | Integer | Limits the results returned to the given number of results per page. Default is 25. |
+
+        | page | Integer | Provides the results for the given page, used in conjunction with `rpp` |
+
+        | sortOrder | String | Provide `sortBy` if specifying `sortOrder`. Valid values are `asc`, `ascending`, `desc`, and `descending`. By default, results are sorted in descending order. |
+
+        | sortBy | String | Sort results by valid output fields: `name`, `employeeCount`, `revenue` |
+
+        | companyId | String | ZoomInfo unique identifier for the company. Will accept-comma-separated list. |
+
+        | companyName | String | Company name |
+
+        | companyWebsite | String | URL to the company website in [http://www.example.com](http://www.example.com) format |
+
+        | companyDescription | String | Text description unique to the company you want to use as search criteria |
+
+        | parentId | String | ZoomInfo Company ID for parent company |
+
+        | ultimateParentId | String | ZoomInfo Company ID for ultimate parent company |
+
+        | companyTicker | Array | Company stock ticker symbol |
+
+        | companyType | String | Company type (private, public, and so on). See the **Company Type** lookup endpoint for values. |
+
+        | businessModel | ArrayList | Search using Business Model (B2C, B2B, B2G) for a company. Default is All |
+
+        | address | String | Company address |
+
+        | street | String | Company street |
+
+        | state | String | Company state (U.S.) or province (Canada). You can use free text state or province names (e.g., "new hampshire"), the two-letter common abbreviation for a U.S. state (e.g., "nh"), or values provided in the **State** lookup endpoint.  <br>  <br>Do not use `state` in conjunction with `country` in a search request, as the system uses `OR` logic between these two fields. If both are included in the request, the returned results will reflect _all_ states. |
+
+        | zipCode | String | Zip Code of the company''s primary address |
+
+        | country | String | Country for the company''s primary address. You can use free text or see the **Country** lookup endpoint for values.  <br>  <br>Do not use `country` in conjunction with `state` in a search request, as the system uses OR logic between these two fields. If both are included in the request, the returned results will reflect _all_ states. |
+
+        | continent | String | Continent for the company''s primary address. See the **Continent** lookup endpoint for values. |
+
+        | zipCodeRadiusMiles | String | Used in conjunction with `zipCode`, designates a geographical radius (in miles) from the `zipCode` provided. |
+
+        | hashTagString | String | Hash tags for a company. Can include a comma-separated list. |
+
+        | techAttributeTagList | String | Specify technology product tags. See the **Tech - Product** lookup endpoint for values. This string uses a numerical dot notation format similar to an IP address. The notation denotes the hierarchical structure: `parent-category.category.vendor`. For example, `333.202.28`. You can use wildcards in the notation (e.g., `333.202.\\\\*`, `\\\\*.202.\\\\*`, and so on). |
+
+        | subUnitTypes | String | Company sub types (e.g., division, subsidiary and so on). See the **Sub Unit Type** lookup endpoint for values. |
+
+        | primaryIndustriesOnly | Boolean | Used in conjunction with the `industryCodes` input parameter. When set to `true`, any result returned must have one of the specified industries as a primary industry. If no industries are specified, then this parameter will be ignored. Default is `false`. |
+
+        | industryCodes | String | Top-level Industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact''s current company. Can include a comma-separated list. See the **Industry Codes** lookup endpoint for values. |
+
+        | industryKeywords | String | Industry keywords associated with a company. Can include either ''AND'' or ''OR'' operators. For example, ''software AND security'' or ''software OR security''. |
+
+        | sicCodes | String | The Standard Industrial Classification is a system for classifying industries by a four-digit code. See the **SIC Codes** lookup endpoint for values. |
+
+        | naicsCodes | String | The North American Industry Classification System (NAICS) is the standard used by Federal statistical agencies in classifying business establishments for the purpose of collecting, analyzing, and publishing statistical data related to the U.S. business economy. See the **NAICS Codes** lookup endpoint for values. |
+
+        | revenueMin | Integer | Minimum annual revenue for a company in U.S. dollars. Use with `revenueMax` to set a range. Alternatively, you can use the `revenue` parameter to search for pre-defined ranges. |
+
+        | revenueMax | Integer | Maximum annual revenue for a company in U.S. dollars. Use with `revenueMin` to set a range. Alternatively, you can use the `revenue` parameter to search for pre-defined ranges. |
+
+        | revenue | String | Annual revenue range in U.S. dollars. Accepts a comma-separated list of values. See the **Revenue Range** lookup endpoint for values. Alternatively, to get more granular ranges, you can use the `revenueMin` and `revenueMax` parameters. |
+
+        | employeeRangeMin | String | Minimum employee count for a company. Use with `employeeRangeMax` to set a range. Alternatively, you can use the `employeeCount` parameter to search for pre-defined ranges. |
+
+        | employeeRangeMax | String | Maximum employee count for a company. Use with `employeeRangeMin` to set a range. Alternatively, you can use the `employeeCount` parameter to search for pre-defined ranges. |
+
+        | employeeCount | String | Employee count range. Accepts a comma-separated list of values. See the **Employee Count** lookup endpoint for values. Alternatively, to get more granular ranges, you can use the `employeeRangeMin` and `employeeRangeMax` parameters. |
+
+        | companyRanking | String | Company ranking list (e.g., Fortune 500 and so on). See the **Company Ranking** lookup endpoint for values. |
+
+        | metroRegion | String | Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas. See the **Metro Area** lookup endpoint for values. |
+
+        | locationSearchType | String | Location criteria for search. Values are `PersonOrHQ`, `PersonAndHQ`, `Person`, `HQ`, `PersonThenHQ`. |
+
+        | fundingAmountMin | Integer | Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If `fundingAmountMin` is used without `fundingAmountMax`, the result will be the amount specified or greater. |
+
+        | fundingAmountMax | Integer | Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If `fundingAmountMax` is used without `fundingAmountMin`, the result will be the amount specified or less. |
+
+        | fundingStartDate | String | Start date of the funding in YYYY-MM-DD format. If `fundingStartDate` and `fundingEndDate` are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date. |
+
+        | fundingEndDate | String | End date of the funding in YYYY-MM-DD format. If `fundingStartDate` and `fundingEndDate` are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date. |
+
+        | excludedRegions | String | Exclude a company metro area. Accepts a comma-separated list of U.S. and Canada metro areas. See the **Metro Area** lookup endpoint for values. |
+
+        | zoominfoContactsMin | String | Minimum number of ZoomInfo contacts associated with company |
+
+        | zoominfoContactsMax | String | Maximum number of ZoomInfo contacts associated with company |
+
+        | companyStructureIncludedSubUnitTypes | String | Company hierarchical structure |
+
+        | certified | Integer | Denotes if ZoomInfo''s research and data team has confirmed activity within the past 12 months |
+
+        | excludeDefunctCompanies | Boolean | Include or exclude defunct companies. The default value is false. |
+
+        | oneYearEmployeeGrowthRateMin | String | Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range. |
+
+        | oneYearEmployeeGrowthRateMax | String | Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range. |
+
+        | twoYearEmployeeGrowthRateMin | String | Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range. |
+
+        | twoYearEmployeeGrowthRateMax | String | Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range. |
+
+        | engagementStartDate | String | Engagement start date in YYYY-MM-DD format. |
+
+        | engagementEndDate | String | Engagement end date in YYYY-MM-DD format. EngagementStartDate is required. |
+
+        | engagementType | Array | List of engagement types to search for. Accepted values are a list of `email`, `phone`, `online meeting`. |
+
+
+        **Response data**
+
+
+        | Field | Description |
+
+        | --- | --- |
+
+        | companyId | Unique ZoomInfo identifier for the company |
+
+        | companyName | Company name |'
+      operationId: CompanySearch
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CompanySearchRequest'
+              - examples:
+                - metroRegion: usa.california.sanfrancisco
+                  industryCodes: education.university
+                  techAttributeTagList: 333.202.*
+              contentMediaType: application/json
+            example:
+              metroRegion: usa.california.sanfrancisco
+              industryCodes: education.university
+              techAttributeTagList: 333.202.*
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Tue, 28 Apr 2020 14:58:48 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 58b1a4b7dfd0ebfc-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=5388d0855eb91b72ba1639994759a291802c09115c95da4fd2b63cd11d3b0fee:65308c81-8334-11ea-bebd-2f3883040f62; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1496'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1588085955'
+            X-Usage-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999999134'
+            X-Usage-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999970966'
+            X-Usage-Unique-Id-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Unique-Id-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999981'
+            X-Usage-Websights-Api-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Websights-Api-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999965'
+            X-Usage-Websights-Api-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000000'
+            X-Usage-Websights-Api-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99999965'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 0262e546e50000ebfc40016200000001
+          content:
+            application/json;charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Searchcompaniesbyemployeegrowthrate'
+                - examples:
+                  - maxResults: 15
+                    totalResults: 15
+                    currentPage: 1
+                    data:
+                    - id: 114804067
+                      name: Holy Names University
+                    - id: 355219573
+                      name: Bradley School of Music
+                    - id: 346417479
+                      name: English Language Institute
+                    - id: 359539758
+                      name: Reach Institute for School Leadership
+                    - id: 16843561
+                      name: Gruter Institute
+                    - id: 205439012
+                      name: Wright Institute
+                    - id: 350989356
+                      name: Yang Fan Academy
+                    - id: 17533676
+                      name: Dominican School of Philosophy and Theology
+                    - id: 36473892
+                      name: BSC Culinary
+                    - id: 20742219
+                      name: John F. Kennedy University
+                    - id: 372192449
+                      name: ReUp Education
+                    - id: 8257751
+                      name: City College of San Francisco
+                    - id: 359136199
+                      name: La Scuola International School
+                    - id: 358709446
+                      name: Marcus Foster Education Institute
+                    - id: 28235366
+                      name: Berkeley Geochronology Center
+                contentMediaType: application/json;charset=utf-8
+              example:
+                maxResults: 15
+                totalResults: 15
+                currentPage: 1
+                data:
+                - id: 114804067
+                  name: Holy Names University
+                - id: 355219573
+                  name: Bradley School of Music
+                - id: 346417479
+                  name: English Language Institute
+                - id: 359539758
+                  name: Reach Institute for School Leadership
+                - id: 16843561
+                  name: Gruter Institute
+                - id: 205439012
+                  name: Wright Institute
+                - id: 350989356
+                  name: Yang Fan Academy
+                - id: 17533676
+                  name: Dominican School of Philosophy and Theology
+                - id: 36473892
+                  name: BSC Culinary
+                - id: 20742219
+                  name: John F. Kennedy University
+                - id: 372192449
+                  name: ReUp Education
+                - id: 8257751
+                  name: City College of San Francisco
+                - id: 359136199
+                  name: La Scuola International School
+                - id: 358709446
+                  name: Marcus Foster Education Institute
+                - id: 28235366
+                  name: Berkeley Geochronology Center
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/inputfields/company/search:
+    parameters: []
+    get:
+      tags:
+      - Company Search
+      summary: Zoominfo Company Search Inputs
+      description: Returns a list of fields you can use as input for the [Company Search](#4506f0ad-9147-4016-991f-ce8ef6700f07) endpoint.
+      operationId: CompanySearchInputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Tue, 22 Oct 2024 12:27:20 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Origin,Access-Control-Request-Method,Access-Control-Request-Headers
+            x-envoy-upstream-service-time:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '39'
+            service:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gke
+            x-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 6go3EMtd0IwchBVM0zCgcYRQ0JRtlSWYArNS
+            x-ratelimit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            x-ratelimit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            x-envoy-decorator-operation:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: apps-gateway-active.main.svc.cluster.local:8080/*
+            via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google
+            alt-svc:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: h3=":443"; ma=86400
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Origin-Trial:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: AyXGdeyTa0Lq3roJGvPBs/Ps9duHL7Vf/Q5YJQJwQN4fdGLbtMPms4BfmK2HapcHVkvBjyAVhxe5deDNI1TFXgcAAABxeyJvcmlnaW4iOiJodHRwczovL3pvb21pbmZvLmNvbTo0NDMiLCJmZWF0dXJlIjoiVHBjZCIsImV4cGlyeSI6MTczNTM0Mzk5OSwiaXNTdWJkb21haW4iOnRydWUsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 8d697b198b81829e-IAD
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanySearchInput'
+                description: ''
+                examples:
+                - - fieldName: marketingDepartmentBudgetMin
+                    fieldType: Integer
+                    description: Minimum marketing department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+                    accessGranted: 'true'
+                  - fieldName: marketingDepartmentBudgetMax
+                    fieldType: Integer
+                    description: Maximum marketing department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+                    accessGranted: 'true'
+                  - fieldName: financeDepartmentBudgetMin
+                    fieldType: Integer
+                    description: Minimum finance department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+                    accessGranted: 'true'
+                  - fieldName: financeDepartmentBudgetMax
+                    fieldType: Integer
+                    description: Maximum finance department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+                    accessGranted: 'true'
+                  - fieldName: itDepartmentBudgetMin
+                    fieldType: Integer
+                    description: Minimum information technology department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+                    accessGranted: 'true'
+                  - fieldName: itDepartmentBudgetMax
+                    fieldType: Integer
+                    description: Maximum information technology department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+                    accessGranted: 'true'
+                  - fieldName: hrDepartmentBudgetMin
+                    fieldType: Integer
+                    description: Minimum human resources department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+                    accessGranted: 'true'
+                  - fieldName: hrDepartmentBudgetMax
+                    fieldType: Integer
+                    description: Maximum human resources department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+                    accessGranted: 'true'
+                  - fieldName: certified
+                    fieldType: Integer
+                    description: Denotes if ZoomInfo's research and data team has confirmed activity within the past 12 months. 1 = certified, 0 = not certified.
+                    accessGranted: 'true'
+                  - fieldName: excludeDefunctCompanies
+                    fieldType: Boolean
+                    description: Include or exclude defunct companies. The default value is false.
+                    accessGranted: 'true'
+                  - fieldName: companyTicker
+                    fieldType: Array
+                    description: Company stock ticker symbol
+                    accessGranted: 'true'
+                  - fieldName: companyDescription
+                    fieldType: String
+                    description: Search for companies based on description.  Accepts a space-separated list of individual words.
+                    accessGranted: 'true'
+                  - fieldName: companyType
+                    fieldType: String
+                    description: 'Company type (private, public, etc.). Accepts a comma delimited string of types listed in the endpoint: /lookup/companytype '
+                    accessGranted: 'true'
+                  - fieldName: address
+                    fieldType: String
+                    description: Company address
+                    accessGranted: 'true'
+                  - fieldName: street
+                    fieldType: String
+                    description: Company street
+                    accessGranted: 'true'
+                  - fieldName: zipCode
+                    fieldType: String
+                    description: Zip Code of the company's primary address
+                    accessGranted: 'true'
+                  - fieldName: state
+                    fieldType: String
+                    description: Company state
+                    accessGranted: 'true'
+                  - fieldName: country
+                    fieldType: String
+                    description: Company country
+                    accessGranted: 'true'
+                  - fieldName: continent
+                    fieldType: String
+                    description: Company continent
+                    accessGranted: 'true'
+                  - fieldName: companyId
+                    fieldType: String
+                    description: ZoomInfo unique identifier for the company. Will accept a comma-separated list.
+                    accessGranted: 'true'
+                  - fieldName: companyName
+                    fieldType: String
+                    description: Company name
+                    accessGranted: 'true'
+                  - fieldName: companyWebsite
+                    fieldType: String
+                    description: Company domain. Accepts a comma-separated list.
+                    accessGranted: 'true'
+                  - fieldName: parentId
+                    fieldType: String
+                    description: ZoomInfo Company ID for parent company
+                    accessGranted: 'true'
+                  - fieldName: ultimateParentId
+                    fieldType: String
+                    description: ZoomInfo Company ID for ultimate parent company
+                    accessGranted: 'true'
+                  - fieldName: zipCodeRadiusMiles
+                    fieldType: String
+                    description: Used in conjunction with zipCode, designates a geographical radius (in miles) from the zipCode provided.
+                    accessGranted: 'true'
+                  - fieldName: hashTagString
+                    fieldType: String
+                    description: Hash tags for a company. Can include a comma-separated list.
+                    accessGranted: 'true'
+                  - fieldName: techAttributeTagList
+                    fieldType: String
+                    description: Specify technology product tags
+                    accessGranted: 'true'
+                  - fieldName: subUnitTypes
+                    fieldType: String
+                    description: 'Company sub types (e.g., division, subsidiary) from the endpoint: /lookup/subunittypes. Use this in conjunction with parentId or ultimateParentId.'
+                    accessGranted: 'true'
+                  - fieldName: primaryIndustriesOnly
+                    fieldType: Boolean
+                    description: Used in conjunction with the industryCodes input parameter. When set to true, any result returned must have one of the specified industries as a primary industry. If no industries are specified, then this parameter will be ignored. Default is false.
+                    accessGranted: 'true'
+                  - fieldName: industryCodes
+                    fieldType: String
+                    description: Top-level industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list.
+                    accessGranted: 'true'
+                  - fieldName: industryKeywords
+                    fieldType: String
+                    description: Industry keywords associated with a company. Can include either 'AND' or 'OR' operators. For example, 'software AND security' or 'software OR security'.
+                    accessGranted: 'true'
+                  - fieldName: sicCodes
+                    fieldType: String
+                    description: 'Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. Accepts a comma-separated list of values from the endpoint: /lookup/siccode.'
+                    accessGranted: 'true'
+                  - fieldName: naicsCodes
+                    fieldType: String
+                    description: 'Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. Accepts a comma-separated list of values from the endpoint: /lookup/naicscode.'
+                    accessGranted: 'true'
+                  - fieldName: revenue
+                    fieldType: String
+                    description: 'Annual revenue range in U.S. dollars. Accepts a comma-separated list of values from the endpoint: /lookup/revenuerange. Alternatively, for more granular ranges, you can use the revenueMin and revenueMax parameters.'
+                    accessGranted: 'true'
+                  - fieldName: revenueMin
+                    fieldType: Integer
+                    description: Minimum annual revenue for a company in U.S. dollars (expressed in thousands). Use with revenueMax to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.
+                    accessGranted: 'true'
+                  - fieldName: revenueMax
+                    fieldType: Integer
+                    description: Maximum annual revenue for a company in U.S. dollars (expressed in thousands). Use with revenueMin to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.
+                    accessGranted: 'true'
+                  - fieldName: employeeRangeMin
+                    fieldType: String
+                    description: Minimum employee count for a company. Use with employeeRangeMax to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+                    accessGranted: 'true'
+                  - fieldName: employeeRangeMax
+                    fieldType: String
+                    description: Maximum employee count for a company. Use with employeeRangeMin to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+                    accessGranted: 'true'
+                  - fieldName: employeeCount
+                    fieldType: String
+                    description: 'Employee count range. Accepts a comma-separated list of values from the endpoint: /lookup/employeecount. Alternatively, for more granular ranges, you can use the employeeRangeMin and employeeRangeMax parameters.'
+                    accessGranted: 'true'
+                  - fieldName: companyRanking
+                    fieldType: String
+                    description: 'Company ranking (e.g., Fortune 500).  Accepts a comma separated list of IDs from the endpoint: /lookup/companyranking.'
+                    accessGranted: 'true'
+                  - fieldName: metroRegion
+                    fieldType: String
+                    description: 'Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas from the endpoint: /lookup/metroarea.'
+                    accessGranted: 'true'
+                  - fieldName: locationSearchType
+                    fieldType: String
+                    description: Location type (PersonOrHQ, PersonAndHQ, Person, HQ, PersonThenHQ).
+                    accessGranted: 'true'
+                  - fieldName: fundingAmountMin
+                    fieldType: Integer
+                    description: Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMin is used without fundingAmountMax, the result will be the amount specified or greater.
+                    accessGranted: 'true'
+                  - fieldName: fundingAmountMax
+                    fieldType: Integer
+                    description: Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMax is used without fundingAmountMin, the result will be the amount specified or less.
+                    accessGranted: 'true'
+                  - fieldName: fundingStartDate
+                    fieldType: String
+                    description: Start date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+                    accessGranted: 'true'
+                  - fieldName: fundingEndDate
+                    fieldType: String
+                    description: End date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+                    accessGranted: 'true'
+                  - fieldName: zoominfoContactsMin
+                    fieldType: String
+                    description: Minimum number of ZoomInfo contacts associated with company
+                    accessGranted: 'true'
+                  - fieldName: zoominfoContactsMax
+                    fieldType: String
+                    description: Maximum number of ZoomInfo contacts associated with company
+                    accessGranted: 'true'
+                  - fieldName: excludedRegions
+                    fieldType: String
+                    description: 'Exclude a company state or metro area. Accepts a comma-separated list of U.S. and Canada states and metro areas from the endpoints: /lookup/state and /lookup/metroarea.'
+                    accessGranted: 'true'
+                  - fieldName: companyStructureIncludedSubUnitTypes
+                    fieldType: String
+                    description: Company hierarchical structure
+                    accessGranted: 'true'
+                  - fieldName: oneYearEmployeeGrowthRateMin
+                    fieldType: String
+                    description: Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range.
+                    accessGranted: 'true'
+                  - fieldName: oneYearEmployeeGrowthRateMax
+                    fieldType: String
+                    description: Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range.
+                    accessGranted: 'true'
+                  - fieldName: twoYearEmployeeGrowthRateMin
+                    fieldType: String
+                    description: Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range.
+                    accessGranted: 'true'
+                  - fieldName: twoYearEmployeeGrowthRateMax
+                    fieldType: String
+                    description: Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range.
+                    accessGranted: 'true'
+                  - fieldName: businessModel
+                    fieldType: Array
+                    description: Search using Business Model (B2C, B2B, B2G) for a company. Default is All
+                    accessGranted: 'true'
+                  - fieldName: engagementStartDate
+                    fieldType: String
+                    description: Engagement start date in YYYY-MM-DD format.
+                    accessGranted: 'false'
+                  - fieldName: engagementEndDate
+                    fieldType: String
+                    description: Engagement end date in YYYY-MM-DD format. EngagementStartDate is required.
+                    accessGranted: 'false'
+                  - fieldName: engagementType
+                    fieldType: Array
+                    description: List of engagement types to search for. Accepted values are a list of 'email', 'phone', 'online meeting'.
+                    accessGranted: 'false'
+                  - fieldName: rpp
+                    fieldType: Integer
+                    description: Limits the results returned to the given number of results per page
+                    accessGranted: 'true'
+                  - fieldName: page
+                    fieldType: Integer
+                    description: Provides the results for the given page, used in conjunction with rpp
+                    accessGranted: 'true'
+                  - fieldName: sortBy
+                    fieldType: String
+                    description: Sorts results by valid output fields
+                    accessGranted: 'true'
+                  - fieldName: sortOrder
+                    fieldType: String
+                    description: Default value is desc. It accepts the following values { asc, ascending, desc, descending
+                    accessGranted: 'true'
+                contentMediaType: application/json
+              example:
+              - fieldName: marketingDepartmentBudgetMin
+                fieldType: Integer
+                description: Minimum marketing department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+                accessGranted: 'true'
+              - fieldName: marketingDepartmentBudgetMax
+                fieldType: Integer
+                description: Maximum marketing department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+                accessGranted: 'true'
+              - fieldName: financeDepartmentBudgetMin
+                fieldType: Integer
+                description: Minimum finance department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+                accessGranted: 'true'
+              - fieldName: financeDepartmentBudgetMax
+                fieldType: Integer
+                description: Maximum finance department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+                accessGranted: 'true'
+              - fieldName: itDepartmentBudgetMin
+                fieldType: Integer
+                description: Minimum information technology department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+                accessGranted: 'true'
+              - fieldName: itDepartmentBudgetMax
+                fieldType: Integer
+                description: Maximum information technology department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+                accessGranted: 'true'
+              - fieldName: hrDepartmentBudgetMin
+                fieldType: Integer
+                description: Minimum human resources department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+                accessGranted: 'true'
+              - fieldName: hrDepartmentBudgetMax
+                fieldType: Integer
+                description: Maximum human resources department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+                accessGranted: 'true'
+              - fieldName: certified
+                fieldType: Integer
+                description: Denotes if ZoomInfo's research and data team has confirmed activity within the past 12 months. 1 = certified, 0 = not certified.
+                accessGranted: 'true'
+              - fieldName: excludeDefunctCompanies
+                fieldType: Boolean
+                description: Include or exclude defunct companies. The default value is false.
+                accessGranted: 'true'
+              - fieldName: companyTicker
+                fieldType: Array
+                description: Company stock ticker symbol
+                accessGranted: 'true'
+              - fieldName: companyDescription
+                fieldType: String
+                description: Search for companies based on description.  Accepts a space-separated list of individual words.
+                accessGranted: 'true'
+              - fieldName: companyType
+                fieldType: String
+                description: 'Company type (private, public, etc.). Accepts a comma delimited string of types listed in the endpoint: /lookup/companytype '
+                accessGranted: 'true'
+              - fieldName: address
+                fieldType: String
+                description: Company address
+                accessGranted: 'true'
+              - fieldName: street
+                fieldType: String
+                description: Company street
+                accessGranted: 'true'
+              - fieldName: zipCode
+                fieldType: String
+                description: Zip Code of the company's primary address
+                accessGranted: 'true'
+              - fieldName: state
+                fieldType: String
+                description: Company state
+                accessGranted: 'true'
+              - fieldName: country
+                fieldType: String
+                description: Company country
+                accessGranted: 'true'
+              - fieldName: continent
+                fieldType: String
+                description: Company continent
+                accessGranted: 'true'
+              - fieldName: companyId
+                fieldType: String
+                description: ZoomInfo unique identifier for the company. Will accept a comma-separated list.
+                accessGranted: 'true'
+              - fieldName: companyName
+                fieldType: String
+                description: Company name
+                accessGranted: 'true'
+              - fieldName: companyWebsite
+                fieldType: String
+                description: Company domain. Accepts a comma-separated list.
+                accessGranted: 'true'
+              - fieldName: parentId
+                fieldType: String
+                description: ZoomInfo Company ID for parent company
+                accessGranted: 'true'
+              - fieldName: ultimateParentId
+                fieldType: String
+                description: ZoomInfo Company ID for ultimate parent company
+                accessGranted: 'true'
+              - fieldName: zipCodeRadiusMiles
+                fieldType: String
+                description: Used in conjunction with zipCode, designates a geographical radius (in miles) from the zipCode provided.
+                accessGranted: 'true'
+              - fieldName: hashTagString
+                fieldType: String
+                description: Hash tags for a company. Can include a comma-separated list.
+                accessGranted: 'true'
+              - fieldName: techAttributeTagList
+                fieldType: String
+                description: Specify technology product tags
+                accessGranted: 'true'
+              - fieldName: subUnitTypes
+                fieldType: String
+                description: 'Company sub types (e.g., division, subsidiary) from the endpoint: /lookup/subunittypes. Use this in conjunction with parentId or ultimateParentId.'
+                accessGranted: 'true'
+              - fieldName: primaryIndustriesOnly
+                fieldType: Boolean
+                description: Used in conjunction with the industryCodes input parameter. When set to true, any result returned must have one of the specified industries as a primary industry. If no industries are specified, then this parameter will be ignored. Default is false.
+                accessGranted: 'true'
+              - fieldName: industryCodes
+                fieldType: String
+                description: Top-level industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list.
+                accessGranted: 'true'
+              - fieldName: industryKeywords
+                fieldType: String
+                description: Industry keywords associated with a company. Can include either 'AND' or 'OR' operators. For example, 'software AND security' or 'software OR security'.
+                accessGranted: 'true'
+              - fieldName: sicCodes
+                fieldType: String
+                description: 'Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. Accepts a comma-separated list of values from the endpoint: /lookup/siccode.'
+                accessGranted: 'true'
+              - fieldName: naicsCodes
+                fieldType: String
+                description: 'Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. Accepts a comma-separated list of values from the endpoint: /lookup/naicscode.'
+                accessGranted: 'true'
+              - fieldName: revenue
+                fieldType: String
+                description: 'Annual revenue range in U.S. dollars. Accepts a comma-separated list of values from the endpoint: /lookup/revenuerange. Alternatively, for more granular ranges, you can use the revenueMin and revenueMax parameters.'
+                accessGranted: 'true'
+              - fieldName: revenueMin
+                fieldType: Integer
+                description: Minimum annual revenue for a company in U.S. dollars (expressed in thousands). Use with revenueMax to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.
+                accessGranted: 'true'
+              - fieldName: revenueMax
+                fieldType: Integer
+                description: Maximum annual revenue for a company in U.S. dollars (expressed in thousands). Use with revenueMin to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.
+                accessGranted: 'true'
+              - fieldName: employeeRangeMin
+                fieldType: String
+                description: Minimum employee count for a company. Use with employeeRangeMax to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+                accessGranted: 'true'
+              - fieldName: employeeRangeMax
+                fieldType: String
+                description: Maximum employee count for a company. Use with employeeRangeMin to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+                accessGranted: 'true'
+              - fieldName: employeeCount
+                fieldType: String
+                description: 'Employee count range. Accepts a comma-separated list of values from the endpoint: /lookup/employeecount. Alternatively, for more granular ranges, you can use the employeeRangeMin and employeeRangeMax parameters.'
+                accessGranted: 'true'
+              - fieldName: companyRanking
+                fieldType: String
+                description: 'Company ranking (e.g., Fortune 500).  Accepts a comma separated list of IDs from the endpoint: /lookup/companyranking.'
+                accessGranted: 'true'
+              - fieldName: metroRegion
+                fieldType: String
+                description: 'Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas from the endpoint: /lookup/metroarea.'
+                accessGranted: 'true'
+              - fieldName: locationSearchType
+                fieldType: String
+                description: Location type (PersonOrHQ, PersonAndHQ, Person, HQ, PersonThenHQ).
+                accessGranted: 'true'
+              - fieldName: fundingAmountMin
+                fieldType: Integer
+                description: Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMin is used without fundingAmountMax, the result will be the amount specified or greater.
+                accessGranted: 'true'
+              - fieldName: fundingAmountMax
+                fieldType: Integer
+                description: Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMax is used without fundingAmountMin, the result will be the amount specified or less.
+                accessGranted: 'true'
+              - fieldName: fundingStartDate
+                fieldType: String
+                description: Start date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+                accessGranted: 'true'
+              - fieldName: fundingEndDate
+                fieldType: String
+                description: End date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+                accessGranted: 'true'
+              - fieldName: zoominfoContactsMin
+                fieldType: String
+                description: Minimum number of ZoomInfo contacts associated with company
+                accessGranted: 'true'
+              - fieldName: zoominfoContactsMax
+                fieldType: String
+                description: Maximum number of ZoomInfo contacts associated with company
+                accessGranted: 'true'
+              - fieldName: excludedRegions
+                fieldType: String
+                description: 'Exclude a company state or metro area. Accepts a comma-separated list of U.S. and Canada states and metro areas from the endpoints: /lookup/state and /lookup/metroarea.'
+                accessGranted: 'true'
+              - fieldName: companyStructureIncludedSubUnitTypes
+                fieldType: String
+                description: Company hierarchical structure
+                accessGranted: 'true'
+              - fieldName: oneYearEmployeeGrowthRateMin
+                fieldType: String
+                description: Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range.
+                accessGranted: 'true'
+              - fieldName: oneYearEmployeeGrowthRateMax
+                fieldType: String
+                description: Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range.
+                accessGranted: 'true'
+              - fieldName: twoYearEmployeeGrowthRateMin
+                fieldType: String
+                description: Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range.
+                accessGranted: 'true'
+              - fieldName: twoYearEmployeeGrowthRateMax
+                fieldType: String
+                description: Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range.
+                accessGranted: 'true'
+              - fieldName: businessModel
+                fieldType: Array
+                description: Search using Business Model (B2C, B2B, B2G) for a company. Default is All
+                accessGranted: 'true'
+              - fieldName: engagementStartDate
+                fieldType: String
+                description: Engagement start date in YYYY-MM-DD format.
+                accessGranted: 'false'
+              - fieldName: engagementEndDate
+                fieldType: String
+                description: Engagement end date in YYYY-MM-DD format. EngagementStartDate is required.
+                accessGranted: 'false'
+              - fieldName: engagementType
+                fieldType: Array
+                description: List of engagement types to search for. Accepted values are a list of 'email', 'phone', 'online meeting'.
+                accessGranted: 'false'
+              - fieldName: rpp
+                fieldType: Integer
+                description: Limits the results returned to the given number of results per page
+                accessGranted: 'true'
+              - fieldName: page
+                fieldType: Integer
+                description: Provides the results for the given page, used in conjunction with rpp
+                accessGranted: 'true'
+              - fieldName: sortBy
+                fieldType: String
+                description: Sorts results by valid output fields
+                accessGranted: 'true'
+              - fieldName: sortOrder
+                fieldType: String
+                description: Default value is desc. It accepts the following values { asc, ascending, desc, descending
+                accessGranted: 'true'
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/outputfields/company/search:
+    parameters: []
+    get:
+      tags:
+      - Company Search
+      summary: Zoominfo Company Search Outputs
+      description: Returns a list of fields included in the response for the [Company Search](#4506f0ad-9147-4016-991f-ce8ef6700f07) endpoint.
+      operationId: CompanySearchOutputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 09 Jan 2020 16:09:41 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 5527ad24592fec00-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=af5238d7a94bbdd30f465c7f9423ddbd725fa51d57fb1050a15a327e20723331:b8e02441-32e8-11ea-889e-0de3b44831ba; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '750'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '742'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1578586193'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetCompanySearchOutputField'
+                description: ''
+                examples:
+                - - fieldName: companyId
+                    description: company id
+                  - fieldName: companyName
+                    description: company name
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: companyId
+                description: company id
+              - fieldName: companyName
+                description: company name
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Searchcompaniesbyemployeegrowthrate:
+      title: Searchcompaniesbyemployeegrowthrate
+      required:
+      - maxResults
+      - totalResults
+      - currentPage
+      - data
+      type: object
+      properties:
+        maxResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        totalResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        currentPage:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Datum5'
+          description: ''
+          example: []
+      examples:
+      - maxResults: 15
+        totalResults: 15
+        currentPage: 1
+        data:
+        - id: 114804067
+          name: Holy Names University
+        - id: 355219573
+          name: Bradley School of Music
+        - id: 346417479
+          name: English Language Institute
+        - id: 359539758
+          name: Reach Institute for School Leadership
+        - id: 16843561
+          name: Gruter Institute
+        - id: 205439012
+          name: Wright Institute
+        - id: 350989356
+          name: Yang Fan Academy
+        - id: 17533676
+          name: Dominican School of Philosophy and Theology
+        - id: 36473892
+          name: BSC Culinary
+        - id: 20742219
+          name: John F. Kennedy University
+        - id: 372192449
+          name: ReUp Education
+        - id: 8257751
+          name: City College of San Francisco
+        - id: 359136199
+          name: La Scuola International School
+        - id: 358709446
+          name: Marcus Foster Education Institute
+        - id: 28235366
+          name: Berkeley Geochronology Center
+    Datum5:
+      title: Datum5
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: 114804067
+        name: Holy Names University
+    GetCompanySearchOutputField:
+      title: GetCompanySearchOutputField
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        description: company id
+    CompanySearchRequest:
+      title: CompanySearchRequest
+      required:
+      - metroRegion
+      - industryCodes
+      - techAttributeTagList
+      type: object
+      properties:
+        metroRegion:
+          type: string
+          example: example_value
+        industryCodes:
+          type: string
+          example: Software
+        techAttributeTagList:
+          type: string
+          example: example_value
+      examples:
+      - metroRegion: usa.california.sanfrancisco
+        industryCodes: education.university
+        techAttributeTagList: 333.202.*
+    CompanySearchInput:
+      title: CompanySearchInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      - accessGranted
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+        accessGranted:
+          type: string
+          example: example_value
+      examples:
+      - fieldName: marketingDepartmentBudgetMin
+        fieldType: Integer
+        description: Minimum marketing department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+        accessGranted: 'true'
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint

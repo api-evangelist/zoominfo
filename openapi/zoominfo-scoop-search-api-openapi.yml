@@ -1,0 +1,1473 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication Scoop Search API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Scoop Search
+  description: 'Use [Scoop Search](#3099d72f-6857-4432-89c2-736410680e60) to retrieve scoop-related data using valid query parameters.
+
+
+    *   To build your request, retrieve a list of valid query parameters using [Scoop Search Inputs](#1888a5e1-6a96-4cc2-910b-70e574370996).
+
+    *   For requests that require you to specify supported values (e.g., job titles, industry codes and so on), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055) endpoints.
+
+    *   Use [Scoop Search Outputs](#185aa18e-02fa-440e-a691-b8e2c391a456) to retrieve a list of expected response fields that will be returned from [Scoop Search](#3099d72f-6857-4432-89c2-736410680e60).'
+paths:
+  /search/scoop:
+    parameters: []
+    post:
+      tags:
+      - Scoop Search
+      summary: Zoominfo Scoop Search
+      description: "Returns a list of Scoops from ZoomInfo's data which meet the specified search criteria.\n\n- Input parameters may require specific values, some of which are too extensive to list in the parameter descriptions. You can retrieve these values using the [Lookup](#28358f09-9863-42af-a93c-6710a8cacf9d) endpoints.\n- If you do not provide a date range for when the scoop was published, the last 30 days of scoop records matching the request are returned\n    \n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| rpp | Integer | Limits the results returned to the given number of results per page. Default is 25. |\n| page | Integer | Provides the results for the given page, used in conjunction with `rpp` |\n| sortOrder | String | Provide `sortBy` if specifying `sortOrder`. Valid values are `asc`, `ascending`, `desc`, and `descending`. By default, results are sorted in descending order. |\n| sortBy | String | Sort results by valid output fields: `scoopId`, `originalPublishedDate`, `description`, `url`, `urlText` |\n| companyId | String | ZoomInfo unique identifier for the company. Will accept a comma-separated list. |\n| companyName | String | Company name |\n| companyWebsite | String | URL to the company website in [http://www.example.com](http://www.example.com) format |\n| companyDescription | String | Text description unique to the company you want to use as search criteria |\n| parentId | String | ZoomInfo Company ID for parent company |\n| ultimateParentId | String | ZoomInfo Company ID for ultimate parent company |\n| companyType | String | Company type (private, public, and so on). See the **Company Type** lookup endpoint for values. |\n| address | String | Company address |\n| street | String | Company street |\n| state | String | Company state (U.S.) or province (Canada). You can use free text state or province names (e.g., \"new hampshire\"), the two-letter common abbreviation for a U.S. state (e.g., \"nh\"), or values provided in the **State** lookup endpoint. |\n| zipCode | String | Zip Code of the company's primary address |\n| country | String | Country for the company's primary address. You can use free text or see the **Country** lookup endpoint for values. |\n| continent | String | Continent for the company's primary address. See the **Continent** lookup endpoint for values. |\n| zipCodeRadiusMiles | String | Company Zip code radius |\n| hashTagString | String | Hash tags for the company. Can include a comma-separated list. Default AND operation with multiple inputs. |\n| techAttributeTagList | String | Specify technology product tags |\n| subUnitTypes | String | Company sub types (e.g., division, subsidiary and so on). See the **Sub Unit Type** lookup endpoint for values. |\n| primaryIndustriesOnly | Boolean | Used in conjunction with the `industryCodes` input parameter. When set to `true`, any result returned must have one of the specified industries as a primary industry. If no industries are specified, then this parameter will be ignored. Default is `false`. |\n| industryCodes | String | Top-level Industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list. See the **Industry Codes** lookup endpoint for values. |\n| industryKeywords | String | Industry keywords associated with a company. Can include a comma-separated list. |\n| sicCodes | String | The Standard Industrial Classification is a system for classifying industries by a four-digit code. See the **SIC Codes** lookup endpoint for values. |\n| naicsCodes | String | The North American Industry Classification System (NAICS) is the standard used by Federal statistical agencies in classifying business establishments for the purpose of collecting, analyzing, and publishing statistical data related to the U.S. business economy. See the **NAICS Codes** lookup endpoint for values. |\n| revenueMin | Integer | Minimum annual revenue for a company in U.S. dollars. Use with `revenueMax` to set a range. Alternatively, you can use the `revenue` parameter to search for pre-defined ranges. |\n| revenueMax | Integer | Maximum annual revenue for a company in U.S. dollars. Use with `revenueMin` to set a range. Alternatively, you can use the `revenue` parameter to search for pre-defined ranges. |\n| revenue | String | Annual revenue range in U.S. dollars. Accepts a comma-separated list of values. See the **Revenue Range** lookup endpoint for values. Alternatively, to get more granular ranges, you can use the `revenueMin` and `revenueMax` parameters. |\n| employeeRangeMin | String | Minimum employee count for a company. Use with `employeeRangeMax` to set a range. Alternatively, you can use the `employeeCount` parameter to search for pre-defined ranges. |\n| employeeRangeMax | String | Maximum employee count for a company. Use with `employeeRangeMin` to set a range. Alternatively, you can use the `employeeCount` parameter to search for pre-defined ranges. |\n| employeeCount | String | Employee count range. Accepts a comma-separated list of values. See the **Employee Count** lookup endpoint for values. Alternatively, to get more granular ranges, you can use the `employeeRangeMin` and `employeeRangeMax` parameters. |\n| companyRanking | String | Company ranking list (e.g., Fortune 500 and so on). See the **Company Ranking** lookup endpoint for values. |\n| metroRegion | String | Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas. See the **Metro Area** lookup endpoint for values. |\n| locationSearchType | String | Location criteria for search. Values are `PersonOrHQ`, `PersonAndHQ`, `Person`, `HQ`, `PersonThenHQ`. |\n| fundingAmountMin | Integer | Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If `fundingAmountMin` is used without `fundingAmountMax`, the result will be the amount specified or greater. |\n| fundingAmountMax | Integer | Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If `fundingAmountMax` is used without `fundingAmountMin`, the result will be the amount specified or less. |\n| fundingStartDate | String | Start date of the funding in YYYY-MM-DD format. If `fundingStartDate` and `fundingEndDate` are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date. |\n| fundingEndDate | String | End date of the funding in YYYY-MM-DD format. If `fundingStartDate` and `fundingEndDate` are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date. |\n| excludedRegions | String | Exclude a company metro area. Accepts a comma-separated list of U.S. and Canada metro areas. See the **Metro Area** lookup endpoint for values. |\n| zoominfoContactsMin | String | Minimum number of ZoomInfo contacts associated with company |\n| zoominfoContactsMax | String | Maximum number of ZoomInfo contacts associated with company |\n| companyStructureIncludedSubUnitTypes | String |  |\n| publishedStartDate | String | Starting date to search for scoops based on when published. Form a range using `publishedEndDate` or omit `publishedEndDate` to search to the current date. Uses YYYY-MM-DD format. |\n| publishedEndDate | String | Ending date to search for scoops based on when published. Form a range using `publishedEndDate`. Uses YYYY-MM-DD format. |\n| updatedSinceCreation | Boolean | Include scoops that have been updated since `publishedStartDate` |\n| scoopType | String | Retrieve scoops based on type (e.g., earnings, awards, partnerships and so on). See the **Scoop Types** lookup endpoint for values. |\n| scoopTopic | String | Retrieve scoops based on topic (e.g., integrations, technology, compliance and so on). See the **Scoop Topics** lookup endpoint for values. |\n| department | String | Retrieve scoops based on department (IT, finance, HR and so on). See the **Scoop Departments** lookup endpoint for values. |\n| scoopId | String | ZoomInfo unique identifier for a scoop. Will accept a comma-separated list. |\n| description | String | Search for scoops based on description. Will accept a comma-separated list of keywords. |\n\n**Response data**\n\n| Field | Description |\n| --- | --- |\n| id | ZoomInfo unique identifier for a scoop |\n| publishedDate | Publish date for a scoop. If updated, this date will reflect that last updated date. |\n| originalPublishedDate | Initial publish date for a scoop |\n| linkText | Link text for a scoop |\n| link | URL for the scoop |\n| description | Short description for the scoop contents |\n| topics | Topic(s) associated with a scoop |\n| updateText | Text related to an updated scoop |\n| types | Type(s) associated with a scoop |\n| companyId | ZoomInfo unique identifier for a company |\n| companyName | Company name |\n| contacts | Contacts associated with a scoop |"
+      operationId: ScoopSearch
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ScoopSearchRequest'
+              - examples:
+                - companyName: Zoominfo
+                  publishedStartDate: '2018-11-01T00:00:00.000Z'
+                  publishedEndDate: '2020-06-21T00:00:00.000Z'
+                  scoopType: '6'
+                  updatedSinceCreation: false
+                  description: SaaS
+              contentMediaType: application/json
+            example:
+              companyName: Zoominfo
+              publishedStartDate: '2018-11-01T00:00:00.000Z'
+              publishedEndDate: '2020-06-21T00:00:00.000Z'
+              scoopType: '6'
+              updatedSinceCreation: false
+              description: SaaS
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Mon, 22 Jun 2020 19:52:48 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 5a7882fa6840efe9-EWR
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=3bd72b5a25bfc03a0fa7e3fbae02033c37ca3cc0dcd4fa8ed0531b49f25ba90d:8511cd30-b493-11ea-bfeb-534f7eaad4f4; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 037f30307d0000efe96e9c0200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1592855627'
+            X-Usage-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999987604'
+            X-Usage-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999962398'
+            X-Usage-Unique-Id-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Unique-Id-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999731'
+            X-Usage-Websights-Api-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Websights-Api-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999781'
+            X-Usage-Websights-Api-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000000'
+            X-Usage-Websights-Api-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99999781'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/ScoopSearch'
+                - examples:
+                  - maxResults: 4
+                    totalResults: 4
+                    currentPage: 1
+                    data:
+                    - id: 1382057
+                      publishedDate: 2/22/2019 12:00 AM
+                      originalPublishedDate: 2/22/2019 12:00 AM
+                      linkText: ''
+                      link: ''
+                      description: 'Datanyze has recently been ranked #986 on the 2019 SaaS 1000 Top SaaS Companies list.'
+                      topics: []
+                      updateText: ''
+                      types:
+                      - id: 6
+                        type: Award
+                      contacts: []
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 1382056
+                      publishedDate: 2/15/2019 12:00 AM
+                      originalPublishedDate: 2/15/2019 12:00 AM
+                      linkText: ''
+                      link: ''
+                      description: 'has recently been ranked #139 on the 2019 SaaS 1000 Top SaaS Companies list.'
+                      topics: []
+                      updateText: ''
+                      types:
+                      - id: 6
+                        type: Award
+                      contacts: []
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 1373240
+                      publishedDate: 2/11/2019 12:00 AM
+                      originalPublishedDate: 2/11/2019 12:00 AM
+                      linkText: ''
+                      link: ''
+                      description: has been recognized as a 2019 Top Rated Sales Intelligence Software by TrustRadius.
+                      topics: []
+                      updateText: ''
+                      types:
+                      - id: 6
+                        type: Award
+                      contacts: []
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 1258709
+                      publishedDate: 12/4/2018 12:00 AM
+                      originalPublishedDate: 12/4/2018 12:00 AM
+                      linkText: ''
+                      link: ''
+                      description: has recently been recognized by The Boston Globe as one of the Top Places to Work for 2018 in Massachusetts in the midsize organization category.
+                      topics: []
+                      updateText: ''
+                      types:
+                      - id: 6
+                        type: Award
+                      contacts: []
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                contentMediaType: application/json;charset=utf-8
+              example:
+                maxResults: 4
+                totalResults: 4
+                currentPage: 1
+                data:
+                - id: 1382057
+                  publishedDate: 2/22/2019 12:00 AM
+                  originalPublishedDate: 2/22/2019 12:00 AM
+                  linkText: ''
+                  link: ''
+                  description: 'Datanyze has recently been ranked #986 on the 2019 SaaS 1000 Top SaaS Companies list.'
+                  topics: []
+                  updateText: ''
+                  types:
+                  - id: 6
+                    type: Award
+                  contacts: []
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 1382056
+                  publishedDate: 2/15/2019 12:00 AM
+                  originalPublishedDate: 2/15/2019 12:00 AM
+                  linkText: ''
+                  link: ''
+                  description: 'has recently been ranked #139 on the 2019 SaaS 1000 Top SaaS Companies list.'
+                  topics: []
+                  updateText: ''
+                  types:
+                  - id: 6
+                    type: Award
+                  contacts: []
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 1373240
+                  publishedDate: 2/11/2019 12:00 AM
+                  originalPublishedDate: 2/11/2019 12:00 AM
+                  linkText: ''
+                  link: ''
+                  description: has been recognized as a 2019 Top Rated Sales Intelligence Software by TrustRadius.
+                  topics: []
+                  updateText: ''
+                  types:
+                  - id: 6
+                    type: Award
+                  contacts: []
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 1258709
+                  publishedDate: 12/4/2018 12:00 AM
+                  originalPublishedDate: 12/4/2018 12:00 AM
+                  linkText: ''
+                  link: ''
+                  description: has recently been recognized by The Boston Globe as one of the Top Places to Work for 2018 in Massachusetts in the midsize organization category.
+                  topics: []
+                  updateText: ''
+                  types:
+                  - id: 6
+                    type: Award
+                  contacts: []
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/inputfields/scoop/search:
+    parameters: []
+    get:
+      tags:
+      - Scoop Search
+      summary: Zoominfo Scoop Search Inputs
+      description: Returns a list of fields you can use as input for the [Scoop Search](#3099d72f-6857-4432-89c2-736410680e60) endpoint.
+      operationId: ScoopSearchInputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Wed, 26 Aug 2020 13:25:13 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 5c8de0a80935ff84-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=70071f10bb597f681bf32e5484a1bffce58189aa85981cea9fb1578c401445bb:2f79d591-e713-11ea-b61e-d347a7de7ad3; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 04cc8abd070000ff849b298200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1598448374'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScoopSearchInput'
+                description: ''
+                examples:
+                - - fieldName: publishedStartDate
+                    fieldType: String
+                    description: Starting date to search for scoops based on when published. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format.
+                  - fieldName: publishedEndDate
+                    fieldType: String
+                    description: Ending date to search for scoops based on when published. Form a range using publishedEndDate. Uses YYYY-MM-DD format.
+                  - fieldName: updatedSinceCreation
+                    fieldType: Boolean
+                    description: Include scoops that have been updated since publishedStartDate
+                  - fieldName: scoopType
+                    fieldType: String
+                    description: Retrieve scoops based on type (e.g., earnings, awards, partnerships and so on)
+                  - fieldName: scoopTopic
+                    fieldType: String
+                    description: Retrieve scoops based on topic (e.g., integrations, technology, compliance and so on)
+                  - fieldName: department
+                    fieldType: String
+                    description: Retrieve scoops based on department (IT, finance, HR and so on)
+                  - fieldName: scoopId
+                    fieldType: String
+                    description: ZoomInfo unique identifier for a scoop. Will accept a comma-separated list.
+                  - fieldName: description
+                    fieldType: String
+                    description: Search for scoops based on description
+                  - fieldName: companyId
+                    fieldType: String
+                    description: ZoomInfo unique identifier for the company. Will accept a comma-separated list.
+                  - fieldName: companyName
+                    fieldType: String
+                    description: Company name
+                  - fieldName: companyWebsite
+                    fieldType: String
+                    description: Company domain
+                  - fieldName: parentId
+                    fieldType: String
+                    description: ZoomInfo Company ID for parent company
+                  - fieldName: ultimateParentId
+                    fieldType: String
+                    description: ZoomInfo Company ID for ultimate parent company
+                  - fieldName: companyDescription
+                    fieldType: String
+                    description: Text description unique to the company you want to use as search criteria
+                  - fieldName: companyType
+                    fieldType: String
+                    description: Company type (private, public, and so on)
+                  - fieldName: address
+                    fieldType: String
+                    description: Company address
+                  - fieldName: street
+                    fieldType: String
+                    description: Company street
+                  - fieldName: state
+                    fieldType: String
+                    description: Company state
+                  - fieldName: zipCode
+                    fieldType: String
+                    description: Zip Code of the company's primary address
+                  - fieldName: country
+                    fieldType: String
+                    description: Company country
+                  - fieldName: continent
+                    fieldType: String
+                    description: Company continent
+                  - fieldName: zipCodeRadiusMiles
+                    fieldType: String
+                    description: Used in conjunction with zipCode, designates a geographical radius (in miles) from the zipCode provided.
+                  - fieldName: hashTagString
+                    fieldType: String
+                    description: Hash tags for a company. Can include a comma-separated list.
+                  - fieldName: techAttributeTagList
+                    fieldType: String
+                    description: Specify technology product tags
+                  - fieldName: subUnitTypes
+                    fieldType: String
+                    description: Company sub types (e.g., division, subsidiary and so on).
+                  - fieldName: primaryIndustriesOnly
+                    fieldType: Boolean
+                    description: Used in conjunction with the industryCodes input parameter. When set to true, any result returned must have one of the specified industries in the top two. If no industries are specified, then this parameter will be ignored. Default is false.
+                  - fieldName: industryCodes
+                    fieldType: String
+                    description: Top-level industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list.
+                  - fieldName: industryKeywords
+                    fieldType: String
+                    description: Industry keywords associated with a company. Can include a comma-separated list.
+                  - fieldName: sicCodes
+                    fieldType: String
+                    description: Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment.
+                  - fieldName: naicsCodes
+                    fieldType: String
+                    description: 'Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. '
+                  - fieldName: revenueMin
+                    fieldType: Integer
+                    description: Minimum annual revenue for a company in U.S. dollars. Use with revenueMax to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.
+                  - fieldName: revenueMax
+                    fieldType: Integer
+                    description: Maximum annual revenue for a company in U.S. dollars. Use with revenueMin to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.
+                  - fieldName: revenue
+                    fieldType: String
+                    description: Annual revenue range in U.S. dollars. Accepts a comma-separated list of values. Alternatively, to get more granular ranges, you can use the revenueMin and revenueMax parameters.
+                  - fieldName: employeeRangeMin
+                    fieldType: String
+                    description: Minimum employee count for a company. Use with employeeRangeMax to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+                  - fieldName: employeeRangeMax
+                    fieldType: String
+                    description: Maximum employee count for a company. Use with employeeRangeMin to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+                  - fieldName: employeeCount
+                    fieldType: String
+                    description: Employee count range. Accepts a comma-separated list of values. Alternatively, to get more granular ranges, you can use the employeeRangeMin and employeeRangeMax parameters.
+                  - fieldName: companyRanking
+                    fieldType: String
+                    description: Company ranking list (e.g., Fortune 500 and so on)
+                  - fieldName: metroRegion
+                    fieldType: String
+                    description: Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas.
+                  - fieldName: locationSearchType
+                    fieldType: String
+                    description: Location type (Person, Company, PersonThenHQ). Accepts a comma-separated list of values.
+                  - fieldName: fundingAmountMin
+                    fieldType: Integer
+                    description: Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMin is used without fundingAmountMax, the result will be the amount specified or greater.
+                  - fieldName: fundingAmountMax
+                    fieldType: Integer
+                    description: Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMax is used without fundingAmountMin, the result will be the amount specified or less.
+                  - fieldName: fundingStartDate
+                    fieldType: String
+                    description: Start date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+                  - fieldName: fundingEndDate
+                    fieldType: String
+                    description: End date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+                  - fieldName: excludedRegions
+                    fieldType: String
+                    description: Exclude a company metro area. Accepts a comma-separated list of U.S. and Canada metro areas.
+                  - fieldName: zoominfoContactsMin
+                    fieldType: String
+                    description: Minimum number of ZoomInfo contacts associated with company
+                  - fieldName: zoominfoContactsMax
+                    fieldType: String
+                    description: Maximum number of ZoomInfo contacts associated with company
+                  - fieldName: companyStructureIncludedSubUnitTypes
+                    fieldType: String
+                    description: Company hierarchical structure
+                  - fieldName: oneYearEmployeeGrowthRateMin
+                    fieldType: String
+                    description: Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range.
+                  - fieldName: oneYearEmployeeGrowthRateMax
+                    fieldType: String
+                    description: Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range.
+                  - fieldName: twoYearEmployeeGrowthRateMin
+                    fieldType: String
+                    description: Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range.
+                  - fieldName: twoYearEmployeeGrowthRateMax
+                    fieldType: String
+                    description: Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range.
+                  - fieldName: certified
+                    fieldType: Integer
+                    description: Denotes if ZoomInfo's research and data team has confirmed activity within the past 12 months
+                  - fieldName: excludeDefunctCompanies
+                    fieldType: Boolean
+                    description: Include or exclude defunct companies. The default value is false.
+                  - fieldName: personId
+                    fieldType: String
+                    description: Unique ZoomInfo identifier for the contact. Can include a comma-separated list.
+                  - fieldName: emailAddress
+                    fieldType: String
+                    description: Work email address for the contact in example@example.com format
+                  - fieldName: hashedEmail
+                    fieldType: String
+                    description: 'Hashed email value for the contact. Allows searching via an email address with the extra security of not exposing the email. Supported hash algorithms are: MD5, SHA1, SHA256 and SHA512.'
+                  - fieldName: fullName
+                    fieldType: String
+                    description: Contact full name
+                  - fieldName: firstName
+                    fieldType: String
+                    description: Contact first name
+                  - fieldName: middleInitial
+                    fieldType: String
+                    description: Contact middle initial
+                  - fieldName: lastName
+                    fieldType: String
+                    description: Contact last name
+                  - fieldName: jobTitle
+                    fieldType: String
+                    description: Contact title at current place of employment. Use OR to input multiple job titles.
+                  - fieldName: excludeJobTitle
+                    fieldType: String
+                    description: Exclude comma-separated list of job titles
+                  - fieldName: managementLevel
+                    fieldType: String
+                    description: Contact management level at current place of employment
+                  - fieldName: excludeManagementLevel
+                    fieldType: String
+                    description: Exclude comma separated list of management levels
+                  - fieldName: boardMember
+                    fieldType: String
+                    description: Exclude or include board members from search results
+                  - fieldName: excludePartialProfiles
+                    fieldType: Boolean
+                    description: Contacts who do not have an active company associated with them are considered partial profiles. Exclude contacts with a partial profile from search results.
+                  - fieldName: executivesOnly
+                    fieldType: Boolean
+                    description: Return only executives
+                  - fieldName: requiredFields
+                    fieldType: String
+                    description: Specify a list of required fields for each record returned. Can include email, phone, personalEmail, and mobilePhone. Can include a comma-separated list of these fields.
+                  - fieldName: contactAccuracyScoreMin
+                    fieldType: String
+                    description: Minimum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99.
+                  - fieldName: contactAccuracyScoreMax
+                    fieldType: String
+                    description: Maximum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99.
+                  - fieldName: jobFunction
+                    fieldType: String
+                    description: Contact job function at their current place of employment
+                  - fieldName: lastUpdatedInMonths
+                    fieldType: Integer
+                    description: Number of months within which the contact's profile was last updated
+                  - fieldName: hasBeenNotified
+                    fieldType: String
+                    description: Contacts who have been notified of inclusion in ZoomInfo's database. Values are exclude, include, and only
+                  - fieldName: companyPastOrPresent
+                    fieldType: String
+                    description: Returns companies based on a contact's work history. Values are present (default), past, and pastAndPresent
+                  - fieldName: school
+                    fieldType: String
+                    description: Searches by contact's education
+                  - fieldName: degree
+                    fieldType: String
+                    description: Searches by contact's education
+                  - fieldName: locationCompanyId
+                    fieldType: ArrayList
+                    description: Searches by contact's locationIds
+                  - fieldName: rpp
+                    fieldType: Integer
+                    description: Limits the results returned to the given number of results per page
+                  - fieldName: page
+                    fieldType: Integer
+                    description: Provides the results for the given page, used in conjunction with rpp
+                  - fieldName: sortBy
+                    fieldType: String
+                    description: Sorts results by valid output fields
+                  - fieldName: sortOrder
+                    fieldType: String
+                    description: Default value is desc. It accepts the following values { Asc, Ascending, desc, descending }
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: publishedStartDate
+                fieldType: String
+                description: Starting date to search for scoops based on when published. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format.
+              - fieldName: publishedEndDate
+                fieldType: String
+                description: Ending date to search for scoops based on when published. Form a range using publishedEndDate. Uses YYYY-MM-DD format.
+              - fieldName: updatedSinceCreation
+                fieldType: Boolean
+                description: Include scoops that have been updated since publishedStartDate
+              - fieldName: scoopType
+                fieldType: String
+                description: Retrieve scoops based on type (e.g., earnings, awards, partnerships and so on)
+              - fieldName: scoopTopic
+                fieldType: String
+                description: Retrieve scoops based on topic (e.g., integrations, technology, compliance and so on)
+              - fieldName: department
+                fieldType: String
+                description: Retrieve scoops based on department (IT, finance, HR and so on)
+              - fieldName: scoopId
+                fieldType: String
+                description: ZoomInfo unique identifier for a scoop. Will accept a comma-separated list.
+              - fieldName: description
+                fieldType: String
+                description: Search for scoops based on description
+              - fieldName: companyId
+                fieldType: String
+                description: ZoomInfo unique identifier for the company. Will accept a comma-separated list.
+              - fieldName: companyName
+                fieldType: String
+                description: Company name
+              - fieldName: companyWebsite
+                fieldType: String
+                description: Company domain
+              - fieldName: parentId
+                fieldType: String
+                description: ZoomInfo Company ID for parent company
+              - fieldName: ultimateParentId
+                fieldType: String
+                description: ZoomInfo Company ID for ultimate parent company
+              - fieldName: companyDescription
+                fieldType: String
+                description: Text description unique to the company you want to use as search criteria
+              - fieldName: companyType
+                fieldType: String
+                description: Company type (private, public, and so on)
+              - fieldName: address
+                fieldType: String
+                description: Company address
+              - fieldName: street
+                fieldType: String
+                description: Company street
+              - fieldName: state
+                fieldType: String
+                description: Company state
+              - fieldName: zipCode
+                fieldType: String
+                description: Zip Code of the company's primary address
+              - fieldName: country
+                fieldType: String
+                description: Company country
+              - fieldName: continent
+                fieldType: String
+                description: Company continent
+              - fieldName: zipCodeRadiusMiles
+                fieldType: String
+                description: Used in conjunction with zipCode, designates a geographical radius (in miles) from the zipCode provided.
+              - fieldName: hashTagString
+                fieldType: String
+                description: Hash tags for a company. Can include a comma-separated list.
+              - fieldName: techAttributeTagList
+                fieldType: String
+                description: Specify technology product tags
+              - fieldName: subUnitTypes
+                fieldType: String
+                description: Company sub types (e.g., division, subsidiary and so on).
+              - fieldName: primaryIndustriesOnly
+                fieldType: Boolean
+                description: Used in conjunction with the industryCodes input parameter. When set to true, any result returned must have one of the specified industries in the top two. If no industries are specified, then this parameter will be ignored. Default is false.
+              - fieldName: industryCodes
+                fieldType: String
+                description: Top-level industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list.
+              - fieldName: industryKeywords
+                fieldType: String
+                description: Industry keywords associated with a company. Can include a comma-separated list.
+              - fieldName: sicCodes
+                fieldType: String
+                description: Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment.
+              - fieldName: naicsCodes
+                fieldType: String
+                description: 'Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. '
+              - fieldName: revenueMin
+                fieldType: Integer
+                description: Minimum annual revenue for a company in U.S. dollars. Use with revenueMax to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.
+              - fieldName: revenueMax
+                fieldType: Integer
+                description: Maximum annual revenue for a company in U.S. dollars. Use with revenueMin to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.
+              - fieldName: revenue
+                fieldType: String
+                description: Annual revenue range in U.S. dollars. Accepts a comma-separated list of values. Alternatively, to get more granular ranges, you can use the revenueMin and revenueMax parameters.
+              - fieldName: employeeRangeMin
+                fieldType: String
+                description: Minimum employee count for a company. Use with employeeRangeMax to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+              - fieldName: employeeRangeMax
+                fieldType: String
+                description: Maximum employee count for a company. Use with employeeRangeMin to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+              - fieldName: employeeCount
+                fieldType: String
+                description: Employee count range. Accepts a comma-separated list of values. Alternatively, to get more granular ranges, you can use the employeeRangeMin and employeeRangeMax parameters.
+              - fieldName: companyRanking
+                fieldType: String
+                description: Company ranking list (e.g., Fortune 500 and so on)
+              - fieldName: metroRegion
+                fieldType: String
+                description: Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas.
+              - fieldName: locationSearchType
+                fieldType: String
+                description: Location type (Person, Company, PersonThenHQ). Accepts a comma-separated list of values.
+              - fieldName: fundingAmountMin
+                fieldType: Integer
+                description: Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMin is used without fundingAmountMax, the result will be the amount specified or greater.
+              - fieldName: fundingAmountMax
+                fieldType: Integer
+                description: Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMax is used without fundingAmountMin, the result will be the amount specified or less.
+              - fieldName: fundingStartDate
+                fieldType: String
+                description: Start date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+              - fieldName: fundingEndDate
+                fieldType: String
+                description: End date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+              - fieldName: excludedRegions
+                fieldType: String
+                description: Exclude a company metro area. Accepts a comma-separated list of U.S. and Canada metro areas.
+              - fieldName: zoominfoContactsMin
+                fieldType: String
+                description: Minimum number of ZoomInfo contacts associated with company
+              - fieldName: zoominfoContactsMax
+                fieldType: String
+                description: Maximum number of ZoomInfo contacts associated with company
+              - fieldName: companyStructureIncludedSubUnitTypes
+                fieldType: String
+                description: Company hierarchical structure
+              - fieldName: oneYearEmployeeGrowthRateMin
+                fieldType: String
+                description: Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range.
+              - fieldName: oneYearEmployeeGrowthRateMax
+                fieldType: String
+                description: Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range.
+              - fieldName: twoYearEmployeeGrowthRateMin
+                fieldType: String
+                description: Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range.
+              - fieldName: twoYearEmployeeGrowthRateMax
+                fieldType: String
+                description: Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range.
+              - fieldName: certified
+                fieldType: Integer
+                description: Denotes if ZoomInfo's research and data team has confirmed activity within the past 12 months
+              - fieldName: excludeDefunctCompanies
+                fieldType: Boolean
+                description: Include or exclude defunct companies. The default value is false.
+              - fieldName: personId
+                fieldType: String
+                description: Unique ZoomInfo identifier for the contact. Can include a comma-separated list.
+              - fieldName: emailAddress
+                fieldType: String
+                description: Work email address for the contact in example@example.com format
+              - fieldName: hashedEmail
+                fieldType: String
+                description: 'Hashed email value for the contact. Allows searching via an email address with the extra security of not exposing the email. Supported hash algorithms are: MD5, SHA1, SHA256 and SHA512.'
+              - fieldName: fullName
+                fieldType: String
+                description: Contact full name
+              - fieldName: firstName
+                fieldType: String
+                description: Contact first name
+              - fieldName: middleInitial
+                fieldType: String
+                description: Contact middle initial
+              - fieldName: lastName
+                fieldType: String
+                description: Contact last name
+              - fieldName: jobTitle
+                fieldType: String
+                description: Contact title at current place of employment. Use OR to input multiple job titles.
+              - fieldName: excludeJobTitle
+                fieldType: String
+                description: Exclude comma-separated list of job titles
+              - fieldName: managementLevel
+                fieldType: String
+                description: Contact management level at current place of employment
+              - fieldName: excludeManagementLevel
+                fieldType: String
+                description: Exclude comma separated list of management levels
+              - fieldName: boardMember
+                fieldType: String
+                description: Exclude or include board members from search results
+              - fieldName: excludePartialProfiles
+                fieldType: Boolean
+                description: Contacts who do not have an active company associated with them are considered partial profiles. Exclude contacts with a partial profile from search results.
+              - fieldName: executivesOnly
+                fieldType: Boolean
+                description: Return only executives
+              - fieldName: requiredFields
+                fieldType: String
+                description: Specify a list of required fields for each record returned. Can include email, phone, personalEmail, and mobilePhone. Can include a comma-separated list of these fields.
+              - fieldName: contactAccuracyScoreMin
+                fieldType: String
+                description: Minimum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99.
+              - fieldName: contactAccuracyScoreMax
+                fieldType: String
+                description: Maximum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99.
+              - fieldName: jobFunction
+                fieldType: String
+                description: Contact job function at their current place of employment
+              - fieldName: lastUpdatedInMonths
+                fieldType: Integer
+                description: Number of months within which the contact's profile was last updated
+              - fieldName: hasBeenNotified
+                fieldType: String
+                description: Contacts who have been notified of inclusion in ZoomInfo's database. Values are exclude, include, and only
+              - fieldName: companyPastOrPresent
+                fieldType: String
+                description: Returns companies based on a contact's work history. Values are present (default), past, and pastAndPresent
+              - fieldName: school
+                fieldType: String
+                description: Searches by contact's education
+              - fieldName: degree
+                fieldType: String
+                description: Searches by contact's education
+              - fieldName: locationCompanyId
+                fieldType: ArrayList
+                description: Searches by contact's locationIds
+              - fieldName: rpp
+                fieldType: Integer
+                description: Limits the results returned to the given number of results per page
+              - fieldName: page
+                fieldType: Integer
+                description: Provides the results for the given page, used in conjunction with rpp
+              - fieldName: sortBy
+                fieldType: String
+                description: Sorts results by valid output fields
+              - fieldName: sortOrder
+                fieldType: String
+                description: Default value is desc. It accepts the following values { Asc, Ascending, desc, descending }
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/outputfields/scoop/search:
+    parameters: []
+    get:
+      tags:
+      - Scoop Search
+      summary: Zoominfo Scoop Search Outputs
+      description: Returns a list of fields included in the response for the [Scoop Search](#3099d72f-6857-4432-89c2-736410680e60) endpoint.
+      operationId: ScoopSearchOutputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Mon, 22 Jun 2020 19:54:06 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 5a7884eb0f01efe9-EWR
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=3bd72b5a25bfc03a0fa7e3fbae02033c37ca3cc0dcd4fa8ed0531b49f25ba90d:8511cd30-b493-11ea-bfeb-534f7eaad4f4; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 037f3166e50000efe96ea47200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1592855707'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScoopSearchOutput'
+                description: ''
+                examples:
+                - - fieldName: id
+                    description: ZoomInfo unique identifier for a scoop
+                  - fieldName: publishedDate
+                    description: Publish date for a scoop. If updated, this date will reflect that last updated date.
+                  - fieldName: originalPublishedDate
+                    description: Initial publish date for a scoop
+                  - fieldName: linkText
+                    description: Link text for a scoop
+                  - fieldName: link
+                    description: URL for the scoop
+                  - fieldName: description
+                    description: Short description for the scoop contents
+                  - fieldName: topics
+                    description: Topic(s) associated with a scoop
+                  - fieldName: updateText
+                    description: Text related to an updated scoop
+                  - fieldName: types
+                    description: Type(s) associated with a scoop
+                  - fieldName: companyId
+                    description: ZoomInfo unique identifier for a company
+                  - fieldName: companyName
+                    description: Company name
+                  - fieldName: contacts
+                    description: Contacts associated with a scoop
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: id
+                description: ZoomInfo unique identifier for a scoop
+              - fieldName: publishedDate
+                description: Publish date for a scoop. If updated, this date will reflect that last updated date.
+              - fieldName: originalPublishedDate
+                description: Initial publish date for a scoop
+              - fieldName: linkText
+                description: Link text for a scoop
+              - fieldName: link
+                description: URL for the scoop
+              - fieldName: description
+                description: Short description for the scoop contents
+              - fieldName: topics
+                description: Topic(s) associated with a scoop
+              - fieldName: updateText
+                description: Text related to an updated scoop
+              - fieldName: types
+                description: Type(s) associated with a scoop
+              - fieldName: companyId
+                description: ZoomInfo unique identifier for a company
+              - fieldName: companyName
+                description: Company name
+              - fieldName: contacts
+                description: Contacts associated with a scoop
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ScoopSearch:
+      title: ScoopSearch
+      required:
+      - maxResults
+      - totalResults
+      - currentPage
+      - data
+      type: object
+      properties:
+        maxResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        totalResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        currentPage:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Datum8'
+          description: ''
+          example: []
+      examples:
+      - maxResults: 4
+        totalResults: 4
+        currentPage: 1
+        data:
+        - id: 1382057
+          publishedDate: 2/22/2019 12:00 AM
+          originalPublishedDate: 2/22/2019 12:00 AM
+          linkText: ''
+          link: ''
+          description: 'Datanyze has recently been ranked #986 on the 2019 SaaS 1000 Top SaaS Companies list.'
+          topics: []
+          updateText: ''
+          types:
+          - id: 6
+            type: Award
+          contacts: []
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1382056
+          publishedDate: 2/15/2019 12:00 AM
+          originalPublishedDate: 2/15/2019 12:00 AM
+          linkText: ''
+          link: ''
+          description: 'has recently been ranked #139 on the 2019 SaaS 1000 Top SaaS Companies list.'
+          topics: []
+          updateText: ''
+          types:
+          - id: 6
+            type: Award
+          contacts: []
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1373240
+          publishedDate: 2/11/2019 12:00 AM
+          originalPublishedDate: 2/11/2019 12:00 AM
+          linkText: ''
+          link: ''
+          description: has been recognized as a 2019 Top Rated Sales Intelligence Software by TrustRadius.
+          topics: []
+          updateText: ''
+          types:
+          - id: 6
+            type: Award
+          contacts: []
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1258709
+          publishedDate: 12/4/2018 12:00 AM
+          originalPublishedDate: 12/4/2018 12:00 AM
+          linkText: ''
+          link: ''
+          description: has recently been recognized by The Boston Globe as one of the Top Places to Work for 2018 in Massachusetts in the midsize organization category.
+          topics: []
+          updateText: ''
+          types:
+          - id: 6
+            type: Award
+          contacts: []
+          company:
+            id: 344589814
+            name: ZoomInfo
+    Company:
+      title: Company
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: 9867169
+        name: AmerisourceBergen
+    Datum8:
+      title: Datum8
+      required:
+      - id
+      - publishedDate
+      - originalPublishedDate
+      - linkText
+      - link
+      - description
+      - topics
+      - updateText
+      - types
+      - contacts
+      - company
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        publishedDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        originalPublishedDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        linkText:
+          type: string
+          example: example_value
+        link:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: Enterprise software company
+        topics:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        updateText:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        types:
+          type: array
+          items:
+            $ref: '#/components/schemas/Type'
+          description: ''
+          example: []
+        contacts:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        company:
+          $ref: '#/components/schemas/Company'
+      examples:
+      - id: 1382057
+        publishedDate: 2/22/2019 12:00 AM
+        originalPublishedDate: 2/22/2019 12:00 AM
+        linkText: ''
+        link: ''
+        description: 'Datanyze has recently been ranked #986 on the 2019 SaaS 1000 Top SaaS Companies list.'
+        topics: []
+        updateText: ''
+        types:
+        - id: 6
+          type: Award
+        contacts: []
+        company:
+          id: 344589814
+          name: ZoomInfo
+    ScoopSearchRequest:
+      title: ScoopSearchRequest
+      required:
+      - companyName
+      - publishedStartDate
+      - publishedEndDate
+      - scoopType
+      - updatedSinceCreation
+      - description
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: Acme Corporation
+        publishedStartDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        publishedEndDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        scoopType:
+          type: string
+          example: standard
+        updatedSinceCreation:
+          type: boolean
+          example: true
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - companyName: Zoominfo
+        publishedStartDate: '2018-11-01T00:00:00.000Z'
+        publishedEndDate: '2020-06-21T00:00:00.000Z'
+        scoopType: '6'
+        updatedSinceCreation: false
+        description: SaaS
+    ScoopSearchInput:
+      title: ScoopSearchInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: publishedStartDate
+        fieldType: String
+        description: Starting date to search for scoops based on when published. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format.
+    Type:
+      title: Type
+      required:
+      - id
+      - type
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        type:
+          type: string
+          example: standard
+      examples:
+      - id: 6
+        type: Award
+    ScoopSearchOutput:
+      title: ScoopSearchOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: id
+        description: ZoomInfo unique identifier for a scoop
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint

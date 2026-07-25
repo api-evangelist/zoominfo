@@ -1,0 +1,2663 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication Company Master Data Enrich API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Company Master Data Enrich
+  description: 'The new [Company Master Data Enrich](#8b6cffe4-cb34-44ab-ad5d-1953d372ffd3) endpoint brings together ZoomInfo firmographic data with the EverString firmographic data along with significant improvements including additional firmographic attributes and enhanced data.
+
+
+    Refer to the examples provided to build a valid JSON request. For supported input and output parameters:
+
+
+    *   Use the [Company Master Enrich Inputs](#d305402c-33d1-488c-8b8f-b5b079868a61) endpoint to retrieve a list of valid input parameters you can provide
+
+    *   Use the [Company Master Enrich Outputs](#58b47522-753a-4104-a0c6-454adf4b6a1d) endpoint to retrieve a list of valid output fields that can be returned'
+paths:
+  /enrich/company-master:
+    parameters: []
+    post:
+      tags:
+      - Company Master Data Enrich
+      summary: Zoominfo Company Master Data Enrich
+      description: "Use this endpoint to match company information based on [input values](#d305402c-33d1-488c-8b8f-b5b079868a61) and return the desired [output fields](#58b47522-753a-4104-a0c6-454adf4b6a1d) in the response.\n\n**Maximum inputs per request**\n\nYou can input a maximum of 25 companies in a single enrich request, returning the equivalent number of matching records. See the endpoint examples for how to build queries using multiple inputs.\n\n**Declaring desired output**\n\nYou must explicitly list the desired output fields in your request. For example, a simple request might look like this:\n\n```\n{\n    \"matchCompanyInput\": [\n        {\n            \"address\": {\n                \"zi_c_street\": \"805 Broadway St\",\n                \"zi_c_state\": \"Washington\",\n                \"zi_c_city\": \"Vancouver\",\n                \"zi_c_zip\": \"98660\",\n                \"zi_c_country\": \"United States\"\n            },\n            \"phone\": {\n                \"zi_c_phone\": \"+1 3607836800\",\n                \"zi_c_country\": \"United States\"\n            },\n            \"zi_c_location_id\": 2079041960,\n            \"zi_c_url\": \"zoomInfo.com\",\n            \"zi_c_name\": \"zoomInfo\"\n        }\n    ],\n    \"outputFields\": [\n        \"zi_c_location_id\",\n        \"zi_es_ecid\",\n        \"zi_es_location_id\",\n        \"zi_c_is_hq\",\n        \"zi_c_tier_grade\",\n        \"zi_c_name\",\n        \"zi_c_name_display\",\n        \"zi_c_legal_entity_type\",\n        \"zi_c_url\",\n        \"zi_c_street\",\n        \"zi_c_street_2\",\n        \"zi_c_city\",\n        \"zi_c_state\",\n        \"zi_c_zip\",\n        \"zi_c_country\"\n   ]\n}\n\n ```\n\nTo keep the response data clean and unambiguous, if there is no data for a requested field, or it is NULL/EMPTY, the API will not return the field in the response.\n\n**Response status codes and error handling**\n\nThis endpoint supports up to 25 inputs per request and will return a HTTP status code in the response indicating a 200, 400 or 5xx status.\n\n| Code | Meaning |\n| --- | --- |\n| 200 | Request inputs are acceptable. The API can return a successful match or no match. |\n| 400 | Indicates an error in the request input. |\n| 5xx | Indicates a server-side error. Retry the request or contact ZoomInfo Support if the issue persists. |\n\nWhen a request includes multiple companies, the following will occur:\n\n- If at least 1 input succeeds in a request containing multiple inputs (up to the limit of 25), a 200 HTTP status code will be returned.\n- If none of the inputs succeed and the request includes only a combination of bad inputs and internal errors, the API will return a 400 HTTP status code.\n- If all inputs fail due to a server-side error, the response body of all of the input will return a status code of 500.\n    \n\n**Input params**\n\nSee the examples for how to structure your request. You must explicitly list the desired output fields in your request. See the examples included with this endpoint for how to structure a request.\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| zi_c_location_id | Long integer or string | Unique ZoomInfo identifier for a company |\n| zi_es_ecid | Long integer | Unique EverString identifier for a company |\n| zi_c_company_id | String | Unique ZoomInfo identifier for a company HQ location (parent) |\n| zi_es_location_id | String | Unique EverString location id of a company |\n| zi_c_url | String | Website of the company to enrich |\n| zi_c_name | String | Name of the company to enrich |\n| phone | Object | Phone number of a company. The input format is {zi_c_country: United States, zi_c_phone: xxxxxxx}. If \"zi_c_phone\" already has a country code, you do not need to input \"zi_c_country\". |\n| address | Object | Address of the company to enrich. Input format is {zi_c_street: xxxxxxx, zi_c_city: xxxxxxx, zi_c_state: xxxxxxx, zi_c_zip: xxxxxxx, zi_c_country: xxxxxxx} |\n| email | String | An email of a contact from the company |\n| match_reasons | ArrayList | Minimum Match criteria to enrich the company. Accepts an array of objects. Optional customized match reasons specified on different attributes and match_score to decide how the match for that particular attribute should be. Acceptable attributes: zi_c_name, zi_c_url, bldg_name, bldg_number, road_name, road_type, directional, unit, zi_c_city, zi_c_state, zi_c_zip, zi_c_country, zi_c_phone, biz_type and match_score. Acceptable values for attributes: E (exact match), F (fuzzy match), D (different match) and M (missing). Input format is \\[{ zi_c_name: F, zi_c_url: E, zi_c_state: E, match_score: 3 }, { zi_c_name: E, zi_c_phone: E, match_score: 3 }\\] |\n\n**Output fields**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| zi_c_location_id | Long integer | ZoomInfo unique identifier for company location |\n| zi_es_ecid | Long integer | EverString Company ID (ECID) is a unique identifier for a company entity |\n| zi_es_location_id | String | Location ID, which uniquely identifies each separate physical location, office, or branch of a company |\n| zi_c_is_hq | String | This flag indicates if this record is the HQ entity |\n| zi_c_tier_grade | String | Overall data quality tier for a record (A, B, C) |\n| zi_c_name | String | Company name for location |\n| zi_c_name_display | String | Colloquial name of the company |\n| zi_c_legal_entity_type | String | Legal structure of company, generally parsed from the end of the legal name (Inc, LLC) |\n| zi_c_url | String | Primary website of the company. May contain yelp.com URLs for companies without a top-level domain. |\n| zi_c_street | String | Company's physical street address |\n| zi_c_street_2 | String | Company's physical street address continued |\n| zi_c_city | String | Company's physical city |\n| zi_c_state | String | Company's physical state |\n| zi_c_zip | String | Company's physical zip/postal code |\n| zi_c_country | String | Company's physical country |\n| zi_c_cbsa_name | String | Company's core-based statistical area |\n| zi_c_county | String | Company's physical county |\n| zi_c_latitude | Float | Latitude geo-coordinate for company's physical location |\n| zi_c_longitude | Float | Longitude geo-coordinate for company's physical location |\n| zi_c_verified_address | String | Verification of whether this address is deliverable |\n| zi_c_employee_range | String | Employee category band. See the Employee Category Band lookup endpoint for valid ranges. |\n| zi_c_employees | Long integer | Raw employee count for a company |\n| zi_c_revenue_range | String | Revenue category band in USD. See the Revenue Category Band lookup endpoint for valid ranges. |\n| zi_c_revenue | Long integer | Raw revenue number in USD (in thousands) |\n| zi_c_phone | String | Company location phone number |\n| zi_c_fax | String | Primary fax number for company location |\n| zi_c_industry_primary | String | Top-level primary industry of the company |\n| zi_c_sub_industry_primary | String | Top-level primary sub-industry of the company location |\n| zi_c_industries | ArrayList | All industries |\n| zi_c_sub_industries | ArrayList | All sub-industries |\n| zi_es_industry | String | Primary industry based on EverString's industry taxonomy |\n| zi_es_industries_top3 | ArrayList | The top three industries predicted, as many larger companies can operate in multiple industries. |\n| zi_c_naics2 | String | Primary 2-digit NAICS code |\n| zi_c_naics4 | String | Primary 4-digit NAICS code |\n| zi_c_naics6 | String | Primary 6-digit NAICS code |\n| zi_c_naics_top3 | ArrayList | The top three NAICS predicted, as many larger companies can operate in multiple industries. |\n| zi_c_sic2 | String | Primary 2-digit SIC code |\n| zi_c_sic3 | String | Primary 3-digit SIC code |\n| zi_c_sic4 | String | Primary 4-digit SIC code |\n| zi_c_sic_top3 | ArrayList | The top three SIC predicted, as many larger companies can operate in multiple industries. |\n| zi_c_estimated_age | Long integer | Estimated age of the company |\n| zi_c_year_founded | String | Founding year of the company |\n| zi_c_is_b2b | String | A flag to represent a company as B2B (1, 0) |\n| zi_c_is_b2c | String | A flag to represent a company as B2C (1, 0) |\n| zi_c_company_id | Long integer | ZoomInfo Company ID for the headquarters (HQ) of a company entity |\n| zi_es_hq_ecid | Long integer | EverString Company ID (ECID) for the headquarters (HQ) of a company entity |\n| zi_es_hq_location_id | String | Location ID for the headquarters (HQ) of a company entity |\n| zi_c_company_name | String | HQ Company name. May match zi_c_name. |\n| zi_c_company_url | String | HQ Primary website of the company. May contain yelp.com websites. May match zi_c_url. |\n| zi_c_company_street | String | HQ Company's physical street address |\n| zi_c_company_street_2 | String | HQ Company's physical street address continued |\n| zi_c_company_city | String | HQ Company's physical city |\n| zi_c_company_state | String | HQ Company's physical state |\n| zi_c_company_zip | String | HQ Company's physical zip/postal code |\n| zi_c_company_country | String | HQ Company's physical country |\n| zi_c_company_cbsa_name | String | HQ Company's core-based statistical area |\n| zi_c_company_county | String | HQ Company's physical county |\n| zi_c_company_latitude | Float | HQ Company's latitude geo-coordinate |\n| zi_c_company_longitude | Float | HQ Company's longitude geo-coordinate |\n| zi_c_company_verified_address | String | Denotes whether HQ address deliverability is verified |\n| zi_c_company_employee_range | String | HQ Employee category band. Employee Category Band lookup endpoint for valid ranges. |\n| zi_c_company_employees | Long integer | HQ Raw employee number for a company |\n| zi_c_company_revenue_range | String | HQ Revenue category band. See the Revenue Category Band lookup endpoint for valid ranges. |\n| zi_c_company_revenue | Long integer | HQ Raw revenue number in USD (in thousands) |\n| zi_c_company_phone | String | HQ Company's phone number |\n| zi_c_company_fax | String | HQ Company's fax number |\n| zi_c_linkedin_url | String | LinkedIn URL for the company |\n| zi_c_facebook_url | String | Facebook URL for the company |\n| zi_c_twitter_url | String | Twitter URL for the company |\n| zi_c_yelp_url | String | Yelp URL for the company |\n| zi_c_keywords | ArrayList | Machine-generated tags for the company |\n| zi_c_top_keywords | ArrayList | Top ten machine-generated tags for the company |\n| zi_c_num_keywords | Long integer | The number of zi_c_keywords associated with a company. Larger numbers usually indicate a more sophisticated website and/or many lines of businesses. |\n| zi_c_employee_growth_1yr | Float | Approximate company employee growth percentage in the past 1 year |\n| zi_c_employee_growth_2yr | Float | Approximate company employee growth percentage in the past 2 years |\n| zi_es_growth | String | A measure of overall growth from the last month compare against average growth in the industry |\n| zi_es_employee_growth | Float | A measure of employee growth from last month compared against average growth in the industry |\n| zi_es_revenue_growth | Float | A measure of revenue growth from last month compared against average growth in the industry |\n| zi_es_percent_employee_growth | Float | Percentage employee growth from last month compared against average growth in the industry |\n| zi_es_percent_revenue_growth | Float | Percentage revenue growth from last month compared against average growth in the industry |\n| zi_c_name_confidence_score | Float | Confidence score for the zi_c_name field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_url_confidence_score | Float | Confidence score for the zi_c_url field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_address_confidence_score | Float | Confidence score for the zi_c_address field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_phone_confidence_score | Float | Confidence score for the zi_c_phone field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_employees_confidence_score | Float | Confidence score for the zi_c_employee_range field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_revenue_confidence_score | Float | Confidence score for the zi_c_revenue_range field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_es_industry_confidence_score | Float | Confidence score for the zi_es_industry field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_naics_confidence_score | Float | Confidence score for the zi_c_naics field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_sic_confidence_score | Float | Confidence score for the zi_c_sic field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_es_industries_top3_confidence_scores | ArrayList | Confidence score for the zi_es_industries_top3 field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_naics_top3_confidence_scores | ArrayList | Confidence score for the zi_c_naics_top3 field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_sic_top3_confidence_scores | ArrayList | Confidence score for the zi_c_sic_top3 field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_names_other | String | Alternate company name |\n| zi_c_url_status | String | Identifies if a company's website is still active or redirects to another website. Status can be VALID, INVALID, PARKED, REDIRECT. |\n| zi_c_urls_alt | ArrayList | All websites related to a company |\n| zi_c_url_last_updated | String | Date company's URL was last updated |\n| zi_c_inactive_flag | String | Identifies if a company is inactive. (1 or 0, 1 being inactive) |\n| zi_c_ein | String | The Employer Identification Number (EIN) of a company |\n| zi_c_is_small_business | String | A flag to represent a company as a small business (1, 0). Small business is considered less than 500 employees. Note: This flag reflects employee size data at the ECID Location-Level, not HQ-Level. |\n| zi_c_is_public | String | Indication if company is Public or Private (1, 0) |\n| zi_c_ticker | String | Stock ticker for the company |\n| zi_c_tickers_alt | ArrayList | Alternate stock ticker for the company |\n| zi_c_has_mobile_app | String | Identifies if this company has a mobile app link detected on their website (1, 0) |\n| zi_c_currency_code | String | Company's currency code |\n| zi_c_num_locations | Long integer | Number of locations the company has |\n| zi_c_hr_contacts | Long integer | Number of HR contacts available at the company |\n| zi_c_sales_contacts | Long integer | Number of Sales contacts available at the company |\n| zi_c_marketing_contacts | Long integer | Number of Marketing contacts available at the company |\n| zi_c_finance_contacts | Long integer | Number of Finance contacts available at the company |\n| zi_c_c_suite_contacts | Long integer | Number of C-Suite contacts available at the company |\n| zi_c_engineering_contacts | Long integer | Number of Engineering contacts available at the company |\n| zi_c_it_contacts | Long integer | Number of IT contacts available at the company |\n| zi_c_operations_contacts | Long integer | Number of Operations contacts available at the company |\n| zi_c_legal_contacts | Long integer | Number of Legal contacts available at the company |\n| zi_c_medical_contacts | Long integer | Number of Medical contacts available at the company |\n| zi_c_tech_ids | ArrayList | Unique identifier for a technology. Could be a single tech ID, or a comma-separated list of ID's |\n| zi_c_latest_funding_age | Long integer | The number of years since the company's last funding |\n| zi_c_num_of_investors | Long integer | Number of investors for a company |\n| zi_c_investor_names | ArrayList | All investor names from publicly available sources |\n| zi_c_funding_strength | String | A measure of funding strength of a business based on type and who they received funding from (Low, Medium, High) |\n| zi_c_funding_type | ArrayList | Publicly available sources funding type |\n| zi_c_total_funding_amount | Long integer | The total amount of funding a company has received |\n| zi_c_latest_funding_amount | Long integer | The amount of funding in the latest funding round of a company |\n| zi_c_latest_funding_date | String | Date when the latest funding was received |\n| zi_c_num_funding_rounds | Long integer | The number of funding rounds a company has had |\n| zi_c_is_fortune_100 | string | This flag indicates if this record is a Fortune 100 entity (1, 0) |\n| zi_c_is_fortune_500 | string | This flag indicates if this record is a Fortune 500 entity (1, 0) |\n| zi_c_is_s_and_p_500 | string | This flag indicates if this record is a S&P 500 entity (1, 0) |\n| zi_c_is_domestic_hq | String | This flag indicates if this record is a Domestic Parent entity |\n| zi_c_is_ultimate_parent | String | This flag indicates if this record is the ultimate Parent entity (previously called zi_c_is_global_parent) |\n| zi_c_is_subsidiary | String | This flag indicates if this record is a Subsidiary entity |\n| zi_c_is_franchisor | String | This flag indicates if this record is a Franchisor |\n| zi_c_is_franchisee | String | This flag indicates if this record is a Frachisee |\n| zi_c_hierarchy_code | String | This alpha code identifies the record's hierarchy level and location level. Hierarchy levels include Global Parent, Domestic Parent, or Subsidiary. Location levels include Individual Location or Headquarters location. See the Hierarchy Code lookup endpoint for valid codes. |\n| zi_c_hierarchy_level | Long integer | This number indicates the hierarchy level equivalent to the hierarchy code |\n| zi_c_parent_child_confidence_score | Float | Confidence score for the parent child hierarchy linkage (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_is_immediate_parent | String | 1 if the record is the immediate parent. 0 if it is not the immediate parent. |\n| zi_c_immediate_parent_company_id | Long integer | Unique identifier of parent company of requested company |\n| zi_es_immediate_parent_ecid | Long integer | Immediate parent company's identifier number |\n| zi_es_immediate_parent_location_id | String | Immediate parent company's location identifier |\n| zi_c_immediate_parent_name | String | Immediate parent company's name |\n| zi_c_immediate_parent_url | String | Immediate parent company's website |\n| zi_c_immediate_parent_street | String | Immediate parent company's street address |\n| zi_c_immediate_parent_street_2 | String | Immediate parent company's street address continued |\n| zi_c_immediate_parent_city | String | Immediate parent company's city |\n| zi_c_immediate_parent_zip | String | Immediate parent company's zip code |\n| zi_c_immediate_parent_state | String | Immediate parent company's state |\n| zi_c_immediate_parent_country | String | Immediate parent company's country |\n| zi_c_domestic_parent_company_id | Long integer | Unique identifier of parent company of requested company |\n| zi_es_domestic_parent_ecid | Long integer | Domestic parent company's identifier number |\n| zi_es_domestic_parent_location_id | String | Domestic parent company's location identifier |\n| zi_c_domestic_parent_location_id | String | Domestic parent company's identifier number |\n| zi_c_domestic_parent_name | String | Domestic parent company's name |\n| zi_c_domestic_parent_url | String | Domestic parent company's website |\n| zi_c_domestic_parent_street | String | Domestic parent company's street address |\n| zi_c_domestic_parent_street_2 | String | Domestic parent company's street address continued |\n| zi_c_domestic_parent_city | String | Domestic parent company's city |\n| zi_c_domestic_parent_zip | String | Domestic parent company's zip code |\n| zi_c_domestic_parent_state | String | Domestic parent company's state |\n| zi_c_domestic_parent_country | String | Domestic parent company's country |\n| zi_c_ultimate_parent_company_id | Long integer | Unique identifier of ultimate parent company that has acquired requested company (previously called zi_c_global_parent_company_id) |\n| zi_es_ultimate_parent_ecid | Long integer | Ultimate parent company's identifier number (previously called zi_es_global_parent_ecid) |\n| zi_es_ultimate_parent_location_id | String | Ultimate parent company's location identifier (previously called zi_es_global_parent_location_id) |\n| zi_c_ultimate_parent_name | String | Ultimate parent company's name (previously called zi_c_global_parent_name) |\n| zi_c_ultimate_parent_url | String | Ultimate parent company's website (previously called zi_c_global_parent_url) |\n| zi_c_ultimate_parent_street | String | Ultimate parent company's street address (previously called zi_c_global_parent_street) |\n| zi_c_ultimate_parent_street_2 | String | Ultimate parent company's street address continued (previously called zi_c_global_parent_street_2) |\n| zi_c_ultimate_parent_city | String | Ultimate parent company's city (previously called zi_c_global_parent_city) |\n| zi_c_ultimate_parent_zip | String | Ultimate parent company's zip (previously called zi_c_global_parent_zip) |\n| zi_c_ultimate_parent_state | String | Ultimate parent company's state (previously called zi_c_global_parent_state) |\n| zi_c_ultimate_parent_country | String | Ultimate parent company's country (previously called zi_c_global_parent_country) |\n| zi_c_franchisor_company_id | Long integer | Company franchisor's ZoomInfo Company ID |\n| zi_es_franchisor_ecid | Long integer | Company franchisor's identifier number |\n| zi_es_franchisor_location_id | String | Company franchisor's location number |\n| zi_c_franchisor_name | String | Company franchisor's name |\n| zi_c_franchisor_url | String | Company franchisor's website |\n| zi_c_franchisor_street | String | Company franchisor's street address |\n| zi_c_franchisor_street_2 | String | Company franchisor's street address continued |\n| zi_c_franchisor_city | String | Company franchisor's city |\n| zi_c_franchisor_zip | String | Company franchisor's zip code |\n| zi_c_franchisor_state | String | Company franchisor's state |\n| zi_c_franchisor_country | String | Company franchisor's country |\n| zi_c_tech_spend | String | A measure of Technology spend as modeled by the types of technology purchased by a company (Low, Medium, High) |\n| zi_c_hr_spend | String | A measure of HR spend as modeled by the types of HR technology purchased by a company (Low, Medium, High) |\n| zi_c_sales_spend | String | A measure of Sales spend as modeled by the types of Sales technology purchased by a company (Low, Medium, High) |\n| zi_c_marketing_spend | String | A measure of Marketing spend as modeled by the types of Marketing technology purchase, type of titles, website sophistication by a company (Low, Medium, High) |\n| zi_c_finance_spend | String | A measure of Finance spend as modeled by the types of Finance technology purchased by a company (Low, Medium, High) |\n| zi_c_tech_strength | String | A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High) |\n| zi_c_hr_strength | String | A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High) |\n| zi_c_sales_strength | String | A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High) |\n| zi_c_marketing_strength | String | A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High) |\n| zi_c_finance_strength | String | A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High) |\n| zi_c_tech_sophistication | String | A measure of technology sophistication of a business (Low, Medium, High) |\n| zi_c_hr_sophistication | String | A measure of HR sophistication of a business (Low, Medium, High) |\n| zi_c_sales_sophistication | String | A measure of Sales sophistication of a business (Low, Medium, High) |\n| zi_c_marketing_sophistication | String | A measure of Marketing sophistication of a company (Low, Average, High) |\n| zi_c_social_sophistication | String | A measure of Social sophistication of a business (Low, Medium, High) |\n| zi_c_finance_sophistication | String | A measure of Finance sophistication of a business (Low, Medium, High) |\n| zi_c_last_updated_date | String | Date when the record was last updated |\n| zi_c_release_date | String | Year and Month of this data release in YYYYMM format (e.g., 201902) |\n| zi_match_reason | Object | A nested structure describing how the record was matched. The list can include zi_match_name, zi_match_reason_building_name, zi_match_reason_building_number, zi_match_reason_business_type, zi_match_reason_city, zi_match_reason_company_phone, zi_match_reason_country, zi_match_reason_directional, zi_match_reason_name, zi_match_reason_road_name, zi_match_reason_road_type, zi_match_reason_state, zi_match_reason_unit, zi_match_reason_website, zi_match_reason_zip, zi_match_score. |"
+      operationId: CompanyMasterDataEnrich
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CompanyMasterDataEnrichRequest'
+              - examples:
+                - matchCompanyInput:
+                  - zi_c_url: zoominfo.com
+                  outputFields:
+                  - zi_c_location_id
+                  - zi_es_ecid
+                  - zi_es_location_id
+                  - zi_c_is_hq
+                  - zi_c_tier_grade
+                  - zi_c_name
+                  - zi_c_name_display
+                  - zi_c_legal_entity_type
+                  - zi_c_url
+                  - zi_c_street
+                  - zi_c_street_2
+                  - zi_c_city
+                  - zi_c_state
+                  - zi_c_zip
+                  - zi_c_country
+                  - zi_match_reason
+              contentMediaType: application/json
+            example:
+              matchCompanyInput:
+              - zi_c_url: zoominfo.com
+              outputFields:
+              - zi_c_location_id
+              - zi_es_ecid
+              - zi_es_location_id
+              - zi_c_is_hq
+              - zi_c_tier_grade
+              - zi_c_name
+              - zi_c_name_display
+              - zi_c_legal_entity_type
+              - zi_c_url
+              - zi_c_street
+              - zi_c_street_2
+              - zi_c_city
+              - zi_c_state
+              - zi_c_zip
+              - zi_c_country
+              - zi_match_reason
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Tue, 16 Nov 2021 21:03:31 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            X-Request-Id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: b060598d-988b-4d51-9879-ec5743f410da
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1637096671'
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            x-usage-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999999176'
+            x-usage-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999995352'
+            x-usage-websights-api-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000010'
+            x-usage-websights-api-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99999540'
+            x-usage-websights-api-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            x-usage-websights-api-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999530'
+            x-usage-unique-id-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            x-usage-unique-id-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999971'
+            content-encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 6af3aa958fe7e6ac-EWR
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Nameaddressandmatchreason'
+                - examples:
+                  - success: true
+                    data:
+                      outputFields:
+                      - zi_c_location_id
+                      - zi_es_ecid
+                      - zi_es_location_id
+                      - zi_c_is_hq
+                      - zi_c_tier_grade
+                      - zi_c_name
+                      - zi_c_name_display
+                      - zi_c_legal_entity_type
+                      - zi_c_url
+                      - zi_c_street
+                      - zi_c_street_2
+                      - zi_c_city
+                      - zi_c_state
+                      - zi_c_zip
+                      - zi_c_country
+                      - zi_match_reason
+                      result:
+                      - statusCode: 200
+                        input:
+                          address:
+                            zi_c_city: mc lean
+                            zi_c_country: united states
+                            zi_c_state: virginia
+                            zi_c_zip: '22102'
+                          match_reasons:
+                          - zi_c_name: e
+                          zi_c_name: capital one
+                        data:
+                          zi_c_location_id: 2046129220
+                          zi_es_ecid: 136461914
+                          zi_es_location_id: 136461914NZOKIRXYRA
+                          zi_c_is_hq: '1'
+                          zi_c_tier_grade: A
+                          zi_c_name: Capital One Financial
+                          zi_c_name_display: Capital One Financial
+                          zi_c_url: capitalone.com
+                          zi_c_street: 1680 Capital One Dr
+                          zi_c_city: Mc Lean
+                          zi_c_state: Virginia
+                          zi_c_zip: '22102'
+                          zi_c_country: United States
+                          zi_match_reason:
+                            zi_match_name: Capital One Capital
+                            zi_match_reason_building_name: M
+                            zi_match_reason_building_number: M
+                            zi_match_reason_business_type: M
+                            zi_match_reason_city: E
+                            zi_match_reason_company_phone: M
+                            zi_match_reason_country: E
+                            zi_match_reason_directional: M
+                            zi_match_reason_name: E
+                            zi_match_reason_road_name: M
+                            zi_match_reason_road_type: M
+                            zi_match_reason_state: E
+                            zi_match_reason_unit: M
+                            zi_match_reason_website: M
+                            zi_match_reason_zip: E
+                            zi_match_score: '5'
+                contentMediaType: application/json;charset=UTF-8
+              example:
+                success: true
+                data:
+                  outputFields:
+                  - zi_c_location_id
+                  - zi_es_ecid
+                  - zi_es_location_id
+                  - zi_c_is_hq
+                  - zi_c_tier_grade
+                  - zi_c_name
+                  - zi_c_name_display
+                  - zi_c_legal_entity_type
+                  - zi_c_url
+                  - zi_c_street
+                  - zi_c_street_2
+                  - zi_c_city
+                  - zi_c_state
+                  - zi_c_zip
+                  - zi_c_country
+                  - zi_match_reason
+                  result:
+                  - statusCode: 200
+                    input:
+                      address:
+                        zi_c_city: mc lean
+                        zi_c_country: united states
+                        zi_c_state: virginia
+                        zi_c_zip: '22102'
+                      match_reasons:
+                      - zi_c_name: e
+                      zi_c_name: capital one
+                    data:
+                      zi_c_location_id: 2046129220
+                      zi_es_ecid: 136461914
+                      zi_es_location_id: 136461914NZOKIRXYRA
+                      zi_c_is_hq: '1'
+                      zi_c_tier_grade: A
+                      zi_c_name: Capital One Financial
+                      zi_c_name_display: Capital One Financial
+                      zi_c_url: capitalone.com
+                      zi_c_street: 1680 Capital One Dr
+                      zi_c_city: Mc Lean
+                      zi_c_state: Virginia
+                      zi_c_zip: '22102'
+                      zi_c_country: United States
+                      zi_match_reason:
+                        zi_match_name: Capital One Capital
+                        zi_match_reason_building_name: M
+                        zi_match_reason_building_number: M
+                        zi_match_reason_business_type: M
+                        zi_match_reason_city: E
+                        zi_match_reason_company_phone: M
+                        zi_match_reason_country: E
+                        zi_match_reason_directional: M
+                        zi_match_reason_name: E
+                        zi_match_reason_road_name: M
+                        zi_match_reason_road_type: M
+                        zi_match_reason_state: E
+                        zi_match_reason_unit: M
+                        zi_match_reason_website: M
+                        zi_match_reason_zip: E
+                        zi_match_score: '5'
+        '400':
+          description: Bad Request
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Tue, 16 Nov 2021 21:13:03 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            X-Request-Id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 35c68159-dc09-4c71-a1f1-26184b2fe5cb
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1637097244'
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 6af3b8920a5ce6ac-EWR
+            x-usage-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999999173'
+            x-usage-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999995350'
+            x-usage-websights-api-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000010'
+            x-usage-websights-api-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99999540'
+            x-usage-websights-api-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            x-usage-websights-api-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999530'
+            x-usage-unique-id-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            x-usage-unique-id-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999970'
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Matchbycompanyaddress1'
+                - examples:
+                  - responseCode: 400
+                    message: There are invalid fields in your request.
+                    invalidOutputFields:
+                    - zi_c_id
+                contentMediaType: application/json;charset=UTF-8
+              example:
+                responseCode: 400
+                message: There are invalid fields in your request.
+                invalidOutputFields:
+                - zi_c_id
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/inputfields/company-master/enrich:
+    parameters: []
+    get:
+      tags:
+      - Company Master Data Enrich
+      summary: Zoominfo Company Master Data Enrich Inputs
+      description: Returns a list of fields you can use as input for the [Company Master Data Enrich](#8b6cffe4-cb34-44ab-ad5d-1953d372ffd3) endpoint.
+      operationId: CompanyMasterDataEnrichInputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Tue, 16 Nov 2021 21:36:36 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            X-Request-Id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 8b9912da-66cb-48e8-976e-e87a96c8ce76
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1637098657'
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            content-encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 6af3db10684d1760-EWR
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyMasterDataEnrichInput'
+                description: ''
+                examples:
+                - - fieldName: zi_c_location_id
+                    fieldType: Long
+                    description: Unique ZoomInfo identifier for a company
+                  - fieldName: zi_es_ecid
+                    fieldType: Long
+                    description: Unique EverString identifier for a company
+                  - fieldName: zi_es_location_id
+                    fieldType: String
+                    description: Unique EverString location id of a company
+                  - fieldName: zi_c_url
+                    fieldType: String
+                    description: Website of the company to enrich
+                  - fieldName: zi_c_name
+                    fieldType: String
+                    description: Name of the company to enrich
+                  - fieldName: phone
+                    fieldType: Object
+                    description: 'Phone of a company. The input format is {zi_c_country: United States, zi_c_phone: xxxxxxx}'
+                  - fieldName: address
+                    fieldType: Object
+                    description: 'Address of the company to enrich. Input format is {zi_c_street: 170 Data Drive, zi_c_city: Waltham, zi_c_state: MA, zi_c_zip: 02451, zi_c_country: United States}'
+                  - fieldName: email
+                    fieldType: String
+                    description: An email of a contact from the company
+                  - fieldName: match_reasons
+                    fieldType: ArrayList
+                    description: 'Minimum Match criteria to enrich the company. Accept an array of objects. Input format is [{ zi_c_name: F, zi_c_url: E, zi_c_state: E, match_score: 3 }, { zi_c_name: E, zi_c_phone: E, match_score: 3 }]'
+                contentMediaType: application/json;charset=UTF-8
+              example:
+              - fieldName: zi_c_location_id
+                fieldType: Long
+                description: Unique ZoomInfo identifier for a company
+              - fieldName: zi_es_ecid
+                fieldType: Long
+                description: Unique EverString identifier for a company
+              - fieldName: zi_es_location_id
+                fieldType: String
+                description: Unique EverString location id of a company
+              - fieldName: zi_c_url
+                fieldType: String
+                description: Website of the company to enrich
+              - fieldName: zi_c_name
+                fieldType: String
+                description: Name of the company to enrich
+              - fieldName: phone
+                fieldType: Object
+                description: 'Phone of a company. The input format is {zi_c_country: United States, zi_c_phone: xxxxxxx}'
+              - fieldName: address
+                fieldType: Object
+                description: 'Address of the company to enrich. Input format is {zi_c_street: 170 Data Drive, zi_c_city: Waltham, zi_c_state: MA, zi_c_zip: 02451, zi_c_country: United States}'
+              - fieldName: email
+                fieldType: String
+                description: An email of a contact from the company
+              - fieldName: match_reasons
+                fieldType: ArrayList
+                description: 'Minimum Match criteria to enrich the company. Accept an array of objects. Input format is [{ zi_c_name: F, zi_c_url: E, zi_c_state: E, match_score: 3 }, { zi_c_name: E, zi_c_phone: E, match_score: 3 }]'
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/outputfields/company-master/enrich:
+    parameters: []
+    get:
+      tags:
+      - Company Master Data Enrich
+      summary: Zoominfo Company Master Data Enrich Outputs
+      description: Returns a list of fields you can specify as output for the [Company Master Data Enrich](#8b6cffe4-cb34-44ab-ad5d-1953d372ffd3) endpoint.
+      operationId: CompanyMasterDataEnrichOutputs
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          const: application/json
+          type: string
+          examples:
+          - application/json
+        example: example_value
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Tue, 16 Nov 2021 21:36:45 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            X-Request-Id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: b96a5366-ca78-4cac-9a45-2c93c22de522
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1498'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1637098657'
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            content-encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 6af3db4b0ad31760-EWR
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyMasterDataEnrichOutput'
+                description: ''
+                examples:
+                - - fieldName: zi_c_location_id
+                    dataType: Long
+                    description: ZoomInfo unique identifier for company location
+                  - fieldName: zi_es_ecid
+                    dataType: Long
+                    description: EverString Company ID (ECID) is a unique identifier for a company entity
+                  - fieldName: zi_es_location_id
+                    dataType: String
+                    description: Location ID, which uniquely identifies each separate physical location, office, or branch of a company
+                  - fieldName: zi_c_is_hq
+                    dataType: String
+                    description: This flag indicates if this record is the HQ entity (1, 0)
+                  - fieldName: zi_c_tier_grade
+                    dataType: String
+                    description: Overall data quality tier for a record (A, B, C)
+                  - fieldName: zi_c_name
+                    dataType: String
+                    description: Company name for location
+                  - fieldName: zi_c_name_display
+                    dataType: String
+                    description: Colloquial name of the company
+                  - fieldName: zi_c_legal_entity_type
+                    dataType: String
+                    description: Legal structure of company, generally parsed from the end of the legal name (Inc, LLC)
+                  - fieldName: zi_c_url
+                    dataType: String
+                    description: Primary website of the company. May contain yelp.com URLs for companies without a top-level domain
+                  - fieldName: zi_c_street
+                    dataType: String
+                    description: Company's physical street address
+                  - fieldName: zi_c_street_2
+                    dataType: String
+                    description: Company's physical street address continued
+                  - fieldName: zi_c_city
+                    dataType: String
+                    description: Company's physical city
+                  - fieldName: zi_c_state
+                    dataType: String
+                    description: Company's physical state
+                  - fieldName: zi_c_zip
+                    dataType: String
+                    description: Company's physical zip/postal code
+                  - fieldName: zi_c_country
+                    dataType: String
+                    description: Company's physical country
+                  - fieldName: zi_c_cbsa_name
+                    dataType: String
+                    description: Company's core-based statistical area
+                  - fieldName: zi_c_county
+                    dataType: String
+                    description: Company's physical county
+                  - fieldName: zi_c_latitude
+                    dataType: Float
+                    description: Latitude geo-coordinate for company's physical location
+                  - fieldName: zi_c_longitude
+                    dataType: Float
+                    description: Longitude geo-coordinate for company's physical location
+                  - fieldName: zi_c_verified_address
+                    dataType: String
+                    description: Verification of whether this address is deliverable
+                  - fieldName: zi_c_employee_range
+                    dataType: String
+                    description: Employee category band. Please refer to /lookup/employee-category-band
+                  - fieldName: zi_c_employees
+                    dataType: Long
+                    description: Raw employee count for a company
+                  - fieldName: zi_c_revenue_range
+                    dataType: String
+                    description: Revenue category band in USD. Please refer to /lookup/revenue-category-band
+                  - fieldName: zi_c_revenue
+                    dataType: Long
+                    description: Raw revenue number in USD (in thousands)
+                  - fieldName: zi_c_phone
+                    dataType: String
+                    description: Company location phone number
+                  - fieldName: zi_c_fax
+                    dataType: String
+                    description: Primary fax number for company location
+                  - fieldName: zi_c_industry_primary
+                    dataType: String
+                    description: Top-level primary industry of the company
+                  - fieldName: zi_c_sub_industry_primary
+                    dataType: String
+                    description: Top-level primary sub-industry of the company location
+                  - fieldName: zi_c_industries
+                    dataType: ArrayList
+                    description: All industries
+                  - fieldName: zi_c_sub_industries
+                    dataType: ArrayList
+                    description: All sub-industries
+                  - fieldName: zi_es_industry
+                    dataType: String
+                    description: Primary industry based on EverString's industry taxonomy
+                  - fieldName: zi_es_industries_top3
+                    dataType: ArrayList
+                    description: The top three industries predicted, as many larger companies can operate in multiple industries.
+                  - fieldName: zi_c_naics2
+                    dataType: String
+                    description: Primary 2-digit NAICS code
+                  - fieldName: zi_c_naics4
+                    dataType: String
+                    description: Primary 4-digit NAICS code
+                  - fieldName: zi_c_naics6
+                    dataType: String
+                    description: Primary 6-digit NAICS code
+                  - fieldName: zi_c_naics_top3
+                    dataType: ArrayList
+                    description: The top three NAICS predicted, as many larger companies can operate in multiple industries.
+                  - fieldName: zi_c_sic2
+                    dataType: String
+                    description: Primary 2-digit SIC code
+                  - fieldName: zi_c_sic3
+                    dataType: String
+                    description: Primary 3-digit SIC code
+                  - fieldName: zi_c_sic4
+                    dataType: String
+                    description: Primary 4-digit SIC code
+                  - fieldName: zi_c_sic_top3
+                    dataType: ArrayList
+                    description: The top three SIC predicted, as many larger companies can operate in multiple industries.
+                  - fieldName: zi_c_estimated_age
+                    dataType: Long
+                    description: Estimated age of the company
+                  - fieldName: zi_c_year_founded
+                    dataType: String
+                    description: Founding year of the company
+                  - fieldName: zi_c_is_b2b
+                    dataType: String
+                    description: A flag to represent a company as B2B (1, 0)
+                  - fieldName: zi_c_is_b2c
+                    dataType: String
+                    description: A flag to represent a company as B2C (1, 0)
+                  - fieldName: zi_c_company_id
+                    dataType: Long
+                    description: ZoomInfo Company ID for the headquarters (HQ) of a company entity
+                  - fieldName: zi_es_hq_ecid
+                    dataType: Long
+                    description: EverString Company ID (ECID) for the headquarters (HQ) of a company entity
+                  - fieldName: zi_es_hq_location_id
+                    dataType: String
+                    description: Location ID for the headquarters (HQ) of a company entity
+                  - fieldName: zi_c_company_name
+                    dataType: String
+                    description: HQ Company name. May match ZI_C_NAME.
+                  - fieldName: zi_c_company_url
+                    dataType: String
+                    description: HQ Primary website of the company. May contain yelp.com websites. May match ZI_C_URL.
+                  - fieldName: zi_c_company_street
+                    dataType: String
+                    description: HQ Company's physical street address
+                  - fieldName: zi_c_company_street_2
+                    dataType: String
+                    description: HQ Company's physical street address continued
+                  - fieldName: zi_c_company_city
+                    dataType: String
+                    description: HQ Company's physical city
+                  - fieldName: zi_c_company_state
+                    dataType: String
+                    description: HQ Company's physical state
+                  - fieldName: zi_c_company_zip
+                    dataType: String
+                    description: HQ Company's physical zip/postal code
+                  - fieldName: zi_c_company_country
+                    dataType: String
+                    description: Company's core-based statistical area
+                  - fieldName: zi_c_company_cbsa_name
+                    dataType: String
+                    description: HQ Company's core-based statistical area
+                  - fieldName: zi_c_company_county
+                    dataType: String
+                    description: HQ Company's physical county
+                  - fieldName: zi_c_company_latitude
+                    dataType: Float
+                    description: HQ Company's latitude geo-coordinate
+                  - fieldName: zi_c_company_longitude
+                    dataType: Float
+                    description: HQ Company's longitude geo-coordinate
+                  - fieldName: zi_c_company_verified_address
+                    dataType: String
+                    description: Denotes whether HQ address deliverability is verified
+                  - fieldName: zi_c_company_employee_range
+                    dataType: String
+                    description: HQ Employee category band. Please refer to /lookup/employee-category-band
+                  - fieldName: zi_c_company_employees
+                    dataType: Long
+                    description: HQ Raw employee number for a company
+                  - fieldName: zi_c_company_revenue_range
+                    dataType: String
+                    description: HQ Revenue category band. Please refer to /lookup/revenue-category-band
+                  - fieldName: zi_c_company_revenue
+                    dataType: Long
+                    description: HQ Raw revenue number in USD (in thousands)
+                  - fieldName: zi_c_company_phone
+                    dataType: String
+                    description: HQ Company's phone number
+                  - fieldName: zi_c_company_fax
+                    dataType: String
+                    description: HQ Company's fax number
+                  - fieldName: zi_c_linkedin_url
+                    dataType: String
+                    description: Linkedin URL for the company
+                  - fieldName: zi_c_facebook_url
+                    dataType: String
+                    description: Facebook URL for the company
+                  - fieldName: zi_c_twitter_url
+                    dataType: String
+                    description: Twitter URL for the company
+                  - fieldName: zi_c_yelp_url
+                    dataType: String
+                    description: Yelp URL for the company
+                  - fieldName: zi_c_alexa_rank
+                    dataType: Long
+                    description: Alexa rank for the company, representing web traffic. Lower number indicates higher rank/traffic.
+                  - fieldName: zi_c_keywords
+                    dataType: ArrayList
+                    description: Machine generated tags for the company
+                  - fieldName: zi_c_top_keywords
+                    dataType: ArrayList
+                    description: Top ten machine generated tags for the company
+                  - fieldName: zi_c_num_keywords
+                    dataType: Long
+                    description: The number of ZI_C_KEYWORDS associated with a company. Larger numbers usually indicate a more sophisticated website and/or many lines of businesses.
+                  - fieldName: zi_c_employee_growth_1yr
+                    dataType: Float
+                    description: Approximate company employee growth percentage in the past 1 year
+                  - fieldName: zi_c_employee_growth_2yr
+                    dataType: Float
+                    description: Approximate company employee growth percentage in the past 2 years
+                  - fieldName: zi_es_growth
+                    dataType: String
+                    description: A measure of overall growth from the last month compare against average growth in the industry
+                  - fieldName: zi_es_employee_growth
+                    dataType: String
+                    description: A measure of employee growth from last month compared against average growth in the industry
+                  - fieldName: zi_es_revenue_growth
+                    dataType: String
+                    description: A measure of revenue growth from last month compared against average growth in the industry
+                  - fieldName: zi_es_percent_employee_growth
+                    dataType: Float
+                    description: Percentage employee growth from last month compared against average growth in the industry
+                  - fieldName: zi_es_percent_revenue_growth
+                    dataType: Float
+                    description: Percentage revenue growth from last month compared against average growth in the industry
+                  - fieldName: zi_c_name_confidence_score
+                    dataType: Float
+                    description: Confidence score for the ZI_C_NAME field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+                  - fieldName: zi_c_url_confidence_score
+                    dataType: Float
+                    description: Confidence score for the ZI_C_URL field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+                  - fieldName: zi_c_address_confidence_score
+                    dataType: Float
+                    description: Confidence score for the ZI_C_ADDRESS field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+                  - fieldName: zi_c_phone_confidence_score
+                    dataType: Float
+                    description: Confidence score for the ZI_C_PHONE field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+                  - fieldName: zi_c_employees_confidence_score
+                    dataType: Float
+                    description: Confidence score for the ZI_C_EMPLOYEES_RANGE field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+                  - fieldName: zi_c_revenue_confidence_score
+                    dataType: Float
+                    description: Confidence score for the ZI_C_REVENUE_RANGE field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+                  - fieldName: zi_es_industry_confidence_score
+                    dataType: Float
+                    description: Confidence score for the ZI_ES_INDUSTRY field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+                  - fieldName: zi_c_naics_confidence_score
+                    dataType: Float
+                    description: Confidence score for the ZI_C_NAICS field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+                  - fieldName: zi_c_sic_confidence_score
+                    dataType: Float
+                    description: Confidence score for the ZI_C_SIC field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+                  - fieldName: zi_es_industries_top3_confidence_scores
+                    dataType: ArrayList
+                    description: Confidence score for the ZI_ES_INDUSTRIES_TOP3 field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+                  - fieldName: zi_c_naics_top3_confidence_scores
+                    dataType: ArrayList
+                    description: Confidence score for the ZI_C_NAICS6_TOP3 field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+                  - fieldName: zi_c_sic_top3_confidence_scores
+                    dataType: ArrayList
+                    description: Confidence score for the ZI_C_SIC4_TOP3 field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+                  - fieldName: zi_c_names_other
+                    dataType: String
+                    description: Alternate company name
+                  - fieldName: zi_c_url_status
+                    dataType: String
+                    description: Identifies if a company's website is still active or redirects to another website. VALID, INVALID, PARKED, REDIRECT.
+                  - fieldName: zi_c_urls_alt
+                    dataType: ArrayList
+                    description: All websites related to a company
+                  - fieldName: zi_c_url_last_updated
+                    dataType: String
+                    description: Date company's URL was last updated
+                  - fieldName: zi_c_inactive_flag
+                    dataType: String
+                    description: Identifies if a company is inactive. (1 or 0, 1 being inactive)
+                  - fieldName: zi_c_ein
+                    dataType: String
+                    description: The Employer Identification Number (EIN) of a company
+                  - fieldName: zi_c_is_small_business
+                    dataType: String
+                    description: 'A flag to represent a company as a small business (1, 0). Small business is considered less than 500 employees. Note: This flag reflects employee size data at the ECID Location-Level, not HQ-Level'
+                  - fieldName: zi_c_is_public
+                    dataType: String
+                    description: Indication if company is Public or Private (1, 0)
+                  - fieldName: zi_c_ticker
+                    dataType: String
+                    description: Stock ticker for the company
+                  - fieldName: zi_c_tickers_alt
+                    dataType: ArrayList
+                    description: Alternate stock ticker for the company
+                  - fieldName: zi_c_has_mobile_app
+                    dataType: String
+                    description: Identifies if this company has a mobile app link detected on their website (1, 0)
+                  - fieldName: zi_c_currency_code
+                    dataType: String
+                    description: Company's currency code
+                  - fieldName: zi_c_num_locations
+                    dataType: Long
+                    description: Number of locations the company has
+                  - fieldName: zi_c_hr_contacts
+                    dataType: Long
+                    description: Number of HR contacts available at the company
+                  - fieldName: zi_c_sales_contacts
+                    dataType: Long
+                    description: Number of Sales contacts available at the company
+                  - fieldName: zi_c_marketing_contacts
+                    dataType: Long
+                    description: Number of Marketing contacts available at the company
+                  - fieldName: zi_c_finance_contacts
+                    dataType: Long
+                    description: Number of Finance contacts available at the company
+                  - fieldName: zi_c_c_suite_contacts
+                    dataType: Long
+                    description: Number of C-Suite contacts available at the company
+                  - fieldName: zi_c_engineering_contacts
+                    dataType: Long
+                    description: Number of Engineering contacts available at the company
+                  - fieldName: zi_c_it_contacts
+                    dataType: Long
+                    description: Number of IT contacts available at the company
+                  - fieldName: zi_c_operations_contacts
+                    dataType: Long
+                    description: Number of Operations contacts available at the company
+                  - fieldName: zi_c_legal_contacts
+                    dataType: Long
+                    description: Number of Legal contacts available at the company
+                  - fieldName: zi_c_medical_contacts
+                    dataType: Long
+                    description: Number of Medical contacts available at the company
+                  - fieldName: zi_c_tech_ids
+                    dataType: ArrayList
+                    description: Unique identifier for a technology. Could be a single tech ID, or a comma-separated list of ID's
+                  - fieldName: zi_c_latest_funding_age
+                    dataType: Long
+                    description: The number of years since the company's last funding
+                  - fieldName: zi_c_num_of_investors
+                    dataType: Long
+                    description: Number of investors for a company
+                  - fieldName: zi_c_investor_names
+                    dataType: ArrayList
+                    description: All investor names from publicly available sources
+                  - fieldName: zi_c_funding_strength
+                    dataType: String
+                    description: A measure of funding strength of a business based on type and who they received funding from (Low, Medium, High)
+                  - fieldName: zi_c_funding_type
+                    dataType: ArrayList
+                    description: Publicly available sources funding type
+                  - fieldName: zi_c_total_funding_amount
+                    dataType: Long
+                    description: The total amount of funding a company has received
+                  - fieldName: zi_c_latest_funding_amount
+                    dataType: Long
+                    description: The amount of funding in the latest funding round of a company
+                  - fieldName: zi_c_latest_funding_date
+                    dataType: String
+                    description: Date when the latest funding was received
+                  - fieldName: zi_c_num_funding_rounds
+                    dataType: Long
+                    description: The number of funding rounds a company has had
+                  - fieldName: zi_c_is_fortune_100
+                    dataType: String
+                    description: This flag indicates if this record is a Fortune 100 entity (1, 0)
+                  - fieldName: zi_c_is_fortune_500
+                    dataType: String
+                    description: This flag indicates if this record is a Fortune 500 entity (1, 0)
+                  - fieldName: zi_c_is_s_and_p_500
+                    dataType: String
+                    description: This flag indicates if this record is a S&P 500 entity (1, 0)
+                  - fieldName: zi_c_is_domestic_hq
+                    dataType: String
+                    description: This flag indicates if this record is a Domestic Parent entity (1, 0)
+                  - fieldName: zi_c_is_global_parent
+                    dataType: String
+                    description: This flag indicates if this record is the Global Parent entity (1, 0)
+                  - fieldName: zi_c_is_subsidiary
+                    dataType: String
+                    description: This flag indicates if this record is a Subsidiary entity (1, 0)
+                  - fieldName: zi_c_is_franchisor
+                    dataType: String
+                    description: This flag indicates if this record is a Franchisor (1, 0)
+                  - fieldName: zi_c_is_franchisee
+                    dataType: String
+                    description: This flag indicates if this record is a Frachisee (1, 0)
+                  - fieldName: zi_c_hierarchy_code
+                    dataType: String
+                    description: This alpha code identifies the record's hierarchy level and location level. Hierarchy levels include Global Parent, Domestic Parent, or Subsidiary. Location levels include Individual Location or Headquarters location. Please refer to /lookup/hierarchy-code
+                  - fieldName: zi_c_hierarchy_level
+                    dataType: Long
+                    description: This number indicates the hierarchy level equivalent to the hierarchy code
+                  - fieldName: zi_c_parent_child_confidence_score
+                    dataType: Float
+                    description: Confidence score for the parent child hierarchy linkage (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+                  - fieldName: zi_c_immediate_parent_company_id
+                    dataType: Long
+                    description: Unique identifier of parent company of requested company
+                  - fieldName: zi_es_immediate_parent_ecid
+                    dataType: Long
+                    description: Immediate parent company's identifier number
+                  - fieldName: zi_es_immediate_parent_location_id
+                    dataType: String
+                    description: Immediate parent company's location identifier
+                  - fieldName: zi_c_immediate_parent_name
+                    dataType: String
+                    description: Immediate parent company's name
+                  - fieldName: zi_c_immediate_parent_url
+                    dataType: String
+                    description: Immediate parent company's website
+                  - fieldName: zi_c_immediate_parent_street
+                    dataType: String
+                    description: Immediate parent company's street address
+                  - fieldName: zi_c_immediate_parent_street_2
+                    dataType: String
+                    description: Immediate parent company's street address continued
+                  - fieldName: zi_c_immediate_parent_city
+                    dataType: String
+                    description: Immediate parent company's city
+                  - fieldName: zi_c_immediate_parent_zip
+                    dataType: String
+                    description: Immediate parent company's zip code
+                  - fieldName: zi_c_immediate_parent_state
+                    dataType: String
+                    description: Immediate parent company's state
+                  - fieldName: zi_c_immediate_parent_country
+                    dataType: String
+                    description: Immediate parent company's country
+                  - fieldName: zi_c_domestic_parent_company_id
+                    dataType: Long
+                    description: Unique identifier of parent company of requested company
+                  - fieldName: zi_es_domestic_parent_ecid
+                    dataType: Long
+                    description: Domestic parent company's identifier number
+                  - fieldName: zi_es_domestic_parent_location_id
+                    dataType: String
+                    description: Domestic parent company's location identifier
+                  - fieldName: zi_c_domestic_parent_name
+                    dataType: String
+                    description: Domestic parent company's name
+                  - fieldName: zi_c_domestic_parent_url
+                    dataType: String
+                    description: Domestic parent company's website
+                  - fieldName: zi_c_domestic_parent_street
+                    dataType: String
+                    description: Domestic parent company's street address
+                  - fieldName: zi_c_domestic_parent_street_2
+                    dataType: String
+                    description: Domestic parent company's street address continued
+                  - fieldName: zi_c_domestic_parent_city
+                    dataType: String
+                    description: Domestic parent company's city
+                  - fieldName: zi_c_domestic_parent_zip
+                    dataType: String
+                    description: Domestic parent company's zip code
+                  - fieldName: zi_c_domestic_parent_state
+                    dataType: String
+                    description: Domestic parent company's state
+                  - fieldName: zi_c_domestic_parent_country
+                    dataType: String
+                    description: Domestic parent company's country
+                  - fieldName: zi_c_global_parent_company_id
+                    dataType: Long
+                    description: Unique identifier of global parent company that has acquired requested company
+                  - fieldName: zi_es_global_parent_ecid
+                    dataType: Long
+                    description: Global parent company's identifier number
+                  - fieldName: zi_es_global_parent_location_id
+                    dataType: String
+                    description: Global parent company's location identifier
+                  - fieldName: zi_c_global_parent_name
+                    dataType: String
+                    description: Global parent company's name
+                  - fieldName: zi_c_global_parent_url
+                    dataType: String
+                    description: Global parent company's website
+                  - fieldName: zi_c_global_parent_street
+                    dataType: String
+                    description: Global parent company's street address
+                  - fieldName: zi_c_global_parent_street_2
+                    dataType: String
+                    description: Global parent company's street address continued
+                  - fieldName: zi_c_global_parent_city
+                    dataType: String
+                    description: Global parent company's city
+                  - fieldName: zi_c_global_parent_zip
+                    dataType: String
+                    description: Global parent company's zip
+                  - fieldName: zi_c_global_parent_state
+                    dataType: String
+                    description: Global parent company's state
+                  - fieldName: zi_c_global_parent_country
+                    dataType: String
+                    description: Global parent company's country
+                  - fieldName: zi_c_franchisor_company_id
+                    dataType: Long
+                    description: Company franchisor's ZoomInfo Company ID
+                  - fieldName: zi_es_franchisor_ecid
+                    dataType: Long
+                    description: Company franchisor's identifier number
+                  - fieldName: zi_es_franchisor_location_id
+                    dataType: String
+                    description: Company franchisor's location number
+                  - fieldName: zi_c_franchisor_name
+                    dataType: String
+                    description: Company franchisor's name
+                  - fieldName: zi_c_franchisor_url
+                    dataType: String
+                    description: Company franchisor's website
+                  - fieldName: zi_c_franchisor_street
+                    dataType: String
+                    description: Company franchisor's street address
+                  - fieldName: zi_c_franchisor_street_2
+                    dataType: String
+                    description: Company franchisor's street address continued
+                  - fieldName: zi_c_franchisor_city
+                    dataType: String
+                    description: Company franchisor's city
+                  - fieldName: zi_c_franchisor_zip
+                    dataType: String
+                    description: Company franchisor's zip code
+                  - fieldName: zi_c_franchisor_state
+                    dataType: String
+                    description: Company franchisor's state
+                  - fieldName: zi_c_franchisor_country
+                    dataType: String
+                    description: Company franchisor's country
+                  - fieldName: zi_c_tech_spend
+                    dataType: String
+                    description: A measure of Technology spend as modeled by the types of technology purchased by a company (Low, Medium, High)
+                  - fieldName: zi_c_hr_spend
+                    dataType: String
+                    description: A measure of HR spend as modeled by the types of HR technology purchased by a company (Low, Medium, High)
+                  - fieldName: zi_c_sales_spend
+                    dataType: String
+                    description: A measure of Sales spend as modeled by the types of Sales technology purchased by a company (Low, Medium, High)
+                  - fieldName: zi_c_marketing_spend
+                    dataType: String
+                    description: A measure of Marketing spend as modeled by the types of Marketing technology purchase, type of titles, website sophistication by a company (Low, Medium, High)
+                  - fieldName: zi_c_finance_spend
+                    dataType: String
+                    description: A measure of Finance spend as modeled by the types of Finance technology purchased by a company (Low, Medium, High)
+                  - fieldName: zi_c_tech_strength
+                    dataType: String
+                    description: A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High)
+                  - fieldName: zi_c_hr_strength
+                    dataType: String
+                    description: A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High)
+                  - fieldName: zi_c_sales_strength
+                    dataType: String
+                    description: A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High)
+                  - fieldName: zi_c_marketing_strength
+                    dataType: String
+                    description: A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High)
+                  - fieldName: zi_c_finance_strength
+                    dataType: String
+                    description: A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High)
+                  - fieldName: zi_c_tech_sophistication
+                    dataType: String
+                    description: A measure of technology sophistication of a business (Low, Medium, High)
+                  - fieldName: zi_c_hr_sophistication
+                    dataType: String
+                    description: A measure of HR sophistication of a business (Low, Medium, High)
+                  - fieldName: zi_c_sales_sophistication
+                    dataType: String
+                    description: A measure of Sales sophistication of a business (Low, Medium, High)
+                  - fieldName: zi_c_marketing_sophistication
+                    dataType: String
+                    description: A measure of Marketing sophistication of a company (Low, Average, High)
+                  - fieldName: zi_c_social_sophistication
+                    dataType: String
+                    description: A measure of Social sophistication of a business (Low, Medium, High)
+                  - fieldName: zi_c_finance_sophistication
+                    dataType: String
+                    description: A measure of Finance sophistication of a business (Low, Medium, High)
+                  - fieldName: zi_c_last_updated_date
+                    dataType: String
+                    description: Date when the record was last updated
+                  - fieldName: zi_c_release_date
+                    dataType: String
+                    description: Year and Month of this data release in YYYYMM format (e.g., 201902)
+                  - fieldName: zi_match_reason
+                    dataType: Object
+                    description: Match reason
+                contentMediaType: application/json;charset=UTF-8
+              example:
+              - fieldName: zi_c_location_id
+                dataType: Long
+                description: ZoomInfo unique identifier for company location
+              - fieldName: zi_es_ecid
+                dataType: Long
+                description: EverString Company ID (ECID) is a unique identifier for a company entity
+              - fieldName: zi_es_location_id
+                dataType: String
+                description: Location ID, which uniquely identifies each separate physical location, office, or branch of a company
+              - fieldName: zi_c_is_hq
+                dataType: String
+                description: This flag indicates if this record is the HQ entity (1, 0)
+              - fieldName: zi_c_tier_grade
+                dataType: String
+                description: Overall data quality tier for a record (A, B, C)
+              - fieldName: zi_c_name
+                dataType: String
+                description: Company name for location
+              - fieldName: zi_c_name_display
+                dataType: String
+                description: Colloquial name of the company
+              - fieldName: zi_c_legal_entity_type
+                dataType: String
+                description: Legal structure of company, generally parsed from the end of the legal name (Inc, LLC)
+              - fieldName: zi_c_url
+                dataType: String
+                description: Primary website of the company. May contain yelp.com URLs for companies without a top-level domain
+              - fieldName: zi_c_street
+                dataType: String
+                description: Company's physical street address
+              - fieldName: zi_c_street_2
+                dataType: String
+                description: Company's physical street address continued
+              - fieldName: zi_c_city
+                dataType: String
+                description: Company's physical city
+              - fieldName: zi_c_state
+                dataType: String
+                description: Company's physical state
+              - fieldName: zi_c_zip
+                dataType: String
+                description: Company's physical zip/postal code
+              - fieldName: zi_c_country
+                dataType: String
+                description: Company's physical country
+              - fieldName: zi_c_cbsa_name
+                dataType: String
+                description: Company's core-based statistical area
+              - fieldName: zi_c_county
+                dataType: String
+                description: Company's physical county
+              - fieldName: zi_c_latitude
+                dataType: Float
+                description: Latitude geo-coordinate for company's physical location
+              - fieldName: zi_c_longitude
+                dataType: Float
+                description: Longitude geo-coordinate for company's physical location
+              - fieldName: zi_c_verified_address
+                dataType: String
+                description: Verification of whether this address is deliverable
+              - fieldName: zi_c_employee_range
+                dataType: String
+                description: Employee category band. Please refer to /lookup/employee-category-band
+              - fieldName: zi_c_employees
+                dataType: Long
+                description: Raw employee count for a company
+              - fieldName: zi_c_revenue_range
+                dataType: String
+                description: Revenue category band in USD. Please refer to /lookup/revenue-category-band
+              - fieldName: zi_c_revenue
+                dataType: Long
+                description: Raw revenue number in USD (in thousands)
+              - fieldName: zi_c_phone
+                dataType: String
+                description: Company location phone number
+              - fieldName: zi_c_fax
+                dataType: String
+                description: Primary fax number for company location
+              - fieldName: zi_c_industry_primary
+                dataType: String
+                description: Top-level primary industry of the company
+              - fieldName: zi_c_sub_industry_primary
+                dataType: String
+                description: Top-level primary sub-industry of the company location
+              - fieldName: zi_c_industries
+                dataType: ArrayList
+                description: All industries
+              - fieldName: zi_c_sub_industries
+                dataType: ArrayList
+                description: All sub-industries
+              - fieldName: zi_es_industry
+                dataType: String
+                description: Primary industry based on EverString's industry taxonomy
+              - fieldName: zi_es_industries_top3
+                dataType: ArrayList
+                description: The top three industries predicted, as many larger companies can operate in multiple industries.
+              - fieldName: zi_c_naics2
+                dataType: String
+                description: Primary 2-digit NAICS code
+              - fieldName: zi_c_naics4
+                dataType: String
+                description: Primary 4-digit NAICS code
+              - fieldName: zi_c_naics6
+                dataType: String
+                description: Primary 6-digit NAICS code
+              - fieldName: zi_c_naics_top3
+                dataType: ArrayList
+                description: The top three NAICS predicted, as many larger companies can operate in multiple industries.
+              - fieldName: zi_c_sic2
+                dataType: String
+                description: Primary 2-digit SIC code
+              - fieldName: zi_c_sic3
+                dataType: String
+                description: Primary 3-digit SIC code
+              - fieldName: zi_c_sic4
+                dataType: String
+                description: Primary 4-digit SIC code
+              - fieldName: zi_c_sic_top3
+                dataType: ArrayList
+                description: The top three SIC predicted, as many larger companies can operate in multiple industries.
+              - fieldName: zi_c_estimated_age
+                dataType: Long
+                description: Estimated age of the company
+              - fieldName: zi_c_year_founded
+                dataType: String
+                description: Founding year of the company
+              - fieldName: zi_c_is_b2b
+                dataType: String
+                description: A flag to represent a company as B2B (1, 0)
+              - fieldName: zi_c_is_b2c
+                dataType: String
+                description: A flag to represent a company as B2C (1, 0)
+              - fieldName: zi_c_company_id
+                dataType: Long
+                description: ZoomInfo Company ID for the headquarters (HQ) of a company entity
+              - fieldName: zi_es_hq_ecid
+                dataType: Long
+                description: EverString Company ID (ECID) for the headquarters (HQ) of a company entity
+              - fieldName: zi_es_hq_location_id
+                dataType: String
+                description: Location ID for the headquarters (HQ) of a company entity
+              - fieldName: zi_c_company_name
+                dataType: String
+                description: HQ Company name. May match ZI_C_NAME.
+              - fieldName: zi_c_company_url
+                dataType: String
+                description: HQ Primary website of the company. May contain yelp.com websites. May match ZI_C_URL.
+              - fieldName: zi_c_company_street
+                dataType: String
+                description: HQ Company's physical street address
+              - fieldName: zi_c_company_street_2
+                dataType: String
+                description: HQ Company's physical street address continued
+              - fieldName: zi_c_company_city
+                dataType: String
+                description: HQ Company's physical city
+              - fieldName: zi_c_company_state
+                dataType: String
+                description: HQ Company's physical state
+              - fieldName: zi_c_company_zip
+                dataType: String
+                description: HQ Company's physical zip/postal code
+              - fieldName: zi_c_company_country
+                dataType: String
+                description: Company's core-based statistical area
+              - fieldName: zi_c_company_cbsa_name
+                dataType: String
+                description: HQ Company's core-based statistical area
+              - fieldName: zi_c_company_county
+                dataType: String
+                description: HQ Company's physical county
+              - fieldName: zi_c_company_latitude
+                dataType: Float
+                description: HQ Company's latitude geo-coordinate
+              - fieldName: zi_c_company_longitude
+                dataType: Float
+                description: HQ Company's longitude geo-coordinate
+              - fieldName: zi_c_company_verified_address
+                dataType: String
+                description: Denotes whether HQ address deliverability is verified
+              - fieldName: zi_c_company_employee_range
+                dataType: String
+                description: HQ Employee category band. Please refer to /lookup/employee-category-band
+              - fieldName: zi_c_company_employees
+                dataType: Long
+                description: HQ Raw employee number for a company
+              - fieldName: zi_c_company_revenue_range
+                dataType: String
+                description: HQ Revenue category band. Please refer to /lookup/revenue-category-band
+              - fieldName: zi_c_company_revenue
+                dataType: Long
+                description: HQ Raw revenue number in USD (in thousands)
+              - fieldName: zi_c_company_phone
+                dataType: String
+                description: HQ Company's phone number
+              - fieldName: zi_c_company_fax
+                dataType: String
+                description: HQ Company's fax number
+              - fieldName: zi_c_linkedin_url
+                dataType: String
+                description: Linkedin URL for the company
+              - fieldName: zi_c_facebook_url
+                dataType: String
+                description: Facebook URL for the company
+              - fieldName: zi_c_twitter_url
+                dataType: String
+                description: Twitter URL for the company
+              - fieldName: zi_c_yelp_url
+                dataType: String
+                description: Yelp URL for the company
+              - fieldName: zi_c_alexa_rank
+                dataType: Long
+                description: Alexa rank for the company, representing web traffic. Lower number indicates higher rank/traffic.
+              - fieldName: zi_c_keywords
+                dataType: ArrayList
+                description: Machine generated tags for the company
+              - fieldName: zi_c_top_keywords
+                dataType: ArrayList
+                description: Top ten machine generated tags for the company
+              - fieldName: zi_c_num_keywords
+                dataType: Long
+                description: The number of ZI_C_KEYWORDS associated with a company. Larger numbers usually indicate a more sophisticated website and/or many lines of businesses.
+              - fieldName: zi_c_employee_growth_1yr
+                dataType: Float
+                description: Approximate company employee growth percentage in the past 1 year
+              - fieldName: zi_c_employee_growth_2yr
+                dataType: Float
+                description: Approximate company employee growth percentage in the past 2 years
+              - fieldName: zi_es_growth
+                dataType: String
+                description: A measure of overall growth from the last month compare against average growth in the industry
+              - fieldName: zi_es_employee_growth
+                dataType: String
+                description: A measure of employee growth from last month compared against average growth in the industry
+              - fieldName: zi_es_revenue_growth
+                dataType: String
+                description: A measure of revenue growth from last month compared against average growth in the industry
+              - fieldName: zi_es_percent_employee_growth
+                dataType: Float
+                description: Percentage employee growth from last month compared against average growth in the industry
+              - fieldName: zi_es_percent_revenue_growth
+                dataType: Float
+                description: Percentage revenue growth from last month compared against average growth in the industry
+              - fieldName: zi_c_name_confidence_score
+                dataType: Float
+                description: Confidence score for the ZI_C_NAME field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+              - fieldName: zi_c_url_confidence_score
+                dataType: Float
+                description: Confidence score for the ZI_C_URL field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+              - fieldName: zi_c_address_confidence_score
+                dataType: Float
+                description: Confidence score for the ZI_C_ADDRESS field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+              - fieldName: zi_c_phone_confidence_score
+                dataType: Float
+                description: Confidence score for the ZI_C_PHONE field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+              - fieldName: zi_c_employees_confidence_score
+                dataType: Float
+                description: Confidence score for the ZI_C_EMPLOYEES_RANGE field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+              - fieldName: zi_c_revenue_confidence_score
+                dataType: Float
+                description: Confidence score for the ZI_C_REVENUE_RANGE field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+              - fieldName: zi_es_industry_confidence_score
+                dataType: Float
+                description: Confidence score for the ZI_ES_INDUSTRY field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+              - fieldName: zi_c_naics_confidence_score
+                dataType: Float
+                description: Confidence score for the ZI_C_NAICS field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+              - fieldName: zi_c_sic_confidence_score
+                dataType: Float
+                description: Confidence score for the ZI_C_SIC field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+              - fieldName: zi_es_industries_top3_confidence_scores
+                dataType: ArrayList
+                description: Confidence score for the ZI_ES_INDUSTRIES_TOP3 field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+              - fieldName: zi_c_naics_top3_confidence_scores
+                dataType: ArrayList
+                description: Confidence score for the ZI_C_NAICS6_TOP3 field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+              - fieldName: zi_c_sic_top3_confidence_scores
+                dataType: ArrayList
+                description: Confidence score for the ZI_C_SIC4_TOP3 field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+              - fieldName: zi_c_names_other
+                dataType: String
+                description: Alternate company name
+              - fieldName: zi_c_url_status
+                dataType: String
+                description: Identifies if a company's website is still active or redirects to another website. VALID, INVALID, PARKED, REDIRECT.
+              - fieldName: zi_c_urls_alt
+                dataType: ArrayList
+                description: All websites related to a company
+              - fieldName: zi_c_url_last_updated
+                dataType: String
+                description: Date company's URL was last updated
+              - fieldName: zi_c_inactive_flag
+                dataType: String
+                description: Identifies if a company is inactive. (1 or 0, 1 being inactive)
+              - fieldName: zi_c_ein
+                dataType: String
+                description: The Employer Identification Number (EIN) of a company
+              - fieldName: zi_c_is_small_business
+                dataType: String
+                description: 'A flag to represent a company as a small business (1, 0). Small business is considered less than 500 employees. Note: This flag reflects employee size data at the ECID Location-Level, not HQ-Level'
+              - fieldName: zi_c_is_public
+                dataType: String
+                description: Indication if company is Public or Private (1, 0)
+              - fieldName: zi_c_ticker
+                dataType: String
+                description: Stock ticker for the company
+              - fieldName: zi_c_tickers_alt
+                dataType: ArrayList
+                description: Alternate stock ticker for the company
+              - fieldName: zi_c_has_mobile_app
+                dataType: String
+                description: Identifies if this company has a mobile app link detected on their website (1, 0)
+              - fieldName: zi_c_currency_code
+                dataType: String
+                description: Company's currency code
+              - fieldName: zi_c_num_locations
+                dataType: Long
+                description: Number of locations the company has
+              - fieldName: zi_c_hr_contacts
+                dataType: Long
+                description: Number of HR contacts available at the company
+              - fieldName: zi_c_sales_contacts
+                dataType: Long
+                description: Number of Sales contacts available at the company
+              - fieldName: zi_c_marketing_contacts
+                dataType: Long
+                description: Number of Marketing contacts available at the company
+              - fieldName: zi_c_finance_contacts
+                dataType: Long
+                description: Number of Finance contacts available at the company
+              - fieldName: zi_c_c_suite_contacts
+                dataType: Long
+                description: Number of C-Suite contacts available at the company
+              - fieldName: zi_c_engineering_contacts
+                dataType: Long
+                description: Number of Engineering contacts available at the company
+              - fieldName: zi_c_it_contacts
+                dataType: Long
+                description: Number of IT contacts available at the company
+              - fieldName: zi_c_operations_contacts
+                dataType: Long
+                description: Number of Operations contacts available at the company
+              - fieldName: zi_c_legal_contacts
+                dataType: Long
+                description: Number of Legal contacts available at the company
+              - fieldName: zi_c_medical_contacts
+                dataType: Long
+                description: Number of Medical contacts available at the company
+              - fieldName: zi_c_tech_ids
+                dataType: ArrayList
+                description: Unique identifier for a technology. Could be a single tech ID, or a comma-separated list of ID's
+              - fieldName: zi_c_latest_funding_age
+                dataType: Long
+                description: The number of years since the company's last funding
+              - fieldName: zi_c_num_of_investors
+                dataType: Long
+                description: Number of investors for a company
+              - fieldName: zi_c_investor_names
+                dataType: ArrayList
+                description: All investor names from publicly available sources
+              - fieldName: zi_c_funding_strength
+                dataType: String
+                description: A measure of funding strength of a business based on type and who they received funding from (Low, Medium, High)
+              - fieldName: zi_c_funding_type
+                dataType: ArrayList
+                description: Publicly available sources funding type
+              - fieldName: zi_c_total_funding_amount
+                dataType: Long
+                description: The total amount of funding a company has received
+              - fieldName: zi_c_latest_funding_amount
+                dataType: Long
+                description: The amount of funding in the latest funding round of a company
+              - fieldName: zi_c_latest_funding_date
+                dataType: String
+                description: Date when the latest funding was received
+              - fieldName: zi_c_num_funding_rounds
+                dataType: Long
+                description: The number of funding rounds a company has had
+              - fieldName: zi_c_is_fortune_100
+                dataType: String
+                description: This flag indicates if this record is a Fortune 100 entity (1, 0)
+              - fieldName: zi_c_is_fortune_500
+                dataType: String
+                description: This flag indicates if this record is a Fortune 500 entity (1, 0)
+              - fieldName: zi_c_is_s_and_p_500
+                dataType: String
+                description: This flag indicates if this record is a S&P 500 entity (1, 0)
+              - fieldName: zi_c_is_domestic_hq
+                dataType: String
+                description: This flag indicates if this record is a Domestic Parent entity (1, 0)
+              - fieldName: zi_c_is_global_parent
+                dataType: String
+                description: This flag indicates if this record is the Global Parent entity (1, 0)
+              - fieldName: zi_c_is_subsidiary
+                dataType: String
+                description: This flag indicates if this record is a Subsidiary entity (1, 0)
+              - fieldName: zi_c_is_franchisor
+                dataType: String
+                description: This flag indicates if this record is a Franchisor (1, 0)
+              - fieldName: zi_c_is_franchisee
+                dataType: String
+                description: This flag indicates if this record is a Frachisee (1, 0)
+              - fieldName: zi_c_hierarchy_code
+                dataType: String
+                description: This alpha code identifies the record's hierarchy level and location level. Hierarchy levels include Global Parent, Domestic Parent, or Subsidiary. Location levels include Individual Location or Headquarters location. Please refer to /lookup/hierarchy-code
+              - fieldName: zi_c_hierarchy_level
+                dataType: Long
+                description: This number indicates the hierarchy level equivalent to the hierarchy code
+              - fieldName: zi_c_parent_child_confidence_score
+                dataType: Float
+                description: Confidence score for the parent child hierarchy linkage (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)
+              - fieldName: zi_c_immediate_parent_company_id
+                dataType: Long
+                description: Unique identifier of parent company of requested company
+              - fieldName: zi_es_immediate_parent_ecid
+                dataType: Long
+                description: Immediate parent company's identifier number
+              - fieldName: zi_es_immediate_parent_location_id
+                dataType: String
+                description: Immediate parent company's location identifier
+              - fieldName: zi_c_immediate_parent_name
+                dataType: String
+                description: Immediate parent company's name
+              - fieldName: zi_c_immediate_parent_url
+                dataType: String
+                description: Immediate parent company's website
+              - fieldName: zi_c_immediate_parent_street
+                dataType: String
+                description: Immediate parent company's street address
+              - fieldName: zi_c_immediate_parent_street_2
+                dataType: String
+                description: Immediate parent company's street address continued
+              - fieldName: zi_c_immediate_parent_city
+                dataType: String
+                description: Immediate parent company's city
+              - fieldName: zi_c_immediate_parent_zip
+                dataType: String
+                description: Immediate parent company's zip code
+              - fieldName: zi_c_immediate_parent_state
+                dataType: String
+                description: Immediate parent company's state
+              - fieldName: zi_c_immediate_parent_country
+                dataType: String
+                description: Immediate parent company's country
+              - fieldName: zi_c_domestic_parent_company_id
+                dataType: Long
+                description: Unique identifier of parent company of requested company
+              - fieldName: zi_es_domestic_parent_ecid
+                dataType: Long
+                description: Domestic parent company's identifier number
+              - fieldName: zi_es_domestic_parent_location_id
+                dataType: String
+                description: Domestic parent company's location identifier
+              - fieldName: zi_c_domestic_parent_name
+                dataType: String
+                description: Domestic parent company's name
+              - fieldName: zi_c_domestic_parent_url
+                dataType: String
+                description: Domestic parent company's website
+              - fieldName: zi_c_domestic_parent_street
+                dataType: String
+                description: Domestic parent company's street address
+              - fieldName: zi_c_domestic_parent_street_2
+                dataType: String
+                description: Domestic parent company's street address continued
+              - fieldName: zi_c_domestic_parent_city
+                dataType: String
+                description: Domestic parent company's city
+              - fieldName: zi_c_domestic_parent_zip
+                dataType: String
+                description: Domestic parent company's zip code
+              - fieldName: zi_c_domestic_parent_state
+                dataType: String
+                description: Domestic parent company's state
+              - fieldName: zi_c_domestic_parent_country
+                dataType: String
+                description: Domestic parent company's country
+              - fieldName: zi_c_global_parent_company_id
+                dataType: Long
+                description: Unique identifier of global parent company that has acquired requested company
+              - fieldName: zi_es_global_parent_ecid
+                dataType: Long
+                description: Global parent company's identifier number
+              - fieldName: zi_es_global_parent_location_id
+                dataType: String
+                description: Global parent company's location identifier
+              - fieldName: zi_c_global_parent_name
+                dataType: String
+                description: Global parent company's name
+              - fieldName: zi_c_global_parent_url
+                dataType: String
+                description: Global parent company's website
+              - fieldName: zi_c_global_parent_street
+                dataType: String
+                description: Global parent company's street address
+              - fieldName: zi_c_global_parent_street_2
+                dataType: String
+                description: Global parent company's street address continued
+              - fieldName: zi_c_global_parent_city
+                dataType: String
+                description: Global parent company's city
+              - fieldName: zi_c_global_parent_zip
+                dataType: String
+                description: Global parent company's zip
+              - fieldName: zi_c_global_parent_state
+                dataType: String
+                description: Global parent company's state
+              - fieldName: zi_c_global_parent_country
+                dataType: String
+                description: Global parent company's country
+              - fieldName: zi_c_franchisor_company_id
+                dataType: Long
+                description: Company franchisor's ZoomInfo Company ID
+              - fieldName: zi_es_franchisor_ecid
+                dataType: Long
+                description: Company franchisor's identifier number
+              - fieldName: zi_es_franchisor_location_id
+                dataType: String
+                description: Company franchisor's location number
+              - fieldName: zi_c_franchisor_name
+                dataType: String
+                description: Company franchisor's name
+              - fieldName: zi_c_franchisor_url
+                dataType: String
+                description: Company franchisor's website
+              - fieldName: zi_c_franchisor_street
+                dataType: String
+                description: Company franchisor's street address
+              - fieldName: zi_c_franchisor_street_2
+                dataType: String
+                description: Company franchisor's street address continued
+              - fieldName: zi_c_franchisor_city
+                dataType: String
+                description: Company franchisor's city
+              - fieldName: zi_c_franchisor_zip
+                dataType: String
+                description: Company franchisor's zip code
+              - fieldName: zi_c_franchisor_state
+                dataType: String
+                description: Company franchisor's state
+              - fieldName: zi_c_franchisor_country
+                dataType: String
+                description: Company franchisor's country
+              - fieldName: zi_c_tech_spend
+                dataType: String
+                description: A measure of Technology spend as modeled by the types of technology purchased by a company (Low, Medium, High)
+              - fieldName: zi_c_hr_spend
+                dataType: String
+                description: A measure of HR spend as modeled by the types of HR technology purchased by a company (Low, Medium, High)
+              - fieldName: zi_c_sales_spend
+                dataType: String
+                description: A measure of Sales spend as modeled by the types of Sales technology purchased by a company (Low, Medium, High)
+              - fieldName: zi_c_marketing_spend
+                dataType: String
+                description: A measure of Marketing spend as modeled by the types of Marketing technology purchase, type of titles, website sophistication by a company (Low, Medium, High)
+              - fieldName: zi_c_finance_spend
+                dataType: String
+                description: A measure of Finance spend as modeled by the types of Finance technology purchased by a company (Low, Medium, High)
+              - fieldName: zi_c_tech_strength
+                dataType: String
+                description: A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High)
+              - fieldName: zi_c_hr_strength
+                dataType: String
+                description: A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High)
+              - fieldName: zi_c_sales_strength
+                dataType: String
+                description: A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High)
+              - fieldName: zi_c_marketing_strength
+                dataType: String
+                description: A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High)
+              - fieldName: zi_c_finance_strength
+                dataType: String
+                description: A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High)
+              - fieldName: zi_c_tech_sophistication
+                dataType: String
+                description: A measure of technology sophistication of a business (Low, Medium, High)
+              - fieldName: zi_c_hr_sophistication
+                dataType: String
+                description: A measure of HR sophistication of a business (Low, Medium, High)
+              - fieldName: zi_c_sales_sophistication
+                dataType: String
+                description: A measure of Sales sophistication of a business (Low, Medium, High)
+              - fieldName: zi_c_marketing_sophistication
+                dataType: String
+                description: A measure of Marketing sophistication of a company (Low, Average, High)
+              - fieldName: zi_c_social_sophistication
+                dataType: String
+                description: A measure of Social sophistication of a business (Low, Medium, High)
+              - fieldName: zi_c_finance_sophistication
+                dataType: String
+                description: A measure of Finance sophistication of a business (Low, Medium, High)
+              - fieldName: zi_c_last_updated_date
+                dataType: String
+                description: Date when the record was last updated
+              - fieldName: zi_c_release_date
+                dataType: String
+                description: Year and Month of this data release in YYYYMM format (e.g., 201902)
+              - fieldName: zi_match_reason
+                dataType: Object
+                description: Match reason
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Nameaddressandmatchreason:
+      title: Nameaddressandmatchreason
+      required:
+      - success
+      - data
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/Data18'
+      examples:
+      - success: true
+        data:
+          outputFields:
+          - zi_c_location_id
+          - zi_es_ecid
+          - zi_es_location_id
+          - zi_c_is_hq
+          - zi_c_tier_grade
+          - zi_c_name
+          - zi_c_name_display
+          - zi_c_legal_entity_type
+          - zi_c_url
+          - zi_c_street
+          - zi_c_street_2
+          - zi_c_city
+          - zi_c_state
+          - zi_c_zip
+          - zi_c_country
+          - zi_match_reason
+          result:
+          - statusCode: 200
+            input:
+              address:
+                zi_c_city: mc lean
+                zi_c_country: united states
+                zi_c_state: virginia
+                zi_c_zip: '22102'
+              match_reasons:
+              - zi_c_name: e
+              zi_c_name: capital one
+            data:
+              zi_c_location_id: 2046129220
+              zi_es_ecid: 136461914
+              zi_es_location_id: 136461914NZOKIRXYRA
+              zi_c_is_hq: '1'
+              zi_c_tier_grade: A
+              zi_c_name: Capital One Financial
+              zi_c_name_display: Capital One Financial
+              zi_c_url: capitalone.com
+              zi_c_street: 1680 Capital One Dr
+              zi_c_city: Mc Lean
+              zi_c_state: Virginia
+              zi_c_zip: '22102'
+              zi_c_country: United States
+              zi_match_reason:
+                zi_match_name: Capital One Capital
+                zi_match_reason_building_name: M
+                zi_match_reason_building_number: M
+                zi_match_reason_business_type: M
+                zi_match_reason_city: E
+                zi_match_reason_company_phone: M
+                zi_match_reason_country: E
+                zi_match_reason_directional: M
+                zi_match_reason_name: E
+                zi_match_reason_road_name: M
+                zi_match_reason_road_type: M
+                zi_match_reason_state: E
+                zi_match_reason_unit: M
+                zi_match_reason_website: M
+                zi_match_reason_zip: E
+                zi_match_score: '5'
+    Address1:
+      title: Address1
+      required:
+      - zi_c_city
+      - zi_c_country
+      - zi_c_state
+      - zi_c_zip
+      type: object
+      properties:
+        zi_c_city:
+          type: string
+          example: San Francisco
+        zi_c_country:
+          type: string
+          example: US
+        zi_c_state:
+          type: string
+          example: CA
+        zi_c_zip:
+          type: string
+          example: '94105'
+      examples:
+      - zi_c_city: mc lean
+        zi_c_country: united states
+        zi_c_state: virginia
+        zi_c_zip: '22102'
+    MatchReason:
+      title: MatchReason
+      required:
+      - zi_c_name
+      type: object
+      properties:
+        zi_c_name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - zi_c_name: e
+    CompanyMasterDataEnrichInput:
+      title: CompanyMasterDataEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: zi_c_location_id
+        fieldType: Long
+        description: Unique ZoomInfo identifier for a company
+    MatchCompanyInput1:
+      title: MatchCompanyInput1
+      required:
+      - zi_c_url
+      type: object
+      properties:
+        zi_c_url:
+          type: string
+          example: https://www.example.com/resource
+      examples:
+      - zi_c_url: zoominfo.com
+    Data19:
+      title: Data19
+      required:
+      - zi_c_location_id
+      - zi_es_ecid
+      - zi_es_location_id
+      - zi_c_is_hq
+      - zi_c_tier_grade
+      - zi_c_name
+      - zi_c_name_display
+      - zi_c_url
+      - zi_c_street
+      - zi_c_city
+      - zi_c_state
+      - zi_c_zip
+      - zi_c_country
+      - zi_match_reason
+      type: object
+      properties:
+        zi_c_location_id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        zi_es_ecid:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        zi_es_location_id:
+          type: string
+          example: '500123'
+        zi_c_is_hq:
+          type: string
+          example: example_value
+        zi_c_tier_grade:
+          type: string
+          example: example_value
+        zi_c_name:
+          type: string
+          example: Acme Corporation
+        zi_c_name_display:
+          type: string
+          example: Acme Corporation
+        zi_c_url:
+          type: string
+          example: https://www.example.com/resource
+        zi_c_street:
+          type: string
+          example: example_value
+        zi_c_city:
+          type: string
+          example: San Francisco
+        zi_c_state:
+          type: string
+          example: CA
+        zi_c_zip:
+          type: string
+          example: '94105'
+        zi_c_country:
+          type: string
+          example: US
+        zi_match_reason:
+          $ref: '#/components/schemas/ZiMatchReason'
+      examples:
+      - zi_c_location_id: 2046129220
+        zi_es_ecid: 136461914
+        zi_es_location_id: 136461914NZOKIRXYRA
+        zi_c_is_hq: '1'
+        zi_c_tier_grade: A
+        zi_c_name: Capital One Financial
+        zi_c_name_display: Capital One Financial
+        zi_c_url: capitalone.com
+        zi_c_street: 1680 Capital One Dr
+        zi_c_city: Mc Lean
+        zi_c_state: Virginia
+        zi_c_zip: '22102'
+        zi_c_country: United States
+        zi_match_reason:
+          zi_match_name: Capital One Capital
+          zi_match_reason_building_name: M
+          zi_match_reason_building_number: M
+          zi_match_reason_business_type: M
+          zi_match_reason_city: E
+          zi_match_reason_company_phone: M
+          zi_match_reason_country: E
+          zi_match_reason_directional: M
+          zi_match_reason_name: E
+          zi_match_reason_road_name: M
+          zi_match_reason_road_type: M
+          zi_match_reason_state: E
+          zi_match_reason_unit: M
+          zi_match_reason_website: M
+          zi_match_reason_zip: E
+          zi_match_score: '5'
+    CompanyMasterDataEnrichOutput:
+      title: CompanyMasterDataEnrichOutput
+      required:
+      - fieldName
+      - dataType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        dataType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: zi_c_location_id
+        dataType: Long
+        description: ZoomInfo unique identifier for company location
+    CompanyMasterDataEnrichRequest:
+      title: CompanyMasterDataEnrichRequest
+      required:
+      - matchCompanyInput
+      - outputFields
+      type: object
+      properties:
+        matchCompanyInput:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchCompanyInput1'
+          description: ''
+          example: []
+        outputFields:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+      examples:
+      - matchCompanyInput:
+        - zi_c_url: zoominfo.com
+        outputFields:
+        - zi_c_location_id
+        - zi_es_ecid
+        - zi_es_location_id
+        - zi_c_is_hq
+        - zi_c_tier_grade
+        - zi_c_name
+        - zi_c_name_display
+        - zi_c_legal_entity_type
+        - zi_c_url
+        - zi_c_street
+        - zi_c_street_2
+        - zi_c_city
+        - zi_c_state
+        - zi_c_zip
+        - zi_c_country
+        - zi_match_reason
+    Result9:
+      title: Result9
+      required:
+      - statusCode
+      - input
+      - data
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        input:
+          $ref: '#/components/schemas/Input9'
+        data:
+          $ref: '#/components/schemas/Data19'
+      examples:
+      - statusCode: 200
+        input:
+          address:
+            zi_c_city: mc lean
+            zi_c_country: united states
+            zi_c_state: virginia
+            zi_c_zip: '22102'
+          match_reasons:
+          - zi_c_name: e
+          zi_c_name: capital one
+        data:
+          zi_c_location_id: 2046129220
+          zi_es_ecid: 136461914
+          zi_es_location_id: 136461914NZOKIRXYRA
+          zi_c_is_hq: '1'
+          zi_c_tier_grade: A
+          zi_c_name: Capital One Financial
+          zi_c_name_display: Capital One Financial
+          zi_c_url: capitalone.com
+          zi_c_street: 1680 Capital One Dr
+          zi_c_city: Mc Lean
+          zi_c_state: Virginia
+          zi_c_zip: '22102'
+          zi_c_country: United States
+          zi_match_reason:
+            zi_match_name: Capital One Capital
+            zi_match_reason_building_name: M
+            zi_match_reason_building_number: M
+            zi_match_reason_business_type: M
+            zi_match_reason_city: E
+            zi_match_reason_company_phone: M
+            zi_match_reason_country: E
+            zi_match_reason_directional: M
+            zi_match_reason_name: E
+            zi_match_reason_road_name: M
+            zi_match_reason_road_type: M
+            zi_match_reason_state: E
+            zi_match_reason_unit: M
+            zi_match_reason_website: M
+            zi_match_reason_zip: E
+            zi_match_score: '5'
+    Matchbycompanyaddress1:
+      title: Matchbycompanyaddress1
+      required:
+      - responseCode
+      - message
+      - invalidOutputFields
+      type: object
+      properties:
+        responseCode:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        message:
+          type: string
+          example: example_value
+        invalidOutputFields:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+      examples:
+      - responseCode: 400
+        message: There are invalid fields in your request.
+        invalidOutputFields:
+        - zi_c_id
+    ZiMatchReason:
+      title: ZiMatchReason
+      required:
+      - zi_match_name
+      - zi_match_reason_building_name
+      - zi_match_reason_building_number
+      - zi_match_reason_business_type
+      - zi_match_reason_city
+      - zi_match_reason_company_phone
+      - zi_match_reason_country
+      - zi_match_reason_directional
+      - zi_match_reason_name
+      - zi_match_reason_road_name
+      - zi_match_reason_road_type
+      - zi_match_reason_state
+      - zi_match_reason_unit
+      - zi_match_reason_website
+      - zi_match_reason_zip
+      - zi_match_score
+      type: object
+      properties:
+        zi_match_name:
+          type: string
+          example: Acme Corporation
+        zi_match_reason_building_name:
+          type: string
+          example: Acme Corporation
+        zi_match_reason_building_number:
+          type: string
+          example: example_value
+        zi_match_reason_business_type:
+          type: string
+          example: standard
+        zi_match_reason_city:
+          type: string
+          example: San Francisco
+        zi_match_reason_company_phone:
+          type: string
+          example: +1-555-555-1234
+        zi_match_reason_country:
+          type: string
+          example: US
+        zi_match_reason_directional:
+          type: string
+          example: example_value
+        zi_match_reason_name:
+          type: string
+          example: Acme Corporation
+        zi_match_reason_road_name:
+          type: string
+          example: Acme Corporation
+        zi_match_reason_road_type:
+          type: string
+          example: standard
+        zi_match_reason_state:
+          type: string
+          example: CA
+        zi_match_reason_unit:
+          type: string
+          example: example_value
+        zi_match_reason_website:
+          type: string
+          example: example_value
+        zi_match_reason_zip:
+          type: string
+          example: '94105'
+        zi_match_score:
+          type: string
+          example: example_value
+      examples:
+      - zi_match_name: Capital One Capital
+        zi_match_reason_building_name: M
+        zi_match_reason_building_number: M
+        zi_match_reason_business_type: M
+        zi_match_reason_city: E
+        zi_match_reason_company_phone: M
+        zi_match_reason_country: E
+        zi_match_reason_directional: M
+        zi_match_reason_name: E
+        zi_match_reason_road_name: M
+        zi_match_reason_road_type: M
+        zi_match_reason_state: E
+        zi_match_reason_unit: M
+        zi_match_reason_website: M
+        zi_match_reason_zip: E
+        zi_match_score: '5'
+    Input9:
+      title: Input9
+      required:
+      - address
+      - match_reasons
+      - zi_c_name
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address1'
+        match_reasons:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchReason'
+          description: ''
+          example: []
+        zi_c_name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - address:
+          zi_c_city: mc lean
+          zi_c_country: united states
+          zi_c_state: virginia
+          zi_c_zip: '22102'
+        match_reasons:
+        - zi_c_name: e
+        zi_c_name: capital one
+    Data18:
+      title: Data18
+      required:
+      - outputFields
+      - result
+      type: object
+      properties:
+        outputFields:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result9'
+          description: ''
+          example: []
+      examples:
+      - outputFields:
+        - zi_c_location_id
+        - zi_es_ecid
+        - zi_es_location_id
+        - zi_c_is_hq
+        - zi_c_tier_grade
+        - zi_c_name
+        - zi_c_name_display
+        - zi_c_legal_entity_type
+        - zi_c_url
+        - zi_c_street
+        - zi_c_street_2
+        - zi_c_city
+        - zi_c_state
+        - zi_c_zip
+        - zi_c_country
+        - zi_match_reason
+        result:
+        - statusCode: 200
+          input:
+            address:
+              zi_c_city: mc lean
+              zi_c_country: united states
+              zi_c_state: virginia
+              zi_c_zip: '22102'
+            match_reasons:
+            - zi_c_name: e
+            zi_c_name: capital one
+          data:
+            zi_c_location_id: 2046129220
+            zi_es_ecid: 136461914
+            zi_es_location_id: 136461914NZOKIRXYRA
+            zi_c_is_hq: '1'
+            zi_c_tier_grade: A
+            zi_c_name: Capital One Financial
+            zi_c_name_display: Capital One Financial
+            zi_c_url: capitalone.com
+            zi_c_street: 1680 Capital One Dr
+            zi_c_city: Mc Lean
+            zi_c_state: Virginia
+            zi_c_zip: '22102'
+            zi_c_country: United States
+            zi_match_reason:
+              zi_match_name: Capital One Capital
+              zi_match_reason_building_name: M
+              zi_match_reason_building_number: M
+              zi_match_reason_business_type: M
+              zi_match_reason_city: E
+              zi_match_reason_company_phone: M
+              zi_match_reason_country: E
+              zi_match_reason_directional: M
+              zi_match_reason_name: E
+              zi_match_reason_road_name: M
+              zi_match_reason_road_type: M
+              zi_match_reason_state: E
+              zi_match_reason_unit: M
+              zi_match_reason_website: M
+              zi_match_reason_zip: E
+              zi_match_score: '5'
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint

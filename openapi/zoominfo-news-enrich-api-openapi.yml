@@ -1,0 +1,1042 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication News Enrich API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: News Enrich
+  description: 'Use [News Enrich](#a04f60d9-353e-4eb1-9c37-0539ee6b8d13) to retrieve news data using valid query parameters.
+
+
+    Refer to the examples provided to build a valid JSON request:
+
+
+    *   Use the [News Enrich Inputs](#d58425e5-a4a4-4af0-ad01-fa7bbf91ca84) endpoint to retrieve a list of valid input parameters you can provide
+
+    *   Use the [News Enrich Outputs](#254b86e3-e51b-450d-8704-95e4da168874) endpoint to retrieve a list of valid output fields returned'
+paths:
+  /enrich/news:
+    parameters: []
+    post:
+      tags:
+      - News Enrich
+      summary: Zoominfo News Enrich
+      description: "Use this endpoint to match company news information based on [input values](#d58425e5-a4a4-4af0-ad01-fa7bbf91ca84) and return the desired [output fields](#254b86e3-e51b-450d-8704-95e4da168874) in the response.\n\nThe News Enrich endpoint returns a list of news articles related to a specified company:\n\n- News Enrich requests require a valid ZoomInfo Company ID as an input parameter\n- By default, each request will return the 10 most recent news articles associated with the company record\n- You can filter the news articles returned by adjusting the input parameters\n    \n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyId | String | Unique ZoomInfo identifier for a company |\n| limit | Integer | Number of articles to return per page. The maximum limit is 100. |\n| page | Integer | Provides the results for the given page. Used in conjunction with `limit`. |\n| categories | String | Category of news articles. See the News Categories endpoint for values. |\n| url | ArrayList | Search news by text contained in URL strings. You must specify a minimum of 5 characters per input. |\n| pageDateMin | String | Specify the earliest publishing date for news articles returned. For example, `2020-01-01` will return all news articles published on or after Jan 1, 2020. |\n| pageDateMax | String | Specify the latest publishing date for news articles articles. For example, `2020-01-31` will return all new articles published on or before Jan 31, 2020. |\n\n**Output fields**\n\n| Field | Description |\n| --- | --- |\n| companyId | Unique ZoomInfo identifier for a company |\n| companyName | Company name |\n| domain | News article domain |\n| title | News article title |\n| url | News article URL |\n| imageUrl | News article image URL |\n| pageDate | News article date |\n| categories | News article categories |\n| description | News article content description |"
+      operationId: NewsEnrich
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/NewsEnrichRequest'
+              - examples:
+                - companyId: 18579882
+                  categories:
+                  - FUNDING
+                  - GENERAL_NEWS
+                  - GENERAL_PRESS_RELEASE
+                  - MERGER_OR_ACQUISTION
+                  - PERSON
+                  - PRODUCT
+                  url:
+                  - www.businesswire.com
+                  pageDateMin: '2019-12-01T00:00:00.000Z'
+                  pageDateMax: '2020-12-31T00:00:00.000Z'
+                  limit: 5
+              contentMediaType: application/json
+            example:
+              companyId: 18579882
+              categories:
+              - FUNDING
+              - GENERAL_NEWS
+              - GENERAL_PRESS_RELEASE
+              - MERGER_OR_ACQUISTION
+              - PERSON
+              - PRODUCT
+              url:
+              - www.businesswire.com
+              pageDateMin: '2019-12-01T00:00:00.000Z'
+              pageDateMax: '2020-12-31T00:00:00.000Z'
+              limit: 5
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 27 Jun 2024 20:38:06 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Origin,Access-Control-Request-Method,Access-Control-Request-Headers
+            x-usage-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '105050000'
+            x-usage-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '105049997'
+            x-usage-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '105050000'
+            x-usage-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '105048808'
+            x-usage-websights-api-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '18000000'
+            x-usage-websights-api-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '17999979'
+            x-usage-websights-api-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1800000'
+            x-usage-websights-api-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1799984'
+            x-usage-unique-id-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10025000'
+            x-usage-unique-id-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '4944'
+            x-envoy-upstream-service-time:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '323'
+            service:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gke
+            x-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: MQLayPS3kGl8VjA4kqMAJoB8HpXjH7dp2PxI
+            x-ratelimit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            x-ratelimit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            x-envoy-decorator-operation:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: apps-gateway-active.main.svc.cluster.local:8080/*
+            via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google
+            alt-svc:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: h3=":443"; ma=86400
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Origin-Trial:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: AyXGdeyTa0Lq3roJGvPBs/Ps9duHL7Vf/Q5YJQJwQN4fdGLbtMPms4BfmK2HapcHVkvBjyAVhxe5deDNI1TFXgcAAABxeyJvcmlnaW4iOiJodHRwczovL3pvb21pbmZvLmNvbTo0NDMiLCJmZWF0dXJlIjoiVHBjZCIsImV4cGlyeSI6MTczNTM0Mzk5OSwiaXNTdWJkb21haW4iOnRydWUsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 89a83d1d3f04381e-IAD
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/NewsEnrich'
+                - examples:
+                  - maxResults: 48
+                    totalResults: 5
+                    currentPage: 1
+                    data:
+                    - domain: www.businesswire.com
+                      title: Arvind Krishna Elected IBM Chairman
+                      url: https://www.businesswire.com/news/home/20201216005975/en/Arvind-Krishna-Elected-IBM-Chairman/
+                      imageUrl: https://mms.businesswire.com/media/20201216005975/en/2721/21/IBM8bar_12pxWide.jpg
+                      pageDate: '2020-12-16T09:11:00.000Z'
+                      categories:
+                      - PERSON
+                      description: 'ARMONK, N.Y.--(BUSINESS WIRE)---- $ibm #ibm--The IBM (NYSE: IBM) board of directors has elected Arvind Krishna chairman of the board, effective January 1, 2021. Mr. Krishna, who is IBM''s chief executive officer and a member of the board, succeeds IBM executive chairman Virginia M. Rometty, who is retiring on December 31, 2020, as the company previously announced in January of this year. Mr. Krishna, 58, was elected IBM''s 10th CEO in January, and assumed the position'
+                      company:
+                      - id: 18579882
+                        name: IBM
+                    - domain: www.businesswire.com
+                      title: Kaloom Commits to Join IBM Cloud for Telecommunications Ecosystem
+                      url: https://www.businesswire.com/news/home/20201118005085/en/Kaloom-Commits-to-Join-IBM-Cloud-for-Telecommunications-Ecosystem/
+                      imageUrl: https://mms.businesswire.com/media/20201118005085/en/839263/22/Kaloom_corp_logo.jpg
+                      pageDate: '2020-11-18T01:00:00.000Z'
+                      categories:
+                      - GENERAL_PRESS_RELEASE
+                      description: 'MONTREAL--(BUSINESS WIRE)--KaloomTM today announced it has committed to join IBMs (NYSE: IBM) ecosystem of partners supporting the new IBM Cloud for Telecommunications. The IBM Cloud for Telecommunications is an open, hybrid cloud architecture designed to accelerate business transformation with the power of edge and 5G and address the unique requirements of operators, partner ecosystems and their enterprise clients. Built on IBM Cloud Satellite, currently in beta, and leveraging Red Hat OpenSh'
+                      company:
+                      - id: 18579882
+                        name: IBM
+                      - id: 401162856
+                        name: Kaloom
+                    - domain: www.businesswire.com
+                      title: Sysdig and IBM Embed Sysdig Secure for Container Security
+                      url: https://www.businesswire.com/news/home/20201117005546/en/Sysdig-and-IBM-Embed-Sysdig-Secure-for-Container-Security/
+                      imageUrl: https://mms.businesswire.com/media/20201117005546/en/839397/22/sysdig_Vert_Color_Logo_RGB_lrg.jpg
+                      pageDate: '2020-11-17T12:58:00.000Z'
+                      categories:
+                      - GENERAL_PRESS_RELEASE
+                      description: SAN FRANCISCO--(BUSINESS WIRE)--Sysdig announced global availability of Sysdig Secure embedded within IBM Cloud to provide end-to-end Kubernetes and container monitoring and security
+                      company:
+                      - id: 18579882
+                        name: IBM
+                      - id: 370808562
+                        name: Sysdig
+                    - domain: www.businesswire.com
+                      title: Governance Risk and Compliance Platform Market 2020-2024 | Key Vendor Insights | Technavio
+                      url: https://www.businesswire.com/news/home/20201110005991/en/Governance-Risk-and-Compliance-Platform-Market-2020-2024-Key-Vendor-Insights-Technavio/
+                      imageUrl: https://mms.businesswire.com/media/20201110005991/en/837732/22/IRTNTR44684.jpg
+                      pageDate: '2020-11-11T05:40:00.000Z'
+                      categories:
+                      - GENERAL_PRESS_RELEASE
+                      description: 'LONDON--(BUSINESS WIRE)-- #GlobalGovernanceRiskandCompliancePlatformMarket--The Governance Risk and Compliance Platform Market will grow by $ 28.75 bn during 2020-2024'
+                      company:
+                      - id: 10879721
+                        name: Dell
+                      - id: 18579882
+                        name: IBM
+                      - id: 25248426
+                        name: Mitratech
+                      - id: 345585174
+                        name: Technavio
+                    - domain: www.businesswire.com
+                      title: Global Supply Chain Analytics Market | Trends, Drivers, and Key Vendor Offerings | Technavio
+                      url: https://www.businesswire.com/news/home/20201109005911/en/Global-Supply-Chain-Analytics-Market-Trends-Drivers-and-Key-Vendor-Offerings-Technavio/
+                      imageUrl: https://mms.businesswire.com/media/20201109005911/en/837157/22/IRTNTR45145.jpg
+                      pageDate: '2020-11-10T04:00:00.000Z'
+                      categories:
+                      - GENERAL_PRESS_RELEASE
+                      description: 'LONDON--(BUSINESS WIRE)-- #GlobalSupplyChainAnalyticsMarket--The Supply Chain Analytics Market will grow by $ 3.64 bn during 2020-2024'
+                      company:
+                      - id: 354049788
+                        name: Cloudera
+                      - id: 18579882
+                        name: IBM
+                      - id: 24920158
+                        name: MicroStrategy
+                      - id: 345585174
+                        name: Technavio
+                contentMediaType: application/json
+              example:
+                maxResults: 48
+                totalResults: 5
+                currentPage: 1
+                data:
+                - domain: www.businesswire.com
+                  title: Arvind Krishna Elected IBM Chairman
+                  url: https://www.businesswire.com/news/home/20201216005975/en/Arvind-Krishna-Elected-IBM-Chairman/
+                  imageUrl: https://mms.businesswire.com/media/20201216005975/en/2721/21/IBM8bar_12pxWide.jpg
+                  pageDate: '2020-12-16T09:11:00.000Z'
+                  categories:
+                  - PERSON
+                  description: 'ARMONK, N.Y.--(BUSINESS WIRE)---- $ibm #ibm--The IBM (NYSE: IBM) board of directors has elected Arvind Krishna chairman of the board, effective January 1, 2021. Mr. Krishna, who is IBM''s chief executive officer and a member of the board, succeeds IBM executive chairman Virginia M. Rometty, who is retiring on December 31, 2020, as the company previously announced in January of this year. Mr. Krishna, 58, was elected IBM''s 10th CEO in January, and assumed the position'
+                  company:
+                  - id: 18579882
+                    name: IBM
+                - domain: www.businesswire.com
+                  title: Kaloom Commits to Join IBM Cloud for Telecommunications Ecosystem
+                  url: https://www.businesswire.com/news/home/20201118005085/en/Kaloom-Commits-to-Join-IBM-Cloud-for-Telecommunications-Ecosystem/
+                  imageUrl: https://mms.businesswire.com/media/20201118005085/en/839263/22/Kaloom_corp_logo.jpg
+                  pageDate: '2020-11-18T01:00:00.000Z'
+                  categories:
+                  - GENERAL_PRESS_RELEASE
+                  description: 'MONTREAL--(BUSINESS WIRE)--KaloomTM today announced it has committed to join IBMs (NYSE: IBM) ecosystem of partners supporting the new IBM Cloud for Telecommunications. The IBM Cloud for Telecommunications is an open, hybrid cloud architecture designed to accelerate business transformation with the power of edge and 5G and address the unique requirements of operators, partner ecosystems and their enterprise clients. Built on IBM Cloud Satellite, currently in beta, and leveraging Red Hat OpenSh'
+                  company:
+                  - id: 18579882
+                    name: IBM
+                  - id: 401162856
+                    name: Kaloom
+                - domain: www.businesswire.com
+                  title: Sysdig and IBM Embed Sysdig Secure for Container Security
+                  url: https://www.businesswire.com/news/home/20201117005546/en/Sysdig-and-IBM-Embed-Sysdig-Secure-for-Container-Security/
+                  imageUrl: https://mms.businesswire.com/media/20201117005546/en/839397/22/sysdig_Vert_Color_Logo_RGB_lrg.jpg
+                  pageDate: '2020-11-17T12:58:00.000Z'
+                  categories:
+                  - GENERAL_PRESS_RELEASE
+                  description: SAN FRANCISCO--(BUSINESS WIRE)--Sysdig announced global availability of Sysdig Secure embedded within IBM Cloud to provide end-to-end Kubernetes and container monitoring and security
+                  company:
+                  - id: 18579882
+                    name: IBM
+                  - id: 370808562
+                    name: Sysdig
+                - domain: www.businesswire.com
+                  title: Governance Risk and Compliance Platform Market 2020-2024 | Key Vendor Insights | Technavio
+                  url: https://www.businesswire.com/news/home/20201110005991/en/Governance-Risk-and-Compliance-Platform-Market-2020-2024-Key-Vendor-Insights-Technavio/
+                  imageUrl: https://mms.businesswire.com/media/20201110005991/en/837732/22/IRTNTR44684.jpg
+                  pageDate: '2020-11-11T05:40:00.000Z'
+                  categories:
+                  - GENERAL_PRESS_RELEASE
+                  description: 'LONDON--(BUSINESS WIRE)-- #GlobalGovernanceRiskandCompliancePlatformMarket--The Governance Risk and Compliance Platform Market will grow by $ 28.75 bn during 2020-2024'
+                  company:
+                  - id: 10879721
+                    name: Dell
+                  - id: 18579882
+                    name: IBM
+                  - id: 25248426
+                    name: Mitratech
+                  - id: 345585174
+                    name: Technavio
+                - domain: www.businesswire.com
+                  title: Global Supply Chain Analytics Market | Trends, Drivers, and Key Vendor Offerings | Technavio
+                  url: https://www.businesswire.com/news/home/20201109005911/en/Global-Supply-Chain-Analytics-Market-Trends-Drivers-and-Key-Vendor-Offerings-Technavio/
+                  imageUrl: https://mms.businesswire.com/media/20201109005911/en/837157/22/IRTNTR45145.jpg
+                  pageDate: '2020-11-10T04:00:00.000Z'
+                  categories:
+                  - GENERAL_PRESS_RELEASE
+                  description: 'LONDON--(BUSINESS WIRE)-- #GlobalSupplyChainAnalyticsMarket--The Supply Chain Analytics Market will grow by $ 3.64 bn during 2020-2024'
+                  company:
+                  - id: 354049788
+                    name: Cloudera
+                  - id: 18579882
+                    name: IBM
+                  - id: 24920158
+                    name: MicroStrategy
+                  - id: 345585174
+                    name: Technavio
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/inputfields/news/enrich:
+    parameters: []
+    get:
+      tags:
+      - News Enrich
+      summary: Zoominfo News Enrich Inputs
+      description: Returns a list of fields you can use as input for the [News Enrich](#a04f60d9-353e-4eb1-9c37-0539ee6b8d13) endpoint.
+      operationId: NewsEnrichInputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Mon, 11 May 2020 22:40:33 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 591f66fe2977ae36-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=07a847a334cf7e797620854bcf3d04278d3e9fa911dd994cd5d463e7cae8def9:b222cc11-8ed3-11ea-9562-cb2408100f34; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1589236894'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 02a77eb2dc0000ae3662852200000001
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewsEnrichInput'
+                description: ''
+                examples:
+                - - fieldName: companyId
+                    fieldType: Long
+                    description: The id of the company you are searching for
+                  - fieldName: limit
+                    fieldType: Integer
+                    description: Maximum number of articles to return. The maximum limit is 5000.
+                  - fieldName: categories
+                    fieldType: ArrayList
+                    description: Category of news articles. Accepts an Array of String. See the 'News Categories' endpoint for values.
+                  - fieldName: pageDateMin
+                    fieldType: String
+                    description: Specify the earliest publishing date for news articles returned. For example, 2020-01-01 will return all news articles published on or after Jan 1, 2020.
+                  - fieldName: pageDateMax
+                    fieldType: String
+                    description: Specify the latest publishing date for news articles articles. For example, 2020-01-31 will return all new articles published on or before Jan 31, 2020.
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: companyId
+                fieldType: Long
+                description: The id of the company you are searching for
+              - fieldName: limit
+                fieldType: Integer
+                description: Maximum number of articles to return. The maximum limit is 5000.
+              - fieldName: categories
+                fieldType: ArrayList
+                description: Category of news articles. Accepts an Array of String. See the 'News Categories' endpoint for values.
+              - fieldName: pageDateMin
+                fieldType: String
+                description: Specify the earliest publishing date for news articles returned. For example, 2020-01-01 will return all news articles published on or after Jan 1, 2020.
+              - fieldName: pageDateMax
+                fieldType: String
+                description: Specify the latest publishing date for news articles articles. For example, 2020-01-31 will return all new articles published on or before Jan 31, 2020.
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/outputfields/news/enrich:
+    parameters: []
+    get:
+      tags:
+      - News Enrich
+      summary: Zoominfo News Enrich Outputs
+      description: Returns a list of output fields for the [News Enrich](#a04f60d9-353e-4eb1-9c37-0539ee6b8d13) endpoint.
+      operationId: NewsEnrichOutputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Mon, 11 May 2020 22:40:54 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 591f67860e2aae36-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=07a847a334cf7e797620854bcf3d04278d3e9fa911dd994cd5d463e7cae8def9:b222cc11-8ed3-11ea-9562-cb2408100f34; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1498'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1589236894'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 02a77f07c60000ae3662bf9200000001
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewsEnrichOutput'
+                description: ''
+                examples:
+                - - fieldName: companyId
+                    description: Unique ZoomInfo identifier for a company
+                  - fieldName: companyName
+                    description: Company name
+                  - fieldName: domain
+                    description: News article domain
+                  - fieldName: title
+                    description: News article title
+                  - fieldName: url
+                    description: News article URL
+                  - fieldName: imageUrl
+                    description: News article image URL
+                  - fieldName: pageDate
+                    description: News article date
+                  - fieldName: categories
+                    description: News article categories
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: companyId
+                description: Unique ZoomInfo identifier for a company
+              - fieldName: companyName
+                description: Company name
+              - fieldName: domain
+                description: News article domain
+              - fieldName: title
+                description: News article title
+              - fieldName: url
+                description: News article URL
+              - fieldName: imageUrl
+                description: News article image URL
+              - fieldName: pageDate
+                description: News article date
+              - fieldName: categories
+                description: News article categories
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Company:
+      title: Company
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: 9867169
+        name: AmerisourceBergen
+    NewsEnrichInput:
+      title: NewsEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        fieldType: Long
+        description: The id of the company you are searching for
+    NewsEnrichRequest:
+      title: NewsEnrichRequest
+      required:
+      - companyId
+      - categories
+      - url
+      - pageDateMin
+      - pageDateMax
+      - limit
+      type: object
+      properties:
+        companyId:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        categories:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        url:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: https://www.example.com
+        pageDateMin:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        pageDateMax:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        limit:
+          type: integer
+          contentEncoding: int32
+          example: 100
+      examples:
+      - companyId: 18579882
+        categories:
+        - FUNDING
+        - GENERAL_NEWS
+        - GENERAL_PRESS_RELEASE
+        - MERGER_OR_ACQUISTION
+        - PERSON
+        - PRODUCT
+        url:
+        - www.businesswire.com
+        pageDateMin: '2019-12-01T00:00:00.000Z'
+        pageDateMax: '2020-12-31T00:00:00.000Z'
+        limit: 5
+    NewsEnrichOutput:
+      title: NewsEnrichOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        description: Unique ZoomInfo identifier for a company
+    NewsEnrich:
+      title: NewsEnrich
+      required:
+      - maxResults
+      - totalResults
+      - currentPage
+      - data
+      type: object
+      properties:
+        maxResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        totalResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        currentPage:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data39'
+          description: ''
+          example: []
+      examples:
+      - maxResults: 48
+        totalResults: 5
+        currentPage: 1
+        data:
+        - domain: www.businesswire.com
+          title: Arvind Krishna Elected IBM Chairman
+          url: https://www.businesswire.com/news/home/20201216005975/en/Arvind-Krishna-Elected-IBM-Chairman/
+          imageUrl: https://mms.businesswire.com/media/20201216005975/en/2721/21/IBM8bar_12pxWide.jpg
+          pageDate: '2020-12-16T09:11:00.000Z'
+          categories:
+          - PERSON
+          description: 'ARMONK, N.Y.--(BUSINESS WIRE)---- $ibm #ibm--The IBM (NYSE: IBM) board of directors has elected Arvind Krishna chairman of the board, effective January 1, 2021. Mr. Krishna, who is IBM''s chief executive officer and a member of the board, succeeds IBM executive chairman Virginia M. Rometty, who is retiring on December 31, 2020, as the company previously announced in January of this year. Mr. Krishna, 58, was elected IBM''s 10th CEO in January, and assumed the position'
+          company:
+          - id: 18579882
+            name: IBM
+        - domain: www.businesswire.com
+          title: Kaloom Commits to Join IBM Cloud for Telecommunications Ecosystem
+          url: https://www.businesswire.com/news/home/20201118005085/en/Kaloom-Commits-to-Join-IBM-Cloud-for-Telecommunications-Ecosystem/
+          imageUrl: https://mms.businesswire.com/media/20201118005085/en/839263/22/Kaloom_corp_logo.jpg
+          pageDate: '2020-11-18T01:00:00.000Z'
+          categories:
+          - GENERAL_PRESS_RELEASE
+          description: 'MONTREAL--(BUSINESS WIRE)--KaloomTM today announced it has committed to join IBMs (NYSE: IBM) ecosystem of partners supporting the new IBM Cloud for Telecommunications. The IBM Cloud for Telecommunications is an open, hybrid cloud architecture designed to accelerate business transformation with the power of edge and 5G and address the unique requirements of operators, partner ecosystems and their enterprise clients. Built on IBM Cloud Satellite, currently in beta, and leveraging Red Hat OpenSh'
+          company:
+          - id: 18579882
+            name: IBM
+          - id: 401162856
+            name: Kaloom
+        - domain: www.businesswire.com
+          title: Sysdig and IBM Embed Sysdig Secure for Container Security
+          url: https://www.businesswire.com/news/home/20201117005546/en/Sysdig-and-IBM-Embed-Sysdig-Secure-for-Container-Security/
+          imageUrl: https://mms.businesswire.com/media/20201117005546/en/839397/22/sysdig_Vert_Color_Logo_RGB_lrg.jpg
+          pageDate: '2020-11-17T12:58:00.000Z'
+          categories:
+          - GENERAL_PRESS_RELEASE
+          description: SAN FRANCISCO--(BUSINESS WIRE)--Sysdig announced global availability of Sysdig Secure embedded within IBM Cloud to provide end-to-end Kubernetes and container monitoring and security
+          company:
+          - id: 18579882
+            name: IBM
+          - id: 370808562
+            name: Sysdig
+        - domain: www.businesswire.com
+          title: Governance Risk and Compliance Platform Market 2020-2024 | Key Vendor Insights | Technavio
+          url: https://www.businesswire.com/news/home/20201110005991/en/Governance-Risk-and-Compliance-Platform-Market-2020-2024-Key-Vendor-Insights-Technavio/
+          imageUrl: https://mms.businesswire.com/media/20201110005991/en/837732/22/IRTNTR44684.jpg
+          pageDate: '2020-11-11T05:40:00.000Z'
+          categories:
+          - GENERAL_PRESS_RELEASE
+          description: 'LONDON--(BUSINESS WIRE)-- #GlobalGovernanceRiskandCompliancePlatformMarket--The Governance Risk and Compliance Platform Market will grow by $ 28.75 bn during 2020-2024'
+          company:
+          - id: 10879721
+            name: Dell
+          - id: 18579882
+            name: IBM
+          - id: 25248426
+            name: Mitratech
+          - id: 345585174
+            name: Technavio
+        - domain: www.businesswire.com
+          title: Global Supply Chain Analytics Market | Trends, Drivers, and Key Vendor Offerings | Technavio
+          url: https://www.businesswire.com/news/home/20201109005911/en/Global-Supply-Chain-Analytics-Market-Trends-Drivers-and-Key-Vendor-Offerings-Technavio/
+          imageUrl: https://mms.businesswire.com/media/20201109005911/en/837157/22/IRTNTR45145.jpg
+          pageDate: '2020-11-10T04:00:00.000Z'
+          categories:
+          - GENERAL_PRESS_RELEASE
+          description: 'LONDON--(BUSINESS WIRE)-- #GlobalSupplyChainAnalyticsMarket--The Supply Chain Analytics Market will grow by $ 3.64 bn during 2020-2024'
+          company:
+          - id: 354049788
+            name: Cloudera
+          - id: 18579882
+            name: IBM
+          - id: 24920158
+            name: MicroStrategy
+          - id: 345585174
+            name: Technavio
+    Data39:
+      title: Data39
+      required:
+      - domain
+      - title
+      - url
+      - imageUrl
+      - pageDate
+      - categories
+      - description
+      - company
+      type: object
+      properties:
+        domain:
+          type: string
+          example: example.com
+        title:
+          type: string
+          example: Vice President of Sales
+        url:
+          type: string
+          example: https://www.example.com/resource
+        imageUrl:
+          type: string
+          example: https://www.example.com/resource
+        pageDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        categories:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        description:
+          type: string
+          example: Enterprise software company
+        company:
+          type: array
+          items:
+            $ref: '#/components/schemas/Company'
+          description: ''
+          example: []
+      examples:
+      - domain: www.businesswire.com
+        title: Arvind Krishna Elected IBM Chairman
+        url: https://www.businesswire.com/news/home/20201216005975/en/Arvind-Krishna-Elected-IBM-Chairman/
+        imageUrl: https://mms.businesswire.com/media/20201216005975/en/2721/21/IBM8bar_12pxWide.jpg
+        pageDate: '2020-12-16T09:11:00.000Z'
+        categories:
+        - PERSON
+        description: 'ARMONK, N.Y.--(BUSINESS WIRE)---- $ibm #ibm--The IBM (NYSE: IBM) board of directors has elected Arvind Krishna chairman of the board, effective January 1, 2021. Mr. Krishna, who is IBM''s chief executive officer and a member of the board, succeeds IBM executive chairman Virginia M. Rometty, who is retiring on December 31, 2020, as the company previously announced in January of this year. Mr. Krishna, 58, was elected IBM''s 10th CEO in January, and assumed the position'
+        company:
+        - id: 18579882
+          name: IBM
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint

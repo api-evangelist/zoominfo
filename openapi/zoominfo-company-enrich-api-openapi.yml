@@ -1,0 +1,1898 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication Company Enrich API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Company Enrich
+  description: 'Use [Company Enrich](#59a59d9e-7eb9-44fa-904a-f10f9ab7c5fd) to retrieve company detail using valid query parameters. A Company Enrich request requires you to specify both input parameters about the company you are enriching, and the output fields you want to retrieve.
+
+
+    Refer to the examples provided to build a valid JSON request. For supported input and output parameters:
+
+
+    *   Use the [Company Enrich Inputs](#7a915792-e8cd-4e3a-9f0e-c19b850be536) endpoint to retrieve a list of valid input parameters you can provide
+
+    *   Use the [Company Enrich Outputs](#d05239c3-2597-45f8-9384-f2dbd3518cfc) endpoint to retrieve a list of valid output fields that can be returned'
+paths:
+  /enrich/company:
+    parameters: []
+    post:
+      tags:
+      - Company Enrich
+      summary: Zoominfo Company Enrich
+      description: 'Use this endpoint to match company information based on [input values](#7a915792-e8cd-4e3a-9f0e-c19b850be536) and return the desired [output fields](#d05239c3-2597-45f8-9384-f2dbd3518cfc) in the response.
+
+
+        **Maximum inputs per request**
+
+
+        You can input a maximum of 25 companies in a single enrich request, returning the equivalent number of matching records. See the endpoint examples for how to build queries using multiple inputs.
+
+
+        **Input params**
+
+
+        | Parameter | DataType | Description |
+
+        | --- | --- | --- |
+
+        | companyId | Long integer or string | Unique ZoomInfo identifier for a company |
+
+        | companyName | String | Company name |
+
+        | companyWebsite | String | Company website URL in [http://www.example.com](http://www.example.com) format |
+
+        | companyTicker | String | Company stock ticker symbol |
+
+        | companyPhone | String | Phone number of the company headquarters |
+
+        | companyFax | String | Fax number of the company headquarters |
+
+        | companyStreet | String | Street address for the company''s primary address |
+
+        | companyCity | String | City for the company''s primary address |
+
+        | companyState | String | Company state (U.S.) or province (Canada). You can use free text state or province names (e.g., "new hampshire"), the two-letter common abbreviation for a U.S. state (e.g., "nh"), or values provided in the **State** lookup endpoint. |
+
+        | companyZipCode | String | Zip Code or Postal Code for the company''s primary address |
+
+        | companyCountry | String | Country for the company''s primary address. You can use free text or see the **Country** lookup endpoint for values. |
+
+        | ipAddress | String | IP address associated with the company |
+
+
+        **Output fields**
+
+
+        | Field | Description |
+
+        | --- | --- |
+
+        | id | Unique ZoomInfo identifier for a company |
+
+        | ticker | Company public stock exchange ticker |
+
+        | name | Company name |
+
+        | website | Company website URL |
+
+        | domainList | List of domains associated with a company |
+
+        | logo | The URL which can be used to retrieve the logo for the company |
+
+        | socialMediaUrls | Social media URLs for the company (e.g., Facebook, Twitter, LinkedIn and so on) |
+
+        | revenue | Approximate yearly revenue for the company in 1000''s. For example, a $100M company is expressed as 100000. |
+
+        | employeeCount | Approximate number of people employed by the company |
+
+        | numberOfContactsInZoomInfo | Number of ZoomInfo contacts associated with company |
+
+        | phone | Phone number of the company''s primary address |
+
+        | fax | Fax number of the company''s primary address |
+
+        | street | Street of the company''s primary address |
+
+        | city | City of the company''s primary address |
+
+        | state | State or province of the company''s primary address |
+
+        | zipCode | Zip Code or Postal Code of the company''s primary address |
+
+        | country | Country of the company''s primary address |
+
+        | continent | Continent of the company''s primary address |
+
+        | companyStatus | Company status |
+
+        | companyStatusDate | Date of last company status update |
+
+        | descriptionList | List of descriptions associated with the company |
+
+        | sicCodes | The Standard Industrial Classification is a system for classifying industries by a four-digit code. |
+
+        | naicsCodes | The North American Industry Classification System (NAICS) is the standard used by Federal statistical agencies in classifying business establishments for the purpose of collecting, analyzing, and publishing statistical data related to the U.S. business economy. |
+
+        | competitors | List of competitors |
+
+        | ultimateParentId | Unique ZoomInfo identifier for parent company (if exists) |
+
+        | ultimateParentName | Company name for ultimate parent company (if exists) |
+
+        | ultimateParentRevenue | Approximate yearly revenue for the ultimate parent company |
+
+        | ultimateParentEmployees | Approximate number of people employed by the ultimate parent company |
+
+        | subUnitCodes | Company sub unit codes |
+
+        | subUnitType | Company sub unit types (e.g., division, subsidiary and so on) |
+
+        | subUnitIndustries | Company sub unit industries |
+
+        | primaryIndustry | Top-level industry for a company |
+
+        | primaryIndustryCode | Top-level industry for a company along with it''s code |
+
+        | primarySubIndustryCode | Top-level sub-industry for a company along with it''s code |
+
+        | industries | The industry grouping for the company. A company can have multiple industries. |
+
+        | industryCodes | The industry grouping for the company along with it''s codes. A company can have multiple industries. |
+
+        | parentId | Unique ZoomInfo identifier associated with the parent company |
+
+        | parentName | Company name associated with the parent company |
+
+        | locationCount | Number of office locations associated with a company |
+
+        | locationMatch | Location details that match address-related input parameters. Includes `companyId`, `address`, and `addressStatus` (`CURRENT`, `VALID`, `PAST`). |
+
+        | metroArea | Company metro area |
+
+        | lastUpdatedDate | Date on which the company record was last updated |
+
+        | createdDate | Date on which the company record was created |
+
+        | certificationDate | Date of certification |
+
+        | certified | Denotes if ZoomInfo''s research and data team has confirmed activity within the past 12 months |
+
+        | hashtags | List of hashtags associated with a company |
+
+        | products | List of products associated with a company |
+
+        | techAttributes | Technology products currently utilized by a company. Organized by category, vendor, and product. |
+
+        | revenueRange | Revenue range for a company |
+
+        | employeeRange | Employee range for a company |
+
+        | companyFunding | List of funding rounds including `date`, `type` , `investors`, and `amount` |
+
+        | recentFundingAmount | Most recent funding amount |
+
+        | recentFundingDate | Date of most recent funding |
+
+        | totalFundingAmount | Total funding to date |
+
+        | employeeGrowth | Employee growth of the company in the past two years. A one- and two-year growth percentage is provided as well as a quarter-by-quarter breakdown of total employee count. |
+
+        | type | Company type (private, public, npo, education, government, other) |
+
+        | foundedYear | Year the company was founded |
+
+        | businessModel | Business Model for a company |
+
+        | isDefunct | Indicates whether the company still exists |
+
+        | departmentBudgets | Estimated department budgets. Returns estimated budget values including `marketingBudget`, `financeBudget`, `itBudget` and `hrBudget`. |
+
+        | employeeCountByDepartment | Employee count by company department |
+
+        | engagements | List of the company''s engagements. Includes the date and type of each engagement |'
+      operationId: CompanyEnrich
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CompanyEnrichRequest'
+              - examples:
+                - matchCompanyInput:
+                  - companyId: 344589814
+                  outputFields:
+                  - id
+                  - ticker
+                  - name
+                  - website
+                  - domainList
+              contentMediaType: application/json
+            example:
+              matchCompanyInput:
+              - companyId: 344589814
+              outputFields:
+              - id
+              - ticker
+              - name
+              - website
+              - domainList
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Wed, 26 Aug 2020 13:49:48 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 5c8e04a22afaff94-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=70071f10bb597f681bf32e5484a1bffce58189aa85981cea9fb1578c401445bb:2f79d591-e713-11ea-b61e-d347a7de7ad3; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 04cca1395a0000ff94859bf200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1598449848'
+            X-Usage-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999945571'
+            X-Usage-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999949387'
+            X-Usage-Unique-Id-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Unique-Id-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9998536'
+            X-Usage-Websights-Api-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Websights-Api-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999497'
+            X-Usage-Websights-Api-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000010'
+            X-Usage-Websights-Api-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99999507'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EnrichcompanybyID'
+              examples:
+                CompanyEnrich200Example:
+                  summary: Default CompanyEnrich 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    data: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/inputfields/company/enrich:
+    parameters: []
+    get:
+      tags:
+      - Company Enrich
+      summary: Zoominfo Company Enrich Inputs
+      description: Returns a list of fields you can use as input for the [Company Enrich](#59a59d9e-7eb9-44fa-904a-f10f9ab7c5fd) endpoint.
+      operationId: CompanyEnrichInputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Tue, 19 May 2020 17:55:52 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 595fb0f9ccf3ebf0-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=533f98300b99c5431f86bb221c6e877daac516468d9a13fc0e1fc33171b5ac05:197a38e1-94a0-11ea-a0cd-9f819741a458; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1589911013'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 02cfacf01a0000ebf06882e200000001
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyEnrichInput'
+                description: ''
+                examples:
+                - - fieldName: companyId
+                    fieldType: Long
+                    description: Unique ZoomInfo identifier for a company
+                  - fieldName: companyName
+                    fieldType: String
+                    description: Company name
+                  - fieldName: companyWebsite
+                    fieldType: String
+                    description: Company website URL in http://www.example.com format
+                  - fieldName: companyTicker
+                    fieldType: String
+                    description: Company stock ticker symbol
+                  - fieldName: companyPhone
+                    fieldType: String
+                    description: Phone number of the company headquarters
+                  - fieldName: companyFax
+                    fieldType: String
+                    description: Fax number of the company headquarters
+                  - fieldName: companyStreet
+                    fieldType: String
+                    description: Street address for the company's primary address
+                  - fieldName: companyCity
+                    fieldType: String
+                    description: City for the company's primary address
+                  - fieldName: companyState
+                    fieldType: String
+                    description: 'State for the company''s primary address '
+                  - fieldName: companyZipCode
+                    fieldType: String
+                    description: Zip Code or Postal Code for the company's primary address
+                  - fieldName: companyCountry
+                    fieldType: String
+                    description: 'Country code for the company''s primary address '
+                  - fieldName: ipAddress
+                    fieldType: String
+                    description: IP address associated with the company
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: companyId
+                fieldType: Long
+                description: Unique ZoomInfo identifier for a company
+              - fieldName: companyName
+                fieldType: String
+                description: Company name
+              - fieldName: companyWebsite
+                fieldType: String
+                description: Company website URL in http://www.example.com format
+              - fieldName: companyTicker
+                fieldType: String
+                description: Company stock ticker symbol
+              - fieldName: companyPhone
+                fieldType: String
+                description: Phone number of the company headquarters
+              - fieldName: companyFax
+                fieldType: String
+                description: Fax number of the company headquarters
+              - fieldName: companyStreet
+                fieldType: String
+                description: Street address for the company's primary address
+              - fieldName: companyCity
+                fieldType: String
+                description: City for the company's primary address
+              - fieldName: companyState
+                fieldType: String
+                description: 'State for the company''s primary address '
+              - fieldName: companyZipCode
+                fieldType: String
+                description: Zip Code or Postal Code for the company's primary address
+              - fieldName: companyCountry
+                fieldType: String
+                description: 'Country code for the company''s primary address '
+              - fieldName: ipAddress
+                fieldType: String
+                description: IP address associated with the company
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/outputfields/company/enrich:
+    parameters: []
+    get:
+      tags:
+      - Company Enrich
+      summary: Zoominfo Company Enrich Outputs
+      description: Returns a list of fields you can specify as output for the [Company Enrich](#59a59d9e-7eb9-44fa-904a-f10f9ab7c5fd) endpoint.
+      operationId: CompanyEnrichOutputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Tue, 22 Oct 2024 12:28:22 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Origin,Access-Control-Request-Method,Access-Control-Request-Headers
+            x-envoy-upstream-service-time:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '35'
+            service:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gke
+            x-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: UUh7buaCWXc7GxDFhfpwCkftRUeFp92gJ9XC
+            x-ratelimit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            x-ratelimit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            x-envoy-decorator-operation:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: apps-gateway-active.main.svc.cluster.local:8080/*
+            via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google
+            alt-svc:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: h3=":443"; ma=86400
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Origin-Trial:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: AyXGdeyTa0Lq3roJGvPBs/Ps9duHL7Vf/Q5YJQJwQN4fdGLbtMPms4BfmK2HapcHVkvBjyAVhxe5deDNI1TFXgcAAABxeyJvcmlnaW4iOiJodHRwczovL3pvb21pbmZvLmNvbTo0NDMiLCJmZWF0dXJlIjoiVHBjZCIsImV4cGlyeSI6MTczNTM0Mzk5OSwiaXNTdWJkb21haW4iOnRydWUsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 8d697ca2888ec953-IAD
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyEnrichOutput'
+                description: ''
+                examples:
+                - - fieldName: id
+                    description: Unique ZoomInfo identifier for a company
+                    accessGranted: 'true'
+                  - fieldName: ticker
+                    description: Company public stock exchange ticker
+                    accessGranted: 'true'
+                  - fieldName: name
+                    description: Company name
+                    accessGranted: 'true'
+                  - fieldName: website
+                    description: Company website URL
+                    accessGranted: 'true'
+                  - fieldName: domainList
+                    description: List of domains associated with a company
+                    accessGranted: 'true'
+                  - fieldName: logo
+                    description: The URL which can be used to retrieve the logo for the company
+                    accessGranted: 'true'
+                  - fieldName: socialMediaUrls
+                    description: Social media URLs for the company (e.g., Facebook, Twitter, LinkedIn and so on)
+                    accessGranted: 'true'
+                  - fieldName: revenue
+                    description: Approximate yearly revenue for the company in 1000's. For example, a 100M company is expressed as 100000.
+                    accessGranted: 'true'
+                  - fieldName: employeeCount
+                    description: Approximate number of people employed by the company
+                    accessGranted: 'true'
+                  - fieldName: numberOfContactsInZoomInfo
+                    description: Number of ZoomInfo contacts associated with company
+                    accessGranted: 'true'
+                  - fieldName: phone
+                    description: Phone number of the company's primary address
+                    accessGranted: 'true'
+                  - fieldName: fax
+                    description: Fax number of the company's primary address
+                    accessGranted: 'true'
+                  - fieldName: street
+                    description: Street of the company's primary address
+                    accessGranted: 'true'
+                  - fieldName: city
+                    description: City of the company's primary address
+                    accessGranted: 'true'
+                  - fieldName: state
+                    description: State or province of the company's primary address
+                    accessGranted: 'true'
+                  - fieldName: zipCode
+                    description: Zip Code or Postal Code of the company's primary address
+                    accessGranted: 'true'
+                  - fieldName: country
+                    description: Country of the company's primary address
+                    accessGranted: 'true'
+                  - fieldName: companyStatus
+                    description: Company status
+                    accessGranted: 'true'
+                  - fieldName: companyStatusDate
+                    description: Date of last company status update
+                    accessGranted: 'true'
+                  - fieldName: descriptionList
+                    description: List of descriptions associated with the company
+                    accessGranted: 'true'
+                  - fieldName: sicCodes
+                    description: Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment
+                    accessGranted: 'true'
+                  - fieldName: naicsCodes
+                    description: Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment
+                    accessGranted: 'true'
+                  - fieldName: competitors
+                    description: List of competitors
+                    accessGranted: 'true'
+                  - fieldName: ultimateParentId
+                    description: Ultimate parent company id (if exists)
+                    accessGranted: 'true'
+                  - fieldName: ultimateParentName
+                    description: Ultimate parent company name (if exists)
+                    accessGranted: 'true'
+                  - fieldName: ultimateParentRevenue
+                    description: Approximate yearly revenue for the ultimate parent company
+                    accessGranted: 'true'
+                  - fieldName: ultimateParentEmployees
+                    description: Approximate number of people employed by the ultimate parent company
+                    accessGranted: 'true'
+                  - fieldName: subUnitType
+                    description: Company sub unit types (e.g., division, subsidiary and so on)
+                    accessGranted: 'true'
+                  - fieldName: subUnitIndustries
+                    description: Company sub unit industries
+                    accessGranted: 'true'
+                  - fieldName: primaryIndustry
+                    description: Top-level industry for a company
+                    accessGranted: 'true'
+                  - fieldName: primaryIndustryCode
+                    description: Top-level industry code for a company
+                    accessGranted: 'true'
+                  - fieldName: primarySubIndustryCode
+                    description: Top-level sub industry code for a company
+                    accessGranted: 'true'
+                  - fieldName: industries
+                    description: The industry grouping for the company. A company can have multiple industries.
+                    accessGranted: 'true'
+                  - fieldName: industryCodes
+                    description: The industry grouping codes for the company. A company can have multiple industry codes.
+                    accessGranted: 'true'
+                  - fieldName: locationMatch
+                    description: Location of the matched company
+                    accessGranted: 'true'
+                  - fieldName: parentId
+                    description: ZoomInfo Company ID associated with the parent company
+                    accessGranted: 'true'
+                  - fieldName: parentName
+                    description: ZoomInfo Company Name associated with the parent company
+                    accessGranted: 'true'
+                  - fieldName: locationCount
+                    description: Number of office locations associated with a company
+                    accessGranted: 'true'
+                  - fieldName: metroArea
+                    description: Company metro area
+                    accessGranted: 'true'
+                  - fieldName: lastUpdatedDate
+                    description: Date on which the company record was last updated
+                    accessGranted: 'true'
+                  - fieldName: createdDate
+                    description: Date on which the company record was created
+                    accessGranted: 'true'
+                  - fieldName: certificationDate
+                    description: Date of certification
+                    accessGranted: 'true'
+                  - fieldName: certified
+                    description: Denotes if ZoomInfo's research and data team has confirmed activity within the past 12 months
+                    accessGranted: 'true'
+                  - fieldName: products
+                    description: List of products associated with a company
+                    accessGranted: 'true'
+                  - fieldName: revenueRange
+                    description: Revenue Range of the company
+                    accessGranted: 'true'
+                  - fieldName: employeeRange
+                    description: Employee Range of the company
+                    accessGranted: 'true'
+                  - fieldName: companyFunding
+                    description: List of funding rounds including date, type, amount and investors
+                    accessGranted: 'true'
+                  - fieldName: recentFundingAmount
+                    description: Most recent funding amount
+                    accessGranted: 'true'
+                  - fieldName: recentFundingDate
+                    description: Date of most recent funding
+                    accessGranted: 'true'
+                  - fieldName: totalFundingAmount
+                    description: Total funding to date
+                    accessGranted: 'true'
+                  - fieldName: employeeGrowth
+                    description: Employee Growth of the company in the past two years.
+                    accessGranted: 'true'
+                  - fieldName: continent
+                    description: Continent of the company's primary address
+                    accessGranted: 'true'
+                  - fieldName: type
+                    description: Company type (private, public, and so on)
+                    accessGranted: 'true'
+                  - fieldName: foundedYear
+                    description: Founded year of the company.
+                    accessGranted: 'true'
+                  - fieldName: businessModel
+                    description: Business Model for a company
+                    accessGranted: 'true'
+                  - fieldName: isDefunct
+                    description: Indicates whether the company still exists
+                    accessGranted: 'true'
+                  - fieldName: departmentBudgets
+                    description: Estimated department budgets. Returns estimated budget values including marketingBudget, financeBudget, itBudget and hrBudget.
+                    accessGranted: 'true'
+                  - fieldName: employeeCountByDepartment
+                    description: Department employee count
+                    accessGranted: 'true'
+                  - fieldName: engagements
+                    description: List of the company's engagements. Includes the date and type of each engagement
+                    accessGranted: 'false'
+                contentMediaType: application/json
+              example:
+              - fieldName: id
+                description: Unique ZoomInfo identifier for a company
+                accessGranted: 'true'
+              - fieldName: ticker
+                description: Company public stock exchange ticker
+                accessGranted: 'true'
+              - fieldName: name
+                description: Company name
+                accessGranted: 'true'
+              - fieldName: website
+                description: Company website URL
+                accessGranted: 'true'
+              - fieldName: domainList
+                description: List of domains associated with a company
+                accessGranted: 'true'
+              - fieldName: logo
+                description: The URL which can be used to retrieve the logo for the company
+                accessGranted: 'true'
+              - fieldName: socialMediaUrls
+                description: Social media URLs for the company (e.g., Facebook, Twitter, LinkedIn and so on)
+                accessGranted: 'true'
+              - fieldName: revenue
+                description: Approximate yearly revenue for the company in 1000's. For example, a 100M company is expressed as 100000.
+                accessGranted: 'true'
+              - fieldName: employeeCount
+                description: Approximate number of people employed by the company
+                accessGranted: 'true'
+              - fieldName: numberOfContactsInZoomInfo
+                description: Number of ZoomInfo contacts associated with company
+                accessGranted: 'true'
+              - fieldName: phone
+                description: Phone number of the company's primary address
+                accessGranted: 'true'
+              - fieldName: fax
+                description: Fax number of the company's primary address
+                accessGranted: 'true'
+              - fieldName: street
+                description: Street of the company's primary address
+                accessGranted: 'true'
+              - fieldName: city
+                description: City of the company's primary address
+                accessGranted: 'true'
+              - fieldName: state
+                description: State or province of the company's primary address
+                accessGranted: 'true'
+              - fieldName: zipCode
+                description: Zip Code or Postal Code of the company's primary address
+                accessGranted: 'true'
+              - fieldName: country
+                description: Country of the company's primary address
+                accessGranted: 'true'
+              - fieldName: companyStatus
+                description: Company status
+                accessGranted: 'true'
+              - fieldName: companyStatusDate
+                description: Date of last company status update
+                accessGranted: 'true'
+              - fieldName: descriptionList
+                description: List of descriptions associated with the company
+                accessGranted: 'true'
+              - fieldName: sicCodes
+                description: Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment
+                accessGranted: 'true'
+              - fieldName: naicsCodes
+                description: Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment
+                accessGranted: 'true'
+              - fieldName: competitors
+                description: List of competitors
+                accessGranted: 'true'
+              - fieldName: ultimateParentId
+                description: Ultimate parent company id (if exists)
+                accessGranted: 'true'
+              - fieldName: ultimateParentName
+                description: Ultimate parent company name (if exists)
+                accessGranted: 'true'
+              - fieldName: ultimateParentRevenue
+                description: Approximate yearly revenue for the ultimate parent company
+                accessGranted: 'true'
+              - fieldName: ultimateParentEmployees
+                description: Approximate number of people employed by the ultimate parent company
+                accessGranted: 'true'
+              - fieldName: subUnitType
+                description: Company sub unit types (e.g., division, subsidiary and so on)
+                accessGranted: 'true'
+              - fieldName: subUnitIndustries
+                description: Company sub unit industries
+                accessGranted: 'true'
+              - fieldName: primaryIndustry
+                description: Top-level industry for a company
+                accessGranted: 'true'
+              - fieldName: primaryIndustryCode
+                description: Top-level industry code for a company
+                accessGranted: 'true'
+              - fieldName: primarySubIndustryCode
+                description: Top-level sub industry code for a company
+                accessGranted: 'true'
+              - fieldName: industries
+                description: The industry grouping for the company. A company can have multiple industries.
+                accessGranted: 'true'
+              - fieldName: industryCodes
+                description: The industry grouping codes for the company. A company can have multiple industry codes.
+                accessGranted: 'true'
+              - fieldName: locationMatch
+                description: Location of the matched company
+                accessGranted: 'true'
+              - fieldName: parentId
+                description: ZoomInfo Company ID associated with the parent company
+                accessGranted: 'true'
+              - fieldName: parentName
+                description: ZoomInfo Company Name associated with the parent company
+                accessGranted: 'true'
+              - fieldName: locationCount
+                description: Number of office locations associated with a company
+                accessGranted: 'true'
+              - fieldName: metroArea
+                description: Company metro area
+                accessGranted: 'true'
+              - fieldName: lastUpdatedDate
+                description: Date on which the company record was last updated
+                accessGranted: 'true'
+              - fieldName: createdDate
+                description: Date on which the company record was created
+                accessGranted: 'true'
+              - fieldName: certificationDate
+                description: Date of certification
+                accessGranted: 'true'
+              - fieldName: certified
+                description: Denotes if ZoomInfo's research and data team has confirmed activity within the past 12 months
+                accessGranted: 'true'
+              - fieldName: products
+                description: List of products associated with a company
+                accessGranted: 'true'
+              - fieldName: revenueRange
+                description: Revenue Range of the company
+                accessGranted: 'true'
+              - fieldName: employeeRange
+                description: Employee Range of the company
+                accessGranted: 'true'
+              - fieldName: companyFunding
+                description: List of funding rounds including date, type, amount and investors
+                accessGranted: 'true'
+              - fieldName: recentFundingAmount
+                description: Most recent funding amount
+                accessGranted: 'true'
+              - fieldName: recentFundingDate
+                description: Date of most recent funding
+                accessGranted: 'true'
+              - fieldName: totalFundingAmount
+                description: Total funding to date
+                accessGranted: 'true'
+              - fieldName: employeeGrowth
+                description: Employee Growth of the company in the past two years.
+                accessGranted: 'true'
+              - fieldName: continent
+                description: Continent of the company's primary address
+                accessGranted: 'true'
+              - fieldName: type
+                description: Company type (private, public, and so on)
+                accessGranted: 'true'
+              - fieldName: foundedYear
+                description: Founded year of the company.
+                accessGranted: 'true'
+              - fieldName: businessModel
+                description: Business Model for a company
+                accessGranted: 'true'
+              - fieldName: isDefunct
+                description: Indicates whether the company still exists
+                accessGranted: 'true'
+              - fieldName: departmentBudgets
+                description: Estimated department budgets. Returns estimated budget values including marketingBudget, financeBudget, itBudget and hrBudget.
+                accessGranted: 'true'
+              - fieldName: employeeCountByDepartment
+                description: Department employee count
+                accessGranted: 'true'
+              - fieldName: engagements
+                description: List of the company's engagements. Includes the date and type of each engagement
+                accessGranted: 'false'
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    EmployeeGrowth:
+      title: EmployeeGrowth
+      required:
+      - oneYearGrowthRate
+      - twoYearGrowthRate
+      - employeeGrowthDataPoints
+      type: object
+      properties:
+        oneYearGrowthRate:
+          type: string
+          example: example_value
+        twoYearGrowthRate:
+          type: string
+          example: example_value
+        employeeGrowthDataPoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeGrowthDataPoint'
+          description: ''
+          example: []
+      examples:
+      - oneYearGrowthRate: '52.9'
+        twoYearGrowthRate: '333.3'
+        employeeGrowthDataPoints:
+        - label: '''18 - Q1'
+          employeeCount: 300
+        - label: '''18 - Q2'
+          employeeCount: 325
+        - label: '''18 - Q3'
+          employeeCount: 350
+        - label: '''18 - Q4'
+          employeeCount: 400
+        - label: '''19 - Q1'
+          employeeCount: 850
+        - label: '''19 - Q2'
+          employeeCount: 925
+        - label: '''19 - Q3'
+          employeeCount: 1000
+        - label: '''19 - Q4'
+          employeeCount: 1100
+        - label: '''20 - Q1'
+          employeeCount: 1300
+    CompanyFunding:
+      title: CompanyFunding
+      required:
+      - date
+      - type
+      - amount
+      type: object
+      properties:
+        date:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        type:
+          type: string
+          example: standard
+        amount:
+          type: integer
+          contentEncoding: int32
+          example: 100
+      examples:
+      - date: '2020-06-04T07:00:00.000Z'
+        type: Stock Issuance/Offering
+        amount: 935000
+    SocialMediaUrl:
+      title: SocialMediaUrl
+      required:
+      - type
+      - url
+      - followerCount
+      type: object
+      properties:
+        type:
+          type: string
+          example: standard
+        url:
+          type: string
+          example: https://www.example.com/resource
+        followerCount:
+          type: string
+          example: example_value
+      examples:
+      - type: FACEBOOK
+        url: http://www.facebook.com/ZoomInformation
+        followerCount: ''
+    Result6:
+      title: Result6
+      required:
+      - input
+      - data
+      type: object
+      properties:
+        input:
+          $ref: '#/components/schemas/Input6'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data13'
+          description: ''
+          example: []
+    MatchCompanyInput:
+      title: MatchCompanyInput
+      required:
+      - companyId
+      type: object
+      properties:
+        companyId:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+      examples:
+      - companyId: 344589814
+    Data12:
+      title: Data12
+      required:
+      - outputFields
+      - result
+      type: object
+      properties:
+        outputFields:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          example: []
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result6'
+          description: ''
+          example: []
+    Input6:
+      title: Input6
+      required:
+      - companyid
+      type: object
+      properties:
+        companyid:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+      examples:
+      - companyid: 344589814
+    TechAttribute:
+      title: TechAttribute
+      required:
+      - tag
+      - categoryParent
+      - category
+      - vendor
+      - product
+      - attribute
+      - website
+      - logo
+      - domain
+      - createdTime
+      - modifiedTime
+      - description
+      type: object
+      properties:
+        tag:
+          type: string
+          example: example_value
+        categoryParent:
+          type: string
+          example: example_value
+        category:
+          type: string
+          example: example_value
+        vendor:
+          type: string
+          example: example_value
+        product:
+          type: string
+          example: example_value
+        attribute:
+          type: string
+          example: example_value
+        website:
+          type: string
+          example: example_value
+        logo:
+          type:
+          - string
+          - 'null'
+          example: example_value
+        domain:
+          type:
+          - string
+          - 'null'
+          example: example_value
+        createdTime:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        modifiedTime:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - tag: '25420'
+        categoryParent: IT Infrastructure
+        category: Infrastructures as a Service
+        vendor: Google LLC
+        product: Google Compute Engine
+        attribute: 334.194.1
+        website: https://cloud.google.com/compute/
+        logo: https://res.cloudinary.com/zoominfo-com/image/upload/w_100,h_100,c_fit/cloud.google.com
+        domain: cloud.google.com
+        createdTime: '2016-08-11T14:14:27.000Z'
+        modifiedTime: '2018-10-10T06:45:20.000Z'
+        description: Google Compute Engine is the Infrastructure as a service component of google cloud platform which is built on the global infrastructure that runs googles search engine, gmail, youtube and other services. It offers high performance virtual machines, customer-friendly pricing, fast networking, and carbon-neutral impact.
+    CompanyEnrichRequest:
+      title: CompanyEnrichRequest
+      required:
+      - matchCompanyInput
+      - outputFields
+      type: object
+      properties:
+        matchCompanyInput:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchCompanyInput'
+          description: ''
+          example: []
+        outputFields:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+      examples:
+      - matchCompanyInput:
+        - companyId: 344589814
+        outputFields:
+        - id
+        - ticker
+        - name
+        - website
+        - domainList
+    EnrichcompanybyID:
+      title: EnrichcompanybyID
+      required:
+      - success
+      - data
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/Data12'
+    SicCode:
+      title: SicCode
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: '73'
+        name: Business Services
+    NaicsCode:
+      title: NaicsCode
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: '541613'
+        name: Marketing Consulting Services
+    DescriptionList:
+      title: DescriptionList
+      required:
+      - description
+      type: object
+      properties:
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - description: ZoomInfo was founded in 2000 and is headquartered in Vancouver, Washington. The company offers a business-to-business data platform utilized by sales and marketing teams, recruiters, and other business professionals for lead generation and detailed information on people and companies.
+    Competitor:
+      title: Competitor
+      required:
+      - rank
+      - id
+      - name
+      - website
+      - employeeCount
+      type: object
+      properties:
+        rank:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+        website:
+          type: string
+          example: example_value
+        employeeCount:
+          type: integer
+          contentEncoding: int32
+          example: 250
+      examples:
+      - rank: 1
+        id: 346572700
+        name: DiscoverOrg LLC
+        website: www.discoverorg.com
+        employeeCount: 866
+    EmployeeGrowthDataPoint:
+      title: EmployeeGrowthDataPoint
+      required:
+      - label
+      - employeeCount
+      type: object
+      properties:
+        label:
+          type: string
+          example: example_value
+        employeeCount:
+          type: integer
+          contentEncoding: int32
+          example: 250
+      examples:
+      - label: '''18 - Q1'
+        employeeCount: 300
+    CompanyEnrichOutput:
+      title: CompanyEnrichOutput
+      required:
+      - fieldName
+      - description
+      - accessGranted
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+        accessGranted:
+          type: string
+          example: example_value
+      examples:
+      - fieldName: id
+        description: Unique ZoomInfo identifier for a company
+        accessGranted: 'true'
+    CompanyEnrichInput:
+      title: CompanyEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        fieldType: Long
+        description: Unique ZoomInfo identifier for a company
+    Data13:
+      title: Data13
+      required:
+      - id
+      - ticker
+      - name
+      - website
+      - domainList
+      - logo
+      - socialMediaUrls
+      - revenue
+      - employeeCount
+      - numberOfContactsInZoomInfo
+      - phone
+      - fax
+      - street
+      - city
+      - state
+      - zipCode
+      - country
+      - continent
+      - companyStatus
+      - companyStatusDate
+      - descriptionList
+      - sicCodes
+      - naicsCodes
+      - competitors
+      - ultimateParentId
+      - ultimateParentName
+      - ultimateParentRevenue
+      - ultimateParentEmployees
+      - subUnitCodes
+      - subUnitType
+      - subUnitIndustries
+      - primaryIndustry
+      - industries
+      - parentId
+      - parentName
+      - locationCount
+      - alexaRank
+      - metroArea
+      - lastUpdatedDate
+      - createdDate
+      - certificationDate
+      - certified
+      - hashtags
+      - products
+      - techAttributes
+      - revenueRange
+      - employeeRange
+      - companyFunding
+      - recentFundingAmount
+      - recentFundingDate
+      - totalFundingAmount
+      - employeeGrowth
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        ticker:
+          type: string
+          example: example_value
+        name:
+          type: string
+          example: Acme Corporation
+        website:
+          type: string
+          example: example_value
+        domainList:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        logo:
+          type: string
+          example: example_value
+        socialMediaUrls:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocialMediaUrl'
+          description: ''
+          example: https://www.example.com
+        revenue:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        employeeCount:
+          type: integer
+          contentEncoding: int32
+          example: 250
+        numberOfContactsInZoomInfo:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        phone:
+          type: string
+          example: +1-555-555-1234
+        fax:
+          type: string
+          example: example_value
+        street:
+          type: string
+          example: example_value
+        city:
+          type: string
+          example: San Francisco
+        state:
+          type: string
+          example: CA
+        zipCode:
+          type: string
+          example: '94105'
+        country:
+          type: string
+          example: US
+        continent:
+          type: string
+          example: example_value
+        companyStatus:
+          type: string
+          example: active
+        companyStatusDate:
+          type: string
+          example: active
+        descriptionList:
+          type: array
+          items:
+            $ref: '#/components/schemas/DescriptionList'
+          description: ''
+          example: []
+        sicCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SicCode'
+          description: ''
+          example: []
+        naicsCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/NaicsCode'
+          description: ''
+          example: []
+        competitors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Competitor'
+          description: ''
+          example: []
+        ultimateParentId:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        ultimateParentName:
+          type: string
+          example: Acme Corporation
+        ultimateParentRevenue:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        ultimateParentEmployees:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        subUnitCodes:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        subUnitType:
+          type: string
+          example: standard
+        subUnitIndustries:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        primaryIndustry:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        industries:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        parentId:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        parentName:
+          type: string
+          example: Acme Corporation
+        locationCount:
+          type: integer
+          contentEncoding: int32
+          example: 250
+        alexaRank:
+          type: string
+          example: example_value
+        metroArea:
+          type: string
+          example: example_value
+        lastUpdatedDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        createdDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        certificationDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        certified:
+          type: boolean
+          example: true
+        hashtags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hashtag'
+          description: ''
+          example: []
+        products:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        techAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TechAttribute'
+          description: ''
+          example: []
+        revenueRange:
+          type: string
+          example: example_value
+        employeeRange:
+          type: string
+          example: example_value
+        companyFunding:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyFunding'
+          description: ''
+          example: []
+        recentFundingAmount:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        recentFundingDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        totalFundingAmount:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        employeeGrowth:
+          $ref: '#/components/schemas/EmployeeGrowth'
+    Hashtag:
+      title: Hashtag
+      required:
+      - tag
+      - external_id
+      - searchString
+      - displayLabel
+      - description
+      - group
+      - score
+      - priority
+      - parentCategory
+      - displayScore
+      - inverseScoreBase
+      - scoreMultipler
+      - scoreUnit
+      - hidden
+      - label
+      - categorizedFlag
+      type: object
+      properties:
+        tag:
+          type: string
+          example: example_value
+        external_id:
+          type:
+          - string
+          - 'null'
+          example: '500123'
+        searchString:
+          type: string
+          example: example_value
+        displayLabel:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: Enterprise software company
+        group:
+          type: string
+          example: example_value
+        score:
+          type:
+          - string
+          - 'null'
+          example: example_value
+        priority:
+          oneOf:
+          - type:
+            - string
+            - 'null'
+          - type: integer
+            contentEncoding: int32
+          - {}
+          example: example_value
+        parentCategory:
+          type: string
+          example: example_value
+        displayScore:
+          type: string
+          example: example_value
+        inverseScoreBase:
+          oneOf:
+          - type:
+            - string
+            - 'null'
+          - type: integer
+            contentEncoding: int32
+          - {}
+          example: example_value
+        scoreMultipler:
+          type:
+          - string
+          - 'null'
+          example: example_value
+        scoreUnit:
+          type: string
+          example: example_value
+        hidden:
+          type: boolean
+          example: true
+        label:
+          type: string
+          example: example_value
+        categorizedFlag:
+          type: boolean
+          example: true
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint

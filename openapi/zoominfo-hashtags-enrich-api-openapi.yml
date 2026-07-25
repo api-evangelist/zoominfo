@@ -1,0 +1,499 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication Hashtags Enrich API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Hashtags Enrich
+  description: 'Use [Hashtags Enrich](#886fb5cc-b587-4f26-bd68-892798d45ffe) to retrieve company hashtags using valid query parameters. A Hashtags Enrich request requires you to specify the input parameters about the company you are enriching.
+
+
+    Refer to the examples provided to build a valid JSON request. Use the [Hashtags Enrich Inputs](#a7bea20a-f496-431b-9403-337231c4a22e) endpoint to retrieve a list of valid input parameters you can provide.'
+paths:
+  /enrich/hashtag:
+    parameters: []
+    post:
+      tags:
+      - Hashtags Enrich
+      summary: Zoominfo Hashtags Enrich
+      description: 'Use this endpoint to match hashtag information based on [input values](#a7bea20a-f496-431b-9403-337231c4a22e) and return output fields in the response.
+
+
+        **Input params**
+
+
+        | Parameter | DataType | Description |
+
+        | --- | --- | --- |
+
+        | companyId | String | Required. The ID of the company for which you want to find hashtags. |
+
+
+        **Output fields**
+
+
+        | Field | Description |
+
+        | --- | --- |
+
+        | tag | Hashtag |
+
+        | searchString | Hashtag string |
+
+        | displayLabel | Hashtag string for display |
+
+        | description | Hashtag description |
+
+        | group | Hashtag group |
+
+        | parentCategory | Hashtag parent category |
+
+        | displayScore | Display hashtag score (yes or no) |
+
+        | scoreUnit | Hashtag score unit |
+
+        | hidden | Show or hide hashtag (Boolean) |
+
+        | label | Hashtag label |
+
+        | categorizedFlag | Categorized (Boolean) |'
+      operationId: HashtagsEnrich
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/HashtagsEnrichRequest'
+              - examples:
+                - companyId: '344589814'
+              contentMediaType: application/json
+            example:
+              companyId: '344589814'
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Tue, 21 Jan 2020 19:14:01 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 558b9bd1883b5a2a-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=a03d845305c67479e1f0440f0302c414eecc6e0cb560669611117bb009f3f8d7:e0734ce1-3c7e-11ea-b3f3-d7b47859bb70; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1579634042'
+            X-Usage-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000'
+            X-Usage-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99966'
+            X-Usage-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000'
+            X-Usage-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999897'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Enrichhashtagsforacompany'
+              examples:
+                HashtagsEnrich200Example:
+                  summary: Default HashtagsEnrich 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    data: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/inputfields/hashtag/enrich:
+    parameters: []
+    get:
+      tags:
+      - Hashtags Enrich
+      summary: Zoominfo Hashtag Enrich Inputs
+      description: Returns a list of fields you can use as input for the [Hashtags Enrich](#886fb5cc-b587-4f26-bd68-892798d45ffe) endpoint.
+      operationId: HashtagEnrichInputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Wed, 22 Jan 2020 20:18:48 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 5594381cdfcaebec-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=dc7435039f4c5280195b59ec461e6abed3a56a2451feb3b81654a031685469ba:646e0a80-3d51-11ea-9298-b7d007b5c092; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '750'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '749'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1579724389'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetHashtagEnrichInput'
+                description: ''
+                examples:
+                - - fieldName: companyId
+                    fieldType: String
+                    description: The id of the company for which you want to view hashtags
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: companyId
+                fieldType: String
+                description: The id of the company for which you want to view hashtags
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Enrichhashtagsforacompany:
+      title: Enrichhashtagsforacompany
+      required:
+      - maxResults
+      - totalResults
+      - currentPage
+      - data
+      type: object
+      properties:
+        maxResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        totalResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        currentPage:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data37'
+          description: ''
+          example: []
+    GetHashtagEnrichInput:
+      title: GetHashtagEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        fieldType: String
+        description: The id of the company for which you want to view hashtags
+    HashtagsEnrichRequest:
+      title: HashtagsEnrichRequest
+      required:
+      - companyId
+      type: object
+      properties:
+        companyId:
+          type: string
+          example: '500123'
+      examples:
+      - companyId: '344589814'
+    Data37:
+      title: Data37
+      required:
+      - tag
+      - external_id
+      - searchString
+      - description
+      - group
+      - score
+      - priority
+      - parentCategory
+      - categorizedFlag
+      - label
+      type: object
+      properties:
+        tag:
+          type: string
+          example: example_value
+        external_id:
+          type:
+          - string
+          - 'null'
+          example: '500123'
+        searchString:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: Enterprise software company
+        group:
+          type: string
+          example: example_value
+        score:
+          type:
+          - string
+          - 'null'
+          example: example_value
+        priority:
+          oneOf:
+          - type:
+            - string
+            - 'null'
+          - type: integer
+            contentEncoding: int32
+          - {}
+          example: example_value
+        parentCategory:
+          type: string
+          example: example_value
+        categorizedFlag:
+          type: boolean
+          example: true
+        label:
+          type: string
+          example: example_value
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint

@@ -1,0 +1,1360 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication Compliance API API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Compliance API
+  description: 'Use the Compliance endpoints to request and return data related to data privacy and opt-out compliance for contacts stored in the ZoomInfo database.
+
+    '
+paths:
+  /compliance:
+    parameters: []
+    post:
+      tags:
+      - Compliance API
+      summary: Zoominfo Compliance
+      description: 'Returns a list of compliance-related details from ZoomInfo''s data which meet the specified search criteria.
+
+
+        **Input params**
+
+
+        | Parameter | DataType | Description |
+
+        | --- | --- | --- |
+
+        | companyId | Long integer | Unique ZoomInfo identifier for the company |
+
+        | companyName | String | Name of the company for for which the contact works, or has worked |
+
+        | personFullName | String | Contact full name |
+
+        | personFirstName | String | Contact first name |
+
+        | personLastName | String | Contact last name |
+
+        | personEmailAddress | String | Work email address for the contact in [example@example.com](mailto:example@example.com) format |
+
+        | personPhone | String | Contact direct or mobile phone number |
+
+        | personState | String | Company state (U.S.) or province (Canada). You can use free text state or province names (e.g., "new hampshire"), the two-letter common abbreviation for a U.S. state (e.g., "nh"), or values provided in the **State** lookup endpoint. |
+
+        | personCountry | String | Country for the company''s primary address. You can use free text or see the **Country** lookup endpoint for values. |
+
+        | personZipCode | String | Zip Code or Postal Code |
+
+
+        **Output fields**
+
+
+        | Field | Description |
+
+        | --- | --- |
+
+        | id | Unique ZoomInfo identifier for the contact |
+
+        | firstName | Contact first name |
+
+        | lastName | Contact last name |
+
+        | title | Contact title |
+
+        | companyName | Company name |
+
+        | employmentHistory | Contact employment history |
+
+        | emailAddresses | List of primary email addresses for the contact |
+
+        | pastEmailAddresses | List of past email addresses for the contact |
+
+        | withinEu | Indicates whether the contact''s work address is in Europe |
+
+        | hasCanadianEmail | Indicates whether the contact''s email address is associated with a Canada domain |
+
+        | withinCalifornia | Indicates whether the contact''s work address is in California |
+
+        | withinCanada | Indicates whether the contact''s work address is in Canada |
+
+        | noticeProvidedDate | Date on which the contact was notified of inclusion in ZoomInfo''s database |
+
+        | hasMoved | Indicates ZoomInfo recognizes the contact does not match ZoomInfo''s current company but does match known employment history |
+
+        | looksLikeEu | Indicates whether the contact''s work address appears to be in Europe |
+
+        | looksLikeCalifornia | Indicates whether the contact''s work address appears to be in California |
+
+        | looksLikeCanada | Indicates whether the contact''s work address appears to be in Canada |'
+      operationId: Compliance
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ComplianceRequest'
+              - examples:
+                - matchPersonInput:
+                  - companyName: ZoomInfo
+                    personFirstName: Henry
+                    personLastName: Schuck
+                  - personEmailAddress: john.doherty@zoominfo.com
+              contentMediaType: application/json
+            example:
+              matchPersonInput:
+              - companyName: ZoomInfo
+                personFirstName: Henry
+                personLastName: Schuck
+              - personEmailAddress: john.doherty@zoominfo.com
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Wed, 29 Apr 2020 14:07:06 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 58b99651f950ff88-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=5388d0855eb91b72ba1639994759a291802c09115c95da4fd2b63cd11d3b0fee:65308c81-8334-11ea-bebd-2f3883040f62; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1588169285'
+            X-Usage-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999999126'
+            X-Usage-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999970951'
+            X-Usage-Unique-Id-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Unique-Id-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999975'
+            X-Usage-Websights-Api-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Websights-Api-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999965'
+            X-Usage-Websights-Api-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000000'
+            X-Usage-Websights-Api-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99999965'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 0267dc473c0000ff88cb299200000001
+          content:
+            application/json;charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Compliance'
+                - examples:
+                  - success: true
+                    data:
+                      result:
+                      - input:
+                          companyname: zoominfo
+                          personfirstname: henry
+                          personlastname: schuck
+                        data:
+                        - id: 1260398587
+                          firstName: Henry
+                          lastName: Schuck
+                          title: Founder & Chief Executive Officer
+                          employmentHistory:
+                          - companyName: ZoomInfo
+                            title: Founder & Chief Executive Officer
+                          - companyName: iProfile
+                            title: Vice President of Data and Marketing
+                          emailAddresses:
+                          - h.schuck@discoverorg.com
+                          - henry@grow.discoverorg.com
+                          - schuck.h@discoverorg.com
+                          - henry.schuck@discoverorg.com
+                          - henry@succeed.discoverorg.com
+                          - h.schuck@zoominfo.com
+                          - henry.schuck@zoominfo.com
+                          - hschuck@discoverorg.com
+                          - henry@discoverorg.com
+                          - hlschuck@discoverorg.com
+                          - hlschuck@email.discoverorg.io
+                          pastEmailAddresses:
+                          - h.schuck@discoverorg.com
+                          - schuck.h@discoverorg.com
+                          - henry.schuck@discoverorg.com
+                          - hschuck@discoverorg.com
+                          - henry@discoverorg.com
+                          - hlschuck@discoverorg.com
+                          withinEu: false
+                          hasCanadianEmail: 'false'
+                          withinCalifornia: false
+                          withinCanada: false
+                          noticeProvidedDate: Notice not required
+                          hasMoved: 'No'
+                          looksLikeEu: 'No'
+                          looksLikeCalifornia: 'No'
+                          looksLikeCanada: 'No'
+                          company:
+                            name: ZoomInfo
+                      - input:
+                          personemailaddress: john.doherty@zoominfo.com
+                        data:
+                        - id: 3458235736
+                          firstName: John
+                          lastName: Doherty
+                          title: Principal Technical Writer
+                          employmentHistory:
+                          - companyName: ZoomInfo
+                            title: Principal Technical Writer
+                          emailAddresses:
+                          - john.doherty@zoominfo.com
+                          pastEmailAddresses: []
+                          withinEu: false
+                          hasCanadianEmail: 'false'
+                          withinCalifornia: false
+                          withinCanada: false
+                          noticeProvidedDate: Notice not required
+                          hasMoved: Uncertain
+                          looksLikeEu: 'No'
+                          looksLikeCalifornia: 'No'
+                          looksLikeCanada: 'No'
+                          company:
+                            name: ZoomInfo
+                contentMediaType: application/json;charset=utf-8
+              example:
+                success: true
+                data:
+                  result:
+                  - input:
+                      companyname: zoominfo
+                      personfirstname: henry
+                      personlastname: schuck
+                    data:
+                    - id: 1260398587
+                      firstName: Henry
+                      lastName: Schuck
+                      title: Founder & Chief Executive Officer
+                      employmentHistory:
+                      - companyName: ZoomInfo
+                        title: Founder & Chief Executive Officer
+                      - companyName: iProfile
+                        title: Vice President of Data and Marketing
+                      emailAddresses:
+                      - h.schuck@discoverorg.com
+                      - henry@grow.discoverorg.com
+                      - schuck.h@discoverorg.com
+                      - henry.schuck@discoverorg.com
+                      - henry@succeed.discoverorg.com
+                      - h.schuck@zoominfo.com
+                      - henry.schuck@zoominfo.com
+                      - hschuck@discoverorg.com
+                      - henry@discoverorg.com
+                      - hlschuck@discoverorg.com
+                      - hlschuck@email.discoverorg.io
+                      pastEmailAddresses:
+                      - h.schuck@discoverorg.com
+                      - schuck.h@discoverorg.com
+                      - henry.schuck@discoverorg.com
+                      - hschuck@discoverorg.com
+                      - henry@discoverorg.com
+                      - hlschuck@discoverorg.com
+                      withinEu: false
+                      hasCanadianEmail: 'false'
+                      withinCalifornia: false
+                      withinCanada: false
+                      noticeProvidedDate: Notice not required
+                      hasMoved: 'No'
+                      looksLikeEu: 'No'
+                      looksLikeCalifornia: 'No'
+                      looksLikeCanada: 'No'
+                      company:
+                        name: ZoomInfo
+                  - input:
+                      personemailaddress: john.doherty@zoominfo.com
+                    data:
+                    - id: 3458235736
+                      firstName: John
+                      lastName: Doherty
+                      title: Principal Technical Writer
+                      employmentHistory:
+                      - companyName: ZoomInfo
+                        title: Principal Technical Writer
+                      emailAddresses:
+                      - john.doherty@zoominfo.com
+                      pastEmailAddresses: []
+                      withinEu: false
+                      hasCanadianEmail: 'false'
+                      withinCalifornia: false
+                      withinCanada: false
+                      noticeProvidedDate: Notice not required
+                      hasMoved: Uncertain
+                      looksLikeEu: 'No'
+                      looksLikeCalifornia: 'No'
+                      looksLikeCanada: 'No'
+                      company:
+                        name: ZoomInfo
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/inputfields/compliance/enrich:
+    parameters: []
+    get:
+      tags:
+      - Compliance API
+      summary: Zoominfo Compliance Inputs
+      description: Returns a list of fields you can use as input for the [Compliance](#55258fdb-c151-4532-b587-9a20d7169ae1) endpoint.
+      operationId: ComplianceInputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 28 May 2020 18:57:07 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 59aa33145a38ff8c-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=fc71d9403472d42effc02aad37ef6fac8edd5780bbd14e367dd0386bd4c1d94e:1de7e3b1-a10b-11ea-aacb-83f9cb252b93; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 02fe3e40ba0000ff8c5c361200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1590692288'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ComplianceInput'
+                description: ''
+                examples:
+                - - fieldName: companyId
+                    fieldType: Long
+                    description: Unique ZoomInfo identifier for a company
+                  - fieldName: companyName
+                    fieldType: String
+                    description: Company name
+                  - fieldName: personId
+                    fieldType: Long
+                    description: Unique ZoomInfo identifier for the contact
+                  - fieldName: personFullName
+                    fieldType: String
+                    description: Contact full name
+                  - fieldName: personFirstName
+                    fieldType: String
+                    description: Contact first name
+                  - fieldName: personLastName
+                    fieldType: String
+                    description: Contact last name
+                  - fieldName: companyName
+                    fieldType: String
+                    description: Name of the company for for which the contact works, or has worked
+                  - fieldName: personEmailAddress
+                    fieldType: String
+                    description: Work email address for the contact in example@example.com format
+                  - fieldName: personPhone
+                    fieldType: String
+                    description: Contact direct or mobile phone number
+                  - fieldName: personState
+                    fieldType: String
+                    description: Contact state
+                  - fieldName: personCountry
+                    fieldType: String
+                    description: Contact country
+                  - fieldName: personZipCode
+                    fieldType: String
+                    description: Contact Zip Code
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: companyId
+                fieldType: Long
+                description: Unique ZoomInfo identifier for a company
+              - fieldName: companyName
+                fieldType: String
+                description: Company name
+              - fieldName: personId
+                fieldType: Long
+                description: Unique ZoomInfo identifier for the contact
+              - fieldName: personFullName
+                fieldType: String
+                description: Contact full name
+              - fieldName: personFirstName
+                fieldType: String
+                description: Contact first name
+              - fieldName: personLastName
+                fieldType: String
+                description: Contact last name
+              - fieldName: companyName
+                fieldType: String
+                description: Name of the company for for which the contact works, or has worked
+              - fieldName: personEmailAddress
+                fieldType: String
+                description: Work email address for the contact in example@example.com format
+              - fieldName: personPhone
+                fieldType: String
+                description: Contact direct or mobile phone number
+              - fieldName: personState
+                fieldType: String
+                description: Contact state
+              - fieldName: personCountry
+                fieldType: String
+                description: Contact country
+              - fieldName: personZipCode
+                fieldType: String
+                description: Contact Zip Code
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/outputfields/compliance/enrich:
+    parameters: []
+    get:
+      tags:
+      - Compliance API
+      summary: Zoominfo Compliance Outputs
+      description: Returns a list of fields included in the response for the [Compliance](#55258fdb-c151-4532-b587-9a20d7169ae1) endpoint.
+      operationId: ComplianceOutputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Wed, 29 Apr 2020 14:20:38 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 58b9aa35ade5ebf4-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=5388d0855eb91b72ba1639994759a291802c09115c95da4fd2b63cd11d3b0fee:65308c81-8334-11ea-bebd-2f3883040f62; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1588170099'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 0267e8b5860000ebf475b2c200000001
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ComplianceOutput'
+                description: ''
+                examples:
+                - - fieldName: id
+                    description: Unique ZoomInfo identifier for the contact
+                  - fieldName: firstName
+                    description: Contact first name
+                  - fieldName: lastName
+                    description: Contact last name
+                  - fieldName: title
+                    description: Contact title
+                  - fieldName: companyName
+                    description: Company name
+                  - fieldName: employmentHistory
+                    description: Contact employment history
+                  - fieldName: emailAddresses
+                    description: List of primary email addresses for the contact
+                  - fieldName: pastEmailAddresses
+                    description: List of past email addresses for the contact
+                  - fieldName: withinEu
+                    description: Indicates whether the contact's work address is in Europe
+                  - fieldName: hasCanadianEmail
+                    description: Indicates whether the contact's email address associated with a Canada domain
+                  - fieldName: withinCalifornia
+                    description: Indicates whether the contact's work address is in California
+                  - fieldName: withinCanada
+                    description: Indicates whether the contact's work address is in Canada
+                  - fieldName: noticeProvidedDate
+                    description: Date on which the contact was notified of inclusion in ZoomInfo's database
+                  - fieldName: hasMoved
+                    description: Indicates ZoomInfo recognizes the contact does not match ZoomInfo's current company but does match known employment history
+                  - fieldName: looksLikeEu
+                    description: Indicates whether the contact's work address appears to be in Europe
+                  - fieldName: looksLikeCalifornia
+                    description: Indicates whether the contact's work address appears to be in California
+                  - fieldName: looksLikeCanada
+                    description: Indicates whether the contact's work address appears to be in Canada
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: id
+                description: Unique ZoomInfo identifier for the contact
+              - fieldName: firstName
+                description: Contact first name
+              - fieldName: lastName
+                description: Contact last name
+              - fieldName: title
+                description: Contact title
+              - fieldName: companyName
+                description: Company name
+              - fieldName: employmentHistory
+                description: Contact employment history
+              - fieldName: emailAddresses
+                description: List of primary email addresses for the contact
+              - fieldName: pastEmailAddresses
+                description: List of past email addresses for the contact
+              - fieldName: withinEu
+                description: Indicates whether the contact's work address is in Europe
+              - fieldName: hasCanadianEmail
+                description: Indicates whether the contact's email address associated with a Canada domain
+              - fieldName: withinCalifornia
+                description: Indicates whether the contact's work address is in California
+              - fieldName: withinCanada
+                description: Indicates whether the contact's work address is in Canada
+              - fieldName: noticeProvidedDate
+                description: Date on which the contact was notified of inclusion in ZoomInfo's database
+              - fieldName: hasMoved
+                description: Indicates ZoomInfo recognizes the contact does not match ZoomInfo's current company but does match known employment history
+              - fieldName: looksLikeEu
+                description: Indicates whether the contact's work address appears to be in Europe
+              - fieldName: looksLikeCalifornia
+                description: Indicates whether the contact's work address appears to be in California
+              - fieldName: looksLikeCanada
+                description: Indicates whether the contact's work address appears to be in Canada
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Data45:
+      title: Data45
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result19'
+          description: ''
+          example: []
+      examples:
+      - result:
+        - input:
+            companyname: zoominfo
+            personfirstname: henry
+            personlastname: schuck
+          data:
+          - id: 1260398587
+            firstName: Henry
+            lastName: Schuck
+            title: Founder & Chief Executive Officer
+            employmentHistory:
+            - companyName: ZoomInfo
+              title: Founder & Chief Executive Officer
+            - companyName: iProfile
+              title: Vice President of Data and Marketing
+            emailAddresses:
+            - h.schuck@discoverorg.com
+            - henry@grow.discoverorg.com
+            - schuck.h@discoverorg.com
+            - henry.schuck@discoverorg.com
+            - henry@succeed.discoverorg.com
+            - h.schuck@zoominfo.com
+            - henry.schuck@zoominfo.com
+            - hschuck@discoverorg.com
+            - henry@discoverorg.com
+            - hlschuck@discoverorg.com
+            - hlschuck@email.discoverorg.io
+            pastEmailAddresses:
+            - h.schuck@discoverorg.com
+            - schuck.h@discoverorg.com
+            - henry.schuck@discoverorg.com
+            - hschuck@discoverorg.com
+            - henry@discoverorg.com
+            - hlschuck@discoverorg.com
+            withinEu: false
+            hasCanadianEmail: 'false'
+            withinCalifornia: false
+            withinCanada: false
+            noticeProvidedDate: Notice not required
+            hasMoved: 'No'
+            looksLikeEu: 'No'
+            looksLikeCalifornia: 'No'
+            looksLikeCanada: 'No'
+            company:
+              name: ZoomInfo
+        - input:
+            personemailaddress: john.doherty@zoominfo.com
+          data:
+          - id: 3458235736
+            firstName: John
+            lastName: Doherty
+            title: Principal Technical Writer
+            employmentHistory:
+            - companyName: ZoomInfo
+              title: Principal Technical Writer
+            emailAddresses:
+            - john.doherty@zoominfo.com
+            pastEmailAddresses: []
+            withinEu: false
+            hasCanadianEmail: 'false'
+            withinCalifornia: false
+            withinCanada: false
+            noticeProvidedDate: Notice not required
+            hasMoved: Uncertain
+            looksLikeEu: 'No'
+            looksLikeCalifornia: 'No'
+            looksLikeCanada: 'No'
+            company:
+              name: ZoomInfo
+    MatchPersonInput2:
+      title: MatchPersonInput2
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: Acme Corporation
+        personFirstName:
+          type: string
+          example: Acme Corporation
+        personLastName:
+          type: string
+          example: Acme Corporation
+        personEmailAddress:
+          type: string
+          example: jsmith@example.com
+      examples:
+      - companyName: ZoomInfo
+        personFirstName: Henry
+        personLastName: Schuck
+    Compliance:
+      title: Compliance
+      required:
+      - success
+      - data
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/Data45'
+      examples:
+      - success: true
+        data:
+          result:
+          - input:
+              companyname: zoominfo
+              personfirstname: henry
+              personlastname: schuck
+            data:
+            - id: 1260398587
+              firstName: Henry
+              lastName: Schuck
+              title: Founder & Chief Executive Officer
+              employmentHistory:
+              - companyName: ZoomInfo
+                title: Founder & Chief Executive Officer
+              - companyName: iProfile
+                title: Vice President of Data and Marketing
+              emailAddresses:
+              - h.schuck@discoverorg.com
+              - henry@grow.discoverorg.com
+              - schuck.h@discoverorg.com
+              - henry.schuck@discoverorg.com
+              - henry@succeed.discoverorg.com
+              - h.schuck@zoominfo.com
+              - henry.schuck@zoominfo.com
+              - hschuck@discoverorg.com
+              - henry@discoverorg.com
+              - hlschuck@discoverorg.com
+              - hlschuck@email.discoverorg.io
+              pastEmailAddresses:
+              - h.schuck@discoverorg.com
+              - schuck.h@discoverorg.com
+              - henry.schuck@discoverorg.com
+              - hschuck@discoverorg.com
+              - henry@discoverorg.com
+              - hlschuck@discoverorg.com
+              withinEu: false
+              hasCanadianEmail: 'false'
+              withinCalifornia: false
+              withinCanada: false
+              noticeProvidedDate: Notice not required
+              hasMoved: 'No'
+              looksLikeEu: 'No'
+              looksLikeCalifornia: 'No'
+              looksLikeCanada: 'No'
+              company:
+                name: ZoomInfo
+          - input:
+              personemailaddress: john.doherty@zoominfo.com
+            data:
+            - id: 3458235736
+              firstName: John
+              lastName: Doherty
+              title: Principal Technical Writer
+              employmentHistory:
+              - companyName: ZoomInfo
+                title: Principal Technical Writer
+              emailAddresses:
+              - john.doherty@zoominfo.com
+              pastEmailAddresses: []
+              withinEu: false
+              hasCanadianEmail: 'false'
+              withinCalifornia: false
+              withinCanada: false
+              noticeProvidedDate: Notice not required
+              hasMoved: Uncertain
+              looksLikeEu: 'No'
+              looksLikeCalifornia: 'No'
+              looksLikeCanada: 'No'
+              company:
+                name: ZoomInfo
+    Company25:
+      title: Company25
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - name: ZoomInfo
+    Result19:
+      title: Result19
+      required:
+      - input
+      - data
+      type: object
+      properties:
+        input:
+          $ref: '#/components/schemas/Input17'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data46'
+          description: ''
+          example: []
+      examples:
+      - input:
+          companyname: zoominfo
+          personfirstname: henry
+          personlastname: schuck
+        data:
+        - id: 1260398587
+          firstName: Henry
+          lastName: Schuck
+          title: Founder & Chief Executive Officer
+          employmentHistory:
+          - companyName: ZoomInfo
+            title: Founder & Chief Executive Officer
+          - companyName: iProfile
+            title: Vice President of Data and Marketing
+          emailAddresses:
+          - h.schuck@discoverorg.com
+          - henry@grow.discoverorg.com
+          - schuck.h@discoverorg.com
+          - henry.schuck@discoverorg.com
+          - henry@succeed.discoverorg.com
+          - h.schuck@zoominfo.com
+          - henry.schuck@zoominfo.com
+          - hschuck@discoverorg.com
+          - henry@discoverorg.com
+          - hlschuck@discoverorg.com
+          - hlschuck@email.discoverorg.io
+          pastEmailAddresses:
+          - h.schuck@discoverorg.com
+          - schuck.h@discoverorg.com
+          - henry.schuck@discoverorg.com
+          - hschuck@discoverorg.com
+          - henry@discoverorg.com
+          - hlschuck@discoverorg.com
+          withinEu: false
+          hasCanadianEmail: 'false'
+          withinCalifornia: false
+          withinCanada: false
+          noticeProvidedDate: Notice not required
+          hasMoved: 'No'
+          looksLikeEu: 'No'
+          looksLikeCalifornia: 'No'
+          looksLikeCanada: 'No'
+          company:
+            name: ZoomInfo
+    ComplianceInput:
+      title: ComplianceInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        fieldType: Long
+        description: Unique ZoomInfo identifier for a company
+    Data46:
+      title: Data46
+      required:
+      - id
+      - firstName
+      - lastName
+      - title
+      - employmentHistory
+      - emailAddresses
+      - pastEmailAddresses
+      - withinEu
+      - hasCanadianEmail
+      - withinCalifornia
+      - withinCanada
+      - noticeProvidedDate
+      - hasMoved
+      - looksLikeEu
+      - looksLikeCalifornia
+      - looksLikeCanada
+      - company
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        firstName:
+          type: string
+          example: Acme Corporation
+        lastName:
+          type: string
+          example: Acme Corporation
+        title:
+          type: string
+          example: Vice President of Sales
+        employmentHistory:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmploymentHistory4'
+          description: ''
+          example: []
+        emailAddresses:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: user@example.com
+        pastEmailAddresses:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: user@example.com
+        withinEu:
+          type: boolean
+          example: true
+        hasCanadianEmail:
+          type: string
+          example: jsmith@example.com
+        withinCalifornia:
+          type: boolean
+          example: true
+        withinCanada:
+          type: boolean
+          example: true
+        noticeProvidedDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        hasMoved:
+          type: string
+          example: example_value
+        looksLikeEu:
+          type: string
+          example: example_value
+        looksLikeCalifornia:
+          type: string
+          example: example_value
+        looksLikeCanada:
+          type: string
+          example: example_value
+        company:
+          $ref: '#/components/schemas/Company25'
+      examples:
+      - id: 1260398587
+        firstName: Henry
+        lastName: Schuck
+        title: Founder & Chief Executive Officer
+        employmentHistory:
+        - companyName: ZoomInfo
+          title: Founder & Chief Executive Officer
+        - companyName: iProfile
+          title: Vice President of Data and Marketing
+        emailAddresses:
+        - h.schuck@discoverorg.com
+        - henry@grow.discoverorg.com
+        - schuck.h@discoverorg.com
+        - henry.schuck@discoverorg.com
+        - henry@succeed.discoverorg.com
+        - h.schuck@zoominfo.com
+        - henry.schuck@zoominfo.com
+        - hschuck@discoverorg.com
+        - henry@discoverorg.com
+        - hlschuck@discoverorg.com
+        - hlschuck@email.discoverorg.io
+        pastEmailAddresses:
+        - h.schuck@discoverorg.com
+        - schuck.h@discoverorg.com
+        - henry.schuck@discoverorg.com
+        - hschuck@discoverorg.com
+        - henry@discoverorg.com
+        - hlschuck@discoverorg.com
+        withinEu: false
+        hasCanadianEmail: 'false'
+        withinCalifornia: false
+        withinCanada: false
+        noticeProvidedDate: Notice not required
+        hasMoved: 'No'
+        looksLikeEu: 'No'
+        looksLikeCalifornia: 'No'
+        looksLikeCanada: 'No'
+        company:
+          name: ZoomInfo
+    Input17:
+      title: Input17
+      type: object
+      properties:
+        companyname:
+          type: string
+          example: Acme Corporation
+        personfirstname:
+          type: string
+          example: Acme Corporation
+        personlastname:
+          type: string
+          example: Acme Corporation
+        personemailaddress:
+          type: string
+          example: jsmith@example.com
+      examples:
+      - companyname: zoominfo
+        personfirstname: henry
+        personlastname: schuck
+    EmploymentHistory4:
+      title: EmploymentHistory4
+      required:
+      - companyName
+      - title
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: Acme Corporation
+        title:
+          type: string
+          example: Vice President of Sales
+      examples:
+      - companyName: ZoomInfo
+        title: Founder & Chief Executive Officer
+    ComplianceRequest:
+      title: ComplianceRequest
+      required:
+      - matchPersonInput
+      type: object
+      properties:
+        matchPersonInput:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchPersonInput2'
+          description: ''
+          example: []
+      examples:
+      - matchPersonInput:
+        - companyName: ZoomInfo
+          personFirstName: Henry
+          personLastName: Schuck
+        - personEmailAddress: john.doherty@zoominfo.com
+    ComplianceOutput:
+      title: ComplianceOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: id
+        description: Unique ZoomInfo identifier for the contact
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint

@@ -1,0 +1,1330 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication Lookup API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Lookup
+  description: This folder contains a series of lookup endpoints.
+paths:
+  /lookup/companyranking:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Company Ranking
+      description: Retrieve accepted Company Ranking values
+      operationId: CompanyRanking
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Tue, 17 Sep 2019 15:03:51 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 517bf8185879ae06-BOS
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=65d3624b622354d497d15cd8f518d9003708630dad6c7226d0b798c059302a3a:97799611-d95b-11e9-9c4e-21d6673962fa; path=/;
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1568732631'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetCompanyRanking'
+                description: ''
+                examples:
+                - - Id: fortune100
+                    Name: Fortune 100
+                  - Id: fortune500
+                    Name: Fortune 500
+                  - Id: fortune1000
+                    Name: Fortune 1000
+                  - Id: global500
+                    Name: Global 500
+                  - Id: private500
+                    Name: America's Largest
+                  - Id: russell3000
+                    Name: Russell 3000
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - Id: fortune100
+                Name: Fortune 100
+              - Id: fortune500
+                Name: Fortune 500
+              - Id: fortune1000
+                Name: Fortune 1000
+              - Id: global500
+                Name: Global 500
+              - Id: private500
+                Name: America's Largest
+              - Id: russell3000
+                Name: Russell 3000
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/continent:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Continent
+      description: Retrieve accepted Continent values
+      operationId: Continent
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/country:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Country
+      description: Retrieve accepted Country values
+      operationId: Country
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/state:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo State
+      description: Retrieve accepted State values
+      operationId: State
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/department:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Contact Departments
+      description: Retrieve accepted Contact Department values
+      operationId: ContactDepartments
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/employeecount:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Employee Count
+      description: Retrieve accepted Employee Count values
+      operationId: EmployeeCount
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/siccode:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Sic Codes
+      description: Retrieve accepted Standard Industrial Classification (SIC) values
+      operationId: SICCodes
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/naicscode:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Naics Codes
+      description: Retrieve accepted North American Industry Classification System (NAICS) values
+      operationId: NAICSCodes
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/industry:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Industry Codes
+      description: 'Retrieve accepted Industry Code values
+
+
+        '
+      operationId: IndustryCodes
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/jobtitlehierarchy:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Job Title Hierarchy
+      description: Retrieve accepted Job Title Hierarchy values
+      operationId: JobTitleHierarchy
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/jobfunction:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Job Function
+      description: Retrieve accepted Job Function values
+      operationId: JobFunction
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/metroarea:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Metro Area
+      description: Retrieve accepted Metro Area values
+      operationId: MetroArea
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/revenuerange:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Revenue Range
+      description: Retrieve accepted Revenue Range values
+      operationId: RevenueRange
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/scooptopic:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Scoop Topics
+      description: Retrieve accepted Scoop Topic values
+      operationId: ScoopTopics
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/scooptype:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Scoop Types
+      description: Retrieve accepted Scoop Type values
+      operationId: ScoopTypes
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/scoopdepartment:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Scoop Departments
+      description: Retrieve accepted Scoop Department values
+      operationId: ScoopDepartments
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/companytype:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Company Type
+      description: Retrieve accepted Company Type values
+      operationId: CompanyType
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/boardMember:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Board Members
+      description: Retrieve accepted Board Member values
+      operationId: BoardMembers
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/managementLevel:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Management Levels
+      description: Retrieve accepted Management Level values
+      operationId: ManagementLevels
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/subunittypes:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Sub Unit Type
+      description: Retrieve accepted Sub Unit Type values
+      operationId: SubUnitType
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/tech/category:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Tech - Categories
+      description: Retrieve accepted Tech Category values
+      operationId: Tech-Categories
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/tech/vendor:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Tech - Vendor
+      description: Retrieve accepted Tech Vendor values
+      operationId: Tech-Vendor
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/tech/product:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Tech - Product
+      description: Retrieve accepted Tech Product values
+      operationId: Tech-Product
+      parameters:
+      - name: vendor
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          examples:
+          - microsoft corporation
+        example: example_value
+      - name: parentCategory
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          examples:
+          - Communication and Collaboration
+        example: example_value
+      - name: category
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          examples:
+          - Unified Communications
+        example: example_value
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/tech-skills:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Tech Skills
+      description: Retrieve Tech Skill values
+      operationId: TechSkills
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/hashtag:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Hashtag
+      description: Retrieve accepted Hashtag values
+      operationId: Hashtag
+      parameters:
+      - name: vendor
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          examples:
+          - microsoft corporation
+        example: example_value
+      - name: parentCategory
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          examples:
+          - Communication and Collaboration
+        example: example_value
+      - name: category
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          examples:
+          - Unified Communications
+        example: example_value
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/intent/topics:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Intent Topics
+      description: Retrieve accepted intent topics and categories.
+      operationId: IntentTopics
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Sun, 10 May 2020 17:20:36 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 591554f01f94ebf8-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=07a847a334cf7e797620854bcf3d04278d3e9fa911dd994cd5d463e7cae8def9:b222cc11-8ed3-11ea-9562-cb2408100f34; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1498'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1589131277'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 02a1336a0d0000ebf89b866200000001
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IntentTopic'
+                description: ''
+                examples:
+                - - Name: Affordable Care Act (ACA)
+                    Category: Compensation & Benefits
+                    Department: Legal
+                    JobFunction: Governmental Affairs & Regulatory Law
+                    Description: The Affordable Care Act (ACA) is a United States federal statute signed into law by President Obama on March 23, 2010. The ACA was enacted to increase the quality and affordability of health insurance, lower the uninsured rate by expanding public and private insurance coverage, and reduce the costs of healthcare for individuals and the government.
+                  - Name: Android Push Notifications
+                    Category: Mobile Devices
+                    Department: Information Technology
+                    JobFunction: Cloud / Mobility
+                    Description: Android Push Notifications is a message that pops up on the user's device. Notifications can be triggered locally by an open application, or they can be ""pushed"" from the server to the user even when the app is not running. They allow your users to opt-in to timely updates and allow you to effectively re-engage users with customized content.
+                  - Name: Claims Processing
+                    Category: Compensation & Benefits
+                    Department: Medical & Health
+                    JobFunction: Medical Administration
+                    Description: Claims processing refers to the insurance company's procedure to check the claim requests for adequate information, validation, justification and authenticity.
+                  - Name: Cloud Applications
+                    Category: Cloud
+                    Department: Information Technology
+                    JobFunction: Cloud / Mobility
+                    Description: Cloud application or cloud app is a software program where cloud-based and local components work together.
+                  - Name: Cloud Computing
+                    Category: Cloud
+                    Department: Information Technology
+                    JobFunction: Cloud / Mobility
+                    Description: Cloud computing is a general term for anything that involves delivering hosted services over the internet.
+                  - Name: Cloud Infrastructure
+                    Category: Cloud
+                    Department: Information Technology
+                    JobFunction: Cloud / Mobility
+                    Description: Cloud infrastructure is a term used to describe the components needed for cloud computing, which includes hardware, abstracted resources, storage, and network resources. Think of cloud infrastructure as the tools needed to build a cloud. In order to host services and applications in the cloud, you need cloud infrastructure.
+                  - Name: Corporate Culture
+                    Category: Company Culture & Policy
+                    Department: Human Resources
+                    JobFunction: Organizational Development
+                    Description: Corporate culture is the shared values, attitudes, standards, and beliefs that characterize members of an organization and define its nature. It is rooted in an organization's goals, strategies, structure, and approaches to labor, customers, investors, and the greater community.
+                  - Name: Credit Card Fraud
+                    Category: Banking
+                    Department: Finance
+                    JobFunction: Risk
+                    Description: Credit card fraud is an inclusive term for fraud committed using a payment card, such as a credit card or debit card. The purpose may be to obtain goods or services, or to make payment to another account which is controlled by a criminal.
+                  - Name: Direct Deposit
+                    Category: Billing & Invoice
+                    Department: Finance
+                    JobFunction: Finance
+                    Description: Direct deposit or direct credit, in banking, is a deposit of money by a payer directly into a payee's bank account. Direct deposits are most commonly made by businesses in the payment of salaries and wages and for the payment of suppliers' accounts, but the facility can be used for payments, such as payment of bills, taxes, and other government charges.
+                  - Name: eFulfillment Service
+                    Category: Logistics / Supply Chain
+                    Department: Operations
+                    JobFunction: Logistics
+                    Description: eFulfillment Service (EFS) is a process of making order fulfillment fast, easy and affordable for sellers of all types and sizes.
+                  - Name: Google Search
+                    Category: Search
+                    Department: Information Technology
+                    JobFunction: Collaboration & Web Apps
+                    Description: Google Search, also referred to as Google Web Search or simply Google, is a web search engine developed by Google.
+                  - Name: Healthcare Law
+                    Category: Regulations
+                    Department: Legal
+                    JobFunction: Governmental Affairs & Regulatory Law
+                    Description: Healthcare law concerns who can receive healthcare, and who should pay for it. This is a surprisingly complicated area of law given how expensive healthcare can be in the United States.
+                  - Name: Hours of Work
+                    Category: Labor & Employment Policy
+                    Department: Human Resources
+                    JobFunction: Human Resources
+                    Description: Hours of Work is the period of time during which one engages in paid work. It is one way to measure the labor a person performs.
+                  - Name: In-App Advertising
+                    Category: Advertising
+                    Department: Marketing
+                    JobFunction: Advertising
+                    Description: In-app advertising is an effective monetization strategy for mobile publishers, in which app developers get paid to serve advertisements within their mobile app.
+                  - Name: Incentive Compensation
+                    Category: Compensation & Benefits
+                    Department: Human Resources
+                    JobFunction: Compensation & Benefits
+                    Description: Incentive compensation is a type of compensation based on the performance of an entity. Often incentive compensation plans are designed to attract and retain key employees, identify with shareholders, and align interests of employees and the company.
+                  - Name: Java
+                    Category: Application Development
+                    Department: Engineering & Technical
+                    JobFunction: Software Development
+                    Description: Java is a widely used programming language expressly designed for use in the distributed environment of the internet. It is the programming language for Android smartphone applications.
+                  - Name: Legal
+                    Category: Legal Operations
+                    Department: Legal
+                    JobFunction: Legal
+                    Description: Legal is used to describe things that relate to the law.
+                  - Name: Mobile / Wireless
+                    Category: Mobile Devices
+                    Department: Information Technology
+                    JobFunction: Cloud / Mobility
+                    Description: Transmission over the air from a base station to a moving cellphone, tablet or laptop. The term may refer to voice only or voice and data.
+                  - Name: Mobile Apps
+                    Category: Mobile Applications
+                    Department: Information Technology
+                    JobFunction: Cloud / Mobility
+                    Description: Mobile application is a computer program or software application designed to run on a mobile device such as a phone, tablet, or watch.
+                  - Name: Mobile Security
+                    Category: Cyber Security
+                    Department: Information Technology
+                    JobFunction: Information Security
+                    Description: Mobile security involves protecting both personal and business information stored on and transmitted from smartphones, tablets, laptops and other mobile devices. The term mobile security is a broad one that covers everything from protecting mobile devices from malware threats to reducing risks and securing mobile devices and their data in the case of theft, unauthorized access or accidental loss of the mobile device.
+                  - Name: Mobile Wallet
+                    Category: Mobile Applications
+                    Department: Information Technology
+                    JobFunction: Cloud / Mobility
+                    Description: Mobile wallet is a virtual wallet that stores payment card information on a mobile device. Mobile wallets are a convenient way for a user to make in-store payments and can be used at merchants listed with the mobile wallet service provider.
+                  - Name: Node.js
+                    Category: Application Development
+                    Department: Engineering & Technical
+                    JobFunction: Software Development
+                    Description: Node.js is an open-source, cross-platform, JavaScript runtime environment that executes JavaScript code outside of a browser.
+                  - Name: Organizational Culture
+                    Category: Company Culture & Policy
+                    Department: Human Resources
+                    JobFunction: Organizational Development
+                    Description: Organizational culture is defined as the underlying beliefs, assumptions, values and ways of interacting that contribute to the unique social and psychological environment of an organization.
+                  - Name: Risk Management Services
+                    Category: Risk
+                    Department: Human Resources
+                    JobFunction: Human Resources
+                    Description: Risk management is the identification, evaluation, and prioritization of risks followed by coordinated and economical application of resources to minimize, monitor, and control the probability or impact of unfortunate events or to maximize the realization of opportunities.
+                  - Name: Video Conferencing
+                    Category: Collaboration/Web Apps
+                    Department: Information Technology
+                    JobFunction: Collaboration & Web Apps
+                    Description: Video conferencing is a technology that allows users in different locations to hold face-to-face meetings without having to move to a single location together.
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - Name: Affordable Care Act (ACA)
+                Category: Compensation & Benefits
+                Department: Legal
+                JobFunction: Governmental Affairs & Regulatory Law
+                Description: The Affordable Care Act (ACA) is a United States federal statute signed into law by President Obama on March 23, 2010. The ACA was enacted to increase the quality and affordability of health insurance, lower the uninsured rate by expanding public and private insurance coverage, and reduce the costs of healthcare for individuals and the government.
+              - Name: Android Push Notifications
+                Category: Mobile Devices
+                Department: Information Technology
+                JobFunction: Cloud / Mobility
+                Description: Android Push Notifications is a message that pops up on the user's device. Notifications can be triggered locally by an open application, or they can be ""pushed"" from the server to the user even when the app is not running. They allow your users to opt-in to timely updates and allow you to effectively re-engage users with customized content.
+              - Name: Claims Processing
+                Category: Compensation & Benefits
+                Department: Medical & Health
+                JobFunction: Medical Administration
+                Description: Claims processing refers to the insurance company's procedure to check the claim requests for adequate information, validation, justification and authenticity.
+              - Name: Cloud Applications
+                Category: Cloud
+                Department: Information Technology
+                JobFunction: Cloud / Mobility
+                Description: Cloud application or cloud app is a software program where cloud-based and local components work together.
+              - Name: Cloud Computing
+                Category: Cloud
+                Department: Information Technology
+                JobFunction: Cloud / Mobility
+                Description: Cloud computing is a general term for anything that involves delivering hosted services over the internet.
+              - Name: Cloud Infrastructure
+                Category: Cloud
+                Department: Information Technology
+                JobFunction: Cloud / Mobility
+                Description: Cloud infrastructure is a term used to describe the components needed for cloud computing, which includes hardware, abstracted resources, storage, and network resources. Think of cloud infrastructure as the tools needed to build a cloud. In order to host services and applications in the cloud, you need cloud infrastructure.
+              - Name: Corporate Culture
+                Category: Company Culture & Policy
+                Department: Human Resources
+                JobFunction: Organizational Development
+                Description: Corporate culture is the shared values, attitudes, standards, and beliefs that characterize members of an organization and define its nature. It is rooted in an organization's goals, strategies, structure, and approaches to labor, customers, investors, and the greater community.
+              - Name: Credit Card Fraud
+                Category: Banking
+                Department: Finance
+                JobFunction: Risk
+                Description: Credit card fraud is an inclusive term for fraud committed using a payment card, such as a credit card or debit card. The purpose may be to obtain goods or services, or to make payment to another account which is controlled by a criminal.
+              - Name: Direct Deposit
+                Category: Billing & Invoice
+                Department: Finance
+                JobFunction: Finance
+                Description: Direct deposit or direct credit, in banking, is a deposit of money by a payer directly into a payee's bank account. Direct deposits are most commonly made by businesses in the payment of salaries and wages and for the payment of suppliers' accounts, but the facility can be used for payments, such as payment of bills, taxes, and other government charges.
+              - Name: eFulfillment Service
+                Category: Logistics / Supply Chain
+                Department: Operations
+                JobFunction: Logistics
+                Description: eFulfillment Service (EFS) is a process of making order fulfillment fast, easy and affordable for sellers of all types and sizes.
+              - Name: Google Search
+                Category: Search
+                Department: Information Technology
+                JobFunction: Collaboration & Web Apps
+                Description: Google Search, also referred to as Google Web Search or simply Google, is a web search engine developed by Google.
+              - Name: Healthcare Law
+                Category: Regulations
+                Department: Legal
+                JobFunction: Governmental Affairs & Regulatory Law
+                Description: Healthcare law concerns who can receive healthcare, and who should pay for it. This is a surprisingly complicated area of law given how expensive healthcare can be in the United States.
+              - Name: Hours of Work
+                Category: Labor & Employment Policy
+                Department: Human Resources
+                JobFunction: Human Resources
+                Description: Hours of Work is the period of time during which one engages in paid work. It is one way to measure the labor a person performs.
+              - Name: In-App Advertising
+                Category: Advertising
+                Department: Marketing
+                JobFunction: Advertising
+                Description: In-app advertising is an effective monetization strategy for mobile publishers, in which app developers get paid to serve advertisements within their mobile app.
+              - Name: Incentive Compensation
+                Category: Compensation & Benefits
+                Department: Human Resources
+                JobFunction: Compensation & Benefits
+                Description: Incentive compensation is a type of compensation based on the performance of an entity. Often incentive compensation plans are designed to attract and retain key employees, identify with shareholders, and align interests of employees and the company.
+              - Name: Java
+                Category: Application Development
+                Department: Engineering & Technical
+                JobFunction: Software Development
+                Description: Java is a widely used programming language expressly designed for use in the distributed environment of the internet. It is the programming language for Android smartphone applications.
+              - Name: Legal
+                Category: Legal Operations
+                Department: Legal
+                JobFunction: Legal
+                Description: Legal is used to describe things that relate to the law.
+              - Name: Mobile / Wireless
+                Category: Mobile Devices
+                Department: Information Technology
+                JobFunction: Cloud / Mobility
+                Description: Transmission over the air from a base station to a moving cellphone, tablet or laptop. The term may refer to voice only or voice and data.
+              - Name: Mobile Apps
+                Category: Mobile Applications
+                Department: Information Technology
+                JobFunction: Cloud / Mobility
+                Description: Mobile application is a computer program or software application designed to run on a mobile device such as a phone, tablet, or watch.
+              - Name: Mobile Security
+                Category: Cyber Security
+                Department: Information Technology
+                JobFunction: Information Security
+                Description: Mobile security involves protecting both personal and business information stored on and transmitted from smartphones, tablets, laptops and other mobile devices. The term mobile security is a broad one that covers everything from protecting mobile devices from malware threats to reducing risks and securing mobile devices and their data in the case of theft, unauthorized access or accidental loss of the mobile device.
+              - Name: Mobile Wallet
+                Category: Mobile Applications
+                Department: Information Technology
+                JobFunction: Cloud / Mobility
+                Description: Mobile wallet is a virtual wallet that stores payment card information on a mobile device. Mobile wallets are a convenient way for a user to make in-store payments and can be used at merchants listed with the mobile wallet service provider.
+              - Name: Node.js
+                Category: Application Development
+                Department: Engineering & Technical
+                JobFunction: Software Development
+                Description: Node.js is an open-source, cross-platform, JavaScript runtime environment that executes JavaScript code outside of a browser.
+              - Name: Organizational Culture
+                Category: Company Culture & Policy
+                Department: Human Resources
+                JobFunction: Organizational Development
+                Description: Organizational culture is defined as the underlying beliefs, assumptions, values and ways of interacting that contribute to the unique social and psychological environment of an organization.
+              - Name: Risk Management Services
+                Category: Risk
+                Department: Human Resources
+                JobFunction: Human Resources
+                Description: Risk management is the identification, evaluation, and prioritization of risks followed by coordinated and economical application of resources to minimize, monitor, and control the probability or impact of unfortunate events or to maximize the realization of opportunities.
+              - Name: Video Conferencing
+                Category: Collaboration/Web Apps
+                Department: Information Technology
+                JobFunction: Collaboration & Web Apps
+                Description: Video conferencing is a technology that allows users in different locations to hold face-to-face meetings without having to move to a single location together.
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/news/categories:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo News Categories
+      description: Retrieve accepted news categories.
+      operationId: NewsCategories
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 04 Jun 2020 19:41:42 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 59e422021afaae36-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=fc71d9403472d42effc02aad37ef6fac8edd5780bbd14e367dd0386bd4c1d94e:1de7e3b1-a10b-11ea-aacb-83f9cb252b93; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 032273954f0000ae36b8158200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1498'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1591299746'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  type: string
+                description: ''
+                examples:
+                - - FINANCIAL_RESULTS
+                  - FUNDING
+                  - GENERAL_NEWS
+                  - GENERAL_PRESS_RELEASE
+                  - MERGER_OR_ACQUISTION
+                  - PERSON
+                  - PRODUCT
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - FINANCIAL_RESULTS
+              - FUNDING
+              - GENERAL_NEWS
+              - GENERAL_PRESS_RELEASE
+              - MERGER_OR_ACQUISTION
+              - PERSON
+              - PRODUCT
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/employee-category-band:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Employee Category Band
+      description: Retrieve Employee Category Band values
+      operationId: EmployeeCategoryBand
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/revenue-category-band:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Revenue Category Band
+      description: Retrieve Revenue Category Band values
+      operationId: RevenueCategoryBand
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/years-of-experience:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Years of Experience
+      description: Retrieve accepted Years Of Experience ranges.
+      operationId: YearsOfExperience
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/hierarchy-code:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Hierarchy Code
+      description: Retrieve Company Hierarchy Code values
+      operationId: HierarchyCode
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/buyinggroups:
+    parameters: []
+    get:
+      tags:
+      - Lookup
+      summary: Zoominfo Buying Groups
+      description: Retrieve buying group information
+      operationId: BuyingGroups
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    GetCompanyRanking:
+      title: GetCompanyRanking
+      required:
+      - Id
+      - Name
+      type: object
+      properties:
+        Id:
+          type: string
+          example: '500123'
+        Name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - Id: fortune100
+        Name: Fortune 100
+    IntentTopic:
+      title: IntentTopic
+      required:
+      - Name
+      - Category
+      - Department
+      - JobFunction
+      - Description
+      type: object
+      properties:
+        Name:
+          type: string
+          example: Acme Corporation
+        Category:
+          type: string
+          example: example_value
+        Department:
+          type: string
+          example: example_value
+        JobFunction:
+          type: string
+          example: example_value
+        Description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - Name: Affordable Care Act (ACA)
+        Category: Compensation & Benefits
+        Department: Legal
+        JobFunction: Governmental Affairs & Regulatory Law
+        Description: The Affordable Care Act (ACA) is a United States federal statute signed into law by President Obama on March 23, 2010. The ACA was enacted to increase the quality and affordability of health insurance, lower the uninsured rate by expanding public and private insurance coverage, and reduce the costs of healthcare for individuals and the government.
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint

@@ -1,0 +1,2890 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication Intent Search API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Intent Search
+  description: 'Use [Intent Search](#93f940a4-4381-49dd-8fbc-42cbc75a7a39) to retrieve Intent-related data using valid query parameters.
+
+
+    *   To build your request, retrieve a list of valid query parameters using [Intent Search Inputs](#14669274-88b8-4762-8d61-57d2fd5abf12).
+
+    *   For requests that require you to specify supported values (e.g., Intent topics), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055) endpoints.
+
+    *   Use [Intent Search Outputs](#8f3540ee-4093-48e4-aebb-97133a864912) to retrieve a list of expected response fields that will be returned from [Intent Search](#93f940a4-4381-49dd-8fbc-42cbc75a7a39).'
+paths:
+  /search/intent:
+    parameters: []
+    post:
+      tags:
+      - Intent Search
+      summary: Zoominfo Intent Search
+      description: "Use this endpoint to search for companies and recommended contacts based on intent data. Use [input values](#2923818c-df63-4a61-88ba-f9a5383cd420) to return the desired [output fields](#f058d265-3294-442c-80b8-52a81021dc60) in the response. For charging purposes, each intent signal returned is counted as a record.\n\nIntent data is online behavior-based activity across the internet that links buyers and accounts to a topic. Key terminology includes:\n\n- **Signal** - Recent content consumption activity for a specific topic by people at a company\n- **Signal Score** - Indicates a company's interest in a topic based on how recent content consumption compares to a historical baseline.\n- **Audience Strength** - Indicates the size of the group at the company conducting research in this topic.\n    \n\n**Input params (intent-specific)**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| topics | ArrayList | Required. Intent topic(s). Accepts an array of strings. See the **Intent Topics** lookup endpoint for values. |\n| signalStartDate | String | Start date for a company signaling interest in a topic |\n| signalEndDate | String | End date for a company signaling interest in a topic |\n| signalScoreMin | Integer | Minimum signal score. Use with signalScoreMax to form a range. Minimum score is 60 and maximum is 100. |\n| signalScoreMax | Integer | Maximum signal score. Use with signalScoreMin to form a range. Minimum score is 60 and maximum is 100. |\n| audienceStrengthMin | String | Minimum audience strength score. Use with audienceStrengthMax to form a range. Values are A, B, C, D, and E, with A indicating a larger audience. |\n| audienceStrengthMax | String | Maximum audience strength score. Use with audienceStrengthMin to form a range. Values are A, B, C, D, and E, with A indicating a larger audience. |\n| rpp | Integer | Limits the results returned to the given number of results per page. Default is 25. |\n| page | Integer | Provides the results for the given page, used in conjunction with `rpp` |\n| sortOrder | String | Provide `sortBy` if specifying `sortOrder`. Valid values are `asc`, `ascending`, `desc`, and `descending`. By default, results are sorted in descending order. |\n| sortBy | String | Sort results by valid output fields. Valid values are: `signalDate`, `companyName`, `signalScore`, `category`, `topic`, `audienceStrength`. |\n\n**Input params (company-specific)**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyDescription | String | Text description unique to the company you want to use as search criteria |\n| companyType | String | Company type (private, public, and so on). See the **Company Type** lookup endpoint for values. |\n| address | String | Company address |\n| street | String | Company street |\n| state | String | Company state (U.S.) or province (Canada). You can use free text state or province names (e.g., \"new hampshire\"), the two-letter common abbreviation for a U.S. state (e.g., \"nh\"), or values provided in the **State** lookup endpoint. |\n| zipCode | String | Zip Code of the company's primary address |\n| country | String | Country for the company's primary address. You can use free text or see the **Country** lookup endpoint for values. |\n| continent | String | Continent for the company's primary address. See the **Continent** lookup endpoint for values. |\n| zipCodeRadiusMiles | String | Used in conjunction with `zipCode`, designates a geographical radius (in miles) from the `zipCode` provided. |\n| hashTagString | String | Hash tags for a company. Can include a comma-separated list. |\n| techAttributeTagList | String | Specify technology product tags. See the **Tech - Product** lookup endpoint for values. This string uses a numerical dot notation format similar to an IP address. The notation denotes the hierarchical structure: `parent-category.category.vendor`. For example, `333.202.28`. You can use wildcards in the notation (e.g., `333.202.\\\\\\*`, `\\\\\\*.202.\\\\\\*`, and so on). |\n| subUnitTypes | String | Company sub types (e.g., division, subsidiary and so on). See the **Sub Unit Type** lookup endpoint for values. |\n| primaryIndustriesOnly | Boolean | Used in conjunction with the `industryCodes` input parameter. When set to `true`, any result returned must have one of the specified industries as a primary industry. If no industries are specified, then this parameter will be ignored. Default is `false`. |\n| industryCodes | String | Top-level Industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list. See the **Industry Codes** lookup endpoint for values. |\n| industryKeywords | String | Industry keywords associated with a company. Can include a comma-separated list. |\n| sicCodes | String | The Standard Industrial Classification is a system for classifying industries by a four-digit code. See the **SIC Codes** lookup endpoint for values. |\n| naicsCodes | String | The North American Industry Classification System (NAICS) is the standard used by Federal statistical agencies in classifying business establishments for the purpose of collecting, analyzing, and publishing statistical data related to the U.S. business economy. See the **NAICS Codes** lookup endpoint for values. |\n| revenueMin | Integer | Minimum annual revenue for a company in U.S. dollars. Use with `revenueMax` to set a range. Alternatively, you can use the `revenue` parameter to search for pre-defined ranges. |\n| revenueMax | Integer | Maximum annual revenue for a company in U.S. dollars. Use with `revenueMin` to set a range. Alternatively, you can use the `revenue` parameter to search for pre-defined ranges. |\n| revenue | String | Annual revenue range in U.S. dollars. Accepts a comma-separated list of values. See the **Revenue Range** lookup endpoint for values. Alternatively, to get more granular ranges, you can use the `revenueMin` and `revenueMax` parameters. |\n| employeeRangeMin | String | Minimum employee count for a company. Use with `employeeRangeMax` to set a range. Alternatively, you can use the `employeeCount` parameter to search for pre-defined ranges. |\n| employeeRangeMax | String | Maximum employee count for a company. Use with `employeeRangeMin` to set a range. Alternatively, you can use the `employeeCount` parameter to search for pre-defined ranges. |\n| employeeCount | String | Employee count range. Accepts a comma-separated list of values. See the **Employee Count** lookup endpoint for values. Alternatively, to get more granular ranges, you can use the `employeeRangeMin` and `employeeRangeMax` parameters. |\n| companyRanking | String | Company ranking list (e.g., Fortune 500 and so on). See the **Company Ranking** lookup endpoint for values. |\n| metroRegion | String | Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas. See the **Metro Area** lookup endpoint for values. |\n| locationSearchType | String | Location criteria for search. Values are `PersonOrHQ`, `PersonAndHQ`, `Person`, `HQ`, `PersonThenHQ`. |\n| fundingAmountMin | Integer | Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If `fundingAmountMin` is used without `fundingAmountMax`, the result will be the amount specified or greater. |\n| fundingAmountMax | Integer | Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If `fundingAmountMax` is used without `fundingAmountMin`, the result will be the amount specified or less. |\n| fundingStartDate | String | Start date of the funding in YYYY-MM-DD format. If `fundingStartDate` and `fundingEndDate` are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date. |\n| fundingEndDate | String | End date of the funding in YYYY-MM-DD format. If `fundingStartDate` and `fundingEndDate` are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date. |\n| excludedRegions | String | Exclude a company metro area. Accepts a comma-separated list of U.S. and Canada metro areas. See the **Metro Area** lookup endpoint for values. |\n| zoominfoContactsMin | String | Minimum number of ZoomInfo contacts associated with company |\n| zoominfoContactsMax | String | Maximum number of ZoomInfo contacts associated with company |\n| companyStructureIncludedSubUnitTypes | String | Company hierarchical structure |\n| certified | Integer | Denotes if ZoomInfo's research and data team has confirmed activity within the past 12 months |\n| excludeDefunctCompanies | Boolean | Include or exclude defunct companies. The default value is false. |\n| oneYearEmployeeGrowthRateMin | String | Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range. |\n| oneYearEmployeeGrowthRateMax | String | Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range. |\n| twoYearEmployeeGrowthRateMin | String | Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range. |\n| twoYearEmployeeGrowthRateMax | String | Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range. |\n\n**Response data**\n\n| Field | Description |\n| --- | --- |\n| id | Unique ZoomInfo identifier for a topic |\n| category | Intent category |\n| topic | Intent topic |\n| signalScore | Signal score for the topic |\n| audienceStrength | Audience strength for the topic |\n| signalDate | Date the signal was identified |\n| companyId | Unique ZoomInfo identifier for a company |\n| companyName | Company name |\n| companyWebsite | URL to the company website in [http://www.example.com](http://www.example.com) format |\n| companyHasOtherTopicConsumption | Indicates whether a company has other topics with increased consumption. Values are `true` and `false`. |\n| recommendedContacts | Suggested contacts at the company that are related to the intent topic |"
+      operationId: IntentSearch
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/IntentSearchRequest'
+              - examples:
+                - topics:
+                  - Cloud Applications
+                  - Cloud Computing
+                  - Cloud Infrastructure
+                  - Mobile Apps
+                  - Mobile Security
+                  signalScoreMin: 80
+                  signalScoreMax: 100
+                  audienceStrengthMin: C
+                  audienceStrengthMax: A
+                  metroRegion: usa.california.sanfrancisco
+                  industryCodes: education.university
+                  sortBy: topic
+                  sortOrder: desc
+              contentMediaType: application/json
+            example:
+              topics:
+              - Cloud Applications
+              - Cloud Computing
+              - Cloud Infrastructure
+              - Mobile Apps
+              - Mobile Security
+              signalScoreMin: 80
+              signalScoreMax: 100
+              audienceStrengthMin: C
+              audienceStrengthMax: A
+              metroRegion: usa.california.sanfrancisco
+              industryCodes: education.university
+              sortBy: topic
+              sortOrder: desc
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 16 Jul 2020 19:58:45 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 5b3e4cb42b0debe8-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=7c92aab28a16a819b11a05bd1f2d315bc49963834ddeebd2bab7bb8578c6a9ba:59135a31-c5e3-11ea-b90a-bfcce47ec1ab; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 03face44950000ebe8428db200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1594929585'
+            X-Usage-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999968243'
+            X-Usage-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999956035'
+            X-Usage-Unique-Id-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Unique-Id-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9998894'
+            X-Usage-Websights-Api-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Websights-Api-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999646'
+            X-Usage-Websights-Api-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000000'
+            X-Usage-Websights-Api-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99999646'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IntentSearch'
+                - examples:
+                  - maxResults: 19
+                    totalResults: 19
+                    currentPage: 1
+                    data:
+                    - id: d3ac21f6-f9f4-4a71-8ca9-8f4125937d2c
+                      category: Cyber Security
+                      topic: Mobile Security
+                      signalScore: 83
+                      audienceStrength: C
+                      newSignal: true
+                      signalDate: 7/5/2020 12:00 AM
+                      trend: 24
+                      recommendedContacts:
+                      - id: -1766367996
+                        firstName: David
+                        lastName: Fike
+                        jobTitle: President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 118998385
+                        name: Golden Gate University
+                        website: www.ggu.edu
+                        hasOtherTopicConsumption: true
+                    - id: 03e79b1c-fa4b-4f62-ad97-40de35e2625c
+                      category: Cyber Security
+                      topic: Mobile Security
+                      signalScore: 88
+                      audienceStrength: A
+                      newSignal: true
+                      signalDate: 6/28/2020 12:00 AM
+                      trend: 29
+                      recommendedContacts:
+                      - id: 2358233518
+                        firstName: Martin
+                        lastName: Pacholuk
+                        jobTitle: Deputy Chief Information Officer
+                        jobFunction:
+                        - name: Information Technology
+                          department: Information Technology
+                        - name: Information Technology Executive
+                          department: C-Suite
+                      - id: 1239218786
+                        firstName: Camilla
+                        lastName: Tubbs
+                        jobTitle: Associate Dean, Library & Technology & Chief Information Officer
+                        jobFunction:
+                        - name: Information Technology
+                          department: Information Technology
+                        - name: Information Technology Executive
+                          department: C-Suite
+                      - id: 55169609
+                        firstName: David
+                        lastName: Seward
+                        jobTitle: Chief Financial Officer
+                        jobFunction:
+                        - name: Finance Executive
+                          department: C-Suite
+                        - name: Finance
+                          department: Finance
+                      - id: 3117140380
+                        firstName: Mike
+                        lastName: Liu
+                        jobTitle: Vice Chief Technology Officer, CIO & President Information Technology
+                        jobFunction:
+                        - name: Information Technology
+                          department: Information Technology
+                        - name: Information Technology Executive
+                          department: C-Suite
+                      - id: -1542224459
+                        firstName: Claire
+                        lastName: Wilkens
+                        jobTitle: Co-President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 53923462
+                        name: UC Hastings College of the Law
+                        website: www.uchastings.edu
+                        hasOtherTopicConsumption: true
+                    - id: af75117e-c6b1-4831-8cfa-562acc36d9c1
+                      category: Mobile Applications
+                      topic: Mobile Apps
+                      signalScore: 92
+                      audienceStrength: A
+                      newSignal: true
+                      signalDate: 7/12/2020 12:00 AM
+                      trend: 33
+                      recommendedContacts:
+                      - id: 409942831
+                        firstName: Judie
+                        lastName: Wexler
+                        jobTitle: President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 47028048
+                        name: California Institute of Integral Studies
+                        website: www.ciis.edu
+                        hasOtherTopicConsumption: true
+                    - id: 4093d164-7c33-4c61-b592-68f57ecf6cb3
+                      category: Mobile Applications
+                      topic: Mobile Apps
+                      signalScore: 86
+                      audienceStrength: B
+                      newSignal: true
+                      signalDate: 7/5/2020 12:00 AM
+                      trend: 27
+                      recommendedContacts:
+                      - id: 27256033
+                        firstName: Thomas
+                        lastName: Cropper
+                        jobTitle: President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 13209136
+                        name: California Maritime Academy
+                        website: www.csum.edu
+                        hasOtherTopicConsumption: true
+                    - id: 32cfc646-4ebc-4693-bc17-b41879d63ec4
+                      category: Mobile Applications
+                      topic: Mobile Apps
+                      signalScore: 80
+                      audienceStrength: C
+                      newSignal: true
+                      signalDate: 7/5/2020 12:00 AM
+                      trend: 21
+                      recommendedContacts:
+                      - id: 24417960
+                        firstName: Edward
+                        lastName: Prohaska
+                        jobTitle: Chief Financial Officer
+                        jobFunction:
+                        - name: Finance Executive
+                          department: C-Suite
+                        - name: Finance
+                          department: Finance
+                      - id: 388711836
+                        firstName: Mara
+                        lastName: Hancock
+                        jobTitle: Vice President, Technology & Chief Information Officer
+                        jobFunction:
+                        - name: Information Technology
+                          department: Information Technology
+                        - name: Information Technology Executive
+                          department: C-Suite
+                      - id: 26415164
+                        firstName: Stephen
+                        lastName: Beal
+                        jobTitle: President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      - id: -1254364721
+                        firstName: Michael
+                        lastName: McLaughlin
+                        jobTitle: Founder & President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 19256146
+                        name: California College of the Arts
+                        website: www.cca.edu
+                        hasOtherTopicConsumption: true
+                    - id: 36d66c2c-699c-49ec-b7e1-ae92572ccdc9
+                      category: Mobile Applications
+                      topic: Mobile Apps
+                      signalScore: 83
+                      audienceStrength: C
+                      newSignal: true
+                      signalDate: 7/12/2020 12:00 AM
+                      trend: 24
+                      recommendedContacts:
+                      - id: 3882045930
+                        firstName: Melissa
+                        lastName: Hall
+                        jobTitle: President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      - id: 1810524670
+                        firstName: Ben
+                        lastName: Christensen
+                        jobTitle: Chief Financial Officer
+                        jobFunction:
+                        - name: Finance Executive
+                          department: C-Suite
+                        - name: Finance
+                          department: Finance
+                      - id: 1715680805
+                        firstName: Jonathan
+                        lastName: Stull
+                        jobTitle: Chief Operating Officer
+                        jobFunction:
+                        - name: Operations Executive
+                          department: C-Suite
+                        - name: Operations
+                          department: Operations
+                      - id: 1888318694
+                        firstName: Scott
+                        lastName: Ringwelski
+                        jobTitle: Chief Technology Officer
+                        jobFunction:
+                        - name: Engineering & Technical Executive
+                          department: C-Suite
+                        - name: Engineering & Technical
+                          department: Engineering & Technical
+                        - name: Technology Operations
+                          department: Engineering & Technical
+                      company:
+                        id: 363577968
+                        name: Handshake
+                        website: www.joinhandshake.com
+                        hasOtherTopicConsumption: true
+                    - id: bfee3c75-080f-4a11-9259-8a29a6511174
+                      category: Mobile Applications
+                      topic: Mobile Apps
+                      signalScore: 85
+                      audienceStrength: B
+                      newSignal: false
+                      signalDate: 6/28/2020 12:00 AM
+                      trend: 7
+                      recommendedContacts:
+                      - id: 1592676174
+                        firstName: Fatima
+                        lastName: Alleyne
+                        jobTitle: President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      - id: -916803008
+                        firstName: Terry
+                        lastName: Koehne
+                        jobTitle: Chief Communications Officer
+                        jobFunction:
+                        - name: Strategic Communications
+                          department: Marketing
+                        - name: Marketing Executive
+                          department: C-Suite
+                        - name: Marketing
+                          department: Marketing
+                        - name: Marketing Communications
+                          department: Marketing
+                      company:
+                        id: 29791549
+                        name: Contra Costa County Office of Education
+                        website: www.cccoe.k12.ca.us
+                        hasOtherTopicConsumption: true
+                    - id: caaae618-2bdd-4bf9-8f91-a5bf965e35b6
+                      category: Mobile Applications
+                      topic: Mobile Apps
+                      signalScore: 83
+                      audienceStrength: B
+                      newSignal: true
+                      signalDate: 6/21/2020 12:00 AM
+                      trend: 24
+                      recommendedContacts:
+                      - id: 263922298
+                        firstName: Bill
+                        lastName: Tsatsoulis
+                        jobTitle: Chief Operating Officer
+                        jobFunction:
+                        - name: Operations Executive
+                          department: C-Suite
+                        - name: Operations
+                          department: Operations
+                      - id: 2470805454
+                        firstName: Rob
+                        lastName: Fisher
+                        jobTitle: Chief Executive Officer
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 628662
+                        name: Academy of Art University
+                        website: www.academyart.edu
+                        hasOtherTopicConsumption: true
+                    - id: 6f85a972-835e-4531-ac7e-7aee75d579ea
+                      category: Cloud
+                      topic: Cloud Infrastructure
+                      signalScore: 85
+                      audienceStrength: B
+                      newSignal: true
+                      signalDate: 6/21/2020 12:00 AM
+                      trend: 26
+                      recommendedContacts:
+                      - id: 2671385855
+                        firstName: Elizabeth
+                        lastName: Hillman
+                        jobTitle: President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 78366485
+                        name: Mills College
+                        website: www.mills.edu
+                        hasOtherTopicConsumption: true
+                    - id: 1029fe13-c192-4754-be2a-2baf37e53759
+                      category: Cloud
+                      topic: Cloud Infrastructure
+                      signalScore: 84
+                      audienceStrength: B
+                      newSignal: true
+                      signalDate: 6/28/2020 12:00 AM
+                      trend: 25
+                      recommendedContacts:
+                      - id: 1970683957
+                        firstName: Patrick
+                        lastName: Ekoue-totou
+                        jobTitle: Chief Information Officer & Director, Information Technology
+                        jobFunction:
+                        - name: Information Technology
+                          department: Information Technology
+                        - name: Information Technology Executive
+                          department: C-Suite
+                      company:
+                        id: 65571648
+                        name: College of Marin
+                        website: www.marin.edu
+                        hasOtherTopicConsumption: true
+                    - id: dff20de7-8bde-496e-a0c4-7e1de3303a44
+                      category: Cloud
+                      topic: Cloud Infrastructure
+                      signalScore: 83
+                      audienceStrength: C
+                      newSignal: true
+                      signalDate: 7/12/2020 12:00 AM
+                      trend: 24
+                      recommendedContacts:
+                      - id: 2670266631
+                        firstName: Ching
+                        lastName: Wang
+                        jobTitle: President & Chief Executive Officer
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      - id: -1055918224
+                        firstName: Michael
+                        lastName: Chiu
+                        jobTitle: President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      - id: 2939458238
+                        firstName: Ramez
+                        lastName: Sakkab
+                        jobTitle: President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 33702638
+                        name: Samuel Merritt University
+                        website: www.samuelmerritt.edu
+                        hasOtherTopicConsumption: true
+                    - id: 0e055f3a-929a-49c2-b8b6-8ae0f4984a64
+                      category: Cloud
+                      topic: Cloud Computing
+                      signalScore: 84
+                      audienceStrength: C
+                      newSignal: true
+                      signalDate: 7/12/2020 12:00 AM
+                      trend: 25
+                      recommendedContacts:
+                      - id: 2670266631
+                        firstName: Ching
+                        lastName: Wang
+                        jobTitle: President & Chief Executive Officer
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      - id: -1055918224
+                        firstName: Michael
+                        lastName: Chiu
+                        jobTitle: President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      - id: 2939458238
+                        firstName: Ramez
+                        lastName: Sakkab
+                        jobTitle: President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 33702638
+                        name: Samuel Merritt University
+                        website: www.samuelmerritt.edu
+                        hasOtherTopicConsumption: true
+                    - id: dc382155-f385-4f19-a127-1fe1371b74bd
+                      category: Cloud
+                      topic: Cloud Computing
+                      signalScore: 82
+                      audienceStrength: C
+                      newSignal: true
+                      signalDate: 7/12/2020 12:00 AM
+                      trend: 23
+                      recommendedContacts:
+                      - id: 263922298
+                        firstName: Bill
+                        lastName: Tsatsoulis
+                        jobTitle: Chief Operating Officer
+                        jobFunction:
+                        - name: Operations Executive
+                          department: C-Suite
+                        - name: Operations
+                          department: Operations
+                      - id: 2470805454
+                        firstName: Rob
+                        lastName: Fisher
+                        jobTitle: Chief Executive Officer
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 628662
+                        name: Academy of Art University
+                        website: www.academyart.edu
+                        hasOtherTopicConsumption: true
+                    - id: aecb0682-1990-4359-a073-5b7a54e87f06
+                      category: Cloud
+                      topic: Cloud Computing
+                      signalScore: 82
+                      audienceStrength: C
+                      newSignal: true
+                      signalDate: 6/28/2020 12:00 AM
+                      trend: 23
+                      recommendedContacts:
+                      - id: 1970683957
+                        firstName: Patrick
+                        lastName: Ekoue-totou
+                        jobTitle: Chief Information Officer & Director, Information Technology
+                        jobFunction:
+                        - name: Information Technology
+                          department: Information Technology
+                        - name: Information Technology Executive
+                          department: C-Suite
+                      company:
+                        id: 65571648
+                        name: College of Marin
+                        website: www.marin.edu
+                        hasOtherTopicConsumption: true
+                    - id: 60ff0745-9745-48fb-a014-4f86c4eb9fab
+                      category: Cloud
+                      topic: Cloud Computing
+                      signalScore: 81
+                      audienceStrength: C
+                      newSignal: true
+                      signalDate: 6/21/2020 12:00 AM
+                      trend: 22
+                      recommendedContacts:
+                      - id: 2671385855
+                        firstName: Elizabeth
+                        lastName: Hillman
+                        jobTitle: President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 78366485
+                        name: Mills College
+                        website: www.mills.edu
+                        hasOtherTopicConsumption: true
+                    - id: 7ab038a0-db6a-4157-8ca5-69e05337c98e
+                      category: Cloud
+                      topic: Cloud Computing
+                      signalScore: 85
+                      audienceStrength: B
+                      newSignal: true
+                      signalDate: 6/21/2020 12:00 AM
+                      trend: 26
+                      recommendedContacts:
+                      - id: 1543255409
+                        firstName: Susan
+                        lastName: Lamb
+                        jobTitle: President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 50978158
+                        name: Diablo Valley College
+                        website: www.dvc.edu
+                        hasOtherTopicConsumption: true
+                    - id: d9bed256-5b94-40b3-8773-2fa40226c8ed
+                      category: Cloud
+                      topic: Cloud Applications
+                      signalScore: 83
+                      audienceStrength: C
+                      newSignal: true
+                      signalDate: 7/12/2020 12:00 AM
+                      trend: 24
+                      recommendedContacts:
+                      - id: 2670266631
+                        firstName: Ching
+                        lastName: Wang
+                        jobTitle: President & Chief Executive Officer
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      - id: -1055918224
+                        firstName: Michael
+                        lastName: Chiu
+                        jobTitle: President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      - id: 2939458238
+                        firstName: Ramez
+                        lastName: Sakkab
+                        jobTitle: President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 33702638
+                        name: Samuel Merritt University
+                        website: www.samuelmerritt.edu
+                        hasOtherTopicConsumption: true
+                    - id: f1432f95-5300-4fd9-ba58-c90114f7bdc0
+                      category: Cloud
+                      topic: Cloud Applications
+                      signalScore: 86
+                      audienceStrength: B
+                      newSignal: true
+                      signalDate: 6/21/2020 12:00 AM
+                      trend: 27
+                      recommendedContacts:
+                      - id: 2671385855
+                        firstName: Elizabeth
+                        lastName: Hillman
+                        jobTitle: President
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 78366485
+                        name: Mills College
+                        website: www.mills.edu
+                        hasOtherTopicConsumption: true
+                    - id: f1971651-c742-41f3-93ac-cebe89ec78f8
+                      category: Cloud
+                      topic: Cloud Applications
+                      signalScore: 84
+                      audienceStrength: B
+                      newSignal: true
+                      signalDate: 6/28/2020 12:00 AM
+                      trend: 25
+                      recommendedContacts:
+                      - id: 1970683957
+                        firstName: Patrick
+                        lastName: Ekoue-totou
+                        jobTitle: Chief Information Officer & Director, Information Technology
+                        jobFunction:
+                        - name: Information Technology
+                          department: Information Technology
+                        - name: Information Technology Executive
+                          department: C-Suite
+                      company:
+                        id: 65571648
+                        name: College of Marin
+                        website: www.marin.edu
+                        hasOtherTopicConsumption: true
+                contentMediaType: application/json;charset=utf-8
+              example:
+                maxResults: 19
+                totalResults: 19
+                currentPage: 1
+                data:
+                - id: d3ac21f6-f9f4-4a71-8ca9-8f4125937d2c
+                  category: Cyber Security
+                  topic: Mobile Security
+                  signalScore: 83
+                  audienceStrength: C
+                  newSignal: true
+                  signalDate: 7/5/2020 12:00 AM
+                  trend: 24
+                  recommendedContacts:
+                  - id: -1766367996
+                    firstName: David
+                    lastName: Fike
+                    jobTitle: President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 118998385
+                    name: Golden Gate University
+                    website: www.ggu.edu
+                    hasOtherTopicConsumption: true
+                - id: 03e79b1c-fa4b-4f62-ad97-40de35e2625c
+                  category: Cyber Security
+                  topic: Mobile Security
+                  signalScore: 88
+                  audienceStrength: A
+                  newSignal: true
+                  signalDate: 6/28/2020 12:00 AM
+                  trend: 29
+                  recommendedContacts:
+                  - id: 2358233518
+                    firstName: Martin
+                    lastName: Pacholuk
+                    jobTitle: Deputy Chief Information Officer
+                    jobFunction:
+                    - name: Information Technology
+                      department: Information Technology
+                    - name: Information Technology Executive
+                      department: C-Suite
+                  - id: 1239218786
+                    firstName: Camilla
+                    lastName: Tubbs
+                    jobTitle: Associate Dean, Library & Technology & Chief Information Officer
+                    jobFunction:
+                    - name: Information Technology
+                      department: Information Technology
+                    - name: Information Technology Executive
+                      department: C-Suite
+                  - id: 55169609
+                    firstName: David
+                    lastName: Seward
+                    jobTitle: Chief Financial Officer
+                    jobFunction:
+                    - name: Finance Executive
+                      department: C-Suite
+                    - name: Finance
+                      department: Finance
+                  - id: 3117140380
+                    firstName: Mike
+                    lastName: Liu
+                    jobTitle: Vice Chief Technology Officer, CIO & President Information Technology
+                    jobFunction:
+                    - name: Information Technology
+                      department: Information Technology
+                    - name: Information Technology Executive
+                      department: C-Suite
+                  - id: -1542224459
+                    firstName: Claire
+                    lastName: Wilkens
+                    jobTitle: Co-President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 53923462
+                    name: UC Hastings College of the Law
+                    website: www.uchastings.edu
+                    hasOtherTopicConsumption: true
+                - id: af75117e-c6b1-4831-8cfa-562acc36d9c1
+                  category: Mobile Applications
+                  topic: Mobile Apps
+                  signalScore: 92
+                  audienceStrength: A
+                  newSignal: true
+                  signalDate: 7/12/2020 12:00 AM
+                  trend: 33
+                  recommendedContacts:
+                  - id: 409942831
+                    firstName: Judie
+                    lastName: Wexler
+                    jobTitle: President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 47028048
+                    name: California Institute of Integral Studies
+                    website: www.ciis.edu
+                    hasOtherTopicConsumption: true
+                - id: 4093d164-7c33-4c61-b592-68f57ecf6cb3
+                  category: Mobile Applications
+                  topic: Mobile Apps
+                  signalScore: 86
+                  audienceStrength: B
+                  newSignal: true
+                  signalDate: 7/5/2020 12:00 AM
+                  trend: 27
+                  recommendedContacts:
+                  - id: 27256033
+                    firstName: Thomas
+                    lastName: Cropper
+                    jobTitle: President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 13209136
+                    name: California Maritime Academy
+                    website: www.csum.edu
+                    hasOtherTopicConsumption: true
+                - id: 32cfc646-4ebc-4693-bc17-b41879d63ec4
+                  category: Mobile Applications
+                  topic: Mobile Apps
+                  signalScore: 80
+                  audienceStrength: C
+                  newSignal: true
+                  signalDate: 7/5/2020 12:00 AM
+                  trend: 21
+                  recommendedContacts:
+                  - id: 24417960
+                    firstName: Edward
+                    lastName: Prohaska
+                    jobTitle: Chief Financial Officer
+                    jobFunction:
+                    - name: Finance Executive
+                      department: C-Suite
+                    - name: Finance
+                      department: Finance
+                  - id: 388711836
+                    firstName: Mara
+                    lastName: Hancock
+                    jobTitle: Vice President, Technology & Chief Information Officer
+                    jobFunction:
+                    - name: Information Technology
+                      department: Information Technology
+                    - name: Information Technology Executive
+                      department: C-Suite
+                  - id: 26415164
+                    firstName: Stephen
+                    lastName: Beal
+                    jobTitle: President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  - id: -1254364721
+                    firstName: Michael
+                    lastName: McLaughlin
+                    jobTitle: Founder & President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 19256146
+                    name: California College of the Arts
+                    website: www.cca.edu
+                    hasOtherTopicConsumption: true
+                - id: 36d66c2c-699c-49ec-b7e1-ae92572ccdc9
+                  category: Mobile Applications
+                  topic: Mobile Apps
+                  signalScore: 83
+                  audienceStrength: C
+                  newSignal: true
+                  signalDate: 7/12/2020 12:00 AM
+                  trend: 24
+                  recommendedContacts:
+                  - id: 3882045930
+                    firstName: Melissa
+                    lastName: Hall
+                    jobTitle: President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  - id: 1810524670
+                    firstName: Ben
+                    lastName: Christensen
+                    jobTitle: Chief Financial Officer
+                    jobFunction:
+                    - name: Finance Executive
+                      department: C-Suite
+                    - name: Finance
+                      department: Finance
+                  - id: 1715680805
+                    firstName: Jonathan
+                    lastName: Stull
+                    jobTitle: Chief Operating Officer
+                    jobFunction:
+                    - name: Operations Executive
+                      department: C-Suite
+                    - name: Operations
+                      department: Operations
+                  - id: 1888318694
+                    firstName: Scott
+                    lastName: Ringwelski
+                    jobTitle: Chief Technology Officer
+                    jobFunction:
+                    - name: Engineering & Technical Executive
+                      department: C-Suite
+                    - name: Engineering & Technical
+                      department: Engineering & Technical
+                    - name: Technology Operations
+                      department: Engineering & Technical
+                  company:
+                    id: 363577968
+                    name: Handshake
+                    website: www.joinhandshake.com
+                    hasOtherTopicConsumption: true
+                - id: bfee3c75-080f-4a11-9259-8a29a6511174
+                  category: Mobile Applications
+                  topic: Mobile Apps
+                  signalScore: 85
+                  audienceStrength: B
+                  newSignal: false
+                  signalDate: 6/28/2020 12:00 AM
+                  trend: 7
+                  recommendedContacts:
+                  - id: 1592676174
+                    firstName: Fatima
+                    lastName: Alleyne
+                    jobTitle: President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  - id: -916803008
+                    firstName: Terry
+                    lastName: Koehne
+                    jobTitle: Chief Communications Officer
+                    jobFunction:
+                    - name: Strategic Communications
+                      department: Marketing
+                    - name: Marketing Executive
+                      department: C-Suite
+                    - name: Marketing
+                      department: Marketing
+                    - name: Marketing Communications
+                      department: Marketing
+                  company:
+                    id: 29791549
+                    name: Contra Costa County Office of Education
+                    website: www.cccoe.k12.ca.us
+                    hasOtherTopicConsumption: true
+                - id: caaae618-2bdd-4bf9-8f91-a5bf965e35b6
+                  category: Mobile Applications
+                  topic: Mobile Apps
+                  signalScore: 83
+                  audienceStrength: B
+                  newSignal: true
+                  signalDate: 6/21/2020 12:00 AM
+                  trend: 24
+                  recommendedContacts:
+                  - id: 263922298
+                    firstName: Bill
+                    lastName: Tsatsoulis
+                    jobTitle: Chief Operating Officer
+                    jobFunction:
+                    - name: Operations Executive
+                      department: C-Suite
+                    - name: Operations
+                      department: Operations
+                  - id: 2470805454
+                    firstName: Rob
+                    lastName: Fisher
+                    jobTitle: Chief Executive Officer
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 628662
+                    name: Academy of Art University
+                    website: www.academyart.edu
+                    hasOtherTopicConsumption: true
+                - id: 6f85a972-835e-4531-ac7e-7aee75d579ea
+                  category: Cloud
+                  topic: Cloud Infrastructure
+                  signalScore: 85
+                  audienceStrength: B
+                  newSignal: true
+                  signalDate: 6/21/2020 12:00 AM
+                  trend: 26
+                  recommendedContacts:
+                  - id: 2671385855
+                    firstName: Elizabeth
+                    lastName: Hillman
+                    jobTitle: President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 78366485
+                    name: Mills College
+                    website: www.mills.edu
+                    hasOtherTopicConsumption: true
+                - id: 1029fe13-c192-4754-be2a-2baf37e53759
+                  category: Cloud
+                  topic: Cloud Infrastructure
+                  signalScore: 84
+                  audienceStrength: B
+                  newSignal: true
+                  signalDate: 6/28/2020 12:00 AM
+                  trend: 25
+                  recommendedContacts:
+                  - id: 1970683957
+                    firstName: Patrick
+                    lastName: Ekoue-totou
+                    jobTitle: Chief Information Officer & Director, Information Technology
+                    jobFunction:
+                    - name: Information Technology
+                      department: Information Technology
+                    - name: Information Technology Executive
+                      department: C-Suite
+                  company:
+                    id: 65571648
+                    name: College of Marin
+                    website: www.marin.edu
+                    hasOtherTopicConsumption: true
+                - id: dff20de7-8bde-496e-a0c4-7e1de3303a44
+                  category: Cloud
+                  topic: Cloud Infrastructure
+                  signalScore: 83
+                  audienceStrength: C
+                  newSignal: true
+                  signalDate: 7/12/2020 12:00 AM
+                  trend: 24
+                  recommendedContacts:
+                  - id: 2670266631
+                    firstName: Ching
+                    lastName: Wang
+                    jobTitle: President & Chief Executive Officer
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  - id: -1055918224
+                    firstName: Michael
+                    lastName: Chiu
+                    jobTitle: President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  - id: 2939458238
+                    firstName: Ramez
+                    lastName: Sakkab
+                    jobTitle: President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 33702638
+                    name: Samuel Merritt University
+                    website: www.samuelmerritt.edu
+                    hasOtherTopicConsumption: true
+                - id: 0e055f3a-929a-49c2-b8b6-8ae0f4984a64
+                  category: Cloud
+                  topic: Cloud Computing
+                  signalScore: 84
+                  audienceStrength: C
+                  newSignal: true
+                  signalDate: 7/12/2020 12:00 AM
+                  trend: 25
+                  recommendedContacts:
+                  - id: 2670266631
+                    firstName: Ching
+                    lastName: Wang
+                    jobTitle: President & Chief Executive Officer
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  - id: -1055918224
+                    firstName: Michael
+                    lastName: Chiu
+                    jobTitle: President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  - id: 2939458238
+                    firstName: Ramez
+                    lastName: Sakkab
+                    jobTitle: President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 33702638
+                    name: Samuel Merritt University
+                    website: www.samuelmerritt.edu
+                    hasOtherTopicConsumption: true
+                - id: dc382155-f385-4f19-a127-1fe1371b74bd
+                  category: Cloud
+                  topic: Cloud Computing
+                  signalScore: 82
+                  audienceStrength: C
+                  newSignal: true
+                  signalDate: 7/12/2020 12:00 AM
+                  trend: 23
+                  recommendedContacts:
+                  - id: 263922298
+                    firstName: Bill
+                    lastName: Tsatsoulis
+                    jobTitle: Chief Operating Officer
+                    jobFunction:
+                    - name: Operations Executive
+                      department: C-Suite
+                    - name: Operations
+                      department: Operations
+                  - id: 2470805454
+                    firstName: Rob
+                    lastName: Fisher
+                    jobTitle: Chief Executive Officer
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 628662
+                    name: Academy of Art University
+                    website: www.academyart.edu
+                    hasOtherTopicConsumption: true
+                - id: aecb0682-1990-4359-a073-5b7a54e87f06
+                  category: Cloud
+                  topic: Cloud Computing
+                  signalScore: 82
+                  audienceStrength: C
+                  newSignal: true
+                  signalDate: 6/28/2020 12:00 AM
+                  trend: 23
+                  recommendedContacts:
+                  - id: 1970683957
+                    firstName: Patrick
+                    lastName: Ekoue-totou
+                    jobTitle: Chief Information Officer & Director, Information Technology
+                    jobFunction:
+                    - name: Information Technology
+                      department: Information Technology
+                    - name: Information Technology Executive
+                      department: C-Suite
+                  company:
+                    id: 65571648
+                    name: College of Marin
+                    website: www.marin.edu
+                    hasOtherTopicConsumption: true
+                - id: 60ff0745-9745-48fb-a014-4f86c4eb9fab
+                  category: Cloud
+                  topic: Cloud Computing
+                  signalScore: 81
+                  audienceStrength: C
+                  newSignal: true
+                  signalDate: 6/21/2020 12:00 AM
+                  trend: 22
+                  recommendedContacts:
+                  - id: 2671385855
+                    firstName: Elizabeth
+                    lastName: Hillman
+                    jobTitle: President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 78366485
+                    name: Mills College
+                    website: www.mills.edu
+                    hasOtherTopicConsumption: true
+                - id: 7ab038a0-db6a-4157-8ca5-69e05337c98e
+                  category: Cloud
+                  topic: Cloud Computing
+                  signalScore: 85
+                  audienceStrength: B
+                  newSignal: true
+                  signalDate: 6/21/2020 12:00 AM
+                  trend: 26
+                  recommendedContacts:
+                  - id: 1543255409
+                    firstName: Susan
+                    lastName: Lamb
+                    jobTitle: President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 50978158
+                    name: Diablo Valley College
+                    website: www.dvc.edu
+                    hasOtherTopicConsumption: true
+                - id: d9bed256-5b94-40b3-8773-2fa40226c8ed
+                  category: Cloud
+                  topic: Cloud Applications
+                  signalScore: 83
+                  audienceStrength: C
+                  newSignal: true
+                  signalDate: 7/12/2020 12:00 AM
+                  trend: 24
+                  recommendedContacts:
+                  - id: 2670266631
+                    firstName: Ching
+                    lastName: Wang
+                    jobTitle: President & Chief Executive Officer
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  - id: -1055918224
+                    firstName: Michael
+                    lastName: Chiu
+                    jobTitle: President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  - id: 2939458238
+                    firstName: Ramez
+                    lastName: Sakkab
+                    jobTitle: President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 33702638
+                    name: Samuel Merritt University
+                    website: www.samuelmerritt.edu
+                    hasOtherTopicConsumption: true
+                - id: f1432f95-5300-4fd9-ba58-c90114f7bdc0
+                  category: Cloud
+                  topic: Cloud Applications
+                  signalScore: 86
+                  audienceStrength: B
+                  newSignal: true
+                  signalDate: 6/21/2020 12:00 AM
+                  trend: 27
+                  recommendedContacts:
+                  - id: 2671385855
+                    firstName: Elizabeth
+                    lastName: Hillman
+                    jobTitle: President
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 78366485
+                    name: Mills College
+                    website: www.mills.edu
+                    hasOtherTopicConsumption: true
+                - id: f1971651-c742-41f3-93ac-cebe89ec78f8
+                  category: Cloud
+                  topic: Cloud Applications
+                  signalScore: 84
+                  audienceStrength: B
+                  newSignal: true
+                  signalDate: 6/28/2020 12:00 AM
+                  trend: 25
+                  recommendedContacts:
+                  - id: 1970683957
+                    firstName: Patrick
+                    lastName: Ekoue-totou
+                    jobTitle: Chief Information Officer & Director, Information Technology
+                    jobFunction:
+                    - name: Information Technology
+                      department: Information Technology
+                    - name: Information Technology Executive
+                      department: C-Suite
+                  company:
+                    id: 65571648
+                    name: College of Marin
+                    website: www.marin.edu
+                    hasOtherTopicConsumption: true
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/inputfields/intent/search:
+    parameters: []
+    get:
+      tags:
+      - Intent Search
+      summary: Zoominfo Intent Search Inputs
+      description: Returns a list of fields you can use as input for the [Intent Search](#93f940a4-4381-49dd-8fbc-42cbc75a7a39) endpoint.
+      operationId: IntentSearchInputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 16 Jul 2020 20:00:37 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 5b3e4f790f87ebe8-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=7c92aab28a16a819b11a05bd1f2d315bc49963834ddeebd2bab7bb8578c6a9ba:59135a31-c5e3-11ea-b90a-bfcce47ec1ab; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 03facfffa80000ebe842b8f200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1497'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1594929656'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IntentSearchInput'
+                description: ''
+                examples:
+                - - fieldName: topics
+                    fieldType: ArrayList
+                    description: Intent topics. Accepts an Array of String. See the 'Intent Topics' endpoint for values.
+                  - fieldName: signalStartDate
+                    fieldType: String
+                    description: Start date for a company signaling interest in a topic
+                  - fieldName: signalEndDate
+                    fieldType: String
+                    description: End date for a company signaling interest in a topic
+                  - fieldName: signalScoreMin
+                    fieldType: Integer
+                    description: Minimum signal score. Use with signalScoreMax to form a range. Minimum score is 60 and maximum is 100.
+                  - fieldName: signalScoreMax
+                    fieldType: Integer
+                    description: Maximum signal score. Use with signalScoreMin to form a range. Minimum score is 60 and maximum is 100.
+                  - fieldName: audienceStrengthMin
+                    fieldType: String
+                    description: Minimum audience strength score. Use with audienceStrengthMax to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.
+                  - fieldName: audienceStrengthMax
+                    fieldType: String
+                    description: Maximum audience strength score. Use with audienceStrengthMin to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.
+                  - fieldName: companyDescription
+                    fieldType: String
+                    description: Text description unique to the company you want to use as search criteria
+                  - fieldName: companyType
+                    fieldType: String
+                    description: Company type (private, public, and so on)
+                  - fieldName: address
+                    fieldType: String
+                    description: Company address
+                  - fieldName: street
+                    fieldType: String
+                    description: Company street
+                  - fieldName: state
+                    fieldType: String
+                    description: Company state
+                  - fieldName: zipCode
+                    fieldType: String
+                    description: Zip Code of the company's primary address
+                  - fieldName: country
+                    fieldType: String
+                    description: Company country
+                  - fieldName: continent
+                    fieldType: String
+                    description: Company continent
+                  - fieldName: zipCodeRadiusMiles
+                    fieldType: String
+                    description: Used in conjunction with zipCode, designates a geographical radius (in miles) from the zipCode provided.
+                  - fieldName: hashTagString
+                    fieldType: String
+                    description: Hash tags for a company. Can include a comma-separated list.
+                  - fieldName: techAttributeTagList
+                    fieldType: String
+                    description: Specify technology product tags
+                  - fieldName: subUnitTypes
+                    fieldType: String
+                    description: Company sub types (e.g., division, subsidiary and so on).
+                  - fieldName: primaryIndustriesOnly
+                    fieldType: Boolean
+                    description: Used in conjunction with the industryCodes input parameter. When set to true, any result returned must have one of the specified industries in the top two. If no industries are specified, then this parameter will be ignored. Default is false.
+                  - fieldName: industryCodes
+                    fieldType: String
+                    description: Top-level industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list.
+                  - fieldName: industryKeywords
+                    fieldType: String
+                    description: Industry keywords associated with a company. Can include a comma-separated list.
+                  - fieldName: sicCodes
+                    fieldType: String
+                    description: Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment.
+                  - fieldName: naicsCodes
+                    fieldType: String
+                    description: 'Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. '
+                  - fieldName: revenueMin
+                    fieldType: Integer
+                    description: Minimum annual revenue for a company in U.S. dollars. Use with revenueMax to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.
+                  - fieldName: revenueMax
+                    fieldType: Integer
+                    description: Maximum annual revenue for a company in U.S. dollars. Use with revenueMin to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.
+                  - fieldName: revenue
+                    fieldType: String
+                    description: Annual revenue range in U.S. dollars. Accepts a comma-separated list of values. Alternatively, to get more granular ranges, you can use the revenueMin and revenueMax parameters.
+                  - fieldName: employeeRangeMin
+                    fieldType: String
+                    description: Minimum employee count for a company. Use with employeeRangeMax to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+                  - fieldName: employeeRangeMax
+                    fieldType: String
+                    description: Maximum employee count for a company. Use with employeeRangeMin to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+                  - fieldName: employeeCount
+                    fieldType: String
+                    description: Employee count range. Accepts a comma-separated list of values. Alternatively, to get more granular ranges, you can use the employeeRangeMin and employeeRangeMax parameters.
+                  - fieldName: companyRanking
+                    fieldType: String
+                    description: Company ranking list (e.g., Fortune 500 and so on)
+                  - fieldName: metroRegion
+                    fieldType: String
+                    description: Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas.
+                  - fieldName: locationSearchType
+                    fieldType: String
+                    description: Location type (Person, Company, PersonThenHQ). Accepts a comma-separated list of values.
+                  - fieldName: fundingAmountMin
+                    fieldType: Integer
+                    description: Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMin is used without fundingAmountMax, the result will be the amount specified or greater.
+                  - fieldName: fundingAmountMax
+                    fieldType: Integer
+                    description: Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMax is used without fundingAmountMin, the result will be the amount specified or less.
+                  - fieldName: fundingStartDate
+                    fieldType: String
+                    description: Start date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+                  - fieldName: fundingEndDate
+                    fieldType: String
+                    description: End date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+                  - fieldName: excludedRegions
+                    fieldType: String
+                    description: Exclude a company metro area. Accepts a comma-separated list of U.S. and Canada metro areas.
+                  - fieldName: zoominfoContactsMin
+                    fieldType: String
+                    description: Minimum number of ZoomInfo contacts associated with company
+                  - fieldName: zoominfoContactsMax
+                    fieldType: String
+                    description: Maximum number of ZoomInfo contacts associated with company
+                  - fieldName: companyStructureIncludedSubUnitTypes
+                    fieldType: String
+                    description: Company hierarchical structure
+                  - fieldName: oneYearEmployeeGrowthRateMin
+                    fieldType: String
+                    description: Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range.
+                  - fieldName: oneYearEmployeeGrowthRateMax
+                    fieldType: String
+                    description: Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range.
+                  - fieldName: twoYearEmployeeGrowthRateMin
+                    fieldType: String
+                    description: Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range.
+                  - fieldName: twoYearEmployeeGrowthRateMax
+                    fieldType: String
+                    description: Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range.
+                  - fieldName: certified
+                    fieldType: Integer
+                    description: Denotes if ZoomInfo's research and data team has confirmed activity within the past 12 months
+                  - fieldName: excludeDefunctCompanies
+                    fieldType: Boolean
+                    description: Include or exclude defunct companies. The default value is false.
+                  - fieldName: rpp
+                    fieldType: Integer
+                    description: Limits the results returned to the given number of results per page
+                  - fieldName: page
+                    fieldType: Integer
+                    description: Provides the results for the given page, used in conjunction with rpp
+                  - fieldName: sortBy
+                    fieldType: String
+                    description: Sorts results by valid output fields
+                  - fieldName: sortOrder
+                    fieldType: String
+                    description: Default value is desc. It accepts the following values { Asc, Ascending, desc, descending }
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: topics
+                fieldType: ArrayList
+                description: Intent topics. Accepts an Array of String. See the 'Intent Topics' endpoint for values.
+              - fieldName: signalStartDate
+                fieldType: String
+                description: Start date for a company signaling interest in a topic
+              - fieldName: signalEndDate
+                fieldType: String
+                description: End date for a company signaling interest in a topic
+              - fieldName: signalScoreMin
+                fieldType: Integer
+                description: Minimum signal score. Use with signalScoreMax to form a range. Minimum score is 60 and maximum is 100.
+              - fieldName: signalScoreMax
+                fieldType: Integer
+                description: Maximum signal score. Use with signalScoreMin to form a range. Minimum score is 60 and maximum is 100.
+              - fieldName: audienceStrengthMin
+                fieldType: String
+                description: Minimum audience strength score. Use with audienceStrengthMax to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.
+              - fieldName: audienceStrengthMax
+                fieldType: String
+                description: Maximum audience strength score. Use with audienceStrengthMin to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.
+              - fieldName: companyDescription
+                fieldType: String
+                description: Text description unique to the company you want to use as search criteria
+              - fieldName: companyType
+                fieldType: String
+                description: Company type (private, public, and so on)
+              - fieldName: address
+                fieldType: String
+                description: Company address
+              - fieldName: street
+                fieldType: String
+                description: Company street
+              - fieldName: state
+                fieldType: String
+                description: Company state
+              - fieldName: zipCode
+                fieldType: String
+                description: Zip Code of the company's primary address
+              - fieldName: country
+                fieldType: String
+                description: Company country
+              - fieldName: continent
+                fieldType: String
+                description: Company continent
+              - fieldName: zipCodeRadiusMiles
+                fieldType: String
+                description: Used in conjunction with zipCode, designates a geographical radius (in miles) from the zipCode provided.
+              - fieldName: hashTagString
+                fieldType: String
+                description: Hash tags for a company. Can include a comma-separated list.
+              - fieldName: techAttributeTagList
+                fieldType: String
+                description: Specify technology product tags
+              - fieldName: subUnitTypes
+                fieldType: String
+                description: Company sub types (e.g., division, subsidiary and so on).
+              - fieldName: primaryIndustriesOnly
+                fieldType: Boolean
+                description: Used in conjunction with the industryCodes input parameter. When set to true, any result returned must have one of the specified industries in the top two. If no industries are specified, then this parameter will be ignored. Default is false.
+              - fieldName: industryCodes
+                fieldType: String
+                description: Top-level industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list.
+              - fieldName: industryKeywords
+                fieldType: String
+                description: Industry keywords associated with a company. Can include a comma-separated list.
+              - fieldName: sicCodes
+                fieldType: String
+                description: Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment.
+              - fieldName: naicsCodes
+                fieldType: String
+                description: 'Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. '
+              - fieldName: revenueMin
+                fieldType: Integer
+                description: Minimum annual revenue for a company in U.S. dollars. Use with revenueMax to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.
+              - fieldName: revenueMax
+                fieldType: Integer
+                description: Maximum annual revenue for a company in U.S. dollars. Use with revenueMin to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.
+              - fieldName: revenue
+                fieldType: String
+                description: Annual revenue range in U.S. dollars. Accepts a comma-separated list of values. Alternatively, to get more granular ranges, you can use the revenueMin and revenueMax parameters.
+              - fieldName: employeeRangeMin
+                fieldType: String
+                description: Minimum employee count for a company. Use with employeeRangeMax to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+              - fieldName: employeeRangeMax
+                fieldType: String
+                description: Maximum employee count for a company. Use with employeeRangeMin to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+              - fieldName: employeeCount
+                fieldType: String
+                description: Employee count range. Accepts a comma-separated list of values. Alternatively, to get more granular ranges, you can use the employeeRangeMin and employeeRangeMax parameters.
+              - fieldName: companyRanking
+                fieldType: String
+                description: Company ranking list (e.g., Fortune 500 and so on)
+              - fieldName: metroRegion
+                fieldType: String
+                description: Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas.
+              - fieldName: locationSearchType
+                fieldType: String
+                description: Location type (Person, Company, PersonThenHQ). Accepts a comma-separated list of values.
+              - fieldName: fundingAmountMin
+                fieldType: Integer
+                description: Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMin is used without fundingAmountMax, the result will be the amount specified or greater.
+              - fieldName: fundingAmountMax
+                fieldType: Integer
+                description: Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMax is used without fundingAmountMin, the result will be the amount specified or less.
+              - fieldName: fundingStartDate
+                fieldType: String
+                description: Start date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+              - fieldName: fundingEndDate
+                fieldType: String
+                description: End date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+              - fieldName: excludedRegions
+                fieldType: String
+                description: Exclude a company metro area. Accepts a comma-separated list of U.S. and Canada metro areas.
+              - fieldName: zoominfoContactsMin
+                fieldType: String
+                description: Minimum number of ZoomInfo contacts associated with company
+              - fieldName: zoominfoContactsMax
+                fieldType: String
+                description: Maximum number of ZoomInfo contacts associated with company
+              - fieldName: companyStructureIncludedSubUnitTypes
+                fieldType: String
+                description: Company hierarchical structure
+              - fieldName: oneYearEmployeeGrowthRateMin
+                fieldType: String
+                description: Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range.
+              - fieldName: oneYearEmployeeGrowthRateMax
+                fieldType: String
+                description: Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range.
+              - fieldName: twoYearEmployeeGrowthRateMin
+                fieldType: String
+                description: Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range.
+              - fieldName: twoYearEmployeeGrowthRateMax
+                fieldType: String
+                description: Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range.
+              - fieldName: certified
+                fieldType: Integer
+                description: Denotes if ZoomInfo's research and data team has confirmed activity within the past 12 months
+              - fieldName: excludeDefunctCompanies
+                fieldType: Boolean
+                description: Include or exclude defunct companies. The default value is false.
+              - fieldName: rpp
+                fieldType: Integer
+                description: Limits the results returned to the given number of results per page
+              - fieldName: page
+                fieldType: Integer
+                description: Provides the results for the given page, used in conjunction with rpp
+              - fieldName: sortBy
+                fieldType: String
+                description: Sorts results by valid output fields
+              - fieldName: sortOrder
+                fieldType: String
+                description: Default value is desc. It accepts the following values { Asc, Ascending, desc, descending }
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/outputfields/intent/search:
+    parameters: []
+    get:
+      tags:
+      - Intent Search
+      summary: Zoominfo Intent Search Outputs
+      description: Returns a list of output fields for the [Intent Search](#93f940a4-4381-49dd-8fbc-42cbc75a7a39) endpoint.
+      operationId: IntentSearchOutputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 18 Feb 2021 21:15:36 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 623ac3adce1aec00-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=ba8cabd144de2f65e7eb45aa969d5d069a07868dc4ea9b06fc199d150654a670:4b75fad1-722d-11eb-a706-8935b8314dad; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 085898a09f0000ec0003257000000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1613682997'
+            X-Request-Id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 351ac434-60f7-49e0-a319-ae9680f108f1
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IntentSearchOutput'
+                description: ''
+                examples:
+                - - fieldName: id
+                    description: Unique ZoomInfo identifier for a topic
+                  - fieldName: category
+                    description: Intent category
+                  - fieldName: topic
+                    description: Intent topic
+                  - fieldName: signalScore
+                    description: Signal score for the topic
+                  - fieldName: audienceStrength
+                    description: Audience strength for the topic
+                  - fieldName: signalDate
+                    description: Date the signal was identified
+                  - fieldName: companyId
+                    description: Unique ZoomInfo identifier for a company
+                  - fieldName: companyName
+                    description: Company name
+                  - fieldName: companyWebsite
+                    description: Company website URL in http://www.example.com format
+                  - fieldName: companyHasOtherTopicConsumption
+                    description: Indicates whether a company has other topics with increased consumption. Values are true and false.
+                  - fieldName: recommendedContacts
+                    description: Suggested contacts at the company that are related to the intent topic
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: id
+                description: Unique ZoomInfo identifier for a topic
+              - fieldName: category
+                description: Intent category
+              - fieldName: topic
+                description: Intent topic
+              - fieldName: signalScore
+                description: Signal score for the topic
+              - fieldName: audienceStrength
+                description: Audience strength for the topic
+              - fieldName: signalDate
+                description: Date the signal was identified
+              - fieldName: companyId
+                description: Unique ZoomInfo identifier for a company
+              - fieldName: companyName
+                description: Company name
+              - fieldName: companyWebsite
+                description: Company website URL in http://www.example.com format
+              - fieldName: companyHasOtherTopicConsumption
+                description: Indicates whether a company has other topics with increased consumption. Values are true and false.
+              - fieldName: recommendedContacts
+                description: Suggested contacts at the company that are related to the intent topic
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    IntentSearch:
+      title: IntentSearch
+      required:
+      - maxResults
+      - totalResults
+      - currentPage
+      - data
+      type: object
+      properties:
+        maxResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        totalResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        currentPage:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Datum11'
+          description: ''
+          example: []
+      examples:
+      - maxResults: 19
+        totalResults: 19
+        currentPage: 1
+        data:
+        - id: d3ac21f6-f9f4-4a71-8ca9-8f4125937d2c
+          category: Cyber Security
+          topic: Mobile Security
+          signalScore: 83
+          audienceStrength: C
+          newSignal: true
+          signalDate: 7/5/2020 12:00 AM
+          trend: 24
+          recommendedContacts:
+          - id: -1766367996
+            firstName: David
+            lastName: Fike
+            jobTitle: President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 118998385
+            name: Golden Gate University
+            website: www.ggu.edu
+            hasOtherTopicConsumption: true
+        - id: 03e79b1c-fa4b-4f62-ad97-40de35e2625c
+          category: Cyber Security
+          topic: Mobile Security
+          signalScore: 88
+          audienceStrength: A
+          newSignal: true
+          signalDate: 6/28/2020 12:00 AM
+          trend: 29
+          recommendedContacts:
+          - id: 2358233518
+            firstName: Martin
+            lastName: Pacholuk
+            jobTitle: Deputy Chief Information Officer
+            jobFunction:
+            - name: Information Technology
+              department: Information Technology
+            - name: Information Technology Executive
+              department: C-Suite
+          - id: 1239218786
+            firstName: Camilla
+            lastName: Tubbs
+            jobTitle: Associate Dean, Library & Technology & Chief Information Officer
+            jobFunction:
+            - name: Information Technology
+              department: Information Technology
+            - name: Information Technology Executive
+              department: C-Suite
+          - id: 55169609
+            firstName: David
+            lastName: Seward
+            jobTitle: Chief Financial Officer
+            jobFunction:
+            - name: Finance Executive
+              department: C-Suite
+            - name: Finance
+              department: Finance
+          - id: 3117140380
+            firstName: Mike
+            lastName: Liu
+            jobTitle: Vice Chief Technology Officer, CIO & President Information Technology
+            jobFunction:
+            - name: Information Technology
+              department: Information Technology
+            - name: Information Technology Executive
+              department: C-Suite
+          - id: -1542224459
+            firstName: Claire
+            lastName: Wilkens
+            jobTitle: Co-President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 53923462
+            name: UC Hastings College of the Law
+            website: www.uchastings.edu
+            hasOtherTopicConsumption: true
+        - id: af75117e-c6b1-4831-8cfa-562acc36d9c1
+          category: Mobile Applications
+          topic: Mobile Apps
+          signalScore: 92
+          audienceStrength: A
+          newSignal: true
+          signalDate: 7/12/2020 12:00 AM
+          trend: 33
+          recommendedContacts:
+          - id: 409942831
+            firstName: Judie
+            lastName: Wexler
+            jobTitle: President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 47028048
+            name: California Institute of Integral Studies
+            website: www.ciis.edu
+            hasOtherTopicConsumption: true
+        - id: 4093d164-7c33-4c61-b592-68f57ecf6cb3
+          category: Mobile Applications
+          topic: Mobile Apps
+          signalScore: 86
+          audienceStrength: B
+          newSignal: true
+          signalDate: 7/5/2020 12:00 AM
+          trend: 27
+          recommendedContacts:
+          - id: 27256033
+            firstName: Thomas
+            lastName: Cropper
+            jobTitle: President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 13209136
+            name: California Maritime Academy
+            website: www.csum.edu
+            hasOtherTopicConsumption: true
+        - id: 32cfc646-4ebc-4693-bc17-b41879d63ec4
+          category: Mobile Applications
+          topic: Mobile Apps
+          signalScore: 80
+          audienceStrength: C
+          newSignal: true
+          signalDate: 7/5/2020 12:00 AM
+          trend: 21
+          recommendedContacts:
+          - id: 24417960
+            firstName: Edward
+            lastName: Prohaska
+            jobTitle: Chief Financial Officer
+            jobFunction:
+            - name: Finance Executive
+              department: C-Suite
+            - name: Finance
+              department: Finance
+          - id: 388711836
+            firstName: Mara
+            lastName: Hancock
+            jobTitle: Vice President, Technology & Chief Information Officer
+            jobFunction:
+            - name: Information Technology
+              department: Information Technology
+            - name: Information Technology Executive
+              department: C-Suite
+          - id: 26415164
+            firstName: Stephen
+            lastName: Beal
+            jobTitle: President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          - id: -1254364721
+            firstName: Michael
+            lastName: McLaughlin
+            jobTitle: Founder & President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 19256146
+            name: California College of the Arts
+            website: www.cca.edu
+            hasOtherTopicConsumption: true
+        - id: 36d66c2c-699c-49ec-b7e1-ae92572ccdc9
+          category: Mobile Applications
+          topic: Mobile Apps
+          signalScore: 83
+          audienceStrength: C
+          newSignal: true
+          signalDate: 7/12/2020 12:00 AM
+          trend: 24
+          recommendedContacts:
+          - id: 3882045930
+            firstName: Melissa
+            lastName: Hall
+            jobTitle: President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          - id: 1810524670
+            firstName: Ben
+            lastName: Christensen
+            jobTitle: Chief Financial Officer
+            jobFunction:
+            - name: Finance Executive
+              department: C-Suite
+            - name: Finance
+              department: Finance
+          - id: 1715680805
+            firstName: Jonathan
+            lastName: Stull
+            jobTitle: Chief Operating Officer
+            jobFunction:
+            - name: Operations Executive
+              department: C-Suite
+            - name: Operations
+              department: Operations
+          - id: 1888318694
+            firstName: Scott
+            lastName: Ringwelski
+            jobTitle: Chief Technology Officer
+            jobFunction:
+            - name: Engineering & Technical Executive
+              department: C-Suite
+            - name: Engineering & Technical
+              department: Engineering & Technical
+            - name: Technology Operations
+              department: Engineering & Technical
+          company:
+            id: 363577968
+            name: Handshake
+            website: www.joinhandshake.com
+            hasOtherTopicConsumption: true
+        - id: bfee3c75-080f-4a11-9259-8a29a6511174
+          category: Mobile Applications
+          topic: Mobile Apps
+          signalScore: 85
+          audienceStrength: B
+          newSignal: false
+          signalDate: 6/28/2020 12:00 AM
+          trend: 7
+          recommendedContacts:
+          - id: 1592676174
+            firstName: Fatima
+            lastName: Alleyne
+            jobTitle: President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          - id: -916803008
+            firstName: Terry
+            lastName: Koehne
+            jobTitle: Chief Communications Officer
+            jobFunction:
+            - name: Strategic Communications
+              department: Marketing
+            - name: Marketing Executive
+              department: C-Suite
+            - name: Marketing
+              department: Marketing
+            - name: Marketing Communications
+              department: Marketing
+          company:
+            id: 29791549
+            name: Contra Costa County Office of Education
+            website: www.cccoe.k12.ca.us
+            hasOtherTopicConsumption: true
+        - id: caaae618-2bdd-4bf9-8f91-a5bf965e35b6
+          category: Mobile Applications
+          topic: Mobile Apps
+          signalScore: 83
+          audienceStrength: B
+          newSignal: true
+          signalDate: 6/21/2020 12:00 AM
+          trend: 24
+          recommendedContacts:
+          - id: 263922298
+            firstName: Bill
+            lastName: Tsatsoulis
+            jobTitle: Chief Operating Officer
+            jobFunction:
+            - name: Operations Executive
+              department: C-Suite
+            - name: Operations
+              department: Operations
+          - id: 2470805454
+            firstName: Rob
+            lastName: Fisher
+            jobTitle: Chief Executive Officer
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 628662
+            name: Academy of Art University
+            website: www.academyart.edu
+            hasOtherTopicConsumption: true
+        - id: 6f85a972-835e-4531-ac7e-7aee75d579ea
+          category: Cloud
+          topic: Cloud Infrastructure
+          signalScore: 85
+          audienceStrength: B
+          newSignal: true
+          signalDate: 6/21/2020 12:00 AM
+          trend: 26
+          recommendedContacts:
+          - id: 2671385855
+            firstName: Elizabeth
+            lastName: Hillman
+            jobTitle: President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 78366485
+            name: Mills College
+            website: www.mills.edu
+            hasOtherTopicConsumption: true
+        - id: 1029fe13-c192-4754-be2a-2baf37e53759
+          category: Cloud
+          topic: Cloud Infrastructure
+          signalScore: 84
+          audienceStrength: B
+          newSignal: true
+          signalDate: 6/28/2020 12:00 AM
+          trend: 25
+          recommendedContacts:
+          - id: 1970683957
+            firstName: Patrick
+            lastName: Ekoue-totou
+            jobTitle: Chief Information Officer & Director, Information Technology
+            jobFunction:
+            - name: Information Technology
+              department: Information Technology
+            - name: Information Technology Executive
+              department: C-Suite
+          company:
+            id: 65571648
+            name: College of Marin
+            website: www.marin.edu
+            hasOtherTopicConsumption: true
+        - id: dff20de7-8bde-496e-a0c4-7e1de3303a44
+          category: Cloud
+          topic: Cloud Infrastructure
+          signalScore: 83
+          audienceStrength: C
+          newSignal: true
+          signalDate: 7/12/2020 12:00 AM
+          trend: 24
+          recommendedContacts:
+          - id: 2670266631
+            firstName: Ching
+            lastName: Wang
+            jobTitle: President & Chief Executive Officer
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          - id: -1055918224
+            firstName: Michael
+            lastName: Chiu
+            jobTitle: President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          - id: 2939458238
+            firstName: Ramez
+            lastName: Sakkab
+            jobTitle: President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 33702638
+            name: Samuel Merritt University
+            website: www.samuelmerritt.edu
+            hasOtherTopicConsumption: true
+        - id: 0e055f3a-929a-49c2-b8b6-8ae0f4984a64
+          category: Cloud
+          topic: Cloud Computing
+          signalScore: 84
+          audienceStrength: C
+          newSignal: true
+          signalDate: 7/12/2020 12:00 AM
+          trend: 25
+          recommendedContacts:
+          - id: 2670266631
+            firstName: Ching
+            lastName: Wang
+            jobTitle: President & Chief Executive Officer
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          - id: -1055918224
+            firstName: Michael
+            lastName: Chiu
+            jobTitle: President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          - id: 2939458238
+            firstName: Ramez
+            lastName: Sakkab
+            jobTitle: President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 33702638
+            name: Samuel Merritt University
+            website: www.samuelmerritt.edu
+            hasOtherTopicConsumption: true
+        - id: dc382155-f385-4f19-a127-1fe1371b74bd
+          category: Cloud
+          topic: Cloud Computing
+          signalScore: 82
+          audienceStrength: C
+          newSignal: true
+          signalDate: 7/12/2020 12:00 AM
+          trend: 23
+          recommendedContacts:
+          - id: 263922298
+            firstName: Bill
+            lastName: Tsatsoulis
+            jobTitle: Chief Operating Officer
+            jobFunction:
+            - name: Operations Executive
+              department: C-Suite
+            - name: Operations
+              department: Operations
+          - id: 2470805454
+            firstName: Rob
+            lastName: Fisher
+            jobTitle: Chief Executive Officer
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 628662
+            name: Academy of Art University
+            website: www.academyart.edu
+            hasOtherTopicConsumption: true
+        - id: aecb0682-1990-4359-a073-5b7a54e87f06
+          category: Cloud
+          topic: Cloud Computing
+          signalScore: 82
+          audienceStrength: C
+          newSignal: true
+          signalDate: 6/28/2020 12:00 AM
+          trend: 23
+          recommendedContacts:
+          - id: 1970683957
+            firstName: Patrick
+            lastName: Ekoue-totou
+            jobTitle: Chief Information Officer & Director, Information Technology
+            jobFunction:
+            - name: Information Technology
+              department: Information Technology
+            - name: Information Technology Executive
+              department: C-Suite
+          company:
+            id: 65571648
+            name: College of Marin
+            website: www.marin.edu
+            hasOtherTopicConsumption: true
+        - id: 60ff0745-9745-48fb-a014-4f86c4eb9fab
+          category: Cloud
+          topic: Cloud Computing
+          signalScore: 81
+          audienceStrength: C
+          newSignal: true
+          signalDate: 6/21/2020 12:00 AM
+          trend: 22
+          recommendedContacts:
+          - id: 2671385855
+            firstName: Elizabeth
+            lastName: Hillman
+            jobTitle: President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 78366485
+            name: Mills College
+            website: www.mills.edu
+            hasOtherTopicConsumption: true
+        - id: 7ab038a0-db6a-4157-8ca5-69e05337c98e
+          category: Cloud
+          topic: Cloud Computing
+          signalScore: 85
+          audienceStrength: B
+          newSignal: true
+          signalDate: 6/21/2020 12:00 AM
+          trend: 26
+          recommendedContacts:
+          - id: 1543255409
+            firstName: Susan
+            lastName: Lamb
+            jobTitle: President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 50978158
+            name: Diablo Valley College
+            website: www.dvc.edu
+            hasOtherTopicConsumption: true
+        - id: d9bed256-5b94-40b3-8773-2fa40226c8ed
+          category: Cloud
+          topic: Cloud Applications
+          signalScore: 83
+          audienceStrength: C
+          newSignal: true
+          signalDate: 7/12/2020 12:00 AM
+          trend: 24
+          recommendedContacts:
+          - id: 2670266631
+            firstName: Ching
+            lastName: Wang
+            jobTitle: President & Chief Executive Officer
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          - id: -1055918224
+            firstName: Michael
+            lastName: Chiu
+            jobTitle: President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          - id: 2939458238
+            firstName: Ramez
+            lastName: Sakkab
+            jobTitle: President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 33702638
+            name: Samuel Merritt University
+            website: www.samuelmerritt.edu
+            hasOtherTopicConsumption: true
+        - id: f1432f95-5300-4fd9-ba58-c90114f7bdc0
+          category: Cloud
+          topic: Cloud Applications
+          signalScore: 86
+          audienceStrength: B
+          newSignal: true
+          signalDate: 6/21/2020 12:00 AM
+          trend: 27
+          recommendedContacts:
+          - id: 2671385855
+            firstName: Elizabeth
+            lastName: Hillman
+            jobTitle: President
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 78366485
+            name: Mills College
+            website: www.mills.edu
+            hasOtherTopicConsumption: true
+        - id: f1971651-c742-41f3-93ac-cebe89ec78f8
+          category: Cloud
+          topic: Cloud Applications
+          signalScore: 84
+          audienceStrength: B
+          newSignal: true
+          signalDate: 6/28/2020 12:00 AM
+          trend: 25
+          recommendedContacts:
+          - id: 1970683957
+            firstName: Patrick
+            lastName: Ekoue-totou
+            jobTitle: Chief Information Officer & Director, Information Technology
+            jobFunction:
+            - name: Information Technology
+              department: Information Technology
+            - name: Information Technology Executive
+              department: C-Suite
+          company:
+            id: 65571648
+            name: College of Marin
+            website: www.marin.edu
+            hasOtherTopicConsumption: true
+    Datum11:
+      title: Datum11
+      required:
+      - id
+      - category
+      - topic
+      - signalScore
+      - audienceStrength
+      - newSignal
+      - signalDate
+      - trend
+      - recommendedContacts
+      - company
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        category:
+          type: string
+          example: example_value
+        topic:
+          type: string
+          example: example_value
+        signalScore:
+          type: integer
+          contentEncoding: int32
+          example: 85
+        audienceStrength:
+          type: string
+          example: example_value
+        newSignal:
+          type: boolean
+          example: true
+        signalDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        trend:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        recommendedContacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecommendedContact'
+          description: ''
+          example: []
+        company:
+          $ref: '#/components/schemas/Company8'
+      examples:
+      - id: d3ac21f6-f9f4-4a71-8ca9-8f4125937d2c
+        category: Cyber Security
+        topic: Mobile Security
+        signalScore: 83
+        audienceStrength: C
+        newSignal: true
+        signalDate: 7/5/2020 12:00 AM
+        trend: 24
+        recommendedContacts:
+        - id: -1766367996
+          firstName: David
+          lastName: Fike
+          jobTitle: President
+          jobFunction:
+          - name: Executive
+            department: C-Suite
+        company:
+          id: 118998385
+          name: Golden Gate University
+          website: www.ggu.edu
+          hasOtherTopicConsumption: true
+    IntentSearchRequest:
+      title: IntentSearchRequest
+      required:
+      - topics
+      - signalScoreMin
+      - signalScoreMax
+      - audienceStrengthMin
+      - audienceStrengthMax
+      - metroRegion
+      - industryCodes
+      - sortBy
+      - sortOrder
+      type: object
+      properties:
+        topics:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        signalScoreMin:
+          type: integer
+          contentEncoding: int32
+          example: 85
+        signalScoreMax:
+          type: integer
+          contentEncoding: int32
+          example: 85
+        audienceStrengthMin:
+          type: string
+          example: example_value
+        audienceStrengthMax:
+          type: string
+          example: example_value
+        metroRegion:
+          type: string
+          example: example_value
+        industryCodes:
+          type: string
+          example: Software
+        sortBy:
+          type: string
+          example: example_value
+        sortOrder:
+          type: string
+          example: example_value
+      examples:
+      - topics:
+        - Cloud Applications
+        - Cloud Computing
+        - Cloud Infrastructure
+        - Mobile Apps
+        - Mobile Security
+        signalScoreMin: 80
+        signalScoreMax: 100
+        audienceStrengthMin: C
+        audienceStrengthMax: A
+        metroRegion: usa.california.sanfrancisco
+        industryCodes: education.university
+        sortBy: topic
+        sortOrder: desc
+    RecommendedContact:
+      title: RecommendedContact
+      required:
+      - id
+      - firstName
+      - lastName
+      - jobTitle
+      - jobFunction
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        firstName:
+          type: string
+          example: Acme Corporation
+        lastName:
+          type: string
+          example: Acme Corporation
+        jobTitle:
+          type: string
+          example: Vice President of Sales
+        jobFunction:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobFunction'
+          description: ''
+          example: []
+      examples:
+      - id: -1766367996
+        firstName: David
+        lastName: Fike
+        jobTitle: President
+        jobFunction:
+        - name: Executive
+          department: C-Suite
+    JobFunction:
+      title: JobFunction
+      required:
+      - name
+      - department
+      type: object
+      properties:
+        name:
+          type: string
+          example: Acme Corporation
+        department:
+          type: string
+          example: example_value
+      examples:
+      - name: Executive
+        department: C-Suite
+    IntentSearchOutput:
+      title: IntentSearchOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: id
+        description: Unique ZoomInfo identifier for a topic
+    Company8:
+      title: Company8
+      required:
+      - id
+      - name
+      - website
+      - hasOtherTopicConsumption
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+        website:
+          type: string
+          example: example_value
+        hasOtherTopicConsumption:
+          type: boolean
+          example: true
+      examples:
+      - id: 118998385
+        name: Golden Gate University
+        website: www.ggu.edu
+        hasOtherTopicConsumption: true
+    IntentSearchInput:
+      title: IntentSearchInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: topics
+        fieldType: ArrayList
+        description: Intent topics. Accepts an Array of String. See the 'Intent Topics' endpoint for values.
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint

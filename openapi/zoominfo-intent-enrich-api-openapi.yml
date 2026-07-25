@@ -1,0 +1,2428 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication Intent Enrich API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Intent Enrich
+  description: 'Use [Intent Enrich](#c1e5300d-8ffb-40f0-b899-be98f884e505) to retrieve intent data using valid query parameters.
+
+
+    Refer to the examples provided to build a valid JSON request:
+
+
+    *   Use the [Intent Enrich Inputs](#2dcbe844-7f1f-45f3-ae32-2598ccec5be4) endpoint to retrieve a list of valid input parameters you can provide
+
+    *   Use the [Intent Enrich Outputs](#fc4083cf-6179-4f0f-8b9b-80aedc2e3e67) endpoint to retrieve a list of valid output fields returned'
+paths:
+  /enrich/intent:
+    parameters: []
+    post:
+      tags:
+      - Intent Enrich
+      summary: Zoominfo Intent Enrich
+      description: "Use this endpoint to enrich intent data for a company based on [input values](#2dcbe844-7f1f-45f3-ae32-2598ccec5be4) and return the desired [output fields](#fc4083cf-6179-4f0f-8b9b-80aedc2e3e67) in the response.\n\nIntent data is online behavior-based activity across the internet that links buyers and accounts to a topic. Key terminology includes:\n\n- **Topics and categories** - The Intent Enrich endpoint returns specific intent topics for a company based on your subscription. Multiple topics fall under a single category.\n- **Signal** - Recent content consumption activity for a specific topic by people at a company\n- **Signal Score** - Indicates a company's interest in a topic based on how recent content consumption compares to a historical baseline.\n- **Audience Strength** - Indicates the size of the group at the company conducting research in this topic.\n    \n\nThis endpoint can support up to 50 Intent topics separated by OR condition, and up to 12 Intent topics separated with AND condition. The difference between Start and End date should not be more than 90 days.\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyWebsite | String | Company website URL in [http://www.example.com](http://www.example.com) format |\n| companyId | String | Unique ZoomInfo identifier for a company |\n| companyName | String | Company name |\n| topics | String | Intent topics. Separate multiple topics with the pipe symbol. See the **Intent Topics** lookup endpoint for values. |\n| signalStartDate | String | Start date for a company signaling interest in a topic |\n| signalEndDate | String | End date for a company signaling interest in a topic |\n| signalScoreMin | Integer | Minimum signal score. Use with `signalScoreMax` to form a range. Minimum score is 60 and maximum is 100. |\n| signalScoreMax | Integer | Maximum signal score. Use with `signalScoreMin` to form a range. Minimum score is 60 and maximum is 100. |\n| audienceStrengthMin | String | Minimum audience strength score. Use with `audienceStrengthMax` to form a range. Values are `A`, `B`, `C`, `D`, and `E`, with `A` indicating a larger audience. |\n| audienceStrengthMax | String | Maximum audience strength score. Use with `audienceStrengthMin` to form a range. Values are `A`, `B`, `C`, `D`, and `E`, with `A` indicating a larger audience. |\n| findRecommendedContacts | Boolean | Choose whether to get the recommended contacts using the findRecommendedContacts flag. Default is `true`. |\n| rpp | Integer | Limits the results returned to the given number of results per page. Default is 25. |\n| page | Integer | Provides the results for the given page, used in conjunction with `rpp` |\n| sortOrder | String | Provide `sortBy` if specifying `sortOrder`. Valid values are `asc`, `ascending`, `desc`, and `descending`. By default, results are sorted in descending order. |\n| sortBy | String | Sort results by valid output fields. Valid values are: `signalDate`, `signalScore`, `category`, `topic`, `audienceStrength`. |\n\n**Output fields**\n\n| Field | Description |\n| --- | --- |\n| id | Unique ZoomInfo identifier for a topic |\n| category | Intent category |\n| topic | Intent topic |\n| signalScore | Signal score for the topic |\n| audienceStrength | Audience strength for the topic |\n| signalDate | Date the signal was identified |\n| companyId | Unique ZoomInfo identifier for a company |\n| companyName | Company name |\n| companyWebsite | Company website URL in [http://www.example.com](http://www.example.com) format |\n| companyHasOtherTopicConsumption | Indicates whether a company has other topics with increased consumption. Values are `true` and `false`. |\n| recommendedContacts | Suggested contacts at the company that are related to the intent topic |\n| topSignalLocations | Up to 3 top Intent signal locations |"
+      operationId: IntentEnrich
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/IntentEnrichRequest'
+              - examples:
+                - companyName: ZoomInfo
+                  companyWebsite: zoominfo.com
+                  companyId: 344589814
+                  topics:
+                  - Cloud Applications
+                  - Cloud Computing
+                  - Cloud Infrastructure
+                  - Corporate Culture
+                  - Credit Card Fraud
+                  - Direct Deposit
+                  - eFulfillment Service
+                  - Google Search
+                  - Healthcare Law
+                  - Hours of Work
+                  - In-App Advertising
+                  - Incentive Compensation
+                  - Java
+                  - Legal
+                  - Mobile / Wireless
+                  - Mobile Apps
+                  - Mobile Security
+                  - Mobile Wallet
+                  - Node.js
+                  - Organizational Culture
+                  - Risk Management Services
+                  - Video Conferencing
+                  signalStartDate: '2020-04-01T00:00:00.000Z'
+                  signalEndDate: '2020-05-31T00:00:00.000Z'
+                  signalScoreMin: 80
+                  signalScoreMax: 100
+                  audienceStrengthMin: C
+                  audienceStrengthMax: A
+                  sortBy: issueDate
+                  sortOrder: desc
+              contentMediaType: application/json
+            example:
+              companyName: ZoomInfo
+              companyWebsite: zoominfo.com
+              companyId: 344589814
+              topics:
+              - Cloud Applications
+              - Cloud Computing
+              - Cloud Infrastructure
+              - Corporate Culture
+              - Credit Card Fraud
+              - Direct Deposit
+              - eFulfillment Service
+              - Google Search
+              - Healthcare Law
+              - Hours of Work
+              - In-App Advertising
+              - Incentive Compensation
+              - Java
+              - Legal
+              - Mobile / Wireless
+              - Mobile Apps
+              - Mobile Security
+              - Mobile Wallet
+              - Node.js
+              - Organizational Culture
+              - Risk Management Services
+              - Video Conferencing
+              signalStartDate: '2020-04-01T00:00:00.000Z'
+              signalEndDate: '2020-05-31T00:00:00.000Z'
+              signalScoreMin: 80
+              signalScoreMax: 100
+              audienceStrengthMin: C
+              audienceStrengthMax: A
+              sortBy: issueDate
+              sortOrder: desc
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Mon, 11 May 2020 22:39:33 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 591f65805b19ae36-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=07a847a334cf7e797620854bcf3d04278d3e9fa911dd994cd5d463e7cae8def9:b222cc11-8ed3-11ea-9562-cb2408100f34; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1589236833'
+            X-Usage-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999997901'
+            X-Usage-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999965723'
+            X-Usage-Unique-Id-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Unique-Id-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999958'
+            X-Usage-Websights-Api-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Websights-Api-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999936'
+            X-Usage-Websights-Api-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000000'
+            X-Usage-Websights-Api-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99999936'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 02a77dc4380000ae3662a1a200000001
+          content:
+            application/json;charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IntentEnrich'
+                - examples:
+                  - maxResults: 8
+                    totalResults: 8
+                    currentPage: 1
+                    data:
+                    - id: 3e706b1e-97ab-42cc-95f6-1a8d5176c6c7
+                      category: Mobile Devices
+                      topic: Mobile / Wireless
+                      signalScore: 82
+                      audienceStrength: A
+                      newSignal: true
+                      signalDate: 5/3/2020 12:00 AM
+                      trend: 23
+                      recommendedContacts:
+                      - id: 2988050694
+                        firstName: Nir
+                        lastName: Keren
+                        jobTitle: Chief Technology Officer
+                        jobFunction:
+                        - name: Engineering & Technical Executive
+                          department: C-Suite
+                        - name: Engineering & Technical
+                          department: Engineering & Technical
+                      - id: 39841971
+                        firstName: Cameron
+                        lastName: Hyzer
+                        jobTitle: Chief Financial Officer
+                        jobFunction:
+                        - name: Finance Executive
+                          department: C-Suite
+                        - name: Finance
+                          department: Finance
+                      - id: 1645938489
+                        firstName: Hila
+                        lastName: Nir
+                        jobTitle: Chief Marketing Officer
+                        jobFunction:
+                        - name: Marketing Executive
+                          department: C-Suite
+                        - name: Marketing
+                          department: Marketing
+                      - id: 2827525345
+                        firstName: Chris
+                        lastName: Hays
+                        jobTitle: Chief Revenue Officer
+                        jobFunction:
+                        - name: Sales Executive
+                          department: C-Suite
+                        - name: Sales
+                          department: Sales
+                      - id: 1260398587
+                        firstName: Henry
+                        lastName: Schuck
+                        jobTitle: Founder & Chief Executive Officer
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 344589814
+                        name: Zoom Information, Inc.
+                        website: www.zoominfo.com
+                        hasOtherTopicConsumption: true
+                    - id: 1675ee1c-1c38-41e3-9c7c-430d43d6e0ab
+                      category: Banking
+                      topic: Credit Card Fraud
+                      signalScore: 81
+                      audienceStrength: A
+                      newSignal: false
+                      signalDate: 5/3/2020 12:00 AM
+                      trend: 7
+                      recommendedContacts:
+                      - id: 2988050694
+                        firstName: Nir
+                        lastName: Keren
+                        jobTitle: Chief Technology Officer
+                        jobFunction:
+                        - name: Engineering & Technical Executive
+                          department: C-Suite
+                        - name: Engineering & Technical
+                          department: Engineering & Technical
+                      - id: 39841971
+                        firstName: Cameron
+                        lastName: Hyzer
+                        jobTitle: Chief Financial Officer
+                        jobFunction:
+                        - name: Finance Executive
+                          department: C-Suite
+                        - name: Finance
+                          department: Finance
+                      - id: 1645938489
+                        firstName: Hila
+                        lastName: Nir
+                        jobTitle: Chief Marketing Officer
+                        jobFunction:
+                        - name: Marketing Executive
+                          department: C-Suite
+                        - name: Marketing
+                          department: Marketing
+                      - id: 2827525345
+                        firstName: Chris
+                        lastName: Hays
+                        jobTitle: Chief Revenue Officer
+                        jobFunction:
+                        - name: Sales Executive
+                          department: C-Suite
+                        - name: Sales
+                          department: Sales
+                      - id: 1260398587
+                        firstName: Henry
+                        lastName: Schuck
+                        jobTitle: Founder & Chief Executive Officer
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 344589814
+                        name: Zoom Information, Inc.
+                        website: www.zoominfo.com
+                        hasOtherTopicConsumption: true
+                    - id: c6a931ca-3082-40f0-b7af-628b801cdc89
+                      category: Compensation & Benefits
+                      topic: Incentive Compensation
+                      signalScore: 84
+                      audienceStrength: C
+                      newSignal: false
+                      signalDate: 5/3/2020 12:00 AM
+                      trend: 1
+                      recommendedContacts:
+                      - id: 2988050694
+                        firstName: Nir
+                        lastName: Keren
+                        jobTitle: Chief Technology Officer
+                        jobFunction:
+                        - name: Engineering & Technical Executive
+                          department: C-Suite
+                        - name: Engineering & Technical
+                          department: Engineering & Technical
+                      - id: 39841971
+                        firstName: Cameron
+                        lastName: Hyzer
+                        jobTitle: Chief Financial Officer
+                        jobFunction:
+                        - name: Finance Executive
+                          department: C-Suite
+                        - name: Finance
+                          department: Finance
+                      - id: 1645938489
+                        firstName: Hila
+                        lastName: Nir
+                        jobTitle: Chief Marketing Officer
+                        jobFunction:
+                        - name: Marketing Executive
+                          department: C-Suite
+                        - name: Marketing
+                          department: Marketing
+                      - id: 2827525345
+                        firstName: Chris
+                        lastName: Hays
+                        jobTitle: Chief Revenue Officer
+                        jobFunction:
+                        - name: Sales Executive
+                          department: C-Suite
+                        - name: Sales
+                          department: Sales
+                      - id: 1260398587
+                        firstName: Henry
+                        lastName: Schuck
+                        jobTitle: Founder & Chief Executive Officer
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 344589814
+                        name: Zoom Information, Inc.
+                        website: www.zoominfo.com
+                        hasOtherTopicConsumption: true
+                    - id: b628a3f6-64fc-4636-85d9-044306079b3a
+                      category: Collaboration/Web Apps
+                      topic: Video Conferencing
+                      signalScore: 80
+                      audienceStrength: A
+                      newSignal: false
+                      signalDate: 4/19/2020 12:00 AM
+                      trend: -9
+                      recommendedContacts:
+                      - id: 2988050694
+                        firstName: Nir
+                        lastName: Keren
+                        jobTitle: Chief Technology Officer
+                        jobFunction:
+                        - name: Engineering & Technical Executive
+                          department: C-Suite
+                        - name: Engineering & Technical
+                          department: Engineering & Technical
+                      - id: 39841971
+                        firstName: Cameron
+                        lastName: Hyzer
+                        jobTitle: Chief Financial Officer
+                        jobFunction:
+                        - name: Finance Executive
+                          department: C-Suite
+                        - name: Finance
+                          department: Finance
+                      - id: 1645938489
+                        firstName: Hila
+                        lastName: Nir
+                        jobTitle: Chief Marketing Officer
+                        jobFunction:
+                        - name: Marketing Executive
+                          department: C-Suite
+                        - name: Marketing
+                          department: Marketing
+                      - id: 2827525345
+                        firstName: Chris
+                        lastName: Hays
+                        jobTitle: Chief Revenue Officer
+                        jobFunction:
+                        - name: Sales Executive
+                          department: C-Suite
+                        - name: Sales
+                          department: Sales
+                      - id: 1260398587
+                        firstName: Henry
+                        lastName: Schuck
+                        jobTitle: Founder & Chief Executive Officer
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 344589814
+                        name: Zoom Information, Inc.
+                        website: www.zoominfo.com
+                        hasOtherTopicConsumption: true
+                    - id: 7c771ec1-b307-4fcb-b5b7-d65a88436942
+                      category: Cyber Security
+                      topic: Mobile Security
+                      signalScore: 80
+                      audienceStrength: A
+                      newSignal: true
+                      signalDate: 4/19/2020 12:00 AM
+                      trend: 21
+                      recommendedContacts:
+                      - id: 3459093549
+                        firstName: David
+                        lastName: Lewis
+                        jobTitle: Chief Security Officer
+                        jobFunction:
+                        - name: Information Security
+                          department: Information Technology
+                      - id: -1862126495
+                        firstName: Anna
+                        lastName: Orlove
+                        jobTitle: Security Solution Specialist
+                        jobFunction:
+                        - name: Information Security
+                          department: Information Technology
+                      - id: 2549968949
+                        firstName: Tal
+                        lastName: Drory
+                        jobTitle: Security Analyst
+                        jobFunction:
+                        - name: Information Security
+                          department: Information Technology
+                      - id: 2988050694
+                        firstName: Nir
+                        lastName: Keren
+                        jobTitle: Chief Technology Officer
+                        jobFunction:
+                        - name: Engineering & Technical Executive
+                          department: C-Suite
+                        - name: Engineering & Technical
+                          department: Engineering & Technical
+                      - id: 39841971
+                        firstName: Cameron
+                        lastName: Hyzer
+                        jobTitle: Chief Financial Officer
+                        jobFunction:
+                        - name: Finance Executive
+                          department: C-Suite
+                        - name: Finance
+                          department: Finance
+                      company:
+                        id: 344589814
+                        name: Zoom Information, Inc.
+                        website: www.zoominfo.com
+                        hasOtherTopicConsumption: true
+                    - id: 7c75266b-b293-4110-ba77-b5f73b90d42c
+                      category: Application Development
+                      topic: Node.js
+                      signalScore: 82
+                      audienceStrength: A
+                      newSignal: true
+                      signalDate: 4/19/2020 12:00 AM
+                      trend: 23
+                      recommendedContacts:
+                      - id: 1780573066
+                        firstName: Justin
+                        lastName: Sweeney
+                        jobTitle: Senior Software Development Manager, Data
+                        jobFunction:
+                        - name: Software Development
+                          department: Engineering & Technical
+                        - name: Data Science
+                          department: Engineering & Technical
+                      - id: 2047851825
+                        firstName: Brian
+                        lastName: Thomas
+                        jobTitle: Software Development Manager, Data
+                        jobFunction:
+                        - name: Software Development
+                          department: Engineering & Technical
+                        - name: Data Science
+                          department: Engineering & Technical
+                      - id: -1120287554
+                        firstName: Kristen
+                        lastName: Patten
+                        jobTitle: Software Development Manager, Data
+                        jobFunction:
+                        - name: Software Development
+                          department: Engineering & Technical
+                        - name: Data Science
+                          department: Engineering & Technical
+                      - id: 1995022052
+                        firstName: Chris
+                        lastName: Baker
+                        jobTitle: Manager of Engineering, Data
+                        jobFunction:
+                        - name: Software Development
+                          department: Engineering & Technical
+                        - name: Data Science
+                          department: Engineering & Technical
+                      - id: 1868007106
+                        firstName: Imesh
+                        lastName: Wijewardena
+                        jobTitle: Senior Software Development Manager, Data
+                        jobFunction:
+                        - name: Software Development
+                          department: Engineering & Technical
+                        - name: Data Science
+                          department: Engineering & Technical
+                      company:
+                        id: 344589814
+                        name: Zoom Information, Inc.
+                        website: www.zoominfo.com
+                        hasOtherTopicConsumption: true
+                    - id: e15d87cd-ffa1-4771-9da2-bac3bcb2022f
+                      category: Collaboration/Web Apps
+                      topic: Video Conferencing
+                      signalScore: 89
+                      audienceStrength: A
+                      newSignal: false
+                      signalDate: 4/12/2020 12:00 AM
+                      trend: 11
+                      recommendedContacts:
+                      - id: 2988050694
+                        firstName: Nir
+                        lastName: Keren
+                        jobTitle: Chief Technology Officer
+                        jobFunction:
+                        - name: Engineering & Technical Executive
+                          department: C-Suite
+                        - name: Engineering & Technical
+                          department: Engineering & Technical
+                      - id: 39841971
+                        firstName: Cameron
+                        lastName: Hyzer
+                        jobTitle: Chief Financial Officer
+                        jobFunction:
+                        - name: Finance Executive
+                          department: C-Suite
+                        - name: Finance
+                          department: Finance
+                      - id: 1645938489
+                        firstName: Hila
+                        lastName: Nir
+                        jobTitle: Chief Marketing Officer
+                        jobFunction:
+                        - name: Marketing Executive
+                          department: C-Suite
+                        - name: Marketing
+                          department: Marketing
+                      - id: 2827525345
+                        firstName: Chris
+                        lastName: Hays
+                        jobTitle: Chief Revenue Officer
+                        jobFunction:
+                        - name: Sales Executive
+                          department: C-Suite
+                        - name: Sales
+                          department: Sales
+                      - id: 1260398587
+                        firstName: Henry
+                        lastName: Schuck
+                        jobTitle: Founder & Chief Executive Officer
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 344589814
+                        name: Zoom Information, Inc.
+                        website: www.zoominfo.com
+                        hasOtherTopicConsumption: true
+                    - id: d922c989-0f82-40b2-aea8-394304c55724
+                      category: Compensation & Benefits
+                      topic: Incentive Compensation
+                      signalScore: 90
+                      audienceStrength: A
+                      newSignal: true
+                      signalDate: 4/5/2020 12:00 AM
+                      trend: 31
+                      recommendedContacts:
+                      - id: 2988050694
+                        firstName: Nir
+                        lastName: Keren
+                        jobTitle: Chief Technology Officer
+                        jobFunction:
+                        - name: Engineering & Technical Executive
+                          department: C-Suite
+                        - name: Engineering & Technical
+                          department: Engineering & Technical
+                      - id: 39841971
+                        firstName: Cameron
+                        lastName: Hyzer
+                        jobTitle: Chief Financial Officer
+                        jobFunction:
+                        - name: Finance Executive
+                          department: C-Suite
+                        - name: Finance
+                          department: Finance
+                      - id: 1645938489
+                        firstName: Hila
+                        lastName: Nir
+                        jobTitle: Chief Marketing Officer
+                        jobFunction:
+                        - name: Marketing Executive
+                          department: C-Suite
+                        - name: Marketing
+                          department: Marketing
+                      - id: 2827525345
+                        firstName: Chris
+                        lastName: Hays
+                        jobTitle: Chief Revenue Officer
+                        jobFunction:
+                        - name: Sales Executive
+                          department: C-Suite
+                        - name: Sales
+                          department: Sales
+                      - id: 1260398587
+                        firstName: Henry
+                        lastName: Schuck
+                        jobTitle: Founder & Chief Executive Officer
+                        jobFunction:
+                        - name: Executive
+                          department: C-Suite
+                      company:
+                        id: 344589814
+                        name: Zoom Information, Inc.
+                        website: www.zoominfo.com
+                        hasOtherTopicConsumption: true
+                contentMediaType: application/json;charset=utf-8
+              example:
+                maxResults: 8
+                totalResults: 8
+                currentPage: 1
+                data:
+                - id: 3e706b1e-97ab-42cc-95f6-1a8d5176c6c7
+                  category: Mobile Devices
+                  topic: Mobile / Wireless
+                  signalScore: 82
+                  audienceStrength: A
+                  newSignal: true
+                  signalDate: 5/3/2020 12:00 AM
+                  trend: 23
+                  recommendedContacts:
+                  - id: 2988050694
+                    firstName: Nir
+                    lastName: Keren
+                    jobTitle: Chief Technology Officer
+                    jobFunction:
+                    - name: Engineering & Technical Executive
+                      department: C-Suite
+                    - name: Engineering & Technical
+                      department: Engineering & Technical
+                  - id: 39841971
+                    firstName: Cameron
+                    lastName: Hyzer
+                    jobTitle: Chief Financial Officer
+                    jobFunction:
+                    - name: Finance Executive
+                      department: C-Suite
+                    - name: Finance
+                      department: Finance
+                  - id: 1645938489
+                    firstName: Hila
+                    lastName: Nir
+                    jobTitle: Chief Marketing Officer
+                    jobFunction:
+                    - name: Marketing Executive
+                      department: C-Suite
+                    - name: Marketing
+                      department: Marketing
+                  - id: 2827525345
+                    firstName: Chris
+                    lastName: Hays
+                    jobTitle: Chief Revenue Officer
+                    jobFunction:
+                    - name: Sales Executive
+                      department: C-Suite
+                    - name: Sales
+                      department: Sales
+                  - id: 1260398587
+                    firstName: Henry
+                    lastName: Schuck
+                    jobTitle: Founder & Chief Executive Officer
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 344589814
+                    name: Zoom Information, Inc.
+                    website: www.zoominfo.com
+                    hasOtherTopicConsumption: true
+                - id: 1675ee1c-1c38-41e3-9c7c-430d43d6e0ab
+                  category: Banking
+                  topic: Credit Card Fraud
+                  signalScore: 81
+                  audienceStrength: A
+                  newSignal: false
+                  signalDate: 5/3/2020 12:00 AM
+                  trend: 7
+                  recommendedContacts:
+                  - id: 2988050694
+                    firstName: Nir
+                    lastName: Keren
+                    jobTitle: Chief Technology Officer
+                    jobFunction:
+                    - name: Engineering & Technical Executive
+                      department: C-Suite
+                    - name: Engineering & Technical
+                      department: Engineering & Technical
+                  - id: 39841971
+                    firstName: Cameron
+                    lastName: Hyzer
+                    jobTitle: Chief Financial Officer
+                    jobFunction:
+                    - name: Finance Executive
+                      department: C-Suite
+                    - name: Finance
+                      department: Finance
+                  - id: 1645938489
+                    firstName: Hila
+                    lastName: Nir
+                    jobTitle: Chief Marketing Officer
+                    jobFunction:
+                    - name: Marketing Executive
+                      department: C-Suite
+                    - name: Marketing
+                      department: Marketing
+                  - id: 2827525345
+                    firstName: Chris
+                    lastName: Hays
+                    jobTitle: Chief Revenue Officer
+                    jobFunction:
+                    - name: Sales Executive
+                      department: C-Suite
+                    - name: Sales
+                      department: Sales
+                  - id: 1260398587
+                    firstName: Henry
+                    lastName: Schuck
+                    jobTitle: Founder & Chief Executive Officer
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 344589814
+                    name: Zoom Information, Inc.
+                    website: www.zoominfo.com
+                    hasOtherTopicConsumption: true
+                - id: c6a931ca-3082-40f0-b7af-628b801cdc89
+                  category: Compensation & Benefits
+                  topic: Incentive Compensation
+                  signalScore: 84
+                  audienceStrength: C
+                  newSignal: false
+                  signalDate: 5/3/2020 12:00 AM
+                  trend: 1
+                  recommendedContacts:
+                  - id: 2988050694
+                    firstName: Nir
+                    lastName: Keren
+                    jobTitle: Chief Technology Officer
+                    jobFunction:
+                    - name: Engineering & Technical Executive
+                      department: C-Suite
+                    - name: Engineering & Technical
+                      department: Engineering & Technical
+                  - id: 39841971
+                    firstName: Cameron
+                    lastName: Hyzer
+                    jobTitle: Chief Financial Officer
+                    jobFunction:
+                    - name: Finance Executive
+                      department: C-Suite
+                    - name: Finance
+                      department: Finance
+                  - id: 1645938489
+                    firstName: Hila
+                    lastName: Nir
+                    jobTitle: Chief Marketing Officer
+                    jobFunction:
+                    - name: Marketing Executive
+                      department: C-Suite
+                    - name: Marketing
+                      department: Marketing
+                  - id: 2827525345
+                    firstName: Chris
+                    lastName: Hays
+                    jobTitle: Chief Revenue Officer
+                    jobFunction:
+                    - name: Sales Executive
+                      department: C-Suite
+                    - name: Sales
+                      department: Sales
+                  - id: 1260398587
+                    firstName: Henry
+                    lastName: Schuck
+                    jobTitle: Founder & Chief Executive Officer
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 344589814
+                    name: Zoom Information, Inc.
+                    website: www.zoominfo.com
+                    hasOtherTopicConsumption: true
+                - id: b628a3f6-64fc-4636-85d9-044306079b3a
+                  category: Collaboration/Web Apps
+                  topic: Video Conferencing
+                  signalScore: 80
+                  audienceStrength: A
+                  newSignal: false
+                  signalDate: 4/19/2020 12:00 AM
+                  trend: -9
+                  recommendedContacts:
+                  - id: 2988050694
+                    firstName: Nir
+                    lastName: Keren
+                    jobTitle: Chief Technology Officer
+                    jobFunction:
+                    - name: Engineering & Technical Executive
+                      department: C-Suite
+                    - name: Engineering & Technical
+                      department: Engineering & Technical
+                  - id: 39841971
+                    firstName: Cameron
+                    lastName: Hyzer
+                    jobTitle: Chief Financial Officer
+                    jobFunction:
+                    - name: Finance Executive
+                      department: C-Suite
+                    - name: Finance
+                      department: Finance
+                  - id: 1645938489
+                    firstName: Hila
+                    lastName: Nir
+                    jobTitle: Chief Marketing Officer
+                    jobFunction:
+                    - name: Marketing Executive
+                      department: C-Suite
+                    - name: Marketing
+                      department: Marketing
+                  - id: 2827525345
+                    firstName: Chris
+                    lastName: Hays
+                    jobTitle: Chief Revenue Officer
+                    jobFunction:
+                    - name: Sales Executive
+                      department: C-Suite
+                    - name: Sales
+                      department: Sales
+                  - id: 1260398587
+                    firstName: Henry
+                    lastName: Schuck
+                    jobTitle: Founder & Chief Executive Officer
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 344589814
+                    name: Zoom Information, Inc.
+                    website: www.zoominfo.com
+                    hasOtherTopicConsumption: true
+                - id: 7c771ec1-b307-4fcb-b5b7-d65a88436942
+                  category: Cyber Security
+                  topic: Mobile Security
+                  signalScore: 80
+                  audienceStrength: A
+                  newSignal: true
+                  signalDate: 4/19/2020 12:00 AM
+                  trend: 21
+                  recommendedContacts:
+                  - id: 3459093549
+                    firstName: David
+                    lastName: Lewis
+                    jobTitle: Chief Security Officer
+                    jobFunction:
+                    - name: Information Security
+                      department: Information Technology
+                  - id: -1862126495
+                    firstName: Anna
+                    lastName: Orlove
+                    jobTitle: Security Solution Specialist
+                    jobFunction:
+                    - name: Information Security
+                      department: Information Technology
+                  - id: 2549968949
+                    firstName: Tal
+                    lastName: Drory
+                    jobTitle: Security Analyst
+                    jobFunction:
+                    - name: Information Security
+                      department: Information Technology
+                  - id: 2988050694
+                    firstName: Nir
+                    lastName: Keren
+                    jobTitle: Chief Technology Officer
+                    jobFunction:
+                    - name: Engineering & Technical Executive
+                      department: C-Suite
+                    - name: Engineering & Technical
+                      department: Engineering & Technical
+                  - id: 39841971
+                    firstName: Cameron
+                    lastName: Hyzer
+                    jobTitle: Chief Financial Officer
+                    jobFunction:
+                    - name: Finance Executive
+                      department: C-Suite
+                    - name: Finance
+                      department: Finance
+                  company:
+                    id: 344589814
+                    name: Zoom Information, Inc.
+                    website: www.zoominfo.com
+                    hasOtherTopicConsumption: true
+                - id: 7c75266b-b293-4110-ba77-b5f73b90d42c
+                  category: Application Development
+                  topic: Node.js
+                  signalScore: 82
+                  audienceStrength: A
+                  newSignal: true
+                  signalDate: 4/19/2020 12:00 AM
+                  trend: 23
+                  recommendedContacts:
+                  - id: 1780573066
+                    firstName: Justin
+                    lastName: Sweeney
+                    jobTitle: Senior Software Development Manager, Data
+                    jobFunction:
+                    - name: Software Development
+                      department: Engineering & Technical
+                    - name: Data Science
+                      department: Engineering & Technical
+                  - id: 2047851825
+                    firstName: Brian
+                    lastName: Thomas
+                    jobTitle: Software Development Manager, Data
+                    jobFunction:
+                    - name: Software Development
+                      department: Engineering & Technical
+                    - name: Data Science
+                      department: Engineering & Technical
+                  - id: -1120287554
+                    firstName: Kristen
+                    lastName: Patten
+                    jobTitle: Software Development Manager, Data
+                    jobFunction:
+                    - name: Software Development
+                      department: Engineering & Technical
+                    - name: Data Science
+                      department: Engineering & Technical
+                  - id: 1995022052
+                    firstName: Chris
+                    lastName: Baker
+                    jobTitle: Manager of Engineering, Data
+                    jobFunction:
+                    - name: Software Development
+                      department: Engineering & Technical
+                    - name: Data Science
+                      department: Engineering & Technical
+                  - id: 1868007106
+                    firstName: Imesh
+                    lastName: Wijewardena
+                    jobTitle: Senior Software Development Manager, Data
+                    jobFunction:
+                    - name: Software Development
+                      department: Engineering & Technical
+                    - name: Data Science
+                      department: Engineering & Technical
+                  company:
+                    id: 344589814
+                    name: Zoom Information, Inc.
+                    website: www.zoominfo.com
+                    hasOtherTopicConsumption: true
+                - id: e15d87cd-ffa1-4771-9da2-bac3bcb2022f
+                  category: Collaboration/Web Apps
+                  topic: Video Conferencing
+                  signalScore: 89
+                  audienceStrength: A
+                  newSignal: false
+                  signalDate: 4/12/2020 12:00 AM
+                  trend: 11
+                  recommendedContacts:
+                  - id: 2988050694
+                    firstName: Nir
+                    lastName: Keren
+                    jobTitle: Chief Technology Officer
+                    jobFunction:
+                    - name: Engineering & Technical Executive
+                      department: C-Suite
+                    - name: Engineering & Technical
+                      department: Engineering & Technical
+                  - id: 39841971
+                    firstName: Cameron
+                    lastName: Hyzer
+                    jobTitle: Chief Financial Officer
+                    jobFunction:
+                    - name: Finance Executive
+                      department: C-Suite
+                    - name: Finance
+                      department: Finance
+                  - id: 1645938489
+                    firstName: Hila
+                    lastName: Nir
+                    jobTitle: Chief Marketing Officer
+                    jobFunction:
+                    - name: Marketing Executive
+                      department: C-Suite
+                    - name: Marketing
+                      department: Marketing
+                  - id: 2827525345
+                    firstName: Chris
+                    lastName: Hays
+                    jobTitle: Chief Revenue Officer
+                    jobFunction:
+                    - name: Sales Executive
+                      department: C-Suite
+                    - name: Sales
+                      department: Sales
+                  - id: 1260398587
+                    firstName: Henry
+                    lastName: Schuck
+                    jobTitle: Founder & Chief Executive Officer
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 344589814
+                    name: Zoom Information, Inc.
+                    website: www.zoominfo.com
+                    hasOtherTopicConsumption: true
+                - id: d922c989-0f82-40b2-aea8-394304c55724
+                  category: Compensation & Benefits
+                  topic: Incentive Compensation
+                  signalScore: 90
+                  audienceStrength: A
+                  newSignal: true
+                  signalDate: 4/5/2020 12:00 AM
+                  trend: 31
+                  recommendedContacts:
+                  - id: 2988050694
+                    firstName: Nir
+                    lastName: Keren
+                    jobTitle: Chief Technology Officer
+                    jobFunction:
+                    - name: Engineering & Technical Executive
+                      department: C-Suite
+                    - name: Engineering & Technical
+                      department: Engineering & Technical
+                  - id: 39841971
+                    firstName: Cameron
+                    lastName: Hyzer
+                    jobTitle: Chief Financial Officer
+                    jobFunction:
+                    - name: Finance Executive
+                      department: C-Suite
+                    - name: Finance
+                      department: Finance
+                  - id: 1645938489
+                    firstName: Hila
+                    lastName: Nir
+                    jobTitle: Chief Marketing Officer
+                    jobFunction:
+                    - name: Marketing Executive
+                      department: C-Suite
+                    - name: Marketing
+                      department: Marketing
+                  - id: 2827525345
+                    firstName: Chris
+                    lastName: Hays
+                    jobTitle: Chief Revenue Officer
+                    jobFunction:
+                    - name: Sales Executive
+                      department: C-Suite
+                    - name: Sales
+                      department: Sales
+                  - id: 1260398587
+                    firstName: Henry
+                    lastName: Schuck
+                    jobTitle: Founder & Chief Executive Officer
+                    jobFunction:
+                    - name: Executive
+                      department: C-Suite
+                  company:
+                    id: 344589814
+                    name: Zoom Information, Inc.
+                    website: www.zoominfo.com
+                    hasOtherTopicConsumption: true
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/inputfields/intent/enrich:
+    parameters: []
+    get:
+      tags:
+      - Intent Enrich
+      summary: Zoominfo Intent Enrich Inputs
+      description: Returns a list of fields you can use as input for the [Intent Enrich](#48c36a9f-e4eb-4ce8-8080-a7b810df7c2d) endpoint.
+      operationId: IntentEnrichInputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Mon, 11 May 2020 22:39:42 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 591f65c1a9a6ae36-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=07a847a334cf7e797620854bcf3d04278d3e9fa911dd994cd5d463e7cae8def9:b222cc11-8ed3-11ea-9562-cb2408100f34; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1498'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1589236833'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 02a77ded080000ae3662837200000001
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IntentEnrichInput'
+                description: ''
+                examples:
+                - - fieldName: companyWebsite
+                    fieldType: String
+                    description: The website of the company you are searching for
+                  - fieldName: companyId
+                    fieldType: Long
+                    description: Unique ZoomInfo identifier for a company
+                  - fieldName: companyName
+                    fieldType: String
+                    description: Company name
+                  - fieldName: topics
+                    fieldType: ArrayList
+                    description: Intent topics. Accepts an Array of String. See the 'Intent Topics' endpoint for values.
+                  - fieldName: signalStartDate
+                    fieldType: String
+                    description: Start date for a company signaling interest in a topic
+                  - fieldName: signalEndDate
+                    fieldType: String
+                    description: End date for a company signaling interest in a topic
+                  - fieldName: signalScoreMin
+                    fieldType: Integer
+                    description: Minimum signal score. Use with signalScoreMax to form a range. Minimum score is 60 and maximum is 100.
+                  - fieldName: signalScoreMax
+                    fieldType: Integer
+                    description: Maximum signal score. Use with signalScoreMin to form a range. Minimum score is 60 and maximum is 100.
+                  - fieldName: audienceStrengthMin
+                    fieldType: String
+                    description: Minimum audience strength score. Use with audienceStrengthMax to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.
+                  - fieldName: audienceStrengthMax
+                    fieldType: String
+                    description: Maximum audience strength score. Use with audienceStrengthMin to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: companyWebsite
+                fieldType: String
+                description: The website of the company you are searching for
+              - fieldName: companyId
+                fieldType: Long
+                description: Unique ZoomInfo identifier for a company
+              - fieldName: companyName
+                fieldType: String
+                description: Company name
+              - fieldName: topics
+                fieldType: ArrayList
+                description: Intent topics. Accepts an Array of String. See the 'Intent Topics' endpoint for values.
+              - fieldName: signalStartDate
+                fieldType: String
+                description: Start date for a company signaling interest in a topic
+              - fieldName: signalEndDate
+                fieldType: String
+                description: End date for a company signaling interest in a topic
+              - fieldName: signalScoreMin
+                fieldType: Integer
+                description: Minimum signal score. Use with signalScoreMax to form a range. Minimum score is 60 and maximum is 100.
+              - fieldName: signalScoreMax
+                fieldType: Integer
+                description: Maximum signal score. Use with signalScoreMin to form a range. Minimum score is 60 and maximum is 100.
+              - fieldName: audienceStrengthMin
+                fieldType: String
+                description: Minimum audience strength score. Use with audienceStrengthMax to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.
+              - fieldName: audienceStrengthMax
+                fieldType: String
+                description: Maximum audience strength score. Use with audienceStrengthMin to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/outputfields/intent/enrich:
+    parameters: []
+    get:
+      tags:
+      - Intent Enrich
+      summary: Zoominfo Intent Enrich Outputs
+      description: Returns a list of output fields for the [Intent Enrich](#48c36a9f-e4eb-4ce8-8080-a7b810df7c2d) endpoint.
+      operationId: IntentEnrichOutputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 18 Feb 2021 21:14:23 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 623ac1e66f7aec00-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=ba8cabd144de2f65e7eb45aa969d5d069a07868dc4ea9b06fc199d150654a670:4b75fad1-722d-11eb-a706-8935b8314dad; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 08589784030000ec00dd905000000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1613682924'
+            X-Request-Id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: b6c59fe4-30a1-4a2a-ad8a-4e303fd9352c
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IntentEnrichOutput'
+                description: ''
+                examples:
+                - - fieldName: id
+                    description: Unique ZoomInfo identifier for a topic
+                  - fieldName: category
+                    description: Intent category
+                  - fieldName: topic
+                    description: Intent topic
+                  - fieldName: signalScore
+                    description: Signal score for the topic
+                  - fieldName: audienceStrength
+                    description: Audience strength for the topic
+                  - fieldName: signalDate
+                    description: Date the signal was identified
+                  - fieldName: companyId
+                    description: Unique ZoomInfo identifier for a company
+                  - fieldName: companyName
+                    description: Company name
+                  - fieldName: companyWebsite
+                    description: Company website URL in http://www.example.com format
+                  - fieldName: companyHasOtherTopicConsumption
+                    description: Indicates whether a company has other topics with increased consumption. Values are true and false.
+                  - fieldName: recommendedContacts
+                    description: Suggested contacts at the company that are related to the intent topic
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: id
+                description: Unique ZoomInfo identifier for a topic
+              - fieldName: category
+                description: Intent category
+              - fieldName: topic
+                description: Intent topic
+              - fieldName: signalScore
+                description: Signal score for the topic
+              - fieldName: audienceStrength
+                description: Audience strength for the topic
+              - fieldName: signalDate
+                description: Date the signal was identified
+              - fieldName: companyId
+                description: Unique ZoomInfo identifier for a company
+              - fieldName: companyName
+                description: Company name
+              - fieldName: companyWebsite
+                description: Company website URL in http://www.example.com format
+              - fieldName: companyHasOtherTopicConsumption
+                description: Indicates whether a company has other topics with increased consumption. Values are true and false.
+              - fieldName: recommendedContacts
+                description: Suggested contacts at the company that are related to the intent topic
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    RecommendedContact1:
+      title: RecommendedContact1
+      required:
+      - id
+      - firstName
+      - lastName
+      - jobTitle
+      - jobFunction
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int64
+          example: 500123
+        firstName:
+          type: string
+          example: Acme Corporation
+        lastName:
+          type: string
+          example: Acme Corporation
+        jobTitle:
+          type: string
+          example: Vice President of Sales
+        jobFunction:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobFunction'
+          description: ''
+          example: []
+      examples:
+      - id: 2988050694
+        firstName: Nir
+        lastName: Keren
+        jobTitle: Chief Technology Officer
+        jobFunction:
+        - name: Engineering & Technical Executive
+          department: C-Suite
+        - name: Engineering & Technical
+          department: Engineering & Technical
+    IntentEnrichRequest:
+      title: IntentEnrichRequest
+      required:
+      - companyName
+      - companyWebsite
+      - companyId
+      - topics
+      - signalStartDate
+      - signalEndDate
+      - signalScoreMin
+      - signalScoreMax
+      - audienceStrengthMin
+      - audienceStrengthMax
+      - sortBy
+      - sortOrder
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: Acme Corporation
+        companyWebsite:
+          type: string
+          example: example_value
+        companyId:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        topics:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        signalStartDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        signalEndDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        signalScoreMin:
+          type: integer
+          contentEncoding: int32
+          example: 85
+        signalScoreMax:
+          type: integer
+          contentEncoding: int32
+          example: 85
+        audienceStrengthMin:
+          type: string
+          example: example_value
+        audienceStrengthMax:
+          type: string
+          example: example_value
+        sortBy:
+          type: string
+          example: example_value
+        sortOrder:
+          type: string
+          example: example_value
+      examples:
+      - companyName: ZoomInfo
+        companyWebsite: zoominfo.com
+        companyId: 344589814
+        topics:
+        - Cloud Applications
+        - Cloud Computing
+        - Cloud Infrastructure
+        - Corporate Culture
+        - Credit Card Fraud
+        - Direct Deposit
+        - eFulfillment Service
+        - Google Search
+        - Healthcare Law
+        - Hours of Work
+        - In-App Advertising
+        - Incentive Compensation
+        - Java
+        - Legal
+        - Mobile / Wireless
+        - Mobile Apps
+        - Mobile Security
+        - Mobile Wallet
+        - Node.js
+        - Organizational Culture
+        - Risk Management Services
+        - Video Conferencing
+        signalStartDate: '2020-04-01T00:00:00.000Z'
+        signalEndDate: '2020-05-31T00:00:00.000Z'
+        signalScoreMin: 80
+        signalScoreMax: 100
+        audienceStrengthMin: C
+        audienceStrengthMax: A
+        sortBy: issueDate
+        sortOrder: desc
+    JobFunction:
+      title: JobFunction
+      required:
+      - name
+      - department
+      type: object
+      properties:
+        name:
+          type: string
+          example: Acme Corporation
+        department:
+          type: string
+          example: example_value
+      examples:
+      - name: Executive
+        department: C-Suite
+    IntentEnrichInput:
+      title: IntentEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyWebsite
+        fieldType: String
+        description: The website of the company you are searching for
+    Data38:
+      title: Data38
+      required:
+      - id
+      - category
+      - topic
+      - signalScore
+      - audienceStrength
+      - newSignal
+      - signalDate
+      - trend
+      - recommendedContacts
+      - company
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        category:
+          type: string
+          example: example_value
+        topic:
+          type: string
+          example: example_value
+        signalScore:
+          type: integer
+          contentEncoding: int32
+          example: 85
+        audienceStrength:
+          type: string
+          example: example_value
+        newSignal:
+          type: boolean
+          example: true
+        signalDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        trend:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        recommendedContacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecommendedContact1'
+          description: ''
+          example: []
+        company:
+          $ref: '#/components/schemas/Company8'
+      examples:
+      - id: 3e706b1e-97ab-42cc-95f6-1a8d5176c6c7
+        category: Mobile Devices
+        topic: Mobile / Wireless
+        signalScore: 82
+        audienceStrength: A
+        newSignal: true
+        signalDate: 5/3/2020 12:00 AM
+        trend: 23
+        recommendedContacts:
+        - id: 2988050694
+          firstName: Nir
+          lastName: Keren
+          jobTitle: Chief Technology Officer
+          jobFunction:
+          - name: Engineering & Technical Executive
+            department: C-Suite
+          - name: Engineering & Technical
+            department: Engineering & Technical
+        - id: 39841971
+          firstName: Cameron
+          lastName: Hyzer
+          jobTitle: Chief Financial Officer
+          jobFunction:
+          - name: Finance Executive
+            department: C-Suite
+          - name: Finance
+            department: Finance
+        - id: 1645938489
+          firstName: Hila
+          lastName: Nir
+          jobTitle: Chief Marketing Officer
+          jobFunction:
+          - name: Marketing Executive
+            department: C-Suite
+          - name: Marketing
+            department: Marketing
+        - id: 2827525345
+          firstName: Chris
+          lastName: Hays
+          jobTitle: Chief Revenue Officer
+          jobFunction:
+          - name: Sales Executive
+            department: C-Suite
+          - name: Sales
+            department: Sales
+        - id: 1260398587
+          firstName: Henry
+          lastName: Schuck
+          jobTitle: Founder & Chief Executive Officer
+          jobFunction:
+          - name: Executive
+            department: C-Suite
+        company:
+          id: 344589814
+          name: Zoom Information, Inc.
+          website: www.zoominfo.com
+          hasOtherTopicConsumption: true
+    Company8:
+      title: Company8
+      required:
+      - id
+      - name
+      - website
+      - hasOtherTopicConsumption
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+        website:
+          type: string
+          example: example_value
+        hasOtherTopicConsumption:
+          type: boolean
+          example: true
+      examples:
+      - id: 118998385
+        name: Golden Gate University
+        website: www.ggu.edu
+        hasOtherTopicConsumption: true
+    IntentEnrich:
+      title: IntentEnrich
+      required:
+      - maxResults
+      - totalResults
+      - currentPage
+      - data
+      type: object
+      properties:
+        maxResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        totalResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        currentPage:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data38'
+          description: ''
+          example: []
+      examples:
+      - maxResults: 8
+        totalResults: 8
+        currentPage: 1
+        data:
+        - id: 3e706b1e-97ab-42cc-95f6-1a8d5176c6c7
+          category: Mobile Devices
+          topic: Mobile / Wireless
+          signalScore: 82
+          audienceStrength: A
+          newSignal: true
+          signalDate: 5/3/2020 12:00 AM
+          trend: 23
+          recommendedContacts:
+          - id: 2988050694
+            firstName: Nir
+            lastName: Keren
+            jobTitle: Chief Technology Officer
+            jobFunction:
+            - name: Engineering & Technical Executive
+              department: C-Suite
+            - name: Engineering & Technical
+              department: Engineering & Technical
+          - id: 39841971
+            firstName: Cameron
+            lastName: Hyzer
+            jobTitle: Chief Financial Officer
+            jobFunction:
+            - name: Finance Executive
+              department: C-Suite
+            - name: Finance
+              department: Finance
+          - id: 1645938489
+            firstName: Hila
+            lastName: Nir
+            jobTitle: Chief Marketing Officer
+            jobFunction:
+            - name: Marketing Executive
+              department: C-Suite
+            - name: Marketing
+              department: Marketing
+          - id: 2827525345
+            firstName: Chris
+            lastName: Hays
+            jobTitle: Chief Revenue Officer
+            jobFunction:
+            - name: Sales Executive
+              department: C-Suite
+            - name: Sales
+              department: Sales
+          - id: 1260398587
+            firstName: Henry
+            lastName: Schuck
+            jobTitle: Founder & Chief Executive Officer
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 344589814
+            name: Zoom Information, Inc.
+            website: www.zoominfo.com
+            hasOtherTopicConsumption: true
+        - id: 1675ee1c-1c38-41e3-9c7c-430d43d6e0ab
+          category: Banking
+          topic: Credit Card Fraud
+          signalScore: 81
+          audienceStrength: A
+          newSignal: false
+          signalDate: 5/3/2020 12:00 AM
+          trend: 7
+          recommendedContacts:
+          - id: 2988050694
+            firstName: Nir
+            lastName: Keren
+            jobTitle: Chief Technology Officer
+            jobFunction:
+            - name: Engineering & Technical Executive
+              department: C-Suite
+            - name: Engineering & Technical
+              department: Engineering & Technical
+          - id: 39841971
+            firstName: Cameron
+            lastName: Hyzer
+            jobTitle: Chief Financial Officer
+            jobFunction:
+            - name: Finance Executive
+              department: C-Suite
+            - name: Finance
+              department: Finance
+          - id: 1645938489
+            firstName: Hila
+            lastName: Nir
+            jobTitle: Chief Marketing Officer
+            jobFunction:
+            - name: Marketing Executive
+              department: C-Suite
+            - name: Marketing
+              department: Marketing
+          - id: 2827525345
+            firstName: Chris
+            lastName: Hays
+            jobTitle: Chief Revenue Officer
+            jobFunction:
+            - name: Sales Executive
+              department: C-Suite
+            - name: Sales
+              department: Sales
+          - id: 1260398587
+            firstName: Henry
+            lastName: Schuck
+            jobTitle: Founder & Chief Executive Officer
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 344589814
+            name: Zoom Information, Inc.
+            website: www.zoominfo.com
+            hasOtherTopicConsumption: true
+        - id: c6a931ca-3082-40f0-b7af-628b801cdc89
+          category: Compensation & Benefits
+          topic: Incentive Compensation
+          signalScore: 84
+          audienceStrength: C
+          newSignal: false
+          signalDate: 5/3/2020 12:00 AM
+          trend: 1
+          recommendedContacts:
+          - id: 2988050694
+            firstName: Nir
+            lastName: Keren
+            jobTitle: Chief Technology Officer
+            jobFunction:
+            - name: Engineering & Technical Executive
+              department: C-Suite
+            - name: Engineering & Technical
+              department: Engineering & Technical
+          - id: 39841971
+            firstName: Cameron
+            lastName: Hyzer
+            jobTitle: Chief Financial Officer
+            jobFunction:
+            - name: Finance Executive
+              department: C-Suite
+            - name: Finance
+              department: Finance
+          - id: 1645938489
+            firstName: Hila
+            lastName: Nir
+            jobTitle: Chief Marketing Officer
+            jobFunction:
+            - name: Marketing Executive
+              department: C-Suite
+            - name: Marketing
+              department: Marketing
+          - id: 2827525345
+            firstName: Chris
+            lastName: Hays
+            jobTitle: Chief Revenue Officer
+            jobFunction:
+            - name: Sales Executive
+              department: C-Suite
+            - name: Sales
+              department: Sales
+          - id: 1260398587
+            firstName: Henry
+            lastName: Schuck
+            jobTitle: Founder & Chief Executive Officer
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 344589814
+            name: Zoom Information, Inc.
+            website: www.zoominfo.com
+            hasOtherTopicConsumption: true
+        - id: b628a3f6-64fc-4636-85d9-044306079b3a
+          category: Collaboration/Web Apps
+          topic: Video Conferencing
+          signalScore: 80
+          audienceStrength: A
+          newSignal: false
+          signalDate: 4/19/2020 12:00 AM
+          trend: -9
+          recommendedContacts:
+          - id: 2988050694
+            firstName: Nir
+            lastName: Keren
+            jobTitle: Chief Technology Officer
+            jobFunction:
+            - name: Engineering & Technical Executive
+              department: C-Suite
+            - name: Engineering & Technical
+              department: Engineering & Technical
+          - id: 39841971
+            firstName: Cameron
+            lastName: Hyzer
+            jobTitle: Chief Financial Officer
+            jobFunction:
+            - name: Finance Executive
+              department: C-Suite
+            - name: Finance
+              department: Finance
+          - id: 1645938489
+            firstName: Hila
+            lastName: Nir
+            jobTitle: Chief Marketing Officer
+            jobFunction:
+            - name: Marketing Executive
+              department: C-Suite
+            - name: Marketing
+              department: Marketing
+          - id: 2827525345
+            firstName: Chris
+            lastName: Hays
+            jobTitle: Chief Revenue Officer
+            jobFunction:
+            - name: Sales Executive
+              department: C-Suite
+            - name: Sales
+              department: Sales
+          - id: 1260398587
+            firstName: Henry
+            lastName: Schuck
+            jobTitle: Founder & Chief Executive Officer
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 344589814
+            name: Zoom Information, Inc.
+            website: www.zoominfo.com
+            hasOtherTopicConsumption: true
+        - id: 7c771ec1-b307-4fcb-b5b7-d65a88436942
+          category: Cyber Security
+          topic: Mobile Security
+          signalScore: 80
+          audienceStrength: A
+          newSignal: true
+          signalDate: 4/19/2020 12:00 AM
+          trend: 21
+          recommendedContacts:
+          - id: 3459093549
+            firstName: David
+            lastName: Lewis
+            jobTitle: Chief Security Officer
+            jobFunction:
+            - name: Information Security
+              department: Information Technology
+          - id: -1862126495
+            firstName: Anna
+            lastName: Orlove
+            jobTitle: Security Solution Specialist
+            jobFunction:
+            - name: Information Security
+              department: Information Technology
+          - id: 2549968949
+            firstName: Tal
+            lastName: Drory
+            jobTitle: Security Analyst
+            jobFunction:
+            - name: Information Security
+              department: Information Technology
+          - id: 2988050694
+            firstName: Nir
+            lastName: Keren
+            jobTitle: Chief Technology Officer
+            jobFunction:
+            - name: Engineering & Technical Executive
+              department: C-Suite
+            - name: Engineering & Technical
+              department: Engineering & Technical
+          - id: 39841971
+            firstName: Cameron
+            lastName: Hyzer
+            jobTitle: Chief Financial Officer
+            jobFunction:
+            - name: Finance Executive
+              department: C-Suite
+            - name: Finance
+              department: Finance
+          company:
+            id: 344589814
+            name: Zoom Information, Inc.
+            website: www.zoominfo.com
+            hasOtherTopicConsumption: true
+        - id: 7c75266b-b293-4110-ba77-b5f73b90d42c
+          category: Application Development
+          topic: Node.js
+          signalScore: 82
+          audienceStrength: A
+          newSignal: true
+          signalDate: 4/19/2020 12:00 AM
+          trend: 23
+          recommendedContacts:
+          - id: 1780573066
+            firstName: Justin
+            lastName: Sweeney
+            jobTitle: Senior Software Development Manager, Data
+            jobFunction:
+            - name: Software Development
+              department: Engineering & Technical
+            - name: Data Science
+              department: Engineering & Technical
+          - id: 2047851825
+            firstName: Brian
+            lastName: Thomas
+            jobTitle: Software Development Manager, Data
+            jobFunction:
+            - name: Software Development
+              department: Engineering & Technical
+            - name: Data Science
+              department: Engineering & Technical
+          - id: -1120287554
+            firstName: Kristen
+            lastName: Patten
+            jobTitle: Software Development Manager, Data
+            jobFunction:
+            - name: Software Development
+              department: Engineering & Technical
+            - name: Data Science
+              department: Engineering & Technical
+          - id: 1995022052
+            firstName: Chris
+            lastName: Baker
+            jobTitle: Manager of Engineering, Data
+            jobFunction:
+            - name: Software Development
+              department: Engineering & Technical
+            - name: Data Science
+              department: Engineering & Technical
+          - id: 1868007106
+            firstName: Imesh
+            lastName: Wijewardena
+            jobTitle: Senior Software Development Manager, Data
+            jobFunction:
+            - name: Software Development
+              department: Engineering & Technical
+            - name: Data Science
+              department: Engineering & Technical
+          company:
+            id: 344589814
+            name: Zoom Information, Inc.
+            website: www.zoominfo.com
+            hasOtherTopicConsumption: true
+        - id: e15d87cd-ffa1-4771-9da2-bac3bcb2022f
+          category: Collaboration/Web Apps
+          topic: Video Conferencing
+          signalScore: 89
+          audienceStrength: A
+          newSignal: false
+          signalDate: 4/12/2020 12:00 AM
+          trend: 11
+          recommendedContacts:
+          - id: 2988050694
+            firstName: Nir
+            lastName: Keren
+            jobTitle: Chief Technology Officer
+            jobFunction:
+            - name: Engineering & Technical Executive
+              department: C-Suite
+            - name: Engineering & Technical
+              department: Engineering & Technical
+          - id: 39841971
+            firstName: Cameron
+            lastName: Hyzer
+            jobTitle: Chief Financial Officer
+            jobFunction:
+            - name: Finance Executive
+              department: C-Suite
+            - name: Finance
+              department: Finance
+          - id: 1645938489
+            firstName: Hila
+            lastName: Nir
+            jobTitle: Chief Marketing Officer
+            jobFunction:
+            - name: Marketing Executive
+              department: C-Suite
+            - name: Marketing
+              department: Marketing
+          - id: 2827525345
+            firstName: Chris
+            lastName: Hays
+            jobTitle: Chief Revenue Officer
+            jobFunction:
+            - name: Sales Executive
+              department: C-Suite
+            - name: Sales
+              department: Sales
+          - id: 1260398587
+            firstName: Henry
+            lastName: Schuck
+            jobTitle: Founder & Chief Executive Officer
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 344589814
+            name: Zoom Information, Inc.
+            website: www.zoominfo.com
+            hasOtherTopicConsumption: true
+        - id: d922c989-0f82-40b2-aea8-394304c55724
+          category: Compensation & Benefits
+          topic: Incentive Compensation
+          signalScore: 90
+          audienceStrength: A
+          newSignal: true
+          signalDate: 4/5/2020 12:00 AM
+          trend: 31
+          recommendedContacts:
+          - id: 2988050694
+            firstName: Nir
+            lastName: Keren
+            jobTitle: Chief Technology Officer
+            jobFunction:
+            - name: Engineering & Technical Executive
+              department: C-Suite
+            - name: Engineering & Technical
+              department: Engineering & Technical
+          - id: 39841971
+            firstName: Cameron
+            lastName: Hyzer
+            jobTitle: Chief Financial Officer
+            jobFunction:
+            - name: Finance Executive
+              department: C-Suite
+            - name: Finance
+              department: Finance
+          - id: 1645938489
+            firstName: Hila
+            lastName: Nir
+            jobTitle: Chief Marketing Officer
+            jobFunction:
+            - name: Marketing Executive
+              department: C-Suite
+            - name: Marketing
+              department: Marketing
+          - id: 2827525345
+            firstName: Chris
+            lastName: Hays
+            jobTitle: Chief Revenue Officer
+            jobFunction:
+            - name: Sales Executive
+              department: C-Suite
+            - name: Sales
+              department: Sales
+          - id: 1260398587
+            firstName: Henry
+            lastName: Schuck
+            jobTitle: Founder & Chief Executive Officer
+            jobFunction:
+            - name: Executive
+              department: C-Suite
+          company:
+            id: 344589814
+            name: Zoom Information, Inc.
+            website: www.zoominfo.com
+            hasOtherTopicConsumption: true
+    IntentEnrichOutput:
+      title: IntentEnrichOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: id
+        description: Unique ZoomInfo identifier for a topic
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint

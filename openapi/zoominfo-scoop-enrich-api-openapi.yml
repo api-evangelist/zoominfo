@@ -1,0 +1,1310 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication Scoop Enrich API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Scoop Enrich
+  description: 'Use [Scoop Enrich](#545c603a-fbe5-48b6-b4b4-bdca626fead0) to retrieve Scoop data using valid query parameters.
+
+
+    Refer to the examples provided to build a valid JSON request:
+
+
+    *   Use the [Scoop Enrich Inputs](#4ebf5d05-d819-4336-977f-2fe72dc6ac19) endpoint to retrieve a list of valid input parameters you can provide
+
+    *   Use the [Scoop Enrich Outputs](#3af4b7ad-e694-4202-81c4-20b7bab73946) endpoint to retrieve a list of valid output fields returned'
+paths:
+  /enrich/scoop:
+    parameters: []
+    post:
+      tags:
+      - Scoop Enrich
+      summary: Zoominfo Scoop Enrich
+      description: "Use this endpoint to match company scoop information based on [input values](#4ebf5d05-d819-4336-977f-2fe72dc6ac19) and return the desired [output fields](##6c2de74a-e026-401b-8910-503ae7aa57c8) in the response.\n\nThe Scoop Enrich endpoint returns a list of scoops related to a specified company:\n\n- Scoop Enrich requests require one of the following: a valid ZoomInfo `companyId`, `companyName`, or `companyWebsite` as an input parameter\n- If you do not provide a date range for when the scoop was published, the last 30 days of scoop records matching the request are returned\n- For charging purposes, each scoop returned is counted as a record\n    \n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyId | String | ZoomInfo unique identifier for the company. Will accept a comma-separated list. |\n| companyName | String | Company name |\n| companyWebsite | String | Company domain |\n| publishedStartDate | String | Starting date to search for scoops based on when published. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format. |\n| publishedEndDate | String | Ending date to search for scoops based on when published. Form a range using publishedEndDate. Uses YYYY-MM-DD format. |\n| updatedSinceCreation | Boolean | Include scoops that have been updated since publishedStartDate |\n| scoopType | String | Retrieve scoops based on type (e.g., earnings, awards, partnerships and so on). See the **Scoop Types** lookup endpoint for valid inputs. |\n| scoopTopic | String | Retrieve scoops based on topic (e.g., integrations, technology, compliance and so on). See the **Scoop Topics** lookup endpoint for valid inputs. |\n| department | String | Retrieve scoops based on department (IT, finance, HR and so on). See the **Scoop Departments** lookup endpoint for valid inputs. |\n| scoopId | String | ZoomInfo unique identifier for a scoop. Will accept a comma-separated list. |\n| description | String | Search for scoops based on description. Will accept a comma-separated list of keywords. |\n| rpp | Integer | Limits the results returned to the given number of results per page. Default is 25. |\n| page | Integer | Provides the results for the given page, used in conjunction with `rpp` |\n| sortOrder | String | Provide `sortBy` if specifying `sortOrder`. Valid values are `asc`, `ascending`, `desc`, and `descending`. By default, results are sorted in descending order. |\n| sortBy | String | Sort results by valid output fields: `scoopId`, `originalPublishedDate`, `description`, `link`, or `linkText` |\n\n**Output fields**\n\n| Field | Description |\n| --- | --- |\n| id | ZoomInfo unique identifier for a scoop |\n| publishedDate | Publish date for a scoop. If updated, this date will reflect that last updated date. |\n| originalPublishedDate | Initial publish date for a scoop |\n| linkText | Link text for a scoop |\n| link | URL for the scoop |\n| description | Short description for the scoop contents |\n| topics | Topic(s) associated with a scoop |\n| updateText | Text related to an updated scoop |\n| types | Type(s) associated with a scoop |\n| companyId | ZoomInfo unique identifier for a company |\n| companyName | Company name |\n| contacts | Contacts associated with a scoop |"
+      operationId: ScoopEnrich
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ScoopEnrichRequest'
+              - examples:
+                - companyName: Zoominfo
+                  publishedStartDate: '2018-11-01T00:00:00.000Z'
+                  publishedEndDate: '2020-06-21T00:00:00.000Z'
+                  scoopType: 1,6,7,8
+                  department: '1'
+                  sortBy: originalPublishedDate
+                  sortOrder: asc
+              contentMediaType: application/json
+            example:
+              companyName: Zoominfo
+              publishedStartDate: '2018-11-01T00:00:00.000Z'
+              publishedEndDate: '2020-06-21T00:00:00.000Z'
+              scoopType: 1,6,7,8
+              department: '1'
+              sortBy: originalPublishedDate
+              sortOrder: asc
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Tue, 23 Jun 2020 14:23:00 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 5a7edd19cd3aae06-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=3bd72b5a25bfc03a0fa7e3fbae02033c37ca3cc0dcd4fa8ed0531b49f25ba90d:8511cd30-b493-11ea-bfeb-534f7eaad4f4; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 038328841f0000ae060d2fa200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1592922233'
+            X-Usage-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999987257'
+            X-Usage-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999962272'
+            X-Usage-Unique-Id-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Unique-Id-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999719'
+            X-Usage-Websights-Api-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Websights-Api-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999778'
+            X-Usage-Websights-Api-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000000'
+            X-Usage-Websights-Api-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99999778'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/ScoopEnrich'
+                - examples:
+                  - maxResults: 9
+                    totalResults: 9
+                    currentPage: 1
+                    data:
+                    - id: 1258709
+                      publishedDate: 12/4/2018 12:00 AM
+                      originalPublishedDate: 12/4/2018 12:00 AM
+                      linkText: ''
+                      link: ''
+                      description: has recently been recognized by The Boston Globe as one of the Top Places to Work for 2018 in Massachusetts in the midsize organization category.
+                      topics: []
+                      updateText: ''
+                      types:
+                      - id: 6
+                        type: Award
+                      contacts: []
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 1314240
+                      publishedDate: 1/24/2019 12:00 AM
+                      originalPublishedDate: 1/24/2019 12:00 AM
+                      linkText: ''
+                      link: ''
+                      description: has moved its headquarters to Tracer Lane in Waltham, MA. The new location is three stories and will have space for up to 450 employees.
+                      topics: []
+                      updateText: ''
+                      types:
+                      - id: 8
+                        type: Facilities Relocation / Expansion
+                      contacts: []
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 1373240
+                      publishedDate: 2/11/2019 12:00 AM
+                      originalPublishedDate: 2/11/2019 12:00 AM
+                      linkText: ''
+                      link: ''
+                      description: has been recognized as a 2019 Top Rated Sales Intelligence Software by TrustRadius.
+                      topics: []
+                      updateText: ''
+                      types:
+                      - id: 6
+                        type: Award
+                      contacts: []
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 1382056
+                      publishedDate: 2/15/2019 12:00 AM
+                      originalPublishedDate: 2/15/2019 12:00 AM
+                      linkText: ''
+                      link: ''
+                      description: 'has recently been ranked #139 on the 2019 SaaS 1000 Top SaaS Companies list.'
+                      topics: []
+                      updateText: ''
+                      types:
+                      - id: 6
+                        type: Award
+                      contacts: []
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 1383667
+                      publishedDate: 2/22/2019 12:00 AM
+                      originalPublishedDate: 2/22/2019 12:00 AM
+                      linkText: ''
+                      link: ''
+                      description: will be a Silver Sponsor for the Adobe Summit, which will be held March 26-28, 2019 in Las Vegas, NV.
+                      topics: []
+                      updateText: ''
+                      types:
+                      - id: 7
+                        type: Event
+                      contacts: []
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 1382057
+                      publishedDate: 2/22/2019 12:00 AM
+                      originalPublishedDate: 2/22/2019 12:00 AM
+                      linkText: ''
+                      link: ''
+                      description: 'Datanyze has recently been ranked #986 on the 2019 SaaS 1000 Top SaaS Companies list.'
+                      topics: []
+                      updateText: ''
+                      types:
+                      - id: 6
+                        type: Award
+                      contacts: []
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 1620555
+                      publishedDate: 8/27/2019 12:00 AM
+                      originalPublishedDate: 8/27/2019 12:00 AM
+                      linkText: ''
+                      link: ''
+                      description: 'has been ranked #2423 on the 2019 Inc. 5000 list, which recognizes the fastest-growing privately-held companies in the United States.'
+                      topics: []
+                      updateText: ''
+                      types:
+                      - id: 6
+                        type: Award
+                      contacts: []
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 1725335
+                      publishedDate: 11/12/2019 12:00 AM
+                      originalPublishedDate: 11/12/2019 12:00 AM
+                      linkText: ''
+                      link: ''
+                      description: will be sponsoring Dreamforce, which will be held November 19-22, 2019 in San Francisco, CA.
+                      topics: []
+                      updateText: ''
+                      types:
+                      - id: 7
+                        type: Event
+                      contacts: []
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 1811048
+                      publishedDate: 2/11/2020 12:00 AM
+                      originalPublishedDate: 2/11/2020 12:00 AM
+                      linkText: ''
+                      link: ''
+                      description: has announced plans to move its Grand Rapids, MI office to a new 10,000 square-foot location at 435 Ionia Ave Southwest. The location is expected to open in February 2020.
+                      topics: []
+                      updateText: ''
+                      types:
+                      - id: 8
+                        type: Facilities Relocation / Expansion
+                      contacts: []
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                contentMediaType: application/json;charset=utf-8
+              example:
+                maxResults: 9
+                totalResults: 9
+                currentPage: 1
+                data:
+                - id: 1258709
+                  publishedDate: 12/4/2018 12:00 AM
+                  originalPublishedDate: 12/4/2018 12:00 AM
+                  linkText: ''
+                  link: ''
+                  description: has recently been recognized by The Boston Globe as one of the Top Places to Work for 2018 in Massachusetts in the midsize organization category.
+                  topics: []
+                  updateText: ''
+                  types:
+                  - id: 6
+                    type: Award
+                  contacts: []
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 1314240
+                  publishedDate: 1/24/2019 12:00 AM
+                  originalPublishedDate: 1/24/2019 12:00 AM
+                  linkText: ''
+                  link: ''
+                  description: has moved its headquarters to Tracer Lane in Waltham, MA. The new location is three stories and will have space for up to 450 employees.
+                  topics: []
+                  updateText: ''
+                  types:
+                  - id: 8
+                    type: Facilities Relocation / Expansion
+                  contacts: []
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 1373240
+                  publishedDate: 2/11/2019 12:00 AM
+                  originalPublishedDate: 2/11/2019 12:00 AM
+                  linkText: ''
+                  link: ''
+                  description: has been recognized as a 2019 Top Rated Sales Intelligence Software by TrustRadius.
+                  topics: []
+                  updateText: ''
+                  types:
+                  - id: 6
+                    type: Award
+                  contacts: []
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 1382056
+                  publishedDate: 2/15/2019 12:00 AM
+                  originalPublishedDate: 2/15/2019 12:00 AM
+                  linkText: ''
+                  link: ''
+                  description: 'has recently been ranked #139 on the 2019 SaaS 1000 Top SaaS Companies list.'
+                  topics: []
+                  updateText: ''
+                  types:
+                  - id: 6
+                    type: Award
+                  contacts: []
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 1383667
+                  publishedDate: 2/22/2019 12:00 AM
+                  originalPublishedDate: 2/22/2019 12:00 AM
+                  linkText: ''
+                  link: ''
+                  description: will be a Silver Sponsor for the Adobe Summit, which will be held March 26-28, 2019 in Las Vegas, NV.
+                  topics: []
+                  updateText: ''
+                  types:
+                  - id: 7
+                    type: Event
+                  contacts: []
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 1382057
+                  publishedDate: 2/22/2019 12:00 AM
+                  originalPublishedDate: 2/22/2019 12:00 AM
+                  linkText: ''
+                  link: ''
+                  description: 'Datanyze has recently been ranked #986 on the 2019 SaaS 1000 Top SaaS Companies list.'
+                  topics: []
+                  updateText: ''
+                  types:
+                  - id: 6
+                    type: Award
+                  contacts: []
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 1620555
+                  publishedDate: 8/27/2019 12:00 AM
+                  originalPublishedDate: 8/27/2019 12:00 AM
+                  linkText: ''
+                  link: ''
+                  description: 'has been ranked #2423 on the 2019 Inc. 5000 list, which recognizes the fastest-growing privately-held companies in the United States.'
+                  topics: []
+                  updateText: ''
+                  types:
+                  - id: 6
+                    type: Award
+                  contacts: []
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 1725335
+                  publishedDate: 11/12/2019 12:00 AM
+                  originalPublishedDate: 11/12/2019 12:00 AM
+                  linkText: ''
+                  link: ''
+                  description: will be sponsoring Dreamforce, which will be held November 19-22, 2019 in San Francisco, CA.
+                  topics: []
+                  updateText: ''
+                  types:
+                  - id: 7
+                    type: Event
+                  contacts: []
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 1811048
+                  publishedDate: 2/11/2020 12:00 AM
+                  originalPublishedDate: 2/11/2020 12:00 AM
+                  linkText: ''
+                  link: ''
+                  description: has announced plans to move its Grand Rapids, MI office to a new 10,000 square-foot location at 435 Ionia Ave Southwest. The location is expected to open in February 2020.
+                  topics: []
+                  updateText: ''
+                  types:
+                  - id: 8
+                    type: Facilities Relocation / Expansion
+                  contacts: []
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/inputfields/scoop/enrich:
+    parameters: []
+    get:
+      tags:
+      - Scoop Enrich
+      summary: Zoominfo Scoop Enrich Inputs
+      description: Returns a list of fields you can use as input for the [Scoop Enrich](#545c603a-fbe5-48b6-b4b4-bdca626fead0) endpoint.
+      operationId: ScoopEnrichInputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Wed, 26 Aug 2020 13:34:19 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 5c8dedf8dbdfff84-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=70071f10bb597f681bf32e5484a1bffce58189aa85981cea9fb1578c401445bb:2f79d591-e713-11ea-b61e-d347a7de7ad3; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 04cc930f890000ff849b32b200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1598448920'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScoopEnrichInput'
+                description: ''
+                examples:
+                - - fieldName: companyId
+                    fieldType: String
+                    description: ZoomInfo unique identifier for the company. Will accept a comma-separated list.
+                  - fieldName: companyName
+                    fieldType: String
+                    description: Company name
+                  - fieldName: companyWebsite
+                    fieldType: String
+                    description: Company domain
+                  - fieldName: publishedStartDate
+                    fieldType: String
+                    description: Starting date to search for scoops based on when published. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format.
+                  - fieldName: publishedEndDate
+                    fieldType: String
+                    description: Ending date to search for scoops based on when published. Form a range using publishedEndDate. Uses YYYY-MM-DD format.
+                  - fieldName: updatedSinceCreation
+                    fieldType: Boolean
+                    description: Include scoops that have been updated since publishedStartDate
+                  - fieldName: scoopType
+                    fieldType: String
+                    description: Retrieve scoops based on type (e.g., earnings, awards, partnerships and so on)
+                  - fieldName: scoopTopic
+                    fieldType: String
+                    description: Retrieve scoops based on topic (e.g., integrations, technology, compliance and so on)
+                  - fieldName: department
+                    fieldType: String
+                    description: Retrieve scoops based on department (IT, finance, HR and so on)
+                  - fieldName: scoopId
+                    fieldType: String
+                    description: ZoomInfo unique identifier for a scoop. Will accept a comma-separated list.
+                  - fieldName: description
+                    fieldType: String
+                    description: Search for scoops based on description
+                  - fieldName: rpp
+                    fieldType: Integer
+                    description: Limits the results returned to the given number of results per page
+                  - fieldName: page
+                    fieldType: Integer
+                    description: Provides the results for the given page, used in conjunction with rpp
+                  - fieldName: sortBy
+                    fieldType: String
+                    description: Sorts results by valid output fields
+                  - fieldName: sortOrder
+                    fieldType: String
+                    description: Default value is desc. It accepts the following values { Asc, Ascending, desc, descending }
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: companyId
+                fieldType: String
+                description: ZoomInfo unique identifier for the company. Will accept a comma-separated list.
+              - fieldName: companyName
+                fieldType: String
+                description: Company name
+              - fieldName: companyWebsite
+                fieldType: String
+                description: Company domain
+              - fieldName: publishedStartDate
+                fieldType: String
+                description: Starting date to search for scoops based on when published. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format.
+              - fieldName: publishedEndDate
+                fieldType: String
+                description: Ending date to search for scoops based on when published. Form a range using publishedEndDate. Uses YYYY-MM-DD format.
+              - fieldName: updatedSinceCreation
+                fieldType: Boolean
+                description: Include scoops that have been updated since publishedStartDate
+              - fieldName: scoopType
+                fieldType: String
+                description: Retrieve scoops based on type (e.g., earnings, awards, partnerships and so on)
+              - fieldName: scoopTopic
+                fieldType: String
+                description: Retrieve scoops based on topic (e.g., integrations, technology, compliance and so on)
+              - fieldName: department
+                fieldType: String
+                description: Retrieve scoops based on department (IT, finance, HR and so on)
+              - fieldName: scoopId
+                fieldType: String
+                description: ZoomInfo unique identifier for a scoop. Will accept a comma-separated list.
+              - fieldName: description
+                fieldType: String
+                description: Search for scoops based on description
+              - fieldName: rpp
+                fieldType: Integer
+                description: Limits the results returned to the given number of results per page
+              - fieldName: page
+                fieldType: Integer
+                description: Provides the results for the given page, used in conjunction with rpp
+              - fieldName: sortBy
+                fieldType: String
+                description: Sorts results by valid output fields
+              - fieldName: sortOrder
+                fieldType: String
+                description: Default value is desc. It accepts the following values { Asc, Ascending, desc, descending }
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/outputfields/scoop/enrich:
+    parameters: []
+    get:
+      tags:
+      - Scoop Enrich
+      summary: Zoominfo Scoop Enrich Outputs
+      description: Returns a list of output fields for the [Scoop Enrich](#545c603a-fbe5-48b6-b4b4-bdca626fead0) endpoint.
+      operationId: ScoopEnrichOutputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Tue, 23 Jun 2020 14:29:12 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 5a7ee65cadffae06-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=3bd72b5a25bfc03a0fa7e3fbae02033c37ca3cc0dcd4fa8ed0531b49f25ba90d:8511cd30-b493-11ea-bfeb-534f7eaad4f4; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 03832e4de70000ae060d20a200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1592922612'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScoopEnrichOutput'
+                description: ''
+                examples:
+                - - fieldName: id
+                    description: ZoomInfo unique identifier for a scoop
+                  - fieldName: publishedDate
+                    description: Publish date for a scoop. If updated, this date will reflect that last updated date.
+                  - fieldName: originalPublishedDate
+                    description: Initial publish date for a scoop
+                  - fieldName: linkText
+                    description: Link text for a scoop
+                  - fieldName: link
+                    description: URL for the scoop
+                  - fieldName: description
+                    description: Short description for the scoop contents
+                  - fieldName: topics
+                    description: Topic(s) associated with a scoop
+                  - fieldName: updateText
+                    description: Text related to an updated scoop
+                  - fieldName: types
+                    description: Type(s) associated with a scoop
+                  - fieldName: companyId
+                    description: ZoomInfo unique identifier for a company
+                  - fieldName: companyName
+                    description: Company name
+                  - fieldName: contacts
+                    description: Contacts associated with a scoop
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: id
+                description: ZoomInfo unique identifier for a scoop
+              - fieldName: publishedDate
+                description: Publish date for a scoop. If updated, this date will reflect that last updated date.
+              - fieldName: originalPublishedDate
+                description: Initial publish date for a scoop
+              - fieldName: linkText
+                description: Link text for a scoop
+              - fieldName: link
+                description: URL for the scoop
+              - fieldName: description
+                description: Short description for the scoop contents
+              - fieldName: topics
+                description: Topic(s) associated with a scoop
+              - fieldName: updateText
+                description: Text related to an updated scoop
+              - fieldName: types
+                description: Type(s) associated with a scoop
+              - fieldName: companyId
+                description: ZoomInfo unique identifier for a company
+              - fieldName: companyName
+                description: Company name
+              - fieldName: contacts
+                description: Contacts associated with a scoop
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ScoopEnrichOutput:
+      title: ScoopEnrichOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: id
+        description: ZoomInfo unique identifier for a scoop
+    ScoopEnrich:
+      title: ScoopEnrich
+      required:
+      - maxResults
+      - totalResults
+      - currentPage
+      - data
+      type: object
+      properties:
+        maxResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        totalResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        currentPage:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data40'
+          description: ''
+          example: []
+      examples:
+      - maxResults: 9
+        totalResults: 9
+        currentPage: 1
+        data:
+        - id: 1258709
+          publishedDate: 12/4/2018 12:00 AM
+          originalPublishedDate: 12/4/2018 12:00 AM
+          linkText: ''
+          link: ''
+          description: has recently been recognized by The Boston Globe as one of the Top Places to Work for 2018 in Massachusetts in the midsize organization category.
+          topics: []
+          updateText: ''
+          types:
+          - id: 6
+            type: Award
+          contacts: []
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1314240
+          publishedDate: 1/24/2019 12:00 AM
+          originalPublishedDate: 1/24/2019 12:00 AM
+          linkText: ''
+          link: ''
+          description: has moved its headquarters to Tracer Lane in Waltham, MA. The new location is three stories and will have space for up to 450 employees.
+          topics: []
+          updateText: ''
+          types:
+          - id: 8
+            type: Facilities Relocation / Expansion
+          contacts: []
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1373240
+          publishedDate: 2/11/2019 12:00 AM
+          originalPublishedDate: 2/11/2019 12:00 AM
+          linkText: ''
+          link: ''
+          description: has been recognized as a 2019 Top Rated Sales Intelligence Software by TrustRadius.
+          topics: []
+          updateText: ''
+          types:
+          - id: 6
+            type: Award
+          contacts: []
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1382056
+          publishedDate: 2/15/2019 12:00 AM
+          originalPublishedDate: 2/15/2019 12:00 AM
+          linkText: ''
+          link: ''
+          description: 'has recently been ranked #139 on the 2019 SaaS 1000 Top SaaS Companies list.'
+          topics: []
+          updateText: ''
+          types:
+          - id: 6
+            type: Award
+          contacts: []
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1383667
+          publishedDate: 2/22/2019 12:00 AM
+          originalPublishedDate: 2/22/2019 12:00 AM
+          linkText: ''
+          link: ''
+          description: will be a Silver Sponsor for the Adobe Summit, which will be held March 26-28, 2019 in Las Vegas, NV.
+          topics: []
+          updateText: ''
+          types:
+          - id: 7
+            type: Event
+          contacts: []
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1382057
+          publishedDate: 2/22/2019 12:00 AM
+          originalPublishedDate: 2/22/2019 12:00 AM
+          linkText: ''
+          link: ''
+          description: 'Datanyze has recently been ranked #986 on the 2019 SaaS 1000 Top SaaS Companies list.'
+          topics: []
+          updateText: ''
+          types:
+          - id: 6
+            type: Award
+          contacts: []
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1620555
+          publishedDate: 8/27/2019 12:00 AM
+          originalPublishedDate: 8/27/2019 12:00 AM
+          linkText: ''
+          link: ''
+          description: 'has been ranked #2423 on the 2019 Inc. 5000 list, which recognizes the fastest-growing privately-held companies in the United States.'
+          topics: []
+          updateText: ''
+          types:
+          - id: 6
+            type: Award
+          contacts: []
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1725335
+          publishedDate: 11/12/2019 12:00 AM
+          originalPublishedDate: 11/12/2019 12:00 AM
+          linkText: ''
+          link: ''
+          description: will be sponsoring Dreamforce, which will be held November 19-22, 2019 in San Francisco, CA.
+          topics: []
+          updateText: ''
+          types:
+          - id: 7
+            type: Event
+          contacts: []
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1811048
+          publishedDate: 2/11/2020 12:00 AM
+          originalPublishedDate: 2/11/2020 12:00 AM
+          linkText: ''
+          link: ''
+          description: has announced plans to move its Grand Rapids, MI office to a new 10,000 square-foot location at 435 Ionia Ave Southwest. The location is expected to open in February 2020.
+          topics: []
+          updateText: ''
+          types:
+          - id: 8
+            type: Facilities Relocation / Expansion
+          contacts: []
+          company:
+            id: 344589814
+            name: ZoomInfo
+    Data40:
+      title: Data40
+      required:
+      - id
+      - publishedDate
+      - originalPublishedDate
+      - linkText
+      - link
+      - description
+      - topics
+      - updateText
+      - types
+      - contacts
+      - company
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        publishedDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        originalPublishedDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        linkText:
+          type: string
+          example: example_value
+        link:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: Enterprise software company
+        topics:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        updateText:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        types:
+          type: array
+          items:
+            $ref: '#/components/schemas/Type'
+          description: ''
+          example: []
+        contacts:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        company:
+          $ref: '#/components/schemas/Company'
+      examples:
+      - id: 1258709
+        publishedDate: 12/4/2018 12:00 AM
+        originalPublishedDate: 12/4/2018 12:00 AM
+        linkText: ''
+        link: ''
+        description: has recently been recognized by The Boston Globe as one of the Top Places to Work for 2018 in Massachusetts in the midsize organization category.
+        topics: []
+        updateText: ''
+        types:
+        - id: 6
+          type: Award
+        contacts: []
+        company:
+          id: 344589814
+          name: ZoomInfo
+    Company:
+      title: Company
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: 9867169
+        name: AmerisourceBergen
+    ScoopEnrichRequest:
+      title: ScoopEnrichRequest
+      required:
+      - companyName
+      - publishedStartDate
+      - publishedEndDate
+      - scoopType
+      - department
+      - sortBy
+      - sortOrder
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: Acme Corporation
+        publishedStartDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        publishedEndDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        scoopType:
+          type: string
+          example: standard
+        department:
+          type: string
+          example: example_value
+        sortBy:
+          type: string
+          example: example_value
+        sortOrder:
+          type: string
+          example: example_value
+      examples:
+      - companyName: Zoominfo
+        publishedStartDate: '2018-11-01T00:00:00.000Z'
+        publishedEndDate: '2020-06-21T00:00:00.000Z'
+        scoopType: 1,6,7,8
+        department: '1'
+        sortBy: originalPublishedDate
+        sortOrder: asc
+    Type:
+      title: Type
+      required:
+      - id
+      - type
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        type:
+          type: string
+          example: standard
+      examples:
+      - id: 6
+        type: Award
+    ScoopEnrichInput:
+      title: ScoopEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        fieldType: String
+        description: ZoomInfo unique identifier for the company. Will accept a comma-separated list.
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint

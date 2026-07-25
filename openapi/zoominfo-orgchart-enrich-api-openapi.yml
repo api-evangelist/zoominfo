@@ -1,0 +1,1379 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication OrgChart Enrich API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: OrgChart Enrich
+  description: 'Use [Org Chart Enrich](#763b3c10-41d1-4d52-9775-1712f712202e) to retrieve org chart detail using valid query parameters.
+
+
+    Refer to the examples provided to build a valid JSON request:
+
+
+    *   Use the [Org Chart Enrich Inputs](#751a9156-1867-4033-a115-a44aa0ecbfad) endpoint to retrieve a list of valid input parameters you can provide
+
+    *   Use the [Org Chart Enrich Outputs](#b2c219d2-df68-4ccd-9914-c7c58218f768) endpoint to retrieve a list of output fields returned'
+paths:
+  /enrich/orgchart:
+    parameters: []
+    post:
+      tags:
+      - OrgChart Enrich
+      summary: Zoominfo Orgchart Enrich
+      description: 'Use this endpoint to match org chart information based on [input values](#751a9156-1867-4033-a115-a44aa0ecbfad) and return the desired [output fields](#b2c219d2-df68-4ccd-9914-c7c58218f768) in the response.
+
+
+        **Input params**
+
+
+        | Parameter | DataType | Description |
+
+        | --- | --- | --- |
+
+        | companyId | String | Required. The id of the company for which you want to view the org chart hierarchy |
+
+        | department | String | Required. The comma delimited list of departments for which to display org chart hierarchy. See the **Contact Departments** lookup endpoint for values. You can input the `id` value or `name` from the list of accepted values. |
+
+
+        **Output fields**
+
+
+        | Field | Description |
+
+        | --- | --- |
+
+        | id | Unique ZoomInfo identifier for the contact |
+
+        | firstName | Contact first name |
+
+        | middleName | Contact middle name |
+
+        | lastName | Contact last name |
+
+        | lastUpdatedDate | Date on which the contact record was last updated |
+
+        | jobTitle | Contact job title at current place of employment |
+
+        | department | Contact department at current place of employment. See the **Contact Departments** lookup endpoint for values. |
+
+        | hasDirectPhone | Indicates whether ZoomInfo has a direct phone number for the contact. If do not call is enabled for the contact, the field `directPhoneDoNotCall` is returned in the output with a value of `true`. |
+
+        | hasEmail | Indicates whether ZoomInfo has an email address for the contact |
+
+        | jobFunction | Contact job function at current place of employment |
+
+        | orgChartTier | Integer representing hierarchy within a department, with `1` being the highest. |
+
+        | orgChartSubTier | Secondary tier within `orgChartTier` |
+
+        | contentAccuracyScore | This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 75 and maximum is 99. |
+
+        | companyId | Unique ZoomInfo identifier for a company |
+
+        | companyName | Company name |'
+      operationId: OrgChartEnrich
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/OrgChartEnrichRequest'
+              - examples:
+                - companyId: '344589814'
+                  department: c-suite
+              contentMediaType: application/json
+            example:
+              companyId: '344589814'
+              department: c-suite
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 28 May 2020 19:22:27 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 59aa582b6f90ec00-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=fc71d9403472d42effc02aad37ef6fac8edd5780bbd14e367dd0386bd4c1d94e:1de7e3b1-a10b-11ea-aacb-83f9cb252b93; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 02fe556f210000ec00439dd200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1590693807'
+            X-Usage-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999996315'
+            X-Usage-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999965138'
+            X-Usage-Unique-Id-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Unique-Id-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999952'
+            X-Usage-Websights-Api-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Websights-Api-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999902'
+            X-Usage-Websights-Api-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000000'
+            X-Usage-Websights-Api-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99999902'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/OrgChartEnrich'
+                - examples:
+                  - maxResults: 11
+                    totalResults: 11
+                    currentPage: 1
+                    data:
+                    - id: 1843376157
+                      firstName: Justin
+                      middleName: ''
+                      lastName: Withers
+                      lastUpdatedDate: ''
+                      title: Senior VP, Strategy and Corporate Development
+                      hasEmail: true
+                      hasDirectPhone: true
+                      department: C-Suite
+                      jobFunction: Operations Executive
+                      orgChartTier: 2
+                      orgChartSubTier: 7
+                      contactAccuracyScore: 96
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 2988050694
+                      firstName: Nir
+                      middleName: ''
+                      lastName: Keren
+                      lastUpdatedDate: ''
+                      title: Chief Technology Officer
+                      hasEmail: true
+                      hasDirectPhone: true
+                      department: C-Suite
+                      jobFunction: Engineering & Technical Executive
+                      orgChartTier: 2
+                      orgChartSubTier: 2
+                      contactAccuracyScore: 90
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 1645938489
+                      firstName: Hila
+                      middleName: ''
+                      lastName: Nir
+                      lastUpdatedDate: ''
+                      title: Chief Marketing Officer
+                      hasEmail: true
+                      hasDirectPhone: true
+                      department: C-Suite
+                      jobFunction: Marketing Executive
+                      orgChartTier: 2
+                      orgChartSubTier: 2
+                      contactAccuracyScore: 92
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 1260398587
+                      firstName: Henry
+                      middleName: L.
+                      lastName: Schuck
+                      lastUpdatedDate: 1/5/2020 2:59 PM
+                      title: Founder & Chief Executive Officer
+                      hasEmail: true
+                      hasDirectPhone: true
+                      department: C-Suite
+                      jobFunction: Executive
+                      orgChartTier: 1
+                      orgChartSubTier: 1
+                      contactAccuracyScore: 96
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: -851481737
+                      firstName: Anthony
+                      middleName: M.
+                      lastName: Stark
+                      lastUpdatedDate: ''
+                      title: General Counsel
+                      hasEmail: true
+                      hasDirectPhone: true
+                      department: C-Suite
+                      jobFunction: Legal Executive
+                      orgChartTier: 2
+                      orgChartSubTier: 1
+                      contactAccuracyScore: 96
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 2827525345
+                      firstName: Chris
+                      middleName: ''
+                      lastName: Hays
+                      lastUpdatedDate: ''
+                      title: Chief Revenue Officer
+                      hasEmail: true
+                      hasDirectPhone: true
+                      department: C-Suite
+                      jobFunction: Sales Executive
+                      orgChartTier: 2
+                      orgChartSubTier: 3
+                      contactAccuracyScore: 96
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 1900751569
+                      firstName: Alyssa
+                      middleName: ''
+                      lastName: Lahar
+                      lastUpdatedDate: ''
+                      title: Chief Human Resources Officer
+                      hasEmail: true
+                      hasDirectPhone: false
+                      department: C-Suite
+                      jobFunction: Human Resources Executive
+                      orgChartTier: 2
+                      orgChartSubTier: 3
+                      contactAccuracyScore: 93
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 1691752290
+                      firstName: Derek
+                      middleName: M.
+                      lastName: Smith
+                      lastUpdatedDate: ''
+                      title: Senior VP,  Data Strategy and R&D
+                      hasEmail: true
+                      hasDirectPhone: true
+                      department: Engineering & Technical
+                      jobFunction: Research & Development
+                      orgChartTier: 2
+                      orgChartSubTier: 3
+                      contactAccuracyScore: 92
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 39841971
+                      firstName: Cameron
+                      middleName: ''
+                      lastName: Hyzer
+                      lastUpdatedDate: ''
+                      title: Chief Financial Officer
+                      hasEmail: true
+                      hasDirectPhone: true
+                      department: C-Suite
+                      jobFunction: Finance Executive
+                      orgChartTier: 2
+                      orgChartSubTier: 2
+                      contactAccuracyScore: 96
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: -1169994343
+                      firstName: Kelly
+                      middleName: ''
+                      lastName: Watson
+                      lastUpdatedDate: ''
+                      title: Executive Assistant, Henry Schuck
+                      hasEmail: true
+                      hasDirectPhone: true
+                      department: C-Suite
+                      jobFunction: Executive
+                      orgChartTier: 2
+                      orgChartSubTier: 8
+                      contactAccuracyScore: 91
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                    - id: 2086486970
+                      firstName: Mark
+                      middleName: S.
+                      lastName: Johnson
+                      lastUpdatedDate: ''
+                      title: Senior VP, Technology & Operations
+                      hasEmail: true
+                      hasDirectPhone: true
+                      department: C-Suite
+                      jobFunction: Information Technology Executive
+                      orgChartTier: 2
+                      orgChartSubTier: 3
+                      contactAccuracyScore: 96
+                      company:
+                        id: 344589814
+                        name: ZoomInfo
+                contentMediaType: application/json;charset=utf-8
+              example:
+                maxResults: 11
+                totalResults: 11
+                currentPage: 1
+                data:
+                - id: 1843376157
+                  firstName: Justin
+                  middleName: ''
+                  lastName: Withers
+                  lastUpdatedDate: ''
+                  title: Senior VP, Strategy and Corporate Development
+                  hasEmail: true
+                  hasDirectPhone: true
+                  department: C-Suite
+                  jobFunction: Operations Executive
+                  orgChartTier: 2
+                  orgChartSubTier: 7
+                  contactAccuracyScore: 96
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 2988050694
+                  firstName: Nir
+                  middleName: ''
+                  lastName: Keren
+                  lastUpdatedDate: ''
+                  title: Chief Technology Officer
+                  hasEmail: true
+                  hasDirectPhone: true
+                  department: C-Suite
+                  jobFunction: Engineering & Technical Executive
+                  orgChartTier: 2
+                  orgChartSubTier: 2
+                  contactAccuracyScore: 90
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 1645938489
+                  firstName: Hila
+                  middleName: ''
+                  lastName: Nir
+                  lastUpdatedDate: ''
+                  title: Chief Marketing Officer
+                  hasEmail: true
+                  hasDirectPhone: true
+                  department: C-Suite
+                  jobFunction: Marketing Executive
+                  orgChartTier: 2
+                  orgChartSubTier: 2
+                  contactAccuracyScore: 92
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 1260398587
+                  firstName: Henry
+                  middleName: L.
+                  lastName: Schuck
+                  lastUpdatedDate: 1/5/2020 2:59 PM
+                  title: Founder & Chief Executive Officer
+                  hasEmail: true
+                  hasDirectPhone: true
+                  department: C-Suite
+                  jobFunction: Executive
+                  orgChartTier: 1
+                  orgChartSubTier: 1
+                  contactAccuracyScore: 96
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: -851481737
+                  firstName: Anthony
+                  middleName: M.
+                  lastName: Stark
+                  lastUpdatedDate: ''
+                  title: General Counsel
+                  hasEmail: true
+                  hasDirectPhone: true
+                  department: C-Suite
+                  jobFunction: Legal Executive
+                  orgChartTier: 2
+                  orgChartSubTier: 1
+                  contactAccuracyScore: 96
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 2827525345
+                  firstName: Chris
+                  middleName: ''
+                  lastName: Hays
+                  lastUpdatedDate: ''
+                  title: Chief Revenue Officer
+                  hasEmail: true
+                  hasDirectPhone: true
+                  department: C-Suite
+                  jobFunction: Sales Executive
+                  orgChartTier: 2
+                  orgChartSubTier: 3
+                  contactAccuracyScore: 96
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 1900751569
+                  firstName: Alyssa
+                  middleName: ''
+                  lastName: Lahar
+                  lastUpdatedDate: ''
+                  title: Chief Human Resources Officer
+                  hasEmail: true
+                  hasDirectPhone: false
+                  department: C-Suite
+                  jobFunction: Human Resources Executive
+                  orgChartTier: 2
+                  orgChartSubTier: 3
+                  contactAccuracyScore: 93
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 1691752290
+                  firstName: Derek
+                  middleName: M.
+                  lastName: Smith
+                  lastUpdatedDate: ''
+                  title: Senior VP,  Data Strategy and R&D
+                  hasEmail: true
+                  hasDirectPhone: true
+                  department: Engineering & Technical
+                  jobFunction: Research & Development
+                  orgChartTier: 2
+                  orgChartSubTier: 3
+                  contactAccuracyScore: 92
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 39841971
+                  firstName: Cameron
+                  middleName: ''
+                  lastName: Hyzer
+                  lastUpdatedDate: ''
+                  title: Chief Financial Officer
+                  hasEmail: true
+                  hasDirectPhone: true
+                  department: C-Suite
+                  jobFunction: Finance Executive
+                  orgChartTier: 2
+                  orgChartSubTier: 2
+                  contactAccuracyScore: 96
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: -1169994343
+                  firstName: Kelly
+                  middleName: ''
+                  lastName: Watson
+                  lastUpdatedDate: ''
+                  title: Executive Assistant, Henry Schuck
+                  hasEmail: true
+                  hasDirectPhone: true
+                  department: C-Suite
+                  jobFunction: Executive
+                  orgChartTier: 2
+                  orgChartSubTier: 8
+                  contactAccuracyScore: 91
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+                - id: 2086486970
+                  firstName: Mark
+                  middleName: S.
+                  lastName: Johnson
+                  lastUpdatedDate: ''
+                  title: Senior VP, Technology & Operations
+                  hasEmail: true
+                  hasDirectPhone: true
+                  department: C-Suite
+                  jobFunction: Information Technology Executive
+                  orgChartTier: 2
+                  orgChartSubTier: 3
+                  contactAccuracyScore: 96
+                  company:
+                    id: 344589814
+                    name: ZoomInfo
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/inputfields/orgchart/enrich:
+    parameters: []
+    get:
+      tags:
+      - OrgChart Enrich
+      summary: Zoominfo Org Chart Enrich Inputs
+      description: Returns a list of fields you can use as input for the [Org Chart Enrich](#763b3c10-41d1-4d52-9775-1712f712202e) endpoint.
+      operationId: OrgChartEnrichInputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 28 May 2020 19:23:08 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 59aa59339e27ec00-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=fc71d9403472d42effc02aad37ef6fac8edd5780bbd14e367dd0386bd4c1d94e:1de7e3b1-a10b-11ea-aacb-83f9cb252b93; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 02fe5614420000ec0043a56200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1498'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1590693807'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrgChartEnrichInput'
+                description: ''
+                examples:
+                - - fieldName: companyId
+                    fieldType: String
+                    description: The id of the company for which you want to view the org chart
+                  - fieldName: department
+                    fieldType: String
+                    description: 'It must contain comma delimited strings of departments to display org charts from this endpoint : lookup/department'
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: companyId
+                fieldType: String
+                description: The id of the company for which you want to view the org chart
+              - fieldName: department
+                fieldType: String
+                description: 'It must contain comma delimited strings of departments to display org charts from this endpoint : lookup/department'
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/outputfields/orgchart/enrich:
+    parameters: []
+    get:
+      tags:
+      - OrgChart Enrich
+      summary: Zoominfo Org Chart Enrich Outputs
+      description: Returns a list of fields you can specify as output for the [Org Chart Enrich](#763b3c10-41d1-4d52-9775-1712f712202e) endpoint.
+      operationId: OrgChartEnrichOutputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 28 May 2020 19:14:34 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 59aa4ca41cdaff80-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=fc71d9403472d42effc02aad37ef6fac8edd5780bbd14e367dd0386bd4c1d94e:1de7e3b1-a10b-11ea-aacb-83f9cb252b93; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 02fe4e3a8e0000ff808220e200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1498'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1590693314'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrgChartEnrichOutput'
+                description: ''
+                examples:
+                - - fieldName: id
+                    description: Unique ZoomInfo identifier for the contact
+                  - fieldName: firstName
+                    description: Contact first name
+                  - fieldName: middleName
+                    description: Contact middle name
+                  - fieldName: lastName
+                    description: Contact last name
+                  - fieldName: lastUpdatedDate
+                    description: Date on which the contact record was last updated
+                  - fieldName: title
+                    description: Contact job title at current place of employment
+                  - fieldName: hasEmail
+                    description: Indicates whether ZoomInfo has an email address for the contact
+                  - fieldName: hasDirectPhone
+                    description: Indicates whether ZoomInfo has a direct phone number for the contact
+                  - fieldName: department
+                    description: Contact department at current place of employment. See the Contact Departments endpoint for values.
+                  - fieldName: jobFunction
+                    description: Contact job function at current place of employment
+                  - fieldName: orgChartTier
+                    description: Integer representing hierarchy within a department, with 1 being the highest
+                  - fieldName: orgChartSubTier
+                    description: Secondary tier within orgChartTier
+                  - fieldName: contactAccuracyScore
+                    description: This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 75 and maximum is 99.
+                  - fieldName: companyId
+                    description: Unique ZoomInfo identifier for a company
+                  - fieldName: companyName
+                    description: Company Name
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: id
+                description: Unique ZoomInfo identifier for the contact
+              - fieldName: firstName
+                description: Contact first name
+              - fieldName: middleName
+                description: Contact middle name
+              - fieldName: lastName
+                description: Contact last name
+              - fieldName: lastUpdatedDate
+                description: Date on which the contact record was last updated
+              - fieldName: title
+                description: Contact job title at current place of employment
+              - fieldName: hasEmail
+                description: Indicates whether ZoomInfo has an email address for the contact
+              - fieldName: hasDirectPhone
+                description: Indicates whether ZoomInfo has a direct phone number for the contact
+              - fieldName: department
+                description: Contact department at current place of employment. See the Contact Departments endpoint for values.
+              - fieldName: jobFunction
+                description: Contact job function at current place of employment
+              - fieldName: orgChartTier
+                description: Integer representing hierarchy within a department, with 1 being the highest
+              - fieldName: orgChartSubTier
+                description: Secondary tier within orgChartTier
+              - fieldName: contactAccuracyScore
+                description: This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 75 and maximum is 99.
+              - fieldName: companyId
+                description: Unique ZoomInfo identifier for a company
+              - fieldName: companyName
+                description: Company Name
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    OrgChartEnrichOutput:
+      title: OrgChartEnrichOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: id
+        description: Unique ZoomInfo identifier for the contact
+    OrgChartEnrichRequest:
+      title: OrgChartEnrichRequest
+      required:
+      - companyId
+      - department
+      type: object
+      properties:
+        companyId:
+          type: string
+          example: '500123'
+        department:
+          type: string
+          example: example_value
+      examples:
+      - companyId: '344589814'
+        department: c-suite
+    Company:
+      title: Company
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: 9867169
+        name: AmerisourceBergen
+    Data30:
+      title: Data30
+      required:
+      - id
+      - firstName
+      - middleName
+      - lastName
+      - lastUpdatedDate
+      - title
+      - hasEmail
+      - hasDirectPhone
+      - department
+      - jobFunction
+      - orgChartTier
+      - orgChartSubTier
+      - contactAccuracyScore
+      - company
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        firstName:
+          type: string
+          example: Acme Corporation
+        middleName:
+          type: string
+          example: Acme Corporation
+        lastName:
+          type: string
+          example: Acme Corporation
+        lastUpdatedDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        title:
+          type: string
+          example: Vice President of Sales
+        hasEmail:
+          type: boolean
+          example: true
+        hasDirectPhone:
+          type: boolean
+          example: true
+        department:
+          type: string
+          example: example_value
+        jobFunction:
+          type: string
+          example: example_value
+        orgChartTier:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        orgChartSubTier:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        contactAccuracyScore:
+          type: integer
+          contentEncoding: int32
+          example: 85
+        company:
+          $ref: '#/components/schemas/Company'
+      examples:
+      - id: 1843376157
+        firstName: Justin
+        middleName: ''
+        lastName: Withers
+        lastUpdatedDate: ''
+        title: Senior VP, Strategy and Corporate Development
+        hasEmail: true
+        hasDirectPhone: true
+        department: C-Suite
+        jobFunction: Operations Executive
+        orgChartTier: 2
+        orgChartSubTier: 7
+        contactAccuracyScore: 96
+        company:
+          id: 344589814
+          name: ZoomInfo
+    OrgChartEnrich:
+      title: OrgChartEnrich
+      required:
+      - maxResults
+      - totalResults
+      - currentPage
+      - data
+      type: object
+      properties:
+        maxResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        totalResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        currentPage:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data30'
+          description: ''
+          example: []
+      examples:
+      - maxResults: 11
+        totalResults: 11
+        currentPage: 1
+        data:
+        - id: 1843376157
+          firstName: Justin
+          middleName: ''
+          lastName: Withers
+          lastUpdatedDate: ''
+          title: Senior VP, Strategy and Corporate Development
+          hasEmail: true
+          hasDirectPhone: true
+          department: C-Suite
+          jobFunction: Operations Executive
+          orgChartTier: 2
+          orgChartSubTier: 7
+          contactAccuracyScore: 96
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 2988050694
+          firstName: Nir
+          middleName: ''
+          lastName: Keren
+          lastUpdatedDate: ''
+          title: Chief Technology Officer
+          hasEmail: true
+          hasDirectPhone: true
+          department: C-Suite
+          jobFunction: Engineering & Technical Executive
+          orgChartTier: 2
+          orgChartSubTier: 2
+          contactAccuracyScore: 90
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1645938489
+          firstName: Hila
+          middleName: ''
+          lastName: Nir
+          lastUpdatedDate: ''
+          title: Chief Marketing Officer
+          hasEmail: true
+          hasDirectPhone: true
+          department: C-Suite
+          jobFunction: Marketing Executive
+          orgChartTier: 2
+          orgChartSubTier: 2
+          contactAccuracyScore: 92
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1260398587
+          firstName: Henry
+          middleName: L.
+          lastName: Schuck
+          lastUpdatedDate: 1/5/2020 2:59 PM
+          title: Founder & Chief Executive Officer
+          hasEmail: true
+          hasDirectPhone: true
+          department: C-Suite
+          jobFunction: Executive
+          orgChartTier: 1
+          orgChartSubTier: 1
+          contactAccuracyScore: 96
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: -851481737
+          firstName: Anthony
+          middleName: M.
+          lastName: Stark
+          lastUpdatedDate: ''
+          title: General Counsel
+          hasEmail: true
+          hasDirectPhone: true
+          department: C-Suite
+          jobFunction: Legal Executive
+          orgChartTier: 2
+          orgChartSubTier: 1
+          contactAccuracyScore: 96
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 2827525345
+          firstName: Chris
+          middleName: ''
+          lastName: Hays
+          lastUpdatedDate: ''
+          title: Chief Revenue Officer
+          hasEmail: true
+          hasDirectPhone: true
+          department: C-Suite
+          jobFunction: Sales Executive
+          orgChartTier: 2
+          orgChartSubTier: 3
+          contactAccuracyScore: 96
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1900751569
+          firstName: Alyssa
+          middleName: ''
+          lastName: Lahar
+          lastUpdatedDate: ''
+          title: Chief Human Resources Officer
+          hasEmail: true
+          hasDirectPhone: false
+          department: C-Suite
+          jobFunction: Human Resources Executive
+          orgChartTier: 2
+          orgChartSubTier: 3
+          contactAccuracyScore: 93
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1691752290
+          firstName: Derek
+          middleName: M.
+          lastName: Smith
+          lastUpdatedDate: ''
+          title: Senior VP,  Data Strategy and R&D
+          hasEmail: true
+          hasDirectPhone: true
+          department: Engineering & Technical
+          jobFunction: Research & Development
+          orgChartTier: 2
+          orgChartSubTier: 3
+          contactAccuracyScore: 92
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 39841971
+          firstName: Cameron
+          middleName: ''
+          lastName: Hyzer
+          lastUpdatedDate: ''
+          title: Chief Financial Officer
+          hasEmail: true
+          hasDirectPhone: true
+          department: C-Suite
+          jobFunction: Finance Executive
+          orgChartTier: 2
+          orgChartSubTier: 2
+          contactAccuracyScore: 96
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: -1169994343
+          firstName: Kelly
+          middleName: ''
+          lastName: Watson
+          lastUpdatedDate: ''
+          title: Executive Assistant, Henry Schuck
+          hasEmail: true
+          hasDirectPhone: true
+          department: C-Suite
+          jobFunction: Executive
+          orgChartTier: 2
+          orgChartSubTier: 8
+          contactAccuracyScore: 91
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 2086486970
+          firstName: Mark
+          middleName: S.
+          lastName: Johnson
+          lastUpdatedDate: ''
+          title: Senior VP, Technology & Operations
+          hasEmail: true
+          hasDirectPhone: true
+          department: C-Suite
+          jobFunction: Information Technology Executive
+          orgChartTier: 2
+          orgChartSubTier: 3
+          contactAccuracyScore: 96
+          company:
+            id: 344589814
+            name: ZoomInfo
+    OrgChartEnrichInput:
+      title: OrgChartEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        fieldType: String
+        description: The id of the company for which you want to view the org chart
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint

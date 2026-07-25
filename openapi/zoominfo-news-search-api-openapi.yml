@@ -1,0 +1,1763 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication News Search API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: News Search
+  description: 'Use [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19) to retrieve news-related data using valid query parameters.
+
+
+    *   To build your request, retrieve a list of valid query parameters using [News Search Inputs](#90bfb6fb-2754-478b-b42d-f8c507ffffb2).
+
+    *   For requests that require you to specify supported values (e.g., news categories), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055) endpoints.
+
+    *   Use [News Search Outputs](#354f6240-e3d3-4c8c-9684-86569fd71581) to retrieve a list of expected response fields that will be returned from [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19).'
+paths:
+  /search/news:
+    parameters: []
+    post:
+      tags:
+      - News Search
+      summary: Zoominfo News Search
+      description: 'Returns a list of news articles from ZoomInfo''s data which meet the specified search criteria. All inputs are optional, but you must use at least one input parameter to generate a successful response.
+
+
+        **Input params**
+
+
+        | Parameter | DataType | Description |
+
+        | --- | --- | --- |
+
+        | rpp | Integer | Limits the results returned to the given number of results per page. The default is 25 and the maximum `rpp` supported is 100. |
+
+        | page | Integer | Provides the results for the given page, used in conjunction with `rpp`. The maximum page number supported is 1000. |
+
+        | categories | ArrayList | Category of news articles. Accepts an array of strings. See the **News Categories** lookup endpoint for values. |
+
+        | url | ArrayList | Search news by text contained in URL strings. You must specify a minimum of 5 characters per input. |
+
+        | pageDateMin | String | Specify the earliest publishing date for news articles returned. For example, 2020-01-01 will return all news articles published on or after Jan 1, 2020. |
+
+        | pageDateMax | String | Specify the latest publishing date for news articles articles returned. For example, 2020-01-31 will return all new articles published on or before Jan 31, 2020. |
+
+
+        **Response data**
+
+
+        | Field | Description |
+
+        | --- | --- |
+
+        | companyId | ZoomInfo unique identifier for a company |
+
+        | companyName | Company name |
+
+        | domain | News article domain |
+
+        | title | News article title |
+
+        | url | News article URL |
+
+        | imageUrl | News article image URL |
+
+        | pageDate | News article publish date |
+
+        | categories | News article categories |'
+      operationId: NewsSearch
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/NewsSearchRequest'
+              - examples:
+                - categories:
+                  - FINANCIAL_RESULTS
+                  - FUNDING
+                  - GENERAL_NEWS
+                  - GENERAL_PRESS_RELEASE
+                  - MERGER_OR_ACQUISTION
+                  - PERSON
+                  - PRODUCT
+                  url:
+                  - property
+                  - financial
+                  - result
+                  pageDateMin: '2019-12-01T00:00:00.000Z'
+                  pageDateMax: '2020-05-31T00:00:00.000Z'
+                  page: 1
+                  rpp: 20
+              contentMediaType: application/json
+            example:
+              categories:
+              - FINANCIAL_RESULTS
+              - FUNDING
+              - GENERAL_NEWS
+              - GENERAL_PRESS_RELEASE
+              - MERGER_OR_ACQUISTION
+              - PERSON
+              - PRODUCT
+              url:
+              - property
+              - financial
+              - result
+              pageDateMin: '2019-12-01T00:00:00.000Z'
+              pageDateMax: '2020-05-31T00:00:00.000Z'
+              page: 1
+              rpp: 20
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Mon, 01 Jun 2020 18:21:19 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 59caf41f7836ebec-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=fc71d9403472d42effc02aad37ef6fac8edd5780bbd14e367dd0386bd4c1d94e:1de7e3b1-a10b-11ea-aacb-83f9cb252b93; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 0312b6e7a70000ebecff124200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1498'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1591035720'
+            X-Usage-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999995577'
+            X-Usage-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            X-Usage-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999964945'
+            X-Usage-Unique-Id-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Unique-Id-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999952'
+            X-Usage-Websights-Api-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            X-Usage-Websights-Api-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999890'
+            X-Usage-Websights-Api-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000000'
+            X-Usage-Websights-Api-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99999890'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/NewsSearchusingpartialinputs'
+                - examples:
+                  - currentPage: 1
+                    maxResults: 30
+                    data:
+                    - domain: newstral.com
+                      title: St. Luke's Hospital appoints interim president
+                      url: https://newstral.com/en/article/en/1152923450/st-luke-s-hospital-appoints-interim-president
+                      imageUrl: http://newstral.com/source-images/29300_original_1529243370.jpg
+                      pageDate: '2020-05-28T04:26:13.000Z'
+                      categories:
+                      - PERSON
+                      company:
+                      - id: 31380745
+                        name: The Toledo Blade
+                    - domain: www.globenewswire.com
+                      title: The Global Household Water Softener System Market is expected to grow by USD 1.42 bn during 2020-2024 progressing at a CAGR of 7% during the forecast period
+                      url: http://www.globenewswire.com/news-release/2020/05/28/2039880/0/en/The-Global-Household-Water-Softener-System-Market-is-expected-to-grow-by-USD-1-42-bn-during-2020-2024-progressing-at-a-CAGR-of-7-during-the-forecast-period.html
+                      imageUrl: http://www.globenewswire.com/Attachment/LogoDisplay/853201?filename=853201.jpg&size=1
+                      pageDate: '2020-05-28T04:18:00.000Z'
+                      categories:
+                      - GENERAL_PRESS_RELEASE
+                      company:
+                      - id: 231751931
+                        name: Reportlinker.com
+                    - domain: www.prnewswire.com
+                      title: NuVasive, Inc. Announces Pricing Of Offering Of $400 Million Of 1.00% Convertible Senior Notes Due 2023
+                      url: https://www.prnewswire.com:443/news-releases/nuvasive-inc-announces-pricing-of-offering-of-400-million-of-1-00-convertible-senior-notes-due-2023--301066703.html
+                      imageUrl: https://mma.prnewswire.com/media/454552/NuVasive_Logo.jpg?p=twitter
+                      pageDate: '2020-05-28T04:18:00.000Z'
+                      categories:
+                      - GENERAL_PRESS_RELEASE
+                      company:
+                      - id: 28311725
+                        name: NuVasive
+                    - domain: www.reuters.com
+                      title: Democrats urge probe of allegations regarding TikTok and children's privacy
+                      url: https://www.reuters.com/article/us-tiktok-privacy-children-democrats/democrats-urge-probe-of-allegations-regarding-tiktok-and-childrens-privacy-idUSKBN2340EF
+                      imageUrl: https://s4.reutersmedia.net/resources/r/?m=02&d=20200528&t=2&i=1520141938&w=1200&r=LYNXMPEG4R07W
+                      pageDate: '2020-05-28T04:08:13.000Z'
+                      categories:
+                      - GENERAL_NEWS
+                      company:
+                      - id: 15302878
+                        name: Federal Trade Commission
+                    - domain: www.ft.com
+                      title: Businesses get creative to battle Covid-19 drop-off
+                      url: https://www.ft.com/content/bf84eca8-80a0-11ea-b0fb-13524ae1056b
+                      imageUrl: https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fprod-upp-image-read.ft.com%2F3d0d1ac2-9f61-11ea-ba68-3d5500196c30?source=next-opengraph&fit=scale-down&width=900
+                      pageDate: '2020-05-28T04:01:05.000Z'
+                      categories:
+                      - GENERAL_NEWS
+                      company:
+                      - id: 348072053
+                        name: Caws Cenarth
+                    - domain: www.globenewswire.com
+                      title: Driver death rates remain high among small cars
+                      url: http://www.globenewswire.com/news-release/2020/05/28/2039878/0/en/Driver-death-rates-remain-high-among-small-cars.html
+                      imageUrl: http://www.globenewswire.com/news-release/2020/05/28/2039878/0/en/photos/879784/0/879784.png?lastModified=05%2F28%2F2020%2000%3A01%3A10&size=2
+                      pageDate: '2020-05-28T04:01:00.000Z'
+                      categories:
+                      - GENERAL_PRESS_RELEASE
+                      company:
+                      - id: 25871680
+                        name: Insurance Institute for Highway Safety
+                    - domain: www.prnewswire.com
+                      title: Vacant Zombie Property Rate In U.S. Holds Steady Amid Foreclosure Moratorium
+                      url: https://www.prnewswire.com:443/news-releases/vacant-zombie-property-rate-in-us-holds-steady-amid-foreclosure-moratorium-301066595.html
+                      imageUrl: https://mma.prnewswire.com/media/473646/ATTOM_LOGO.jpg?p=twitter
+                      pageDate: '2020-05-28T04:01:00.000Z'
+                      categories:
+                      - GENERAL_PRESS_RELEASE
+                      company:
+                      - id: 392680169
+                        name: ATTOM Data Solutions
+                    - domain: www.ft.com
+                      title: Restaurants and hotels clean up with toilet paper sales
+                      url: https://www.ft.com/content/72650300-80b8-11ea-b0fb-13524ae1056b
+                      imageUrl: https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fprod-upp-image-read.ft.com%2F5be1a89c-9aa6-11ea-871b-edeb99a20c6e?source=next-opengraph&fit=scale-down&width=900
+                      pageDate: '2020-05-28T04:00:57.000Z'
+                      categories:
+                      - GENERAL_NEWS
+                      company:
+                      - id: 169919019
+                        name: Old Ebbitt Grill
+                    - domain: www.prweb.com
+                      title: Author Theresa Seiferts new book Sandy Rose is a compelling work of dramatic fiction laying bare the profound impact of preconscious trauma in childhood
+                      url: https://www.prweb.com/releases/author_theresa_seiferts_new_book_sandy_rose_is_a_compelling_work_of_dramatic_fiction_laying_bare_the_profound_impact_of_preconscious_trauma_in_childhood/prweb17144332.htm
+                      imageUrl: http://ww1.prweb.com/prfiles/2020/05/22/17144332/gI_110624_NewsImage_vcsPRAsset_2212767_110624_37f0f333-0598-4ad9-adb1-b912c81b601c_0.png
+                      pageDate: '2020-05-28T04:00:00.000Z'
+                      categories:
+                      - GENERAL_NEWS
+                      company:
+                      - id: 357320725
+                        name: Page Publishing
+                    - domain: www.prweb.com
+                      title: Author Joe Justs new book Frankie and Me Went Walking is a beautifully written reflection on the formative adventures of two young boys in the postwar years.
+                      url: https://www.prweb.com/releases/author_joe_justs_new_book_frankie_and_me_went_walking_is_a_beautifully_written_reflection_on_the_formative_adventures_of_two_young_boys_in_the_postwar_years/prweb17127827.htm
+                      imageUrl: http://ww1.prweb.com/prfiles/2020/05/15/17127827/gI_110456_NewsImage_vcsPRAsset_2212767_110456_a58baa95-80ae-4dbd-8c66-b6b4b1a95bc1_0.png
+                      pageDate: '2020-05-28T04:00:00.000Z'
+                      categories:
+                      - GENERAL_NEWS
+                      company:
+                      - id: 357320725
+                        name: Page Publishing
+                    - domain: www.prweb.com
+                      title: Author W.A. Brunsons new book Between the Amens is a compilation of essays touching upon a myriad of subjects impacting modern society.
+                      url: https://www.prweb.com/releases/author_w_a_brunsons_new_book_between_the_amens_is_a_compilation_of_essays_touching_upon_a_myriad_of_subjects_impacting_modern_society/prweb17148242.htm
+                      imageUrl: http://ww1.prweb.com/prfiles/2020/05/26/17148242/gI_110656_NewsImage_vcsPRAsset_2212767_110656_30cf818b-a1ca-4a50-8d68-b57718bf1b77_0.png
+                      pageDate: '2020-05-28T04:00:00.000Z'
+                      categories:
+                      - GENERAL_NEWS
+                      company:
+                      - id: 357320725
+                        name: Page Publishing
+                    - domain: www.prweb.com
+                      title: Datalogic launches Smart-VS, the vision sensor with the power of machine learning and the ease of photoelectric sensors
+                      url: https://www.prweb.com/releases/datalogic_launches_smart_vs_the_vision_sensor_with_the_power_of_machine_learning_and_the_ease_of_photoelectric_sensors/prweb17145081.htm
+                      imageUrl: http://ww1.prweb.com/prfiles/2020/05/26/17145081/gI_154482_NewsImage_vcsPRAsset_517683_154482_0a495da0-3acd-484d-9044-1ea1440237f0_0.png
+                      pageDate: '2020-05-28T04:00:00.000Z'
+                      categories:
+                      - PRODUCT
+                      company:
+                      - id: 15992708
+                        name: Datalogic
+                    - domain: www.prweb.com
+                      title: Zobrist Software announces Smart Merchandiser, a Visual Merchandising tool for Salesforce Commerce Cloud
+                      url: https://www.prweb.com/releases/zobrist_software_announces_smart_merchandiser_a_visual_merchandising_tool_for_salesforce_commerce_cloud/prweb17146384.htm
+                      imageUrl: http://ww1.prweb.com/prfiles/2020/05/26/17146384/gI_114059_image001.png
+                      pageDate: '2020-05-28T04:00:00.000Z'
+                      categories:
+                      - PRODUCT
+                      company:
+                      - id: 119029794
+                        name: Zobrist Consulting Group
+                    - domain: www.prweb.com
+                      title: Langley Roofing Helping Chattanooga Rebuild During Challenging Times
+                      url: https://www.prweb.com/releases/langley_roofing_helping_chattanooga_rebuild_during_challenging_times/prweb17152380.htm
+                      imageUrl: http://ww1.prweb.com/prfiles/2020/05/27/17152380/gI_159769_NewsImage_vcsPRAsset_1052462_159769_dda9251f-d7eb-4cfa-abc1-2d16aa4dec82_0.png
+                      pageDate: '2020-05-28T04:00:00.000Z'
+                      categories:
+                      - GENERAL_PRESS_RELEASE
+                      company:
+                      - id: 346413161
+                        name: Langley Roofing
+                    - domain: www.prweb.com
+                      title: 'Author Penny Everharts new book Family in Fear: A Story of Domestic Violence is a candid memoir of her agonizing twenty-eight-year marriage to a vicious abuser'
+                      url: https://www.prweb.com/releases/author_penny_everharts_new_book_family_in_fear_a_story_of_domestic_violence_is_a_candid_memoir_of_her_agonizing_twenty_eight_year_marriage_to_a_vicious_abuser/prweb17144339.htm
+                      imageUrl: http://ww1.prweb.com/prfiles/2020/05/22/17144339/gI_110625_NewsImage_vcsPRAsset_2212767_110625_7e61f549-7ee1-4cc0-8dec-47ee7da0b8f8_0.png
+                      pageDate: '2020-05-28T04:00:00.000Z'
+                      categories:
+                      - GENERAL_NEWS
+                      company:
+                      - id: 357320725
+                        name: Page Publishing
+                    - domain: www.prweb.com
+                      title: 'Author Jacqueline Williamss new book Izzy Iguana Climbs a Tree: A Geometry Book is a charming childrens tale exploring basic geometric concepts found in nature'
+                      url: https://www.prweb.com/releases/author_jacqueline_williamss_new_book_izzy_iguana_climbs_a_tree_a_geometry_book_is_a_charming_childrens_tale_exploring_basic_geometric_concepts_found_in_nature/prweb17148312.htm
+                      imageUrl: http://ww1.prweb.com/prfiles/2020/05/26/17148312/gI_110658_NewsImage_vcsPRAsset_2212767_110658_7a29b6b8-76ae-4f32-819a-950371725ae6_0.png
+                      pageDate: '2020-05-28T04:00:00.000Z'
+                      categories:
+                      - GENERAL_NEWS
+                      company:
+                      - id: 357320725
+                        name: Page Publishing
+                    - domain: www.prweb.com
+                      title: Author Sydnie Lees new book All the Things We Are Avoiding is an evocative compilation of poetry and prose exploring the vicissitudes of life and love
+                      url: https://www.prweb.com/releases/author_sydnie_lees_new_book_all_the_things_we_are_avoiding_is_an_evocative_compilation_of_poetry_and_prose_exploring_the_vicissitudes_of_life_and_love/prweb17148293.htm
+                      imageUrl: http://ww1.prweb.com/prfiles/2020/05/26/17148293/gI_110657_NewsImage_vcsPRAsset_2212767_110657_34c025fc-ea3d-457a-83ec-6ec7a5156081_0.png
+                      pageDate: '2020-05-28T04:00:00.000Z'
+                      categories:
+                      - GENERAL_NEWS
+                      company:
+                      - id: 357320725
+                        name: Page Publishing
+                    - domain: www.businesswire.com
+                      title: Delta-Q Technologies anuncia seu novo carregador de bateria RQ350 para m�quinas e ve�culos el�tricos
+                      url: https://www.businesswire.com/news/home/20200527005980/pt/
+                      imageUrl: https://mms.businesswire.com/media/20200527005980/pt/794287/22/RQ350_imageB1_2.jpg
+                      pageDate: '2020-05-28T03:58:00.000Z'
+                      categories:
+                      - GENERAL_NEWS
+                      company:
+                      - id: 34393410
+                        name: Delta-Q Technologies
+                    - domain: www.globenewswire.com
+                      title: The Global Passenger Vehicle Telematics Market is expected to grow by USD 15.19 bn during 2020-2024 progressing at a CAGR of 17% during the forecast period
+                      url: http://www.globenewswire.com/news-release/2020/05/28/2039877/0/en/The-Global-Passenger-Vehicle-Telematics-Market-is-expected-to-grow-by-USD-15-19-bn-during-2020-2024-progressing-at-a-CAGR-of-17-during-the-forecast-period.html
+                      imageUrl: http://www.globenewswire.com/Attachment/LogoDisplay/853201?filename=853201.jpg&size=1
+                      pageDate: '2020-05-28T03:58:00.000Z'
+                      categories:
+                      - GENERAL_PRESS_RELEASE
+                      company:
+                      - id: 231751931
+                        name: Reportlinker.com
+                    - domain: www.prnewswire.com
+                      title: Huami Establishes a Brain-computer Interface Joint Lab with Top Chinese University
+                      url: https://www.prnewswire.com:443/news-releases/huami-establishes-a-brain-computer-interface-joint-lab-with-top-chinese-university-301066695.html
+                      pageDate: '2020-05-28T03:54:00.000Z'
+                      categories:
+                      - PRODUCT
+                      company:
+                      - id: 397718835
+                        name: Huami
+                      - id: 372581933
+                        name: University of Science and Technology of China
+                    - domain: www.prnewswire.com
+                      title: Silicon Labs Announces Pricing of Private Offering of $500 Million of 0.625% Convertible Senior Notes
+                      url: https://www.prnewswire.com:443/news-releases/silicon-labs-announces-pricing-of-private-offering-of-500-million-of-0-625-convertible-senior-notes-301066694.html
+                      imageUrl: https://mma.prnewswire.com/media/457128/silicon_labs_Logo.jpg?p=twitter
+                      pageDate: '2020-05-28T03:52:00.000Z'
+                      categories:
+                      - GENERAL_PRESS_RELEASE
+                      company:
+                      - id: 168640828
+                        name: Silicon Labs
+                    - domain: www.globenewswire.com
+                      title: The Global Surgical Scalpel Market is expected to grow by $ 105.29 mn during 2020-2024 progressing at a CAGR of 3% during the forecast period
+                      url: http://www.globenewswire.com/news-release/2020/05/28/2039876/0/en/The-Global-Surgical-Scalpel-Market-is-expected-to-grow-by-105-29-mn-during-2020-2024-progressing-at-a-CAGR-of-3-during-the-forecast-period.html
+                      imageUrl: http://www.globenewswire.com/Attachment/LogoDisplay/853201?filename=853201.jpg&size=1
+                      pageDate: '2020-05-28T03:38:00.000Z'
+                      categories:
+                      - GENERAL_PRESS_RELEASE
+                      company:
+                      - id: 231751931
+                        name: Reportlinker.com
+                    - domain: www.forbes.com
+                      title: What COVID-19 Social Distancing Measures Will Mean For Restaurant Dining Room Design
+                      url: https://www.forbes.com/sites/lesliewu/2020/05/27/what-covid-19-social-distancing-measures-will-mean-for-restaurant-dining-room-design/
+                      imageUrl: https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5ecf309a1aa7fc0007fa3dce%2F0x0.jpg
+                      pageDate: '2020-05-28T03:35:56.000Z'
+                      categories:
+                      - GENERAL_NEWS
+                      company:
+                      - id: 67470018
+                        name: National Restaurant Association
+                    - domain: www.globenewswire.com
+                      title: BioCryst Prices Public Offering of Common Stock and Pre-Funded Warrants
+                      url: http://www.globenewswire.com/news-release/2020/05/28/2039875/0/en/BioCryst-Prices-Public-Offering-of-Common-Stock-and-Pre-Funded-Warrants.html
+                      imageUrl: http://www.globenewswire.com/Attachment/LogoDisplay/514115?filename=514115.jpg&size=1
+                      pageDate: '2020-05-28T03:35:00.000Z'
+                      categories:
+                      - GENERAL_PRESS_RELEASE
+                      company:
+                      - id: 4735661
+                        name: BioCryst Pharmaceuticals
+                    - domain: www.sbwire.com
+                      title: Global Live Biotherapeutic Products and Microbiome Contract Manufacturing Market Assessment  Industry Analysis, Clinical Trial and Revenue Forecast Till 2028
+                      url: http://www.sbwire.com/press-releases/global-live-biotherapeutic-products-and-microbiome-contract-manufacturing-market-assessment-industry-analysis-clinical-trial-and-revenue-forecast-till-2028-1292554.htm
+                      imageUrl: http://media.releasewire.com/photos/show/?id=249011
+                      pageDate: '2020-05-28T03:30:00.000Z'
+                      categories:
+                      - GENERAL_PRESS_RELEASE
+                      company:
+                      - id: 465413269
+                        name: InsightAce Analytic Pvt
+                    - domain: www.business-standard.com
+                      title: 'Google Pay expands ''Nearby Stores'' feature to 35 cities in India: Know more'
+                      url: https://www.business-standard.com/article/companies/google-pay-expands-nearby-stores-feature-to-35-cities-in-india-know-more-120052800208_1.html
+                      imageUrl: https://bsmedia.business-standard.com/_media/bs/img/article/2018-02/21/full/1519181810-254.jpg
+                      pageDate: '2020-05-28T03:26:00.000Z'
+                      categories:
+                      - GENERAL_NEWS
+                      company:
+                      - id: 16400573
+                        name: Google
+                    - domain: www.reuters.com
+                      title: Google sees resurgence in state-backed hacking, phishing related to COVID-19
+                      url: https://www.reuters.com/article/us-health-coronavirus-cyber/google-sees-resurgence-in-state-backed-hacking-phishing-related-to-covid-19-idUSKBN2340CH
+                      imageUrl: https://s2.reutersmedia.net/resources/r/?m=02&d=20200528&t=2&i=1520138291&w=1200&r=LYNXMPEG4R06H
+                      pageDate: '2020-05-28T03:18:26.000Z'
+                      categories:
+                      - GENERAL_NEWS
+                      company:
+                      - id: 16400573
+                        name: Google
+                    - domain: www.globenewswire.com
+                      title: The Global Isobutene Market is expected to grow by $ 7.31 bn during 2020-2024 progressing at a CAGR of 4% during the forecast period
+                      url: http://www.globenewswire.com/news-release/2020/05/28/2039874/0/en/The-Global-Isobutene-Market-is-expected-to-grow-by-7-31-bn-during-2020-2024-progressing-at-a-CAGR-of-4-during-the-forecast-period.html
+                      imageUrl: http://www.globenewswire.com/Attachment/LogoDisplay/853201?filename=853201.jpg&size=1
+                      pageDate: '2020-05-28T03:18:00.000Z'
+                      categories:
+                      - GENERAL_PRESS_RELEASE
+                      company:
+                      - id: 231751931
+                        name: Reportlinker.com
+                    - domain: www.business-standard.com
+                      title: Singtel's annual profit plunges 65%, takes $1.3 bn-hit on Airtel snag
+                      url: https://www.business-standard.com/article/companies/singtel-s-annual-profit-plunges-65-takes-1-3-bn-hit-on-airtel-snag-120052800205_1.html
+                      imageUrl: https://bsmedia.business-standard.com/_media/bs/img/article/2019-07/22/full/1563739681-3395.jpg
+                      pageDate: '2020-05-28T03:17:00.000Z'
+                      categories:
+                      - GENERAL_NEWS
+                      company:
+                      - id: 344839001
+                        name: Singtel
+                    - domain: www.businesswire.com
+                      title: 'Housing Rights Advocates to Assemblywoman Lorena Gonzalez: Vote NO on Bill with Devastating Implications for Grassroots Advocacy'
+                      url: https://www.businesswire.com/news/home/20200527005974/en/Housing-Rights-Advocates-Assemblywoman-Lorena-Gonzalez-Vote/
+                      imageUrl: https://mms.businesswire.com/media/20200527005974/en/653060/22/HHR-Logo_Horizontal_Logo.jpg
+                      pageDate: '2020-05-28T03:15:00.000Z'
+                      categories:
+                      - GENERAL_PRESS_RELEASE
+                      company:
+                      - id: 1753503
+                        name: AIDS Healthcare Foundation
+                contentMediaType: application/json;charset=utf-8
+              example:
+                currentPage: 1
+                maxResults: 30
+                data:
+                - domain: newstral.com
+                  title: St. Luke's Hospital appoints interim president
+                  url: https://newstral.com/en/article/en/1152923450/st-luke-s-hospital-appoints-interim-president
+                  imageUrl: http://newstral.com/source-images/29300_original_1529243370.jpg
+                  pageDate: '2020-05-28T04:26:13.000Z'
+                  categories:
+                  - PERSON
+                  company:
+                  - id: 31380745
+                    name: The Toledo Blade
+                - domain: www.globenewswire.com
+                  title: The Global Household Water Softener System Market is expected to grow by USD 1.42 bn during 2020-2024 progressing at a CAGR of 7% during the forecast period
+                  url: http://www.globenewswire.com/news-release/2020/05/28/2039880/0/en/The-Global-Household-Water-Softener-System-Market-is-expected-to-grow-by-USD-1-42-bn-during-2020-2024-progressing-at-a-CAGR-of-7-during-the-forecast-period.html
+                  imageUrl: http://www.globenewswire.com/Attachment/LogoDisplay/853201?filename=853201.jpg&size=1
+                  pageDate: '2020-05-28T04:18:00.000Z'
+                  categories:
+                  - GENERAL_PRESS_RELEASE
+                  company:
+                  - id: 231751931
+                    name: Reportlinker.com
+                - domain: www.prnewswire.com
+                  title: NuVasive, Inc. Announces Pricing Of Offering Of $400 Million Of 1.00% Convertible Senior Notes Due 2023
+                  url: https://www.prnewswire.com:443/news-releases/nuvasive-inc-announces-pricing-of-offering-of-400-million-of-1-00-convertible-senior-notes-due-2023--301066703.html
+                  imageUrl: https://mma.prnewswire.com/media/454552/NuVasive_Logo.jpg?p=twitter
+                  pageDate: '2020-05-28T04:18:00.000Z'
+                  categories:
+                  - GENERAL_PRESS_RELEASE
+                  company:
+                  - id: 28311725
+                    name: NuVasive
+                - domain: www.reuters.com
+                  title: Democrats urge probe of allegations regarding TikTok and children's privacy
+                  url: https://www.reuters.com/article/us-tiktok-privacy-children-democrats/democrats-urge-probe-of-allegations-regarding-tiktok-and-childrens-privacy-idUSKBN2340EF
+                  imageUrl: https://s4.reutersmedia.net/resources/r/?m=02&d=20200528&t=2&i=1520141938&w=1200&r=LYNXMPEG4R07W
+                  pageDate: '2020-05-28T04:08:13.000Z'
+                  categories:
+                  - GENERAL_NEWS
+                  company:
+                  - id: 15302878
+                    name: Federal Trade Commission
+                - domain: www.ft.com
+                  title: Businesses get creative to battle Covid-19 drop-off
+                  url: https://www.ft.com/content/bf84eca8-80a0-11ea-b0fb-13524ae1056b
+                  imageUrl: https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fprod-upp-image-read.ft.com%2F3d0d1ac2-9f61-11ea-ba68-3d5500196c30?source=next-opengraph&fit=scale-down&width=900
+                  pageDate: '2020-05-28T04:01:05.000Z'
+                  categories:
+                  - GENERAL_NEWS
+                  company:
+                  - id: 348072053
+                    name: Caws Cenarth
+                - domain: www.globenewswire.com
+                  title: Driver death rates remain high among small cars
+                  url: http://www.globenewswire.com/news-release/2020/05/28/2039878/0/en/Driver-death-rates-remain-high-among-small-cars.html
+                  imageUrl: http://www.globenewswire.com/news-release/2020/05/28/2039878/0/en/photos/879784/0/879784.png?lastModified=05%2F28%2F2020%2000%3A01%3A10&size=2
+                  pageDate: '2020-05-28T04:01:00.000Z'
+                  categories:
+                  - GENERAL_PRESS_RELEASE
+                  company:
+                  - id: 25871680
+                    name: Insurance Institute for Highway Safety
+                - domain: www.prnewswire.com
+                  title: Vacant Zombie Property Rate In U.S. Holds Steady Amid Foreclosure Moratorium
+                  url: https://www.prnewswire.com:443/news-releases/vacant-zombie-property-rate-in-us-holds-steady-amid-foreclosure-moratorium-301066595.html
+                  imageUrl: https://mma.prnewswire.com/media/473646/ATTOM_LOGO.jpg?p=twitter
+                  pageDate: '2020-05-28T04:01:00.000Z'
+                  categories:
+                  - GENERAL_PRESS_RELEASE
+                  company:
+                  - id: 392680169
+                    name: ATTOM Data Solutions
+                - domain: www.ft.com
+                  title: Restaurants and hotels clean up with toilet paper sales
+                  url: https://www.ft.com/content/72650300-80b8-11ea-b0fb-13524ae1056b
+                  imageUrl: https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fprod-upp-image-read.ft.com%2F5be1a89c-9aa6-11ea-871b-edeb99a20c6e?source=next-opengraph&fit=scale-down&width=900
+                  pageDate: '2020-05-28T04:00:57.000Z'
+                  categories:
+                  - GENERAL_NEWS
+                  company:
+                  - id: 169919019
+                    name: Old Ebbitt Grill
+                - domain: www.prweb.com
+                  title: Author Theresa Seiferts new book Sandy Rose is a compelling work of dramatic fiction laying bare the profound impact of preconscious trauma in childhood
+                  url: https://www.prweb.com/releases/author_theresa_seiferts_new_book_sandy_rose_is_a_compelling_work_of_dramatic_fiction_laying_bare_the_profound_impact_of_preconscious_trauma_in_childhood/prweb17144332.htm
+                  imageUrl: http://ww1.prweb.com/prfiles/2020/05/22/17144332/gI_110624_NewsImage_vcsPRAsset_2212767_110624_37f0f333-0598-4ad9-adb1-b912c81b601c_0.png
+                  pageDate: '2020-05-28T04:00:00.000Z'
+                  categories:
+                  - GENERAL_NEWS
+                  company:
+                  - id: 357320725
+                    name: Page Publishing
+                - domain: www.prweb.com
+                  title: Author Joe Justs new book Frankie and Me Went Walking is a beautifully written reflection on the formative adventures of two young boys in the postwar years.
+                  url: https://www.prweb.com/releases/author_joe_justs_new_book_frankie_and_me_went_walking_is_a_beautifully_written_reflection_on_the_formative_adventures_of_two_young_boys_in_the_postwar_years/prweb17127827.htm
+                  imageUrl: http://ww1.prweb.com/prfiles/2020/05/15/17127827/gI_110456_NewsImage_vcsPRAsset_2212767_110456_a58baa95-80ae-4dbd-8c66-b6b4b1a95bc1_0.png
+                  pageDate: '2020-05-28T04:00:00.000Z'
+                  categories:
+                  - GENERAL_NEWS
+                  company:
+                  - id: 357320725
+                    name: Page Publishing
+                - domain: www.prweb.com
+                  title: Author W.A. Brunsons new book Between the Amens is a compilation of essays touching upon a myriad of subjects impacting modern society.
+                  url: https://www.prweb.com/releases/author_w_a_brunsons_new_book_between_the_amens_is_a_compilation_of_essays_touching_upon_a_myriad_of_subjects_impacting_modern_society/prweb17148242.htm
+                  imageUrl: http://ww1.prweb.com/prfiles/2020/05/26/17148242/gI_110656_NewsImage_vcsPRAsset_2212767_110656_30cf818b-a1ca-4a50-8d68-b57718bf1b77_0.png
+                  pageDate: '2020-05-28T04:00:00.000Z'
+                  categories:
+                  - GENERAL_NEWS
+                  company:
+                  - id: 357320725
+                    name: Page Publishing
+                - domain: www.prweb.com
+                  title: Datalogic launches Smart-VS, the vision sensor with the power of machine learning and the ease of photoelectric sensors
+                  url: https://www.prweb.com/releases/datalogic_launches_smart_vs_the_vision_sensor_with_the_power_of_machine_learning_and_the_ease_of_photoelectric_sensors/prweb17145081.htm
+                  imageUrl: http://ww1.prweb.com/prfiles/2020/05/26/17145081/gI_154482_NewsImage_vcsPRAsset_517683_154482_0a495da0-3acd-484d-9044-1ea1440237f0_0.png
+                  pageDate: '2020-05-28T04:00:00.000Z'
+                  categories:
+                  - PRODUCT
+                  company:
+                  - id: 15992708
+                    name: Datalogic
+                - domain: www.prweb.com
+                  title: Zobrist Software announces Smart Merchandiser, a Visual Merchandising tool for Salesforce Commerce Cloud
+                  url: https://www.prweb.com/releases/zobrist_software_announces_smart_merchandiser_a_visual_merchandising_tool_for_salesforce_commerce_cloud/prweb17146384.htm
+                  imageUrl: http://ww1.prweb.com/prfiles/2020/05/26/17146384/gI_114059_image001.png
+                  pageDate: '2020-05-28T04:00:00.000Z'
+                  categories:
+                  - PRODUCT
+                  company:
+                  - id: 119029794
+                    name: Zobrist Consulting Group
+                - domain: www.prweb.com
+                  title: Langley Roofing Helping Chattanooga Rebuild During Challenging Times
+                  url: https://www.prweb.com/releases/langley_roofing_helping_chattanooga_rebuild_during_challenging_times/prweb17152380.htm
+                  imageUrl: http://ww1.prweb.com/prfiles/2020/05/27/17152380/gI_159769_NewsImage_vcsPRAsset_1052462_159769_dda9251f-d7eb-4cfa-abc1-2d16aa4dec82_0.png
+                  pageDate: '2020-05-28T04:00:00.000Z'
+                  categories:
+                  - GENERAL_PRESS_RELEASE
+                  company:
+                  - id: 346413161
+                    name: Langley Roofing
+                - domain: www.prweb.com
+                  title: 'Author Penny Everharts new book Family in Fear: A Story of Domestic Violence is a candid memoir of her agonizing twenty-eight-year marriage to a vicious abuser'
+                  url: https://www.prweb.com/releases/author_penny_everharts_new_book_family_in_fear_a_story_of_domestic_violence_is_a_candid_memoir_of_her_agonizing_twenty_eight_year_marriage_to_a_vicious_abuser/prweb17144339.htm
+                  imageUrl: http://ww1.prweb.com/prfiles/2020/05/22/17144339/gI_110625_NewsImage_vcsPRAsset_2212767_110625_7e61f549-7ee1-4cc0-8dec-47ee7da0b8f8_0.png
+                  pageDate: '2020-05-28T04:00:00.000Z'
+                  categories:
+                  - GENERAL_NEWS
+                  company:
+                  - id: 357320725
+                    name: Page Publishing
+                - domain: www.prweb.com
+                  title: 'Author Jacqueline Williamss new book Izzy Iguana Climbs a Tree: A Geometry Book is a charming childrens tale exploring basic geometric concepts found in nature'
+                  url: https://www.prweb.com/releases/author_jacqueline_williamss_new_book_izzy_iguana_climbs_a_tree_a_geometry_book_is_a_charming_childrens_tale_exploring_basic_geometric_concepts_found_in_nature/prweb17148312.htm
+                  imageUrl: http://ww1.prweb.com/prfiles/2020/05/26/17148312/gI_110658_NewsImage_vcsPRAsset_2212767_110658_7a29b6b8-76ae-4f32-819a-950371725ae6_0.png
+                  pageDate: '2020-05-28T04:00:00.000Z'
+                  categories:
+                  - GENERAL_NEWS
+                  company:
+                  - id: 357320725
+                    name: Page Publishing
+                - domain: www.prweb.com
+                  title: Author Sydnie Lees new book All the Things We Are Avoiding is an evocative compilation of poetry and prose exploring the vicissitudes of life and love
+                  url: https://www.prweb.com/releases/author_sydnie_lees_new_book_all_the_things_we_are_avoiding_is_an_evocative_compilation_of_poetry_and_prose_exploring_the_vicissitudes_of_life_and_love/prweb17148293.htm
+                  imageUrl: http://ww1.prweb.com/prfiles/2020/05/26/17148293/gI_110657_NewsImage_vcsPRAsset_2212767_110657_34c025fc-ea3d-457a-83ec-6ec7a5156081_0.png
+                  pageDate: '2020-05-28T04:00:00.000Z'
+                  categories:
+                  - GENERAL_NEWS
+                  company:
+                  - id: 357320725
+                    name: Page Publishing
+                - domain: www.businesswire.com
+                  title: Delta-Q Technologies anuncia seu novo carregador de bateria RQ350 para m�quinas e ve�culos el�tricos
+                  url: https://www.businesswire.com/news/home/20200527005980/pt/
+                  imageUrl: https://mms.businesswire.com/media/20200527005980/pt/794287/22/RQ350_imageB1_2.jpg
+                  pageDate: '2020-05-28T03:58:00.000Z'
+                  categories:
+                  - GENERAL_NEWS
+                  company:
+                  - id: 34393410
+                    name: Delta-Q Technologies
+                - domain: www.globenewswire.com
+                  title: The Global Passenger Vehicle Telematics Market is expected to grow by USD 15.19 bn during 2020-2024 progressing at a CAGR of 17% during the forecast period
+                  url: http://www.globenewswire.com/news-release/2020/05/28/2039877/0/en/The-Global-Passenger-Vehicle-Telematics-Market-is-expected-to-grow-by-USD-15-19-bn-during-2020-2024-progressing-at-a-CAGR-of-17-during-the-forecast-period.html
+                  imageUrl: http://www.globenewswire.com/Attachment/LogoDisplay/853201?filename=853201.jpg&size=1
+                  pageDate: '2020-05-28T03:58:00.000Z'
+                  categories:
+                  - GENERAL_PRESS_RELEASE
+                  company:
+                  - id: 231751931
+                    name: Reportlinker.com
+                - domain: www.prnewswire.com
+                  title: Huami Establishes a Brain-computer Interface Joint Lab with Top Chinese University
+                  url: https://www.prnewswire.com:443/news-releases/huami-establishes-a-brain-computer-interface-joint-lab-with-top-chinese-university-301066695.html
+                  pageDate: '2020-05-28T03:54:00.000Z'
+                  categories:
+                  - PRODUCT
+                  company:
+                  - id: 397718835
+                    name: Huami
+                  - id: 372581933
+                    name: University of Science and Technology of China
+                - domain: www.prnewswire.com
+                  title: Silicon Labs Announces Pricing of Private Offering of $500 Million of 0.625% Convertible Senior Notes
+                  url: https://www.prnewswire.com:443/news-releases/silicon-labs-announces-pricing-of-private-offering-of-500-million-of-0-625-convertible-senior-notes-301066694.html
+                  imageUrl: https://mma.prnewswire.com/media/457128/silicon_labs_Logo.jpg?p=twitter
+                  pageDate: '2020-05-28T03:52:00.000Z'
+                  categories:
+                  - GENERAL_PRESS_RELEASE
+                  company:
+                  - id: 168640828
+                    name: Silicon Labs
+                - domain: www.globenewswire.com
+                  title: The Global Surgical Scalpel Market is expected to grow by $ 105.29 mn during 2020-2024 progressing at a CAGR of 3% during the forecast period
+                  url: http://www.globenewswire.com/news-release/2020/05/28/2039876/0/en/The-Global-Surgical-Scalpel-Market-is-expected-to-grow-by-105-29-mn-during-2020-2024-progressing-at-a-CAGR-of-3-during-the-forecast-period.html
+                  imageUrl: http://www.globenewswire.com/Attachment/LogoDisplay/853201?filename=853201.jpg&size=1
+                  pageDate: '2020-05-28T03:38:00.000Z'
+                  categories:
+                  - GENERAL_PRESS_RELEASE
+                  company:
+                  - id: 231751931
+                    name: Reportlinker.com
+                - domain: www.forbes.com
+                  title: What COVID-19 Social Distancing Measures Will Mean For Restaurant Dining Room Design
+                  url: https://www.forbes.com/sites/lesliewu/2020/05/27/what-covid-19-social-distancing-measures-will-mean-for-restaurant-dining-room-design/
+                  imageUrl: https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5ecf309a1aa7fc0007fa3dce%2F0x0.jpg
+                  pageDate: '2020-05-28T03:35:56.000Z'
+                  categories:
+                  - GENERAL_NEWS
+                  company:
+                  - id: 67470018
+                    name: National Restaurant Association
+                - domain: www.globenewswire.com
+                  title: BioCryst Prices Public Offering of Common Stock and Pre-Funded Warrants
+                  url: http://www.globenewswire.com/news-release/2020/05/28/2039875/0/en/BioCryst-Prices-Public-Offering-of-Common-Stock-and-Pre-Funded-Warrants.html
+                  imageUrl: http://www.globenewswire.com/Attachment/LogoDisplay/514115?filename=514115.jpg&size=1
+                  pageDate: '2020-05-28T03:35:00.000Z'
+                  categories:
+                  - GENERAL_PRESS_RELEASE
+                  company:
+                  - id: 4735661
+                    name: BioCryst Pharmaceuticals
+                - domain: www.sbwire.com
+                  title: Global Live Biotherapeutic Products and Microbiome Contract Manufacturing Market Assessment  Industry Analysis, Clinical Trial and Revenue Forecast Till 2028
+                  url: http://www.sbwire.com/press-releases/global-live-biotherapeutic-products-and-microbiome-contract-manufacturing-market-assessment-industry-analysis-clinical-trial-and-revenue-forecast-till-2028-1292554.htm
+                  imageUrl: http://media.releasewire.com/photos/show/?id=249011
+                  pageDate: '2020-05-28T03:30:00.000Z'
+                  categories:
+                  - GENERAL_PRESS_RELEASE
+                  company:
+                  - id: 465413269
+                    name: InsightAce Analytic Pvt
+                - domain: www.business-standard.com
+                  title: 'Google Pay expands ''Nearby Stores'' feature to 35 cities in India: Know more'
+                  url: https://www.business-standard.com/article/companies/google-pay-expands-nearby-stores-feature-to-35-cities-in-india-know-more-120052800208_1.html
+                  imageUrl: https://bsmedia.business-standard.com/_media/bs/img/article/2018-02/21/full/1519181810-254.jpg
+                  pageDate: '2020-05-28T03:26:00.000Z'
+                  categories:
+                  - GENERAL_NEWS
+                  company:
+                  - id: 16400573
+                    name: Google
+                - domain: www.reuters.com
+                  title: Google sees resurgence in state-backed hacking, phishing related to COVID-19
+                  url: https://www.reuters.com/article/us-health-coronavirus-cyber/google-sees-resurgence-in-state-backed-hacking-phishing-related-to-covid-19-idUSKBN2340CH
+                  imageUrl: https://s2.reutersmedia.net/resources/r/?m=02&d=20200528&t=2&i=1520138291&w=1200&r=LYNXMPEG4R06H
+                  pageDate: '2020-05-28T03:18:26.000Z'
+                  categories:
+                  - GENERAL_NEWS
+                  company:
+                  - id: 16400573
+                    name: Google
+                - domain: www.globenewswire.com
+                  title: The Global Isobutene Market is expected to grow by $ 7.31 bn during 2020-2024 progressing at a CAGR of 4% during the forecast period
+                  url: http://www.globenewswire.com/news-release/2020/05/28/2039874/0/en/The-Global-Isobutene-Market-is-expected-to-grow-by-7-31-bn-during-2020-2024-progressing-at-a-CAGR-of-4-during-the-forecast-period.html
+                  imageUrl: http://www.globenewswire.com/Attachment/LogoDisplay/853201?filename=853201.jpg&size=1
+                  pageDate: '2020-05-28T03:18:00.000Z'
+                  categories:
+                  - GENERAL_PRESS_RELEASE
+                  company:
+                  - id: 231751931
+                    name: Reportlinker.com
+                - domain: www.business-standard.com
+                  title: Singtel's annual profit plunges 65%, takes $1.3 bn-hit on Airtel snag
+                  url: https://www.business-standard.com/article/companies/singtel-s-annual-profit-plunges-65-takes-1-3-bn-hit-on-airtel-snag-120052800205_1.html
+                  imageUrl: https://bsmedia.business-standard.com/_media/bs/img/article/2019-07/22/full/1563739681-3395.jpg
+                  pageDate: '2020-05-28T03:17:00.000Z'
+                  categories:
+                  - GENERAL_NEWS
+                  company:
+                  - id: 344839001
+                    name: Singtel
+                - domain: www.businesswire.com
+                  title: 'Housing Rights Advocates to Assemblywoman Lorena Gonzalez: Vote NO on Bill with Devastating Implications for Grassroots Advocacy'
+                  url: https://www.businesswire.com/news/home/20200527005974/en/Housing-Rights-Advocates-Assemblywoman-Lorena-Gonzalez-Vote/
+                  imageUrl: https://mms.businesswire.com/media/20200527005974/en/653060/22/HHR-Logo_Horizontal_Logo.jpg
+                  pageDate: '2020-05-28T03:15:00.000Z'
+                  categories:
+                  - GENERAL_PRESS_RELEASE
+                  company:
+                  - id: 1753503
+                    name: AIDS Healthcare Foundation
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/inputfields/news/search:
+    parameters: []
+    get:
+      tags:
+      - News Search
+      summary: Zoominfo News Search Inputs
+      description: Returns a list of fields you can use as input for the [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19) endpoint.
+      operationId: NewsSearchInputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 28 May 2020 17:46:48 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 59a9cc115fbfff90-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=fc71d9403472d42effc02aad37ef6fac8edd5780bbd14e367dd0386bd4c1d94e:1de7e3b1-a10b-11ea-aacb-83f9cb252b93; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 02fdfdded80000ff9062b6e200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1590688069'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewsSearchInput'
+                description: ''
+                examples:
+                - - fieldName: rpp
+                    fieldType: Integer
+                    description: Limits the results returned to the given number of results per page.
+                  - fieldName: page
+                    fieldType: Integer
+                    description: Provides the results for the given page, used in conjunction with rpp.
+                  - fieldName: categories
+                    fieldType: ArrayList
+                    description: Category of news articles. Accepts an Array of String. See the 'News Categories' endpoint for values.
+                  - fieldName: pageDateMin
+                    fieldType: String
+                    description: Specify the earliest publishing date for news articles returned. For example, 2020-01-01 will return all news articles published on or after Jan 1, 2020.
+                  - fieldName: pageDateMax
+                    fieldType: String
+                    description: Specify the latest publishing date for news articles articles. For example, 2020-01-31 will return all new articles published on or before Jan 31, 2020.
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: rpp
+                fieldType: Integer
+                description: Limits the results returned to the given number of results per page.
+              - fieldName: page
+                fieldType: Integer
+                description: Provides the results for the given page, used in conjunction with rpp.
+              - fieldName: categories
+                fieldType: ArrayList
+                description: Category of news articles. Accepts an Array of String. See the 'News Categories' endpoint for values.
+              - fieldName: pageDateMin
+                fieldType: String
+                description: Specify the earliest publishing date for news articles returned. For example, 2020-01-01 will return all news articles published on or after Jan 1, 2020.
+              - fieldName: pageDateMax
+                fieldType: String
+                description: Specify the latest publishing date for news articles articles. For example, 2020-01-31 will return all new articles published on or before Jan 31, 2020.
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/outputfields/news/search:
+    parameters: []
+    get:
+      tags:
+      - News Search
+      summary: Zoominfo News Search Outputs
+      description: Returns a list of fields included in the response for the [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19) endpoint.
+      operationId: NewsSearchOutputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 28 May 2020 17:46:52 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 59a9cc2f1c81ff90-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=fc71d9403472d42effc02aad37ef6fac8edd5780bbd14e367dd0386bd4c1d94e:1de7e3b1-a10b-11ea-aacb-83f9cb252b93; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            cf-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 02fdfdf16f0000ff906299f200000001
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1498'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1590688069'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewsSearchOutput'
+                description: ''
+                examples:
+                - - fieldName: companyId
+                    description: Unique ZoomInfo identifier for a company
+                  - fieldName: companyName
+                    description: Company name
+                  - fieldName: domain
+                    description: News article domain
+                  - fieldName: title
+                    description: News article title
+                  - fieldName: url
+                    description: News article URL
+                  - fieldName: imageUrl
+                    description: News article image URL
+                  - fieldName: pageDate
+                    description: News article date
+                  - fieldName: categories
+                    description: News article categories
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: companyId
+                description: Unique ZoomInfo identifier for a company
+              - fieldName: companyName
+                description: Company name
+              - fieldName: domain
+                description: News article domain
+              - fieldName: title
+                description: News article title
+              - fieldName: url
+                description: News article URL
+              - fieldName: imageUrl
+                description: News article image URL
+              - fieldName: pageDate
+                description: News article date
+              - fieldName: categories
+                description: News article categories
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    NewsSearchOutput:
+      title: NewsSearchOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        description: Unique ZoomInfo identifier for a company
+    Company:
+      title: Company
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: 9867169
+        name: AmerisourceBergen
+    Datum9:
+      title: Datum9
+      required:
+      - domain
+      - title
+      - url
+      - pageDate
+      - categories
+      - company
+      type: object
+      properties:
+        domain:
+          type: string
+          example: example.com
+        title:
+          type: string
+          example: Vice President of Sales
+        url:
+          type: string
+          example: https://www.example.com/resource
+        imageUrl:
+          type: string
+          example: https://www.example.com/resource
+        pageDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        categories:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        company:
+          type: array
+          items:
+            $ref: '#/components/schemas/Company'
+          description: ''
+          example: []
+      examples:
+      - domain: newstral.com
+        title: St. Luke's Hospital appoints interim president
+        url: https://newstral.com/en/article/en/1152923450/st-luke-s-hospital-appoints-interim-president
+        imageUrl: http://newstral.com/source-images/29300_original_1529243370.jpg
+        pageDate: '2020-05-28T04:26:13.000Z'
+        categories:
+        - PERSON
+        company:
+        - id: 31380745
+          name: The Toledo Blade
+    NewsSearchInput:
+      title: NewsSearchInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: rpp
+        fieldType: Integer
+        description: Limits the results returned to the given number of results per page.
+    NewsSearchRequest:
+      title: NewsSearchRequest
+      required:
+      - categories
+      - url
+      - pageDateMin
+      - pageDateMax
+      - page
+      - rpp
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        url:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: https://www.example.com
+        pageDateMin:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        pageDateMax:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        page:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        rpp:
+          type: integer
+          contentEncoding: int32
+          example: 100
+      examples:
+      - categories:
+        - FINANCIAL_RESULTS
+        - FUNDING
+        - GENERAL_NEWS
+        - GENERAL_PRESS_RELEASE
+        - MERGER_OR_ACQUISTION
+        - PERSON
+        - PRODUCT
+        url:
+        - property
+        - financial
+        - result
+        pageDateMin: '2019-12-01T00:00:00.000Z'
+        pageDateMax: '2020-05-31T00:00:00.000Z'
+        page: 1
+        rpp: 20
+    NewsSearchusingpartialinputs:
+      title: NewsSearchusingpartialinputs
+      required:
+      - currentPage
+      - maxResults
+      - data
+      type: object
+      properties:
+        currentPage:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        maxResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Datum9'
+          description: ''
+          example: []
+      examples:
+      - currentPage: 1
+        maxResults: 30
+        data:
+        - domain: newstral.com
+          title: St. Luke's Hospital appoints interim president
+          url: https://newstral.com/en/article/en/1152923450/st-luke-s-hospital-appoints-interim-president
+          imageUrl: http://newstral.com/source-images/29300_original_1529243370.jpg
+          pageDate: '2020-05-28T04:26:13.000Z'
+          categories:
+          - PERSON
+          company:
+          - id: 31380745
+            name: The Toledo Blade
+        - domain: www.globenewswire.com
+          title: The Global Household Water Softener System Market is expected to grow by USD 1.42 bn during 2020-2024 progressing at a CAGR of 7% during the forecast period
+          url: http://www.globenewswire.com/news-release/2020/05/28/2039880/0/en/The-Global-Household-Water-Softener-System-Market-is-expected-to-grow-by-USD-1-42-bn-during-2020-2024-progressing-at-a-CAGR-of-7-during-the-forecast-period.html
+          imageUrl: http://www.globenewswire.com/Attachment/LogoDisplay/853201?filename=853201.jpg&size=1
+          pageDate: '2020-05-28T04:18:00.000Z'
+          categories:
+          - GENERAL_PRESS_RELEASE
+          company:
+          - id: 231751931
+            name: Reportlinker.com
+        - domain: www.prnewswire.com
+          title: NuVasive, Inc. Announces Pricing Of Offering Of $400 Million Of 1.00% Convertible Senior Notes Due 2023
+          url: https://www.prnewswire.com:443/news-releases/nuvasive-inc-announces-pricing-of-offering-of-400-million-of-1-00-convertible-senior-notes-due-2023--301066703.html
+          imageUrl: https://mma.prnewswire.com/media/454552/NuVasive_Logo.jpg?p=twitter
+          pageDate: '2020-05-28T04:18:00.000Z'
+          categories:
+          - GENERAL_PRESS_RELEASE
+          company:
+          - id: 28311725
+            name: NuVasive
+        - domain: www.reuters.com
+          title: Democrats urge probe of allegations regarding TikTok and children's privacy
+          url: https://www.reuters.com/article/us-tiktok-privacy-children-democrats/democrats-urge-probe-of-allegations-regarding-tiktok-and-childrens-privacy-idUSKBN2340EF
+          imageUrl: https://s4.reutersmedia.net/resources/r/?m=02&d=20200528&t=2&i=1520141938&w=1200&r=LYNXMPEG4R07W
+          pageDate: '2020-05-28T04:08:13.000Z'
+          categories:
+          - GENERAL_NEWS
+          company:
+          - id: 15302878
+            name: Federal Trade Commission
+        - domain: www.ft.com
+          title: Businesses get creative to battle Covid-19 drop-off
+          url: https://www.ft.com/content/bf84eca8-80a0-11ea-b0fb-13524ae1056b
+          imageUrl: https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fprod-upp-image-read.ft.com%2F3d0d1ac2-9f61-11ea-ba68-3d5500196c30?source=next-opengraph&fit=scale-down&width=900
+          pageDate: '2020-05-28T04:01:05.000Z'
+          categories:
+          - GENERAL_NEWS
+          company:
+          - id: 348072053
+            name: Caws Cenarth
+        - domain: www.globenewswire.com
+          title: Driver death rates remain high among small cars
+          url: http://www.globenewswire.com/news-release/2020/05/28/2039878/0/en/Driver-death-rates-remain-high-among-small-cars.html
+          imageUrl: http://www.globenewswire.com/news-release/2020/05/28/2039878/0/en/photos/879784/0/879784.png?lastModified=05%2F28%2F2020%2000%3A01%3A10&size=2
+          pageDate: '2020-05-28T04:01:00.000Z'
+          categories:
+          - GENERAL_PRESS_RELEASE
+          company:
+          - id: 25871680
+            name: Insurance Institute for Highway Safety
+        - domain: www.prnewswire.com
+          title: Vacant Zombie Property Rate In U.S. Holds Steady Amid Foreclosure Moratorium
+          url: https://www.prnewswire.com:443/news-releases/vacant-zombie-property-rate-in-us-holds-steady-amid-foreclosure-moratorium-301066595.html
+          imageUrl: https://mma.prnewswire.com/media/473646/ATTOM_LOGO.jpg?p=twitter
+          pageDate: '2020-05-28T04:01:00.000Z'
+          categories:
+          - GENERAL_PRESS_RELEASE
+          company:
+          - id: 392680169
+            name: ATTOM Data Solutions
+        - domain: www.ft.com
+          title: Restaurants and hotels clean up with toilet paper sales
+          url: https://www.ft.com/content/72650300-80b8-11ea-b0fb-13524ae1056b
+          imageUrl: https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fprod-upp-image-read.ft.com%2F5be1a89c-9aa6-11ea-871b-edeb99a20c6e?source=next-opengraph&fit=scale-down&width=900
+          pageDate: '2020-05-28T04:00:57.000Z'
+          categories:
+          - GENERAL_NEWS
+          company:
+          - id: 169919019
+            name: Old Ebbitt Grill
+        - domain: www.prweb.com
+          title: Author Theresa Seiferts new book Sandy Rose is a compelling work of dramatic fiction laying bare the profound impact of preconscious trauma in childhood
+          url: https://www.prweb.com/releases/author_theresa_seiferts_new_book_sandy_rose_is_a_compelling_work_of_dramatic_fiction_laying_bare_the_profound_impact_of_preconscious_trauma_in_childhood/prweb17144332.htm
+          imageUrl: http://ww1.prweb.com/prfiles/2020/05/22/17144332/gI_110624_NewsImage_vcsPRAsset_2212767_110624_37f0f333-0598-4ad9-adb1-b912c81b601c_0.png
+          pageDate: '2020-05-28T04:00:00.000Z'
+          categories:
+          - GENERAL_NEWS
+          company:
+          - id: 357320725
+            name: Page Publishing
+        - domain: www.prweb.com
+          title: Author Joe Justs new book Frankie and Me Went Walking is a beautifully written reflection on the formative adventures of two young boys in the postwar years.
+          url: https://www.prweb.com/releases/author_joe_justs_new_book_frankie_and_me_went_walking_is_a_beautifully_written_reflection_on_the_formative_adventures_of_two_young_boys_in_the_postwar_years/prweb17127827.htm
+          imageUrl: http://ww1.prweb.com/prfiles/2020/05/15/17127827/gI_110456_NewsImage_vcsPRAsset_2212767_110456_a58baa95-80ae-4dbd-8c66-b6b4b1a95bc1_0.png
+          pageDate: '2020-05-28T04:00:00.000Z'
+          categories:
+          - GENERAL_NEWS
+          company:
+          - id: 357320725
+            name: Page Publishing
+        - domain: www.prweb.com
+          title: Author W.A. Brunsons new book Between the Amens is a compilation of essays touching upon a myriad of subjects impacting modern society.
+          url: https://www.prweb.com/releases/author_w_a_brunsons_new_book_between_the_amens_is_a_compilation_of_essays_touching_upon_a_myriad_of_subjects_impacting_modern_society/prweb17148242.htm
+          imageUrl: http://ww1.prweb.com/prfiles/2020/05/26/17148242/gI_110656_NewsImage_vcsPRAsset_2212767_110656_30cf818b-a1ca-4a50-8d68-b57718bf1b77_0.png
+          pageDate: '2020-05-28T04:00:00.000Z'
+          categories:
+          - GENERAL_NEWS
+          company:
+          - id: 357320725
+            name: Page Publishing
+        - domain: www.prweb.com
+          title: Datalogic launches Smart-VS, the vision sensor with the power of machine learning and the ease of photoelectric sensors
+          url: https://www.prweb.com/releases/datalogic_launches_smart_vs_the_vision_sensor_with_the_power_of_machine_learning_and_the_ease_of_photoelectric_sensors/prweb17145081.htm
+          imageUrl: http://ww1.prweb.com/prfiles/2020/05/26/17145081/gI_154482_NewsImage_vcsPRAsset_517683_154482_0a495da0-3acd-484d-9044-1ea1440237f0_0.png
+          pageDate: '2020-05-28T04:00:00.000Z'
+          categories:
+          - PRODUCT
+          company:
+          - id: 15992708
+            name: Datalogic
+        - domain: www.prweb.com
+          title: Zobrist Software announces Smart Merchandiser, a Visual Merchandising tool for Salesforce Commerce Cloud
+          url: https://www.prweb.com/releases/zobrist_software_announces_smart_merchandiser_a_visual_merchandising_tool_for_salesforce_commerce_cloud/prweb17146384.htm
+          imageUrl: http://ww1.prweb.com/prfiles/2020/05/26/17146384/gI_114059_image001.png
+          pageDate: '2020-05-28T04:00:00.000Z'
+          categories:
+          - PRODUCT
+          company:
+          - id: 119029794
+            name: Zobrist Consulting Group
+        - domain: www.prweb.com
+          title: Langley Roofing Helping Chattanooga Rebuild During Challenging Times
+          url: https://www.prweb.com/releases/langley_roofing_helping_chattanooga_rebuild_during_challenging_times/prweb17152380.htm
+          imageUrl: http://ww1.prweb.com/prfiles/2020/05/27/17152380/gI_159769_NewsImage_vcsPRAsset_1052462_159769_dda9251f-d7eb-4cfa-abc1-2d16aa4dec82_0.png
+          pageDate: '2020-05-28T04:00:00.000Z'
+          categories:
+          - GENERAL_PRESS_RELEASE
+          company:
+          - id: 346413161
+            name: Langley Roofing
+        - domain: www.prweb.com
+          title: 'Author Penny Everharts new book Family in Fear: A Story of Domestic Violence is a candid memoir of her agonizing twenty-eight-year marriage to a vicious abuser'
+          url: https://www.prweb.com/releases/author_penny_everharts_new_book_family_in_fear_a_story_of_domestic_violence_is_a_candid_memoir_of_her_agonizing_twenty_eight_year_marriage_to_a_vicious_abuser/prweb17144339.htm
+          imageUrl: http://ww1.prweb.com/prfiles/2020/05/22/17144339/gI_110625_NewsImage_vcsPRAsset_2212767_110625_7e61f549-7ee1-4cc0-8dec-47ee7da0b8f8_0.png
+          pageDate: '2020-05-28T04:00:00.000Z'
+          categories:
+          - GENERAL_NEWS
+          company:
+          - id: 357320725
+            name: Page Publishing
+        - domain: www.prweb.com
+          title: 'Author Jacqueline Williamss new book Izzy Iguana Climbs a Tree: A Geometry Book is a charming childrens tale exploring basic geometric concepts found in nature'
+          url: https://www.prweb.com/releases/author_jacqueline_williamss_new_book_izzy_iguana_climbs_a_tree_a_geometry_book_is_a_charming_childrens_tale_exploring_basic_geometric_concepts_found_in_nature/prweb17148312.htm
+          imageUrl: http://ww1.prweb.com/prfiles/2020/05/26/17148312/gI_110658_NewsImage_vcsPRAsset_2212767_110658_7a29b6b8-76ae-4f32-819a-950371725ae6_0.png
+          pageDate: '2020-05-28T04:00:00.000Z'
+          categories:
+          - GENERAL_NEWS
+          company:
+          - id: 357320725
+            name: Page Publishing
+        - domain: www.prweb.com
+          title: Author Sydnie Lees new book All the Things We Are Avoiding is an evocative compilation of poetry and prose exploring the vicissitudes of life and love
+          url: https://www.prweb.com/releases/author_sydnie_lees_new_book_all_the_things_we_are_avoiding_is_an_evocative_compilation_of_poetry_and_prose_exploring_the_vicissitudes_of_life_and_love/prweb17148293.htm
+          imageUrl: http://ww1.prweb.com/prfiles/2020/05/26/17148293/gI_110657_NewsImage_vcsPRAsset_2212767_110657_34c025fc-ea3d-457a-83ec-6ec7a5156081_0.png
+          pageDate: '2020-05-28T04:00:00.000Z'
+          categories:
+          - GENERAL_NEWS
+          company:
+          - id: 357320725
+            name: Page Publishing
+        - domain: www.businesswire.com
+          title: Delta-Q Technologies anuncia seu novo carregador de bateria RQ350 para m�quinas e ve�culos el�tricos
+          url: https://www.businesswire.com/news/home/20200527005980/pt/
+          imageUrl: https://mms.businesswire.com/media/20200527005980/pt/794287/22/RQ350_imageB1_2.jpg
+          pageDate: '2020-05-28T03:58:00.000Z'
+          categories:
+          - GENERAL_NEWS
+          company:
+          - id: 34393410
+            name: Delta-Q Technologies
+        - domain: www.globenewswire.com
+          title: The Global Passenger Vehicle Telematics Market is expected to grow by USD 15.19 bn during 2020-2024 progressing at a CAGR of 17% during the forecast period
+          url: http://www.globenewswire.com/news-release/2020/05/28/2039877/0/en/The-Global-Passenger-Vehicle-Telematics-Market-is-expected-to-grow-by-USD-15-19-bn-during-2020-2024-progressing-at-a-CAGR-of-17-during-the-forecast-period.html
+          imageUrl: http://www.globenewswire.com/Attachment/LogoDisplay/853201?filename=853201.jpg&size=1
+          pageDate: '2020-05-28T03:58:00.000Z'
+          categories:
+          - GENERAL_PRESS_RELEASE
+          company:
+          - id: 231751931
+            name: Reportlinker.com
+        - domain: www.prnewswire.com
+          title: Huami Establishes a Brain-computer Interface Joint Lab with Top Chinese University
+          url: https://www.prnewswire.com:443/news-releases/huami-establishes-a-brain-computer-interface-joint-lab-with-top-chinese-university-301066695.html
+          pageDate: '2020-05-28T03:54:00.000Z'
+          categories:
+          - PRODUCT
+          company:
+          - id: 397718835
+            name: Huami
+          - id: 372581933
+            name: University of Science and Technology of China
+        - domain: www.prnewswire.com
+          title: Silicon Labs Announces Pricing of Private Offering of $500 Million of 0.625% Convertible Senior Notes
+          url: https://www.prnewswire.com:443/news-releases/silicon-labs-announces-pricing-of-private-offering-of-500-million-of-0-625-convertible-senior-notes-301066694.html
+          imageUrl: https://mma.prnewswire.com/media/457128/silicon_labs_Logo.jpg?p=twitter
+          pageDate: '2020-05-28T03:52:00.000Z'
+          categories:
+          - GENERAL_PRESS_RELEASE
+          company:
+          - id: 168640828
+            name: Silicon Labs
+        - domain: www.globenewswire.com
+          title: The Global Surgical Scalpel Market is expected to grow by $ 105.29 mn during 2020-2024 progressing at a CAGR of 3% during the forecast period
+          url: http://www.globenewswire.com/news-release/2020/05/28/2039876/0/en/The-Global-Surgical-Scalpel-Market-is-expected-to-grow-by-105-29-mn-during-2020-2024-progressing-at-a-CAGR-of-3-during-the-forecast-period.html
+          imageUrl: http://www.globenewswire.com/Attachment/LogoDisplay/853201?filename=853201.jpg&size=1
+          pageDate: '2020-05-28T03:38:00.000Z'
+          categories:
+          - GENERAL_PRESS_RELEASE
+          company:
+          - id: 231751931
+            name: Reportlinker.com
+        - domain: www.forbes.com
+          title: What COVID-19 Social Distancing Measures Will Mean For Restaurant Dining Room Design
+          url: https://www.forbes.com/sites/lesliewu/2020/05/27/what-covid-19-social-distancing-measures-will-mean-for-restaurant-dining-room-design/
+          imageUrl: https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5ecf309a1aa7fc0007fa3dce%2F0x0.jpg
+          pageDate: '2020-05-28T03:35:56.000Z'
+          categories:
+          - GENERAL_NEWS
+          company:
+          - id: 67470018
+            name: National Restaurant Association
+        - domain: www.globenewswire.com
+          title: BioCryst Prices Public Offering of Common Stock and Pre-Funded Warrants
+          url: http://www.globenewswire.com/news-release/2020/05/28/2039875/0/en/BioCryst-Prices-Public-Offering-of-Common-Stock-and-Pre-Funded-Warrants.html
+          imageUrl: http://www.globenewswire.com/Attachment/LogoDisplay/514115?filename=514115.jpg&size=1
+          pageDate: '2020-05-28T03:35:00.000Z'
+          categories:
+          - GENERAL_PRESS_RELEASE
+          company:
+          - id: 4735661
+            name: BioCryst Pharmaceuticals
+        - domain: www.sbwire.com
+          title: Global Live Biotherapeutic Products and Microbiome Contract Manufacturing Market Assessment  Industry Analysis, Clinical Trial and Revenue Forecast Till 2028
+          url: http://www.sbwire.com/press-releases/global-live-biotherapeutic-products-and-microbiome-contract-manufacturing-market-assessment-industry-analysis-clinical-trial-and-revenue-forecast-till-2028-1292554.htm
+          imageUrl: http://media.releasewire.com/photos/show/?id=249011
+          pageDate: '2020-05-28T03:30:00.000Z'
+          categories:
+          - GENERAL_PRESS_RELEASE
+          company:
+          - id: 465413269
+            name: InsightAce Analytic Pvt
+        - domain: www.business-standard.com
+          title: 'Google Pay expands ''Nearby Stores'' feature to 35 cities in India: Know more'
+          url: https://www.business-standard.com/article/companies/google-pay-expands-nearby-stores-feature-to-35-cities-in-india-know-more-120052800208_1.html
+          imageUrl: https://bsmedia.business-standard.com/_media/bs/img/article/2018-02/21/full/1519181810-254.jpg
+          pageDate: '2020-05-28T03:26:00.000Z'
+          categories:
+          - GENERAL_NEWS
+          company:
+          - id: 16400573
+            name: Google
+        - domain: www.reuters.com
+          title: Google sees resurgence in state-backed hacking, phishing related to COVID-19
+          url: https://www.reuters.com/article/us-health-coronavirus-cyber/google-sees-resurgence-in-state-backed-hacking-phishing-related-to-covid-19-idUSKBN2340CH
+          imageUrl: https://s2.reutersmedia.net/resources/r/?m=02&d=20200528&t=2&i=1520138291&w=1200&r=LYNXMPEG4R06H
+          pageDate: '2020-05-28T03:18:26.000Z'
+          categories:
+          - GENERAL_NEWS
+          company:
+          - id: 16400573
+            name: Google
+        - domain: www.globenewswire.com
+          title: The Global Isobutene Market is expected to grow by $ 7.31 bn during 2020-2024 progressing at a CAGR of 4% during the forecast period
+          url: http://www.globenewswire.com/news-release/2020/05/28/2039874/0/en/The-Global-Isobutene-Market-is-expected-to-grow-by-7-31-bn-during-2020-2024-progressing-at-a-CAGR-of-4-during-the-forecast-period.html
+          imageUrl: http://www.globenewswire.com/Attachment/LogoDisplay/853201?filename=853201.jpg&size=1
+          pageDate: '2020-05-28T03:18:00.000Z'
+          categories:
+          - GENERAL_PRESS_RELEASE
+          company:
+          - id: 231751931
+            name: Reportlinker.com
+        - domain: www.business-standard.com
+          title: Singtel's annual profit plunges 65%, takes $1.3 bn-hit on Airtel snag
+          url: https://www.business-standard.com/article/companies/singtel-s-annual-profit-plunges-65-takes-1-3-bn-hit-on-airtel-snag-120052800205_1.html
+          imageUrl: https://bsmedia.business-standard.com/_media/bs/img/article/2019-07/22/full/1563739681-3395.jpg
+          pageDate: '2020-05-28T03:17:00.000Z'
+          categories:
+          - GENERAL_NEWS
+          company:
+          - id: 344839001
+            name: Singtel
+        - domain: www.businesswire.com
+          title: 'Housing Rights Advocates to Assemblywoman Lorena Gonzalez: Vote NO on Bill with Devastating Implications for Grassroots Advocacy'
+          url: https://www.businesswire.com/news/home/20200527005974/en/Housing-Rights-Advocates-Assemblywoman-Lorena-Gonzalez-Vote/
+          imageUrl: https://mms.businesswire.com/media/20200527005974/en/653060/22/HHR-Logo_Horizontal_Logo.jpg
+          pageDate: '2020-05-28T03:15:00.000Z'
+          categories:
+          - GENERAL_PRESS_RELEASE
+          company:
+          - id: 1753503
+            name: AIDS Healthcare Foundation
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint

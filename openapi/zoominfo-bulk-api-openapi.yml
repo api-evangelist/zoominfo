@@ -1,0 +1,1912 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication Bulk API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Bulk
+  description: "Use the Bulk APIs to search, retrieve, and enrich large ZoomInfo company and contact datasets through asynchronous batch processes.\n\nWith 20x more records than Contact and Company Search and 400x more records than the Contact and Company Enrich, you can leverage Bulk APIs for data ingestion and enrichment at scale.\n\n**Bulk Search API**\n\nWith the Bulk Search API you can:\n\n*   Search for up to 200K records with a single search query\n*   Preview or redeem up to 500 records per page\n    \n\nTwo job types are available with the Bulk Search APIs:\n\n*   The Preview job type returns a company or contact search results preview to help identify records best suited for enrichment. Credits are not charged for the Preview job type.\n*   The Redeem job type enables data retrieval for ingestion, returning selected output fields for a given contact or company. A credit is charged for each unique record that is redeemed.\n    \n\nWhen you submit a search request, an asynchronous job is started, and a job_id is instantly returned. You can use the job_id to check the status of the job and retrieve results.\n\n**Bulk Enrich API**\n\nWith the Bulk Enrich API you can:\n\n*   Enrich up to 10K records in a single job\n*   Retrieve up to 500 results per page\n    \n\nWhen you submit an enrich request, an asynchronous job is started, and a job_id is instantly returned. You can use the job_id to check the status of the job and enrich results.\n\n**Rate Limiting**\n\n*   You can have up to 5 \"active\" jobs (Jobs that are in progress are active jobs. Once a job is completed, you can proceed to creating another job)\n*   You can create up to 1 job per second\n*   Each job you create expires after 24 hours"
+paths:
+  /bulk/search/contact:
+    parameters: []
+    post:
+      tags:
+      - Bulk
+      summary: Zoominfo Bulk Contact Search
+      description: "Use Bulk Contact Search to retrieve contacts using valid query parameters. Your request can consist of the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| jobType | Can be `preview` (default) or `redeem` |\n| query | Can consist of valid input fields from the [Contact Search Inputs](#74630827-dd25-4b6a-bf72-f7cfeffd6c41) endpoint to retrieve the desired results. The following fields are currently not supported with Bulk Search: `sortOrder` and `sortBy`. |\n| outputFields | Required for the `redeem` job type only. Specify the desired output fields to return. See the [Contact Enrich Outputs](#28b47784-3186-4fc4-af91-12e6bc6fb31a) endpoint for the list of output fields you can request. The following fields are currently not supported as an output for Bulk Search: `companyDescriptionList`. |\n\nSee the preview and redeem request examples for syntax.\n\nThe expected output in all cases is a `jobId`. For example:\n\n```\n{\n   \"jobId\": \"e97813aa0bcae7a66f2ea9e1b69a0da2057bbfd8\"\n}\n\n```\n\nSee the [Bulk Job Status](#1f6246d0-fd13-4f63-b170-dda2fedd8322) and [Bulk Job Results](#5417ba88-096d-448a-b6cd-b930089c678d) endpoints for details on how to use the `jobId` to preview and return results."
+      operationId: BulkContactSearch
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/BulkContactSearchRequest'
+              - examples:
+                - jobType: preview
+                  query:
+                    firstName: Mike
+                    companyName: Zoominfo
+              contentMediaType: application/json
+            example:
+              jobType: preview
+              query:
+                firstName: Mike
+                companyName: Zoominfo
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 03 Feb 2022 15:06:32 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            X-Request-Id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cc6740f3-1001-4506-bcd6-8bc8421802a9
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1643900850'
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            x-usage-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999999164'
+            x-usage-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999996399'
+            x-usage-websights-api-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000010'
+            x-usage-websights-api-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99999278'
+            x-usage-websights-api-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            x-usage-websights-api-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999268'
+            x-usage-unique-id-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '40000'
+            x-usage-unique-id-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '20385'
+            content-encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 6d7c903dab928c7e-EWR
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            X-Usage-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '-1'
+            X-Usage-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '0'
+            X-Usage-Websights-Api-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '0'
+            X-Usage-Websights-Api-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '0'
+            X-Usage-Unique-Id-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '0'
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Alt-Svc:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/BulkContactSearch-Preview'
+                - examples:
+                  - jobId: d1cecb828a0f2a13ffbc1f97faa06af31945ef89
+                contentMediaType: application/json;charset=UTF-8
+              example:
+                jobId: d1cecb828a0f2a13ffbc1f97faa06af31945ef89
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /bulk/search/company:
+    parameters: []
+    post:
+      tags:
+      - Bulk
+      summary: Zoominfo Bulk Company Search
+      description: "Use Bulk Company Search to retrieve companies using valid query parameters. Your request can consist of the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| jobType | Can be `preview` (default) or `redeem` |\n| query | Can consist of valid input fields from the [Company Search Inputs](#ffd4ccc6-09d1-4026-8c4f-863d02fd703e) endpoint to retrieve the desired results. The following fields are currently not supported with Bulk Search: `sortOrder` and `sortBy`. |\n| outputFields | Required for the `redeem` job type only. Specify the desired output fields to return. The following fields are currently not supported as an output for Bulk Search: `descriptionList`. |\n\nSee the [Company Enrich Outputs](#d05239c3-2597-45f8-9384-f2dbd3518cfc) endpoint for the list of output fields you can request. |\n\nSee the preview and redeem request examples for syntax.\n\nThe expected output in all cases is a `jobId`. For example:\n\n```\n{\n   \"jobId\": \"e97813aa0bcae7a66f2ea9e1b69a0da2057bbfd8\"\n}\n\n```\n\nSee the [Bulk Job Status](#1f6246d0-fd13-4f63-b170-dda2fedd8322) and [Bulk Job Results](#5417ba88-096d-448a-b6cd-b930089c678d) endpoints for details on how to use the `jobId` to preview and return results."
+      operationId: BulkCompanySearch
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/BulkCompanySearchRequest'
+              - examples:
+                - jobType: preview
+                  query:
+                    address: '01775'
+                  outputFields:
+                  - id
+              contentMediaType: application/json
+            example:
+              jobType: preview
+              query:
+                address: '01775'
+              outputFields:
+              - id
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Tue, 08 Feb 2022 14:33:33 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            X-Request-Id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: f58641cc-e8fa-4454-bf11-e2bccafcd6b5
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1644330874'
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            x-usage-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999999168'
+            x-usage-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999997352'
+            x-usage-websights-api-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000010'
+            x-usage-websights-api-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99999259'
+            x-usage-websights-api-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            x-usage-websights-api-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999249'
+            x-usage-unique-id-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '540003'
+            x-usage-unique-id-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '0'
+            content-encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 6da592dd38b18c51-EWR
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/BulkCompanySearch-Preview'
+                - examples:
+                  - jobId: fa2b51864e1b29a7dceecd149402d6c3441ba34b
+                contentMediaType: application/json;charset=UTF-8
+              example:
+                jobId: fa2b51864e1b29a7dceecd149402d6c3441ba34b
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /bulk/enrich/contact:
+    parameters: []
+    post:
+      tags:
+      - Bulk
+      summary: Zoominfo Bulk Contact Enrich
+      description: "With Bulk Contact Enrich you can:\n\n*   Enrich up to 10K records in a single job\n*   Retrieve up to 500 results per page\n    \n\nUse this endpoint to enrich contact information based on [input values](#dbaf31cd-0f7a-4bf3-b6c1-077f3c31f2df) and return the desired [output fields](#28b47784-3186-4fc4-af91-12e6bc6fb31a) in the response.\n\n**Note**: All output fields in the [Contact Enrich](#2b23b5a2-4074-419e-b01f-e63a6f5af77b) endpoint are supported, with the exception of `companyDescriptionList`.\n\nWhen you submit an enrich request, an asynchronous job is started, and a `job_id` is instantly returned. For example:\n\n```\n{\n   \"jobId\": \"e97813aa0bcae7a66f2ea9e1b69a0da2057bbfd8\"\n}\n\n```\n\nYou can use the `job_id` to check the status of the job and enrich results.\n\nSee the [Bulk Job Status](#1f6246d0-fd13-4f63-b170-dda2fedd8322) and [Bulk Job Results](#5417ba88-096d-448a-b6cd-b930089c678d) endpoints for details on how to use the `jobId` to preview and return results."
+      operationId: BulkContactEnrich
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/BulkContactEnrichRequest'
+              - examples:
+                - matchPersonInput:
+                  - personId: '-1021613465'
+                  - personId: '1850882609'
+                  - personId: '1085252979'
+                  - personId: '1340258275'
+                  - personId: '1211397553'
+                  - personId: '7076615179'
+                  - personId: '10456376'
+                  - personId: '7057643986'
+                  - personId: '3068831069'
+                  - personId: '1237124890'
+                  - personId: '-1268761639'
+                  - personId: '1298772762'
+                  - personId: '-2137560815'
+                  - personId: '1122625695'
+                  - personId: '2560362'
+                  - personId: '295038088'
+                  - personId: '249554924'
+                  - personId: '4086996027'
+                  - personId: '128559379'
+                  - personId: '78327053'
+                  outputFields:
+                  - id
+                  - firstName
+                  - middleName
+                  - lastName
+                  - email
+                  - phone
+                  - directPhoneDoNotCall
+                  - street
+                  - city
+                  - region
+                  - metroArea
+                  - zipCode
+                  - state
+                  - country
+                  - continent
+                  - personHasMoved
+                  - withinEu
+                  - withinCalifornia
+                  - withinCanada
+                  - lastUpdatedDate
+                  - validDate
+                  - noticeProvidedDate
+                  - salutation
+                  - suffix
+                  - jobTitle
+                  - jobFunction
+                  - companyDivision
+                  - education
+                  - hashedEmails
+                  - picture
+                  - mobilePhoneDoNotCall
+                  - externalUrls
+                  - companyId
+                  - companyName
+                  - companyPhone
+                  - companyFax
+                  - companyStreet
+                  - companyCity
+                  - companyState
+                  - companyZipCode
+                  - companyCountry
+                  - companyContinent
+                  - companyLogo
+                  - companySicCodes
+                  - companyNaicsCodes
+                  - contactAccuracyScore
+                  - companyWebsite
+                  - companyRevenue
+                  - companyRevenueNumeric
+                  - companyEmployeeCount
+                  - companyType
+                  - companyTicker
+                  - companyRanking
+                  - isDefunct
+                  - companySocialMediaUrls
+                  - companyPrimaryIndustry
+                  - companyIndustries
+                  - companyRevenueRange
+                  - companyEmployeeRange
+                  - employmentHistory
+                  - managementLevel
+                  - locationCompanyId
+              contentMediaType: application/json
+            example:
+              matchPersonInput:
+              - personId: '-1021613465'
+              - personId: '1850882609'
+              - personId: '1085252979'
+              - personId: '1340258275'
+              - personId: '1211397553'
+              - personId: '7076615179'
+              - personId: '10456376'
+              - personId: '7057643986'
+              - personId: '3068831069'
+              - personId: '1237124890'
+              - personId: '-1268761639'
+              - personId: '1298772762'
+              - personId: '-2137560815'
+              - personId: '1122625695'
+              - personId: '2560362'
+              - personId: '295038088'
+              - personId: '249554924'
+              - personId: '4086996027'
+              - personId: '128559379'
+              - personId: '78327053'
+              outputFields:
+              - id
+              - firstName
+              - middleName
+              - lastName
+              - email
+              - phone
+              - directPhoneDoNotCall
+              - street
+              - city
+              - region
+              - metroArea
+              - zipCode
+              - state
+              - country
+              - continent
+              - personHasMoved
+              - withinEu
+              - withinCalifornia
+              - withinCanada
+              - lastUpdatedDate
+              - validDate
+              - noticeProvidedDate
+              - salutation
+              - suffix
+              - jobTitle
+              - jobFunction
+              - companyDivision
+              - education
+              - hashedEmails
+              - picture
+              - mobilePhoneDoNotCall
+              - externalUrls
+              - companyId
+              - companyName
+              - companyPhone
+              - companyFax
+              - companyStreet
+              - companyCity
+              - companyState
+              - companyZipCode
+              - companyCountry
+              - companyContinent
+              - companyLogo
+              - companySicCodes
+              - companyNaicsCodes
+              - contactAccuracyScore
+              - companyWebsite
+              - companyRevenue
+              - companyRevenueNumeric
+              - companyEmployeeCount
+              - companyType
+              - companyTicker
+              - companyRanking
+              - isDefunct
+              - companySocialMediaUrls
+              - companyPrimaryIndustry
+              - companyIndustries
+              - companyRevenueRange
+              - companyEmployeeRange
+              - employmentHistory
+              - managementLevel
+              - locationCompanyId
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 12 May 2022 18:34:49 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            X-Request-Id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cbb60584-6e2f-4bdb-89ba-83b2f3674a44
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1652380550'
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            x-usage-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999999155'
+            x-usage-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999995200'
+            x-usage-websights-api-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000010'
+            x-usage-websights-api-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99998741'
+            x-usage-websights-api-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            x-usage-websights-api-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9998738'
+            x-usage-unique-id-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '81000013'
+            x-usage-unique-id-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '90754986'
+            content-encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 70a540280dcd8ce0-EWR
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/BulkContactEnrich'
+                - examples:
+                  - jobId: de5c557935a221c2bc2fa612bf2d8768ade9572c
+                contentMediaType: application/json;charset=UTF-8
+              example:
+                jobId: de5c557935a221c2bc2fa612bf2d8768ade9572c
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /bulk/enrich/company:
+    parameters: []
+    post:
+      tags:
+      - Bulk
+      summary: Zoominfo Bulk Company Enrich
+      description: "With Bulk Company Enrich you can:\n\n*   Enrich up to 10K records in a single Enrich job\n*   Retrieve up to 500 results per page\n    \n\nUse this endpoint to enrich company information based on [input values](#7a915792-e8cd-4e3a-9f0e-c19b850be536) and return the desired [output fields](#d05239c3-2597-45f8-9384-f2dbd3518cfc) in the response.\n\n**Note**: All output fields in the [Company Enrich](#5fdf6e5e-f71e-4e1f-9807-0f8296094dcc) endpoint are supported, with the exception of `companyDescriptionList`.\n\nWhen you submit an enrich request, an asynchronous job is started, and a `job_id` is instantly returned. For example:\n\n```\n{\n   \"jobId\": \"e97813aa0bcae7a66f2ea9e1b69a0da2057bbfd8\"\n}\n\n```\n\nYou can use the `job_id` to check the status of the job and enrich results.\n\nSee the [Bulk Job Status](#1f6246d0-fd13-4f63-b170-dda2fedd8322) and [Bulk Job Results](#5417ba88-096d-448a-b6cd-b930089c678d) endpoints for details on how to use the `jobId` to preview and return results."
+      operationId: BulkCompanyEnrich
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/BulkCompanyEnrichRequest'
+              - examples:
+                - matchCompanyInput:
+                  - companyId: '7783252'
+                  - companyId: '30147212'
+                  - companyId: '18008595'
+                  - companyId: '558366052'
+                  - companyId: '239305146'
+                  - companyId: '77103155'
+                  - companyId: '37051158'
+                  - companyId: '29425770'
+                  - companyId: '345444435'
+                  - companyId: '347451938'
+                  - companyId: '20234595'
+                  - companyId: '353492965'
+                  - companyId: '91406858'
+                  - companyId: '559977935'
+                  - companyId: '18633856'
+                  - companyId: '67459255'
+                  - companyId: '130203765'
+                  - companyId: '17353843'
+                  - companyId: '122634324'
+                  - companyId: '106676542'
+                  - companyId: '80265858'
+                  - companyId: '124404507'
+                  - companyId: '28738687'
+                  - companyId: '421520839'
+                  - companyId: '50498255'
+                  - companyId: '34537887'
+                  - companyId: '8520039'
+                  - companyId: '49187454'
+                  - companyId: '94340946'
+                  - companyId: '89195983'
+                  - companyId: '9240875'
+                  outputFields:
+                  - id
+                  - ticker
+                  - name
+                  - website
+                  - domainList
+              contentMediaType: application/json
+            example:
+              matchCompanyInput:
+              - companyId: '7783252'
+              - companyId: '30147212'
+              - companyId: '18008595'
+              - companyId: '558366052'
+              - companyId: '239305146'
+              - companyId: '77103155'
+              - companyId: '37051158'
+              - companyId: '29425770'
+              - companyId: '345444435'
+              - companyId: '347451938'
+              - companyId: '20234595'
+              - companyId: '353492965'
+              - companyId: '91406858'
+              - companyId: '559977935'
+              - companyId: '18633856'
+              - companyId: '67459255'
+              - companyId: '130203765'
+              - companyId: '17353843'
+              - companyId: '122634324'
+              - companyId: '106676542'
+              - companyId: '80265858'
+              - companyId: '124404507'
+              - companyId: '28738687'
+              - companyId: '421520839'
+              - companyId: '50498255'
+              - companyId: '34537887'
+              - companyId: '8520039'
+              - companyId: '49187454'
+              - companyId: '94340946'
+              - companyId: '89195983'
+              - companyId: '9240875'
+              outputFields:
+              - id
+              - ticker
+              - name
+              - website
+              - domainList
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 12 May 2022 17:36:29 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            X-Request-Id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 404455ac-c2dd-4c37-87e8-1bbd062ab10e
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1652377050'
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            x-usage-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999999157'
+            x-usage-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999995200'
+            x-usage-websights-api-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000010'
+            x-usage-websights-api-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99998741'
+            x-usage-websights-api-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            x-usage-websights-api-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9998738'
+            x-usage-unique-id-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '81000013'
+            x-usage-unique-id-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '90756981'
+            content-encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 70a4eab64e34335c-EWR
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/BulkCompanyEnrich'
+                - examples:
+                  - jobId: add665cc35af4dcbbbe0b4c2d472dfcab15b55d7
+                contentMediaType: application/json;charset=UTF-8
+              example:
+                jobId: add665cc35af4dcbbbe0b4c2d472dfcab15b55d7
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /bulk/job/status:
+    parameters: []
+    post:
+      tags:
+      - Bulk
+      summary: Zoominfo Bulk Job Status
+      description: "Use the Bulk Job Status endpoint with the jobId as input to return a job status that shows the total number of matching records and page count.\n\n``` {\n{\n   \"jobId\": \"484424dd9a04adccca98a17f19747435ef6c8705\"\n}\n\n```\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| jobId | String | Job ID generated by running Bulk Contact Search or Bulk Company Search |\n\n**Response data**\n\n| Field | Description |\n| --- | --- |\n| status | Status can be `Queued`, `In_Progress`, `Completed` and `Failed`. |\n| jobType | Job type can be `preview` or `redeem`. |\n| entityType | Entity type can be `company` or `contact`. |\n| totalRecords | Total number of records returned |\n| totalPages | Total number of pages (`totalRecords` divided by 1000 per page) |\n| successfulPagesCount | Number of pages that were successful |\n| successfulPages | Specific pages that were successful |"
+      operationId: BulkJobStatus
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/BulkJobStatusRequest'
+              - examples:
+                - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
+              contentMediaType: application/json
+            example:
+              jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 03 Feb 2022 15:11:41 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            X-Request-Id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 8542d0aa-f2f3-4c7d-9963-7aa366fa89af
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1497'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1643901110'
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            content-encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 6d7c97bdbb378c7e-EWR
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/BulkJobStatus'
+                - examples:
+                  - status: IN_PROGRESS
+                    jobType: redeem
+                    entityType: COMPANY
+                    totalRecords: 7655
+                    totalPages: 8
+                    successfulPagesCount: 3
+                    successfulPages:
+                    - 1
+                    - 2
+                    - 8
+                contentMediaType: application/json;charset=UTF-8
+              example:
+                status: IN_PROGRESS
+                jobType: redeem
+                entityType: COMPANY
+                totalRecords: 7655
+                totalPages: 8
+                successfulPagesCount: 3
+                successfulPages:
+                - 1
+                - 2
+                - 8
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /bulk/job/results:
+    parameters: []
+    post:
+      tags:
+      - Bulk
+      summary: Zoominfo Bulk Job Results
+      description: "Use the Bulk Job Results endpoint with the jobId as input to return job results of the matching records for the specified page.\n\n**Note:** Please ensure that the page number is successfully processed and ready to get results.\n\n```\n{\n   \"jobId\": \"484424dd9a04adccca98a17f19747435ef6c8705\",\n   \"page\": 1\n}\n\n```\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| jobId | String | Job ID generated by running Bulk Contact Search or Bulk Company Search |\n| page | Integer | Provides the results for the given page, used in conjunction with `rpp` |\n\n**Response data**\n\n| Field | Description |\n| --- | --- |\n| jobType | Type of job. Can be `preview` or `redeem`. |\n| entityType | Type of entity. Can be `company` or `contact`. |\n| totalRecords | Total number of records returned |\n| currentPage | Current page number |\n| currentResults | Number of results for the current page |\n| result | Results for the requested output fields |"
+      operationId: BulkJobResults
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/BulkJobResultsRequest'
+              - examples:
+                - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
+                  page: 5
+              contentMediaType: application/json
+            example:
+              jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
+              page: 5
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Thu, 03 Feb 2022 15:13:01 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            X-Request-Id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 40047dc3-c02f-4f1a-a4d9-4e5983c39f70
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1498'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1643901221'
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            x-usage-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999999157'
+            x-usage-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999993399'
+            x-usage-websights-api-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000010'
+            x-usage-websights-api-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99999278'
+            x-usage-websights-api-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            x-usage-websights-api-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999268'
+            x-usage-unique-id-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '40000'
+            x-usage-unique-id-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '20235'
+            content-encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 6d7c99cdcec88c7e-EWR
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+                examples:
+                - "{\n    \"jobType\": \"redeem\",\n    \"entityType\": \"company\",\n    \"totalRecords\": 7655,\n    \"totalPages\": 8,\n    \"currentPage\": 5,\n    \"currentResults\": 1000,\n    \"result\": [\n        {\n            \"input\": {\n                \"companyId\": 542549309\n            },\n            \"data\": {\n                \"id\": 542549309,\n                \"name\": \"Monge.net\",\n                \"website\": \"www.monge.net\",\n                \"employeeCount\": 0\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 412129693\n            },\n            \"data\": {\n                \"id\": 412129693,\n                \"name\": \"Grover Lab\",\n                \"website\": \"www.groverlab.org\",\n                \"employeeCount\": 20\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 537036780\n            },\n            \"data\": {\n                \"id\": 537036780,\n                \"name\": \"Phillip J. Pati�o School of Entrepreneurship\",\n                \"website\": \"www.patinoeschool.org\",\n                \"employeeCount\": 0\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 536306331\n            },\n            \"data\": {\n                \"id\": 536306331,\n                \"name\": \"SCOE Conference Center\",\n                \"website\": \"www.scoeteaching.net\",\n                \"employeeCount\": 0\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 538434159\n            },\n            \"data\": {\n                \"id\": 538434159,\n                \"name\": \"William Drury\",\n                \"website\": \"www.williamdrury.com\",\n                \"employeeCount\": 0\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 411427542\n            },\n            \"data\": {\n                \"id\": 411427542,\n                \"name\": \"Johannes School of Music\",\n                \"website\": \"johannesschoolofmusic.net\",\n                \"employeeCount\": 22\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 536627736\n            },\n            \"data\": {\n                \"id\": 536627736,\n                \"name\": \"Versfabrik\",\n                \"website\": \"www.branch14.org\",\n                \"employeeCount\": 0\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 540497384\n            },\n            \"data\": {\n                \"id\": 540497384,\n                \"name\": \"Education Is Forever\",\n                \"website\": \"www.eduisforever.org\",\n                \"employeeCount\": 0\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 410641125\n            },\n            \"data\": {\n                \"id\": 410641125,\n                \"name\": \"Cross Tuition\",\n                \"website\": \"crosstuition.org\",\n                \"employeeCount\": 6\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 358921572\n            },\n            \"data\": {\n                \"id\": 358921572,\n                \"name\": \"Aprentica\",\n                \"website\": \"www.aprentica.com\",\n                \"employeeCount\": 5\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 537129612\n            },\n            \"data\": {\n                \"id\": 537129612,\n                \"name\": \"School of Professors\",\n                \"website\": \"www.schoolofprofessors.com\",\n                \"employeeCount\": 0\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 81969417\n            },\n            \"data\": {\n                \"id\": 81969417,\n                \"name\": \"The SMETE Open Federation\",\n                \"website\": \"www.smete.org\",\n                \"employeeCount\": 5\n            }\n        }\n    ]\n}\n## This example is truncated. Results continue to the max number per page."
+                contentMediaType: application/json;charset=UTF-8
+              example: "{\n    \"jobType\": \"redeem\",\n    \"entityType\": \"company\",\n    \"totalRecords\": 7655,\n    \"totalPages\": 8,\n    \"currentPage\": 5,\n    \"currentResults\": 1000,\n    \"result\": [\n        {\n            \"input\": {\n                \"companyId\": 542549309\n            },\n            \"data\": {\n                \"id\": 542549309,\n                \"name\": \"Monge.net\",\n                \"website\": \"www.monge.net\",\n                \"employeeCount\": 0\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 412129693\n            },\n            \"data\": {\n                \"id\": 412129693,\n                \"name\": \"Grover Lab\",\n                \"website\": \"www.groverlab.org\",\n                \"employeeCount\": 20\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 537036780\n            },\n            \"data\": {\n                \"id\": 537036780,\n                \"name\": \"Phillip J. Pati�o School of Entrepreneurship\",\n                \"website\": \"www.patinoeschool.org\",\n                \"employeeCount\": 0\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 536306331\n            },\n            \"data\": {\n                \"id\": 536306331,\n                \"name\": \"SCOE Conference Center\",\n                \"website\": \"www.scoeteaching.net\",\n                \"employeeCount\": 0\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 538434159\n            },\n            \"data\": {\n                \"id\": 538434159,\n                \"name\": \"William Drury\",\n                \"website\": \"www.williamdrury.com\",\n                \"employeeCount\": 0\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 411427542\n            },\n            \"data\": {\n                \"id\": 411427542,\n                \"name\": \"Johannes School of Music\",\n                \"website\": \"johannesschoolofmusic.net\",\n                \"employeeCount\": 22\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 536627736\n            },\n            \"data\": {\n                \"id\": 536627736,\n                \"name\": \"Versfabrik\",\n                \"website\": \"www.branch14.org\",\n                \"employeeCount\": 0\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 540497384\n            },\n            \"data\": {\n                \"id\": 540497384,\n                \"name\": \"Education Is Forever\",\n                \"website\": \"www.eduisforever.org\",\n                \"employeeCount\": 0\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 410641125\n            },\n            \"data\": {\n                \"id\": 410641125,\n                \"name\": \"Cross Tuition\",\n                \"website\": \"crosstuition.org\",\n                \"employeeCount\": 6\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 358921572\n            },\n            \"data\": {\n                \"id\": 358921572,\n                \"name\": \"Aprentica\",\n                \"website\": \"www.aprentica.com\",\n                \"employeeCount\": 5\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 537129612\n            },\n            \"data\": {\n                \"id\": 537129612,\n                \"name\": \"School of Professors\",\n                \"website\": \"www.schoolofprofessors.com\",\n                \"employeeCount\": 0\n            }\n        },\n        {\n            \"input\": {\n                \"companyId\": 81969417\n            },\n            \"data\": {\n                \"id\": 81969417,\n                \"name\": \"The SMETE Open Federation\",\n                \"website\": \"www.smete.org\",\n                \"employeeCount\": 5\n            }\n        }\n    ]\n}\n## This example is truncated. Results continue to the max number per page."
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    BulkJobStatus:
+      title: BulkJobStatus
+      required:
+      - status
+      - jobType
+      - entityType
+      - totalRecords
+      - totalPages
+      - successfulPagesCount
+      - successfulPages
+      type: object
+      properties:
+        status:
+          type: string
+          example: active
+        jobType:
+          type: string
+          example: standard
+        entityType:
+          type: string
+          example: standard
+        totalRecords:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        totalPages:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        successfulPagesCount:
+          type: integer
+          contentEncoding: int32
+          example: 250
+        successfulPages:
+          type: array
+          items:
+            type: integer
+            contentEncoding: int32
+          description: ''
+          example: []
+      examples:
+      - status: IN_PROGRESS
+        jobType: redeem
+        entityType: COMPANY
+        totalRecords: 7655
+        totalPages: 8
+        successfulPagesCount: 3
+        successfulPages:
+        - 1
+        - 2
+        - 8
+    BulkContactSearch-Preview:
+      title: BulkContactSearch-Preview
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: d1cecb828a0f2a13ffbc1f97faa06af31945ef89
+    BulkContactSearchRequest:
+      title: BulkContactSearchRequest
+      required:
+      - jobType
+      - query
+      type: object
+      properties:
+        jobType:
+          type: string
+          example: standard
+        query:
+          $ref: '#/components/schemas/Query'
+      examples:
+      - jobType: preview
+        query:
+          firstName: Mike
+          companyName: Zoominfo
+    BulkContactEnrichRequest:
+      title: BulkContactEnrichRequest
+      required:
+      - matchPersonInput
+      - outputFields
+      type: object
+      properties:
+        matchPersonInput:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchPersonInput1'
+          description: ''
+          example: []
+        outputFields:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+      examples:
+      - matchPersonInput:
+        - personId: '-1021613465'
+        - personId: '1850882609'
+        - personId: '1085252979'
+        - personId: '1340258275'
+        - personId: '1211397553'
+        - personId: '7076615179'
+        - personId: '10456376'
+        - personId: '7057643986'
+        - personId: '3068831069'
+        - personId: '1237124890'
+        - personId: '-1268761639'
+        - personId: '1298772762'
+        - personId: '-2137560815'
+        - personId: '1122625695'
+        - personId: '2560362'
+        - personId: '295038088'
+        - personId: '249554924'
+        - personId: '4086996027'
+        - personId: '128559379'
+        - personId: '78327053'
+        outputFields:
+        - id
+        - firstName
+        - middleName
+        - lastName
+        - email
+        - phone
+        - directPhoneDoNotCall
+        - street
+        - city
+        - region
+        - metroArea
+        - zipCode
+        - state
+        - country
+        - continent
+        - personHasMoved
+        - withinEu
+        - withinCalifornia
+        - withinCanada
+        - lastUpdatedDate
+        - validDate
+        - noticeProvidedDate
+        - salutation
+        - suffix
+        - jobTitle
+        - jobFunction
+        - companyDivision
+        - education
+        - hashedEmails
+        - picture
+        - mobilePhoneDoNotCall
+        - externalUrls
+        - companyId
+        - companyName
+        - companyPhone
+        - companyFax
+        - companyStreet
+        - companyCity
+        - companyState
+        - companyZipCode
+        - companyCountry
+        - companyContinent
+        - companyLogo
+        - companySicCodes
+        - companyNaicsCodes
+        - contactAccuracyScore
+        - companyWebsite
+        - companyRevenue
+        - companyRevenueNumeric
+        - companyEmployeeCount
+        - companyType
+        - companyTicker
+        - companyRanking
+        - isDefunct
+        - companySocialMediaUrls
+        - companyPrimaryIndustry
+        - companyIndustries
+        - companyRevenueRange
+        - companyEmployeeRange
+        - employmentHistory
+        - managementLevel
+        - locationCompanyId
+    MatchPersonInput1:
+      title: MatchPersonInput1
+      required:
+      - personId
+      type: object
+      properties:
+        personId:
+          type: string
+          example: '500123'
+      examples:
+      - personId: '-1021613465'
+    BulkJobResultsRequest:
+      title: BulkJobResultsRequest
+      required:
+      - jobId
+      - page
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+        page:
+          type: integer
+          contentEncoding: int32
+          example: 1
+      examples:
+      - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
+        page: 5
+    BulkCompanySearchRequest:
+      title: BulkCompanySearchRequest
+      required:
+      - jobType
+      - query
+      - outputFields
+      type: object
+      properties:
+        jobType:
+          type: string
+          example: standard
+        query:
+          $ref: '#/components/schemas/Query1'
+        outputFields:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+      examples:
+      - jobType: preview
+        query:
+          address: '01775'
+        outputFields:
+        - id
+    BulkCompanyEnrichRequest:
+      title: BulkCompanyEnrichRequest
+      required:
+      - matchCompanyInput
+      - outputFields
+      type: object
+      properties:
+        matchCompanyInput:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchCompanyInput3'
+          description: ''
+          example: []
+        outputFields:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+      examples:
+      - matchCompanyInput:
+        - companyId: '7783252'
+        - companyId: '30147212'
+        - companyId: '18008595'
+        - companyId: '558366052'
+        - companyId: '239305146'
+        - companyId: '77103155'
+        - companyId: '37051158'
+        - companyId: '29425770'
+        - companyId: '345444435'
+        - companyId: '347451938'
+        - companyId: '20234595'
+        - companyId: '353492965'
+        - companyId: '91406858'
+        - companyId: '559977935'
+        - companyId: '18633856'
+        - companyId: '67459255'
+        - companyId: '130203765'
+        - companyId: '17353843'
+        - companyId: '122634324'
+        - companyId: '106676542'
+        - companyId: '80265858'
+        - companyId: '124404507'
+        - companyId: '28738687'
+        - companyId: '421520839'
+        - companyId: '50498255'
+        - companyId: '34537887'
+        - companyId: '8520039'
+        - companyId: '49187454'
+        - companyId: '94340946'
+        - companyId: '89195983'
+        - companyId: '9240875'
+        outputFields:
+        - id
+        - ticker
+        - name
+        - website
+        - domainList
+    BulkCompanyEnrich:
+      title: BulkCompanyEnrich
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: add665cc35af4dcbbbe0b4c2d472dfcab15b55d7
+    BulkCompanySearch-Preview:
+      title: BulkCompanySearch-Preview
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: fa2b51864e1b29a7dceecd149402d6c3441ba34b
+    Query:
+      title: Query
+      required:
+      - firstName
+      - companyName
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: Acme Corporation
+        companyName:
+          type: string
+          example: Acme Corporation
+      examples:
+      - firstName: Mike
+        companyName: Zoominfo
+    BulkJobStatusRequest:
+      title: BulkJobStatusRequest
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
+    MatchCompanyInput3:
+      title: MatchCompanyInput3
+      required:
+      - companyId
+      type: object
+      properties:
+        companyId:
+          type: string
+          example: '500123'
+      examples:
+      - companyId: '7783252'
+    Query1:
+      title: Query1
+      required:
+      - address
+      type: object
+      properties:
+        address:
+          type: string
+          example: 123 Main Street
+      examples:
+      - address: '01775'
+    BulkContactEnrich:
+      title: BulkContactEnrich
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: de5c557935a221c2bc2fa612bf2d8768ade9572c
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint

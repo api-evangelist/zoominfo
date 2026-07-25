@@ -1,0 +1,1367 @@
+openapi: 3.1.0
+info:
+  title: ZoomInfo Authentication WebSights API API
+  description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
+  contact:
+    name: ZoomInfo API Support
+    url: https://www.zoominfo.com/about/help-center
+    email: support@zoominfo.com
+  version: '1.0'
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://api.zoominfo.com
+  description: ZoomInfo API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: WebSights API
+  description: "The Websights API identifies anonymous website traffic by resolving IP addresses (IPv4 & IPv6) to return company and ISP profiles and IP geolocation details.\n\n**Company vs. ISP response data**\n\nIf the IP address belongs to a company, details about the company are returned including geolocation details. For example:\n\n```\n\"data\": {\n    \"company\": {\n        \"city\": \"Vancouver\",\n        \"country\": \"United States\",\n        \"employeeCount\": 1300,\n        \"id\": 344589814,\n        \"industries\": [\n            \"media.data\",\n            \"media\",\n            \"software\"\n        ],\n        \"name\": \"Zoom Information, Inc.\",\n        \"revenue\": 400000,\n        \"state\": \"Washington\",\n        \"street\": \"805 Broadway St Suite 900\",\n        \"ticker\": \"\",\n        \"website\": \"www.zoominfo.com\",\n       \"zipCode\": \"98660\"\n    },\n    \"geoLocation\": {\n        \"location_long\": -122.672,\n        \"location_lat\": 45.627,\n        \"country_code\": \"US\",\n        \"province\": \"Washington\"\n    }\n\n```\n\nIf the IP address belongs to an internet service provider (ISP), details about the ISP are returned including geolocation details. For example:\n\n```\n    \"data\": {\n        \"geoLocation\": {\n            \"location_long\": -71.06616,\n            \"location_lat\": 42.45843,\n            \"country_code\": \"US\",\n            \"province\": \"Massachusetts\"\n        },\n        \"ispInfo\": {\n            \"domain\": \"comcast.com\",\n            \"ip_hi_string\": \"73.143.255.255\",\n            \"ip_lo_string\": \"73.142.0.0\",\n            \"name\": \"Comcast Cable Communications, Inc.\",\n            \"type\": \"isp\"\n        }\n\n```\n\n**Charging mechanism**\n\nYour account is provisioned with an allocated number of records that you can retrieve over a 1-year period. A record is either a company for which ZoomInfo has data, or an Internet Service Provider (ISP). If a query does not match a company or ISP, no record is charged."
+paths:
+  /enrich/ip:
+    parameters: []
+    post:
+      tags:
+      - WebSights API
+      summary: Zoominfo Ip Enrich
+      description: 'Use this endpoint to match IP addresses based on [input values](#12a5c22b-cba1-4b40-a8c6-45f564cf0c2a) and return the desired [output fields](#ca8c2c2f-c731-4310-ae0d-dfba2fb756d7) in the response.
+
+
+        You can specify the output fields you want returned using the `outputFields` section in your request JSON (see the endpoint examples for syntax). If you do not specify output fields, all possible fields will be returned.
+
+
+        **Input params**
+
+
+        | Parameter | DataType | Description |
+
+        | --- | --- | --- |
+
+        | ipAddress | String | IP address to match (supports both IPv4 & IPv6) |
+
+
+        **Response data**
+
+
+        | Field | Description |
+
+        | --- | --- |
+
+        | id | Unique ZoomInfo identifier for the company |
+
+        | name | Company name |
+
+        | street | Street of the company''s primary address |
+
+        | city | City of the company''s primary address |
+
+        | state | State or province of the company''s primary address |
+
+        | zipCode | Zip Code or Postal Code of the company''s primary address |
+
+        | country | Country of the company''s primary address |
+
+        | ticker | Company public stock exchange ticker |
+
+        | website | Company website URL |
+
+        | employeeCount | Approximate number of people employed by the company |
+
+        | revenue | Approximate yearly revenue for the company in 1000''s. For example, a 100M company is expressed as 100000. |
+
+        | industries | The industry grouping for the company. A company can have multiple industries. |
+
+        | confidenceScore | Indicates the certainty of an IP matching a domain. The score ranges from 0.00 to 1.00. Only matches with a score of 0.3 or above are shown by default. Contact your Account Manager for lower-scoring matches. It could be empty. |'
+      operationId: IPEnrich
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/IPEnrichRequest'
+              - examples:
+                - ipAddress: 207.106.190.66
+              contentMediaType: application/json
+            example:
+              ipAddress: 207.106.190.66
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Fri, 10 Apr 2020 15:11:18 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 581d664acb62ff94-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=e99a9e88d667ee71ae1f3e0f9ba320ee974606d04b502a1adab610e4b0998574:db2236f1-751f-11ea-8eb7-fd4ff856811c; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1500'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1499'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1586531539'
+            X-Usage-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100050000'
+            X-Usage-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99801314'
+            X-Usage-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100500000'
+            X-Usage-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100243632'
+            X-Usage-Unique-Id-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000'
+            X-Usage-Unique-Id-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999955'
+            X-Usage-Websights-Api-Record-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '3000001'
+            X-Usage-Websights-Api-Record-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '2999987'
+            X-Usage-Websights-Api-Request-Limit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '30000010'
+            X-Usage-Websights-Api-Request-Limit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '29999996'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            X-Request-Id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: c92b28a6-bd65-474c-b0c0-349c9d3f3b18
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            x-usage-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999999208'
+            x-usage-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1000000000'
+            x-usage-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '999996203'
+            x-usage-websights-api-request-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '100000010'
+            x-usage-websights-api-request-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '99999536'
+            x-usage-websights-api-record-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            x-usage-websights-api-record-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999526'
+            x-usage-unique-id-limit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '10000000'
+            x-usage-unique-id-limit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '9999971'
+            content-encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 6afa25eda9500cb5-EWR
+          content:
+            application/json;charset=utf-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IPbelongstoISP'
+                - examples:
+                  - success: true
+                    data:
+                      outputFields:
+                      - - city
+                        - country
+                        - employeeCount
+                        - id
+                        - industries
+                        - name
+                        - revenue
+                        - state
+                        - street
+                        - ticker
+                        - website
+                        - zipCode
+                      result:
+                      - input:
+                        - 73.142.173.46
+                        data:
+                          geoLocation:
+                            location_long: -71.06616
+                            location_lat: 42.45843
+                            country_code: US
+                            province: Massachusetts
+                          ispInfo:
+                            domain: comcast.com
+                            ip_hi_string: 73.143.255.255
+                            ip_lo_string: 73.142.0.0
+                            name: Comcast Cable Communications, Inc.
+                            type: isp
+                contentMediaType: application/json;charset=utf-8
+              example:
+                success: true
+                data:
+                  outputFields:
+                  - - city
+                    - country
+                    - employeeCount
+                    - id
+                    - industries
+                    - name
+                    - revenue
+                    - state
+                    - street
+                    - ticker
+                    - website
+                    - zipCode
+                  result:
+                  - input:
+                    - 73.142.173.46
+                    data:
+                      geoLocation:
+                        location_long: -71.06616
+                        location_lat: 42.45843
+                        country_code: US
+                        province: Massachusetts
+                      ispInfo:
+                        domain: comcast.com
+                        ip_hi_string: 73.143.255.255
+                        ip_lo_string: 73.142.0.0
+                        name: Comcast Cable Communications, Inc.
+                        type: isp
+            application/json;charset=UTF-8:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IPbelongstoacompany'
+                - examples:
+                  - success: true
+                    data:
+                      outputFields:
+                      - - city
+                        - country
+                        - employeeCount
+                        - id
+                        - industries
+                        - name
+                        - revenue
+                        - state
+                        - street
+                        - ticker
+                        - website
+                        - zipCode
+                      result:
+                      - input:
+                        - 207.106.190.66
+                        data:
+                          company:
+                            city: Vancouver
+                            country: United States
+                            employeeCount: 1800
+                            id: 344589814
+                            industries:
+                            - Software
+                            - Data Collection & Internet Portals
+                            - Media & Internet
+                            name: ZoomInfo
+                            revenue: 476200
+                            state: Washington
+                            street: 805 Broadway St Suite 900
+                            ticker: 'NASDAQ: ZI'
+                            website: www.zoominfo.com
+                            zipCode: '98660'
+                          geoLocation:
+                            location_long: -118.13118
+                            location_lat: 34.18973
+                            country_code: US
+                            province: California
+                contentMediaType: application/json;charset=UTF-8
+              example:
+                success: true
+                data:
+                  outputFields:
+                  - - city
+                    - country
+                    - employeeCount
+                    - id
+                    - industries
+                    - name
+                    - revenue
+                    - state
+                    - street
+                    - ticker
+                    - website
+                    - zipCode
+                  result:
+                  - input:
+                    - 207.106.190.66
+                    data:
+                      company:
+                        city: Vancouver
+                        country: United States
+                        employeeCount: 1800
+                        id: 344589814
+                        industries:
+                        - Software
+                        - Data Collection & Internet Portals
+                        - Media & Internet
+                        name: ZoomInfo
+                        revenue: 476200
+                        state: Washington
+                        street: 805 Broadway St Suite 900
+                        ticker: 'NASDAQ: ZI'
+                        website: www.zoominfo.com
+                        zipCode: '98660'
+                      geoLocation:
+                        location_long: -118.13118
+                        location_lat: 34.18973
+                        country_code: US
+                        province: California
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/inputfields/ip/enrich:
+    parameters: []
+    get:
+      tags:
+      - WebSights API
+      summary: Zoominfo Ip Enrich Inputs
+      description: Returns a list of fields you can use as input for the [IP Enrich](#4421b337-3380-4bb0-8a0d-dbf8bac8a704) endpoint.
+      operationId: IPEnrichInputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Wed, 22 Jan 2020 20:19:07 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            CF-Ray:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 55943890da95ebec-BOS
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: _pxhd=dc7435039f4c5280195b59ec461e6abed3a56a2451feb3b81654a031685469ba:646e0a80-3d51-11ea-9298-b7d007b5c092; path=/;
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Accept-Encoding
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Expect-CT:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            x-application-context:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: application:production:8080
+            X-RateLimit-Limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '750'
+            X-RateLimit-Remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '749'
+            X-RateLimit-Reset:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '1579724408'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetIPEnrichInput'
+                description: ''
+                examples:
+                - - fieldName: ipAddress
+                    fieldType: String
+                    description: The ipAddress you are searching for
+                contentMediaType: application/json;charset=utf-8
+              example:
+              - fieldName: ipAddress
+                fieldType: String
+                description: The ipAddress you are searching for
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /lookup/outputfields/ip/enrich:
+    parameters: []
+    get:
+      tags:
+      - WebSights API
+      summary: Zoominfo Ip Enrich Outputs
+      description: Returns a list of fields you can use as input for the [IP Enrich](#4421b337-3380-4bb0-8a0d-dbf8bac8a704) endpoint.
+      operationId: IPEnrichOutputs
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Fri, 15 Sep 2023 18:25:07 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: keep-alive
+            vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: Origin,Access-Control-Request-Method,Access-Control-Request-Headers,Accept-Encoding
+            content-encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: gzip
+            x-request-id:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: hRFF6aDnTlLV1ziplqb4TsAwI5iWTVEmqurM
+            x-ratelimit-limit:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '33'
+            x-ratelimit-remaining:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '32'
+            x-envoy-upstream-service-time:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: '38'
+            x-envoy-decorator-operation:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: apps-gateway-active.main.svc.cluster.local:8080/*
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 1.1 google, 1.1 google
+            Alt-Svc:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: h3=":443"; ma=86400
+            CF-Cache-Status:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: DYNAMIC
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: cloudflare
+            CF-RAY:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+                  example: 8072e915ca714cf6-BOS
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IPEnrichOutput'
+                description: ''
+                examples:
+                - - fieldName: id
+                    description: Unique ZoomInfo identifier for a company
+                  - fieldName: ticker
+                    description: Company public stock exchange ticker
+                  - fieldName: name
+                    description: Company name
+                  - fieldName: website
+                    description: Company website URL
+                  - fieldName: revenue
+                    description: Approximate yearly revenue for the company in 1000's. For example, a 100M company is expressed as 100000.
+                  - fieldName: employeeCount
+                    description: Approximate number of people employed by the company
+                  - fieldName: street
+                    description: Street of the company's primary address
+                  - fieldName: city
+                    description: City of the company's primary address
+                  - fieldName: state
+                    description: State or province of the company's primary address
+                  - fieldName: zipCode
+                    description: Zip Code or Postal Code of the company's primary address
+                  - fieldName: country
+                    description: Country of the company's primary address
+                  - fieldName: industries
+                    description: The industry grouping for the company. A company can have multiple industries.
+                  - fieldName: confidenceScore
+                    description: Confidence Score indicates the certainty of an IP matching a domain (0.00 to 1.00). Only matches with a score of 0.3 or above are shown by default. Contact your AM for lower-scoring matches. It could be empty.
+                contentMediaType: application/json;charset=UTF-8
+              example:
+              - fieldName: id
+                description: Unique ZoomInfo identifier for a company
+              - fieldName: ticker
+                description: Company public stock exchange ticker
+              - fieldName: name
+                description: Company name
+              - fieldName: website
+                description: Company website URL
+              - fieldName: revenue
+                description: Approximate yearly revenue for the company in 1000's. For example, a 100M company is expressed as 100000.
+              - fieldName: employeeCount
+                description: Approximate number of people employed by the company
+              - fieldName: street
+                description: Street of the company's primary address
+              - fieldName: city
+                description: City of the company's primary address
+              - fieldName: state
+                description: State or province of the company's primary address
+              - fieldName: zipCode
+                description: Zip Code or Postal Code of the company's primary address
+              - fieldName: country
+                description: Country of the company's primary address
+              - fieldName: industries
+                description: The industry grouping for the company. A company can have multiple industries.
+              - fieldName: confidenceScore
+                description: Confidence Score indicates the certainty of an IP matching a domain (0.00 to 1.00). Only matches with a score of 0.3 or above are shown by default. Contact your AM for lower-scoring matches. It could be empty.
+      deprecated: false
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Data44:
+      title: Data44
+      required:
+      - company
+      - geoLocation
+      type: object
+      properties:
+        company:
+          $ref: '#/components/schemas/Company24'
+        geoLocation:
+          $ref: '#/components/schemas/GeoLocation'
+      examples:
+      - company:
+          city: Vancouver
+          country: United States
+          employeeCount: 1800
+          id: 344589814
+          industries:
+          - Software
+          - Data Collection & Internet Portals
+          - Media & Internet
+          name: ZoomInfo
+          revenue: 476200
+          state: Washington
+          street: 805 Broadway St Suite 900
+          ticker: 'NASDAQ: ZI'
+          website: www.zoominfo.com
+          zipCode: '98660'
+        geoLocation:
+          location_long: -118.13118
+          location_lat: 34.18973
+          country_code: US
+          province: California
+    Result17:
+      title: Result17
+      required:
+      - input
+      - data
+      type: object
+      properties:
+        input:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        data:
+          $ref: '#/components/schemas/Data42'
+      examples:
+      - input:
+        - 73.142.173.46
+        data:
+          geoLocation:
+            location_long: -71.06616
+            location_lat: 42.45843
+            country_code: US
+            province: Massachusetts
+          ispInfo:
+            domain: comcast.com
+            ip_hi_string: 73.143.255.255
+            ip_lo_string: 73.142.0.0
+            name: Comcast Cable Communications, Inc.
+            type: isp
+    IPbelongstoISP:
+      title: IPbelongstoISP
+      required:
+      - success
+      - data
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/Data41'
+      examples:
+      - success: true
+        data:
+          outputFields:
+          - - city
+            - country
+            - employeeCount
+            - id
+            - industries
+            - name
+            - revenue
+            - state
+            - street
+            - ticker
+            - website
+            - zipCode
+          result:
+          - input:
+            - 73.142.173.46
+            data:
+              geoLocation:
+                location_long: -71.06616
+                location_lat: 42.45843
+                country_code: US
+                province: Massachusetts
+              ispInfo:
+                domain: comcast.com
+                ip_hi_string: 73.143.255.255
+                ip_lo_string: 73.142.0.0
+                name: Comcast Cable Communications, Inc.
+                type: isp
+    IspInfo:
+      title: IspInfo
+      required:
+      - domain
+      - ip_hi_string
+      - ip_lo_string
+      - name
+      - type
+      type: object
+      properties:
+        domain:
+          type: string
+          example: example.com
+        ip_hi_string:
+          type: string
+          example: example_value
+        ip_lo_string:
+          type: string
+          example: example_value
+        name:
+          type: string
+          example: Acme Corporation
+        type:
+          type: string
+          example: standard
+      examples:
+      - domain: comcast.com
+        ip_hi_string: 73.143.255.255
+        ip_lo_string: 73.142.0.0
+        name: Comcast Cable Communications, Inc.
+        type: isp
+    Company24:
+      title: Company24
+      required:
+      - city
+      - country
+      - employeeCount
+      - id
+      - industries
+      - name
+      - revenue
+      - state
+      - street
+      - ticker
+      - website
+      - zipCode
+      type: object
+      properties:
+        city:
+          type: string
+          example: San Francisco
+        country:
+          type: string
+          example: US
+        employeeCount:
+          type: integer
+          contentEncoding: int32
+          example: 250
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        industries:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        name:
+          type: string
+          example: Acme Corporation
+        revenue:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        state:
+          type: string
+          example: CA
+        street:
+          type: string
+          example: example_value
+        ticker:
+          type: string
+          example: example_value
+        website:
+          type: string
+          example: example_value
+        zipCode:
+          type: string
+          example: '94105'
+      examples:
+      - city: Vancouver
+        country: United States
+        employeeCount: 1800
+        id: 344589814
+        industries:
+        - Software
+        - Data Collection & Internet Portals
+        - Media & Internet
+        name: ZoomInfo
+        revenue: 476200
+        state: Washington
+        street: 805 Broadway St Suite 900
+        ticker: 'NASDAQ: ZI'
+        website: www.zoominfo.com
+        zipCode: '98660'
+    Data43:
+      title: Data43
+      required:
+      - outputFields
+      - result
+      type: object
+      properties:
+        outputFields:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          example: []
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result18'
+          description: ''
+          example: []
+      examples:
+      - outputFields:
+        - - city
+          - country
+          - employeeCount
+          - id
+          - industries
+          - name
+          - revenue
+          - state
+          - street
+          - ticker
+          - website
+          - zipCode
+        result:
+        - input:
+          - 207.106.190.66
+          data:
+            company:
+              city: Vancouver
+              country: United States
+              employeeCount: 1800
+              id: 344589814
+              industries:
+              - Software
+              - Data Collection & Internet Portals
+              - Media & Internet
+              name: ZoomInfo
+              revenue: 476200
+              state: Washington
+              street: 805 Broadway St Suite 900
+              ticker: 'NASDAQ: ZI'
+              website: www.zoominfo.com
+              zipCode: '98660'
+            geoLocation:
+              location_long: -118.13118
+              location_lat: 34.18973
+              country_code: US
+              province: California
+    GeoLocation:
+      title: GeoLocation
+      required:
+      - location_long
+      - location_lat
+      - country_code
+      - province
+      type: object
+      properties:
+        location_long:
+          type: number
+          example: 75.5
+        location_lat:
+          type: number
+          example: 75.5
+        country_code:
+          type: string
+          example: US
+        province:
+          type: string
+          example: example_value
+      examples:
+      - location_long: -71.06616
+        location_lat: 42.45843
+        country_code: US
+        province: Massachusetts
+    IPbelongstoacompany:
+      title: IPbelongstoacompany
+      required:
+      - success
+      - data
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/Data43'
+      examples:
+      - success: true
+        data:
+          outputFields:
+          - - city
+            - country
+            - employeeCount
+            - id
+            - industries
+            - name
+            - revenue
+            - state
+            - street
+            - ticker
+            - website
+            - zipCode
+          result:
+          - input:
+            - 207.106.190.66
+            data:
+              company:
+                city: Vancouver
+                country: United States
+                employeeCount: 1800
+                id: 344589814
+                industries:
+                - Software
+                - Data Collection & Internet Portals
+                - Media & Internet
+                name: ZoomInfo
+                revenue: 476200
+                state: Washington
+                street: 805 Broadway St Suite 900
+                ticker: 'NASDAQ: ZI'
+                website: www.zoominfo.com
+                zipCode: '98660'
+              geoLocation:
+                location_long: -118.13118
+                location_lat: 34.18973
+                country_code: US
+                province: California
+    Data42:
+      title: Data42
+      required:
+      - geoLocation
+      - ispInfo
+      type: object
+      properties:
+        geoLocation:
+          $ref: '#/components/schemas/GeoLocation'
+        ispInfo:
+          $ref: '#/components/schemas/IspInfo'
+      examples:
+      - geoLocation:
+          location_long: -71.06616
+          location_lat: 42.45843
+          country_code: US
+          province: Massachusetts
+        ispInfo:
+          domain: comcast.com
+          ip_hi_string: 73.143.255.255
+          ip_lo_string: 73.142.0.0
+          name: Comcast Cable Communications, Inc.
+          type: isp
+    GetIPEnrichInput:
+      title: GetIPEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: ipAddress
+        fieldType: String
+        description: The ipAddress you are searching for
+    IPEnrichOutput:
+      title: IPEnrichOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: id
+        description: Unique ZoomInfo identifier for a company
+    Data41:
+      title: Data41
+      required:
+      - outputFields
+      - result
+      type: object
+      properties:
+        outputFields:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          example: []
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result17'
+          description: ''
+          example: []
+      examples:
+      - outputFields:
+        - - city
+          - country
+          - employeeCount
+          - id
+          - industries
+          - name
+          - revenue
+          - state
+          - street
+          - ticker
+          - website
+          - zipCode
+        result:
+        - input:
+          - 73.142.173.46
+          data:
+            geoLocation:
+              location_long: -71.06616
+              location_lat: 42.45843
+              country_code: US
+              province: Massachusetts
+            ispInfo:
+              domain: comcast.com
+              ip_hi_string: 73.143.255.255
+              ip_lo_string: 73.142.0.0
+              name: Comcast Cable Communications, Inc.
+              type: isp
+    IPEnrichRequest:
+      title: IPEnrichRequest
+      required:
+      - ipAddress
+      type: object
+      properties:
+        ipAddress:
+          type: string
+          example: 123 Main Street
+      examples:
+      - ipAddress: 207.106.190.66
+    Result18:
+      title: Result18
+      required:
+      - input
+      - data
+      type: object
+      properties:
+        input:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        data:
+          $ref: '#/components/schemas/Data44'
+      examples:
+      - input:
+        - 207.106.190.66
+        data:
+          company:
+            city: Vancouver
+            country: United States
+            employeeCount: 1800
+            id: 344589814
+            industries:
+            - Software
+            - Data Collection & Internet Portals
+            - Media & Internet
+            name: ZoomInfo
+            revenue: 476200
+            state: Washington
+            street: 805 Broadway St Suite 900
+            ticker: 'NASDAQ: ZI'
+            website: www.zoominfo.com
+            zipCode: '98660'
+          geoLocation:
+            location_long: -118.13118
+            location_lat: 34.18973
+            country_code: US
+            province: California
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /authenticate endpoint
