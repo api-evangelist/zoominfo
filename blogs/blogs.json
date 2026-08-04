@@ -2,20 +2,13 @@
   "repo": "zoominfo",
   "feeds": [
     {
-      "source": "https://pipeline.zoominfo.com/feed.xml",
-      "feed_url": "https://pipeline.zoominfo.com/feed.xml",
-      "title": "",
-      "saved": 0,
-      "method": "feed"
-    },
-    {
       "source": "https://pipeline.zoominfo.com/",
-      "feed_url": "https://pipeline.zoominfo.com/feed.xml",
+      "feed_url": "https://pipeline.zoominfo.com/",
       "title": "",
       "saved": 0,
-      "method": "discovered"
+      "method": "none"
     }
   ],
-  "fetched": "2026-07-11T11:50:51Z",
-  "post_count": 269
+  "fetched": "2026-08-01T15:49:00Z",
+  "post_count": 319
 }
