@@ -29,6 +29,7 @@ apis:
 
     *   **As a best practice to keep the session active, refresh the JWT every 55 minutes.**
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Authentication
   properties:
@@ -573,6 +574,7 @@ apis:
     \ is completed, you can proceed to creating another job)\n*   You can create up to 1 job per second\n\
     *   Each job you create expires after 24 hours"
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Bulk
   properties:
@@ -1113,6 +1115,7 @@ apis:
     *   Use the [Company Enrich Outputs](#d05239c3-2597-45f8-9384-f2dbd3518cfc) endpoint to retrieve a
     list of valid output fields that can be returned
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Company Enrich
   properties:
@@ -1652,6 +1655,7 @@ apis:
     *   Use the [Location Enrich Outputs](#d1fbccf4-2224-4ba8-b72c-5b15e250c2f7) endpoint to retrieve
     a list of output fields returned
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Company Location Enrich
   properties:
@@ -2192,6 +2196,7 @@ apis:
     *   Use the [Company Master Enrich Outputs](#58b47522-753a-4104-a0c6-454adf4b6a1d) endpoint to retrieve
     a list of valid output fields that can be returned
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Company Master Data Enrich
   properties:
@@ -2730,6 +2735,7 @@ apis:
     *   Use [Company Search Outputs](#3dd35354-8523-4a8c-935a-97ed56d059a6) to retrieve a list of expected
     response fields that will be returned from [Company Search](#4506f0ad-9147-4016-991f-ce8ef6700f07).
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Company Search
   properties:
@@ -3259,6 +3265,7 @@ apis:
     Use the Compliance endpoints to request and return data related to data privacy and opt-out compliance
     for contacts stored in the ZoomInfo database.
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Compliance API
   properties:
@@ -3799,6 +3806,7 @@ apis:
     *   Use the [Contact Enrich Outputs](#28b47784-3186-4fc4-af91-12e6bc6fb31a) endpoint to retrieve a
     list of valid output fields that can be returned
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Contact Enrich
   properties:
@@ -4337,6 +4345,7 @@ apis:
     *   Use [Contact Search Outputs](#5ed629a9-f24a-41a3-bc66-89f3f09f051c) to retrieve a list of expected
     response fields that will be returned from [Contact Search](#2e5121fd-df42-41a4-95d6-0e8f24eebd92).
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Contact Search
   properties:
@@ -4877,6 +4886,7 @@ apis:
     *   Use the [Corporate Hierarchy Enrich Outputs](#d6813026-dcae-4b20-9ee4-b1301451a2c7) endpoint to
     retrieve a list of valid output fields that can be returned
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Corporate Hierarchy Enrich
   properties:
@@ -5411,6 +5421,7 @@ apis:
     Refer to the examples provided to build a valid JSON request. Use the [Hashtags Enrich Inputs](#a7bea20a-f496-431b-9403-337231c4a22e)
     endpoint to retrieve a list of valid input parameters you can provide.
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Hashtags Enrich
   properties:
@@ -5950,6 +5961,7 @@ apis:
     *   Use the [Intent Enrich Outputs](#fc4083cf-6179-4f0f-8b9b-80aedc2e3e67) endpoint to retrieve a
     list of valid output fields returned
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Intent Enrich
   properties:
@@ -6488,6 +6500,7 @@ apis:
     *   Use [Intent Search Outputs](#8f3540ee-4093-48e4-aebb-97133a864912) to retrieve a list of expected
     response fields that will be returned from [Intent Search](#93f940a4-4381-49dd-8fbc-42cbc75a7a39).
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Intent Search
   properties:
@@ -7015,6 +7028,7 @@ apis:
   name: ZoomInfo Lookup API
   description: This folder contains a series of lookup endpoints.
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Lookup
   properties:
@@ -7838,6 +7852,7 @@ apis:
     \   \"employeeCount\": 3500,\n      \"changedAttributes\": [\n        \"revenue\",\n        \"employeeCount\"\
     \n      ]\n    }\n  ]\n}\n\n ```"
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Monitoring API/Webhooks
   properties:
@@ -8376,6 +8391,7 @@ apis:
     *   Use the [News Enrich Outputs](#254b86e3-e51b-450d-8704-95e4da168874) endpoint to retrieve a list
     of valid output fields returned
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - News Enrich
   properties:
@@ -8914,6 +8930,7 @@ apis:
     *   Use [News Search Outputs](#354f6240-e3d3-4c8c-9684-86569fd71581) to retrieve a list of expected
     response fields that will be returned from [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19).
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - News Search
   properties:
@@ -9453,6 +9470,7 @@ apis:
     *   Use the [Org Chart Enrich Outputs](#b2c219d2-df68-4ccd-9914-c7c58218f768) endpoint to retrieve
     a list of output fields returned
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - OrgChart Enrich
   properties:
@@ -9992,6 +10010,7 @@ apis:
     *   Use the [Scoop Enrich Outputs](#3af4b7ad-e694-4202-81c4-20b7bab73946) endpoint to retrieve a list
     of valid output fields returned
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Scoop Enrich
   properties:
@@ -10530,6 +10549,7 @@ apis:
     *   Use [Scoop Search Outputs](#185aa18e-02fa-440e-a691-b8e2c391a456) to retrieve a list of expected
     response fields that will be returned from [Scoop Search](#3099d72f-6857-4432-89c2-736410680e60).
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Scoop Search
   properties:
@@ -11063,6 +11083,7 @@ apis:
     Refer to the examples provided to build a valid JSON request. Use the [Technology Enrich Inputs](#2cc6abbc-e782-4ab4-80e8-ce29ed17ee4e)
     endpoint to retrieve a list of valid input parameters you can provide.
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Technology Enrich
   properties:
@@ -11590,6 +11611,7 @@ apis:
   name: ZoomInfo Usage API
   description: You can use the Usage endpoint to find what your current API usage and limits are.
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Usage
   properties:
@@ -12188,6 +12210,7 @@ apis:
     period. A record is either a company for which ZoomInfo has data, or an Internet Service Provider
     (ISP). If a query does not match a company or ISP, no record is charged.
   humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - WebSights API
   properties:
@@ -12711,6 +12734,146 @@ apis:
     url: examples/zoominfo-webhook-example.json
   - type: GraphQL
     url: graphql/zoominfo-graphql.md
+- aid: zoominfo:zoominfo-data-api
+  name: ZoomInfo Data API
+  description: >-
+    Search and enrich ZoomInfo company, contact, intent, scoop and news records on the current GTM
+    API, plus the lookup endpoints that resolve natural-language filters to the IDs search
+    requires, and a usage endpoint for checking remaining quota. This is the successor to the
+    legacy Enterprise Search and Enrich APIs.
+  humanURL: https://docs.zoominfo.com
+  baseURL: https://api.zoominfo.com/gtm
+  tags:
+  - Data
+  - Search
+  - Enrichment
+  - Contacts
+  - Company Data
+  - Intent
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-gtm-data-v1-openapi.json
+  - type: Overlay
+    url: overlays/zoominfo-gtm-data-v1-overlay.yaml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-copilot-api
+  name: ZoomInfo Copilot API
+  description: >-
+    Account summaries and question answering over them, company insights by type, company and
+    contact lookalikes, contact recommendations, and full CRUD over the customer GTM configuration
+    — products and services, ideal customer profiles, buyer personas, competitors and settings.
+    Every configuration resource supports archive and unarchive as distinct actions alongside
+    delete.
+  humanURL: https://docs.zoominfo.com
+  baseURL: https://api.zoominfo.com/gtm
+  tags:
+  - AI
+  - Copilot
+  - Recommendations
+  - Insights
+  - ICP
+  - Sales Intelligence
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-gtm-copilot-v1-openapi.json
+  - type: Overlay
+    url: overlays/zoominfo-gtm-copilot-v1-overlay.yaml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-gtm-studio-api
+  name: ZoomInfo GTM Studio API
+  description: >-
+    Audiences as a spreadsheet — folders, audiences, AI-computed columns with declared data
+    dependencies, and rows with single and bulk upsert. Enrichment of an audience is an
+    asynchronous job polled by job ID.
+  humanURL: https://docs.zoominfo.com
+  baseURL: https://api.zoominfo.com/gtm
+  tags:
+  - Audiences
+  - GTM
+  - Lists
+  - Enrichment
+  - Automation
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-gtm-gtm-studio-v1-openapi.json
+  - type: Overlay
+    url: overlays/zoominfo-gtm-gtm-studio-v1-overlay.yaml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-marketing-api
+  name: ZoomInfo Marketing API
+  description: >-
+    Marketing audiences and audience uploads — create, read, update and delete an audience, push
+    an upload to it and poll the upload status.
+  humanURL: https://docs.zoominfo.com
+  baseURL: https://api.zoominfo.com/gtm
+  tags:
+  - Marketing
+  - Audiences
+  - Advertising
+  - ABM
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-gtm-marketing-v1-openapi.json
+  - type: Overlay
+    url: overlays/zoominfo-gtm-marketing-v1-overlay.yaml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-agent-api
+  name: ZoomInfo Agent API
+  description: >-
+    Agents, Agent Teams and Pulses. List and interact with agents (including a streaming
+    interaction endpoint), and run an Agent Team asynchronously then poll the run for status and
+    output. This is the surface ZoomInfo points at for event-driven workflows.
+  humanURL: https://docs.zoominfo.com
+  baseURL: https://api.zoominfo.com/gtm
+  tags:
+  - AI Agents
+  - Automation
+  - Agents
+  - Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-gtm-agent-v1-openapi.json
+  - type: Overlay
+    url: overlays/zoominfo-gtm-agent-v1-overlay.yaml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-platform-api
+  name: ZoomInfo Platform API
+  description: >-
+    GTM data-model metadata and records — list entities, introspect their fields and upsert
+    records; upsert, read and delete content-interaction engagements; list, execute and poll
+    workflows; and read the caller's entitlements.
+  humanURL: https://docs.zoominfo.com
+  baseURL: https://api.zoominfo.com/gtm
+  tags:
+  - Platform
+  - Metadata
+  - Workflows
+  - Entitlements
+  - Data Model
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-gtm-platform-v1-openapi.json
+  - type: Overlay
+    url: overlays/zoominfo-gtm-platform-v1-overlay.yaml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
 name: ZoomInfo
 tags:
 - B2B
@@ -12722,6 +12885,11 @@ tags:
 - Lead Generation
 - Marketing Intelligence
 - Sales Intelligence
+- Intent Data
+- Go To Market
+- Data Enrichment
+- AI Agents
+- MCP
 kind: contract
 accessModel:
   pricing: freemium
@@ -12739,6 +12907,89 @@ accessModel:
 image: https://www.zoominfo.com/assets/img/zoominfo-logo.png
 access: 3rd-Party
 common:
+- type: Documentation
+  url: https://docs.zoominfo.com
+  title: ZoomInfo API Documentation
+- type: Packages
+  url: packages/zoominfo-packages.yml
+  title: Client Libraries
+- type: SDKs
+  url: packages/zoominfo-packages.yml
+  title: First-Party Client Libraries
+- type: CLI
+  url: cli/zoominfo-cli.yml
+  title: GTM AI CLI
+- type: MCPServer
+  url: mcp/zoominfo-mcp.yml
+  title: Hosted MCP Server
+- type: ToolCrosswalk
+  url: mcp/zoominfo-tool-crosswalk.yml
+  title: MCP Tool to REST Crosswalk
+- type: AgentSkill
+  url: skills/_index.yml
+  title: Provider-Published Agent Skills
+- type: LLMsTxt
+  url: llms/zoominfo-llms.txt
+  title: llms.txt
+- type: LLMsTxt
+  url: llms/zoominfo-docs-llms.txt
+  title: Developer Documentation llms.txt
+- type: WellKnown
+  url: well-known/zoominfo-well-known.yml
+  title: Well-Known Probe
+- type: Conventions
+  url: conventions/zoominfo-conventions.yml
+  title: API Conventions
+- type: ErrorCatalog
+  url: errors/zoominfo-problem-types.yml
+  title: Error Catalog
+- type: Lifecycle
+  url: lifecycle/zoominfo-lifecycle.yml
+  title: Lifecycle
+- type: Deprecation
+  url: lifecycle/zoominfo-lifecycle.yml
+  title: Deprecation Policy
+- type: ChangeLog
+  url: changelog/zoominfo-changelog.yml
+  title: API Release Notes
+- type: Conformance
+  url: conformance/zoominfo-conformance.yml
+  title: Standards Conformance
+- type: Compliance
+  url: security/zoominfo-trust-center.yml
+  title: Certifications and Compliance
+- type: TrustCenter
+  url: security/zoominfo-trust-center.yml
+  title: Trust Center
+- type: Security
+  url: security/zoominfo-vulnerability-disclosure.yml
+  title: Vulnerability Disclosure
+- type: VulnerabilityDisclosure
+  url: security/zoominfo-vulnerability-disclosure.yml
+  title: Bug Bounty Program
+- type: DataModel
+  url: data-model/zoominfo-data-model.yml
+  title: Data Model
+- type: Webhooks
+  url: asyncapi/zoominfo-webhooks.yml
+  title: Webhook and Event Surface
+- type: RateLimits
+  url: rate-limits/zoominfo-rate-limits.yml
+  title: Published Rate Limits
+- type: Plans
+  url: plans/zoominfo-plans-pricing.yml
+  title: Packages and Credit Model
+- type: Postman
+  url: https://api-docs.zoominfo.com
+  title: Public Postman Collection (Legacy Enterprise API)
+- type: SignUp
+  url: https://developer.zoominfo.com/
+  title: Developer Portal Sign In
+- type: Login
+  url: https://login.zoominfo.com
+  title: Login
+- type: OAuthScopes
+  url: scopes/zoominfo-scopes.yml
 - type: AgenticAccess
   url: agentic-access/zoominfo-agentic-access.yml
 - type: DomainSecurity
@@ -12794,15 +13045,15 @@ common:
 - url: https://pipeline.zoominfo.com/glossary
   name: Go-to-Market Glossary | ZoomInfo Blog
   type: Glossary
-- url: https://api-docs.zoominfo.com/#authentication
+- url: https://docs.zoominfo.com/docs/authorization-code-flow-pkce
   type: Authentication
-- url: https://api-docs.zoominfo.com/getting-started
+- url: https://docs.zoominfo.com/docs/overview
   type: GettingStarted
-- url: https://api-docs.zoominfo.com/rate-limits
+- url: https://docs.zoominfo.com/docs/rate-limits
   type: RateLimits
-- url: https://www.zoominfo.com/about/terms-of-service
+- url: https://www.zoominfo.com/legal/terms-of-use
   type: TermsOfService
-- url: https://www.zoominfo.com/about/privacy-policy
+- url: https://www.zoominfo.com/legal/privacy-policy
   type: PrivacyPolicy
 - url: https://status.zoominfo.com
   type: StatusPage
@@ -12905,9 +13156,9 @@ common:
 - type: GitHubOrganization
   url: https://github.com/Zoominfo
 - type: DeveloperPortal
-  url: https://api-docs.zoominfo.com
+  url: https://developer.zoominfo.com/
 - type: APIReference
-  url: https://api-docs.zoominfo.com
+  url: https://docs.zoominfo.com/reference/api-overview
 - type: Hub
   url: https://github.com/Zoominfo/zoominfo-mcp-plugin
   title: MCP Server
@@ -12919,12 +13170,23 @@ common:
   url: https://github.com/Zoominfo/zoominfo-mcp-plugin
   type: MCPServer
 created: '2025-02-09'
-modified: '2026-05-19'
+modified: '2026-08-13'
 position: Consuming
-description: ZoomInfo is a leading B2B contact database and sales intelligence platform
-  that provides detailed company and contact information, helping sales and marketing
-  teams identify and connect with potential customers.
+description: >-
+  ZoomInfo is a B2B go-to-market intelligence platform whose contact and company database,
+  buyer-intent signals, scoops and news feeds are sold to sales, marketing, operations and
+  recruiting teams. Its API estate is mid-migration: the legacy Enterprise API on
+  api.zoominfo.com is documented as deprecating, while the current GTM API on
+  api.zoominfo.com/gtm ships six published OpenAPI specifications covering data, Copilot,
+  GTM Studio, marketing, agents and platform. ZoomInfo also operates a hosted, OAuth-gated
+  Model Context Protocol server at mcp.zoominfo.com and publishes 35 agent skills and a
+  first-party CLI that talks to that MCP server rather than to REST.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 specificationVersion: '0.19'
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 67
+  pass: local-v1
