@@ -1,0 +1,652 @@
+{
+  "item": [
+    {
+      "id": "844c6773-5a6d-4417-be5a-9dac23c651f5",
+      "name": "Scoop Search",
+      "description": {
+        "content": "Use [Scoop Search](#3099d72f-6857-4432-89c2-736410680e60) to retrieve scoop-related data using valid query parameters.\n\n*   To build your request, retrieve a list of valid query parameters using [Scoop Search Inputs](#1888a5e1-6a96-4cc2-910b-70e574370996).\n*   For requests that require you to specify supported values (e.g., job titles, industry codes and so on), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055) endpoints.\n*   Use [Scoop Search Outputs](#185aa18e-02fa-440e-a691-b8e2c391a456) to retrieve a list of expected response fields that will be returned from [Scoop Search](#3099d72f-6857-4432-89c2-736410680e60).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7fda8737-4d6f-4805-9920-70b3475c770f",
+          "name": "Zoominfo Scoop Search",
+          "request": {
+            "name": "Zoominfo Scoop Search",
+            "description": {
+              "content": "Returns a list of Scoops from ZoomInfo's data which meet the specified search criteria.\n\n- Input parameters may require specific values, some of which are too extensive to list in the parameter descriptions. You can retrieve these values using the [Lookup](#28358f09-9863-42af-a93c-6710a8cacf9d) endpoints.\n- If you do not provide a date range for when the scoop was published, the last 30 days of scoop records matching the request are returned\n    \n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| rpp | Integer | Limits the results returned to the given number of results per page. Default is 25. |\n| page | Integer | Provides the results for the given page, used in conjunction with `rpp` |\n| sortOrder | String | Provide `sortBy` if specifying `sortOrder`. Valid values are `asc`, `ascending`, `desc`, and `descending`. By default, results are sorted in descending order. |\n| sortBy | String | Sort results by valid output fields: `scoopId`, `originalPublishedDate`, `description`, `url`, `urlText` |\n| companyId | String | ZoomInfo unique identifier for the company. Will accept a comma-separated list. |\n| companyName | String | Company name |\n| companyWebsite | String | URL to the company website in [http://www.example.com](http://www.example.com) format |\n| companyDescription | String | Text description unique to the company you want to use as search criteria |\n| parentId | String | ZoomInfo Company ID for parent company |\n| ultimateParentId | String | ZoomInfo Company ID for ultimate parent company |\n| companyType | String | Company type (private, public, and so on). See the **Company Type** lookup endpoint for values. |\n| address | String | Company address |\n| street | String | Company street |\n| state | String | Company state (U.S.) or province (Canada). You can use free text state or province names (e.g., \"new hampshire\"), the two-letter common abbreviation for a U.S. state (e.g., \"nh\"), or values provided in the **State** lookup endpoint. |\n| zipCode | String | Zip Code of the company's primary address |\n| country | String | Country for the company's primary address. You can use free text or see the **Country** lookup endpoint for values. |\n| continent | String | Continent for the company's primary address. See the **Continent** lookup endpoint for values. |\n| zipCodeRadiusMiles | String | Company Zip code radius |\n| hashTagString | String | Hash tags for the company. Can include a comma-separated list. Default AND operation with multiple inputs. |\n| techAttributeTagList | String | Specify technology product tags |\n| subUnitTypes | String | Company sub types (e.g., division, subsidiary and so on). See the **Sub Unit Type** lookup endpoint for values. |\n| primaryIndustriesOnly | Boolean | Used in conjunction with the `industryCodes` input parameter. When set to `true`, any result returned must have one of the specified industries as a primary industry. If no industries are specified, then this parameter will be ignored. Default is `false`. |\n| industryCodes | String | Top-level Industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list. See the **Industry Codes** lookup endpoint for values. |\n| industryKeywords | String | Industry keywords associated with a company. Can include a comma-separated list. |\n| sicCodes | String | The Standard Industrial Classification is a system for classifying industries by a four-digit code. See the **SIC Codes** lookup endpoint for values. |\n| naicsCodes | String | The North American Industry Classification System (NAICS) is the standard used by Federal statistical agencies in classifying business establishments for the purpose of collecting, analyzing, and publishing statistical data related to the U.S. business economy. See the **NAICS Codes** lookup endpoint for values. |\n| revenueMin | Integer | Minimum annual revenue for a company in U.S. dollars. Use with `revenueMax` to set a range. Alternatively, you can use the `revenue` parameter to search for pre-defined ranges. |\n| revenueMax | Integer | Maximum annual revenue for a company in U.S. dollars. Use with `revenueMin` to set a range. Alternatively, you can use the `revenue` parameter to search for pre-defined ranges. |\n| revenue | String | Annual revenue range in U.S. dollars. Accepts a comma-separated list of values. See the **Revenue Range** lookup endpoint for values. Alternatively, to get more granular ranges, you can use the `revenueMin` and `revenueMax` parameters. |\n| employeeRangeMin | String | Minimum employee count for a company. Use with `employeeRangeMax` to set a range. Alternatively, you can use the `employeeCount` parameter to search for pre-defined ranges. |\n| employeeRangeMax | String | Maximum employee count for a company. Use with `employeeRangeMin` to set a range. Alternatively, you can use the `employeeCount` parameter to search for pre-defined ranges. |\n| employeeCount | String | Employee count range. Accepts a comma-separated list of values. See the **Employee Count** lookup endpoint for values. Alternatively, to get more granular ranges, you can use the `employeeRangeMin` and `employeeRangeMax` parameters. |\n| companyRanking | String | Company ranking list (e.g., Fortune 500 and so on). See the **Company Ranking** lookup endpoint for values. |\n| metroRegion | String | Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas. See the **Metro Area** lookup endpoint for values. |\n| locationSearchType | String | Location criteria for search. Values are `PersonOrHQ`, `PersonAndHQ`, `Person`, `HQ`, `PersonThenHQ`. |\n| fundingAmountMin | Integer | Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If `fundingAmountMin` is used without `fundingAmountMax`, the result will be the amount specified or greater. |\n| fundingAmountMax | Integer | Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If `fundingAmountMax` is used without `fundingAmountMin`, the result will be the amount specified or less. |\n| fundingStartDate | String | Start date of the funding in YYYY-MM-DD format. If `fundingStartDate` and `fundingEndDate` are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date. |\n| fundingEndDate | String | End date of the funding in YYYY-MM-DD format. If `fundingStartDate` and `fundingEndDate` are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date. |\n| excludedRegions | String | Exclude a company metro area. Accepts a comma-separated list of U.S. and Canada metro areas. See the **Metro Area** lookup endpoint for values. |\n| zoominfoContactsMin | String | Minimum number of ZoomInfo contacts associated with company |\n| zoominfoContactsMax | String | Maximum number of ZoomInfo contacts associated with company |\n| companyStructureIncludedSubUnitTypes | String |  |\n| publishedStartDate | String | Starting date to search for scoops based on when published. Form a range using `publishedEndDate` or omit `publishedEndDate` to search to the current date. Uses YYYY-MM-DD format. |\n| publishedEndDate | String | Ending date to search for scoops based on when published. Form a range using `publishedEndDate`. Uses YYYY-MM-DD format. |\n| updatedSinceCreation | Boolean | Include scoops that have been updated since `publishedStartDate` |\n| scoopType | String | Retrieve scoops based on type (e.g., earnings, awards, partnerships and so on). See the **Scoop Types** lookup endpoint for values. |\n| scoopTopic | String | Retrieve scoops based on topic (e.g., integrations, technology, compliance and so on). See the **Scoop Topics** lookup endpoint for values. |\n| department | String | Retrieve scoops based on department (IT, finance, HR and so on). See the **Scoop Departments** lookup endpoint for values. |\n| scoopId | String | ZoomInfo unique identifier for a scoop. Will accept a comma-separated list. |\n| description | String | Search for scoops based on description. Will accept a comma-separated list of keywords. |\n\n**Response data**\n\n| Field | Description |\n| --- | --- |\n| id | ZoomInfo unique identifier for a scoop |\n| publishedDate | Publish date for a scoop. If updated, this date will reflect that last updated date. |\n| originalPublishedDate | Initial publish date for a scoop |\n| linkText | Link text for a scoop |\n| link | URL for the scoop |\n| description | Short description for the scoop contents |\n| topics | Topic(s) associated with a scoop |\n| updateText | Text related to an updated scoop |\n| types | Type(s) associated with a scoop |\n| companyId | ZoomInfo unique identifier for a company |\n| companyName | Company name |\n| contacts | Contacts associated with a scoop |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search",
+                "scoop"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyName\": \"<string>\",\n  \"publishedStartDate\": \"<string>\",\n  \"publishedEndDate\": \"<string>\",\n  \"scoopType\": \"<string>\",\n  \"updatedSinceCreation\": \"<boolean>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b9d3fad9-a38b-4dd2-9afe-fb4beb3cb00a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "scoop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyName\": \"Zoominfo\",\n  \"publishedStartDate\": \"2018-11-01T00:00:00.000Z\",\n  \"publishedEndDate\": \"2020-06-21T00:00:00.000Z\",\n  \"scoopType\": \"6\",\n  \"updatedSinceCreation\": false,\n  \"description\": \"SaaS\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"maxResults\": 4,\n  \"totalResults\": 4,\n  \"currentPage\": 1,\n  \"data\": [\n    {\n      \"id\": 1382057,\n      \"publishedDate\": \"2/22/2019 12:00 AM\",\n      \"originalPublishedDate\": \"2/22/2019 12:00 AM\",\n      \"linkText\": \"\",\n      \"link\": \"\",\n      \"description\": \"Datanyze has recently been ranked #986 on the 2019 SaaS 1000 Top SaaS Companies list.\",\n      \"topics\": [],\n      \"updateText\": \"\",\n      \"types\": [\n        {\n          \"id\": 6,\n          \"type\": \"Award\"\n        }\n      ],\n      \"contacts\": [],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 1382056,\n      \"publishedDate\": \"2/15/2019 12:00 AM\",\n      \"originalPublishedDate\": \"2/15/2019 12:00 AM\",\n      \"linkText\": \"\",\n      \"link\": \"\",\n      \"description\": \"has recently been ranked #139 on the 2019 SaaS 1000 Top SaaS Companies list.\",\n      \"topics\": [],\n      \"updateText\": \"\",\n      \"types\": [\n        {\n          \"id\": 6,\n          \"type\": \"Award\"\n        }\n      ],\n      \"contacts\": [],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 1373240,\n      \"publishedDate\": \"2/11/2019 12:00 AM\",\n      \"originalPublishedDate\": \"2/11/2019 12:00 AM\",\n      \"linkText\": \"\",\n      \"link\": \"\",\n      \"description\": \"has been recognized as a 2019 Top Rated Sales Intelligence Software by TrustRadius.\",\n      \"topics\": [],\n      \"updateText\": \"\",\n      \"types\": [\n        {\n          \"id\": 6,\n          \"type\": \"Award\"\n        }\n      ],\n      \"contacts\": [],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 1258709,\n      \"publishedDate\": \"12/4/2018 12:00 AM\",\n      \"originalPublishedDate\": \"12/4/2018 12:00 AM\",\n      \"linkText\": \"\",\n      \"link\": \"\",\n      \"description\": \"has recently been recognized by The Boston Globe as one of the Top Places to Work for 2018 in Massachusetts in the midsize organization category.\",\n      \"topics\": [],\n      \"updateText\": \"\",\n      \"types\": [\n        {\n          \"id\": 6,\n          \"type\": \"Award\"\n        }\n      ],\n      \"contacts\": [],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "602fc73c-eff0-4378-a5a8-e3bbb7a661e9",
+          "name": "Zoominfo Scoop Search Inputs",
+          "request": {
+            "name": "Zoominfo Scoop Search Inputs",
+            "description": {
+              "content": "Returns a list of fields you can use as input for the [Scoop Search](#3099d72f-6857-4432-89c2-736410680e60) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "inputfields",
+                "scoop",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0e8a5d05-73aa-4a93-8426-0b404bf320ed",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "inputfields",
+                    "scoop",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"publishedStartDate\",\n    \"fieldType\": \"String\",\n    \"description\": \"Starting date to search for scoops based on when published. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format.\"\n  },\n  {\n    \"fieldName\": \"publishedEndDate\",\n    \"fieldType\": \"String\",\n    \"description\": \"Ending date to search for scoops based on when published. Form a range using publishedEndDate. Uses YYYY-MM-DD format.\"\n  },\n  {\n    \"fieldName\": \"updatedSinceCreation\",\n    \"fieldType\": \"Boolean\",\n    \"description\": \"Include scoops that have been updated since publishedStartDate\"\n  },\n  {\n    \"fieldName\": \"scoopType\",\n    \"fieldType\": \"String\",\n    \"description\": \"Retrieve scoops based on type (e.g., earnings, awards, partnerships and so on)\"\n  },\n  {\n    \"fieldName\": \"scoopTopic\",\n    \"fieldType\": \"String\",\n    \"description\": \"Retrieve scoops based on topic (e.g., integrations, technology, compliance and so on)\"\n  },\n  {\n    \"fieldName\": \"department\",\n    \"fieldType\": \"String\",\n    \"description\": \"Retrieve scoops based on department (IT, finance, HR and so on)\"\n  },\n  {\n    \"fieldName\": \"scoopId\",\n    \"fieldType\": \"String\",\n    \"description\": \"ZoomInfo unique identifier for a scoop. Will accept a comma-separated list.\"\n  },\n  {\n    \"fieldName\": \"description\",\n    \"fieldType\": \"String\",\n    \"description\": \"Search for scoops based on description\"\n  },\n  {\n    \"fieldName\": \"companyId\",\n    \"fieldType\": \"String\",\n    \"description\": \"ZoomInfo unique identifier for the company. Will accept a comma-separated list.\"\n  },\n  {\n    \"fieldName\": \"companyName\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company name\"\n  },\n  {\n    \"fieldName\": \"companyWebsite\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company domain\"\n  },\n  {\n    \"fieldName\": \"parentId\",\n    \"fieldType\": \"String\",\n    \"description\": \"ZoomInfo Company ID for parent company\"\n  },\n  {\n    \"fieldName\": \"ultimateParentId\",\n    \"fieldType\": \"String\",\n    \"description\": \"ZoomInfo Company ID for ultimate parent company\"\n  },\n  {\n    \"fieldName\": \"companyDescription\",\n    \"fieldType\": \"String\",\n    \"description\": \"Text description unique to the company you want to use as search criteria\"\n  },\n  {\n    \"fieldName\": \"companyType\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company type (private, public, and so on)\"\n  },\n  {\n    \"fieldName\": \"address\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company address\"\n  },\n  {\n    \"fieldName\": \"street\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company street\"\n  },\n  {\n    \"fieldName\": \"state\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company state\"\n  },\n  {\n    \"fieldName\": \"zipCode\",\n    \"fieldType\": \"String\",\n    \"description\": \"Zip Code of the company's primary address\"\n  },\n  {\n    \"fieldName\": \"country\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company country\"\n  },\n  {\n    \"fieldName\": \"continent\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company continent\"\n  },\n  {\n    \"fieldName\": \"zipCodeRadiusMiles\",\n    \"fieldType\": \"String\",\n    \"description\": \"Used in conjunction with zipCode, designates a geographical radius (in miles) from the zipCode provided.\"\n  },\n  {\n    \"fieldName\": \"hashTagString\",\n    \"fieldType\": \"String\",\n    \"description\": \"Hash tags for a company. Can include a comma-separated list.\"\n  },\n  {\n    \"fieldName\": \"techAttributeTagList\",\n    \"fieldType\": \"String\",\n    \"description\": \"Specify technology product tags\"\n  },\n  {\n    \"fieldName\": \"subUnitTypes\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company sub types (e.g., division, subsidiary and so on).\"\n  },\n  {\n    \"fieldName\": \"primaryIndustriesOnly\",\n    \"fieldType\": \"Boolean\",\n    \"description\": \"Used in conjunction with the industryCodes input parameter. When set to true, any result returned must have one of the specified industries in the top two. If no industries are specified, then this parameter will be ignored. Default is false.\"\n  },\n  {\n    \"fieldName\": \"industryCodes\",\n    \"fieldType\": \"String\",\n    \"description\": \"Top-level industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list.\"\n  },\n  {\n    \"fieldName\": \"industryKeywords\",\n    \"fieldType\": \"String\",\n    \"description\": \"Industry keywords associated with a company. Can include a comma-separated list.\"\n  },\n  {\n    \"fieldName\": \"sicCodes\",\n    \"fieldType\": \"String\",\n    \"description\": \"Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment.\"\n  },\n  {\n    \"fieldName\": \"naicsCodes\",\n    \"fieldType\": \"String\",\n    \"description\": \"Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. \"\n  },\n  {\n    \"fieldName\": \"revenueMin\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Minimum annual revenue for a company in U.S. dollars. Use with revenueMax to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.\"\n  },\n  {\n    \"fieldName\": \"revenueMax\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Maximum annual revenue for a company in U.S. dollars. Use with revenueMin to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.\"\n  },\n  {\n    \"fieldName\": \"revenue\",\n    \"fieldType\": \"String\",\n    \"description\": \"Annual revenue range in U.S. dollars. Accepts a comma-separated list of values. Alternatively, to get more granular ranges, you can use the revenueMin and revenueMax parameters.\"\n  },\n  {\n    \"fieldName\": \"employeeRangeMin\",\n    \"fieldType\": \"String\",\n    \"description\": \"Minimum employee count for a company. Use with employeeRangeMax to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.\"\n  },\n  {\n    \"fieldName\": \"employeeRangeMax\",\n    \"fieldType\": \"String\",\n    \"description\": \"Maximum employee count for a company. Use with employeeRangeMin to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.\"\n  },\n  {\n    \"fieldName\": \"employeeCount\",\n    \"fieldType\": \"String\",\n    \"description\": \"Employee count range. Accepts a comma-separated list of values. Alternatively, to get more granular ranges, you can use the employeeRangeMin and employeeRangeMax parameters.\"\n  },\n  {\n    \"fieldName\": \"companyRanking\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company ranking list (e.g., Fortune 500 and so on)\"\n  },\n  {\n    \"fieldName\": \"metroRegion\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas.\"\n  },\n  {\n    \"fieldName\": \"locationSearchType\",\n    \"fieldType\": \"String\",\n    \"description\": \"Location type (Person, Company, PersonThenHQ). Accepts a comma-separated list of values.\"\n  },\n  {\n    \"fieldName\": \"fundingAmountMin\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMin is used without fundingAmountMax, the result will be the amount specified or greater.\"\n  },\n  {\n    \"fieldName\": \"fundingAmountMax\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMax is used without fundingAmountMin, the result will be the amount specified or less.\"\n  },\n  {\n    \"fieldName\": \"fundingStartDate\",\n    \"fieldType\": \"String\",\n    \"description\": \"Start date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.\"\n  },\n  {\n    \"fieldName\": \"fundingEndDate\",\n    \"fieldType\": \"String\",\n    \"description\": \"End date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.\"\n  },\n  {\n    \"fieldName\": \"excludedRegions\",\n    \"fieldType\": \"String\",\n    \"description\": \"Exclude a company metro area. Accepts a comma-separated list of U.S. and Canada metro areas.\"\n  },\n  {\n    \"fieldName\": \"zoominfoContactsMin\",\n    \"fieldType\": \"String\",\n    \"description\": \"Minimum number of ZoomInfo contacts associated with company\"\n  },\n  {\n    \"fieldName\": \"zoominfoContactsMax\",\n    \"fieldType\": \"String\",\n    \"description\": \"Maximum number of ZoomInfo contacts associated with company\"\n  },\n  {\n    \"fieldName\": \"companyStructureIncludedSubUnitTypes\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company hierarchical structure\"\n  },\n  {\n    \"fieldName\": \"oneYearEmployeeGrowthRateMin\",\n    \"fieldType\": \"String\",\n    \"description\": \"Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range.\"\n  },\n  {\n    \"fieldName\": \"oneYearEmployeeGrowthRateMax\",\n    \"fieldType\": \"String\",\n    \"description\": \"Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range.\"\n  },\n  {\n    \"fieldName\": \"twoYearEmployeeGrowthRateMin\",\n    \"fieldType\": \"String\",\n    \"description\": \"Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range.\"\n  },\n  {\n    \"fieldName\": \"twoYearEmployeeGrowthRateMax\",\n    \"fieldType\": \"String\",\n    \"description\": \"Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range.\"\n  },\n  {\n    \"fieldName\": \"certified\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Denotes if ZoomInfo's research and data team has confirmed activity within the past 12 months\"\n  },\n  {\n    \"fieldName\": \"excludeDefunctCompanies\",\n    \"fieldType\": \"Boolean\",\n    \"description\": \"Include or exclude defunct companies. The default value is false.\"\n  },\n  {\n    \"fieldName\": \"personId\",\n    \"fieldType\": \"String\",\n    \"description\": \"Unique ZoomInfo identifier for the contact. Can include a comma-separated list.\"\n  },\n  {\n    \"fieldName\": \"emailAddress\",\n    \"fieldType\": \"String\",\n    \"description\": \"Work email address for the contact in example@example.com format\"\n  },\n  {\n    \"fieldName\": \"hashedEmail\",\n    \"fieldType\": \"String\",\n    \"description\": \"Hashed email value for the contact. Allows searching via an email address with the extra security of not exposing the email. Supported hash algorithms are: MD5, SHA1, SHA256 and SHA512.\"\n  },\n  {\n    \"fieldName\": \"fullName\",\n    \"fieldType\": \"String\",\n    \"description\": \"Contact full name\"\n  },\n  {\n    \"fieldName\": \"firstName\",\n    \"fieldType\": \"String\",\n    \"description\": \"Contact first name\"\n  },\n  {\n    \"fieldName\": \"middleInitial\",\n    \"fieldType\": \"String\",\n    \"description\": \"Contact middle initial\"\n  },\n  {\n    \"fieldName\": \"lastName\",\n    \"fieldType\": \"String\",\n    \"description\": \"Contact last name\"\n  },\n  {\n    \"fieldName\": \"jobTitle\",\n    \"fieldType\": \"String\",\n    \"description\": \"Contact title at current place of employment. Use OR to input multiple job titles.\"\n  },\n  {\n    \"fieldName\": \"excludeJobTitle\",\n    \"fieldType\": \"String\",\n    \"description\": \"Exclude comma-separated list of job titles\"\n  },\n  {\n    \"fieldName\": \"managementLevel\",\n    \"fieldType\": \"String\",\n    \"description\": \"Contact management level at current place of employment\"\n  },\n  {\n    \"fieldName\": \"excludeManagementLevel\",\n    \"fieldType\": \"String\",\n    \"description\": \"Exclude comma separated list of management levels\"\n  },\n  {\n    \"fieldName\": \"boardMember\",\n    \"fieldType\": \"String\",\n    \"description\": \"Exclude or include board members from search results\"\n  },\n  {\n    \"fieldName\": \"excludePartialProfiles\",\n    \"fieldType\": \"Boolean\",\n    \"description\": \"Contacts who do not have an active company associated with them are considered partial profiles. Exclude contacts with a partial profile from search results.\"\n  },\n  {\n    \"fieldName\": \"executivesOnly\",\n    \"fieldType\": \"Boolean\",\n    \"description\": \"Return only executives\"\n  },\n  {\n    \"fieldName\": \"requiredFields\",\n    \"fieldType\": \"String\",\n    \"description\": \"Specify a list of required fields for each record returned. Can include email, phone, personalEmail, and mobilePhone. Can include a comma-separated list of these fields.\"\n  },\n  {\n    \"fieldName\": \"contactAccuracyScoreMin\",\n    \"fieldType\": \"String\",\n    \"description\": \"Minimum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99.\"\n  },\n  {\n    \"fieldName\": \"contactAccuracyScoreMax\",\n    \"fieldType\": \"String\",\n    \"description\": \"Maximum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99.\"\n  },\n  {\n    \"fieldName\": \"jobFunction\",\n    \"fieldType\": \"String\",\n    \"description\": \"Contact job function at their current place of employment\"\n  },\n  {\n    \"fieldName\": \"lastUpdatedInMonths\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Number of months within which the contact's profile was last updated\"\n  },\n  {\n    \"fieldName\": \"hasBeenNotified\",\n    \"fieldType\": \"String\",\n    \"description\": \"Contacts who have been notified of inclusion in ZoomInfo's database. Values are exclude, include, and only\"\n  },\n  {\n    \"fieldName\": \"companyPastOrPresent\",\n    \"fieldType\": \"String\",\n    \"description\": \"Returns companies based on a contact's work history. Values are present (default), past, and pastAndPresent\"\n  },\n  {\n    \"fieldName\": \"school\",\n    \"fieldType\": \"String\",\n    \"description\": \"Searches by contact's education\"\n  },\n  {\n    \"fieldName\": \"degree\",\n    \"fieldType\": \"String\",\n    \"description\": \"Searches by contact's education\"\n  },\n  {\n    \"fieldName\": \"locationCompanyId\",\n    \"fieldType\": \"ArrayList\",\n    \"description\": \"Searches by contact's locationIds\"\n  },\n  {\n    \"fieldName\": \"rpp\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Limits the results returned to the given number of results per page\"\n  },\n  {\n    \"fieldName\": \"page\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Provides the results for the given page, used in conjunction with rpp\"\n  },\n  {\n    \"fieldName\": \"sortBy\",\n    \"fieldType\": \"String\",\n    \"description\": \"Sorts results by valid output fields\"\n  },\n  {\n    \"fieldName\": \"sortOrder\",\n    \"fieldType\": \"String\",\n    \"description\": \"Default value is desc. It accepts the following values { Asc, Ascending, desc, descending }\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "58fd17ed-c16c-454c-aeeb-3d6dd31e4fa9",
+          "name": "Zoominfo Scoop Search Outputs",
+          "request": {
+            "name": "Zoominfo Scoop Search Outputs",
+            "description": {
+              "content": "Returns a list of fields included in the response for the [Scoop Search](#3099d72f-6857-4432-89c2-736410680e60) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "outputfields",
+                "scoop",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7ed91fd7-f040-4957-b6fd-c438b159d07c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "outputfields",
+                    "scoop",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"id\",\n    \"description\": \"ZoomInfo unique identifier for a scoop\"\n  },\n  {\n    \"fieldName\": \"publishedDate\",\n    \"description\": \"Publish date for a scoop. If updated, this date will reflect that last updated date.\"\n  },\n  {\n    \"fieldName\": \"originalPublishedDate\",\n    \"description\": \"Initial publish date for a scoop\"\n  },\n  {\n    \"fieldName\": \"linkText\",\n    \"description\": \"Link text for a scoop\"\n  },\n  {\n    \"fieldName\": \"link\",\n    \"description\": \"URL for the scoop\"\n  },\n  {\n    \"fieldName\": \"description\",\n    \"description\": \"Short description for the scoop contents\"\n  },\n  {\n    \"fieldName\": \"topics\",\n    \"description\": \"Topic(s) associated with a scoop\"\n  },\n  {\n    \"fieldName\": \"updateText\",\n    \"description\": \"Text related to an updated scoop\"\n  },\n  {\n    \"fieldName\": \"types\",\n    \"description\": \"Type(s) associated with a scoop\"\n  },\n  {\n    \"fieldName\": \"companyId\",\n    \"description\": \"ZoomInfo unique identifier for a company\"\n  },\n  {\n    \"fieldName\": \"companyName\",\n    \"description\": \"Company name\"\n  },\n  {\n    \"fieldName\": \"contacts\",\n    \"description\": \"Contacts associated with a scoop\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zoominfo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "674be00e-699c-43a7-a044-7bf79c895a4e",
+    "name": "ZoomInfo Authentication Scoop Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...\n\nContact Support:\n Name: ZoomInfo API Support\n Email: support@zoominfo.com",
+      "type": "text/plain"
+    }
+  }
+}

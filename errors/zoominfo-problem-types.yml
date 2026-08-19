@@ -1,0 +1,115 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.zoominfo.com/docs/status-codes-and-errors.md
+docs: https://docs.zoominfo.com/docs/status-codes-and-errors.md
+provider: ZoomInfo
+providerId: zoominfo
+description: >-
+  Error catalog for the ZoomInfo GTM API and the legacy Enterprise API, read from ZoomInfo's published
+  error reference. Codes, messages and remediation are the provider's own wording.
+
+format: proprietary-json
+rfc9457: false
+content_type: application/json
+envelope:
+  shape: |
+    {
+      "error": {
+        "code": "ZI0004",
+        "message": "You have exceeded the rate limit for this resource. Please try again later.",
+        "status": 429,
+        "requestId": "req_abc123",
+        "retryable": true
+      }
+    }
+  fields:
+    - {name: error.code, description: 'Stable ZoomInfo error code (ZI* platform-level, PFAPI* request/field-level).'}
+    - {name: error.message, description: Human-readable message.}
+    - {name: error.status, description: HTTP status code, repeated in the body.}
+    - {name: error.requestId, description: Correlation id for support.}
+    - {name: error.retryable, description: Boolean the caller can branch on instead of parsing the message.}
+  note: >-
+    This is NOT RFC 9457 problem+json — no type/title/detail/instance members and no
+    application/problem+json media type. The `retryable` boolean is a genuinely useful addition that
+    RFC 9457 does not standardize.
+request_correlation:
+  header: X-Request-Id
+  note: Returned on every response on the legacy API; the current API returns the id in error.requestId.
+
+code_prefixes:
+  ZI: Platform-level errors (auth, scope, entitlement, rate limit).
+  PFAPI: Request, field and validation errors, plus server-side failures.
+
+problem_types:
+  - {code: PFAPI0001, status: 400, title: "Disallowed field '[field_name]' requested in query", retryable: false, action: Check user entitlements, remove disallowed fields, and verify field availability for the current API endpoint.}
+  - {code: PFAPI0002, status: 400, title: One or more fields have validation errors, retryable: false, action: Remove disallowed fields, validate input values, and contact your administrator for access if needed.}
+  - {code: PFAPI0002, status: 400, title: "Required request parameters are missing: [parameter_name]", retryable: false, action: Verify all required parameters are included.}
+  - {code: PFAPI0002, status: 400, title: Page number cannot be greater than max value 100, retryable: false, action: Ensure pagination does not exceed 100 pages.}
+  - {code: PFAPI0003, status: 400, title: Invalid request body, retryable: false, action: Validate JSON syntax and ensure the structure matches the API schema.}
+  - {code: PFAPI0003, status: 400, title: Invalid field requested, retryable: false, action: Remove or correct unrecognized fields.}
+  - {code: PFAPI0003, status: 400, title: Invalid field type, retryable: false, action: Match field types with the expected schema.}
+  - {code: PFAPI0003, status: 400, title: There is invalid field(s) in the request, retryable: false, action: Confirm that all fields match the schema definition.}
+  - {code: PFAPI0004, status: 400, title: There is not sufficient info for your request. Please provide at least one input field., retryable: false, action: Add at least one valid input parameter.}
+  - {code: PFAPI0004, status: 400, title: "Missing required inputs, please provide a value for at least one of [field1, field2, ...]", retryable: false, action: Include one or more of the required fields listed.}
+  - {code: PFAPI0005, status: 400, title: Invalid field requested, retryable: false, action: Ensure all field names are spelled correctly and are valid for the endpoint.}
+  - {code: PFAPI0006, status: 400, title: "Input parameter '[parameter]' is invalid - [reason]", retryable: false, action: Use lookup endpoints for valid enumerated values and format strings correctly.}
+  - {code: PFAPI0006, status: 400, title: "'[fieldMin]' cannot be greater than '[fieldMax]'", retryable: false, action: Ensure logical consistency between min and max values.}
+  - {code: PFAPI0006, status: 400, title: "Invalid 'topics' (or some other values)", retryable: false, action: Check field constraints and validate values against allowed inputs.}
+  - {code: PFAPI0008, status: 400, title: Invalid field type, retryable: false, action: Ensure field types match the API specification.}
+  - {code: PFAPI0009, status: 400, title: "Invalid field '[field]' requested in query", retryable: false, action: Refer to the field list for valid values.}
+  - {code: PFAPI0009, status: 400, title: OutputFields invalid or disallowed, retryable: false, action: Remove invalid entries from outputFields; use lookup endpoints to confirm valid fields.}
+  - {code: PFAPI0011, status: 400, title: Credit Limit Reached, retryable: false, action: The user has reached their allocated credit limit; contact your ZoomInfo administrator.}
+  - {code: ZI0001, status: 401, title: The token provided is invalid. Please provide a valid token and try again., retryable: false, action: Verify the token format and contents. Regenerate if expired or malformed.}
+  - {code: ZI0001, status: 401, title: The Authorization token is required and cannot be left blank. Please provide a valid token and try again., retryable: false, action: Include the Authorization header with a valid token in every request.}
+  - {code: ZI0001, status: 401, title: Your session has expired. Please provide a valid token and try again., retryable: true, action: Re-authenticate and implement automatic refresh of expired tokens.}
+  - {code: ZI0002, status: 403, title: "This application does not have the required scope to access the requested resource '[resource]'.", retryable: false, action: Request additional scopes from your ZoomInfo administrator. See scopes/zoominfo-scopes.yml.}
+  - {code: ZI0003, status: 403, title: You do not have access to this endpoint. Please contact your ZoomInfo Account Manager for purchasing options., retryable: false, action: Review your account's access level or upgrade your subscription.}
+  - {code: ZI0003, status: 403, title: You do not have permission to access the ZoomInfo API., retryable: false, action: Confirm your subscription includes API access.}
+  - {code: ZI0004, status: 429, title: You have exceeded the rate limit for this resource. Please try again later., retryable: true, action: Read X-RateLimit-Rejected-Bucket and Retry-After. See rate-limits/zoominfo-rate-limits.yml.}
+  - {code: PFAPI0007, status: 500, title: Internal Server Error, retryable: true, action: Retry after a short delay; check status.zoominfo.com if it persists.}
+  - {code: PFAPI0010, status: 504, title: Gateway Timeout Exception, retryable: true, action: Retry after a delay; reduce request size or complexity if timeouts are frequent.}
+
+agent_recovery_guidance:
+  source: https://docs.zoominfo.com/docs/status-codes-and-errors.md
+  note: ZoomInfo publishes explicit per-error recovery instructions aimed at AI agents.
+  rules:
+    - {condition: Missing required parameter, action: Ask the user for the missing input, or infer it only if obvious.}
+    - {condition: Invalid lookup value, action: Call Lookup and retry with the returned ID.}
+    - {condition: Page number above max, action: Reduce page number or restart pagination.}
+    - {condition: Expired token, action: Refresh the token or ask the user to reconnect.}
+    - {condition: Missing scope, action: Explain the required scope and stop. Do not retry.}
+    - {condition: Entitlement error, action: Explain that the user's package does not include the requested field or endpoint.}
+    - {condition: Rate limit, action: Back off and retry.}
+    - {condition: Gateway timeout, action: Reduce request size or complexity.}
+
+legacy_surface:
+  source: https://api-docs.zoominfo.com
+  note: >-
+    The legacy Enterprise API returns message-only errors with no stable code — remediation requires
+    string-matching the message. Recorded here because the legacy API is still live during deprecation.
+  errors:
+    - {status: 400, message: Exceeded the max limit to enrich new Contacts or Companies}
+    - {status: 400, message: Missing outputFields parameter}
+    - {status: 400, message: No roles found for login}
+    - {status: 400, message: Page number (page) is not a number}
+    - {status: 400, message: Page number (page) requested is greater than the available results}
+    - {status: 400, message: Request body has malformed JSON}
+    - {status: 400, message: Results per page (rpp) is not a number}
+    - {status: 400, message: Results per page (rpp) is over max allowed value (100)}
+    - {status: 400, message: The parameter passed for sortBy is invalid}
+    - {status: 400, message: There are invalid fields in your request}
+    - {status: 400, message: There is insufficient information for this request}
+    - {status: 400, message: Total record pagination is over max allowed value (1000)}
+    - {status: 401, message: Authentication failed}
+    - {status: 403, message: There are fields that are not allowed under your subscription}
+    - {status: 403, message: You do not have access to the enrich endpoint}
+    - {status: 403, message: You do not have access to the search endpoint}
+    - {status: 403, message: You do not have access to this endpoint}
+    - {status: 403, message: You have used up all of your allowed request limit}
+    - {status: 403, message: You have used up all of your allowed request limit for WebSights API}
+    - {status: 403, message: You have used up all of your allowed record limit}
+    - {status: 403, message: You have used up all of your allowed record limit for WebSights API}
+    - {status: 403, message: You do not have permission to access the ZoomInfo API}
+    - {status: 429, message: You have exceeded your API query rate limit. Please decrease the frequency of your API requests}
+    - {status: 500, message: An unexpected error has occurred. Please try again and reference the error id provided}
+    - {status: 500, message: Search failed. Please try again and reference the error id provided}

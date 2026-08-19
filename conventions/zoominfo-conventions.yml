@@ -1,0 +1,134 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.zoominfo.com/docs/api-conventions.md,
+  https://docs.zoominfo.com/docs/pagination-batching-and-bulk.md,
+  https://docs.zoominfo.com/docs/rate-limits.md,
+  https://docs.zoominfo.com/docs/status-codes-and-errors.md
+docs: https://docs.zoominfo.com/docs/api-conventions.md
+provider: ZoomInfo
+providerId: zoominfo
+description: >-
+  Cross-cutting runtime semantics for the ZoomInfo GTM API — the rules that hold across every endpoint,
+  read from ZoomInfo's own conventions, pagination, rate-limit and error pages.
+
+base_url: https://api.zoominfo.com/gtm
+
+versioning:
+  current: v1.0
+  style: path-segment per product surface (/data/v1, /copilot/v1, /studio/v1, /marketing/v1, /agent/v1, /platform/v1)
+  breaking_change_policy: >-
+    Breaking changes are introduced through a new version. Non-breaking additions — new optional fields,
+    new enum values, new endpoints — may be added within the current version.
+  implication_for_clients: >-
+    Clients must tolerate unknown fields and unknown enum values inside v1; ZoomInfo reserves the right
+    to add both without a version bump.
+
+authentication:
+  style: oauth2-bearer
+  header: 'Authorization: Bearer <access_token>'
+  detail: authentication/zoominfo-authentication.yml
+  scopes: scopes/zoominfo-scopes.yml
+
+media_types:
+  request: [application/json, application/vnd.api+json]
+  response: [application/json, application/vnd.api+json]
+  note: >-
+    The conventions and pagination examples use application/vnd.api+json and a JSON:API-shaped
+    data/attributes/type envelope, while the error envelope is a proprietary {"error": {...}} object
+    rather than JSON:API's errors[] array. The surface is JSON:API-influenced, not JSON:API-conformant.
+
+request_envelope:
+  shape: '{"data": {"attributes": {...}, "type": "<ResourceType>"}}'
+  example_type: ContactSearch
+
+response_envelope:
+  shape: '{"data": [{"id": "...", "type": "Contact", "attributes": {...}, "meta": {...}}], "links": {...}, "meta": {...}}'
+  resource_identity: [id, type]
+  per_record_meta:
+    fields: [input, matchStatus]
+    note: >-
+      Batch enrich responses echo the caller's input and a matchStatus (e.g. FULL_MATCH) inside each
+      record's meta, so partial matches are attributable without a second call.
+
+pagination:
+  style: page-number
+  transport: query parameters on a POST body request
+  params:
+    number: 'page[number]'
+    size: 'page[size]'
+  max_page_size: 100
+  max_page_number: 100
+  response_fields:
+    links: [first, last]
+    meta: ['page.number', 'page.total', totalResults]
+  over_max_behavior: A page above the maximum returns a validation error (PFAPI0002).
+
+batching:
+  pattern: Search to discover, then Enrich to redeem — explicitly to avoid unnecessary credit usage.
+  limits:
+    - {operation: Enrich Companies, max_records_per_call: 25, credit_behavior: 1 bulk credit per new company record}
+    - {operation: Enrich Contacts, max_records_per_call: 25, credit_behavior: 1 bulk credit per new contact record}
+    - {operation: Account Research, max_records_per_call: 1, credit_behavior: AI action credits}
+    - {operation: Contact Research, max_records_per_call: 1, credit_behavior: AI action credits}
+  partial_success: >-
+    Batch endpoints return successful records and record-level errors in the same data array rather than
+    failing the whole call.
+
+identifiers:
+  rule: Use ZoomInfo IDs returned by Search and Lookup in later calls. Do not rely on display names when an ID is available.
+  canonical_flow: Lookup (resolve filter values to IDs) -> Search (find records) -> Enrich (redeem full profiles)
+  entity_ids: [companyId, personId/contactId, audienceId, folderId, columnId, rowId, agentTeamId, runId]
+
+field_selection:
+  mechanism: outputFields on enrich requests; --fields in the first-party CLI
+  note: >-
+    Requesting a field the account is not entitled to is an error (PFAPI0001 / PFAPI0009), not a silent
+    omission — so field selection is entitlement-coupled, and the lookup endpoints exist to enumerate
+    what a given key may ask for.
+
+idempotency:
+  supported: false
+  idempotency_key_header: null
+  note: >-
+    ZoomInfo publishes no idempotency key mechanism. The write surface is largely upsert-shaped
+    (upsertRows, upsertEntitiesRecords, upsertCustomerCompetitor, upsertMatchCriteria and friends), which
+    gives natural idempotency by caller-supplied identity, and long-running work is modelled as
+    poll-a-job (Audiences_getJobStatus, AgentTeamsController_getAgentTeamRun) rather than retry-a-write.
+    But there is no documented Idempotency-Key header, so a retried POST that creates is not safe.
+
+rate_limits:
+  detail: rate-limits/zoominfo-rate-limits.yml
+  signal_headers: [X-RateLimit-Limit-Second, X-RateLimit-Remaining-Second, X-RateLimit-Limit-Hour, X-RateLimit-Remaining-Hour, X-RateLimit-Limit-Day, X-RateLimit-Remaining-Day]
+  exhaustion: {status: 429, headers: [Retry-After, X-RateLimit-Rejected-Bucket, X-RateLimit-Reset]}
+  proactive_throttling: Documented — read the Remaining headers on every response and slow down before a 429.
+
+errors:
+  detail: errors/zoominfo-problem-types.yml
+  envelope: '{"error": {"code", "message", "status", "requestId", "retryable"}}'
+  rfc9457: false
+  retryable_flag: error.retryable
+
+tracing:
+  request_id_header: X-Request-Id
+  request_id_body_field: error.requestId
+
+agent_guidance:
+  source: https://docs.zoominfo.com/docs/api-conventions.md
+  note: ZoomInfo publishes explicit agent-facing usage rules alongside the human conventions.
+  rules:
+    - Use Lookup before Search when the user provides natural-language filters.
+    - Use Search before Enrich.
+    - Prefer IDs over names.
+    - Ask for user confirmation before paid enrichment above your configured threshold.
+    - Keep enrichment batches within documented limits.
+    - Retry 429 and 5xx responses with backoff.
+    - Do not retry validation, entitlement, or scope errors without changing the request.
+
+cross_links:
+  authentication: authentication/zoominfo-authentication.yml
+  scopes: scopes/zoominfo-scopes.yml
+  errors: errors/zoominfo-problem-types.yml
+  rate_limits: rate-limits/zoominfo-rate-limits.yml
+  lifecycle: lifecycle/zoominfo-lifecycle.yml
+  data_model: data-model/zoominfo-data-model.yml

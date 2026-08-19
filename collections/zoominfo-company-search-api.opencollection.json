@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZoomInfo Authentication Company Search API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Company Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Zoominfo Company Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/search/company",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a list of Companies from ZoomInfo's data which meet the specified search criteria.\n\nInput parameters may require specific values, some of which are too extensive to list in the parameter descriptions. You can retrieve these values using the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055) endpoints.\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| rpp | Integer | Limits the results returned to the given number of results per page. Default is 25. |\n| page | I"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Company Search Inputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/inputfields/company/search"
+          },
+          "docs": "Returns a list of fields you can use as input for the [Company Search](#4506f0ad-9147-4016-991f-ce8ef6700f07) endpoint."
+        },
+        {
+          "info": {
+            "name": "Zoominfo Company Search Outputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/outputfields/company/search"
+          },
+          "docs": "Returns a list of fields included in the response for the [Company Search](#4506f0ad-9147-4016-991f-ce8ef6700f07) endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

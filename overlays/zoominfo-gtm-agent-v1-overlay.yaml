@@ -1,0 +1,76 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements — ZoomInfo Agent API V1
+  version: 1.0.0
+extends: openapi/zoominfo-gtm-agent-v1-openapi.json
+x-generated: '2026-08-13'
+x-method: generated
+x-source: https://docs.zoominfo.com/openapi.md (verbatim spec) + API Evangelist artifacts in this repo. This overlay
+  records OUR annotations; the original specification is never mutated.
+actions:
+- target: $.info
+  description: Attach provider identity and repository cross-links.
+  update:
+    x-provider: ZoomInfo
+    x-provider-id: zoominfo
+    x-api-evangelist:
+      surface: Agent API V1
+      summary: Agent Teams, agent interaction and pulses.
+      documentation: https://docs.zoominfo.com
+      spec_source: https://docs.zoominfo.com/openapi/openapi-agent-v1.yaml
+      conventions: conventions/zoominfo-conventions.yml
+      authentication: authentication/zoominfo-authentication.yml
+      scopes: scopes/zoominfo-scopes.yml
+      errors: errors/zoominfo-problem-types.yml
+      rate_limits: rate-limits/zoominfo-rate-limits.yml
+      lifecycle: lifecycle/zoominfo-lifecycle.yml
+      data_model: data-model/zoominfo-data-model.yml
+      mcp: mcp/zoominfo-mcp.yml
+      tool_crosswalk: mcp/zoominfo-tool-crosswalk.yml
+- target: $.info
+  description: Record the runtime semantics that are documented in prose but absent from the contract.
+  update:
+    x-runtime-semantics:
+      pagination:
+        style: page-number
+        params:
+        - page[number]
+        - page[size]
+        max_page_size: 100
+        max_page_number: 100
+      error_envelope: '{"error": {"code","message","status","requestId","retryable"}}'
+      rfc9457: false
+      idempotency:
+        supported: false
+        note: No Idempotency-Key header is documented; a retried creating POST is not safe.
+      rate_limit_headers:
+      - X-RateLimit-Limit-Second
+      - X-RateLimit-Remaining-Second
+      - X-RateLimit-Limit-Hour
+      - X-RateLimit-Remaining-Hour
+      - X-RateLimit-Limit-Day
+      - X-RateLimit-Remaining-Day
+      exhaustion:
+        status: 429
+        headers:
+        - Retry-After
+        - X-RateLimit-Rejected-Bucket
+        - X-RateLimit-Reset
+      request_id_header: X-Request-Id
+- target: $.info
+  description: Flag that the deprecation of the sibling legacy API is documented in prose only, not in any machine-readable
+    contract.
+  update:
+    x-lifecycle:
+      version: v1.0
+      breaking_change_policy: Breaking changes ship as a new version; optional fields, enum values and endpoints
+        may be added within v1.
+      sibling_deprecation: The legacy ZoomInfo Enterprise API (https://api.zoominfo.com, non-/gtm paths) is documented
+        as deprecating with no published sunset date. No operation in any published spec carries deprecated:true.
+      status_page: https://status.zoominfo.com
+- target: $.servers
+  description: Annotate the shared GTM gateway base URL.
+  update:
+  - url: https://api.zoominfo.com/gtm
+    description: Base URL for the Agent API (shared GTM gateway host)
+    x-verified: '2026-08-13'

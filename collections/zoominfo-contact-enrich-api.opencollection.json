@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZoomInfo Authentication Contact Enrich API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contact Enrich",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Zoominfo Contact Enrich",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/enrich/contact",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to match contact information based on [input values](#dbaf31cd-0f7a-4bf3-b6c1-077f3c31f2df) and return the desired output fields in the response. Use [Contact Enrich Outputs](#28b47784-3186-4fc4-af91-12e6bc6fb31a) to retrieve the list of available output fields.\n\n**Input combinations**\n\nTo match a contact, you must use one of the following combinations of parameters to construct your input:\n\n- `personId` OR `emailAddress` OR `hashedEmail` OR `phone`. Because these values are un"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Contact Enrich Inputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/inputfields/contact/enrich"
+          },
+          "docs": "Returns a list of fields you can use as input for the [Contact Enrich](#c145dd01-eb54-4fc2-bbdb-9edc04b7ea1b) endpoint."
+        },
+        {
+          "info": {
+            "name": "Zoominfo Contact Enrich Outputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/outputfields/contact/enrich"
+          },
+          "docs": "Returns a list of fields you can specify as output for the [Contact Enrich](#c145dd01-eb54-4fc2-bbdb-9edc04b7ea1b) endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZoomInfo Authentication Scoop Search API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Scoop Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Zoominfo Scoop Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/search/scoop",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a list of Scoops from ZoomInfo's data which meet the specified search criteria.\n\n- Input parameters may require specific values, some of which are too extensive to list in the parameter descriptions. You can retrieve these values using the [Lookup](#28358f09-9863-42af-a93c-6710a8cacf9d) endpoints.\n- If you do not provide a date range for when the scoop was published, the last 30 days of scoop records matching the request are returned\n    \n\n**Input params**\n\n| Parameter | DataType | Descr"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Scoop Search Inputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/inputfields/scoop/search"
+          },
+          "docs": "Returns a list of fields you can use as input for the [Scoop Search](#3099d72f-6857-4432-89c2-736410680e60) endpoint."
+        },
+        {
+          "info": {
+            "name": "Zoominfo Scoop Search Outputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/outputfields/scoop/search"
+          },
+          "docs": "Returns a list of fields included in the response for the [Scoop Search](#3099d72f-6857-4432-89c2-736410680e60) endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

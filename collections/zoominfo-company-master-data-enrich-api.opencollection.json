@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZoomInfo Authentication Company Master Data Enrich API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Company Master Data Enrich",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Zoominfo Company Master Data Enrich",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/enrich/company-master",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to match company information based on [input values](#d305402c-33d1-488c-8b8f-b5b079868a61) and return the desired [output fields](#58b47522-753a-4104-a0c6-454adf4b6a1d) in the response.\n\n**Maximum inputs per request**\n\nYou can input a maximum of 25 companies in a single enrich request, returning the equivalent number of matching records. See the endpoint examples for how to build queries using multiple inputs.\n\n**Declaring desired output**\n\nYou must explicitly list the desired"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Company Master Data Enrich Inputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/inputfields/company-master/enrich"
+          },
+          "docs": "Returns a list of fields you can use as input for the [Company Master Data Enrich](#8b6cffe4-cb34-44ab-ad5d-1953d372ffd3) endpoint."
+        },
+        {
+          "info": {
+            "name": "Zoominfo Company Master Data Enrich Outputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/outputfields/company-master/enrich",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "example_value"
+              }
+            ]
+          },
+          "docs": "Returns a list of fields you can specify as output for the [Company Master Data Enrich](#8b6cffe4-cb34-44ab-ad5d-1953d372ffd3) endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

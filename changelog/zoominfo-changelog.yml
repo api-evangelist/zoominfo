@@ -1,0 +1,113 @@
+generated: '2026-08-13'
+method: searched
+source: https://api-docs.zoominfo.com (Release Notes section of the published ZoomInfo Enterprise API collection)
+provider: ZoomInfo
+providerId: zoominfo
+description: >-
+  ZoomInfo's dated API release notes. The only dated, per-change changelog ZoomInfo publishes belongs to
+  the LEGACY Enterprise API and has not been updated since September 2023. The current GTM API documents
+  per-page updatedAt timestamps but ships no dated changelog.
+
+surfaces:
+  - id: legacy-enterprise-api
+    name: ZoomInfo Enterprise API (legacy)
+    changelog_url: https://api-docs.zoominfo.com
+    scheme: dated-entries
+    entry_count: 49
+    first_entry: '2021-02-22'
+    latest_entry: '2023-09-18'
+    stale: true
+    stale_note: >-
+      No entry in almost three years. The same documentation now opens with a notice that this API is
+      being deprecated, so the silence is consistent with the deprecation rather than with neglect.
+  - id: gtm-api
+    name: ZoomInfo GTM API (current)
+    changelog_url: null
+    scheme: per-page-updatedAt
+    stale: false
+    note: >-
+      No dated changelog is published for the current API. Each documentation page carries an updatedAt
+      timestamp in its markdown frontmatter (the API Conventions, Rate Limits, Status Codes and OAuth
+      Scopes pages were all last updated between 2026-07-21 and 2026-07-27), and the OpenAPI
+      specifications page states the spec is automatically updated as new APIs are released. Version
+      drift is therefore observable only by diffing the six published specs.
+    specs: https://docs.zoominfo.com/openapi.md
+
+current_version: '1.0'
+
+entries:
+  - date: '2023-09-18'
+    api: WebSights API
+    type: addition
+    breaking: false
+    highlights:
+      - Added a confidenceScore output field indicating the certainty of an IP matching a domain (0.00-1.00, matches below 0.3 hidden by default).
+  - date: '2023-08-15'
+    api: Contact Search API
+    type: addition
+    breaking: false
+    highlights:
+      - "requiredFields now accepts directPhone, so searches can be restricted to contacts that have a direct phone number."
+  - date: '2023-06-19'
+    api: Monitoring API
+    type: addition
+    breaking: false
+    highlights:
+      - Webhook payloads now carry changedAttributes indicating which contact or company fields changed.
+  - date: '2023-03-16'
+    api: Bulk API
+    type: fix
+    breaking: false
+    highlights:
+      - Fixed sortBy failing on Bulk Contact Search.
+  - date: '2023-03-14'
+    api: Documentation
+    type: reorganization
+    breaking: false
+    highlights:
+      - Bundles restructured — Bulk APIs and the Monitoring/Webhooks API moved exclusively under Scaling APIs; Standard APIs remain the realtime Search and Enrich endpoints.
+  - date: '2023-02-14'
+    api: Company Enrich API
+    type: deprecation
+    breaking: false
+    highlights:
+      - alexaRank deprecated.
+      - New domainRank field introduced, powered by SimilarWeb; lower is better.
+  - date: '2023-02-01'
+    api: Bulk API
+    type: improvement
+    breaking: false
+    highlights:
+      - Performance improvements for large data sets.
+  - date: '2023-01-19'
+    api: Company Location Enrich API
+    type: addition
+    breaking: false
+    highlights:
+      - Added locationEmployeeCount and locationName output fields.
+  - date: '2022-12-05'
+    api: Contact Search API
+    type: addition
+    breaking: false
+    highlights:
+      - "sortBy now accepts contactAccuracyScore (descending by default)."
+      - Phone-number searches tolerate special characters; alphabetic characters remain rejected.
+      - Fixed bad responses for locationSearchType PersonANDHQ.
+  - date: '2022-11-22'
+    api: WebSights API
+    type: improvement
+    breaking: false
+    highlights:
+      - Matching logic now filters out matches below the quality Confidence Score, improving company matches and ISP fallbacks.
+  - date: '2022-09-21'
+    api: Enterprise API
+    type: addition
+    breaking: false
+    highlights:
+      - Added yearsOfExperience as an output for Contact Enrich and Bulk Contact Enrich.
+      - Fixed UK postal codes not being supported.
+      - Cross-API performance improvements.
+
+window_note: >-
+  Recent-window extract. The published notes run back to 2021-02-22; only the eleven most recent dated
+  entries are captured here.

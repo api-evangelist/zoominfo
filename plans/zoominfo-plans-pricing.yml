@@ -3,143 +3,104 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
 provider: ZoomInfo
 providerId: zoominfo
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.zoominfo.com/docs/rate-limits.md,
+  https://docs.zoominfo.com/docs/available-mcp-tools.md,
+  https://docs.zoominfo.com/docs/pagination-batching-and-bulk.md
 created: '2026-05-04'
-modified: '2026-05-04'
-tags:
-  - B2B
-  - B2B Data
-  - Company Data
-  - Contact Database
-  - Contacts
-  - Data
-  - Lead Generation
-  - Marketing Intelligence
-  - Sales Intelligence
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+modified: '2026-08-13'
+supersedes: >-
+  The 2026-05-04 bulk-sweep scaffold (free/pro/enterprise placeholder tiers with invented prices) that
+  previously occupied this file. No invented price survives.
+description: >-
+  ZoomInfo publishes no API price list. What it DOES publish is a named package ladder with hard rate
+  limits per package, and a credit-consumption model per operation class. Both are recorded below; prices
+  are recorded as unpublished rather than guessed.
+
+plan_count: 3
+prices_published: false
+pricing_page:
+  url: https://www.zoominfo.com/pricing
+  http_status: 403
+  note: >-
+    The pricing page returns "Access to this page has been denied" to non-browser requests. ZoomInfo
+    discloses this in its own llms.txt — "Some pages (e.g. pricing) may not be accessible via non-browser
+    requests due to bot protection" — and instructs agents to send users to the page rather than infer its
+    contents. No price was read, so none is recorded.
+  probed: '2026-08-13'
+sales_model: contact-sales
+self_serve:
+  available: true
+  product: GTM.ai
+  note: >-
+    A self-serve tier exists (GTM.ai, with its own developer portal at gtm-studio.zoominfo.com) alongside
+    Enterprise, but its price is behind the same bot-protected pricing page.
+
 plans:
-  - id: zoominfo-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the ZoomInfo API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: ZoomInfo
-  - id: zoominfo-pro
-    name: Professional
-    type: paid
-    description: Production tier for ZoomInfo. Provides higher quotas, priority support, and access to
-      the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: ZoomInfo
-  - id: zoominfo-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for ZoomInfo. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: ZoomInfo
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+  - id: builder
+    name: Builder
+    price: null
+    currency: null
+    billing_period: null
+    price_note: Not published.
+    limits:
+      requests_per_second: 5
+      requests_per_hour: 10800
+      requests_per_day: 129600
+    source: https://docs.zoominfo.com/docs/rate-limits.md
+  - id: standard
+    name: Standard
+    price: null
+    currency: null
+    billing_period: null
+    price_note: Not published.
+    limits:
+      requests_per_second: 25
+      requests_per_hour: 54000
+      requests_per_day: 648000
+    source: https://docs.zoominfo.com/docs/rate-limits.md
+  - id: scaling
+    name: Scaling
+    price: null
+    currency: null
+    billing_period: null
+    price_note: Not published.
+    limits:
+      requests_per_second: 35
+      requests_per_hour: 75600
+      requests_per_day: 907200
+    source: https://docs.zoominfo.com/docs/rate-limits.md
+
+metering:
+  model: credits
+  note: >-
+    Rate limits govern throughput; credits govern data. They are separate budgets and either can stop a
+    workload. Credit balances are not exposed on the plan — they are per-account entitlements set in the
+    Admin Portal.
+  credit_classes:
+    - {name: free, description: 'Search, lookup, lookalikes, recommendations, audience browsing and GTM context reads consume no credits.'}
+    - {name: bulk-data, description: 'Enrichment consumes one bulk credit per NEW record redeemed — company, contact, intent, scoop or news.'}
+    - {name: ai-action, description: 'Agentic research and synthesis consume AI action credits. conversation_intelligence is documented at a ~9-credit minimum per call.'}
+  batch_limits:
+    - {operation: Enrich Companies, max_records_per_call: 25, cost: 1 bulk credit per new company record}
+    - {operation: Enrich Contacts, max_records_per_call: 25, cost: 1 bulk credit per new contact record}
+    - {operation: Account Research, max_records_per_call: 1, cost: AI action credits}
+    - {operation: Contact Research, max_records_per_call: 1, cost: AI action credits}
+  exhaustion:
+    error_code: PFAPI0011
+    status: 400
+    message: Credit Limit Reached
+  usage_visibility:
+    current_api: GET /data/v1/users/usage (UserInterface_userUsage)
+    legacy_api: GET /lookup/usage plus X-Usage-* response headers on every metered call
+
+overage:
+  published: false
+  note: No overage rate or burst-purchase mechanism is published. Exceeding the credit limit is an error, not a charge.
+
+limit_increase:
+  process: Contact the ZoomInfo account team or helpmenow@zoominfo.com with your Tenant ID and desired per-second value.
+  effective_within: 24 hours
+  source: https://docs.zoominfo.com/docs/rate-limits.md

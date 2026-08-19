@@ -1,0 +1,79 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  mcp/zoominfo-mcp.yml + openapi/zoominfo-gtm-data-v1-openapi.json,
+  openapi/zoominfo-gtm-copilot-v1-openapi.json, openapi/zoominfo-gtm-gtm-studio-v1-openapi.json,
+  openapi/zoominfo-gtm-platform-v1-openapi.json
+provider: ZoomInfo
+providerId: zoominfo
+description: >-
+  Binds each ZoomInfo MCP tool to the REST operation(s) that back it, so an agent can read a tool's
+  REAL input contract out of the OpenAPI. The live MCP tools/list is OAuth-gated (HTTP 401), so the
+  mapping is by name and documented semantics against ZoomInfo's own published OpenAPI operationIds —
+  confidence is recorded honestly per row and no input schema is asserted from the MCP side.
+
+surfaces:
+  openapi:
+    - {file: openapi/zoominfo-gtm-data-v1-openapi.json, title: Data API V1, base: 'https://api.zoominfo.com/gtm', operations: 18, gated: false}
+    - {file: openapi/zoominfo-gtm-copilot-v1-openapi.json, title: Copilot API V1, base: 'https://api.zoominfo.com/gtm', operations: 33, gated: false}
+    - {file: openapi/zoominfo-gtm-gtm-studio-v1-openapi.json, title: GTM Studio API V1, base: 'https://api.zoominfo.com/gtm', operations: 23, gated: false}
+    - {file: openapi/zoominfo-gtm-agent-v1-openapi.json, title: Agent API V1, base: 'https://api.zoominfo.com/gtm', operations: 9, gated: false}
+    - {file: openapi/zoominfo-gtm-marketing-v1-openapi.json, title: Marketing API V1, base: 'https://api.zoominfo.com/gtm', operations: 7, gated: false}
+    - {file: openapi/zoominfo-gtm-platform-v1-openapi.json, title: Platform API V1, base: 'https://api.zoominfo.com/gtm', operations: 10, gated: false}
+  graphql:
+    endpoint: null
+    note: No first-party GraphQL endpoint published. graphql/zoominfo-schema.graphql in this repo is an API Evangelist derivation, not a ZoomInfo surface.
+  mcp:
+    url: https://mcp.zoominfo.com/mcp
+    gated: true
+    gate: OAuth 2.0 bearer; anonymous tools/list returns HTTP 401 ZI0001.
+
+crosswalk:
+  - {tool: search_companies, category: search, rest: [SearchInterface_searchCompany], binding: direct, confidence: high}
+  - {tool: search_contacts, category: search, rest: [SearchInterface_searchContact], binding: direct, confidence: high}
+  - {tool: search_intent, category: search, rest: [SearchInterface_searchIntent], binding: direct, confidence: high}
+  - {tool: search_scoops, category: search, rest: [SearchInterface_searchScoop], binding: direct, confidence: high}
+  - {tool: enrich_companies, category: enrich, rest: [EnrichInterface_enrichCompany], binding: direct, confidence: high, note: 'Docs cap the tool at 25 companies per call; the REST operation carries the authoritative batch limits.'}
+  - {tool: enrich_contacts, category: enrich, rest: [EnrichInterface_enrichContact], binding: direct, confidence: high}
+  - {tool: enrich_intent, category: enrich, rest: [EnrichInterface_enrichIntent], binding: direct, confidence: high}
+  - {tool: enrich_scoops, category: enrich, rest: [EnrichInterface_enrichScoop], binding: direct, confidence: high}
+  - {tool: enrich_news, category: enrich, rest: [EnrichInterface_enrichNews], binding: direct, confidence: high}
+  - {tool: lookup, category: metadata, rest: [LookupInterface_lookup, LookupSearchInterface_lookupSearch, LookupEnrichInterface_lookupEnrich], binding: fan-out, confidence: high, note: 'One MCP tool fronts three REST lookup operations (value lookup, search-field lookup, enrich-field lookup).'}
+  - {tool: find_similar_companies, category: recommendations, rest: [CompanyLookalikesInterface_companyLookalikes], binding: direct, confidence: high}
+  - {tool: find_similar_contacts, category: recommendations, rest: [ContactLookalikesInterface_getContactLookalikes], binding: direct, confidence: high}
+  - {tool: get_recommended_contacts, category: recommendations, rest: [ContactRecommendationsInterface_getContactRecommendations], binding: direct, confidence: high}
+  - {tool: enrich_company_signals, category: enrich, rest: [EnrichInterface_enrichNews, EnrichInterface_enrichScoop, EnrichInterface_enrichIntent], binding: composite, confidence: medium, note: 'ZoomInfo''s own score-accounts / score-leads skills describe this as one batched call returning news + scoops + intent for up to 10 company IDs — i.e. a server-side fan-in over the three enrich operations. No single REST operation matches.'}
+  - {tool: browse_audiences, category: audiences, rest: [Audiences_listAudiences, AudienceInterface_getAudiences], binding: fan-out, confidence: medium, note: 'Docs say GTM Studio audiences, so Audiences_listAudiences (studio/v1) is the likely backing op; the Marketing API list operation is included because the two audience surfaces share the audience concept.'}
+  - {tool: get_audience, category: audiences, rest: [Audiences_getAudience, Rows_listRows, Columns_addColumns], binding: composite, confidence: medium, note: 'Docs describe it returning an audience''s columns AND a preview of its rows, which spans the audience, rows and columns operations.'}
+  - {tool: get_gtm_context, category: context, rest: [CustomerSettingsInterface_getCustomerSettings, OrganizationOfferingsInterface_listOrganizationOfferings, CustomerCompetitorsInterface_listCustomerCompetitors, CustomerBuyerPersonaInterface_listCustomerBuyerPersonas, CustomerIdealCompanySegmentInterface_listIdealCompanySegments, EntitlementsController_getEntitlements], binding: composite, confidence: medium, note: 'The skills say get_gtm_context returns offerings, ICP, personas, competitors and strategic priorities — the read side of the Copilot GTM-configuration resources, plus the caller''s role/entitlements.'}
+  - {tool: update_gtm_context, category: context, rest: [CustomerSettingsInterface_upsertCustomerSettings, OrganizationOfferingsInterface_upsertOrganizationOffering, CustomerCompetitorsInterface_upsertCustomerCompetitor, CustomerBuyerPersonaInterface_upsertCustomerBuyerPersona, CustomerIdealCompanySegmentInterface_upsertIdealCompanySegment], binding: composite, confidence: medium, note: 'Write mirror of get_gtm_context. Documented as an AI Action that synthesizes unstructured content into these structured resources, so the tool does model work the REST upserts do not.'}
+  - {tool: account_research, category: agentic, rest: [AccountSummaryInterface_getAccountSummary, AccountSummaryInterface_askAccountSummaryQuestion, InsightsInterface_getCompanyInsightsByType], binding: composite, confidence: medium, note: 'Documented as a Context Agent that synthesizes a briefing in one call. The Copilot account-summary and insights operations are the closest public REST equivalents; the sub-agent layer above them has no REST surface.'}
+
+mcp_only:
+  - {tool: contact_research, reason: 'Context Agent. Synthesizes a contact briefing across enrichment, engagement and conversation data; no single public REST operation returns the briefing.'}
+  - {tool: conversation_intelligence, reason: 'Reads meeting/email transcripts from a connected source. No public REST operation exposes transcript analysis in the six published GTM specs.'}
+  - {tool: browse_engagements, reason: 'Lists meetings and emails for an account from a connected calendar/email integration. The Platform API only exposes content-interaction engagements (upsert/get/delete), which is a different resource.'}
+  - {tool: submit_feedback, reason: 'Tool-result feedback channel exposed through the MCP server and the gtm CLI (`gtm feedback submit`); no public REST endpoint.'}
+
+rest_only:
+  note: >-
+    Operations with no MCP tool, grouped. The gap is deliberate — the MCP surface is read-and-research
+    oriented, while most write/administrative operations are REST-only.
+  groups:
+    - {group: Agent API, operations: [AgentInterace_listAgents, AgentInterace_interactAgent, AgentInterace_interactAgentStream, AgentTeamsController_listAgentTeams, AgentTeamsController_getAgentTeamDetails, AgentTeamsController_runAgentTeam, AgentTeamsController_listAgentTeamRuns, AgentTeamsController_getAgentTeamRun, PulsesController_listPulses]}
+    - {group: Copilot GTM-config writes and archive actions, operations: [CustomerBuyerPersonaInterface_getCustomerBuyerPersona, CustomerBuyerPersonaInterface_deleteCustomerBuyerPersona, CustomerBuyerPersonaInterface_archiveCustomerBuyerPersona, CustomerBuyerPersonaInterface_unarchiveCustomerBuyerPersona, CustomerCompetitorsInterface_getCustomerCompetitor, CustomerCompetitorsInterface_deleteCustomerCompetitor, CustomerCompetitorsInterface_archiveCustomerCompetitor, CustomerCompetitorsInterface_unarchiveCustomerCompetitor, CustomerIdealCompanySegmentInterface_getIdealCompanySegment, CustomerIdealCompanySegmentInterface_deleteIdealCompanySegment, CustomerIdealCompanySegmentInterface_archiveIdealCompanySegment, CustomerIdealCompanySegmentInterface_unarchiveIdealCompanySegment, CustomerSettingsInterface_deleteCustomerSettings, OrganizationOfferingsInterface_getOrganizationOffering, OrganizationOfferingsInterface_deleteOrganizationOffering, OrganizationOfferingsInterface_archiveOrganizationOffering, OrganizationOfferingsInterface_unarchiveOrganizationOffering]}
+    - {group: Data API operations with no tool, operations: [SearchInterface_searchNews, EnrichInterface_enrichCorporateHierarchy, EnrichInterface_enrichOrgChart, EnrichInterface_enrichTechnology, EnrichInterface_enrichHashtag, UserInterface_userUsage]}
+    - {group: GTM Studio audience/folder/column/row management, operations: [Folders_createFolder, Folders_listFolders, Folders_getFolderById, Folders_updateFolder, Folders_deleteFolder, Audiences_createAudience, Audiences_deleteAudience, Audiences_patchAudience, Audiences_getAudienceFilterMetadata, Audiences_upsertMatchCriteria, Audiences_enrichAudience, Audiences_getJobStatus, Columns_getSupportedDataDependencies, Columns_patchColumn, Columns_deleteColumn, Rows_getRowById, Rows_upsertRows, Rows_bulkUpsertRows, Rows_deleteRows]}
+    - {group: Marketing API, operations: [AudienceInterface_createAudience, AudienceInterface_getAudience, AudienceInterface_updateAudience, AudienceInterface_deleteAudience, AudienceInterface_uploadAudience, AudienceInterface_getAudienceUpload]}
+    - {group: Platform API, operations: [EntitiesController_getEntitiesList, EntitiesController_getEntityFields, EntitiesController_upsertEntitiesRecords, EngagementsController_upsertContentInteractions, EngagementsController_getContentInteractionEngagement, EngagementsController_deleteContentInteractionEngagement, WorkflowsController_getWorkflows, WorkflowsController_executeWorkflow, WorkflowsController_getExecutionStatus]}
+
+coverage:
+  mcp_tools_total: 23
+  mcp_tools_mapped: 19
+  mcp_tools_unmapped: 4
+  rest_operations_total: 100
+  rest_operations_bound: 32
+  rest_operations_unbound: 68
+  high_confidence_rows: 13
+  medium_confidence_rows: 6
+  low_confidence_rows: 0

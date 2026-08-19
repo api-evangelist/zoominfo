@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZoomInfo Authentication WebSights API API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "WebSights API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Zoominfo Ip Enrich",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/enrich/ip",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to match IP addresses based on [input values](#12a5c22b-cba1-4b40-a8c6-45f564cf0c2a) and return the desired [output fields](#ca8c2c2f-c731-4310-ae0d-dfba2fb756d7) in the response.\n\nYou can specify the output fields you want returned using the `outputFields` section in your request JSON (see the endpoint examples for syntax). If you do not specify output fields, all possible fields will be returned.\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| "
+        },
+        {
+          "info": {
+            "name": "Zoominfo Ip Enrich Inputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/inputfields/ip/enrich"
+          },
+          "docs": "Returns a list of fields you can use as input for the [IP Enrich](#4421b337-3380-4bb0-8a0d-dbf8bac8a704) endpoint."
+        },
+        {
+          "info": {
+            "name": "Zoominfo Ip Enrich Outputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/outputfields/ip/enrich"
+          },
+          "docs": "Returns a list of fields you can use as input for the [IP Enrich](#4421b337-3380-4bb0-8a0d-dbf8bac8a704) endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

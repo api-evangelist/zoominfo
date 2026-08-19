@@ -1,0 +1,1511 @@
+{
+  "item": [
+    {
+      "id": "f3a50cd6-29b1-4a50-9932-42435da20110",
+      "name": "Bulk",
+      "description": {
+        "content": "Use the Bulk APIs to search, retrieve, and enrich large ZoomInfo company and contact datasets through asynchronous batch processes.\n\nWith 20x more records than Contact and Company Search and 400x more records than the Contact and Company Enrich, you can leverage Bulk APIs for data ingestion and enrichment at scale.\n\n**Bulk Search API**\n\nWith the Bulk Search API you can:\n\n*   Search for up to 200K records with a single search query\n*   Preview or redeem up to 500 records per page\n    \n\nTwo job types are available with the Bulk Search APIs:\n\n*   The Preview job type returns a company or contact search results preview to help identify records best suited for enrichment. Credits are not charged for the Preview job type.\n*   The Redeem job type enables data retrieval for ingestion, returning selected output fields for a given contact or company. A credit is charged for each unique record that is redeemed.\n    \n\nWhen you submit a search request, an asynchronous job is started, and a job_id is instantly returned. You can use the job_id to check the status of the job and retrieve results.\n\n**Bulk Enrich API**\n\nWith the Bulk Enrich API you can:\n\n*   Enrich up to 10K records in a single job\n*   Retrieve up to 500 results per page\n    \n\nWhen you submit an enrich request, an asynchronous job is started, and a job_id is instantly returned. You can use the job_id to check the status of the job and enrich results.\n\n**Rate Limiting**\n\n*   You can have up to 5 \"active\" jobs (Jobs that are in progress are active jobs. Once a job is completed, you can proceed to creating another job)\n*   You can create up to 1 job per second\n*   Each job you create expires after 24 hours",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fa2fe451-4d58-42c8-be20-bbf9d1617f0c",
+          "name": "Zoominfo Bulk Contact Search",
+          "request": {
+            "name": "Zoominfo Bulk Contact Search",
+            "description": {
+              "content": "Use Bulk Contact Search to retrieve contacts using valid query parameters. Your request can consist of the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| jobType | Can be `preview` (default) or `redeem` |\n| query | Can consist of valid input fields from the [Contact Search Inputs](#74630827-dd25-4b6a-bf72-f7cfeffd6c41) endpoint to retrieve the desired results. The following fields are currently not supported with Bulk Search: `sortOrder` and `sortBy`. |\n| outputFields | Required for the `redeem` job type only. Specify the desired output fields to return. See the [Contact Enrich Outputs](#28b47784-3186-4fc4-af91-12e6bc6fb31a) endpoint for the list of output fields you can request. The following fields are currently not supported as an output for Bulk Search: `companyDescriptionList`. |\n\nSee the preview and redeem request examples for syntax.\n\nThe expected output in all cases is a `jobId`. For example:\n\n```\n{\n   \"jobId\": \"e97813aa0bcae7a66f2ea9e1b69a0da2057bbfd8\"\n}\n\n```\n\nSee the [Bulk Job Status](#1f6246d0-fd13-4f63-b170-dda2fedd8322) and [Bulk Job Results](#5417ba88-096d-448a-b6cd-b930089c678d) endpoints for details on how to use the `jobId` to preview and return results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bulk",
+                "search",
+                "contact"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobType\": \"<string>\",\n  \"query\": {\n    \"firstName\": \"<string>\",\n    \"companyName\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "28512e9e-1bbd-44eb-b9e4-98e6a6b16879",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk",
+                    "search",
+                    "contact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobType\": \"preview\",\n  \"query\": {\n    \"firstName\": \"Mike\",\n    \"companyName\": \"Zoominfo\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-request-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-request-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-record-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-record-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-request-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-request-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-record-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-record-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-unique-id-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-unique-id-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "content-encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-RAY",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Alt-Svc",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"jobId\": \"d1cecb828a0f2a13ffbc1f97faa06af31945ef89\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "002c47ff-10f9-4af2-b077-5b75cef20e06",
+          "name": "Zoominfo Bulk Company Search",
+          "request": {
+            "name": "Zoominfo Bulk Company Search",
+            "description": {
+              "content": "Use Bulk Company Search to retrieve companies using valid query parameters. Your request can consist of the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| jobType | Can be `preview` (default) or `redeem` |\n| query | Can consist of valid input fields from the [Company Search Inputs](#ffd4ccc6-09d1-4026-8c4f-863d02fd703e) endpoint to retrieve the desired results. The following fields are currently not supported with Bulk Search: `sortOrder` and `sortBy`. |\n| outputFields | Required for the `redeem` job type only. Specify the desired output fields to return. The following fields are currently not supported as an output for Bulk Search: `descriptionList`. |\n\nSee the [Company Enrich Outputs](#d05239c3-2597-45f8-9384-f2dbd3518cfc) endpoint for the list of output fields you can request. |\n\nSee the preview and redeem request examples for syntax.\n\nThe expected output in all cases is a `jobId`. For example:\n\n```\n{\n   \"jobId\": \"e97813aa0bcae7a66f2ea9e1b69a0da2057bbfd8\"\n}\n\n```\n\nSee the [Bulk Job Status](#1f6246d0-fd13-4f63-b170-dda2fedd8322) and [Bulk Job Results](#5417ba88-096d-448a-b6cd-b930089c678d) endpoints for details on how to use the `jobId` to preview and return results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bulk",
+                "search",
+                "company"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobType\": \"<string>\",\n  \"query\": {\n    \"address\": \"<string>\"\n  },\n  \"outputFields\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "66f7e5b8-78c5-41ae-bb7f-6842b4927108",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk",
+                    "search",
+                    "company"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobType\": \"preview\",\n  \"query\": {\n    \"address\": \"01775\"\n  },\n  \"outputFields\": [\n    \"id\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-request-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-request-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-record-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-record-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-request-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-request-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-record-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-record-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-unique-id-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-unique-id-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "content-encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-RAY",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"jobId\": \"fa2b51864e1b29a7dceecd149402d6c3441ba34b\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f79d9ee-5e68-4903-8af7-44d0c8ff092e",
+          "name": "Zoominfo Bulk Contact Enrich",
+          "request": {
+            "name": "Zoominfo Bulk Contact Enrich",
+            "description": {
+              "content": "With Bulk Contact Enrich you can:\n\n*   Enrich up to 10K records in a single job\n*   Retrieve up to 500 results per page\n    \n\nUse this endpoint to enrich contact information based on [input values](#dbaf31cd-0f7a-4bf3-b6c1-077f3c31f2df) and return the desired [output fields](#28b47784-3186-4fc4-af91-12e6bc6fb31a) in the response.\n\n**Note**: All output fields in the [Contact Enrich](#2b23b5a2-4074-419e-b01f-e63a6f5af77b) endpoint are supported, with the exception of `companyDescriptionList`.\n\nWhen you submit an enrich request, an asynchronous job is started, and a `job_id` is instantly returned. For example:\n\n```\n{\n   \"jobId\": \"e97813aa0bcae7a66f2ea9e1b69a0da2057bbfd8\"\n}\n\n```\n\nYou can use the `job_id` to check the status of the job and enrich results.\n\nSee the [Bulk Job Status](#1f6246d0-fd13-4f63-b170-dda2fedd8322) and [Bulk Job Results](#5417ba88-096d-448a-b6cd-b930089c678d) endpoints for details on how to use the `jobId` to preview and return results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bulk",
+                "enrich",
+                "contact"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"matchPersonInput\": [\n    {\n      \"personId\": \"<string>\"\n    },\n    {\n      \"personId\": \"<string>\"\n    }\n  ],\n  \"outputFields\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aeda472e-91db-4fcf-878a-3fb002b4a00a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk",
+                    "enrich",
+                    "contact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"matchPersonInput\": [\n    {\n      \"personId\": \"-1021613465\"\n    },\n    {\n      \"personId\": \"1850882609\"\n    },\n    {\n      \"personId\": \"1085252979\"\n    },\n    {\n      \"personId\": \"1340258275\"\n    },\n    {\n      \"personId\": \"1211397553\"\n    },\n    {\n      \"personId\": \"7076615179\"\n    },\n    {\n      \"personId\": \"10456376\"\n    },\n    {\n      \"personId\": \"7057643986\"\n    },\n    {\n      \"personId\": \"3068831069\"\n    },\n    {\n      \"personId\": \"1237124890\"\n    },\n    {\n      \"personId\": \"-1268761639\"\n    },\n    {\n      \"personId\": \"1298772762\"\n    },\n    {\n      \"personId\": \"-2137560815\"\n    },\n    {\n      \"personId\": \"1122625695\"\n    },\n    {\n      \"personId\": \"2560362\"\n    },\n    {\n      \"personId\": \"295038088\"\n    },\n    {\n      \"personId\": \"249554924\"\n    },\n    {\n      \"personId\": \"4086996027\"\n    },\n    {\n      \"personId\": \"128559379\"\n    },\n    {\n      \"personId\": \"78327053\"\n    }\n  ],\n  \"outputFields\": [\n    \"id\",\n    \"firstName\",\n    \"middleName\",\n    \"lastName\",\n    \"email\",\n    \"phone\",\n    \"directPhoneDoNotCall\",\n    \"street\",\n    \"city\",\n    \"region\",\n    \"metroArea\",\n    \"zipCode\",\n    \"state\",\n    \"country\",\n    \"continent\",\n    \"personHasMoved\",\n    \"withinEu\",\n    \"withinCalifornia\",\n    \"withinCanada\",\n    \"lastUpdatedDate\",\n    \"validDate\",\n    \"noticeProvidedDate\",\n    \"salutation\",\n    \"suffix\",\n    \"jobTitle\",\n    \"jobFunction\",\n    \"companyDivision\",\n    \"education\",\n    \"hashedEmails\",\n    \"picture\",\n    \"mobilePhoneDoNotCall\",\n    \"externalUrls\",\n    \"companyId\",\n    \"companyName\",\n    \"companyPhone\",\n    \"companyFax\",\n    \"companyStreet\",\n    \"companyCity\",\n    \"companyState\",\n    \"companyZipCode\",\n    \"companyCountry\",\n    \"companyContinent\",\n    \"companyLogo\",\n    \"companySicCodes\",\n    \"companyNaicsCodes\",\n    \"contactAccuracyScore\",\n    \"companyWebsite\",\n    \"companyRevenue\",\n    \"companyRevenueNumeric\",\n    \"companyEmployeeCount\",\n    \"companyType\",\n    \"companyTicker\",\n    \"companyRanking\",\n    \"isDefunct\",\n    \"companySocialMediaUrls\",\n    \"companyPrimaryIndustry\",\n    \"companyIndustries\",\n    \"companyRevenueRange\",\n    \"companyEmployeeRange\",\n    \"employmentHistory\",\n    \"managementLevel\",\n    \"locationCompanyId\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-request-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-request-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-record-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-record-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-request-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-request-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-record-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-record-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-unique-id-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-unique-id-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "content-encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-RAY",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"jobId\": \"de5c557935a221c2bc2fa612bf2d8768ade9572c\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25a159a0-aad3-4e47-9733-8e828f4de255",
+          "name": "Zoominfo Bulk Company Enrich",
+          "request": {
+            "name": "Zoominfo Bulk Company Enrich",
+            "description": {
+              "content": "With Bulk Company Enrich you can:\n\n*   Enrich up to 10K records in a single Enrich job\n*   Retrieve up to 500 results per page\n    \n\nUse this endpoint to enrich company information based on [input values](#7a915792-e8cd-4e3a-9f0e-c19b850be536) and return the desired [output fields](#d05239c3-2597-45f8-9384-f2dbd3518cfc) in the response.\n\n**Note**: All output fields in the [Company Enrich](#5fdf6e5e-f71e-4e1f-9807-0f8296094dcc) endpoint are supported, with the exception of `companyDescriptionList`.\n\nWhen you submit an enrich request, an asynchronous job is started, and a `job_id` is instantly returned. For example:\n\n```\n{\n   \"jobId\": \"e97813aa0bcae7a66f2ea9e1b69a0da2057bbfd8\"\n}\n\n```\n\nYou can use the `job_id` to check the status of the job and enrich results.\n\nSee the [Bulk Job Status](#1f6246d0-fd13-4f63-b170-dda2fedd8322) and [Bulk Job Results](#5417ba88-096d-448a-b6cd-b930089c678d) endpoints for details on how to use the `jobId` to preview and return results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bulk",
+                "enrich",
+                "company"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"matchCompanyInput\": [\n    {\n      \"companyId\": \"<string>\"\n    },\n    {\n      \"companyId\": \"<string>\"\n    }\n  ],\n  \"outputFields\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eddf52a3-6b8a-41b3-9746-7ff364fab1e3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk",
+                    "enrich",
+                    "company"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"matchCompanyInput\": [\n    {\n      \"companyId\": \"7783252\"\n    },\n    {\n      \"companyId\": \"30147212\"\n    },\n    {\n      \"companyId\": \"18008595\"\n    },\n    {\n      \"companyId\": \"558366052\"\n    },\n    {\n      \"companyId\": \"239305146\"\n    },\n    {\n      \"companyId\": \"77103155\"\n    },\n    {\n      \"companyId\": \"37051158\"\n    },\n    {\n      \"companyId\": \"29425770\"\n    },\n    {\n      \"companyId\": \"345444435\"\n    },\n    {\n      \"companyId\": \"347451938\"\n    },\n    {\n      \"companyId\": \"20234595\"\n    },\n    {\n      \"companyId\": \"353492965\"\n    },\n    {\n      \"companyId\": \"91406858\"\n    },\n    {\n      \"companyId\": \"559977935\"\n    },\n    {\n      \"companyId\": \"18633856\"\n    },\n    {\n      \"companyId\": \"67459255\"\n    },\n    {\n      \"companyId\": \"130203765\"\n    },\n    {\n      \"companyId\": \"17353843\"\n    },\n    {\n      \"companyId\": \"122634324\"\n    },\n    {\n      \"companyId\": \"106676542\"\n    },\n    {\n      \"companyId\": \"80265858\"\n    },\n    {\n      \"companyId\": \"124404507\"\n    },\n    {\n      \"companyId\": \"28738687\"\n    },\n    {\n      \"companyId\": \"421520839\"\n    },\n    {\n      \"companyId\": \"50498255\"\n    },\n    {\n      \"companyId\": \"34537887\"\n    },\n    {\n      \"companyId\": \"8520039\"\n    },\n    {\n      \"companyId\": \"49187454\"\n    },\n    {\n      \"companyId\": \"94340946\"\n    },\n    {\n      \"companyId\": \"89195983\"\n    },\n    {\n      \"companyId\": \"9240875\"\n    }\n  ],\n  \"outputFields\": [\n    \"id\",\n    \"ticker\",\n    \"name\",\n    \"website\",\n    \"domainList\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-request-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-request-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-record-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-record-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-request-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-request-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-record-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-record-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-unique-id-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-unique-id-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "content-encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-RAY",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"jobId\": \"add665cc35af4dcbbbe0b4c2d472dfcab15b55d7\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f0b0641-5c42-46c3-b6be-49a34f71ea09",
+          "name": "Zoominfo Bulk Job Status",
+          "request": {
+            "name": "Zoominfo Bulk Job Status",
+            "description": {
+              "content": "Use the Bulk Job Status endpoint with the jobId as input to return a job status that shows the total number of matching records and page count.\n\n``` {\n{\n   \"jobId\": \"484424dd9a04adccca98a17f19747435ef6c8705\"\n}\n\n```\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| jobId | String | Job ID generated by running Bulk Contact Search or Bulk Company Search |\n\n**Response data**\n\n| Field | Description |\n| --- | --- |\n| status | Status can be `Queued`, `In_Progress`, `Completed` and `Failed`. |\n| jobType | Job type can be `preview` or `redeem`. |\n| entityType | Entity type can be `company` or `contact`. |\n| totalRecords | Total number of records returned |\n| totalPages | Total number of pages (`totalRecords` divided by 1000 per page) |\n| successfulPagesCount | Number of pages that were successful |\n| successfulPages | Specific pages that were successful |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bulk",
+                "job",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ed3708e4-613e-4859-b6b2-5025975fcf99",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk",
+                    "job",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobId\": \"0675ee17f800db0333f7541859d7d1db67fd7037\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "content-encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-RAY",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"status\": \"IN_PROGRESS\",\n  \"jobType\": \"redeem\",\n  \"entityType\": \"COMPANY\",\n  \"totalRecords\": 7655,\n  \"totalPages\": 8,\n  \"successfulPagesCount\": 3,\n  \"successfulPages\": [\n    1,\n    2,\n    8\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "26bc4af2-78dd-4f7d-8023-3ad74a6e1a5c",
+          "name": "Zoominfo Bulk Job Results",
+          "request": {
+            "name": "Zoominfo Bulk Job Results",
+            "description": {
+              "content": "Use the Bulk Job Results endpoint with the jobId as input to return job results of the matching records for the specified page.\n\n**Note:** Please ensure that the page number is successfully processed and ready to get results.\n\n```\n{\n   \"jobId\": \"484424dd9a04adccca98a17f19747435ef6c8705\",\n   \"page\": 1\n}\n\n```\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| jobId | String | Job ID generated by running Bulk Contact Search or Bulk Company Search |\n| page | Integer | Provides the results for the given page, used in conjunction with `rpp` |\n\n**Response data**\n\n| Field | Description |\n| --- | --- |\n| jobType | Type of job. Can be `preview` or `redeem`. |\n| entityType | Type of entity. Can be `company` or `contact`. |\n| totalRecords | Total number of records returned |\n| currentPage | Current page number |\n| currentResults | Number of results for the current page |\n| result | Results for the requested output fields |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bulk",
+                "job",
+                "results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobId\": \"<string>\",\n  \"page\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a8d4afd0-5a85-4650-b9a3-022ff7da8ebc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk",
+                    "job",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobId\": \"0675ee17f800db0333f7541859d7d1db67fd7037\",\n  \"page\": 5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-request-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-request-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-record-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-record-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-request-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-request-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-record-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-record-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-unique-id-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-unique-id-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "content-encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-RAY",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"{\\n    \\\"jobType\\\": \\\"redeem\\\",\\n    \\\"entityType\\\": \\\"company\\\",\\n    \\\"totalRecords\\\": 7655,\\n    \\\"totalPages\\\": 8,\\n    \\\"currentPage\\\": 5,\\n    \\\"currentResults\\\": 1000,\\n    \\\"result\\\": [\\n        {\\n            \\\"input\\\": {\\n                \\\"companyId\\\": 542549309\\n            },\\n            \\\"data\\\": {\\n                \\\"id\\\": 542549309,\\n                \\\"name\\\": \\\"Monge.net\\\",\\n                \\\"website\\\": \\\"www.monge.net\\\",\\n                \\\"employeeCount\\\": 0\\n            }\\n        },\\n        {\\n            \\\"input\\\": {\\n                \\\"companyId\\\": 412129693\\n            },\\n            \\\"data\\\": {\\n                \\\"id\\\": 412129693,\\n                \\\"name\\\": \\\"Grover Lab\\\",\\n                \\\"website\\\": \\\"www.groverlab.org\\\",\\n                \\\"employeeCount\\\": 20\\n            }\\n        },\\n        {\\n            \\\"input\\\": {\\n                \\\"companyId\\\": 537036780\\n            },\\n            \\\"data\\\": {\\n                \\\"id\\\": 537036780,\\n                \\\"name\\\": \\\"Phillip J. Pati�o School of Entrepreneurship\\\",\\n                \\\"website\\\": \\\"www.patinoeschool.org\\\",\\n                \\\"employeeCount\\\": 0\\n            }\\n        },\\n        {\\n            \\\"input\\\": {\\n                \\\"companyId\\\": 536306331\\n            },\\n            \\\"data\\\": {\\n                \\\"id\\\": 536306331,\\n                \\\"name\\\": \\\"SCOE Conference Center\\\",\\n                \\\"website\\\": \\\"www.scoeteaching.net\\\",\\n                \\\"employeeCount\\\": 0\\n            }\\n        },\\n        {\\n            \\\"input\\\": {\\n                \\\"companyId\\\": 538434159\\n            },\\n            \\\"data\\\": {\\n                \\\"id\\\": 538434159,\\n                \\\"name\\\": \\\"William Drury\\\",\\n                \\\"website\\\": \\\"www.williamdrury.com\\\",\\n                \\\"employeeCount\\\": 0\\n            }\\n        },\\n        {\\n            \\\"input\\\": {\\n                \\\"companyId\\\": 411427542\\n            },\\n            \\\"data\\\": {\\n                \\\"id\\\": 411427542,\\n                \\\"name\\\": \\\"Johannes School of Music\\\",\\n                \\\"website\\\": \\\"johannesschoolofmusic.net\\\",\\n                \\\"employeeCount\\\": 22\\n            }\\n        },\\n        {\\n            \\\"input\\\": {\\n                \\\"companyId\\\": 536627736\\n            },\\n            \\\"data\\\": {\\n                \\\"id\\\": 536627736,\\n                \\\"name\\\": \\\"Versfabrik\\\",\\n                \\\"website\\\": \\\"www.branch14.org\\\",\\n                \\\"employeeCount\\\": 0\\n            }\\n        },\\n        {\\n            \\\"input\\\": {\\n                \\\"companyId\\\": 540497384\\n            },\\n            \\\"data\\\": {\\n                \\\"id\\\": 540497384,\\n                \\\"name\\\": \\\"Education Is Forever\\\",\\n                \\\"website\\\": \\\"www.eduisforever.org\\\",\\n                \\\"employeeCount\\\": 0\\n            }\\n        },\\n        {\\n            \\\"input\\\": {\\n                \\\"companyId\\\": 410641125\\n            },\\n            \\\"data\\\": {\\n                \\\"id\\\": 410641125,\\n                \\\"name\\\": \\\"Cross Tuition\\\",\\n                \\\"website\\\": \\\"crosstuition.org\\\",\\n                \\\"employeeCount\\\": 6\\n            }\\n        },\\n        {\\n            \\\"input\\\": {\\n                \\\"companyId\\\": 358921572\\n            },\\n            \\\"data\\\": {\\n                \\\"id\\\": 358921572,\\n                \\\"name\\\": \\\"Aprentica\\\",\\n                \\\"website\\\": \\\"www.aprentica.com\\\",\\n                \\\"employeeCount\\\": 5\\n            }\\n        },\\n        {\\n            \\\"input\\\": {\\n                \\\"companyId\\\": 537129612\\n            },\\n            \\\"data\\\": {\\n                \\\"id\\\": 537129612,\\n                \\\"name\\\": \\\"School of Professors\\\",\\n                \\\"website\\\": \\\"www.schoolofprofessors.com\\\",\\n                \\\"employeeCount\\\": 0\\n            }\\n        },\\n        {\\n            \\\"input\\\": {\\n                \\\"companyId\\\": 81969417\\n            },\\n            \\\"data\\\": {\\n                \\\"id\\\": 81969417,\\n                \\\"name\\\": \\\"The SMETE Open Federation\\\",\\n                \\\"website\\\": \\\"www.smete.org\\\",\\n                \\\"employeeCount\\\": 5\\n            }\\n        }\\n    ]\\n}\\n## This example is truncated. Results continue to the max number per page.\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zoominfo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8fe04555-d17e-4049-9b90-0bdc9c06ee53",
+    "name": "ZoomInfo Authentication Bulk API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...\n\nContact Support:\n Name: ZoomInfo API Support\n Email: support@zoominfo.com",
+      "type": "text/plain"
+    }
+  }
+}

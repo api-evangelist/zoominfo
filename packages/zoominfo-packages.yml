@@ -1,0 +1,129 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://github.com/orgs/Zoominfo/repositories, registry.npmjs.org, pypi.org, api.nuget.org,
+  search.maven.org, https://raw.githubusercontent.com/Zoominfo/homebrew-gtm-ai/main/Formula/gtm-ai-cli.rb
+provider: ZoomInfo
+providerId: zoominfo
+description: >-
+  First-party ZoomInfo client libraries and distributions. Every entry was resolved against the registry's
+  own metadata endpoint on 2026-08-13; version and published are recorded as structured fields.
+
+package_count: 7
+official_count: 7
+
+packages:
+  - name: '@zoominfo/gtm-ai-cli'
+    registry: npm
+    url: https://www.npmjs.com/package/@zoominfo/gtm-ai-cli
+    official: true
+    language: TypeScript
+    role: cli
+    version: 1.0.1
+    published: '2026-06-18'
+    repository: https://github.com/Zoominfo/gtm-ai-cli
+    license: MIT
+    install: npm install -g @zoominfo/gtm-ai-cli
+    covers: ZoomInfo GTM API (via the hosted MCP server)
+    note: The `gtm` binary. See cli/zoominfo-cli.yml.
+
+  - name: gtm-ai-cli
+    registry: homebrew
+    url: https://github.com/Zoominfo/homebrew-gtm-ai
+    official: true
+    language: TypeScript
+    role: cli
+    version: 1.0.1
+    published: '2026-06-18'
+    repository: https://github.com/Zoominfo/gtm-ai-cli
+    license: MIT
+    install: brew install zoominfo/gtm-ai/gtm-ai-cli
+    note: >-
+      Own tap, not homebrew-core. The formula pins version 1.0.1 and ships prebuilt binaries for
+      macOS arm64/x64, Linux x64 and Windows x64 from the gtm-ai-cli releases page. `published` is the
+      release date of the pinned version, not a registry timestamp — a tap exposes no metadata endpoint.
+
+  - name: zi_api_auth_client
+    registry: pypi
+    url: https://pypi.org/project/zi-api-auth-client/
+    official: true
+    language: Python
+    role: auth
+    version: 2.0.3
+    published: '2025-09-04'
+    repository: https://github.com/Zoominfo/api-auth-python-client
+    install: pip install zi_api_auth_client
+    covers: Legacy Enterprise API authentication (PKI and username/password to JWT)
+    note: >-
+      Authentication only — it mints a one-hour JWT, it does not wrap any endpoint. Serves the LEGACY
+      Enterprise API, which ZoomInfo says is being deprecated.
+
+  - name: zoominfo-api-auth-client
+    registry: npm
+    url: https://www.npmjs.com/package/zoominfo-api-auth-client
+    official: true
+    language: JavaScript
+    role: auth
+    version: 1.0.1
+    published: '2021-05-11'
+    repository: https://github.com/Zoominfo/api-auth-nodejs-client
+    install: npm i zoominfo-api-auth-client
+    covers: Legacy Enterprise API authentication
+    note: >-
+      Last published 2021-05-11 — over five years stale, and its repository has not been pushed to since
+      February 2022. Serves the deprecating legacy API.
+
+  - name: Zoominfo.API.Authentication.Client.NetCore
+    registry: nuget
+    url: https://www.nuget.org/packages/Zoominfo.API.Authentication.Client.NetCore
+    official: true
+    language: C#
+    role: auth
+    version: 1.0.3
+    published: '2020-09-10'
+    repository: https://github.com/Zoominfo/api-auth-csharp-client
+    covers: Legacy Enterprise API authentication
+    note: >-
+      Last published 2020-09-10. Four versions exist (1.0.0-1.0.3); NuGet reports no publish date for
+      1.0.1 and 1.0.2 (sentinel 1900-01-01), so only 1.0.3 carries a real date.
+
+  - name: com.zoominfo:api-auth-java-client
+    registry: maven
+    url: https://github.com/Zoominfo/api-auth-java-client
+    official: true
+    language: Java
+    role: auth
+    version: null
+    published: null
+    repository: https://github.com/Zoominfo/api-auth-java-client
+    covers: Legacy Enterprise API authentication
+    note: >-
+      Checked, nothing to record. The README documents a Maven dependency on com.zoominfo:api-auth-java-client
+      version 1.0, but a Maven Central search for g:com.zoominfo returns 0 artifacts — the coordinate is
+      not published to Central. Consumers must build from source. The repository itself was last pushed
+      2026-06-30.
+
+  - name: zoominfo-mcp-plugin
+    registry: none
+    url: https://github.com/Zoominfo/zoominfo-mcp-plugin
+    official: true
+    language: JavaScript
+    role: mcp-plugin
+    version: 1.0.1
+    published: null
+    license: MIT
+    install: git clone https://github.com/Zoominfo/zoominfo-mcp-plugin.git
+    note: >-
+      Distributed from the repository and from client plugin marketplaces (Claude, Codex, Cursor), not
+      from a package registry — there is no metadata endpoint to query, so `published` is null. The
+      version 1.0.1 is read from .codex-plugin/plugin.json. Carries ZoomInfo's 35 published Agent Skills
+      (skills/) and the MCP server registrations.
+
+sdk_gap:
+  note: >-
+    ZoomInfo publishes NO first-party SDK for the current GTM API. Every first-party client library above
+    is an authentication helper for the LEGACY Enterprise API, and four of the five are two to six years
+    stale. For the current API the documentation instructs developers to generate their own client from
+    the published OpenAPI specification with OpenAPI Generator.
+  generator_guidance: https://docs.zoominfo.com/docs/openapi-specifications.md
+  specs: https://docs.zoominfo.com/openapi.md

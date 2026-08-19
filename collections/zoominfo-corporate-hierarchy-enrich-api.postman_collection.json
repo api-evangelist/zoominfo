@@ -1,0 +1,646 @@
+{
+  "item": [
+    {
+      "id": "be15c156-e9af-49e2-880a-783f02df8ccd",
+      "name": "Corporate Hierarchy Enrich",
+      "description": {
+        "content": "Use [Corporate Hierarchy Enrich](#585acff6-f231-4109-b818-b2ff586c18d3) to retrieve corporate hierarchy detail using valid query parameters. A Corporate Hierarchy Enrich request requires you to specify both input parameters about the company you are enriching, and the output fields you want to retrieve.\n\nRefer to the examples provided to build a valid JSON request. For supported input and output parameters:\n\n*   Use the [Corporate Hierarchy Enrich Inputs](#d72da288-2069-47c9-b36f-16cdab5d9988) endpoint to retrieve a list of valid input parameters you can provide\n*   Use the [Corporate Hierarchy Enrich Outputs](#d6813026-dcae-4b20-9ee4-b1301451a2c7) endpoint to retrieve a list of valid output fields that can be returned",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4ac5a66b-bbfb-456c-b7ed-38e982e76aa8",
+          "name": "Zoominfo Corporate Hierarchy Enrich",
+          "request": {
+            "name": "Zoominfo Corporate Hierarchy Enrich",
+            "description": {
+              "content": "Use this endpoint to match corporate hierarchical information based on [input values](#d72da288-2069-47c9-b36f-16cdab5d9988) and return the desired [output fields](#d6813026-dcae-4b20-9ee4-b1301451a2c7) in the response.\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyId | Integer | Unique ZoomInfo identifier for a company |\n| companyName | String | Company name |\n| companyWebsite | String | Company website URL in [http://www.example.com](http://www.example.com) format |\n\n**Output fields**\n\n| Field | Description |\n| --- | --- |\n| parentage | Lists companies higher up in the corporate hierarchy for this company |\n| familyTree | Lists companies and locations in the family tree for this company |\n| companyId | Unique ZoomInfo identifier for a company |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrich",
+                "corporatehierarchy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"matchCompanyInput\": [\n    {\n      \"companyName\": \"<string>\"\n    },\n    {\n      \"companyName\": \"<string>\"\n    }\n  ],\n  \"outputFields\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f73b8dab-97cf-4fa9-af96-22ae0039559c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrich",
+                    "corporatehierarchy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"matchCompanyInput\": [\n    {\n      \"companyName\": \"zoominfo\"\n    }\n  ],\n  \"outputFields\": [\n    \"parentage\",\n    \"familyTree\",\n    \"companyId\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2020f0c7-c633-4685-88ed-0e4d1fa74467",
+          "name": "Zoominfo Corporate Hierarchy Enrich Inputs",
+          "request": {
+            "name": "Zoominfo Corporate Hierarchy Enrich Inputs",
+            "description": {
+              "content": "Returns a list of fields you can use as input for the [Corporate Hierarchy Enrich](#1bf83184-9ee9-478f-b839-9afab4dfe18e) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "inputfields",
+                "corporatehierarchy",
+                "enrich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dff3fa4c-04a6-46a6-95a0-27cd810a274d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "inputfields",
+                    "corporatehierarchy",
+                    "enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"companyId\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"The id of the company you are searching for\"\n  },\n  {\n    \"fieldName\": \"companyName\",\n    \"fieldType\": \"String\",\n    \"description\": \"The name of the company you are searching for\"\n  },\n  {\n    \"fieldName\": \"companyWebsite\",\n    \"fieldType\": \"String\",\n    \"description\": \"The website of the company you are searching for\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16163b22-5fce-4d15-a04d-384c4cec9d33",
+          "name": "Zoominfo Corporate Hierarchy Enrich Outputs",
+          "request": {
+            "name": "Zoominfo Corporate Hierarchy Enrich Outputs",
+            "description": {
+              "content": "Returns a list of fields you can specify as output for the [Corporate Hierarchy Enrich](#1bf83184-9ee9-478f-b839-9afab4dfe18e) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "outputfields",
+                "corporatehierarchy",
+                "enrich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d7675968-e525-4608-b5d6-0d0120017df8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "outputfields",
+                    "corporatehierarchy",
+                    "enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"parentage\",\n    \"description\": \"All companies higher up in the corporate hierarchy for this company\"\n  },\n  {\n    \"fieldName\": \"familyTree\",\n    \"description\": \"All companies and locations in the family tree for this company\"\n  },\n  {\n    \"fieldName\": \"companyId\",\n    \"description\": \"The company id of the matching company\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zoominfo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9baf56bf-d3e5-4a59-b19b-9e4cbba9bfc1",
+    "name": "ZoomInfo Authentication Corporate Hierarchy Enrich API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...\n\nContact Support:\n Name: ZoomInfo API Support\n Email: support@zoominfo.com",
+      "type": "text/plain"
+    }
+  }
+}

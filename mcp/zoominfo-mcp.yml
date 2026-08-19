@@ -1,0 +1,123 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.zoominfo.com/docs/connect-to-zoominfo-mcp.md
+provider: ZoomInfo
+providerId: zoominfo
+name: ZoomInfo MCP Server
+status: published
+description: >-
+  ZoomInfo ships an official, hosted Model Context Protocol server that exposes the GTM
+  Intelligence surface (company/contact search and enrichment, intent, scoops, news,
+  audiences and agentic research) to MCP clients. The endpoint is Streamable HTTP and is
+  gated by OAuth 2.0 against ZoomInfo's Okta tenant, so anonymous tools/list is rejected.
+
+deployment:
+  mode: both
+  endpoint: https://mcp.zoominfo.com/mcp
+  install: >-
+    npx -y mcp-remote@0.1.38 https://mcp.zoominfo.com/mcp 46818 --static-oauth-client-metadata
+    "{\"scope\":\"openid profile email offline_access zi_api zi_mcp api:data:mcp\"}"
+  package: https://github.com/Zoominfo/zoominfo-mcp-plugin
+  auth: oauth
+  verified: probed
+
+deployment_evidence:
+  remote:
+    note: >-
+      POST {"jsonrpc":"2.0","id":1,"method":"tools/list"} to the endpoint returns HTTP 401 with a
+      WWW-Authenticate Bearer challenge naming the protected-resource metadata document, which is the
+      MCP spec's own auth handshake. The server is live; the tool list is auth-gated, not absent.
+    url: https://mcp.zoominfo.com/mcp
+    http_status: 401
+    www_authenticate: 'Bearer resource_metadata="https://mcp.zoominfo.com/.well-known/oauth-protected-resource"'
+    error_code: ZI0001
+    fetched: '2026-08-13'
+  local_stdio:
+    note: >-
+      The first-party plugin repo registers the SAME hosted endpoint two ways — direct Streamable HTTP
+      for clients that complete OAuth natively (.mcp.json), and an mcp-remote stdio bridge for clients
+      that cannot (mcp.json). The stdio path is a bridge to the remote server, not a second server.
+    source: https://github.com/Zoominfo/zoominfo-mcp-plugin
+
+transport: streamable-http
+authorization:
+  type: oauth2
+  issuer: https://okta-login.zoominfo.com/oauth2/default
+  authorization_endpoint: https://mcp.zoominfo.com/oauth/authorize
+  token_endpoint: https://okta-login.zoominfo.com/oauth2/default/v1/token
+  registration_endpoint: https://mcp.zoominfo.com/oauth/register
+  revocation_endpoint: https://okta-login.zoominfo.com/oauth2/default/v1/revoke
+  dynamic_client_registration: true
+  pkce: [S256]
+  grant_types: [authorization_code, refresh_token]
+  scopes: [openid, profile, email, offline_access, zi_api, zi_mcp, 'api:data:mcp']
+  metadata:
+    oauth_authorization_server:
+      url: https://mcp.zoominfo.com/.well-known/oauth-authorization-server
+      http_status: 200
+      file: well-known/zoominfo-mcp-oauth-authorization-server.json
+    oauth_protected_resource:
+      url: https://mcp.zoominfo.com/.well-known/oauth-protected-resource
+      http_status: 200
+      file: well-known/zoominfo-mcp-oauth-protected-resource.json
+
+clients_documented:
+  - {client: Claude Code, method: 'claude mcp add --transport http zoominfo https://mcp.zoominfo.com/mcp'}
+  - {client: Claude Code (plugin), method: 'claude plugin install zoominfo@claude-plugins-official'}
+  - {client: OpenAI Codex, method: official Codex plugin or custom MCP route}
+  - {client: Cursor, method: mcp-remote stdio bridge (native client cannot complete this server's OAuth discovery)}
+  - {client: 'Claude.ai / Claude Desktop / ChatGPT', method: connector / custom MCP integration}
+
+policy:
+  model_training: >-
+    ZoomInfo prohibits data accessed through MCP from being used for AI model training; the docs
+    require model training to be disabled in the client before connecting.
+  entitlement: >-
+    A ZoomInfo license (GTM.ai self-serve or Enterprise) is required. Plan limits, API rate limits and
+    credits apply to MCP usage exactly as they do to REST.
+
+tools:
+  note: >-
+    Tool names are taken from ZoomInfo's own published surfaces — the Available MCP Tools documentation
+    page, the tool identifiers hard-coded in the first-party gtm-ai-cli source (src/commands/*.ts calling
+    mcpCall('<tool>')), and the tool names invoked by ZoomInfo's own published Agent Skills. Input schemas
+    are NOT recorded because live tools/list requires an authenticated OAuth token.
+  schemas_available: false
+  schemas_note: Input schemas require authenticated MCP introspection; not captured.
+  count: 23
+  naming_note: >-
+    The docs table names tools in Title Case ("Search Companies"); the CLI source and the Agent Skills
+    invoke them in snake_case ("search_companies"). Where a tool appears ONLY in the docs table, the
+    snake_case identifier below is marked unconfirmed rather than asserted.
+  data_tools:
+    - {name: search_companies, credits: free, description: Find companies by firmographic criteria.}
+    - {name: search_contacts, credits: free, description: Find contacts by role, company, or signal.}
+    - {name: enrich_companies, credits: bulk-data, description: Retrieve full firmographic details for up to 25 companies.}
+    - {name: enrich_contacts, credits: bulk-data, description: Retrieve full contact details for up to 25 contacts.}
+    - {name: lookup, credits: free, description: 'Returns valid filter values (industries, regions, job functions).'}
+    - {name: find_similar_companies, credits: free, description: Find companies similar to a given company.}
+    - {name: find_similar_contacts, credits: free, description: Find contacts similar to a given contact.}
+    - {name: get_recommended_contacts, credits: free, description: Find outreach-ready contacts for a specific account.}
+    - {name: search_intent, credits: free, description: Discover companies showing buyer intent signals.}
+    - {name: enrich_intent, credits: bulk-data, description: Retrieve intent signals for a specific company.}
+    - {name: search_scoops, credits: free, description: Discover companies based on real-world business events.}
+    - {name: enrich_scoops, credits: bulk-data, description: Retrieve business-event scoops for a specific company.}
+    - {name: enrich_news, credits: bulk-data, description: Retrieve categorized news coverage for a specific company.}
+    - {name: get_gtm_context, credits: free, description: Retrieve the user's role and GTM context for the organization.}
+    - {name: enrich_company_signals, credits: bulk-data, description: 'Batched news + scoops + intent signals for up to 10 company IDs (used by the score-accounts and score-leads skills).'}
+    - {name: browse_engagements, credits: free, description: 'List meetings/emails for an account; requires a connected calendar, email or meeting integration.'}
+    - {name: browse_audiences, name_confirmed: false, documented_as: Browse Audiences, credits: free, description: List and search your GTM Studio audiences.}
+    - {name: get_audience, name_confirmed: false, documented_as: Get Audience, credits: free, description: View an audience's columns and preview its rows.}
+  context_agent_tools:
+    - {name: account_research, credits: ai-action, description: Generate a comprehensive intelligence briefing for a company.}
+    - {name: contact_research, credits: ai-action, description: Generate a comprehensive intelligence briefing for a contact.}
+    - {name: update_gtm_context, credits: ai-action, description: Create or update GTM context by synthesizing unstructured content into structured configuration.}
+    - {name: conversation_intelligence, credits: 'ai-action (~9 credits minimum per call)', description: 'Deep-read a single engagement transcript; requires at least one connected meeting or email source.'}
+  other_tools:
+    - {name: submit_feedback, credits: free, description: Submit feedback on tool results (exposed via `gtm feedback submit`).}
+
+docs:
+  connect: https://docs.zoominfo.com/docs/connect-to-zoominfo-mcp.md
+  available_tools: https://docs.zoominfo.com/docs/available-mcp-tools.md
+  plugin_repo: https://github.com/Zoominfo/zoominfo-mcp-plugin
+  skills: skills/_index.yml

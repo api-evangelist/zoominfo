@@ -1,0 +1,658 @@
+{
+  "item": [
+    {
+      "id": "e6d32d8e-3458-4a0e-a710-55e7eaf5af27",
+      "name": "OrgChart Enrich",
+      "description": {
+        "content": "Use [Org Chart Enrich](#763b3c10-41d1-4d52-9775-1712f712202e) to retrieve org chart detail using valid query parameters.\n\nRefer to the examples provided to build a valid JSON request:\n\n*   Use the [Org Chart Enrich Inputs](#751a9156-1867-4033-a115-a44aa0ecbfad) endpoint to retrieve a list of valid input parameters you can provide\n*   Use the [Org Chart Enrich Outputs](#b2c219d2-df68-4ccd-9914-c7c58218f768) endpoint to retrieve a list of output fields returned",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "de9d2a4d-a4eb-4af1-87fd-a6407fec1270",
+          "name": "Zoominfo Orgchart Enrich",
+          "request": {
+            "name": "Zoominfo Orgchart Enrich",
+            "description": {
+              "content": "Use this endpoint to match org chart information based on [input values](#751a9156-1867-4033-a115-a44aa0ecbfad) and return the desired [output fields](#b2c219d2-df68-4ccd-9914-c7c58218f768) in the response.\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyId | String | Required. The id of the company for which you want to view the org chart hierarchy |\n| department | String | Required. The comma delimited list of departments for which to display org chart hierarchy. See the **Contact Departments** lookup endpoint for values. You can input the `id` value or `name` from the list of accepted values. |\n\n**Output fields**\n\n| Field | Description |\n| --- | --- |\n| id | Unique ZoomInfo identifier for the contact |\n| firstName | Contact first name |\n| middleName | Contact middle name |\n| lastName | Contact last name |\n| lastUpdatedDate | Date on which the contact record was last updated |\n| jobTitle | Contact job title at current place of employment |\n| department | Contact department at current place of employment. See the **Contact Departments** lookup endpoint for values. |\n| hasDirectPhone | Indicates whether ZoomInfo has a direct phone number for the contact. If do not call is enabled for the contact, the field `directPhoneDoNotCall` is returned in the output with a value of `true`. |\n| hasEmail | Indicates whether ZoomInfo has an email address for the contact |\n| jobFunction | Contact job function at current place of employment |\n| orgChartTier | Integer representing hierarchy within a department, with `1` being the highest. |\n| orgChartSubTier | Secondary tier within `orgChartTier` |\n| contentAccuracyScore | This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 75 and maximum is 99. |\n| companyId | Unique ZoomInfo identifier for a company |\n| companyName | Company name |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrich",
+                "orgchart"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyId\": \"<string>\",\n  \"department\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6c1835b2-039d-466a-a741-a8aa451646e1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrich",
+                    "orgchart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": \"344589814\",\n  \"department\": \"c-suite\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"maxResults\": 11,\n  \"totalResults\": 11,\n  \"currentPage\": 1,\n  \"data\": [\n    {\n      \"id\": 1843376157,\n      \"firstName\": \"Justin\",\n      \"middleName\": \"\",\n      \"lastName\": \"Withers\",\n      \"lastUpdatedDate\": \"\",\n      \"title\": \"Senior VP, Strategy and Corporate Development\",\n      \"hasEmail\": true,\n      \"hasDirectPhone\": true,\n      \"department\": \"C-Suite\",\n      \"jobFunction\": \"Operations Executive\",\n      \"orgChartTier\": 2,\n      \"orgChartSubTier\": 7,\n      \"contactAccuracyScore\": 96,\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 2988050694,\n      \"firstName\": \"Nir\",\n      \"middleName\": \"\",\n      \"lastName\": \"Keren\",\n      \"lastUpdatedDate\": \"\",\n      \"title\": \"Chief Technology Officer\",\n      \"hasEmail\": true,\n      \"hasDirectPhone\": true,\n      \"department\": \"C-Suite\",\n      \"jobFunction\": \"Engineering & Technical Executive\",\n      \"orgChartTier\": 2,\n      \"orgChartSubTier\": 2,\n      \"contactAccuracyScore\": 90,\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 1645938489,\n      \"firstName\": \"Hila\",\n      \"middleName\": \"\",\n      \"lastName\": \"Nir\",\n      \"lastUpdatedDate\": \"\",\n      \"title\": \"Chief Marketing Officer\",\n      \"hasEmail\": true,\n      \"hasDirectPhone\": true,\n      \"department\": \"C-Suite\",\n      \"jobFunction\": \"Marketing Executive\",\n      \"orgChartTier\": 2,\n      \"orgChartSubTier\": 2,\n      \"contactAccuracyScore\": 92,\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 1260398587,\n      \"firstName\": \"Henry\",\n      \"middleName\": \"L.\",\n      \"lastName\": \"Schuck\",\n      \"lastUpdatedDate\": \"1/5/2020 2:59 PM\",\n      \"title\": \"Founder & Chief Executive Officer\",\n      \"hasEmail\": true,\n      \"hasDirectPhone\": true,\n      \"department\": \"C-Suite\",\n      \"jobFunction\": \"Executive\",\n      \"orgChartTier\": 1,\n      \"orgChartSubTier\": 1,\n      \"contactAccuracyScore\": 96,\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": -851481737,\n      \"firstName\": \"Anthony\",\n      \"middleName\": \"M.\",\n      \"lastName\": \"Stark\",\n      \"lastUpdatedDate\": \"\",\n      \"title\": \"General Counsel\",\n      \"hasEmail\": true,\n      \"hasDirectPhone\": true,\n      \"department\": \"C-Suite\",\n      \"jobFunction\": \"Legal Executive\",\n      \"orgChartTier\": 2,\n      \"orgChartSubTier\": 1,\n      \"contactAccuracyScore\": 96,\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 2827525345,\n      \"firstName\": \"Chris\",\n      \"middleName\": \"\",\n      \"lastName\": \"Hays\",\n      \"lastUpdatedDate\": \"\",\n      \"title\": \"Chief Revenue Officer\",\n      \"hasEmail\": true,\n      \"hasDirectPhone\": true,\n      \"department\": \"C-Suite\",\n      \"jobFunction\": \"Sales Executive\",\n      \"orgChartTier\": 2,\n      \"orgChartSubTier\": 3,\n      \"contactAccuracyScore\": 96,\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 1900751569,\n      \"firstName\": \"Alyssa\",\n      \"middleName\": \"\",\n      \"lastName\": \"Lahar\",\n      \"lastUpdatedDate\": \"\",\n      \"title\": \"Chief Human Resources Officer\",\n      \"hasEmail\": true,\n      \"hasDirectPhone\": false,\n      \"department\": \"C-Suite\",\n      \"jobFunction\": \"Human Resources Executive\",\n      \"orgChartTier\": 2,\n      \"orgChartSubTier\": 3,\n      \"contactAccuracyScore\": 93,\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 1691752290,\n      \"firstName\": \"Derek\",\n      \"middleName\": \"M.\",\n      \"lastName\": \"Smith\",\n      \"lastUpdatedDate\": \"\",\n      \"title\": \"Senior VP,  Data Strategy and R&D\",\n      \"hasEmail\": true,\n      \"hasDirectPhone\": true,\n      \"department\": \"Engineering & Technical\",\n      \"jobFunction\": \"Research & Development\",\n      \"orgChartTier\": 2,\n      \"orgChartSubTier\": 3,\n      \"contactAccuracyScore\": 92,\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 39841971,\n      \"firstName\": \"Cameron\",\n      \"middleName\": \"\",\n      \"lastName\": \"Hyzer\",\n      \"lastUpdatedDate\": \"\",\n      \"title\": \"Chief Financial Officer\",\n      \"hasEmail\": true,\n      \"hasDirectPhone\": true,\n      \"department\": \"C-Suite\",\n      \"jobFunction\": \"Finance Executive\",\n      \"orgChartTier\": 2,\n      \"orgChartSubTier\": 2,\n      \"contactAccuracyScore\": 96,\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": -1169994343,\n      \"firstName\": \"Kelly\",\n      \"middleName\": \"\",\n      \"lastName\": \"Watson\",\n      \"lastUpdatedDate\": \"\",\n      \"title\": \"Executive Assistant, Henry Schuck\",\n      \"hasEmail\": true,\n      \"hasDirectPhone\": true,\n      \"department\": \"C-Suite\",\n      \"jobFunction\": \"Executive\",\n      \"orgChartTier\": 2,\n      \"orgChartSubTier\": 8,\n      \"contactAccuracyScore\": 91,\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 2086486970,\n      \"firstName\": \"Mark\",\n      \"middleName\": \"S.\",\n      \"lastName\": \"Johnson\",\n      \"lastUpdatedDate\": \"\",\n      \"title\": \"Senior VP, Technology & Operations\",\n      \"hasEmail\": true,\n      \"hasDirectPhone\": true,\n      \"department\": \"C-Suite\",\n      \"jobFunction\": \"Information Technology Executive\",\n      \"orgChartTier\": 2,\n      \"orgChartSubTier\": 3,\n      \"contactAccuracyScore\": 96,\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "367611b3-42bf-4f35-afeb-259ac18a77ea",
+          "name": "Zoominfo Org Chart Enrich Inputs",
+          "request": {
+            "name": "Zoominfo Org Chart Enrich Inputs",
+            "description": {
+              "content": "Returns a list of fields you can use as input for the [Org Chart Enrich](#763b3c10-41d1-4d52-9775-1712f712202e) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "inputfields",
+                "orgchart",
+                "enrich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2ac92b9d-44a1-415a-951e-928ded4580ae",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "inputfields",
+                    "orgchart",
+                    "enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"companyId\",\n    \"fieldType\": \"String\",\n    \"description\": \"The id of the company for which you want to view the org chart\"\n  },\n  {\n    \"fieldName\": \"department\",\n    \"fieldType\": \"String\",\n    \"description\": \"It must contain comma delimited strings of departments to display org charts from this endpoint : lookup/department\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ed5f2e2-7056-4b60-9196-14f79eb03a57",
+          "name": "Zoominfo Org Chart Enrich Outputs",
+          "request": {
+            "name": "Zoominfo Org Chart Enrich Outputs",
+            "description": {
+              "content": "Returns a list of fields you can specify as output for the [Org Chart Enrich](#763b3c10-41d1-4d52-9775-1712f712202e) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "outputfields",
+                "orgchart",
+                "enrich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "465b8cc6-a7b1-4268-bfca-3872520f8846",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "outputfields",
+                    "orgchart",
+                    "enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"id\",\n    \"description\": \"Unique ZoomInfo identifier for the contact\"\n  },\n  {\n    \"fieldName\": \"firstName\",\n    \"description\": \"Contact first name\"\n  },\n  {\n    \"fieldName\": \"middleName\",\n    \"description\": \"Contact middle name\"\n  },\n  {\n    \"fieldName\": \"lastName\",\n    \"description\": \"Contact last name\"\n  },\n  {\n    \"fieldName\": \"lastUpdatedDate\",\n    \"description\": \"Date on which the contact record was last updated\"\n  },\n  {\n    \"fieldName\": \"title\",\n    \"description\": \"Contact job title at current place of employment\"\n  },\n  {\n    \"fieldName\": \"hasEmail\",\n    \"description\": \"Indicates whether ZoomInfo has an email address for the contact\"\n  },\n  {\n    \"fieldName\": \"hasDirectPhone\",\n    \"description\": \"Indicates whether ZoomInfo has a direct phone number for the contact\"\n  },\n  {\n    \"fieldName\": \"department\",\n    \"description\": \"Contact department at current place of employment. See the Contact Departments endpoint for values.\"\n  },\n  {\n    \"fieldName\": \"jobFunction\",\n    \"description\": \"Contact job function at current place of employment\"\n  },\n  {\n    \"fieldName\": \"orgChartTier\",\n    \"description\": \"Integer representing hierarchy within a department, with 1 being the highest\"\n  },\n  {\n    \"fieldName\": \"orgChartSubTier\",\n    \"description\": \"Secondary tier within orgChartTier\"\n  },\n  {\n    \"fieldName\": \"contactAccuracyScore\",\n    \"description\": \"This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 75 and maximum is 99.\"\n  },\n  {\n    \"fieldName\": \"companyId\",\n    \"description\": \"Unique ZoomInfo identifier for a company\"\n  },\n  {\n    \"fieldName\": \"companyName\",\n    \"description\": \"Company Name\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zoominfo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "693c8ed7-3d8a-4ac6-b9d3-d34d344a788e",
+    "name": "ZoomInfo Authentication OrgChart Enrich API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...\n\nContact Support:\n Name: ZoomInfo API Support\n Email: support@zoominfo.com",
+      "type": "text/plain"
+    }
+  }
+}

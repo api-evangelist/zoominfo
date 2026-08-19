@@ -1,0 +1,646 @@
+{
+  "item": [
+    {
+      "id": "27017a73-604f-4a6e-98e6-7bf955cedbc1",
+      "name": "Intent Search",
+      "description": {
+        "content": "Use [Intent Search](#93f940a4-4381-49dd-8fbc-42cbc75a7a39) to retrieve Intent-related data using valid query parameters.\n\n*   To build your request, retrieve a list of valid query parameters using [Intent Search Inputs](#14669274-88b8-4762-8d61-57d2fd5abf12).\n*   For requests that require you to specify supported values (e.g., Intent topics), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055) endpoints.\n*   Use [Intent Search Outputs](#8f3540ee-4093-48e4-aebb-97133a864912) to retrieve a list of expected response fields that will be returned from [Intent Search](#93f940a4-4381-49dd-8fbc-42cbc75a7a39).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "95117a75-7793-4cf0-9124-d0cdb4cfa56c",
+          "name": "Zoominfo Intent Search",
+          "request": {
+            "name": "Zoominfo Intent Search",
+            "description": {
+              "content": "Use this endpoint to search for companies and recommended contacts based on intent data. Use [input values](#2923818c-df63-4a61-88ba-f9a5383cd420) to return the desired [output fields](#f058d265-3294-442c-80b8-52a81021dc60) in the response. For charging purposes, each intent signal returned is counted as a record.\n\nIntent data is online behavior-based activity across the internet that links buyers and accounts to a topic. Key terminology includes:\n\n- **Signal** - Recent content consumption activity for a specific topic by people at a company\n- **Signal Score** - Indicates a company's interest in a topic based on how recent content consumption compares to a historical baseline.\n- **Audience Strength** - Indicates the size of the group at the company conducting research in this topic.\n    \n\n**Input params (intent-specific)**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| topics | ArrayList | Required. Intent topic(s). Accepts an array of strings. See the **Intent Topics** lookup endpoint for values. |\n| signalStartDate | String | Start date for a company signaling interest in a topic |\n| signalEndDate | String | End date for a company signaling interest in a topic |\n| signalScoreMin | Integer | Minimum signal score. Use with signalScoreMax to form a range. Minimum score is 60 and maximum is 100. |\n| signalScoreMax | Integer | Maximum signal score. Use with signalScoreMin to form a range. Minimum score is 60 and maximum is 100. |\n| audienceStrengthMin | String | Minimum audience strength score. Use with audienceStrengthMax to form a range. Values are A, B, C, D, and E, with A indicating a larger audience. |\n| audienceStrengthMax | String | Maximum audience strength score. Use with audienceStrengthMin to form a range. Values are A, B, C, D, and E, with A indicating a larger audience. |\n| rpp | Integer | Limits the results returned to the given number of results per page. Default is 25. |\n| page | Integer | Provides the results for the given page, used in conjunction with `rpp` |\n| sortOrder | String | Provide `sortBy` if specifying `sortOrder`. Valid values are `asc`, `ascending`, `desc`, and `descending`. By default, results are sorted in descending order. |\n| sortBy | String | Sort results by valid output fields. Valid values are: `signalDate`, `companyName`, `signalScore`, `category`, `topic`, `audienceStrength`. |\n\n**Input params (company-specific)**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyDescription | String | Text description unique to the company you want to use as search criteria |\n| companyType | String | Company type (private, public, and so on). See the **Company Type** lookup endpoint for values. |\n| address | String | Company address |\n| street | String | Company street |\n| state | String | Company state (U.S.) or province (Canada). You can use free text state or province names (e.g., \"new hampshire\"), the two-letter common abbreviation for a U.S. state (e.g., \"nh\"), or values provided in the **State** lookup endpoint. |\n| zipCode | String | Zip Code of the company's primary address |\n| country | String | Country for the company's primary address. You can use free text or see the **Country** lookup endpoint for values. |\n| continent | String | Continent for the company's primary address. See the **Continent** lookup endpoint for values. |\n| zipCodeRadiusMiles | String | Used in conjunction with `zipCode`, designates a geographical radius (in miles) from the `zipCode` provided. |\n| hashTagString | String | Hash tags for a company. Can include a comma-separated list. |\n| techAttributeTagList | String | Specify technology product tags. See the **Tech - Product** lookup endpoint for values. This string uses a numerical dot notation format similar to an IP address. The notation denotes the hierarchical structure: `parent-category.category.vendor`. For example, `333.202.28`. You can use wildcards in the notation (e.g., `333.202.\\\\\\*`, `\\\\\\*.202.\\\\\\*`, and so on). |\n| subUnitTypes | String | Company sub types (e.g., division, subsidiary and so on). See the **Sub Unit Type** lookup endpoint for values. |\n| primaryIndustriesOnly | Boolean | Used in conjunction with the `industryCodes` input parameter. When set to `true`, any result returned must have one of the specified industries as a primary industry. If no industries are specified, then this parameter will be ignored. Default is `false`. |\n| industryCodes | String | Top-level Industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list. See the **Industry Codes** lookup endpoint for values. |\n| industryKeywords | String | Industry keywords associated with a company. Can include a comma-separated list. |\n| sicCodes | String | The Standard Industrial Classification is a system for classifying industries by a four-digit code. See the **SIC Codes** lookup endpoint for values. |\n| naicsCodes | String | The North American Industry Classification System (NAICS) is the standard used by Federal statistical agencies in classifying business establishments for the purpose of collecting, analyzing, and publishing statistical data related to the U.S. business economy. See the **NAICS Codes** lookup endpoint for values. |\n| revenueMin | Integer | Minimum annual revenue for a company in U.S. dollars. Use with `revenueMax` to set a range. Alternatively, you can use the `revenue` parameter to search for pre-defined ranges. |\n| revenueMax | Integer | Maximum annual revenue for a company in U.S. dollars. Use with `revenueMin` to set a range. Alternatively, you can use the `revenue` parameter to search for pre-defined ranges. |\n| revenue | String | Annual revenue range in U.S. dollars. Accepts a comma-separated list of values. See the **Revenue Range** lookup endpoint for values. Alternatively, to get more granular ranges, you can use the `revenueMin` and `revenueMax` parameters. |\n| employeeRangeMin | String | Minimum employee count for a company. Use with `employeeRangeMax` to set a range. Alternatively, you can use the `employeeCount` parameter to search for pre-defined ranges. |\n| employeeRangeMax | String | Maximum employee count for a company. Use with `employeeRangeMin` to set a range. Alternatively, you can use the `employeeCount` parameter to search for pre-defined ranges. |\n| employeeCount | String | Employee count range. Accepts a comma-separated list of values. See the **Employee Count** lookup endpoint for values. Alternatively, to get more granular ranges, you can use the `employeeRangeMin` and `employeeRangeMax` parameters. |\n| companyRanking | String | Company ranking list (e.g., Fortune 500 and so on). See the **Company Ranking** lookup endpoint for values. |\n| metroRegion | String | Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas. See the **Metro Area** lookup endpoint for values. |\n| locationSearchType | String | Location criteria for search. Values are `PersonOrHQ`, `PersonAndHQ`, `Person`, `HQ`, `PersonThenHQ`. |\n| fundingAmountMin | Integer | Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If `fundingAmountMin` is used without `fundingAmountMax`, the result will be the amount specified or greater. |\n| fundingAmountMax | Integer | Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If `fundingAmountMax` is used without `fundingAmountMin`, the result will be the amount specified or less. |\n| fundingStartDate | String | Start date of the funding in YYYY-MM-DD format. If `fundingStartDate` and `fundingEndDate` are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date. |\n| fundingEndDate | String | End date of the funding in YYYY-MM-DD format. If `fundingStartDate` and `fundingEndDate` are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date. |\n| excludedRegions | String | Exclude a company metro area. Accepts a comma-separated list of U.S. and Canada metro areas. See the **Metro Area** lookup endpoint for values. |\n| zoominfoContactsMin | String | Minimum number of ZoomInfo contacts associated with company |\n| zoominfoContactsMax | String | Maximum number of ZoomInfo contacts associated with company |\n| companyStructureIncludedSubUnitTypes | String | Company hierarchical structure |\n| certified | Integer | Denotes if ZoomInfo's research and data team has confirmed activity within the past 12 months |\n| excludeDefunctCompanies | Boolean | Include or exclude defunct companies. The default value is false. |\n| oneYearEmployeeGrowthRateMin | String | Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range. |\n| oneYearEmployeeGrowthRateMax | String | Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range. |\n| twoYearEmployeeGrowthRateMin | String | Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range. |\n| twoYearEmployeeGrowthRateMax | String | Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range. |\n\n**Response data**\n\n| Field | Description |\n| --- | --- |\n| id | Unique ZoomInfo identifier for a topic |\n| category | Intent category |\n| topic | Intent topic |\n| signalScore | Signal score for the topic |\n| audienceStrength | Audience strength for the topic |\n| signalDate | Date the signal was identified |\n| companyId | Unique ZoomInfo identifier for a company |\n| companyName | Company name |\n| companyWebsite | URL to the company website in [http://www.example.com](http://www.example.com) format |\n| companyHasOtherTopicConsumption | Indicates whether a company has other topics with increased consumption. Values are `true` and `false`. |\n| recommendedContacts | Suggested contacts at the company that are related to the intent topic |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search",
+                "intent"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"signalScoreMin\": \"<integer>\",\n  \"signalScoreMax\": \"<integer>\",\n  \"audienceStrengthMin\": \"<string>\",\n  \"audienceStrengthMax\": \"<string>\",\n  \"metroRegion\": \"<string>\",\n  \"industryCodes\": \"<string>\",\n  \"sortBy\": \"<string>\",\n  \"sortOrder\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "86115a5d-7a86-4579-b447-ada76c0e54e4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "intent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"topics\": [\n    \"Cloud Applications\",\n    \"Cloud Computing\",\n    \"Cloud Infrastructure\",\n    \"Mobile Apps\",\n    \"Mobile Security\"\n  ],\n  \"signalScoreMin\": 80,\n  \"signalScoreMax\": 100,\n  \"audienceStrengthMin\": \"C\",\n  \"audienceStrengthMax\": \"A\",\n  \"metroRegion\": \"usa.california.sanfrancisco\",\n  \"industryCodes\": \"education.university\",\n  \"sortBy\": \"topic\",\n  \"sortOrder\": \"desc\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"maxResults\": 19,\n  \"totalResults\": 19,\n  \"currentPage\": 1,\n  \"data\": [\n    {\n      \"id\": \"d3ac21f6-f9f4-4a71-8ca9-8f4125937d2c\",\n      \"category\": \"Cyber Security\",\n      \"topic\": \"Mobile Security\",\n      \"signalScore\": 83,\n      \"audienceStrength\": \"C\",\n      \"newSignal\": true,\n      \"signalDate\": \"7/5/2020 12:00 AM\",\n      \"trend\": 24,\n      \"recommendedContacts\": [\n        {\n          \"id\": -1766367996,\n          \"firstName\": \"David\",\n          \"lastName\": \"Fike\",\n          \"jobTitle\": \"President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 118998385,\n        \"name\": \"Golden Gate University\",\n        \"website\": \"www.ggu.edu\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"03e79b1c-fa4b-4f62-ad97-40de35e2625c\",\n      \"category\": \"Cyber Security\",\n      \"topic\": \"Mobile Security\",\n      \"signalScore\": 88,\n      \"audienceStrength\": \"A\",\n      \"newSignal\": true,\n      \"signalDate\": \"6/28/2020 12:00 AM\",\n      \"trend\": 29,\n      \"recommendedContacts\": [\n        {\n          \"id\": 2358233518,\n          \"firstName\": \"Martin\",\n          \"lastName\": \"Pacholuk\",\n          \"jobTitle\": \"Deputy Chief Information Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Information Technology\",\n              \"department\": \"Information Technology\"\n            },\n            {\n              \"name\": \"Information Technology Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        },\n        {\n          \"id\": 1239218786,\n          \"firstName\": \"Camilla\",\n          \"lastName\": \"Tubbs\",\n          \"jobTitle\": \"Associate Dean, Library & Technology & Chief Information Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Information Technology\",\n              \"department\": \"Information Technology\"\n            },\n            {\n              \"name\": \"Information Technology Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        },\n        {\n          \"id\": 55169609,\n          \"firstName\": \"David\",\n          \"lastName\": \"Seward\",\n          \"jobTitle\": \"Chief Financial Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Finance Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Finance\",\n              \"department\": \"Finance\"\n            }\n          ]\n        },\n        {\n          \"id\": 3117140380,\n          \"firstName\": \"Mike\",\n          \"lastName\": \"Liu\",\n          \"jobTitle\": \"Vice Chief Technology Officer, CIO & President Information Technology\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Information Technology\",\n              \"department\": \"Information Technology\"\n            },\n            {\n              \"name\": \"Information Technology Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        },\n        {\n          \"id\": -1542224459,\n          \"firstName\": \"Claire\",\n          \"lastName\": \"Wilkens\",\n          \"jobTitle\": \"Co-President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 53923462,\n        \"name\": \"UC Hastings College of the Law\",\n        \"website\": \"www.uchastings.edu\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"af75117e-c6b1-4831-8cfa-562acc36d9c1\",\n      \"category\": \"Mobile Applications\",\n      \"topic\": \"Mobile Apps\",\n      \"signalScore\": 92,\n      \"audienceStrength\": \"A\",\n      \"newSignal\": true,\n      \"signalDate\": \"7/12/2020 12:00 AM\",\n      \"trend\": 33,\n      \"recommendedContacts\": [\n        {\n          \"id\": 409942831,\n          \"firstName\": \"Judie\",\n          \"lastName\": \"Wexler\",\n          \"jobTitle\": \"President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 47028048,\n        \"name\": \"California Institute of Integral Studies\",\n        \"website\": \"www.ciis.edu\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"4093d164-7c33-4c61-b592-68f57ecf6cb3\",\n      \"category\": \"Mobile Applications\",\n      \"topic\": \"Mobile Apps\",\n      \"signalScore\": 86,\n      \"audienceStrength\": \"B\",\n      \"newSignal\": true,\n      \"signalDate\": \"7/5/2020 12:00 AM\",\n      \"trend\": 27,\n      \"recommendedContacts\": [\n        {\n          \"id\": 27256033,\n          \"firstName\": \"Thomas\",\n          \"lastName\": \"Cropper\",\n          \"jobTitle\": \"President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 13209136,\n        \"name\": \"California Maritime Academy\",\n        \"website\": \"www.csum.edu\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"32cfc646-4ebc-4693-bc17-b41879d63ec4\",\n      \"category\": \"Mobile Applications\",\n      \"topic\": \"Mobile Apps\",\n      \"signalScore\": 80,\n      \"audienceStrength\": \"C\",\n      \"newSignal\": true,\n      \"signalDate\": \"7/5/2020 12:00 AM\",\n      \"trend\": 21,\n      \"recommendedContacts\": [\n        {\n          \"id\": 24417960,\n          \"firstName\": \"Edward\",\n          \"lastName\": \"Prohaska\",\n          \"jobTitle\": \"Chief Financial Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Finance Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Finance\",\n              \"department\": \"Finance\"\n            }\n          ]\n        },\n        {\n          \"id\": 388711836,\n          \"firstName\": \"Mara\",\n          \"lastName\": \"Hancock\",\n          \"jobTitle\": \"Vice President, Technology & Chief Information Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Information Technology\",\n              \"department\": \"Information Technology\"\n            },\n            {\n              \"name\": \"Information Technology Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        },\n        {\n          \"id\": 26415164,\n          \"firstName\": \"Stephen\",\n          \"lastName\": \"Beal\",\n          \"jobTitle\": \"President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        },\n        {\n          \"id\": -1254364721,\n          \"firstName\": \"Michael\",\n          \"lastName\": \"McLaughlin\",\n          \"jobTitle\": \"Founder & President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 19256146,\n        \"name\": \"California College of the Arts\",\n        \"website\": \"www.cca.edu\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"36d66c2c-699c-49ec-b7e1-ae92572ccdc9\",\n      \"category\": \"Mobile Applications\",\n      \"topic\": \"Mobile Apps\",\n      \"signalScore\": 83,\n      \"audienceStrength\": \"C\",\n      \"newSignal\": true,\n      \"signalDate\": \"7/12/2020 12:00 AM\",\n      \"trend\": 24,\n      \"recommendedContacts\": [\n        {\n          \"id\": 3882045930,\n          \"firstName\": \"Melissa\",\n          \"lastName\": \"Hall\",\n          \"jobTitle\": \"President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        },\n        {\n          \"id\": 1810524670,\n          \"firstName\": \"Ben\",\n          \"lastName\": \"Christensen\",\n          \"jobTitle\": \"Chief Financial Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Finance Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Finance\",\n              \"department\": \"Finance\"\n            }\n          ]\n        },\n        {\n          \"id\": 1715680805,\n          \"firstName\": \"Jonathan\",\n          \"lastName\": \"Stull\",\n          \"jobTitle\": \"Chief Operating Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Operations Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Operations\",\n              \"department\": \"Operations\"\n            }\n          ]\n        },\n        {\n          \"id\": 1888318694,\n          \"firstName\": \"Scott\",\n          \"lastName\": \"Ringwelski\",\n          \"jobTitle\": \"Chief Technology Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Engineering & Technical Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Engineering & Technical\",\n              \"department\": \"Engineering & Technical\"\n            },\n            {\n              \"name\": \"Technology Operations\",\n              \"department\": \"Engineering & Technical\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 363577968,\n        \"name\": \"Handshake\",\n        \"website\": \"www.joinhandshake.com\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"bfee3c75-080f-4a11-9259-8a29a6511174\",\n      \"category\": \"Mobile Applications\",\n      \"topic\": \"Mobile Apps\",\n      \"signalScore\": 85,\n      \"audienceStrength\": \"B\",\n      \"newSignal\": false,\n      \"signalDate\": \"6/28/2020 12:00 AM\",\n      \"trend\": 7,\n      \"recommendedContacts\": [\n        {\n          \"id\": 1592676174,\n          \"firstName\": \"Fatima\",\n          \"lastName\": \"Alleyne\",\n          \"jobTitle\": \"President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        },\n        {\n          \"id\": -916803008,\n          \"firstName\": \"Terry\",\n          \"lastName\": \"Koehne\",\n          \"jobTitle\": \"Chief Communications Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Strategic Communications\",\n              \"department\": \"Marketing\"\n            },\n            {\n              \"name\": \"Marketing Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Marketing\",\n              \"department\": \"Marketing\"\n            },\n            {\n              \"name\": \"Marketing Communications\",\n              \"department\": \"Marketing\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 29791549,\n        \"name\": \"Contra Costa County Office of Education\",\n        \"website\": \"www.cccoe.k12.ca.us\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"caaae618-2bdd-4bf9-8f91-a5bf965e35b6\",\n      \"category\": \"Mobile Applications\",\n      \"topic\": \"Mobile Apps\",\n      \"signalScore\": 83,\n      \"audienceStrength\": \"B\",\n      \"newSignal\": true,\n      \"signalDate\": \"6/21/2020 12:00 AM\",\n      \"trend\": 24,\n      \"recommendedContacts\": [\n        {\n          \"id\": 263922298,\n          \"firstName\": \"Bill\",\n          \"lastName\": \"Tsatsoulis\",\n          \"jobTitle\": \"Chief Operating Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Operations Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Operations\",\n              \"department\": \"Operations\"\n            }\n          ]\n        },\n        {\n          \"id\": 2470805454,\n          \"firstName\": \"Rob\",\n          \"lastName\": \"Fisher\",\n          \"jobTitle\": \"Chief Executive Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 628662,\n        \"name\": \"Academy of Art University\",\n        \"website\": \"www.academyart.edu\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"6f85a972-835e-4531-ac7e-7aee75d579ea\",\n      \"category\": \"Cloud\",\n      \"topic\": \"Cloud Infrastructure\",\n      \"signalScore\": 85,\n      \"audienceStrength\": \"B\",\n      \"newSignal\": true,\n      \"signalDate\": \"6/21/2020 12:00 AM\",\n      \"trend\": 26,\n      \"recommendedContacts\": [\n        {\n          \"id\": 2671385855,\n          \"firstName\": \"Elizabeth\",\n          \"lastName\": \"Hillman\",\n          \"jobTitle\": \"President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 78366485,\n        \"name\": \"Mills College\",\n        \"website\": \"www.mills.edu\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"1029fe13-c192-4754-be2a-2baf37e53759\",\n      \"category\": \"Cloud\",\n      \"topic\": \"Cloud Infrastructure\",\n      \"signalScore\": 84,\n      \"audienceStrength\": \"B\",\n      \"newSignal\": true,\n      \"signalDate\": \"6/28/2020 12:00 AM\",\n      \"trend\": 25,\n      \"recommendedContacts\": [\n        {\n          \"id\": 1970683957,\n          \"firstName\": \"Patrick\",\n          \"lastName\": \"Ekoue-totou\",\n          \"jobTitle\": \"Chief Information Officer & Director, Information Technology\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Information Technology\",\n              \"department\": \"Information Technology\"\n            },\n            {\n              \"name\": \"Information Technology Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 65571648,\n        \"name\": \"College of Marin\",\n        \"website\": \"www.marin.edu\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"dff20de7-8bde-496e-a0c4-7e1de3303a44\",\n      \"category\": \"Cloud\",\n      \"topic\": \"Cloud Infrastructure\",\n      \"signalScore\": 83,\n      \"audienceStrength\": \"C\",\n      \"newSignal\": true,\n      \"signalDate\": \"7/12/2020 12:00 AM\",\n      \"trend\": 24,\n      \"recommendedContacts\": [\n        {\n          \"id\": 2670266631,\n          \"firstName\": \"Ching\",\n          \"lastName\": \"Wang\",\n          \"jobTitle\": \"President & Chief Executive Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        },\n        {\n          \"id\": -1055918224,\n          \"firstName\": \"Michael\",\n          \"lastName\": \"Chiu\",\n          \"jobTitle\": \"President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        },\n        {\n          \"id\": 2939458238,\n          \"firstName\": \"Ramez\",\n          \"lastName\": \"Sakkab\",\n          \"jobTitle\": \"President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 33702638,\n        \"name\": \"Samuel Merritt University\",\n        \"website\": \"www.samuelmerritt.edu\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"0e055f3a-929a-49c2-b8b6-8ae0f4984a64\",\n      \"category\": \"Cloud\",\n      \"topic\": \"Cloud Computing\",\n      \"signalScore\": 84,\n      \"audienceStrength\": \"C\",\n      \"newSignal\": true,\n      \"signalDate\": \"7/12/2020 12:00 AM\",\n      \"trend\": 25,\n      \"recommendedContacts\": [\n        {\n          \"id\": 2670266631,\n          \"firstName\": \"Ching\",\n          \"lastName\": \"Wang\",\n          \"jobTitle\": \"President & Chief Executive Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        },\n        {\n          \"id\": -1055918224,\n          \"firstName\": \"Michael\",\n          \"lastName\": \"Chiu\",\n          \"jobTitle\": \"President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        },\n        {\n          \"id\": 2939458238,\n          \"firstName\": \"Ramez\",\n          \"lastName\": \"Sakkab\",\n          \"jobTitle\": \"President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 33702638,\n        \"name\": \"Samuel Merritt University\",\n        \"website\": \"www.samuelmerritt.edu\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"dc382155-f385-4f19-a127-1fe1371b74bd\",\n      \"category\": \"Cloud\",\n      \"topic\": \"Cloud Computing\",\n      \"signalScore\": 82,\n      \"audienceStrength\": \"C\",\n      \"newSignal\": true,\n      \"signalDate\": \"7/12/2020 12:00 AM\",\n      \"trend\": 23,\n      \"recommendedContacts\": [\n        {\n          \"id\": 263922298,\n          \"firstName\": \"Bill\",\n          \"lastName\": \"Tsatsoulis\",\n          \"jobTitle\": \"Chief Operating Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Operations Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Operations\",\n              \"department\": \"Operations\"\n            }\n          ]\n        },\n        {\n          \"id\": 2470805454,\n          \"firstName\": \"Rob\",\n          \"lastName\": \"Fisher\",\n          \"jobTitle\": \"Chief Executive Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 628662,\n        \"name\": \"Academy of Art University\",\n        \"website\": \"www.academyart.edu\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"aecb0682-1990-4359-a073-5b7a54e87f06\",\n      \"category\": \"Cloud\",\n      \"topic\": \"Cloud Computing\",\n      \"signalScore\": 82,\n      \"audienceStrength\": \"C\",\n      \"newSignal\": true,\n      \"signalDate\": \"6/28/2020 12:00 AM\",\n      \"trend\": 23,\n      \"recommendedContacts\": [\n        {\n          \"id\": 1970683957,\n          \"firstName\": \"Patrick\",\n          \"lastName\": \"Ekoue-totou\",\n          \"jobTitle\": \"Chief Information Officer & Director, Information Technology\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Information Technology\",\n              \"department\": \"Information Technology\"\n            },\n            {\n              \"name\": \"Information Technology Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 65571648,\n        \"name\": \"College of Marin\",\n        \"website\": \"www.marin.edu\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"60ff0745-9745-48fb-a014-4f86c4eb9fab\",\n      \"category\": \"Cloud\",\n      \"topic\": \"Cloud Computing\",\n      \"signalScore\": 81,\n      \"audienceStrength\": \"C\",\n      \"newSignal\": true,\n      \"signalDate\": \"6/21/2020 12:00 AM\",\n      \"trend\": 22,\n      \"recommendedContacts\": [\n        {\n          \"id\": 2671385855,\n          \"firstName\": \"Elizabeth\",\n          \"lastName\": \"Hillman\",\n          \"jobTitle\": \"President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 78366485,\n        \"name\": \"Mills College\",\n        \"website\": \"www.mills.edu\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"7ab038a0-db6a-4157-8ca5-69e05337c98e\",\n      \"category\": \"Cloud\",\n      \"topic\": \"Cloud Computing\",\n      \"signalScore\": 85,\n      \"audienceStrength\": \"B\",\n      \"newSignal\": true,\n      \"signalDate\": \"6/21/2020 12:00 AM\",\n      \"trend\": 26,\n      \"recommendedContacts\": [\n        {\n          \"id\": 1543255409,\n          \"firstName\": \"Susan\",\n          \"lastName\": \"Lamb\",\n          \"jobTitle\": \"President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 50978158,\n        \"name\": \"Diablo Valley College\",\n        \"website\": \"www.dvc.edu\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"d9bed256-5b94-40b3-8773-2fa40226c8ed\",\n      \"category\": \"Cloud\",\n      \"topic\": \"Cloud Applications\",\n      \"signalScore\": 83,\n      \"audienceStrength\": \"C\",\n      \"newSignal\": true,\n      \"signalDate\": \"7/12/2020 12:00 AM\",\n      \"trend\": 24,\n      \"recommendedContacts\": [\n        {\n          \"id\": 2670266631,\n          \"firstName\": \"Ching\",\n          \"lastName\": \"Wang\",\n          \"jobTitle\": \"President & Chief Executive Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        },\n        {\n          \"id\": -1055918224,\n          \"firstName\": \"Michael\",\n          \"lastName\": \"Chiu\",\n          \"jobTitle\": \"President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        },\n        {\n          \"id\": 2939458238,\n          \"firstName\": \"Ramez\",\n          \"lastName\": \"Sakkab\",\n          \"jobTitle\": \"President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 33702638,\n        \"name\": \"Samuel Merritt University\",\n        \"website\": \"www.samuelmerritt.edu\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"f1432f95-5300-4fd9-ba58-c90114f7bdc0\",\n      \"category\": \"Cloud\",\n      \"topic\": \"Cloud Applications\",\n      \"signalScore\": 86,\n      \"audienceStrength\": \"B\",\n      \"newSignal\": true,\n      \"signalDate\": \"6/21/2020 12:00 AM\",\n      \"trend\": 27,\n      \"recommendedContacts\": [\n        {\n          \"id\": 2671385855,\n          \"firstName\": \"Elizabeth\",\n          \"lastName\": \"Hillman\",\n          \"jobTitle\": \"President\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 78366485,\n        \"name\": \"Mills College\",\n        \"website\": \"www.mills.edu\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"f1971651-c742-41f3-93ac-cebe89ec78f8\",\n      \"category\": \"Cloud\",\n      \"topic\": \"Cloud Applications\",\n      \"signalScore\": 84,\n      \"audienceStrength\": \"B\",\n      \"newSignal\": true,\n      \"signalDate\": \"6/28/2020 12:00 AM\",\n      \"trend\": 25,\n      \"recommendedContacts\": [\n        {\n          \"id\": 1970683957,\n          \"firstName\": \"Patrick\",\n          \"lastName\": \"Ekoue-totou\",\n          \"jobTitle\": \"Chief Information Officer & Director, Information Technology\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Information Technology\",\n              \"department\": \"Information Technology\"\n            },\n            {\n              \"name\": \"Information Technology Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 65571648,\n        \"name\": \"College of Marin\",\n        \"website\": \"www.marin.edu\",\n        \"hasOtherTopicConsumption\": true\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d19957d6-8e8a-4ac5-99c5-e4897f23e08f",
+          "name": "Zoominfo Intent Search Inputs",
+          "request": {
+            "name": "Zoominfo Intent Search Inputs",
+            "description": {
+              "content": "Returns a list of fields you can use as input for the [Intent Search](#93f940a4-4381-49dd-8fbc-42cbc75a7a39) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "inputfields",
+                "intent",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ce391cc9-c96b-41b5-9bcf-3dde2a0a44ad",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "inputfields",
+                    "intent",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"topics\",\n    \"fieldType\": \"ArrayList\",\n    \"description\": \"Intent topics. Accepts an Array of String. See the 'Intent Topics' endpoint for values.\"\n  },\n  {\n    \"fieldName\": \"signalStartDate\",\n    \"fieldType\": \"String\",\n    \"description\": \"Start date for a company signaling interest in a topic\"\n  },\n  {\n    \"fieldName\": \"signalEndDate\",\n    \"fieldType\": \"String\",\n    \"description\": \"End date for a company signaling interest in a topic\"\n  },\n  {\n    \"fieldName\": \"signalScoreMin\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Minimum signal score. Use with signalScoreMax to form a range. Minimum score is 60 and maximum is 100.\"\n  },\n  {\n    \"fieldName\": \"signalScoreMax\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Maximum signal score. Use with signalScoreMin to form a range. Minimum score is 60 and maximum is 100.\"\n  },\n  {\n    \"fieldName\": \"audienceStrengthMin\",\n    \"fieldType\": \"String\",\n    \"description\": \"Minimum audience strength score. Use with audienceStrengthMax to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.\"\n  },\n  {\n    \"fieldName\": \"audienceStrengthMax\",\n    \"fieldType\": \"String\",\n    \"description\": \"Maximum audience strength score. Use with audienceStrengthMin to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.\"\n  },\n  {\n    \"fieldName\": \"companyDescription\",\n    \"fieldType\": \"String\",\n    \"description\": \"Text description unique to the company you want to use as search criteria\"\n  },\n  {\n    \"fieldName\": \"companyType\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company type (private, public, and so on)\"\n  },\n  {\n    \"fieldName\": \"address\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company address\"\n  },\n  {\n    \"fieldName\": \"street\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company street\"\n  },\n  {\n    \"fieldName\": \"state\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company state\"\n  },\n  {\n    \"fieldName\": \"zipCode\",\n    \"fieldType\": \"String\",\n    \"description\": \"Zip Code of the company's primary address\"\n  },\n  {\n    \"fieldName\": \"country\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company country\"\n  },\n  {\n    \"fieldName\": \"continent\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company continent\"\n  },\n  {\n    \"fieldName\": \"zipCodeRadiusMiles\",\n    \"fieldType\": \"String\",\n    \"description\": \"Used in conjunction with zipCode, designates a geographical radius (in miles) from the zipCode provided.\"\n  },\n  {\n    \"fieldName\": \"hashTagString\",\n    \"fieldType\": \"String\",\n    \"description\": \"Hash tags for a company. Can include a comma-separated list.\"\n  },\n  {\n    \"fieldName\": \"techAttributeTagList\",\n    \"fieldType\": \"String\",\n    \"description\": \"Specify technology product tags\"\n  },\n  {\n    \"fieldName\": \"subUnitTypes\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company sub types (e.g., division, subsidiary and so on).\"\n  },\n  {\n    \"fieldName\": \"primaryIndustriesOnly\",\n    \"fieldType\": \"Boolean\",\n    \"description\": \"Used in conjunction with the industryCodes input parameter. When set to true, any result returned must have one of the specified industries in the top two. If no industries are specified, then this parameter will be ignored. Default is false.\"\n  },\n  {\n    \"fieldName\": \"industryCodes\",\n    \"fieldType\": \"String\",\n    \"description\": \"Top-level industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list.\"\n  },\n  {\n    \"fieldName\": \"industryKeywords\",\n    \"fieldType\": \"String\",\n    \"description\": \"Industry keywords associated with a company. Can include a comma-separated list.\"\n  },\n  {\n    \"fieldName\": \"sicCodes\",\n    \"fieldType\": \"String\",\n    \"description\": \"Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment.\"\n  },\n  {\n    \"fieldName\": \"naicsCodes\",\n    \"fieldType\": \"String\",\n    \"description\": \"Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. \"\n  },\n  {\n    \"fieldName\": \"revenueMin\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Minimum annual revenue for a company in U.S. dollars. Use with revenueMax to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.\"\n  },\n  {\n    \"fieldName\": \"revenueMax\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Maximum annual revenue for a company in U.S. dollars. Use with revenueMin to set a range. Alternatively, you can use the revenue parameter to search for pre-defined ranges.\"\n  },\n  {\n    \"fieldName\": \"revenue\",\n    \"fieldType\": \"String\",\n    \"description\": \"Annual revenue range in U.S. dollars. Accepts a comma-separated list of values. Alternatively, to get more granular ranges, you can use the revenueMin and revenueMax parameters.\"\n  },\n  {\n    \"fieldName\": \"employeeRangeMin\",\n    \"fieldType\": \"String\",\n    \"description\": \"Minimum employee count for a company. Use with employeeRangeMax to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.\"\n  },\n  {\n    \"fieldName\": \"employeeRangeMax\",\n    \"fieldType\": \"String\",\n    \"description\": \"Maximum employee count for a company. Use with employeeRangeMin to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.\"\n  },\n  {\n    \"fieldName\": \"employeeCount\",\n    \"fieldType\": \"String\",\n    \"description\": \"Employee count range. Accepts a comma-separated list of values. Alternatively, to get more granular ranges, you can use the employeeRangeMin and employeeRangeMax parameters.\"\n  },\n  {\n    \"fieldName\": \"companyRanking\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company ranking list (e.g., Fortune 500 and so on)\"\n  },\n  {\n    \"fieldName\": \"metroRegion\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas.\"\n  },\n  {\n    \"fieldName\": \"locationSearchType\",\n    \"fieldType\": \"String\",\n    \"description\": \"Location type (Person, Company, PersonThenHQ). Accepts a comma-separated list of values.\"\n  },\n  {\n    \"fieldName\": \"fundingAmountMin\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMin is used without fundingAmountMax, the result will be the amount specified or greater.\"\n  },\n  {\n    \"fieldName\": \"fundingAmountMax\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMax is used without fundingAmountMin, the result will be the amount specified or less.\"\n  },\n  {\n    \"fieldName\": \"fundingStartDate\",\n    \"fieldType\": \"String\",\n    \"description\": \"Start date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.\"\n  },\n  {\n    \"fieldName\": \"fundingEndDate\",\n    \"fieldType\": \"String\",\n    \"description\": \"End date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.\"\n  },\n  {\n    \"fieldName\": \"excludedRegions\",\n    \"fieldType\": \"String\",\n    \"description\": \"Exclude a company metro area. Accepts a comma-separated list of U.S. and Canada metro areas.\"\n  },\n  {\n    \"fieldName\": \"zoominfoContactsMin\",\n    \"fieldType\": \"String\",\n    \"description\": \"Minimum number of ZoomInfo contacts associated with company\"\n  },\n  {\n    \"fieldName\": \"zoominfoContactsMax\",\n    \"fieldType\": \"String\",\n    \"description\": \"Maximum number of ZoomInfo contacts associated with company\"\n  },\n  {\n    \"fieldName\": \"companyStructureIncludedSubUnitTypes\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company hierarchical structure\"\n  },\n  {\n    \"fieldName\": \"oneYearEmployeeGrowthRateMin\",\n    \"fieldType\": \"String\",\n    \"description\": \"Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range.\"\n  },\n  {\n    \"fieldName\": \"oneYearEmployeeGrowthRateMax\",\n    \"fieldType\": \"String\",\n    \"description\": \"Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range.\"\n  },\n  {\n    \"fieldName\": \"twoYearEmployeeGrowthRateMin\",\n    \"fieldType\": \"String\",\n    \"description\": \"Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range.\"\n  },\n  {\n    \"fieldName\": \"twoYearEmployeeGrowthRateMax\",\n    \"fieldType\": \"String\",\n    \"description\": \"Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range.\"\n  },\n  {\n    \"fieldName\": \"certified\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Denotes if ZoomInfo's research and data team has confirmed activity within the past 12 months\"\n  },\n  {\n    \"fieldName\": \"excludeDefunctCompanies\",\n    \"fieldType\": \"Boolean\",\n    \"description\": \"Include or exclude defunct companies. The default value is false.\"\n  },\n  {\n    \"fieldName\": \"rpp\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Limits the results returned to the given number of results per page\"\n  },\n  {\n    \"fieldName\": \"page\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Provides the results for the given page, used in conjunction with rpp\"\n  },\n  {\n    \"fieldName\": \"sortBy\",\n    \"fieldType\": \"String\",\n    \"description\": \"Sorts results by valid output fields\"\n  },\n  {\n    \"fieldName\": \"sortOrder\",\n    \"fieldType\": \"String\",\n    \"description\": \"Default value is desc. It accepts the following values { Asc, Ascending, desc, descending }\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da3ed2b2-1a9b-46f7-bd98-99f471122e6d",
+          "name": "Zoominfo Intent Search Outputs",
+          "request": {
+            "name": "Zoominfo Intent Search Outputs",
+            "description": {
+              "content": "Returns a list of output fields for the [Intent Search](#93f940a4-4381-49dd-8fbc-42cbc75a7a39) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "outputfields",
+                "intent",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e5754ee2-37c4-4950-af23-d83f56c289e5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "outputfields",
+                    "intent",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"id\",\n    \"description\": \"Unique ZoomInfo identifier for a topic\"\n  },\n  {\n    \"fieldName\": \"category\",\n    \"description\": \"Intent category\"\n  },\n  {\n    \"fieldName\": \"topic\",\n    \"description\": \"Intent topic\"\n  },\n  {\n    \"fieldName\": \"signalScore\",\n    \"description\": \"Signal score for the topic\"\n  },\n  {\n    \"fieldName\": \"audienceStrength\",\n    \"description\": \"Audience strength for the topic\"\n  },\n  {\n    \"fieldName\": \"signalDate\",\n    \"description\": \"Date the signal was identified\"\n  },\n  {\n    \"fieldName\": \"companyId\",\n    \"description\": \"Unique ZoomInfo identifier for a company\"\n  },\n  {\n    \"fieldName\": \"companyName\",\n    \"description\": \"Company name\"\n  },\n  {\n    \"fieldName\": \"companyWebsite\",\n    \"description\": \"Company website URL in http://www.example.com format\"\n  },\n  {\n    \"fieldName\": \"companyHasOtherTopicConsumption\",\n    \"description\": \"Indicates whether a company has other topics with increased consumption. Values are true and false.\"\n  },\n  {\n    \"fieldName\": \"recommendedContacts\",\n    \"description\": \"Suggested contacts at the company that are related to the intent topic\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zoominfo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "aa435089-4e3c-4468-adb1-0d307e20df6c",
+    "name": "ZoomInfo Authentication Intent Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...\n\nContact Support:\n Name: ZoomInfo API Support\n Email: support@zoominfo.com",
+      "type": "text/plain"
+    }
+  }
+}

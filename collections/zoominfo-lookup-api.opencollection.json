@@ -1,0 +1,410 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZoomInfo Authentication Lookup API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lookup",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Zoominfo Company Ranking",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/companyranking"
+          },
+          "docs": "Retrieve accepted Company Ranking values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Continent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/continent"
+          },
+          "docs": "Retrieve accepted Continent values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Country",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/country"
+          },
+          "docs": "Retrieve accepted Country values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo State",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/state"
+          },
+          "docs": "Retrieve accepted State values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Contact Departments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/department"
+          },
+          "docs": "Retrieve accepted Contact Department values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Employee Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/employeecount"
+          },
+          "docs": "Retrieve accepted Employee Count values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Sic Codes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/siccode"
+          },
+          "docs": "Retrieve accepted Standard Industrial Classification (SIC) values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Naics Codes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/naicscode"
+          },
+          "docs": "Retrieve accepted North American Industry Classification System (NAICS) values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Industry Codes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/industry"
+          },
+          "docs": "Retrieve accepted Industry Code values\n\n"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Job Title Hierarchy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/jobtitlehierarchy"
+          },
+          "docs": "Retrieve accepted Job Title Hierarchy values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Job Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/jobfunction"
+          },
+          "docs": "Retrieve accepted Job Function values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Metro Area",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/metroarea"
+          },
+          "docs": "Retrieve accepted Metro Area values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Revenue Range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/revenuerange"
+          },
+          "docs": "Retrieve accepted Revenue Range values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Scoop Topics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/scooptopic"
+          },
+          "docs": "Retrieve accepted Scoop Topic values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Scoop Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/scooptype"
+          },
+          "docs": "Retrieve accepted Scoop Type values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Scoop Departments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/scoopdepartment"
+          },
+          "docs": "Retrieve accepted Scoop Department values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Company Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/companytype"
+          },
+          "docs": "Retrieve accepted Company Type values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Board Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/boardMember"
+          },
+          "docs": "Retrieve accepted Board Member values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Management Levels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/managementLevel"
+          },
+          "docs": "Retrieve accepted Management Level values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Sub Unit Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/subunittypes"
+          },
+          "docs": "Retrieve accepted Sub Unit Type values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Tech - Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/tech/category"
+          },
+          "docs": "Retrieve accepted Tech Category values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Tech - Vendor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/tech/vendor"
+          },
+          "docs": "Retrieve accepted Tech Vendor values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Tech - Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/tech/product",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "example_value",
+                "type": "query"
+              },
+              {
+                "name": "parentCategory",
+                "value": "example_value",
+                "type": "query"
+              },
+              {
+                "name": "category",
+                "value": "example_value",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve accepted Tech Product values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Tech Skills",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/tech-skills"
+          },
+          "docs": "Retrieve Tech Skill values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Hashtag",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/hashtag",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "example_value",
+                "type": "query"
+              },
+              {
+                "name": "parentCategory",
+                "value": "example_value",
+                "type": "query"
+              },
+              {
+                "name": "category",
+                "value": "example_value",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve accepted Hashtag values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Intent Topics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/intent/topics"
+          },
+          "docs": "Retrieve accepted intent topics and categories."
+        },
+        {
+          "info": {
+            "name": "Zoominfo News Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/news/categories"
+          },
+          "docs": "Retrieve accepted news categories."
+        },
+        {
+          "info": {
+            "name": "Zoominfo Employee Category Band",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/employee-category-band"
+          },
+          "docs": "Retrieve Employee Category Band values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Revenue Category Band",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/revenue-category-band"
+          },
+          "docs": "Retrieve Revenue Category Band values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Years of Experience",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/years-of-experience"
+          },
+          "docs": "Retrieve accepted Years Of Experience ranges."
+        },
+        {
+          "info": {
+            "name": "Zoominfo Hierarchy Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/hierarchy-code"
+          },
+          "docs": "Retrieve Company Hierarchy Code values"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Buying Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/buyinggroups"
+          },
+          "docs": "Retrieve buying group information"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

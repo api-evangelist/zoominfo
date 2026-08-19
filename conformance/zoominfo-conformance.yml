@@ -1,0 +1,190 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/zoominfo-gtm-*.json, https://docs.zoominfo.com/docs/api-conventions.md,
+  https://docs.zoominfo.com/docs/status-codes-and-errors.md, https://docs.zoominfo.com/docs/rate-limits.md,
+  https://mcp.zoominfo.com/.well-known/oauth-authorization-server, https://www.zoominfo.com/about/security
+provider: ZoomInfo
+providerId: zoominfo
+description: >-
+  Which cross-cutting industry standards the ZoomInfo API surface actually conforms to. Every entry
+  carries the evidence it was judged on; a false is as much a finding as a true.
+
+standards:
+  - id: oauth2
+    name: OAuth 2.0
+    conforms: true
+    evidence: >-
+      All six published GTM OpenAPI specs declare an OAuth2Auth securityScheme with an authorizationCode
+      flow (authorizationUrl https://login.zoominfo.com, tokenUrl
+      https://okta-login.zoominfo.com/oauth2/default/v1/token). ZoomInfo documents authorization-code +
+      PKCE, client-credentials and refresh-token flows.
+    detail: authentication/zoominfo-authentication.yml
+
+  - id: rfc8414
+    name: OAuth 2.0 Authorization Server Metadata
+    conforms: true
+    evidence: >-
+      https://mcp.zoominfo.com/.well-known/oauth-authorization-server returns HTTP 200 with issuer,
+      authorization_endpoint, token_endpoint, jwks_uri, registration_endpoint, revocation_endpoint,
+      scopes_supported, response_types_supported and code_challenge_methods_supported.
+    scope: MCP host only — no metadata document is served on api.zoominfo.com.
+
+  - id: rfc9728
+    name: OAuth 2.0 Protected Resource Metadata
+    conforms: true
+    evidence: >-
+      https://mcp.zoominfo.com/.well-known/oauth-protected-resource returns HTTP 200 with resource,
+      authorization_servers, scopes_supported, bearer_methods_supported and resource_documentation, and
+      the 401 on /mcp carries WWW-Authenticate with resource_metadata pointing at it.
+
+  - id: rfc7636
+    name: PKCE
+    conforms: true
+    evidence: 'code_challenge_methods_supported: ["S256"] in the MCP authorization-server metadata; the docs publish an Authorization Code Flow (PKCE) guide and the first-party CLI implements it.'
+
+  - id: rfc7591
+    name: OAuth 2.0 Dynamic Client Registration
+    conforms: true
+    evidence: 'registration_endpoint https://mcp.zoominfo.com/oauth/register is advertised in the authorization-server metadata; the CLI documents removing ~/.config/gtm-ai/client_id to "re-trigger DCR".'
+
+  - id: oidc
+    name: OpenID Connect
+    conforms: partial
+    evidence: >-
+      openid and profile and email scopes are advertised by the MCP protected-resource metadata and the
+      issuer is an Okta OIDC authorization server, but no /.well-known/openid-configuration is served on
+      any ZoomInfo host we probed (api.zoominfo.com 401, www.zoominfo.com 403, api-docs 404). OIDC is used
+      internally; it is not published as a discoverable surface.
+
+  - id: mcp
+    name: Model Context Protocol
+    conforms: true
+    evidence: >-
+      Hosted Streamable HTTP server at https://mcp.zoominfo.com/mcp implementing the MCP authorization
+      spec — anonymous tools/list returns 401 with the prescribed WWW-Authenticate resource_metadata
+      challenge. ZoomInfo also publishes official client plugins for Claude, Codex and Cursor.
+    detail: mcp/zoominfo-mcp.yml
+
+  - id: jsonapi
+    name: 'JSON:API'
+    conforms: partial
+    evidence: >-
+      The published request/response examples use the application/vnd.api+json media type and a
+      JSON:API-shaped envelope — data with type/id/attributes/meta, links.first/last, and page[number] /
+      page[size] query parameters. But errors are returned as a proprietary {"error": {...}} object rather
+      than JSON:API's errors[] array, and no relationships/included members appear. JSON:API-influenced,
+      not conformant.
+
+  - id: rfc9457
+    name: 'RFC 9457 Problem Details for HTTP APIs'
+    conforms: false
+    evidence: >-
+      The documented error envelope is {"error": {code, message, status, requestId, retryable}} served as
+      application/json. No type/title/detail/instance members, no application/problem+json media type.
+    detail: errors/zoominfo-problem-types.yml
+
+  - id: pagination
+    name: Documented pagination
+    conforms: true
+    evidence: 'page[number] / page[size], max page size 100, max page number 100, links.first / links.last, meta.page.number / meta.page.total / meta.totalResults, and a documented validation error when the max is exceeded.'
+
+  - id: idempotency
+    name: Idempotent request keys
+    conforms: false
+    evidence: >-
+      No Idempotency-Key header or equivalent is documented anywhere in the ZoomInfo API documentation. The
+      write surface is largely upsert-shaped and long-running work is poll-a-job, which mitigates but does
+      not replace idempotency keys — a retried creating POST is not safe.
+    detail: conventions/zoominfo-conventions.yml
+
+  - id: ratelimit-headers
+    name: 'Rate limit signaling (draft-ietf-httpapi-ratelimit-headers family)'
+    conforms: partial
+    evidence: >-
+      Rate limits are signalled on every response and 429s carry Retry-After, but with X-RateLimit-* names
+      rather than the IETF RateLimit / RateLimit-Policy fields. Retry-After itself is RFC 9110 conformant.
+    detail: rate-limits/zoominfo-rate-limits.yml
+
+  - id: rfc8594
+    name: 'RFC 8594 Sunset header (and the Deprecation header)'
+    conforms: false
+    evidence: >-
+      ZoomInfo deprecates in prose. The legacy Enterprise API is announced as deprecating in documentation
+      text with no sunset date, two rate-limit headers carry a documented removal date of 2027-01-01, and
+      no operation in any published spec is marked deprecated:true. No Sunset or Deprecation response
+      header is documented.
+    detail: lifecycle/zoominfo-lifecycle.yml
+
+  - id: openapi
+    name: OpenAPI
+    conforms: true
+    evidence: >-
+      Six first-party specs published at https://docs.zoominfo.com/openapi.md — Agent, Copilot, Data, GTM
+      Studio, Marketing and Platform — all OpenAPI 3.0.0, 100 operations total, served unauthenticated,
+      and the docs state they are regenerated as new APIs ship.
+
+  - id: asyncapi
+    name: AsyncAPI
+    conforms: false
+    evidence: >-
+      An event surface exists (legacy Monitoring/Webhooks API, and Agent Team runs on the current API) but
+      no AsyncAPI document is published.
+    detail: asyncapi/zoominfo-webhooks.yml
+
+  - id: rfc9116
+    name: 'RFC 9116 security.txt'
+    conforms: false
+    evidence: No /.well-known/security.txt on any host (403/401/404 across five hosts), despite a live bug bounty program and a published security@zoominfo.com contact.
+    detail: well-known/zoominfo-well-known.yml
+
+  - id: iso27001
+    name: 'ISO/IEC 27001'
+    conforms: true
+    evidence: 'ZoomInfo states "ZoomInfo is ISO 27001, ISO 27701, TRUSTe, and SOC 2 Type II certified." on https://www.zoominfo.com/about/security. Claimed, not independently verified — the certificate itself is not published.'
+    detail: security/zoominfo-trust-center.yml
+
+  - id: iso27701
+    name: 'ISO/IEC 27701'
+    conforms: true
+    evidence: Same statement on https://www.zoominfo.com/about/security. Claimed, not independently verified.
+
+  - id: soc2
+    name: SOC 2 Type II
+    conforms: true
+    evidence: 'AICPA SOC 2 attestation covering security, availability and confidentiality, per https://www.zoominfo.com/about/security. Report not self-serve.'
+
+  - id: gdpr
+    name: GDPR
+    conforms: claimed
+    evidence: 'ZoomInfo''s own llms.txt lists "Compliance: GDPR, CCPA, SOC 2 Type II"; the API surface includes a dedicated Compliance API for opt-out and data-subject handling.'
+
+  - id: ccpa
+    name: CCPA/CPRA
+    conforms: claimed
+    evidence: Same llms.txt statement, plus a "Do Not Sell or Share My Personal Information" link in the API documentation footer and withinCalifornia flags in contact enrichment output.
+
+  - id: fhir
+    name: FHIR
+    conforms: false
+    evidence: Not a healthcare API. Not applicable.
+
+  - id: fapi
+    name: FAPI
+    conforms: false
+    evidence: Not a financial-grade API. Not applicable.
+
+  - id: scim
+    name: SCIM
+    conforms: false
+    evidence: No SCIM user/group provisioning endpoints in any published spec.
+
+  - id: odata
+    name: OData
+    conforms: false
+    evidence: No OData conventions in any published spec.
+
+  - id: psd2
+    name: PSD2
+    conforms: false
+    evidence: Not a payments API. Not applicable.

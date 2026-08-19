@@ -1,0 +1,89 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTP probes, 2026-08-13
+provider: ZoomInfo
+providerId: zoominfo
+description: >-
+  Probe of standard /.well-known/ paths across every ZoomInfo host in this repo. Two paths return real
+  documents — both on the MCP host. Everything on the marketing, API and documentation hosts is absent.
+
+summary:
+  hosts_probed: 5
+  paths_probed: 34
+  documents_found: 2
+  security_txt: false
+  agent_card: false
+
+hosts:
+  - host: mcp.zoominfo.com
+    note: Hosted MCP server. The only ZoomInfo host serving real /.well-known/ documents.
+    probes:
+      - {path: /.well-known/oauth-authorization-server, status: 200, document: true, content_type: application/json, file: well-known/zoominfo-mcp-oauth-authorization-server.json}
+      - {path: /.well-known/oauth-protected-resource, status: 200, document: true, content_type: application/json, file: well-known/zoominfo-mcp-oauth-protected-resource.json}
+      - {path: /.well-known/oauth-authorization-server/mcp, status: 404, document: false}
+      - {path: /.well-known/oauth-protected-resource/mcp, status: 404, document: false}
+      - {path: /.well-known/agent-card.json, status: 404, document: false}
+      - {path: /.well-known/security.txt, status: 404, document: false}
+
+  - host: api.zoominfo.com
+    note: >-
+      The API gateway answers 401 "Unauthorized" to every path including /.well-known/*, so absence
+      cannot be distinguished from auth-gating here. Recorded as a miss, not as a document.
+    probes:
+      - {path: /.well-known/security.txt, status: 401, document: false}
+      - {path: /.well-known/openid-configuration, status: 401, document: false}
+      - {path: /.well-known/oauth-authorization-server, status: 401, document: false}
+      - {path: /.well-known/oauth-protected-resource, status: 401, document: false}
+      - {path: /.well-known/api-catalog, status: 401, document: false}
+      - {path: /.well-known/ai-plugin.json, status: 401, document: false}
+      - {path: /.well-known/agent-card.json, status: 401, document: false}
+      - {path: /.well-known/agent.json, status: 401, document: false}
+
+  - host: www.zoominfo.com
+    note: >-
+      Bot protection. Most /.well-known/ paths return 403 with an "Access to this page has been denied"
+      HTML page; three return a 500 HTML error page. No path returns a document. ZoomInfo discloses this
+      bot protection in its own llms.txt.
+    probes:
+      - {path: /.well-known/security.txt, status: 403, document: false}
+      - {path: /.well-known/openid-configuration, status: 403, document: false}
+      - {path: /.well-known/oauth-authorization-server, status: 403, document: false}
+      - {path: /.well-known/oauth-protected-resource, status: 403, document: false}
+      - {path: /.well-known/api-catalog, status: 403, document: false}
+      - {path: /.well-known/ai-plugin.json, status: 500, document: false}
+      - {path: /.well-known/agent-card.json, status: 500, document: false}
+      - {path: /.well-known/agent.json, status: 500, document: false}
+
+  - host: api-docs.zoominfo.com
+    note: Postman-hosted documenter for the legacy API. Every path returns the documenter's 404 HTML page.
+    probes:
+      - {path: /.well-known/security.txt, status: 404, document: false}
+      - {path: /.well-known/openid-configuration, status: 404, document: false}
+      - {path: /.well-known/oauth-authorization-server, status: 404, document: false}
+      - {path: /.well-known/oauth-protected-resource, status: 404, document: false}
+      - {path: /.well-known/api-catalog, status: 404, document: false}
+      - {path: /.well-known/ai-plugin.json, status: 404, document: false}
+      - {path: /.well-known/agent-card.json, status: 404, document: false}
+      - {path: /.well-known/agent.json, status: 404, document: false}
+
+  - host: docs.zoominfo.com
+    note: >-
+      ReadMe-hosted docs for the current GTM API. /.well-known/* returns the SPA 404 shell — HTTP 404 with
+      a ~406KB HTML body, so not a document by any reading.
+    probes:
+      - {path: /.well-known/agent-card.json, status: 404, document: false}
+
+  - host: developer.zoominfo.com
+    note: Developer portal, served from object storage. Missing keys return an XML NoSuchKey error.
+    probes:
+      - {path: /.well-known/security.txt, status: 404, document: false}
+      - {path: /.well-known/agent-card.json, status: 404, document: false}
+
+security_txt:
+  served: false
+  note: >-
+    No security.txt is served on any host. ZoomInfo does publish a security contact by other means — the
+    zoominfo.com CAA record carries `0 iodef "mailto:security@zoominfo.com"`, and the public security
+    page names the same address — but neither is RFC 9116.
+  contact_found_elsewhere: security@zoominfo.com
+  see: security/zoominfo-vulnerability-disclosure.yml

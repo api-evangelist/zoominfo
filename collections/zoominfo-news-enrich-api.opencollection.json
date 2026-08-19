@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZoomInfo Authentication News Enrich API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "News Enrich",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Zoominfo News Enrich",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/enrich/news",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to match company news information based on [input values](#d58425e5-a4a4-4af0-ad01-fa7bbf91ca84) and return the desired [output fields](#254b86e3-e51b-450d-8704-95e4da168874) in the response.\n\nThe News Enrich endpoint returns a list of news articles related to a specified company:\n\n- News Enrich requests require a valid ZoomInfo Company ID as an input parameter\n- By default, each request will return the 10 most recent news articles associated with the company record\n- You can f"
+        },
+        {
+          "info": {
+            "name": "Zoominfo News Enrich Inputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/inputfields/news/enrich"
+          },
+          "docs": "Returns a list of fields you can use as input for the [News Enrich](#a04f60d9-353e-4eb1-9c37-0539ee6b8d13) endpoint."
+        },
+        {
+          "info": {
+            "name": "Zoominfo News Enrich Outputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/outputfields/news/enrich"
+          },
+          "docs": "Returns a list of output fields for the [News Enrich](#a04f60d9-353e-4eb1-9c37-0539ee6b8d13) endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

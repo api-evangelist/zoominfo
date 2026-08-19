@@ -1,0 +1,106 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.zoominfo.com/docs/api-conventions.md,
+  https://docs.zoominfo.com/docs/rate-limits.md,
+  https://api-docs.zoominfo.com,
+  https://status.zoominfo.com/api/v2/summary.json
+provider: ZoomInfo
+providerId: zoominfo
+description: >-
+  Versioning, deprecation and operational-status posture for the ZoomInfo API estate. ZoomInfo is mid-way
+  through a platform-level migration: the legacy Enterprise API on https://api.zoominfo.com is explicitly
+  being deprecated in favour of the GTM API on https://api.zoominfo.com/gtm.
+
+versioning:
+  scheme: path-segment
+  current: v1.0
+  pattern: /gtm/<product>/v1/...
+  breaking_change_policy: Breaking changes ship as a new version; additive changes (optional fields, enum values, endpoints) land inside the current version.
+  source: https://docs.zoominfo.com/docs/api-conventions.md
+
+deprecation:
+  policy_published: true
+  rfc8594_headers: false
+  rfc8594_note: >-
+    No Sunset or Deprecation response headers are documented. Deprecations are announced in prose in the
+    documentation and, for response headers, with an explicit calendar removal date.
+  active_deprecations:
+    - id: legacy-enterprise-api
+      subject: ZoomInfo Enterprise API (https://api.zoominfo.com, non-/gtm paths)
+      status: deprecating
+      announced_where: https://api-docs.zoominfo.com
+      statement: >-
+        "This page provides documentation on the Legacy ZoomInfo Enterprise API. This API is currently in
+        the process of being deprecated. All new development to ZoomInfo APIs should be done on the new
+        API."
+      replacement: https://docs.zoominfo.com (ZoomInfo GTM API, base https://api.zoominfo.com/gtm)
+      sunset_date: null
+      sunset_note: No end-of-life date has been published. The legacy API remains callable.
+      affected_specs:
+        - openapi/_original/zoominfo-openapi.yml
+        - openapi/zoominfo-authentication-api-openapi.yml
+        - openapi/zoominfo-bulk-api-openapi.yml
+        - openapi/zoominfo-company-search-api-openapi.yml
+        - openapi/zoominfo-contact-search-api-openapi.yml
+        - openapi/zoominfo-lookup-api-openapi.yml
+        - openapi/zoominfo-monitoring-api-webhooks-api-openapi.yml
+        - openapi/zoominfo-websights-api-api-openapi.yml
+        - openapi/zoominfo-compliance-api-api-openapi.yml
+    - id: legacy-ratelimit-headers
+      subject: X-RateLimit-Limit and X-RateLimit-Remaining response headers
+      status: deprecated
+      removal_date: '2027-01-01'
+      replacement: X-RateLimit-Limit-Second and X-RateLimit-Remaining-Second
+      source: https://docs.zoominfo.com/docs/rate-limits.md
+      note: A dated removal commitment — the most precise deprecation signal ZoomInfo publishes.
+    - id: xratelimit-reset-semantics
+      subject: X-RateLimit-Reset
+      status: semantics-changed
+      note: >-
+        Retained but redefined — it now reports when request volume drops below the limit under the
+        sliding-window algorithm, not when a fixed window expires. Retry logic reading this header must
+        be re-verified.
+      source: https://docs.zoominfo.com/docs/rate-limits.md
+  field_level_deprecations:
+    - {field: alexaRank, api: Company Enrich, deprecated_on: '2023-02-14', replacement: domainRank, source: https://api-docs.zoominfo.com}
+
+deprecated_operations_in_specs:
+  count: 0
+  note: >-
+    No operation in any of the six published GTM OpenAPI specs or the legacy spec carries deprecated:true.
+    The deprecation is documented in prose, not in the machine-readable contract — an agent reading only
+    the specs cannot tell the legacy surface is on its way out.
+
+status_page:
+  url: https://status.zoominfo.com
+  platform: Atlassian Statuspage
+  machine_readable: true
+  endpoints:
+    status: https://status.zoominfo.com/api/v2/status.json
+    summary: https://status.zoominfo.com/api/v2/summary.json
+  http_status: 200
+  probed: '2026-08-13'
+  components:
+    - ZoomInfo Enterprise API
+    - Sales
+    - Enrich
+    - Talent
+    - Ringlead
+    - Marketing
+    - GTM Studio
+    - GTM Workspace
+    - Operations
+    - Agent Teams
+    - Engage
+    - Chorus
+    - ZoomInfo Chat
+    - NeverBounce
+    - Comparably
+    - Datanyze
+
+sla:
+  published: false
+  note: No public uptime SLA document was found on the developer documentation or the status page.
+
+changelog: changelog/zoominfo-changelog.yml

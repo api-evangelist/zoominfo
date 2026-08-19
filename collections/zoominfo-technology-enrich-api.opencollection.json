@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZoomInfo Authentication Technology Enrich API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Technology Enrich",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Zoominfo Technology Enrich",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/enrich/tech",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to match technology information based on [input values](#2cc6abbc-e782-4ab4-80e8-ce29ed17ee4e) and return output fields in the response.\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyId | String | Required. The ID of the company for which you want to find technologies. |\n\n**Output fields**\n\n| Field | Description |\n| --- | --- |\n| tag | Unique tag ID for a given technology |\n| categoryParent | Technology category parent |\n| category | Tec"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Technology Enrich Inputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/inputfields/tech/enrich"
+          },
+          "docs": "Returns a list of fields you can use as input for the [Technology Enrich](#b930a3ff-4e87-4f92-86bd-e4a1548cc037) endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

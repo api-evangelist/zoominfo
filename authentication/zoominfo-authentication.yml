@@ -1,12 +1,117 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/zoominfo-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: openapi/zoominfo-authentication-api-openapi.yml, openapi/zoominfo-bulk-api-openapi.yml, openapi/zoominfo-company-enrich-api-openapi.yml,
+  openapi/zoominfo-company-location-enrich-api-openapi.yml, openapi/zoominfo-company-master-data-enrich-api-openapi.yml,
+  openapi/zoominfo-company-search-api-openapi.yml, openapi/zoominfo-compliance-api-api-openapi.yml, openapi/zoominfo-contact-enrich-api-openapi.yml,
+  openapi/zoominfo-contact-search-api-openapi.yml, openapi/zoominfo-corporate-hierarchy-enrich-api-openapi.yml,
+  openapi/zoominfo-gtm-agent-v1-openapi.json, openapi/zoominfo-gtm-copilot-v1-openapi.json ... + https://docs.zoominfo.com/docs/api-conventions.md
+  + https://docs.zoominfo.com/docs/client-credentials-flow.md + https://docs.zoominfo.com/docs/authorization-code-flow-pkce.md
+  + https://api-docs.zoominfo.com (legacy Postman documenter collection description)
 summary:
   types:
   - http
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
 schemes:
 - name: httpBearer
   type: http
   scheme: bearer
   sources:
-  - openapi/zoominfo-openapi.yml
+  - openapi/zoominfo-authentication-api-openapi.yml
+  - openapi/zoominfo-bulk-api-openapi.yml
+  - openapi/zoominfo-company-enrich-api-openapi.yml
+  - openapi/zoominfo-company-location-enrich-api-openapi.yml
+  - openapi/zoominfo-company-master-data-enrich-api-openapi.yml
+  - openapi/zoominfo-company-search-api-openapi.yml
+  - openapi/zoominfo-compliance-api-api-openapi.yml
+  - openapi/zoominfo-contact-enrich-api-openapi.yml
+  - openapi/zoominfo-contact-search-api-openapi.yml
+  - openapi/zoominfo-corporate-hierarchy-enrich-api-openapi.yml
+  - openapi/zoominfo-hashtags-enrich-api-openapi.yml
+  - openapi/zoominfo-intent-enrich-api-openapi.yml
+  - openapi/zoominfo-intent-search-api-openapi.yml
+  - openapi/zoominfo-lookup-api-openapi.yml
+  - openapi/zoominfo-monitoring-api-webhooks-api-openapi.yml
+  - openapi/zoominfo-news-enrich-api-openapi.yml
+  - openapi/zoominfo-news-search-api-openapi.yml
+  - openapi/zoominfo-orgchart-enrich-api-openapi.yml
+  - openapi/zoominfo-scoop-enrich-api-openapi.yml
+  - openapi/zoominfo-scoop-search-api-openapi.yml
+  - openapi/zoominfo-technology-enrich-api-openapi.yml
+  - openapi/zoominfo-usage-api-openapi.yml
+  - openapi/zoominfo-websights-api-api-openapi.yml
+- name: OAuth2Auth
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://login.zoominfo.com
+    tokenUrl: https://okta-login.zoominfo.com/oauth2/default/v1/token
+    scopes: 4
+  sources:
+  - openapi/zoominfo-gtm-agent-v1-openapi.json
+  - openapi/zoominfo-gtm-copilot-v1-openapi.json
+  - openapi/zoominfo-gtm-data-v1-openapi.json
+  - openapi/zoominfo-gtm-gtm-studio-v1-openapi.json
+  - openapi/zoominfo-gtm-marketing-v1-openapi.json
+  - openapi/zoominfo-gtm-platform-v1-openapi.json
+docs: https://docs.zoominfo.com/docs/overview.md
+profiles:
+- surface: ZoomInfo GTM API (current)
+  base_url: https://api.zoominfo.com/gtm
+  type: oauth2
+  header: 'Authorization: Bearer <access_token>'
+  flows:
+  - authorization_code_pkce
+  - client_credentials
+  - refresh_token
+  issuer: https://okta-login.zoominfo.com/oauth2/default
+  token_endpoint: https://okta-login.zoominfo.com/oauth2/default/v1/token
+  authorization_endpoint: https://login.zoominfo.com
+  app_registration: https://developer.zoominfo.com/ (Enterprise) or https://gtm-studio.zoominfo.com/#/builder/apps
+    (GTM.ai self-serve)
+  app_types:
+  - Standard App
+  - Partner App
+  scopes: scopes/zoominfo-scopes.yml
+  docs:
+  - https://docs.zoominfo.com/docs/authorization-code-flow-pkce.md
+  - https://docs.zoominfo.com/docs/client-credentials-flow.md
+  - https://docs.zoominfo.com/docs/refresh-tokens-flow.md
+- surface: ZoomInfo MCP server
+  base_url: https://mcp.zoominfo.com/mcp
+  type: oauth2
+  flows:
+  - authorization_code_pkce
+  - refresh_token
+  dynamic_client_registration: true
+  registration_endpoint: https://mcp.zoominfo.com/oauth/register
+  metadata:
+  - well-known/zoominfo-mcp-oauth-authorization-server.json
+  - well-known/zoominfo-mcp-oauth-protected-resource.json
+  note: 'Verified live: anonymous POST to the endpoint returns 401 with a WWW-Authenticate Bearer challenge.'
+- surface: ZoomInfo Enterprise API (legacy, deprecating)
+  base_url: https://api.zoominfo.com
+  type: jwt-bearer
+  header: 'Authorization: Bearer <jwt>'
+  methods:
+  - name: PKI (Public Key Infrastructure)
+    preferred: true
+    description: Client ID + private key pair issued from Admin Portal > API > Generate New Key; a first-party library
+      signs and exchanges them for a JWT valid for one hour.
+  - name: Username and password
+    preferred: false
+    description: POST /authenticate with username and password returns a JWT valid for one hour.
+  token_lifetime: 1 hour
+  client_libraries: packages/zoominfo-packages.yml
+  docs: https://api-docs.zoominfo.com/#authentication
+  note: ZoomInfo states this API is in the process of being deprecated and that new development should target the
+    GTM API.
+token_for_testing:
+  available: true
+  how: Generate a bearer token from the App Creation Portal (Developer Portal or GTM Studio Developer tab) without
+    implementing a full OAuth flow.
+  sandbox: false
+  warning: ZoomInfo states tokens generated in the Developer Portal are treated as real PRODUCTION requests — they
+    consume credits and count against rate limits. There is no separate test/sandbox mode.
+  source: https://docs.zoominfo.com/docs/test-api-access.md

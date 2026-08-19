@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZoomInfo Authentication Intent Search API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Intent Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Zoominfo Intent Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/search/intent",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to search for companies and recommended contacts based on intent data. Use [input values](#2923818c-df63-4a61-88ba-f9a5383cd420) to return the desired [output fields](#f058d265-3294-442c-80b8-52a81021dc60) in the response. For charging purposes, each intent signal returned is counted as a record.\n\nIntent data is online behavior-based activity across the internet that links buyers and accounts to a topic. Key terminology includes:\n\n- **Signal** - Recent content consumption activ"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Intent Search Inputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/inputfields/intent/search"
+          },
+          "docs": "Returns a list of fields you can use as input for the [Intent Search](#93f940a4-4381-49dd-8fbc-42cbc75a7a39) endpoint."
+        },
+        {
+          "info": {
+            "name": "Zoominfo Intent Search Outputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/outputfields/intent/search"
+          },
+          "docs": "Returns a list of output fields for the [Intent Search](#93f940a4-4381-49dd-8fbc-42cbc75a7a39) endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

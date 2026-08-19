@@ -1,0 +1,87 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.zoominfo.com/docs/webhook-and-events.md,
+  https://api-docs.zoominfo.com (Monitoring API/Webhooks),
+  openapi/zoominfo-monitoring-api-webhooks-api-openapi.yml,
+  openapi/zoominfo-gtm-agent-v1-openapi.json
+provider: ZoomInfo
+providerId: zoominfo
+description: >-
+  ZoomInfo's event and webhook surface. An event surface exists on both the legacy and the current API,
+  but NO AsyncAPI document is published — this file captures the webhook catalog instead.
+
+asyncapi_published: false
+asyncapi_note: >-
+  ZoomInfo publishes six OpenAPI specifications and no AsyncAPI document. The event surface is described
+  in prose and in the REST operations that manage subscriptions. Nothing was fabricated to fill the gap.
+
+surfaces:
+  - id: legacy-monitoring-api
+    name: Monitoring API / Webhooks
+    status: legacy
+    base_url: https://api.zoominfo.com
+    spec: openapi/zoominfo-monitoring-api-webhooks-api-openapi.yml
+    docs: https://api-docs.zoominfo.com
+    model: subscribe-and-push
+    description: >-
+      Configure webhook subscriptions so ZoomInfo pushes record changes to your endpoint instead of you
+      polling. Part of the Scaling APIs bundle.
+    operations:
+      - {operationId: CreateWebhook, method: POST, path: /webhooks, description: Create a webhook subscription.}
+      - {operationId: GetWebhooks, method: GET, path: /webhooks, description: List webhook subscriptions.}
+      - {operationId: UpdateWebhook, method: PUT, path: '/webhooks/{webhookId}', description: Update a subscription.}
+      - {operationId: DeleteWebhook, method: DELETE, path: '/webhooks/{webhookId}', description: Delete a subscription.}
+      - {operationId: ValidateTargetURL, method: POST, path: /webhooks/validate, description: Validate that the target URL is reachable before subscribing.}
+      - {operationId: GenerateVerificationToken, method: POST, path: '/webhooks/{webhookId}/token', description: Mint a verification token used to authenticate the delivery to your endpoint.}
+      - {operationId: GetSubscriptionTypes, method: GET, path: /webhooks/subscriptiontypes, description: Enumerate the event types available to subscribe to. The event catalog is discovered at runtime, not declared in the spec.}
+    event_catalog:
+      declared_in_spec: false
+      discovery_endpoint: GET /webhooks/subscriptiontypes
+      note: >-
+        ZoomInfo does not publish the list of subscribable event types as documentation or as a schema
+        enum; a client must call the subscription-types endpoint with valid credentials to learn them. No
+        event names are asserted here because none are published.
+    payload:
+      entities: [Contact, Company]
+      changed_attributes:
+        supported: true
+        since: '2023-06-19'
+        description: >-
+          Webhook payloads carry a changedAttributes field indicating which fields changed on the contact
+          or company — e.g. "email and Job title changed for Joe Smith".
+        source: https://api-docs.zoominfo.com
+
+  - id: gtm-agent-events
+    name: Agent Teams (current API)
+    status: current
+    base_url: https://api.zoominfo.com/gtm
+    spec: openapi/zoominfo-gtm-agent-v1-openapi.json
+    docs: https://docs.zoominfo.com/docs/webhook-and-events.md
+    model: trigger-and-poll
+    description: >-
+      On the current API, ZoomInfo routes eventing through Agent Teams. The published Webhook and Events
+      page describes triggering an Agent Team run and then POLLING for results — it does not document a
+      push subscription, a callback URL, a signature scheme or a payload schema.
+    operations:
+      - {operationId: AgentTeamsController_runAgentTeam, method: POST, path: '/agent/v1/agent-teams/{agentTeamId}/runs', description: 'Trigger an Agent Team run. Asynchronous — returns the run id and initial status.'}
+      - {operationId: AgentTeamsController_getAgentTeamRun, method: GET, path: '/agent/v1/agent-teams/{agentTeamId}/runs/{runId}', description: Poll for run status and available output.}
+      - {operationId: AgentTeamsController_listAgentTeamRuns, method: GET, path: '/agent/v1/agent-teams/{agentTeamId}/runs', description: List runs for an Agent Team.}
+      - {operationId: AgentTeamsController_getAgentTeamDetails, method: GET, path: '/agent/v1/agent-teams/{agentTeamId}', description: Fetch Agent Team configuration, including the input parameters a run requires.}
+      - {operationId: PulsesController_listPulses, method: GET, path: /agent/v1/pulses, description: List the authenticated user's pulses.}
+    documented_use_cases:
+      - Start a downstream workflow when a bulk enrichment job completes.
+      - Notify RevOps when an account enters a high-intent segment.
+      - Alert when credit usage crosses an admin-defined threshold.
+      - Refresh CRM records when enriched data changes.
+      - Trigger a campaign when a new scoop or funding event is detected.
+    retry_behavior:
+      configurable: true
+      where: Agent Team details, by event type, object type and run.
+      detail_published: false
+      note: The docs state retries, frequencies and throttling are configurable but publish no defaults, no backoff schedule and no delivery guarantees.
+
+gaps:
+  - The current API's Webhook and Events page describes polling, not webhooks, despite its title — no callback registration, no signature verification, no payload schema.
+  - No event type catalog is published for either surface; the legacy list is only reachable through an authenticated call.
+  - No AsyncAPI document, so the event surface is not machine-readable at all.

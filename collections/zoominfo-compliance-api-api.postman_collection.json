@@ -1,0 +1,656 @@
+{
+  "item": [
+    {
+      "id": "a727d6b4-71a8-4b94-bde4-aff1f93b00bd",
+      "name": "Compliance API",
+      "description": {
+        "content": "Use the Compliance endpoints to request and return data related to data privacy and opt-out compliance for contacts stored in the ZoomInfo database.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d8069ea4-1c8d-4cfa-bdf1-c5f29fd7209f",
+          "name": "Zoominfo Compliance",
+          "request": {
+            "name": "Zoominfo Compliance",
+            "description": {
+              "content": "Returns a list of compliance-related details from ZoomInfo's data which meet the specified search criteria.\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyId | Long integer | Unique ZoomInfo identifier for the company |\n| companyName | String | Name of the company for for which the contact works, or has worked |\n| personFullName | String | Contact full name |\n| personFirstName | String | Contact first name |\n| personLastName | String | Contact last name |\n| personEmailAddress | String | Work email address for the contact in [example@example.com](mailto:example@example.com) format |\n| personPhone | String | Contact direct or mobile phone number |\n| personState | String | Company state (U.S.) or province (Canada). You can use free text state or province names (e.g., \"new hampshire\"), the two-letter common abbreviation for a U.S. state (e.g., \"nh\"), or values provided in the **State** lookup endpoint. |\n| personCountry | String | Country for the company's primary address. You can use free text or see the **Country** lookup endpoint for values. |\n| personZipCode | String | Zip Code or Postal Code |\n\n**Output fields**\n\n| Field | Description |\n| --- | --- |\n| id | Unique ZoomInfo identifier for the contact |\n| firstName | Contact first name |\n| lastName | Contact last name |\n| title | Contact title |\n| companyName | Company name |\n| employmentHistory | Contact employment history |\n| emailAddresses | List of primary email addresses for the contact |\n| pastEmailAddresses | List of past email addresses for the contact |\n| withinEu | Indicates whether the contact's work address is in Europe |\n| hasCanadianEmail | Indicates whether the contact's email address is associated with a Canada domain |\n| withinCalifornia | Indicates whether the contact's work address is in California |\n| withinCanada | Indicates whether the contact's work address is in Canada |\n| noticeProvidedDate | Date on which the contact was notified of inclusion in ZoomInfo's database |\n| hasMoved | Indicates ZoomInfo recognizes the contact does not match ZoomInfo's current company but does match known employment history |\n| looksLikeEu | Indicates whether the contact's work address appears to be in Europe |\n| looksLikeCalifornia | Indicates whether the contact's work address appears to be in California |\n| looksLikeCanada | Indicates whether the contact's work address appears to be in Canada |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "compliance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"matchPersonInput\": [\n    {\n      \"companyName\": \"<string>\",\n      \"personFirstName\": \"<string>\",\n      \"personLastName\": \"<string>\",\n      \"personEmailAddress\": \"<string>\"\n    },\n    {\n      \"companyName\": \"<string>\",\n      \"personFirstName\": \"<string>\",\n      \"personLastName\": \"<string>\",\n      \"personEmailAddress\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "06ba7e61-ff48-413d-ad94-c32b15cafe4a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"matchPersonInput\": [\n    {\n      \"companyName\": \"ZoomInfo\",\n      \"personFirstName\": \"Henry\",\n      \"personLastName\": \"Schuck\"\n    },\n    {\n      \"personEmailAddress\": \"john.doherty@zoominfo.com\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"result\": [\n      {\n        \"input\": {\n          \"companyname\": \"zoominfo\",\n          \"personfirstname\": \"henry\",\n          \"personlastname\": \"schuck\"\n        },\n        \"data\": [\n          {\n            \"id\": 1260398587,\n            \"firstName\": \"Henry\",\n            \"lastName\": \"Schuck\",\n            \"title\": \"Founder & Chief Executive Officer\",\n            \"employmentHistory\": [\n              {\n                \"companyName\": \"ZoomInfo\",\n                \"title\": \"Founder & Chief Executive Officer\"\n              },\n              {\n                \"companyName\": \"iProfile\",\n                \"title\": \"Vice President of Data and Marketing\"\n              }\n            ],\n            \"emailAddresses\": [\n              \"h.schuck@discoverorg.com\",\n              \"henry@grow.discoverorg.com\",\n              \"schuck.h@discoverorg.com\",\n              \"henry.schuck@discoverorg.com\",\n              \"henry@succeed.discoverorg.com\",\n              \"h.schuck@zoominfo.com\",\n              \"henry.schuck@zoominfo.com\",\n              \"hschuck@discoverorg.com\",\n              \"henry@discoverorg.com\",\n              \"hlschuck@discoverorg.com\",\n              \"hlschuck@email.discoverorg.io\"\n            ],\n            \"pastEmailAddresses\": [\n              \"h.schuck@discoverorg.com\",\n              \"schuck.h@discoverorg.com\",\n              \"henry.schuck@discoverorg.com\",\n              \"hschuck@discoverorg.com\",\n              \"henry@discoverorg.com\",\n              \"hlschuck@discoverorg.com\"\n            ],\n            \"withinEu\": false,\n            \"hasCanadianEmail\": \"false\",\n            \"withinCalifornia\": false,\n            \"withinCanada\": false,\n            \"noticeProvidedDate\": \"Notice not required\",\n            \"hasMoved\": \"No\",\n            \"looksLikeEu\": \"No\",\n            \"looksLikeCalifornia\": \"No\",\n            \"looksLikeCanada\": \"No\",\n            \"company\": {\n              \"name\": \"ZoomInfo\"\n            }\n          }\n        ]\n      },\n      {\n        \"input\": {\n          \"personemailaddress\": \"john.doherty@zoominfo.com\"\n        },\n        \"data\": [\n          {\n            \"id\": 3458235736,\n            \"firstName\": \"John\",\n            \"lastName\": \"Doherty\",\n            \"title\": \"Principal Technical Writer\",\n            \"employmentHistory\": [\n              {\n                \"companyName\": \"ZoomInfo\",\n                \"title\": \"Principal Technical Writer\"\n              }\n            ],\n            \"emailAddresses\": [\n              \"john.doherty@zoominfo.com\"\n            ],\n            \"pastEmailAddresses\": [],\n            \"withinEu\": false,\n            \"hasCanadianEmail\": \"false\",\n            \"withinCalifornia\": false,\n            \"withinCanada\": false,\n            \"noticeProvidedDate\": \"Notice not required\",\n            \"hasMoved\": \"Uncertain\",\n            \"looksLikeEu\": \"No\",\n            \"looksLikeCalifornia\": \"No\",\n            \"looksLikeCanada\": \"No\",\n            \"company\": {\n              \"name\": \"ZoomInfo\"\n            }\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff2e64fe-0fdd-4772-851b-0768e135f17d",
+          "name": "Zoominfo Compliance Inputs",
+          "request": {
+            "name": "Zoominfo Compliance Inputs",
+            "description": {
+              "content": "Returns a list of fields you can use as input for the [Compliance](#55258fdb-c151-4532-b587-9a20d7169ae1) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "inputfields",
+                "compliance",
+                "enrich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "31860ab1-fee2-4cd5-811c-9077da1f3985",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "inputfields",
+                    "compliance",
+                    "enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"companyId\",\n    \"fieldType\": \"Long\",\n    \"description\": \"Unique ZoomInfo identifier for a company\"\n  },\n  {\n    \"fieldName\": \"companyName\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company name\"\n  },\n  {\n    \"fieldName\": \"personId\",\n    \"fieldType\": \"Long\",\n    \"description\": \"Unique ZoomInfo identifier for the contact\"\n  },\n  {\n    \"fieldName\": \"personFullName\",\n    \"fieldType\": \"String\",\n    \"description\": \"Contact full name\"\n  },\n  {\n    \"fieldName\": \"personFirstName\",\n    \"fieldType\": \"String\",\n    \"description\": \"Contact first name\"\n  },\n  {\n    \"fieldName\": \"personLastName\",\n    \"fieldType\": \"String\",\n    \"description\": \"Contact last name\"\n  },\n  {\n    \"fieldName\": \"companyName\",\n    \"fieldType\": \"String\",\n    \"description\": \"Name of the company for for which the contact works, or has worked\"\n  },\n  {\n    \"fieldName\": \"personEmailAddress\",\n    \"fieldType\": \"String\",\n    \"description\": \"Work email address for the contact in example@example.com format\"\n  },\n  {\n    \"fieldName\": \"personPhone\",\n    \"fieldType\": \"String\",\n    \"description\": \"Contact direct or mobile phone number\"\n  },\n  {\n    \"fieldName\": \"personState\",\n    \"fieldType\": \"String\",\n    \"description\": \"Contact state\"\n  },\n  {\n    \"fieldName\": \"personCountry\",\n    \"fieldType\": \"String\",\n    \"description\": \"Contact country\"\n  },\n  {\n    \"fieldName\": \"personZipCode\",\n    \"fieldType\": \"String\",\n    \"description\": \"Contact Zip Code\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f607b50-d82d-44e5-8b1c-0e74976a6c4a",
+          "name": "Zoominfo Compliance Outputs",
+          "request": {
+            "name": "Zoominfo Compliance Outputs",
+            "description": {
+              "content": "Returns a list of fields included in the response for the [Compliance](#55258fdb-c151-4532-b587-9a20d7169ae1) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "outputfields",
+                "compliance",
+                "enrich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "11c3b612-32c3-4e31-865a-58734295b5d3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "outputfields",
+                    "compliance",
+                    "enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"id\",\n    \"description\": \"Unique ZoomInfo identifier for the contact\"\n  },\n  {\n    \"fieldName\": \"firstName\",\n    \"description\": \"Contact first name\"\n  },\n  {\n    \"fieldName\": \"lastName\",\n    \"description\": \"Contact last name\"\n  },\n  {\n    \"fieldName\": \"title\",\n    \"description\": \"Contact title\"\n  },\n  {\n    \"fieldName\": \"companyName\",\n    \"description\": \"Company name\"\n  },\n  {\n    \"fieldName\": \"employmentHistory\",\n    \"description\": \"Contact employment history\"\n  },\n  {\n    \"fieldName\": \"emailAddresses\",\n    \"description\": \"List of primary email addresses for the contact\"\n  },\n  {\n    \"fieldName\": \"pastEmailAddresses\",\n    \"description\": \"List of past email addresses for the contact\"\n  },\n  {\n    \"fieldName\": \"withinEu\",\n    \"description\": \"Indicates whether the contact's work address is in Europe\"\n  },\n  {\n    \"fieldName\": \"hasCanadianEmail\",\n    \"description\": \"Indicates whether the contact's email address associated with a Canada domain\"\n  },\n  {\n    \"fieldName\": \"withinCalifornia\",\n    \"description\": \"Indicates whether the contact's work address is in California\"\n  },\n  {\n    \"fieldName\": \"withinCanada\",\n    \"description\": \"Indicates whether the contact's work address is in Canada\"\n  },\n  {\n    \"fieldName\": \"noticeProvidedDate\",\n    \"description\": \"Date on which the contact was notified of inclusion in ZoomInfo's database\"\n  },\n  {\n    \"fieldName\": \"hasMoved\",\n    \"description\": \"Indicates ZoomInfo recognizes the contact does not match ZoomInfo's current company but does match known employment history\"\n  },\n  {\n    \"fieldName\": \"looksLikeEu\",\n    \"description\": \"Indicates whether the contact's work address appears to be in Europe\"\n  },\n  {\n    \"fieldName\": \"looksLikeCalifornia\",\n    \"description\": \"Indicates whether the contact's work address appears to be in California\"\n  },\n  {\n    \"fieldName\": \"looksLikeCanada\",\n    \"description\": \"Indicates whether the contact's work address appears to be in Canada\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zoominfo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d844375c-655b-49de-81c4-b5b608fcda9e",
+    "name": "ZoomInfo Authentication Compliance API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...\n\nContact Support:\n Name: ZoomInfo API Support\n Email: support@zoominfo.com",
+      "type": "text/plain"
+    }
+  }
+}

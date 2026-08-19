@@ -1,0 +1,664 @@
+{
+  "item": [
+    {
+      "id": "1bd7472f-41ed-4398-83b0-63228712ebcf",
+      "name": "Company Enrich",
+      "description": {
+        "content": "Use [Company Enrich](#59a59d9e-7eb9-44fa-904a-f10f9ab7c5fd) to retrieve company detail using valid query parameters. A Company Enrich request requires you to specify both input parameters about the company you are enriching, and the output fields you want to retrieve.\n\nRefer to the examples provided to build a valid JSON request. For supported input and output parameters:\n\n*   Use the [Company Enrich Inputs](#7a915792-e8cd-4e3a-9f0e-c19b850be536) endpoint to retrieve a list of valid input parameters you can provide\n*   Use the [Company Enrich Outputs](#d05239c3-2597-45f8-9384-f2dbd3518cfc) endpoint to retrieve a list of valid output fields that can be returned",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cb91df73-566d-4cc9-91fa-bee9dc524b62",
+          "name": "Zoominfo Company Enrich",
+          "request": {
+            "name": "Zoominfo Company Enrich",
+            "description": {
+              "content": "Use this endpoint to match company information based on [input values](#7a915792-e8cd-4e3a-9f0e-c19b850be536) and return the desired [output fields](#d05239c3-2597-45f8-9384-f2dbd3518cfc) in the response.\n\n**Maximum inputs per request**\n\nYou can input a maximum of 25 companies in a single enrich request, returning the equivalent number of matching records. See the endpoint examples for how to build queries using multiple inputs.\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyId | Long integer or string | Unique ZoomInfo identifier for a company |\n| companyName | String | Company name |\n| companyWebsite | String | Company website URL in [http://www.example.com](http://www.example.com) format |\n| companyTicker | String | Company stock ticker symbol |\n| companyPhone | String | Phone number of the company headquarters |\n| companyFax | String | Fax number of the company headquarters |\n| companyStreet | String | Street address for the company's primary address |\n| companyCity | String | City for the company's primary address |\n| companyState | String | Company state (U.S.) or province (Canada). You can use free text state or province names (e.g., \"new hampshire\"), the two-letter common abbreviation for a U.S. state (e.g., \"nh\"), or values provided in the **State** lookup endpoint. |\n| companyZipCode | String | Zip Code or Postal Code for the company's primary address |\n| companyCountry | String | Country for the company's primary address. You can use free text or see the **Country** lookup endpoint for values. |\n| ipAddress | String | IP address associated with the company |\n\n**Output fields**\n\n| Field | Description |\n| --- | --- |\n| id | Unique ZoomInfo identifier for a company |\n| ticker | Company public stock exchange ticker |\n| name | Company name |\n| website | Company website URL |\n| domainList | List of domains associated with a company |\n| logo | The URL which can be used to retrieve the logo for the company |\n| socialMediaUrls | Social media URLs for the company (e.g., Facebook, Twitter, LinkedIn and so on) |\n| revenue | Approximate yearly revenue for the company in 1000's. For example, a $100M company is expressed as 100000. |\n| employeeCount | Approximate number of people employed by the company |\n| numberOfContactsInZoomInfo | Number of ZoomInfo contacts associated with company |\n| phone | Phone number of the company's primary address |\n| fax | Fax number of the company's primary address |\n| street | Street of the company's primary address |\n| city | City of the company's primary address |\n| state | State or province of the company's primary address |\n| zipCode | Zip Code or Postal Code of the company's primary address |\n| country | Country of the company's primary address |\n| continent | Continent of the company's primary address |\n| companyStatus | Company status |\n| companyStatusDate | Date of last company status update |\n| descriptionList | List of descriptions associated with the company |\n| sicCodes | The Standard Industrial Classification is a system for classifying industries by a four-digit code. |\n| naicsCodes | The North American Industry Classification System (NAICS) is the standard used by Federal statistical agencies in classifying business establishments for the purpose of collecting, analyzing, and publishing statistical data related to the U.S. business economy. |\n| competitors | List of competitors |\n| ultimateParentId | Unique ZoomInfo identifier for parent company (if exists) |\n| ultimateParentName | Company name for ultimate parent company (if exists) |\n| ultimateParentRevenue | Approximate yearly revenue for the ultimate parent company |\n| ultimateParentEmployees | Approximate number of people employed by the ultimate parent company |\n| subUnitCodes | Company sub unit codes |\n| subUnitType | Company sub unit types (e.g., division, subsidiary and so on) |\n| subUnitIndustries | Company sub unit industries |\n| primaryIndustry | Top-level industry for a company |\n| primaryIndustryCode | Top-level industry for a company along with it's code |\n| primarySubIndustryCode | Top-level sub-industry for a company along with it's code |\n| industries | The industry grouping for the company. A company can have multiple industries. |\n| industryCodes | The industry grouping for the company along with it's codes. A company can have multiple industries. |\n| parentId | Unique ZoomInfo identifier associated with the parent company |\n| parentName | Company name associated with the parent company |\n| locationCount | Number of office locations associated with a company |\n| locationMatch | Location details that match address-related input parameters. Includes `companyId`, `address`, and `addressStatus` (`CURRENT`, `VALID`, `PAST`). |\n| metroArea | Company metro area |\n| lastUpdatedDate | Date on which the company record was last updated |\n| createdDate | Date on which the company record was created |\n| certificationDate | Date of certification |\n| certified | Denotes if ZoomInfo's research and data team has confirmed activity within the past 12 months |\n| hashtags | List of hashtags associated with a company |\n| products | List of products associated with a company |\n| techAttributes | Technology products currently utilized by a company. Organized by category, vendor, and product. |\n| revenueRange | Revenue range for a company |\n| employeeRange | Employee range for a company |\n| companyFunding | List of funding rounds including `date`, `type` , `investors`, and `amount` |\n| recentFundingAmount | Most recent funding amount |\n| recentFundingDate | Date of most recent funding |\n| totalFundingAmount | Total funding to date |\n| employeeGrowth | Employee growth of the company in the past two years. A one- and two-year growth percentage is provided as well as a quarter-by-quarter breakdown of total employee count. |\n| type | Company type (private, public, npo, education, government, other) |\n| foundedYear | Year the company was founded |\n| businessModel | Business Model for a company |\n| isDefunct | Indicates whether the company still exists |\n| departmentBudgets | Estimated department budgets. Returns estimated budget values including `marketingBudget`, `financeBudget`, `itBudget` and `hrBudget`. |\n| employeeCountByDepartment | Employee count by company department |\n| engagements | List of the company's engagements. Includes the date and type of each engagement |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrich",
+                "company"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"matchCompanyInput\": [\n    {\n      \"companyId\": \"<integer>\"\n    },\n    {\n      \"companyId\": \"<integer>\"\n    }\n  ],\n  \"outputFields\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ca852bc6-28a1-4817-8b02-573aba3ccd2b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrich",
+                    "company"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"matchCompanyInput\": [\n    {\n      \"companyId\": 344589814\n    }\n  ],\n  \"outputFields\": [\n    \"id\",\n    \"ticker\",\n    \"name\",\n    \"website\",\n    \"domainList\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a5ac5c5-b1d9-4301-91f8-d21a3c9f2935",
+          "name": "Zoominfo Company Enrich Inputs",
+          "request": {
+            "name": "Zoominfo Company Enrich Inputs",
+            "description": {
+              "content": "Returns a list of fields you can use as input for the [Company Enrich](#59a59d9e-7eb9-44fa-904a-f10f9ab7c5fd) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "inputfields",
+                "company",
+                "enrich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0dc3d492-5b87-4c22-926a-8a47423a63fe",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "inputfields",
+                    "company",
+                    "enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"companyId\",\n    \"fieldType\": \"Long\",\n    \"description\": \"Unique ZoomInfo identifier for a company\"\n  },\n  {\n    \"fieldName\": \"companyName\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company name\"\n  },\n  {\n    \"fieldName\": \"companyWebsite\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company website URL in http://www.example.com format\"\n  },\n  {\n    \"fieldName\": \"companyTicker\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company stock ticker symbol\"\n  },\n  {\n    \"fieldName\": \"companyPhone\",\n    \"fieldType\": \"String\",\n    \"description\": \"Phone number of the company headquarters\"\n  },\n  {\n    \"fieldName\": \"companyFax\",\n    \"fieldType\": \"String\",\n    \"description\": \"Fax number of the company headquarters\"\n  },\n  {\n    \"fieldName\": \"companyStreet\",\n    \"fieldType\": \"String\",\n    \"description\": \"Street address for the company's primary address\"\n  },\n  {\n    \"fieldName\": \"companyCity\",\n    \"fieldType\": \"String\",\n    \"description\": \"City for the company's primary address\"\n  },\n  {\n    \"fieldName\": \"companyState\",\n    \"fieldType\": \"String\",\n    \"description\": \"State for the company's primary address \"\n  },\n  {\n    \"fieldName\": \"companyZipCode\",\n    \"fieldType\": \"String\",\n    \"description\": \"Zip Code or Postal Code for the company's primary address\"\n  },\n  {\n    \"fieldName\": \"companyCountry\",\n    \"fieldType\": \"String\",\n    \"description\": \"Country code for the company's primary address \"\n  },\n  {\n    \"fieldName\": \"ipAddress\",\n    \"fieldType\": \"String\",\n    \"description\": \"IP address associated with the company\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b291d19d-4cfc-4416-9bda-ed705626745e",
+          "name": "Zoominfo Company Enrich Outputs",
+          "request": {
+            "name": "Zoominfo Company Enrich Outputs",
+            "description": {
+              "content": "Returns a list of fields you can specify as output for the [Company Enrich](#59a59d9e-7eb9-44fa-904a-f10f9ab7c5fd) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "outputfields",
+                "company",
+                "enrich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9fc71b4f-3074-42bc-b0af-c9276b5c8e7f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "outputfields",
+                    "company",
+                    "enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-envoy-upstream-service-time",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "service",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-ratelimit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-ratelimit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-envoy-decorator-operation",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "alt-svc",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Origin-Trial",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-RAY",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"id\",\n    \"description\": \"Unique ZoomInfo identifier for a company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"ticker\",\n    \"description\": \"Company public stock exchange ticker\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"name\",\n    \"description\": \"Company name\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"website\",\n    \"description\": \"Company website URL\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"domainList\",\n    \"description\": \"List of domains associated with a company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"logo\",\n    \"description\": \"The URL which can be used to retrieve the logo for the company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"socialMediaUrls\",\n    \"description\": \"Social media URLs for the company (e.g., Facebook, Twitter, LinkedIn and so on)\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"revenue\",\n    \"description\": \"Approximate yearly revenue for the company in 1000's. For example, a 100M company is expressed as 100000.\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"employeeCount\",\n    \"description\": \"Approximate number of people employed by the company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"numberOfContactsInZoomInfo\",\n    \"description\": \"Number of ZoomInfo contacts associated with company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"phone\",\n    \"description\": \"Phone number of the company's primary address\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"fax\",\n    \"description\": \"Fax number of the company's primary address\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"street\",\n    \"description\": \"Street of the company's primary address\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"city\",\n    \"description\": \"City of the company's primary address\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"state\",\n    \"description\": \"State or province of the company's primary address\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"zipCode\",\n    \"description\": \"Zip Code or Postal Code of the company's primary address\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"country\",\n    \"description\": \"Country of the company's primary address\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"companyStatus\",\n    \"description\": \"Company status\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"companyStatusDate\",\n    \"description\": \"Date of last company status update\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"descriptionList\",\n    \"description\": \"List of descriptions associated with the company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"sicCodes\",\n    \"description\": \"Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"naicsCodes\",\n    \"description\": \"Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"competitors\",\n    \"description\": \"List of competitors\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"ultimateParentId\",\n    \"description\": \"Ultimate parent company id (if exists)\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"ultimateParentName\",\n    \"description\": \"Ultimate parent company name (if exists)\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"ultimateParentRevenue\",\n    \"description\": \"Approximate yearly revenue for the ultimate parent company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"ultimateParentEmployees\",\n    \"description\": \"Approximate number of people employed by the ultimate parent company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"subUnitType\",\n    \"description\": \"Company sub unit types (e.g., division, subsidiary and so on)\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"subUnitIndustries\",\n    \"description\": \"Company sub unit industries\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"primaryIndustry\",\n    \"description\": \"Top-level industry for a company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"primaryIndustryCode\",\n    \"description\": \"Top-level industry code for a company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"primarySubIndustryCode\",\n    \"description\": \"Top-level sub industry code for a company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"industries\",\n    \"description\": \"The industry grouping for the company. A company can have multiple industries.\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"industryCodes\",\n    \"description\": \"The industry grouping codes for the company. A company can have multiple industry codes.\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"locationMatch\",\n    \"description\": \"Location of the matched company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"parentId\",\n    \"description\": \"ZoomInfo Company ID associated with the parent company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"parentName\",\n    \"description\": \"ZoomInfo Company Name associated with the parent company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"locationCount\",\n    \"description\": \"Number of office locations associated with a company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"metroArea\",\n    \"description\": \"Company metro area\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"lastUpdatedDate\",\n    \"description\": \"Date on which the company record was last updated\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"createdDate\",\n    \"description\": \"Date on which the company record was created\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"certificationDate\",\n    \"description\": \"Date of certification\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"certified\",\n    \"description\": \"Denotes if ZoomInfo's research and data team has confirmed activity within the past 12 months\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"products\",\n    \"description\": \"List of products associated with a company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"revenueRange\",\n    \"description\": \"Revenue Range of the company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"employeeRange\",\n    \"description\": \"Employee Range of the company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"companyFunding\",\n    \"description\": \"List of funding rounds including date, type, amount and investors\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"recentFundingAmount\",\n    \"description\": \"Most recent funding amount\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"recentFundingDate\",\n    \"description\": \"Date of most recent funding\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"totalFundingAmount\",\n    \"description\": \"Total funding to date\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"employeeGrowth\",\n    \"description\": \"Employee Growth of the company in the past two years.\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"continent\",\n    \"description\": \"Continent of the company's primary address\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"type\",\n    \"description\": \"Company type (private, public, and so on)\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"foundedYear\",\n    \"description\": \"Founded year of the company.\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"businessModel\",\n    \"description\": \"Business Model for a company\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"isDefunct\",\n    \"description\": \"Indicates whether the company still exists\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"departmentBudgets\",\n    \"description\": \"Estimated department budgets. Returns estimated budget values including marketingBudget, financeBudget, itBudget and hrBudget.\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"employeeCountByDepartment\",\n    \"description\": \"Department employee count\",\n    \"accessGranted\": \"true\"\n  },\n  {\n    \"fieldName\": \"engagements\",\n    \"description\": \"List of the company's engagements. Includes the date and type of each engagement\",\n    \"accessGranted\": \"false\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zoominfo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ee437553-d3cc-4220-92c9-228b397bf689",
+    "name": "ZoomInfo Authentication Company Enrich API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...\n\nContact Support:\n Name: ZoomInfo API Support\n Email: support@zoominfo.com",
+      "type": "text/plain"
+    }
+  }
+}

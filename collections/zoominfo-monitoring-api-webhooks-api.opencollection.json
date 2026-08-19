@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZoomInfo Authentication Monitoring API/Webhooks API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Monitoring API/Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Zoominfo Get Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/webhooks"
+          },
+          "docs": "Use this endpoint to get a list of webhooks.\n\nTo get a specific webhook, append the webhook `id` to the request URL. For example:\n\n`https://api.zoominfo.com/webhooks/213786430`\n\nSee the examples for the response format."
+        },
+        {
+          "info": {
+            "name": "Zoominfo Create Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to create a webhook.\n\n**About enabling a webhook**\n\nWhen creating a webhook, we recommend initially setting the `enabled` parameter to `false` so that you can ensure that:\n\n- Your target URL is accessible using the [Validate Target URL](#5fabb9e4-aff2-4651-8404-8b061675eda0) endpoint.\n- You've established a validation method in your app for the webhook verification token that will be generated with this request.\n    \n\nOnce you've completed these tasks, you can activate the webh"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Update Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.zoominfo.com/webhooks/967763288",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to update an existing webhook, including its enabled status, target URL, and subscription details.\n\nSpecify the webhook by appending the webhook `id` in the request URL. For example:\n\n`https://api.zoominfo.com/webhooks/213786430`\n\nWhen using the Update Webhook endpoint, values you provide in the JSON body of your request overwrite values in the existing webhook. Common scenarios for using this endpoint include the following.\n\n**Enable a webhook**\n\nAs described in the [Create We"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Delete Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.zoominfo.com/webhooks/570575403"
+          },
+          "docs": "Use this endpoint to delete a webhook. Specify the webhook by appending the webhook `id` in the request URL. For example:\n\n`https://api.zoominfo.com/webhooks/213786430`\n\n**Output fields**\n\n| Field                  | Description                                    |\n|------------------------|------------------------------------------------|\n| id                     | Unique ZoomInfo identifier for the webhook   |\n| targetUrl              | Destination URL for the webhook data   |\n| createdDate    "
+        },
+        {
+          "info": {
+            "name": "Zoominfo Validate Target Url",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/webhooks/validate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to ensure the target URL for a webhook is accessible and that the JSON payload can be delivered.\n\nThis request:\n\n*   Pings the target server to ensure it's responsive\n*   Posts some JSON body for the specified `objectType` to ensure data can be written to the target app\n    \n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| targetUrl | String | Destination URL for the webhook data. Must be in https:// format. |\n| objectType | String | Specify the `"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Generate Verification Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/webhooks/849814821/token"
+          },
+          "docs": "Use this endpoint to generate a new verification token for an existing webhook. \n\n**Important**: When you generate a new token, the previous token is immediately revoked and becomes invalid. When updating a verification token for an active Webhook, ensure that you update the verification token immediately in your integrated app, as ZoomInfo will still attempt to send the data, but it will fail based on the mismatched tokens.\n\nSpecify the webhook for which you want the token generated by appendin"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Get Subscription Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/webhooks/subscriptiontypes"
+          },
+          "docs": "Retrieve accepted subscription types (`objectTypes` and `eventTypes`)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

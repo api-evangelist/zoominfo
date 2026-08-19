@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZoomInfo Authentication API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Zoominfo Authenticate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/authenticate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Return a valid JWT access token by inputting your ZoomInfo username and password.\n\n**Important: The token is good for 60 minutes from the time that the response was generated.**\n\n- **Do not generate a new JWT with every call/request.**\n- **As a best practice to keep the session active, refresh the JWT every 55 minutes.**"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

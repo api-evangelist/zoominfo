@@ -1,0 +1,280 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/Zoominfo/zoominfo-mcp-plugin (skills/ directory, cloned 2026-08-13)
+provider: ZoomInfo
+providerId: zoominfo
+note: Agent Skills published by ZoomInfo itself in the first-party zoominfo-mcp-plugin repository. Saved VERBATIM
+  — not authored by API Evangelist. Each skill is a task playbook executed against the hosted ZoomInfo MCP server
+  at https://mcp.zoominfo.com/mcp; the tools they invoke are cross-walked in mcp/zoominfo-tool-crosswalk.yml.
+runtime:
+  mcp_endpoint: https://mcp.zoominfo.com/mcp
+  auth: oauth
+  license: MIT
+skill_count: 35
+skills:
+- name: account-health
+  file: zoominfo-account-health.md
+  description: 'Assess the health of an account from its recent conversations — sentiment trajectory and risk signals
+    — backed by an engagement timeline and an account_research snapshot. Identify the account by ZoomInfo company
+    ID (preferred) or name/domain (triggers a lookup). Use when someone asks "how healthy is Acme", "are we at risk
+    of churn here", "what''s the sentiment trend", or wants a risk read before a QBR or renewal. Strictly evidence-based:
+    it does not invent risk or generic advice, and it asks the user for input where the conversations do not settle
+    the question.'
+- name: account-relationship-recap
+  file: zoominfo-account-relationship-recap.md
+  description: Recap where things stand with a company across recent conversations, with emphasis on how the relationship
+    is evolving. Identify the account by ZoomInfo company ID (preferred) or by name or domain (triggers a lookup).
+    Blends account_research for deal and firmographic context with company-scoped conversation_intelligence for
+    what has actually been said recently. Use when someone asks "where are we with Acme", "how is the relationship
+    trending", "recap our recent conversations with this account", or wants a relationship read before a check-in.
+    Reasons over the last few engagements only.
+- name: account-research
+  file: zoominfo-account-research.md
+  description: Produce a full intelligence brief on a target company — firmographics, CRM/account context, intent
+    signals, recent news, scoops, and competitive landscape — framed by your GTM context and led with a TL;DR summary.
+    Identify the account by ZoomInfo account/company ID (preferred) or by company name, domain, or ticker (which
+    triggers a lookup step). Include detailed context on why the brief is being pulled.
+- name: ae-cs-handoff
+  file: zoominfo-ae-cs-handoff.md
+  description: Produce an AE-to-CS handoff brief — everything the incoming CSM needs from the sales conversations.
+    Builds an engagement timeline, then runs conversation_intelligence in parallel on the key engagements to pull
+    requirements, success criteria, stakeholders and how they like to work, and the relationship state. Identify
+    the account by ZoomInfo company ID (preferred) or name/domain (triggers a lookup). Use when someone says "build
+    the handoff for Acme", "what does the CSM need to know", "prep the post-sale transition", or closes a deal that
+    needs a clean handoff.
+- name: build-list
+  file: zoominfo-build-list.md
+  description: Build a list of contacts or companies matching specific criteria. Describe what you're looking for
+    in natural language and get a structured, tabular list you can export. Supports filtering by title, seniority,
+    department, industry, company size, location, tech stack, growth rate, and more. Outputs a clean table artifact.
+- name: buying-committee
+  file: zoominfo-buying-committee.md
+  description: Map the buying committee at a target account. Identifies decision-makers, prioritizes who to engage,
+    and surfaces gaps and multi-thread risks. Leads with a TL;DR (top 3 to engage, biggest gap, multi-thread risk),
+    uses compact tables, and deep-researches top stakeholders to catch stale records. Identify the account by ZoomInfo
+    account/company ID (preferred) or by company name, domain, or ticker (which triggers a lookup step). Include
+    detailed context on the deal, situation, and persona priorities driving the map.
+- name: call-coaching
+  file: zoominfo-call-coaching.md
+  description: Coach a rep on how they handled a specific call — discovery quality, objection handling, talk dynamics,
+    and next-call focus. Name the call if you know it, or let the skill pull recent calls and identify the most
+    likely candidate to confirm. Uses conversation_intelligence to read how the conversation actually went. Use
+    when someone asks "how did I do on the Acme call", "coach me on my last discovery call", "where did I lose them",
+    or wants actionable feedback before the next conversation. Analyzes one call at a time.
+- name: call-recap
+  file: zoominfo-call-recap.md
+  description: Recap a recent call with a tight summary, the decisions made, action items, and open questions. Name
+    the call (account and/or date) if you know it, or let the skill pull your most recent calls and offer a shortlist
+    to pick from. Uses conversation_intelligence to read what was actually said, with light account_research for
+    deal context. Use when someone says "recap my last call", "what came out of the Acme meeting", "summarize yesterday's
+    call", or needs a post-call writeup. The output adapts to the request — for example decisions-only or action-items-only.
+- name: commitment-ledger
+  file: zoominfo-commitment-ledger.md
+  description: Build a ledger of what we promised versus what they promised, and what is still outstanding, across
+    the last few engagements with an account or contact. Uses conversation_intelligence as the primary source. Identify
+    the account or contact by ZoomInfo ID (preferred) or name (triggers a lookup), or point it at specific calls.
+    Use when someone asks "what did we commit to", "what are they supposed to send us", "what's still outstanding
+    with this account", or wants an accountability check before a follow-up. Covers the last few engagements only,
+    not full history.
+- name: company-intent-monitor
+  file: zoominfo-company-intent-monitor.md
+  description: Monitor a company's buyer-intent signals and assess fit against your GTM context. Uses company signals
+    scoped to intent for a single account, returns the recent topics it is researching, and analyzes which ones
+    align with your offerings and ICP. Identify the company by ZoomInfo company ID (preferred) or name/domain (triggers
+    a lookup). Use when someone asks "what is Acme researching", "are they showing intent on anything we sell",
+    "monitor intent for this account", or wants an intent read before prioritizing an account.
+- name: company-news-monitor
+  file: zoominfo-company-news-monitor.md
+  description: Monitor recent news and business events for a company and deliver a quick digest. Uses company signals
+    scoped to news and scoops for a single account, grouped by type and recency, with a "so what" for each. Identify
+    the company by ZoomInfo company ID (preferred) or name/domain (triggers a lookup). Use when someone asks "what's
+    the latest news on Acme", "any recent developments at this account", "catch me up on what's happening there",
+    or wants a news digest before a touchpoint.
+- name: competitor-analysis
+  file: zoominfo-competitor-analysis.md
+  description: Produce a fact-led competitive intel brief on one or more competitors — firmographics, recent strategic
+    moves, product positioning, ICP overlap, and discovery questions. Defaults to your configured competitors from
+    GTM context if none specified. Combines ZoomInfo data (account_research, scoops, intent, exec teams, similar
+    companies) with web search for product/pricing/customer-sentiment intelligence. Identify competitors by ZoomInfo
+    account/company ID (preferred) or name; include rich context on why the brief is being pulled and what decision
+    it supports.
+- name: contact-relationship-recap
+  file: zoominfo-contact-relationship-recap.md
+  description: Recap where things stand with a specific person across recent conversations, with emphasis on how
+    the relationship is evolving. Identify the contact by ZoomInfo contact ID (preferred) or by name plus company
+    (triggers a lookup). Blends contact-scoped conversation_intelligence for what this person has actually said
+    recently with contact_research for their role and background. Use when someone asks "where are we with Jane",
+    "is this person still our champion", "recap my conversations with this contact", or wants a read on an individual
+    relationship before reaching out. Reasons over the last few engagements only.
+- name: daily-brief
+  file: zoominfo-daily-brief.md
+  description: Brief the user on their day. Pull today's (or a named day's) meetings and, for each, synthesize the
+    current state of play, a suggested focus or objective, and any follow-ups needed. Uses browse_engagements for
+    the schedule, then account_research, contact_research, and conversation_intelligence per meeting. Use when someone
+    says "what's on my plate today", "brief me for my meetings", "prep my day", or wants a morning rundown before
+    back-to-back calls. Because it researches every meeting, it can consume meaningful AI credits — it confirms
+    scope before fanning out across a full day.
+- name: decision-process-mapper
+  file: zoominfo-decision-process-mapper.md
+  description: Map a prospect's buying process as voiced on recent calls — their stated decision criteria, timeline,
+    steps, and approvers. Uses conversation_intelligence over an account's recent engagements, with account_research
+    for stakeholder context. Identify the account by ZoomInfo company ID (preferred) or name/domain (triggers a
+    lookup). Use when someone asks "what's their buying process", "who actually signs off", "what's the timeline
+    and what do they need to decide", or wants to qualify a deal against MEDDIC-style criteria. Captures only what
+    was actually stated; gaps are marked as unknown rather than inferred.
+- name: draft-follow-up
+  file: zoominfo-draft-follow-up.md
+  description: Draft a follow-up email after a call by extracting the commitments and next steps that were actually
+    agreed, then writing a compact, friendly-professional message. Name the call if you know it, or let the skill
+    pull recent calls to pick from. Uses conversation_intelligence to read what was said and committed. Use when
+    someone says "draft a follow-up to that call", "send a recap email", "write the follow-up for my Acme meeting",
+    or needs a post-call note. Drafts only what the conversation supports — it does not invent commitments.
+- name: email-thread-summarizer
+  file: zoominfo-email-thread-summarizer.md
+  description: Summarize a long email thread into its current state, the decisions and key points, and the open
+    questions. Finds the thread with browse_engagements (emails), then uses conversation_intelligence with includeContent
+    to read the actual thread body. Name the account, contact, or subject if you know it, or let the skill list
+    recent threads to pick from. Use when someone says "summarize this email thread", "what's the state of the Acme
+    thread", "catch me up on this email chain", or faces a long back-and-forth before replying. Summarizes one thread
+    at a time.
+- name: engagement-timeline
+  file: zoominfo-engagement-timeline.md
+  description: Build a timeline of engagements (meetings and emails) with an account or contact over a date range.
+    Identify the account or contact by ZoomInfo ID (preferred), or by name or domain (triggers a lookup), or omit
+    both to time-line your own recent engagements. Defaults to the last 90 days and can slide the window further
+    back for a longer history. Returns a chronological timeline, a breakdown by engagement type, and a participant
+    list with per-person engagement counts — and keeps each engagement's ID in context so you can immediately double-click
+    any one to ask what was discussed. Use when someone asks "when did we last meet with X", "how often have we
+    engaged this account", "show me the history with this contact", or wants a relationship timeline before a call.
+- name: enrich-company
+  file: zoominfo-enrich-company.md
+  description: Look up a company's full profile. Provide a company name, domain, ticker symbol, or ZoomInfo company
+    ID. Returns firmographics, financials, corporate structure, growth signals, and contact counts.
+- name: enrich-contact
+  file: zoominfo-enrich-contact.md
+  description: Look up a person's full professional profile. Provide a name and company, email address, phone number,
+    or ZoomInfo person ID. Returns title, department, contact details, accuracy score, and company info.
+- name: exec-brief
+  file: zoominfo-exec-brief.md
+  description: Produce a succinct one-pager for an executive dropping into a call with zero context. Blends account_research
+    (who they are, deal state), conversation_intelligence (what has been discussed and what is open), and contact_research
+    (who is in the room). Identify the account by ZoomInfo company ID (preferred) or name/domain (triggers a lookup);
+    name the key attendees if known. Use when someone says "brief the VP for the Acme call", "exec one-pager for
+    tomorrow", "my SVP is joining cold", or needs a tight pre-call brief for a senior stakeholder. Built to be read
+    in two minutes.
+- name: find-similar
+  file: zoominfo-find-similar.md
+  description: Find companies or contacts similar to a given reference. Provide a company name/domain or a person's
+    name/email and get a ranked list of lookalikes scored by similarity. Useful for territory expansion, TAM analysis,
+    competitive mapping, expanding buyer networks, and building targeted prospecting lists.
+- name: meeting-prep
+  file: zoominfo-meeting-prep.md
+  description: Prepare for an upcoming meeting with a company. Identify the account by ZoomInfo account/company
+    ID (preferred) or by company name, domain, or ticker (which triggers a lookup step) — or name no account at
+    all and let the skill pick the meeting from your upcoming calendar. Provide attendee names or emails and rich
+    context on the meeting purpose, stakes, and known dynamics to get a tight, decision-ready brief — headline,
+    relationship posture per attendee, prior-conversation context (open threads and unresolved questions from past
+    calls and emails), ranked talking points, discovery questions, suggested agenda, and what NOT to do. Use when
+    prepping for a sales or customer call, QBR, renewal, or demo. Optimized for a 30-min slot.
+- name: mutual-action-plan
+  file: zoominfo-mutual-action-plan.md
+  description: 'Build a mutual action plan (MAP) from what was actually discussed on recent calls — the shared,
+    dated set of steps each side owns to reach the goal. Reviews recent engagements and goes deep with conversation_intelligence
+    scoped to individual calls to pull open items, agreed next steps, owners, and the timelines discussed. Identify
+    the account by ZoomInfo company ID (preferred) or name/domain (triggers a lookup). Use when someone says "build
+    a mutual action plan for Acme", "turn our last calls into a MAP", "what are the next steps and dates on both
+    sides", or needs a close or onboarding plan. Evidence-based: it plans only what was discussed and asks for the
+    target date if one was not stated.'
+- name: next-best-action
+  file: zoominfo-next-best-action.md
+  description: Recommend the next best action on a deal or relationship, grounded in the current conversation state.
+    Uses conversation_intelligence as the primary source, with account_research for deal context. Identify the account
+    or contact by ZoomInfo ID (preferred) or name (triggers a lookup), or point it at a specific engagement. Use
+    when someone asks "what should I do next with Acme", "what's my next move here", "how do I advance this deal",
+    or wants an evidence-based recommendation rather than a generic playbook. Reasons over the last few engagements
+    only.
+- name: objection-blocker-tracker
+  file: zoominfo-objection-blocker-tracker.md
+  description: Track the open objections and blockers on a deal and how they have evolved across recent calls. Uses
+    conversation_intelligence over an account's or contact's recent engagements. Identify the account or contact
+    by ZoomInfo ID (preferred) or name (triggers a lookup). Use when someone asks "what objections are still open
+    with Acme", "what's blocking this deal", "how has the security concern evolved", or wants a blocker check before
+    a forecast or a next call. Reasons over the last few engagements only, so it tracks recent movement rather than
+    full deal history.
+- name: personalize-email
+  file: zoominfo-personalize-email.md
+  description: Generate 1-3 personalized email variants for a single prospect. The composition bar adapts to the
+    use case — cold_outbound demands a signal → pain → positioning chain; follow-ups / recaps / renewals lean on
+    prior context and next-step framing. Supports cold_outbound, discovery_follow_up, demo_recap, re_engagement,
+    renewal, expansion, objection_handling. Returns subject lines and mobile-readable bodies with a rationale chain.
+    Use for sales prospecting, lead generation, account-based selling, buyer-intent-driven outreach, B2B prospecting.
+    Triggers on phrases like "write a cold email", "personalize an email", "draft outreach", "follow up on this
+    prospect", "email this prospect", "outbound to X", "send a chaser".
+- name: qbr-prep
+  file: zoominfo-qbr-prep.md
+  description: 'Assemble a QBR prep pack for a business review — value moments, usage and adoption themes, risks,
+    and open items, with a deal and relationship snapshot. Combines account_research for the account picture with
+    conversation_intelligence over recent calls (scoped to individual engagements) for what the customer actually
+    said. Identify the account by ZoomInfo company ID (preferred) or name/domain (triggers a lookup). Use when someone
+    says "prep me for the Acme QBR", "build a QBR pack", "what should I cover in the business review", or needs
+    a review-ready summary. Evidence-based: value moments, themes, and risks come from the conversations and CRM,
+    not from assumption.'
+- name: recommend-contacts
+  file: zoominfo-recommend-contacts.md
+  description: Get AI-powered contact recommendations at a target company based on your ZoomInfo interaction history.
+    Provide a company name or domain and optionally a use case.
+- name: renewal-prep
+  file: zoominfo-renewal-prep.md
+  description: 'Prepare for a renewal by assembling pre-renewal context — value delivered and value moments, risk
+    handles, and stakeholder state — from recent conversations and account_research. Identify the account by ZoomInfo
+    company ID (preferred) or name/domain (triggers a lookup). Use when someone asks "prep me for the Acme renewal",
+    "what''s our case for renewal", "what are the risks going into this renewal", or wants a renewal brief. Strictly
+    evidence-based: it does not assume the renewal date or terms; if those are not provided, it asks the user before
+    drafting.'
+- name: score-accounts
+  file: zoominfo-score-accounts.md
+  description: Score and rank a list of accounts (mixed ZoomInfo company IDs, names, or domains) by ICP fit + buying
+    intent + recent triggers. Returns per-account composite score (0–100), tier (A/B/C), explainable component breakdown
+    (fit / intent / trigger / engagement), a specific "why now" sentence per account, and the working weight set
+    as a saveable search filter set. Resolves name/domain inputs via search_companies with explicit confirmation
+    for ambiguous matches. Iteratively refinable — adjust weights, swap axes, retier, or drill into a specific account.
+    Use for account-based selling, ABM list prioritization, territory planning, sales prospecting prioritization,
+    signal-based selling, buyer intent ranking, B2B prospecting. Triggers on phrases like "score these accounts",
+    "prioritize this list", "rank by ICP fit and intent", "which accounts should I work first", "build a tiered
+    account list".
+- name: score-leads
+  file: zoominfo-score-leads.md
+  description: Score and prioritize leads or cold contacts (mixed ZoomInfo person IDs, emails, or name+company rows).
+    Returns Hot / Warm / Cold tier per lead with a response-time SLA tuned to the use case (live inbound routing,
+    MQL triage, event follow-up, PQL triage, content follow-up, SDR queue ordering), per-axis breakdown (person
+    fit · account fit · source signal · trigger), a "why now" reasoning snippet per lead, and recommended next action
+    with verified contact data. Resolution by email is deterministic; name+company surfaces verification when needed;
+    typo'd emails fail explicitly rather than fall back. Iteratively refinable. Triggers on phrases like "score
+    these leads", "which lead/contact should I call first", "prioritize my MQLs", "rank inbound", "who should I
+    prioritize?", "tier this list".
+- name: tam-sizer
+  file: zoominfo-tam-sizer.md
+  description: Size the total addressable market (TAM) for an Ideal Customer Profile (ICP) using ZoomInfo's verified
+    company database. Iteratively refine the firmographic and technographic filter set with the user until the account
+    universe matches their intent — then return both the count and the working filter set that other skills (build-list,
+    score-accounts) can consume. Use for territory and capacity design, investor-ready market sizing, and ICP sharpening.
+    Triggers on phrases like "size the market", "TAM for", "addressable market", "how many companies match", "is
+    my ICP too broad/narrow", "refine my ICP filters".
+- name: tech-stack-snapshot
+  file: zoominfo-tech-stack-snapshot.md
+  description: Produce a technology-stack snapshot for one or more companies — what CRM, marketing automation, sales
+    engagement, data warehouse, analytics, conversation intelligence, and other tools they have tagged in ZoomInfo's
+    database. Groups detected products by category, surfaces displacement plays for competitive tools, integration
+    angles for partner tools, and coverage gaps honestly. Resolves mixed-identifier inputs (IDs / names / domains)
+    with explicit ambiguity surfacing. Useful for sales prospecting, account-based selling, competitive battle-card
+    prep, integration partner research, technographic signal analysis, B2B prospecting. Triggers on phrases like
+    "what tech does X use", "tech stack for", "technographic snapshot", "what's in their stack", "do they use Salesforce",
+    "competitive displacement angle".
+- name: why-now
+  file: zoominfo-why-now.md
+  description: Build a "why now" case for reaching out to a company — the timing thesis and the specific hooks to
+    lead with — by combining company signals (intent, news, scoops), account_research, your GTM context, and web
+    research. Identify the company by ZoomInfo company ID (preferred) or name/domain (triggers a lookup). Use when
+    someone asks "why should I reach out to Acme now", "what's our angle into this account", "give me a reason to
+    call", or is planning outbound and needs timely, evidence-based hooks. Each hook ties a real signal to one of
+    your offerings.

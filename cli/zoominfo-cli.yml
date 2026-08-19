@@ -1,0 +1,123 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://github.com/Zoominfo/gtm-ai-cli (README.md + src/, cloned 2026-08-13),
+  https://docs.zoominfo.com/docs/zoominfo-cli.md
+provider: ZoomInfo
+providerId: zoominfo
+name: GTM AI CLI
+binary: gtm
+description: >-
+  A first-party command-line interface for ZoomInfo go-to-market data. It searches and enriches companies
+  and contacts, surfaces intent signals, scoops and news, manages GTM context, and runs agentic research —
+  emitting JSON, JSONL, CSV, YAML or a table so results pipe through a shell.
+official: true
+license: MIT
+repository: https://github.com/Zoominfo/gtm-ai-cli
+version: 1.0.1
+released: '2026-06-18'
+language: TypeScript
+runtime: Node 18+
+
+architecture:
+  note: >-
+    Notable: the CLI is not a REST client. It is an MCP client. src/mcp.ts opens a
+    StreamableHTTPClientTransport to https://mcp.zoominfo.com/mcp and every subcommand is a
+    client.callTool() against a named MCP tool. ZoomInfo's own CLI therefore treats the MCP server, not
+    the REST API, as the platform's front door.
+  transport: streamable-http (MCP)
+  endpoint: https://mcp.zoominfo.com/mcp
+  sdk: '@modelcontextprotocol/sdk'
+  crosswalk: mcp/zoominfo-tool-crosswalk.yml
+
+install:
+  - {method: homebrew, command: brew install zoominfo/gtm-ai/gtm-ai-cli, upgrade: brew upgrade gtm-ai-cli, platforms: [macOS, Linux]}
+  - {method: npm, command: npm install -g @zoominfo/gtm-ai-cli, platforms: [macOS, Linux, Windows], note: must be installed globally}
+  - {method: binary, command: 'Download from https://github.com/Zoominfo/gtm-ai-cli/releases', platforms: [macos-arm64, macos-x64, linux-x64, windows-x64]}
+  - {method: source, command: 'git clone && npm install && npm run build && npm link', platforms: [any]}
+
+authentication:
+  type: oauth2
+  flow: authorization_code + PKCE via browser
+  dynamic_client_registration: true
+  credential_store: ~/.config/gtm-ai/ (mode 0600)
+  commands:
+    - {command: gtm auth login, description: Opens the browser to authorize and saves the token.}
+    - {command: gtm auth whoami, description: Show login status.}
+    - {command: gtm auth logout, description: Revoke the token and remove saved credentials.}
+  reset: rm ~/.config/gtm-ai/client_id ~/.config/gtm-ai/credentials
+
+output_formats:
+  flag: -f, --format
+  default: json
+  formats:
+    - {name: json, note: Pretty-printed; pipe to jq.}
+    - {name: jsonl, note: One object per line for log/data pipelines.}
+    - {name: csv, note: Nested objects dot-flattened, arrays stringified.}
+    - {name: yaml, note: Human-readable diffs of deeply nested responses.}
+    - {name: table, note: ASCII bordered table for terminal browsing.}
+  projection:
+    flag: --select
+    description: Comma-separated dotted paths projected from each record before formatting; distinct from the enrich commands' server-side --fields.
+
+commands:
+  - group: gtm lookup
+    description: Resolve natural-language filter values to the canonical IDs the search endpoints require.
+    note: Search endpoints reject unknown industry/metro/topic strings with 422, so lookup is the mandatory first step.
+    fields: [industries, metro-regions, intent-topics, management-levels, departments, scoop-types, scoop-topics, tech-vendors, tech-products]
+    flags: [--field, --fuzzy, --vendor]
+  - group: gtm companies
+    description: Search, enrich and find similar companies.
+    subcommands: [search, enrich, similar]
+    tools: [search_companies, enrich_companies, find_similar_companies]
+  - group: gtm contacts
+    description: Search, enrich, find similar and get recommended contacts.
+    subcommands: [search, enrich, similar, recommended]
+    tools: [search_contacts, enrich_contacts, find_similar_contacts, get_recommended_contacts]
+    note: 'gtm contacts recommended takes --use-case PROSPECTING | DEAL_ACCELERATION | RENEWAL_AND_GROWTH.'
+  - group: gtm intent
+    description: Search and enrich buyer intent signals by topic and signal score.
+    subcommands: [search, enrich]
+    tools: [search_intent, enrich_intent]
+  - group: gtm scoops
+    description: Search and enrich real-world business events (funding, hires, layoffs, launches).
+    subcommands: [search, enrich]
+    tools: [search_scoops, enrich_scoops]
+  - group: gtm news
+    description: Retrieve categorized news coverage for a company.
+    subcommands: [enrich]
+    tools: [enrich_news]
+  - group: gtm gtm-context
+    description: Read and update your organization's GTM configuration (offerings, ICP, personas, competitors).
+    subcommands: [get, update]
+    tools: [get_gtm_context, update_gtm_context]
+  - group: gtm research
+    description: Agentic account and contact research briefings.
+    subcommands: [account, contact]
+    tools: [account_research, contact_research]
+  - group: gtm feedback
+    description: Submit feedback on tool results to ZoomInfo.
+    subcommands: [submit]
+    tools: [submit_feedback]
+  - group: gtm raw
+    description: Universal escape hatch — call any MCP tool by name with arbitrary arguments.
+    subcommands: [call, list-tools]
+    note: '`gtm raw list-tools` performs an authenticated MCP tools/list, which is the only way to read the live tool input schemas.'
+  - group: gtm auth
+    description: OAuth login, identity and logout.
+    subcommands: [login, whoami, logout]
+
+key_flows:
+  - {name: Two-step search then enrich, steps: ['gtm companies search --industry software --page-size 10 -f table', 'gtm companies enrich --id <id> --fields name revenue employeeCount']}
+  - {name: Lookup then filtered search, steps: ['gtm lookup --field industries --fuzzy software', 'gtm companies search --industry <id>']}
+  - {name: Lookalike expansion, steps: ['gtm companies similar --id <id>', 'gtm companies enrich --file companies.json']}
+  - {name: Export to CSV, steps: ['gtm contacts search --management-level "C Level Exec" --select name,jobTitle,email -f csv > contacts.csv']}
+
+agent_integration:
+  agents_md: https://github.com/Zoominfo/gtm-ai-cli/blob/main/AGENTS.md
+  claude_skill: .claude/skills/gtm-ai-cli/SKILL.md (shipped in the CLI repository)
+  note: The repository ships its own agent-facing documentation and a Claude skill for driving the binary.
+
+debug:
+  env: GTM_DEBUG=1
+  effect: Logs each MCP call and response (truncated at 2000 chars) to stderr.

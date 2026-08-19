@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZoomInfo Authentication Company Enrich API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Company Enrich",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Zoominfo Company Enrich",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/enrich/company",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to match company information based on [input values](#7a915792-e8cd-4e3a-9f0e-c19b850be536) and return the desired [output fields](#d05239c3-2597-45f8-9384-f2dbd3518cfc) in the response.\n\n**Maximum inputs per request**\n\nYou can input a maximum of 25 companies in a single enrich request, returning the equivalent number of matching records. See the endpoint examples for how to build queries using multiple inputs.\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | -"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Company Enrich Inputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/inputfields/company/enrich"
+          },
+          "docs": "Returns a list of fields you can use as input for the [Company Enrich](#59a59d9e-7eb9-44fa-904a-f10f9ab7c5fd) endpoint."
+        },
+        {
+          "info": {
+            "name": "Zoominfo Company Enrich Outputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/outputfields/company/enrich"
+          },
+          "docs": "Returns a list of fields you can specify as output for the [Company Enrich](#59a59d9e-7eb9-44fa-904a-f10f9ab7c5fd) endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

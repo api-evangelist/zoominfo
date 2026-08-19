@@ -1,0 +1,652 @@
+{
+  "item": [
+    {
+      "id": "82fb159a-44eb-4832-8e4b-549245a36a0d",
+      "name": "Scoop Enrich",
+      "description": {
+        "content": "Use [Scoop Enrich](#545c603a-fbe5-48b6-b4b4-bdca626fead0) to retrieve Scoop data using valid query parameters.\n\nRefer to the examples provided to build a valid JSON request:\n\n*   Use the [Scoop Enrich Inputs](#4ebf5d05-d819-4336-977f-2fe72dc6ac19) endpoint to retrieve a list of valid input parameters you can provide\n*   Use the [Scoop Enrich Outputs](#3af4b7ad-e694-4202-81c4-20b7bab73946) endpoint to retrieve a list of valid output fields returned",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a61cdaac-7f32-4486-8db0-4fedeb9513d4",
+          "name": "Zoominfo Scoop Enrich",
+          "request": {
+            "name": "Zoominfo Scoop Enrich",
+            "description": {
+              "content": "Use this endpoint to match company scoop information based on [input values](#4ebf5d05-d819-4336-977f-2fe72dc6ac19) and return the desired [output fields](##6c2de74a-e026-401b-8910-503ae7aa57c8) in the response.\n\nThe Scoop Enrich endpoint returns a list of scoops related to a specified company:\n\n- Scoop Enrich requests require one of the following: a valid ZoomInfo `companyId`, `companyName`, or `companyWebsite` as an input parameter\n- If you do not provide a date range for when the scoop was published, the last 30 days of scoop records matching the request are returned\n- For charging purposes, each scoop returned is counted as a record\n    \n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyId | String | ZoomInfo unique identifier for the company. Will accept a comma-separated list. |\n| companyName | String | Company name |\n| companyWebsite | String | Company domain |\n| publishedStartDate | String | Starting date to search for scoops based on when published. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format. |\n| publishedEndDate | String | Ending date to search for scoops based on when published. Form a range using publishedEndDate. Uses YYYY-MM-DD format. |\n| updatedSinceCreation | Boolean | Include scoops that have been updated since publishedStartDate |\n| scoopType | String | Retrieve scoops based on type (e.g., earnings, awards, partnerships and so on). See the **Scoop Types** lookup endpoint for valid inputs. |\n| scoopTopic | String | Retrieve scoops based on topic (e.g., integrations, technology, compliance and so on). See the **Scoop Topics** lookup endpoint for valid inputs. |\n| department | String | Retrieve scoops based on department (IT, finance, HR and so on). See the **Scoop Departments** lookup endpoint for valid inputs. |\n| scoopId | String | ZoomInfo unique identifier for a scoop. Will accept a comma-separated list. |\n| description | String | Search for scoops based on description. Will accept a comma-separated list of keywords. |\n| rpp | Integer | Limits the results returned to the given number of results per page. Default is 25. |\n| page | Integer | Provides the results for the given page, used in conjunction with `rpp` |\n| sortOrder | String | Provide `sortBy` if specifying `sortOrder`. Valid values are `asc`, `ascending`, `desc`, and `descending`. By default, results are sorted in descending order. |\n| sortBy | String | Sort results by valid output fields: `scoopId`, `originalPublishedDate`, `description`, `link`, or `linkText` |\n\n**Output fields**\n\n| Field | Description |\n| --- | --- |\n| id | ZoomInfo unique identifier for a scoop |\n| publishedDate | Publish date for a scoop. If updated, this date will reflect that last updated date. |\n| originalPublishedDate | Initial publish date for a scoop |\n| linkText | Link text for a scoop |\n| link | URL for the scoop |\n| description | Short description for the scoop contents |\n| topics | Topic(s) associated with a scoop |\n| updateText | Text related to an updated scoop |\n| types | Type(s) associated with a scoop |\n| companyId | ZoomInfo unique identifier for a company |\n| companyName | Company name |\n| contacts | Contacts associated with a scoop |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrich",
+                "scoop"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyName\": \"<string>\",\n  \"publishedStartDate\": \"<string>\",\n  \"publishedEndDate\": \"<string>\",\n  \"scoopType\": \"<string>\",\n  \"department\": \"<string>\",\n  \"sortBy\": \"<string>\",\n  \"sortOrder\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "308594fe-c35e-4f88-8a9b-691f5252025c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrich",
+                    "scoop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyName\": \"Zoominfo\",\n  \"publishedStartDate\": \"2018-11-01T00:00:00.000Z\",\n  \"publishedEndDate\": \"2020-06-21T00:00:00.000Z\",\n  \"scoopType\": \"1,6,7,8\",\n  \"department\": \"1\",\n  \"sortBy\": \"originalPublishedDate\",\n  \"sortOrder\": \"asc\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"maxResults\": 9,\n  \"totalResults\": 9,\n  \"currentPage\": 1,\n  \"data\": [\n    {\n      \"id\": 1258709,\n      \"publishedDate\": \"12/4/2018 12:00 AM\",\n      \"originalPublishedDate\": \"12/4/2018 12:00 AM\",\n      \"linkText\": \"\",\n      \"link\": \"\",\n      \"description\": \"has recently been recognized by The Boston Globe as one of the Top Places to Work for 2018 in Massachusetts in the midsize organization category.\",\n      \"topics\": [],\n      \"updateText\": \"\",\n      \"types\": [\n        {\n          \"id\": 6,\n          \"type\": \"Award\"\n        }\n      ],\n      \"contacts\": [],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 1314240,\n      \"publishedDate\": \"1/24/2019 12:00 AM\",\n      \"originalPublishedDate\": \"1/24/2019 12:00 AM\",\n      \"linkText\": \"\",\n      \"link\": \"\",\n      \"description\": \"has moved its headquarters to Tracer Lane in Waltham, MA. The new location is three stories and will have space for up to 450 employees.\",\n      \"topics\": [],\n      \"updateText\": \"\",\n      \"types\": [\n        {\n          \"id\": 8,\n          \"type\": \"Facilities Relocation / Expansion\"\n        }\n      ],\n      \"contacts\": [],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 1373240,\n      \"publishedDate\": \"2/11/2019 12:00 AM\",\n      \"originalPublishedDate\": \"2/11/2019 12:00 AM\",\n      \"linkText\": \"\",\n      \"link\": \"\",\n      \"description\": \"has been recognized as a 2019 Top Rated Sales Intelligence Software by TrustRadius.\",\n      \"topics\": [],\n      \"updateText\": \"\",\n      \"types\": [\n        {\n          \"id\": 6,\n          \"type\": \"Award\"\n        }\n      ],\n      \"contacts\": [],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 1382056,\n      \"publishedDate\": \"2/15/2019 12:00 AM\",\n      \"originalPublishedDate\": \"2/15/2019 12:00 AM\",\n      \"linkText\": \"\",\n      \"link\": \"\",\n      \"description\": \"has recently been ranked #139 on the 2019 SaaS 1000 Top SaaS Companies list.\",\n      \"topics\": [],\n      \"updateText\": \"\",\n      \"types\": [\n        {\n          \"id\": 6,\n          \"type\": \"Award\"\n        }\n      ],\n      \"contacts\": [],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 1383667,\n      \"publishedDate\": \"2/22/2019 12:00 AM\",\n      \"originalPublishedDate\": \"2/22/2019 12:00 AM\",\n      \"linkText\": \"\",\n      \"link\": \"\",\n      \"description\": \"will be a Silver Sponsor for the Adobe Summit, which will be held March 26-28, 2019 in Las Vegas, NV.\",\n      \"topics\": [],\n      \"updateText\": \"\",\n      \"types\": [\n        {\n          \"id\": 7,\n          \"type\": \"Event\"\n        }\n      ],\n      \"contacts\": [],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 1382057,\n      \"publishedDate\": \"2/22/2019 12:00 AM\",\n      \"originalPublishedDate\": \"2/22/2019 12:00 AM\",\n      \"linkText\": \"\",\n      \"link\": \"\",\n      \"description\": \"Datanyze has recently been ranked #986 on the 2019 SaaS 1000 Top SaaS Companies list.\",\n      \"topics\": [],\n      \"updateText\": \"\",\n      \"types\": [\n        {\n          \"id\": 6,\n          \"type\": \"Award\"\n        }\n      ],\n      \"contacts\": [],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 1620555,\n      \"publishedDate\": \"8/27/2019 12:00 AM\",\n      \"originalPublishedDate\": \"8/27/2019 12:00 AM\",\n      \"linkText\": \"\",\n      \"link\": \"\",\n      \"description\": \"has been ranked #2423 on the 2019 Inc. 5000 list, which recognizes the fastest-growing privately-held companies in the United States.\",\n      \"topics\": [],\n      \"updateText\": \"\",\n      \"types\": [\n        {\n          \"id\": 6,\n          \"type\": \"Award\"\n        }\n      ],\n      \"contacts\": [],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 1725335,\n      \"publishedDate\": \"11/12/2019 12:00 AM\",\n      \"originalPublishedDate\": \"11/12/2019 12:00 AM\",\n      \"linkText\": \"\",\n      \"link\": \"\",\n      \"description\": \"will be sponsoring Dreamforce, which will be held November 19-22, 2019 in San Francisco, CA.\",\n      \"topics\": [],\n      \"updateText\": \"\",\n      \"types\": [\n        {\n          \"id\": 7,\n          \"type\": \"Event\"\n        }\n      ],\n      \"contacts\": [],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    },\n    {\n      \"id\": 1811048,\n      \"publishedDate\": \"2/11/2020 12:00 AM\",\n      \"originalPublishedDate\": \"2/11/2020 12:00 AM\",\n      \"linkText\": \"\",\n      \"link\": \"\",\n      \"description\": \"has announced plans to move its Grand Rapids, MI office to a new 10,000 square-foot location at 435 Ionia Ave Southwest. The location is expected to open in February 2020.\",\n      \"topics\": [],\n      \"updateText\": \"\",\n      \"types\": [\n        {\n          \"id\": 8,\n          \"type\": \"Facilities Relocation / Expansion\"\n        }\n      ],\n      \"contacts\": [],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "601e5096-52de-4ab4-ac05-e0b81c9748a0",
+          "name": "Zoominfo Scoop Enrich Inputs",
+          "request": {
+            "name": "Zoominfo Scoop Enrich Inputs",
+            "description": {
+              "content": "Returns a list of fields you can use as input for the [Scoop Enrich](#545c603a-fbe5-48b6-b4b4-bdca626fead0) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "inputfields",
+                "scoop",
+                "enrich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bb2b1ef3-b760-47d5-b55a-be244d2b20f8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "inputfields",
+                    "scoop",
+                    "enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"companyId\",\n    \"fieldType\": \"String\",\n    \"description\": \"ZoomInfo unique identifier for the company. Will accept a comma-separated list.\"\n  },\n  {\n    \"fieldName\": \"companyName\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company name\"\n  },\n  {\n    \"fieldName\": \"companyWebsite\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company domain\"\n  },\n  {\n    \"fieldName\": \"publishedStartDate\",\n    \"fieldType\": \"String\",\n    \"description\": \"Starting date to search for scoops based on when published. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format.\"\n  },\n  {\n    \"fieldName\": \"publishedEndDate\",\n    \"fieldType\": \"String\",\n    \"description\": \"Ending date to search for scoops based on when published. Form a range using publishedEndDate. Uses YYYY-MM-DD format.\"\n  },\n  {\n    \"fieldName\": \"updatedSinceCreation\",\n    \"fieldType\": \"Boolean\",\n    \"description\": \"Include scoops that have been updated since publishedStartDate\"\n  },\n  {\n    \"fieldName\": \"scoopType\",\n    \"fieldType\": \"String\",\n    \"description\": \"Retrieve scoops based on type (e.g., earnings, awards, partnerships and so on)\"\n  },\n  {\n    \"fieldName\": \"scoopTopic\",\n    \"fieldType\": \"String\",\n    \"description\": \"Retrieve scoops based on topic (e.g., integrations, technology, compliance and so on)\"\n  },\n  {\n    \"fieldName\": \"department\",\n    \"fieldType\": \"String\",\n    \"description\": \"Retrieve scoops based on department (IT, finance, HR and so on)\"\n  },\n  {\n    \"fieldName\": \"scoopId\",\n    \"fieldType\": \"String\",\n    \"description\": \"ZoomInfo unique identifier for a scoop. Will accept a comma-separated list.\"\n  },\n  {\n    \"fieldName\": \"description\",\n    \"fieldType\": \"String\",\n    \"description\": \"Search for scoops based on description\"\n  },\n  {\n    \"fieldName\": \"rpp\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Limits the results returned to the given number of results per page\"\n  },\n  {\n    \"fieldName\": \"page\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Provides the results for the given page, used in conjunction with rpp\"\n  },\n  {\n    \"fieldName\": \"sortBy\",\n    \"fieldType\": \"String\",\n    \"description\": \"Sorts results by valid output fields\"\n  },\n  {\n    \"fieldName\": \"sortOrder\",\n    \"fieldType\": \"String\",\n    \"description\": \"Default value is desc. It accepts the following values { Asc, Ascending, desc, descending }\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2bfac4e0-ec93-4fe3-928c-fdd26472a61b",
+          "name": "Zoominfo Scoop Enrich Outputs",
+          "request": {
+            "name": "Zoominfo Scoop Enrich Outputs",
+            "description": {
+              "content": "Returns a list of output fields for the [Scoop Enrich](#545c603a-fbe5-48b6-b4b4-bdca626fead0) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "outputfields",
+                "scoop",
+                "enrich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ddee59a1-ccc3-4bd2-8b88-e3643eb9e152",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "outputfields",
+                    "scoop",
+                    "enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"id\",\n    \"description\": \"ZoomInfo unique identifier for a scoop\"\n  },\n  {\n    \"fieldName\": \"publishedDate\",\n    \"description\": \"Publish date for a scoop. If updated, this date will reflect that last updated date.\"\n  },\n  {\n    \"fieldName\": \"originalPublishedDate\",\n    \"description\": \"Initial publish date for a scoop\"\n  },\n  {\n    \"fieldName\": \"linkText\",\n    \"description\": \"Link text for a scoop\"\n  },\n  {\n    \"fieldName\": \"link\",\n    \"description\": \"URL for the scoop\"\n  },\n  {\n    \"fieldName\": \"description\",\n    \"description\": \"Short description for the scoop contents\"\n  },\n  {\n    \"fieldName\": \"topics\",\n    \"description\": \"Topic(s) associated with a scoop\"\n  },\n  {\n    \"fieldName\": \"updateText\",\n    \"description\": \"Text related to an updated scoop\"\n  },\n  {\n    \"fieldName\": \"types\",\n    \"description\": \"Type(s) associated with a scoop\"\n  },\n  {\n    \"fieldName\": \"companyId\",\n    \"description\": \"ZoomInfo unique identifier for a company\"\n  },\n  {\n    \"fieldName\": \"companyName\",\n    \"description\": \"Company name\"\n  },\n  {\n    \"fieldName\": \"contacts\",\n    \"description\": \"Contacts associated with a scoop\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zoominfo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b90e4aff-cc3a-448a-b7bc-c6eed1309335",
+    "name": "ZoomInfo Authentication Scoop Enrich API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...\n\nContact Support:\n Name: ZoomInfo API Support\n Email: support@zoominfo.com",
+      "type": "text/plain"
+    }
+  }
+}

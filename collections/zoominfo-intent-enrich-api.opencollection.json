@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZoomInfo Authentication Intent Enrich API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Intent Enrich",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Zoominfo Intent Enrich",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/enrich/intent",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to enrich intent data for a company based on [input values](#2dcbe844-7f1f-45f3-ae32-2598ccec5be4) and return the desired [output fields](#fc4083cf-6179-4f0f-8b9b-80aedc2e3e67) in the response.\n\nIntent data is online behavior-based activity across the internet that links buyers and accounts to a topic. Key terminology includes:\n\n- **Topics and categories** - The Intent Enrich endpoint returns specific intent topics for a company based on your subscription. Multiple topics fall "
+        },
+        {
+          "info": {
+            "name": "Zoominfo Intent Enrich Inputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/inputfields/intent/enrich"
+          },
+          "docs": "Returns a list of fields you can use as input for the [Intent Enrich](#48c36a9f-e4eb-4ce8-8080-a7b810df7c2d) endpoint."
+        },
+        {
+          "info": {
+            "name": "Zoominfo Intent Enrich Outputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/outputfields/intent/enrich"
+          },
+          "docs": "Returns a list of output fields for the [Intent Enrich](#48c36a9f-e4eb-4ce8-8080-a7b810df7c2d) endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

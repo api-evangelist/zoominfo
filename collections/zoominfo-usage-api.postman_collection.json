@@ -1,0 +1,217 @@
+{
+  "item": [
+    {
+      "id": "8ef37229-631c-4475-96d1-6217c301fa65",
+      "name": "Usage",
+      "description": {
+        "content": "You can use the Usage endpoint to find what your current API usage and limits are. ",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "52d0cc75-4d72-4a02-aaae-767943f930ae",
+          "name": "Zoominfo Usage",
+          "request": {
+            "name": "Zoominfo Usage",
+            "description": {
+              "content": "Retrieve current usage status using this endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json; charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "153c13c0-5a38-4514-a9d2-e594bcbed93c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json; charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "ETag",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"usage\": [\n    {\n      \"limitType\": \"requestLimit\",\n      \"description\": \"The maximum number of requests you can make\",\n      \"limit\": 1000000000,\n      \"currentUsage\": 89299,\n      \"usageRemaining\": 999910701\n    },\n    {\n      \"limitType\": \"recordLimit\",\n      \"description\": \"The maximum number of records you can retrieve\",\n      \"limit\": 1000000000,\n      \"currentUsage\": 46650,\n      \"usageRemaining\": 999953350\n    },\n    {\n      \"limitType\": \"uniqueIdLimit\",\n      \"description\": \"The maximum number of person or company records you can redeem\",\n      \"limit\": 10000000,\n      \"currentUsage\": 1110,\n      \"usageRemaining\": 9998890\n    },\n    {\n      \"limitType\": \"webSightsApiRequestLimit\",\n      \"description\": \"The maximum number of WebSights requests you can make\",\n      \"limit\": 100000010,\n      \"currentUsage\": 757,\n      \"usageRemaining\": 99999253\n    },\n    {\n      \"limitType\": \"webSightsApiRecordLimit\",\n      \"description\": \"The max number of WebSights records you can retrieve\",\n      \"limit\": 10000000,\n      \"currentUsage\": 763,\n      \"usageRemaining\": 9999237\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zoominfo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fca8ab54-08d8-4502-9f27-b9b3877890fb",
+    "name": "ZoomInfo Authentication Usage API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...\n\nContact Support:\n Name: ZoomInfo API Support\n Email: support@zoominfo.com",
+      "type": "text/plain"
+    }
+  }
+}

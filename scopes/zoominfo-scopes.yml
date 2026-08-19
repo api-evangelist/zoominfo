@@ -1,0 +1,269 @@
+generated: '2026-08-13'
+method: searched
+source: openapi/zoominfo-gtm-agent-v1-openapi.json, openapi/zoominfo-gtm-copilot-v1-openapi.json, openapi/zoominfo-gtm-data-v1-openapi.json,
+  openapi/zoominfo-gtm-gtm-studio-v1-openapi.json, openapi/zoominfo-gtm-marketing-v1-openapi.json, openapi/zoominfo-gtm-platform-v1-openapi.json
+  + https://docs.zoominfo.com/docs/zoominfo-oauth-scopes.md + https://mcp.zoominfo.com/.well-known/oauth-protected-resource
+  (HTTP 200)
+docs: https://docs.zoominfo.com/docs/zoominfo-oauth-scopes.md
+counts:
+  spec_declared: 23
+  documented_reference: 16
+  documented_and_declared: 15
+  documented_only: 1
+  declared_only: 8
+  mcp_only: 7
+schemes:
+- name: OAuth2Auth
+  source: openapi/zoominfo-gtm-agent-v1-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://login.zoominfo.com
+    tokenUrl: https://okta-login.zoominfo.com/oauth2/default/v1/token
+- name: OAuth2Auth
+  source: openapi/zoominfo-gtm-copilot-v1-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://login.zoominfo.com
+    tokenUrl: https://okta-login.zoominfo.com/oauth2/default/v1/token
+- name: OAuth2Auth
+  source: openapi/zoominfo-gtm-data-v1-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://login.zoominfo.com
+    tokenUrl: https://okta-login.zoominfo.com/oauth2/default/v1/token
+- name: OAuth2Auth
+  source: openapi/zoominfo-gtm-gtm-studio-v1-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://login.zoominfo.com
+    tokenUrl: https://okta-login.zoominfo.com/oauth2/default/v1/token
+- name: OAuth2Auth
+  source: openapi/zoominfo-gtm-marketing-v1-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://login.zoominfo.com
+    tokenUrl: https://okta-login.zoominfo.com/oauth2/default/v1/token
+- name: OAuth2Auth
+  source: openapi/zoominfo-gtm-platform-v1-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://login.zoominfo.com
+    tokenUrl: https://okta-login.zoominfo.com/oauth2/default/v1/token
+mcp_scopes:
+  source: https://mcp.zoominfo.com/.well-known/oauth-protected-resource
+  http_status: 200
+  scopes_supported:
+  - openid
+  - profile
+  - email
+  - offline_access
+  - zi_api
+  - zi_mcp
+  - api:data:mcp
+  note: Scopes advertised by the hosted MCP server's own protected-resource metadata. zi_mcp and api:data:mcp appear
+    ONLY here — they are not in the OpenAPI specs and not on the published scopes reference page.
+scopes:
+- scope: api:account-summary:read
+  description: Read Copilot Account Summary Data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-copilot-v1-openapi.json
+  category: Context
+  label: Read Account Summary
+  documented: true
+- scope: api:agent-pulses:read
+  description: Read the authenticated user's pulses
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-agent-v1-openapi.json
+  documented: false
+- scope: api:agent-teams:execute
+  description: Execute Agent Teams and view run status
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-agent-v1-openapi.json
+  documented: false
+- scope: api:agent-teams:read
+  description: Read Agent Teams
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-agent-v1-openapi.json
+  documented: false
+- scope: api:agent:agentforce
+  description: Access Agentforce integration
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-agent-v1-openapi.json
+  documented: false
+- scope: api:audience-member:manage
+  description: Create and manage audience members
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-marketing-v1-openapi.json
+  category: Audiences
+  label: Manage Audience Members
+  documented: true
+- scope: api:audience-member:read
+  description: Read ZoomInfo Marketing audience members
+  category: Audiences
+  label: Read Audience Members
+  documented: true
+  sources:
+  - https://docs.zoominfo.com/docs/zoominfo-oauth-scopes.md
+  note: Listed on the published OAuth Scopes reference but not declared in any of the six published OpenAPI specs.
+- scope: api:audience:manage
+  description: Create and Manage Audiences
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-gtm-studio-v1-openapi.json
+  - openapi/zoominfo-gtm-marketing-v1-openapi.json
+  category: Audiences
+  label: Manage Audiences
+  documented: true
+- scope: api:audience:read
+  description: Read Audiences
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-gtm-studio-v1-openapi.json
+  - openapi/zoominfo-gtm-marketing-v1-openapi.json
+  category: Audiences
+  label: Read Audiences
+  documented: true
+- scope: api:data:company
+  description: Ability to search and enrich ZoomInfo Company data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-data-v1-openapi.json
+  category: Data
+  label: Company
+  documented: true
+- scope: api:data:contact
+  description: Ability to search and enrich ZoomInfo Contact data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-data-v1-openapi.json
+  category: Data
+  label: Contact
+  documented: true
+- scope: api:data:intent
+  description: Ability to search and enrich ZoomInfo Intent data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-data-v1-openapi.json
+  category: Data
+  label: Intent
+  documented: true
+- scope: api:data:lookup
+  description: Lookup ZoomInfo Data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-data-v1-openapi.json
+  documented: false
+- scope: api:data:news
+  description: Ability to search and enrich ZoomInfo News data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-data-v1-openapi.json
+  category: Data
+  label: News
+  documented: true
+- scope: api:data:scoops
+  description: Ability to search and enrich ZoomInfo Scoop data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-data-v1-openapi.json
+  category: Data
+  label: Scoops
+  documented: true
+- scope: api:entitlement:read
+  description: Read User entitlements
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-platform-v1-openapi.json
+  documented: false
+  note: The published scopes reference names this scope api:entitlements:read (plural); the OpenAPI specs declare
+    api:entitlement:read (singular). Recorded as declared in the spec, with the docs spelling noted — a caller cannot
+    tell which the authorization server accepts without testing.
+- scope: api:gtm-config:manage
+  description: Manage GTM configuration data (create, update, delete)
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-copilot-v1-openapi.json
+  category: Context
+  label: Manage GTM Config
+  documented: true
+- scope: api:gtm-config:read
+  description: Read GTM configuration data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-copilot-v1-openapi.json
+  category: Context
+  label: Read GTM Config
+  documented: true
+- scope: api:gtm-data-model:manage
+  description: Ability to manage GTM Data Model entities, schemas, and data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-platform-v1-openapi.json
+  category: GTM
+  label: Manage GTM Model
+  documented: true
+- scope: api:gtm-data-model:read
+  description: Ability to read GTM Data Model entities, schemas, and data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-platform-v1-openapi.json
+  category: GTM
+  label: Read GTM Model
+  documented: true
+- scope: api:insights:read
+  description: Read Insights Data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-copilot-v1-openapi.json
+  category: Context
+  label: Read Insights
+  documented: true
+- scope: api:recommendations:read
+  description: Read Copilot recommendation data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-copilot-v1-openapi.json
+  category: Context
+  label: Read Recommendations
+  documented: true
+- scope: api:workflows:execute
+  description: Execute Workflows
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-platform-v1-openapi.json
+  documented: false
+- scope: api:workflows:read
+  description: Read Workflows data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoominfo-gtm-platform-v1-openapi.json
+  documented: false

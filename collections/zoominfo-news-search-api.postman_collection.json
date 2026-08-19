@@ -1,0 +1,658 @@
+{
+  "item": [
+    {
+      "id": "0fff9075-b91a-4c86-9b77-3c0faeae85a0",
+      "name": "News Search",
+      "description": {
+        "content": "Use [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19) to retrieve news-related data using valid query parameters.\n\n*   To build your request, retrieve a list of valid query parameters using [News Search Inputs](#90bfb6fb-2754-478b-b42d-f8c507ffffb2).\n*   For requests that require you to specify supported values (e.g., news categories), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055) endpoints.\n*   Use [News Search Outputs](#354f6240-e3d3-4c8c-9684-86569fd71581) to retrieve a list of expected response fields that will be returned from [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "16fe8da5-4a1f-4cb0-8c48-a6abfc165c8e",
+          "name": "Zoominfo News Search",
+          "request": {
+            "name": "Zoominfo News Search",
+            "description": {
+              "content": "Returns a list of news articles from ZoomInfo's data which meet the specified search criteria. All inputs are optional, but you must use at least one input parameter to generate a successful response.\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| rpp | Integer | Limits the results returned to the given number of results per page. The default is 25 and the maximum `rpp` supported is 100. |\n| page | Integer | Provides the results for the given page, used in conjunction with `rpp`. The maximum page number supported is 1000. |\n| categories | ArrayList | Category of news articles. Accepts an array of strings. See the **News Categories** lookup endpoint for values. |\n| url | ArrayList | Search news by text contained in URL strings. You must specify a minimum of 5 characters per input. |\n| pageDateMin | String | Specify the earliest publishing date for news articles returned. For example, 2020-01-01 will return all news articles published on or after Jan 1, 2020. |\n| pageDateMax | String | Specify the latest publishing date for news articles articles returned. For example, 2020-01-31 will return all new articles published on or before Jan 31, 2020. |\n\n**Response data**\n\n| Field | Description |\n| --- | --- |\n| companyId | ZoomInfo unique identifier for a company |\n| companyName | Company name |\n| domain | News article domain |\n| title | News article title |\n| url | News article URL |\n| imageUrl | News article image URL |\n| pageDate | News article publish date |\n| categories | News article categories |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search",
+                "news"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"url\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pageDateMin\": \"<string>\",\n  \"pageDateMax\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"rpp\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dc465d91-1625-4dd5-9400-3bfdd422fad0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "news"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categories\": [\n    \"FINANCIAL_RESULTS\",\n    \"FUNDING\",\n    \"GENERAL_NEWS\",\n    \"GENERAL_PRESS_RELEASE\",\n    \"MERGER_OR_ACQUISTION\",\n    \"PERSON\",\n    \"PRODUCT\"\n  ],\n  \"url\": [\n    \"property\",\n    \"financial\",\n    \"result\"\n  ],\n  \"pageDateMin\": \"2019-12-01T00:00:00.000Z\",\n  \"pageDateMax\": \"2020-05-31T00:00:00.000Z\",\n  \"page\": 1,\n  \"rpp\": 20\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"currentPage\": 1,\n  \"maxResults\": 30,\n  \"data\": [\n    {\n      \"domain\": \"newstral.com\",\n      \"title\": \"St. Luke's Hospital appoints interim president\",\n      \"url\": \"https://newstral.com/en/article/en/1152923450/st-luke-s-hospital-appoints-interim-president\",\n      \"imageUrl\": \"http://newstral.com/source-images/29300_original_1529243370.jpg\",\n      \"pageDate\": \"2020-05-28T04:26:13.000Z\",\n      \"categories\": [\n        \"PERSON\"\n      ],\n      \"company\": [\n        {\n          \"id\": 31380745,\n          \"name\": \"The Toledo Blade\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.globenewswire.com\",\n      \"title\": \"The Global Household Water Softener System Market is expected to grow by USD 1.42 bn during 2020-2024 progressing at a CAGR of 7% during the forecast period\",\n      \"url\": \"http://www.globenewswire.com/news-release/2020/05/28/2039880/0/en/The-Global-Household-Water-Softener-System-Market-is-expected-to-grow-by-USD-1-42-bn-during-2020-2024-progressing-at-a-CAGR-of-7-during-the-forecast-period.html\",\n      \"imageUrl\": \"http://www.globenewswire.com/Attachment/LogoDisplay/853201?filename=853201.jpg&size=1\",\n      \"pageDate\": \"2020-05-28T04:18:00.000Z\",\n      \"categories\": [\n        \"GENERAL_PRESS_RELEASE\"\n      ],\n      \"company\": [\n        {\n          \"id\": 231751931,\n          \"name\": \"Reportlinker.com\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.prnewswire.com\",\n      \"title\": \"NuVasive, Inc. Announces Pricing Of Offering Of $400 Million Of 1.00% Convertible Senior Notes Due 2023\",\n      \"url\": \"https://www.prnewswire.com:443/news-releases/nuvasive-inc-announces-pricing-of-offering-of-400-million-of-1-00-convertible-senior-notes-due-2023--301066703.html\",\n      \"imageUrl\": \"https://mma.prnewswire.com/media/454552/NuVasive_Logo.jpg?p=twitter\",\n      \"pageDate\": \"2020-05-28T04:18:00.000Z\",\n      \"categories\": [\n        \"GENERAL_PRESS_RELEASE\"\n      ],\n      \"company\": [\n        {\n          \"id\": 28311725,\n          \"name\": \"NuVasive\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.reuters.com\",\n      \"title\": \"Democrats urge probe of allegations regarding TikTok and children's privacy\",\n      \"url\": \"https://www.reuters.com/article/us-tiktok-privacy-children-democrats/democrats-urge-probe-of-allegations-regarding-tiktok-and-childrens-privacy-idUSKBN2340EF\",\n      \"imageUrl\": \"https://s4.reutersmedia.net/resources/r/?m=02&d=20200528&t=2&i=1520141938&w=1200&r=LYNXMPEG4R07W\",\n      \"pageDate\": \"2020-05-28T04:08:13.000Z\",\n      \"categories\": [\n        \"GENERAL_NEWS\"\n      ],\n      \"company\": [\n        {\n          \"id\": 15302878,\n          \"name\": \"Federal Trade Commission\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.ft.com\",\n      \"title\": \"Businesses get creative to battle Covid-19 drop-off\",\n      \"url\": \"https://www.ft.com/content/bf84eca8-80a0-11ea-b0fb-13524ae1056b\",\n      \"imageUrl\": \"https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fprod-upp-image-read.ft.com%2F3d0d1ac2-9f61-11ea-ba68-3d5500196c30?source=next-opengraph&fit=scale-down&width=900\",\n      \"pageDate\": \"2020-05-28T04:01:05.000Z\",\n      \"categories\": [\n        \"GENERAL_NEWS\"\n      ],\n      \"company\": [\n        {\n          \"id\": 348072053,\n          \"name\": \"Caws Cenarth\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.globenewswire.com\",\n      \"title\": \"Driver death rates remain high among small cars\",\n      \"url\": \"http://www.globenewswire.com/news-release/2020/05/28/2039878/0/en/Driver-death-rates-remain-high-among-small-cars.html\",\n      \"imageUrl\": \"http://www.globenewswire.com/news-release/2020/05/28/2039878/0/en/photos/879784/0/879784.png?lastModified=05%2F28%2F2020%2000%3A01%3A10&size=2\",\n      \"pageDate\": \"2020-05-28T04:01:00.000Z\",\n      \"categories\": [\n        \"GENERAL_PRESS_RELEASE\"\n      ],\n      \"company\": [\n        {\n          \"id\": 25871680,\n          \"name\": \"Insurance Institute for Highway Safety\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.prnewswire.com\",\n      \"title\": \"Vacant Zombie Property Rate In U.S. Holds Steady Amid Foreclosure Moratorium\",\n      \"url\": \"https://www.prnewswire.com:443/news-releases/vacant-zombie-property-rate-in-us-holds-steady-amid-foreclosure-moratorium-301066595.html\",\n      \"imageUrl\": \"https://mma.prnewswire.com/media/473646/ATTOM_LOGO.jpg?p=twitter\",\n      \"pageDate\": \"2020-05-28T04:01:00.000Z\",\n      \"categories\": [\n        \"GENERAL_PRESS_RELEASE\"\n      ],\n      \"company\": [\n        {\n          \"id\": 392680169,\n          \"name\": \"ATTOM Data Solutions\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.ft.com\",\n      \"title\": \"Restaurants and hotels clean up with toilet paper sales\",\n      \"url\": \"https://www.ft.com/content/72650300-80b8-11ea-b0fb-13524ae1056b\",\n      \"imageUrl\": \"https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fprod-upp-image-read.ft.com%2F5be1a89c-9aa6-11ea-871b-edeb99a20c6e?source=next-opengraph&fit=scale-down&width=900\",\n      \"pageDate\": \"2020-05-28T04:00:57.000Z\",\n      \"categories\": [\n        \"GENERAL_NEWS\"\n      ],\n      \"company\": [\n        {\n          \"id\": 169919019,\n          \"name\": \"Old Ebbitt Grill\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.prweb.com\",\n      \"title\": \"Author Theresa Seiferts new book Sandy Rose is a compelling work of dramatic fiction laying bare the profound impact of preconscious trauma in childhood\",\n      \"url\": \"https://www.prweb.com/releases/author_theresa_seiferts_new_book_sandy_rose_is_a_compelling_work_of_dramatic_fiction_laying_bare_the_profound_impact_of_preconscious_trauma_in_childhood/prweb17144332.htm\",\n      \"imageUrl\": \"http://ww1.prweb.com/prfiles/2020/05/22/17144332/gI_110624_NewsImage_vcsPRAsset_2212767_110624_37f0f333-0598-4ad9-adb1-b912c81b601c_0.png\",\n      \"pageDate\": \"2020-05-28T04:00:00.000Z\",\n      \"categories\": [\n        \"GENERAL_NEWS\"\n      ],\n      \"company\": [\n        {\n          \"id\": 357320725,\n          \"name\": \"Page Publishing\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.prweb.com\",\n      \"title\": \"Author Joe Justs new book Frankie and Me Went Walking is a beautifully written reflection on the formative adventures of two young boys in the postwar years.\",\n      \"url\": \"https://www.prweb.com/releases/author_joe_justs_new_book_frankie_and_me_went_walking_is_a_beautifully_written_reflection_on_the_formative_adventures_of_two_young_boys_in_the_postwar_years/prweb17127827.htm\",\n      \"imageUrl\": \"http://ww1.prweb.com/prfiles/2020/05/15/17127827/gI_110456_NewsImage_vcsPRAsset_2212767_110456_a58baa95-80ae-4dbd-8c66-b6b4b1a95bc1_0.png\",\n      \"pageDate\": \"2020-05-28T04:00:00.000Z\",\n      \"categories\": [\n        \"GENERAL_NEWS\"\n      ],\n      \"company\": [\n        {\n          \"id\": 357320725,\n          \"name\": \"Page Publishing\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.prweb.com\",\n      \"title\": \"Author W.A. Brunsons new book Between the Amens is a compilation of essays touching upon a myriad of subjects impacting modern society.\",\n      \"url\": \"https://www.prweb.com/releases/author_w_a_brunsons_new_book_between_the_amens_is_a_compilation_of_essays_touching_upon_a_myriad_of_subjects_impacting_modern_society/prweb17148242.htm\",\n      \"imageUrl\": \"http://ww1.prweb.com/prfiles/2020/05/26/17148242/gI_110656_NewsImage_vcsPRAsset_2212767_110656_30cf818b-a1ca-4a50-8d68-b57718bf1b77_0.png\",\n      \"pageDate\": \"2020-05-28T04:00:00.000Z\",\n      \"categories\": [\n        \"GENERAL_NEWS\"\n      ],\n      \"company\": [\n        {\n          \"id\": 357320725,\n          \"name\": \"Page Publishing\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.prweb.com\",\n      \"title\": \"Datalogic launches Smart-VS, the vision sensor with the power of machine learning and the ease of photoelectric sensors\",\n      \"url\": \"https://www.prweb.com/releases/datalogic_launches_smart_vs_the_vision_sensor_with_the_power_of_machine_learning_and_the_ease_of_photoelectric_sensors/prweb17145081.htm\",\n      \"imageUrl\": \"http://ww1.prweb.com/prfiles/2020/05/26/17145081/gI_154482_NewsImage_vcsPRAsset_517683_154482_0a495da0-3acd-484d-9044-1ea1440237f0_0.png\",\n      \"pageDate\": \"2020-05-28T04:00:00.000Z\",\n      \"categories\": [\n        \"PRODUCT\"\n      ],\n      \"company\": [\n        {\n          \"id\": 15992708,\n          \"name\": \"Datalogic\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.prweb.com\",\n      \"title\": \"Zobrist Software announces Smart Merchandiser, a Visual Merchandising tool for Salesforce Commerce Cloud\",\n      \"url\": \"https://www.prweb.com/releases/zobrist_software_announces_smart_merchandiser_a_visual_merchandising_tool_for_salesforce_commerce_cloud/prweb17146384.htm\",\n      \"imageUrl\": \"http://ww1.prweb.com/prfiles/2020/05/26/17146384/gI_114059_image001.png\",\n      \"pageDate\": \"2020-05-28T04:00:00.000Z\",\n      \"categories\": [\n        \"PRODUCT\"\n      ],\n      \"company\": [\n        {\n          \"id\": 119029794,\n          \"name\": \"Zobrist Consulting Group\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.prweb.com\",\n      \"title\": \"Langley Roofing Helping Chattanooga Rebuild During Challenging Times\",\n      \"url\": \"https://www.prweb.com/releases/langley_roofing_helping_chattanooga_rebuild_during_challenging_times/prweb17152380.htm\",\n      \"imageUrl\": \"http://ww1.prweb.com/prfiles/2020/05/27/17152380/gI_159769_NewsImage_vcsPRAsset_1052462_159769_dda9251f-d7eb-4cfa-abc1-2d16aa4dec82_0.png\",\n      \"pageDate\": \"2020-05-28T04:00:00.000Z\",\n      \"categories\": [\n        \"GENERAL_PRESS_RELEASE\"\n      ],\n      \"company\": [\n        {\n          \"id\": 346413161,\n          \"name\": \"Langley Roofing\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.prweb.com\",\n      \"title\": \"Author Penny Everharts new book Family in Fear: A Story of Domestic Violence is a candid memoir of her agonizing twenty-eight-year marriage to a vicious abuser\",\n      \"url\": \"https://www.prweb.com/releases/author_penny_everharts_new_book_family_in_fear_a_story_of_domestic_violence_is_a_candid_memoir_of_her_agonizing_twenty_eight_year_marriage_to_a_vicious_abuser/prweb17144339.htm\",\n      \"imageUrl\": \"http://ww1.prweb.com/prfiles/2020/05/22/17144339/gI_110625_NewsImage_vcsPRAsset_2212767_110625_7e61f549-7ee1-4cc0-8dec-47ee7da0b8f8_0.png\",\n      \"pageDate\": \"2020-05-28T04:00:00.000Z\",\n      \"categories\": [\n        \"GENERAL_NEWS\"\n      ],\n      \"company\": [\n        {\n          \"id\": 357320725,\n          \"name\": \"Page Publishing\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.prweb.com\",\n      \"title\": \"Author Jacqueline Williamss new book Izzy Iguana Climbs a Tree: A Geometry Book is a charming childrens tale exploring basic geometric concepts found in nature\",\n      \"url\": \"https://www.prweb.com/releases/author_jacqueline_williamss_new_book_izzy_iguana_climbs_a_tree_a_geometry_book_is_a_charming_childrens_tale_exploring_basic_geometric_concepts_found_in_nature/prweb17148312.htm\",\n      \"imageUrl\": \"http://ww1.prweb.com/prfiles/2020/05/26/17148312/gI_110658_NewsImage_vcsPRAsset_2212767_110658_7a29b6b8-76ae-4f32-819a-950371725ae6_0.png\",\n      \"pageDate\": \"2020-05-28T04:00:00.000Z\",\n      \"categories\": [\n        \"GENERAL_NEWS\"\n      ],\n      \"company\": [\n        {\n          \"id\": 357320725,\n          \"name\": \"Page Publishing\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.prweb.com\",\n      \"title\": \"Author Sydnie Lees new book All the Things We Are Avoiding is an evocative compilation of poetry and prose exploring the vicissitudes of life and love\",\n      \"url\": \"https://www.prweb.com/releases/author_sydnie_lees_new_book_all_the_things_we_are_avoiding_is_an_evocative_compilation_of_poetry_and_prose_exploring_the_vicissitudes_of_life_and_love/prweb17148293.htm\",\n      \"imageUrl\": \"http://ww1.prweb.com/prfiles/2020/05/26/17148293/gI_110657_NewsImage_vcsPRAsset_2212767_110657_34c025fc-ea3d-457a-83ec-6ec7a5156081_0.png\",\n      \"pageDate\": \"2020-05-28T04:00:00.000Z\",\n      \"categories\": [\n        \"GENERAL_NEWS\"\n      ],\n      \"company\": [\n        {\n          \"id\": 357320725,\n          \"name\": \"Page Publishing\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.businesswire.com\",\n      \"title\": \"Delta-Q Technologies anuncia seu novo carregador de bateria RQ350 para m�quinas e ve�culos el�tricos\",\n      \"url\": \"https://www.businesswire.com/news/home/20200527005980/pt/\",\n      \"imageUrl\": \"https://mms.businesswire.com/media/20200527005980/pt/794287/22/RQ350_imageB1_2.jpg\",\n      \"pageDate\": \"2020-05-28T03:58:00.000Z\",\n      \"categories\": [\n        \"GENERAL_NEWS\"\n      ],\n      \"company\": [\n        {\n          \"id\": 34393410,\n          \"name\": \"Delta-Q Technologies\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.globenewswire.com\",\n      \"title\": \"The Global Passenger Vehicle Telematics Market is expected to grow by USD 15.19 bn during 2020-2024 progressing at a CAGR of 17% during the forecast period\",\n      \"url\": \"http://www.globenewswire.com/news-release/2020/05/28/2039877/0/en/The-Global-Passenger-Vehicle-Telematics-Market-is-expected-to-grow-by-USD-15-19-bn-during-2020-2024-progressing-at-a-CAGR-of-17-during-the-forecast-period.html\",\n      \"imageUrl\": \"http://www.globenewswire.com/Attachment/LogoDisplay/853201?filename=853201.jpg&size=1\",\n      \"pageDate\": \"2020-05-28T03:58:00.000Z\",\n      \"categories\": [\n        \"GENERAL_PRESS_RELEASE\"\n      ],\n      \"company\": [\n        {\n          \"id\": 231751931,\n          \"name\": \"Reportlinker.com\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.prnewswire.com\",\n      \"title\": \"Huami Establishes a Brain-computer Interface Joint Lab with Top Chinese University\",\n      \"url\": \"https://www.prnewswire.com:443/news-releases/huami-establishes-a-brain-computer-interface-joint-lab-with-top-chinese-university-301066695.html\",\n      \"pageDate\": \"2020-05-28T03:54:00.000Z\",\n      \"categories\": [\n        \"PRODUCT\"\n      ],\n      \"company\": [\n        {\n          \"id\": 397718835,\n          \"name\": \"Huami\"\n        },\n        {\n          \"id\": 372581933,\n          \"name\": \"University of Science and Technology of China\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.prnewswire.com\",\n      \"title\": \"Silicon Labs Announces Pricing of Private Offering of $500 Million of 0.625% Convertible Senior Notes\",\n      \"url\": \"https://www.prnewswire.com:443/news-releases/silicon-labs-announces-pricing-of-private-offering-of-500-million-of-0-625-convertible-senior-notes-301066694.html\",\n      \"imageUrl\": \"https://mma.prnewswire.com/media/457128/silicon_labs_Logo.jpg?p=twitter\",\n      \"pageDate\": \"2020-05-28T03:52:00.000Z\",\n      \"categories\": [\n        \"GENERAL_PRESS_RELEASE\"\n      ],\n      \"company\": [\n        {\n          \"id\": 168640828,\n          \"name\": \"Silicon Labs\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.globenewswire.com\",\n      \"title\": \"The Global Surgical Scalpel Market is expected to grow by $ 105.29 mn during 2020-2024 progressing at a CAGR of 3% during the forecast period\",\n      \"url\": \"http://www.globenewswire.com/news-release/2020/05/28/2039876/0/en/The-Global-Surgical-Scalpel-Market-is-expected-to-grow-by-105-29-mn-during-2020-2024-progressing-at-a-CAGR-of-3-during-the-forecast-period.html\",\n      \"imageUrl\": \"http://www.globenewswire.com/Attachment/LogoDisplay/853201?filename=853201.jpg&size=1\",\n      \"pageDate\": \"2020-05-28T03:38:00.000Z\",\n      \"categories\": [\n        \"GENERAL_PRESS_RELEASE\"\n      ],\n      \"company\": [\n        {\n          \"id\": 231751931,\n          \"name\": \"Reportlinker.com\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.forbes.com\",\n      \"title\": \"What COVID-19 Social Distancing Measures Will Mean For Restaurant Dining Room Design\",\n      \"url\": \"https://www.forbes.com/sites/lesliewu/2020/05/27/what-covid-19-social-distancing-measures-will-mean-for-restaurant-dining-room-design/\",\n      \"imageUrl\": \"https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5ecf309a1aa7fc0007fa3dce%2F0x0.jpg\",\n      \"pageDate\": \"2020-05-28T03:35:56.000Z\",\n      \"categories\": [\n        \"GENERAL_NEWS\"\n      ],\n      \"company\": [\n        {\n          \"id\": 67470018,\n          \"name\": \"National Restaurant Association\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.globenewswire.com\",\n      \"title\": \"BioCryst Prices Public Offering of Common Stock and Pre-Funded Warrants\",\n      \"url\": \"http://www.globenewswire.com/news-release/2020/05/28/2039875/0/en/BioCryst-Prices-Public-Offering-of-Common-Stock-and-Pre-Funded-Warrants.html\",\n      \"imageUrl\": \"http://www.globenewswire.com/Attachment/LogoDisplay/514115?filename=514115.jpg&size=1\",\n      \"pageDate\": \"2020-05-28T03:35:00.000Z\",\n      \"categories\": [\n        \"GENERAL_PRESS_RELEASE\"\n      ],\n      \"company\": [\n        {\n          \"id\": 4735661,\n          \"name\": \"BioCryst Pharmaceuticals\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.sbwire.com\",\n      \"title\": \"Global Live Biotherapeutic Products and Microbiome Contract Manufacturing Market Assessment  Industry Analysis, Clinical Trial and Revenue Forecast Till 2028\",\n      \"url\": \"http://www.sbwire.com/press-releases/global-live-biotherapeutic-products-and-microbiome-contract-manufacturing-market-assessment-industry-analysis-clinical-trial-and-revenue-forecast-till-2028-1292554.htm\",\n      \"imageUrl\": \"http://media.releasewire.com/photos/show/?id=249011\",\n      \"pageDate\": \"2020-05-28T03:30:00.000Z\",\n      \"categories\": [\n        \"GENERAL_PRESS_RELEASE\"\n      ],\n      \"company\": [\n        {\n          \"id\": 465413269,\n          \"name\": \"InsightAce Analytic Pvt\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.business-standard.com\",\n      \"title\": \"Google Pay expands 'Nearby Stores' feature to 35 cities in India: Know more\",\n      \"url\": \"https://www.business-standard.com/article/companies/google-pay-expands-nearby-stores-feature-to-35-cities-in-india-know-more-120052800208_1.html\",\n      \"imageUrl\": \"https://bsmedia.business-standard.com/_media/bs/img/article/2018-02/21/full/1519181810-254.jpg\",\n      \"pageDate\": \"2020-05-28T03:26:00.000Z\",\n      \"categories\": [\n        \"GENERAL_NEWS\"\n      ],\n      \"company\": [\n        {\n          \"id\": 16400573,\n          \"name\": \"Google\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.reuters.com\",\n      \"title\": \"Google sees resurgence in state-backed hacking, phishing related to COVID-19\",\n      \"url\": \"https://www.reuters.com/article/us-health-coronavirus-cyber/google-sees-resurgence-in-state-backed-hacking-phishing-related-to-covid-19-idUSKBN2340CH\",\n      \"imageUrl\": \"https://s2.reutersmedia.net/resources/r/?m=02&d=20200528&t=2&i=1520138291&w=1200&r=LYNXMPEG4R06H\",\n      \"pageDate\": \"2020-05-28T03:18:26.000Z\",\n      \"categories\": [\n        \"GENERAL_NEWS\"\n      ],\n      \"company\": [\n        {\n          \"id\": 16400573,\n          \"name\": \"Google\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.globenewswire.com\",\n      \"title\": \"The Global Isobutene Market is expected to grow by $ 7.31 bn during 2020-2024 progressing at a CAGR of 4% during the forecast period\",\n      \"url\": \"http://www.globenewswire.com/news-release/2020/05/28/2039874/0/en/The-Global-Isobutene-Market-is-expected-to-grow-by-7-31-bn-during-2020-2024-progressing-at-a-CAGR-of-4-during-the-forecast-period.html\",\n      \"imageUrl\": \"http://www.globenewswire.com/Attachment/LogoDisplay/853201?filename=853201.jpg&size=1\",\n      \"pageDate\": \"2020-05-28T03:18:00.000Z\",\n      \"categories\": [\n        \"GENERAL_PRESS_RELEASE\"\n      ],\n      \"company\": [\n        {\n          \"id\": 231751931,\n          \"name\": \"Reportlinker.com\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.business-standard.com\",\n      \"title\": \"Singtel's annual profit plunges 65%, takes $1.3 bn-hit on Airtel snag\",\n      \"url\": \"https://www.business-standard.com/article/companies/singtel-s-annual-profit-plunges-65-takes-1-3-bn-hit-on-airtel-snag-120052800205_1.html\",\n      \"imageUrl\": \"https://bsmedia.business-standard.com/_media/bs/img/article/2019-07/22/full/1563739681-3395.jpg\",\n      \"pageDate\": \"2020-05-28T03:17:00.000Z\",\n      \"categories\": [\n        \"GENERAL_NEWS\"\n      ],\n      \"company\": [\n        {\n          \"id\": 344839001,\n          \"name\": \"Singtel\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.businesswire.com\",\n      \"title\": \"Housing Rights Advocates to Assemblywoman Lorena Gonzalez: Vote NO on Bill with Devastating Implications for Grassroots Advocacy\",\n      \"url\": \"https://www.businesswire.com/news/home/20200527005974/en/Housing-Rights-Advocates-Assemblywoman-Lorena-Gonzalez-Vote/\",\n      \"imageUrl\": \"https://mms.businesswire.com/media/20200527005974/en/653060/22/HHR-Logo_Horizontal_Logo.jpg\",\n      \"pageDate\": \"2020-05-28T03:15:00.000Z\",\n      \"categories\": [\n        \"GENERAL_PRESS_RELEASE\"\n      ],\n      \"company\": [\n        {\n          \"id\": 1753503,\n          \"name\": \"AIDS Healthcare Foundation\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92cc57c8-44d2-4695-a6ee-17014b01c7de",
+          "name": "Zoominfo News Search Inputs",
+          "request": {
+            "name": "Zoominfo News Search Inputs",
+            "description": {
+              "content": "Returns a list of fields you can use as input for the [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "inputfields",
+                "news",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "960219e6-3b5d-4bd1-93de-d5cbcd792e62",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "inputfields",
+                    "news",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"rpp\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Limits the results returned to the given number of results per page.\"\n  },\n  {\n    \"fieldName\": \"page\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Provides the results for the given page, used in conjunction with rpp.\"\n  },\n  {\n    \"fieldName\": \"categories\",\n    \"fieldType\": \"ArrayList\",\n    \"description\": \"Category of news articles. Accepts an Array of String. See the 'News Categories' endpoint for values.\"\n  },\n  {\n    \"fieldName\": \"pageDateMin\",\n    \"fieldType\": \"String\",\n    \"description\": \"Specify the earliest publishing date for news articles returned. For example, 2020-01-01 will return all news articles published on or after Jan 1, 2020.\"\n  },\n  {\n    \"fieldName\": \"pageDateMax\",\n    \"fieldType\": \"String\",\n    \"description\": \"Specify the latest publishing date for news articles articles. For example, 2020-01-31 will return all new articles published on or before Jan 31, 2020.\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "855f2895-0633-49ab-83a6-c614b869930c",
+          "name": "Zoominfo News Search Outputs",
+          "request": {
+            "name": "Zoominfo News Search Outputs",
+            "description": {
+              "content": "Returns a list of fields included in the response for the [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "outputfields",
+                "news",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "df2a0dd2-63fe-494e-9041-c7c1e8be935d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "outputfields",
+                    "news",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"companyId\",\n    \"description\": \"Unique ZoomInfo identifier for a company\"\n  },\n  {\n    \"fieldName\": \"companyName\",\n    \"description\": \"Company name\"\n  },\n  {\n    \"fieldName\": \"domain\",\n    \"description\": \"News article domain\"\n  },\n  {\n    \"fieldName\": \"title\",\n    \"description\": \"News article title\"\n  },\n  {\n    \"fieldName\": \"url\",\n    \"description\": \"News article URL\"\n  },\n  {\n    \"fieldName\": \"imageUrl\",\n    \"description\": \"News article image URL\"\n  },\n  {\n    \"fieldName\": \"pageDate\",\n    \"description\": \"News article date\"\n  },\n  {\n    \"fieldName\": \"categories\",\n    \"description\": \"News article categories\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zoominfo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a1b6fe74-cb1f-4c3c-89ea-d22b846c454d",
+    "name": "ZoomInfo Authentication News Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...\n\nContact Support:\n Name: ZoomInfo API Support\n Email: support@zoominfo.com",
+      "type": "text/plain"
+    }
+  }
+}

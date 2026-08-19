@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZoomInfo Authentication News Search API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "News Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Zoominfo News Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/search/news",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a list of news articles from ZoomInfo's data which meet the specified search criteria. All inputs are optional, but you must use at least one input parameter to generate a successful response.\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| rpp | Integer | Limits the results returned to the given number of results per page. The default is 25 and the maximum `rpp` supported is 100. |\n| page | Integer | Provides the results for the given page, used in conjun"
+        },
+        {
+          "info": {
+            "name": "Zoominfo News Search Inputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/inputfields/news/search"
+          },
+          "docs": "Returns a list of fields you can use as input for the [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19) endpoint."
+        },
+        {
+          "info": {
+            "name": "Zoominfo News Search Outputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/outputfields/news/search"
+          },
+          "docs": "Returns a list of fields included in the response for the [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19) endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

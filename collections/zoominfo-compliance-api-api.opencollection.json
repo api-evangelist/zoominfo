@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZoomInfo Authentication Compliance API API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Compliance API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Zoominfo Compliance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/compliance",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a list of compliance-related details from ZoomInfo's data which meet the specified search criteria.\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyId | Long integer | Unique ZoomInfo identifier for the company |\n| companyName | String | Name of the company for for which the contact works, or has worked |\n| personFullName | String | Contact full name |\n| personFirstName | String | Contact first name |\n| personLastName | String | Contact last name |\n"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Compliance Inputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/inputfields/compliance/enrich"
+          },
+          "docs": "Returns a list of fields you can use as input for the [Compliance](#55258fdb-c151-4532-b587-9a20d7169ae1) endpoint."
+        },
+        {
+          "info": {
+            "name": "Zoominfo Compliance Outputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/outputfields/compliance/enrich"
+          },
+          "docs": "Returns a list of fields included in the response for the [Compliance](#55258fdb-c151-4532-b587-9a20d7169ae1) endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

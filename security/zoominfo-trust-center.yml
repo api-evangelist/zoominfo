@@ -1,0 +1,56 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.zoominfo.com/about/security
+provider: ZoomInfo
+providerId: zoominfo
+description: >-
+  ZoomInfo's published security and compliance posture. Certifications are quoted from ZoomInfo's own
+  public security page; the branded trust center itself is bot-protected and could not be read.
+
+trust_center:
+  url: https://www.zoominfo.com/trust-center
+  http_status: 403
+  readable: false
+  note: >-
+    Returns "Access to this page has been denied" to non-browser requests. ZoomInfo discloses this bot
+    protection in its own llms.txt and instructs agents to send users to the page in a browser instead of
+    inferring its contents. Nothing below is taken from this page.
+  readable_alternative: https://www.zoominfo.com/about/security
+
+certifications:
+  source: 'https://www.zoominfo.com/about/security (section 10.2, Certifications and Attestations)'
+  statement: 'ZoomInfo is ISO 27001, ISO 27701, TRUSTe, and SOC 2 Type II certified.'
+  named:
+    - {name: ISO/IEC 27001, scope: Information Security Management System, claimed: true}
+    - {name: ISO/IEC 27701, scope: Privacy Information Management System, claimed: true}
+    - {name: SOC 2 Type II, scope: 'Security, availability and confidentiality controls (AICPA attestation)', claimed: true}
+    - {name: TRUSTe, scope: Privacy certification, claimed: true}
+  report_access: Not published — no self-serve trust portal document download was reachable.
+
+privacy_and_data_regimes:
+  source: https://www.zoominfo.com/llms.txt
+  claimed: [GDPR, CCPA, 'SOC 2 Type II']
+  note: >-
+    ZoomInfo's own llms.txt states "Compliance: GDPR, CCPA, SOC 2 Type II". As a B2B contact-data company
+    its privacy posture is a product concern, not just an infrastructure one — the API surface includes a
+    dedicated Compliance API for opt-out and data-subject handling.
+  compliance_api:
+    legacy_spec: openapi/zoominfo-compliance-api-api-openapi.yml
+    endpoint: POST /compliance
+    purpose: Data privacy and opt-out compliance for contacts stored in the ZoomInfo database.
+
+third_party_risk:
+  source: https://www.zoominfo.com/about/security
+  statement: >-
+    Service providers are required to hold appropriate certifications which may include SOC 2 Type II,
+    ISO 27001, PCI DSS, HIPAA and CSA-STAR.
+  note: >-
+    These are certifications ZoomInfo REQUIRES OF ITS VENDORS, not certifications ZoomInfo holds. Recorded
+    separately so the two are never conflated.
+
+incident_response:
+  source: https://www.zoominfo.com/about/security
+  claims:
+    - Documented incident response playbooks for production service impact.
+    - A Global Crisis Management process for impact beyond a defined incident.
+  status_page: https://status.zoominfo.com

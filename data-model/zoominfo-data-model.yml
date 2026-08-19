@@ -1,0 +1,187 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/zoominfo-gtm-data-v1-openapi.json, openapi/zoominfo-gtm-copilot-v1-openapi.json,
+  openapi/zoominfo-gtm-gtm-studio-v1-openapi.json, openapi/zoominfo-gtm-marketing-v1-openapi.json,
+  openapi/zoominfo-gtm-agent-v1-openapi.json, openapi/zoominfo-gtm-platform-v1-openapi.json
+provider: ZoomInfo
+providerId: zoominfo
+description: >-
+  Entity-relationship graph for the ZoomInfo GTM API, derived from the id-reference fields and $ref links
+  across the six published OpenAPI specifications (616 component schemas, 100 operations).
+
+identity:
+  style: numeric-string
+  note: >-
+    ZoomInfo IDs are opaque numeric identifiers with no type prefix — 344589814 is a company, 4191419698 is
+    a contact, and nothing in the value itself says which. Type is carried alongside the id in the JSON:API
+    envelope (`"id": "4191419698", "type": "Contact"`), not inside the identifier. An agent that loses the
+    envelope loses the type.
+  reference_field_convention:
+    - {field: ziCompanyId, refers_to: Company, occurrences: 51}
+    - {field: companyId, refers_to: Company, occurrences: 22}
+    - {field: ziContactId, refers_to: Contact, occurrences: 11}
+    - {field: personId, refers_to: Contact, occurrences: 5}
+    - {field: signalId, refers_to: Signal, occurrences: 39}
+  note_on_drift: >-
+    The same foreign key appears under three spellings — ziCompanyId, companyId and locationCompanyId all
+    point at Company; ziContactId, personId and referencePersonId all point at Contact. There is no single
+    canonical name a client can bind to.
+
+entities:
+  - name: Company
+    description: The canonical firmographic record. The hub of the graph — most other entities hang off a company id.
+    key: id (numeric)
+    surfaces: [Data API, Copilot API, GTM Studio API]
+    operations: [SearchInterface_searchCompany, EnrichInterface_enrichCompany, EnrichInterface_enrichCorporateHierarchy, EnrichInterface_enrichOrgChart, EnrichInterface_enrichTechnology, EnrichInterface_enrichHashtag]
+    relationships:
+      - {type: has_many, target: Contact, via: company.id, note: Contacts carry an embedded company object with id and name.}
+      - {type: has_many, target: Scoop, via: companyId}
+      - {type: has_many, target: NewsArticle, via: companyId}
+      - {type: has_many, target: IntentSignal, via: ziCompanyId}
+      - {type: has_many, target: Technology, via: ziCompanyId}
+      - {type: has_one, target: Company, via: parentId, note: Corporate hierarchy parent.}
+      - {type: has_one, target: Company, via: ultimateParentId, note: Ultimate corporate parent — a second, distinct hierarchy edge.}
+      - {type: has_many, target: CompanyLocation, via: locationCompanyId}
+      - {type: has_one, target: AccountSummary, via: companyId}
+
+  - name: Contact
+    description: A professional profile. Always resolved in the context of an employing company.
+    key: id (numeric)
+    surfaces: [Data API, Copilot API]
+    operations: [SearchInterface_searchContact, EnrichInterface_enrichContact]
+    relationships:
+      - {type: belongs_to, target: Company, via: company.id}
+      - {type: has_one, target: Company, via: previousCompanyId, note: Prior employer — how personHasMoved is evidenced.}
+      - {type: has_many, target: EmploymentHistory, via: personId}
+      - {type: has_many, target: Education, via: personId}
+
+  - name: IntentSignal
+    description: A buyer-intent observation, scored and topic-scoped, attributed to a company rather than a person.
+    key: signalId
+    operations: [SearchInterface_searchIntent, EnrichInterface_enrichIntent]
+    relationships:
+      - {type: belongs_to, target: Company, via: ziCompanyId}
+      - {type: belongs_to, target: IntentTopic, via: topic}
+
+  - name: Scoop
+    description: A real-world business event (funding, hire, layoff, launch) attached to a company.
+    key: scoopId
+    operations: [SearchInterface_searchScoop, EnrichInterface_enrichScoop]
+    relationships:
+      - {type: belongs_to, target: Company, via: companyId}
+
+  - name: NewsArticle
+    description: Categorized news coverage for a company.
+    operations: [SearchInterface_searchNews, EnrichInterface_enrichNews]
+    relationships:
+      - {type: belongs_to, target: Company, via: companyId}
+
+  - name: Audience
+    description: A saved, enrichable set of companies or contacts. The write-side workspace object, in two flavours — GTM Studio (rows and columns, spreadsheet-shaped) and Marketing (uploads, list-shaped).
+    key: audienceId
+    surfaces: [GTM Studio API, Marketing API]
+    operations: [Audiences_createAudience, Audiences_listAudiences, Audiences_getAudience, AudienceInterface_createAudience, AudienceInterface_getAudiences]
+    relationships:
+      - {type: belongs_to, target: Folder, via: folderId}
+      - {type: has_many, target: Column, via: audienceId}
+      - {type: has_many, target: Row, via: audienceId}
+      - {type: has_many, target: Job, via: audienceId, note: Enrichment runs are asynchronous jobs polled by jobId.}
+      - {type: has_many, target: AudienceUpload, via: audienceId, note: Marketing API only.}
+
+  - name: Folder
+    description: Organizational container for GTM Studio audiences.
+    key: folderId
+    operations: [Folders_createFolder, Folders_listFolders, Folders_getFolderById]
+    relationships:
+      - {type: has_many, target: Audience, via: folderId}
+
+  - name: Column
+    description: A field on a GTM Studio audience, optionally AI-computed (AiColumn) with declared data dependencies.
+    key: columnId
+    operations: [Columns_addColumns, Columns_patchColumn, Columns_getSupportedDataDependencies]
+    relationships:
+      - {type: belongs_to, target: Audience, via: audienceId}
+
+  - name: Row
+    description: A record inside a GTM Studio audience.
+    key: rowId
+    operations: [Rows_getRowById, Rows_listRows, Rows_upsertRows, Rows_bulkUpsertRows]
+    relationships:
+      - {type: belongs_to, target: Audience, via: audienceId}
+
+  - name: AgentTeam
+    description: A configured multi-agent workflow that can be run on demand and polled for results.
+    key: agentTeamId
+    surfaces: [Agent API]
+    operations: [AgentTeamsController_listAgentTeams, AgentTeamsController_getAgentTeamDetails, AgentTeamsController_runAgentTeam]
+    relationships:
+      - {type: has_many, target: AgentTeamRun, via: agentTeamId}
+
+  - name: AgentTeamRun
+    description: One asynchronous execution of an agent team, with a status and eventual output.
+    key: runId
+    operations: [AgentTeamsController_listAgentTeamRuns, AgentTeamsController_getAgentTeamRun]
+    relationships:
+      - {type: belongs_to, target: AgentTeam, via: agentTeamId}
+
+  - name: AccountSummary
+    description: A Copilot-generated narrative summary of an account, and a question-answering surface over it.
+    operations: [AccountSummaryInterface_getAccountSummary, AccountSummaryInterface_askAccountSummaryQuestion]
+    relationships:
+      - {type: belongs_to, target: Company, via: companyId}
+      - {type: has_many, target: Thread, via: threadId, note: Questions are threaded (threadId, threadMessageId, parentThreadMessageId).}
+
+  - name: GTMConfiguration
+    description: >-
+      The customer's own go-to-market definition — offerings, ideal customer profiles, buyer personas,
+      competitors and settings. Read as a bundle by the get_gtm_context MCP tool; written one resource at
+      a time over REST.
+    surfaces: [Copilot API]
+    members:
+      - {entity: OrganizationOffering, key: offeringId}
+      - {entity: CustomerIdealCompanySegment, key: segmentId}
+      - {entity: CustomerBuyerPersona, key: buyerPersonaId}
+      - {entity: CustomerCompetitor, key: competitorId}
+      - {entity: CustomerSettings, key: singleton}
+    lifecycle_note: >-
+      Every member supports archive and unarchive as explicit actions alongside delete — soft and hard
+      removal are distinct operations, which is unusual and worth honoring in any client.
+
+  - name: GTMEntity
+    description: Customer-defined entity types in the GTM data model, with introspectable fields and bulk upsert.
+    surfaces: [Platform API]
+    operations: [EntitiesController_getEntitiesList, EntitiesController_getEntityFields, EntitiesController_upsertEntitiesRecords]
+    note: A metadata-driven extension point — the schema is discovered at runtime rather than declared in the OpenAPI.
+
+  - name: Workflow
+    description: A configured platform workflow that can be executed and polled.
+    surfaces: [Platform API]
+    operations: [WorkflowsController_getWorkflows, WorkflowsController_executeWorkflow, WorkflowsController_getExecutionStatus]
+
+  - name: LookupValue
+    description: >-
+      Controlled vocabulary — industries, metro regions, intent topics, management levels, departments,
+      scoop types, tech vendors and products. Not user data, but load-bearing: search rejects raw strings,
+      so every filter must be resolved to a lookup id first.
+    operations: [LookupInterface_lookup, LookupSearchInterface_lookupSearch, LookupEnrichInterface_lookupEnrich]
+
+graph_shape:
+  hub: Company
+  note: >-
+    Read paths converge on Company. Contact, Scoop, NewsArticle, IntentSignal, Technology and
+    AccountSummary all reference a company id, and Company references itself twice for corporate hierarchy
+    (parentId and ultimateParentId). Write paths converge on Audience, which is the only entity that
+    accumulates state across calls.
+  entry_points:
+    - LookupValue (resolve a natural-language filter to an id)
+    - Company / Contact search (discover ids)
+    - Enrich (redeem an id for the full profile — the metered step)
+
+counts:
+  component_schemas: 616
+  entities_modeled: 16
+  specs_read: 6
+  operations: 100
+
+render: null

@@ -1,0 +1,2632 @@
+{
+  "item": [
+    {
+      "id": "0b9573dd-0e35-42e3-8367-4bb0c696cbbc",
+      "name": "Lookup",
+      "description": {
+        "content": "This folder contains a series of lookup endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "06ef2b35-634e-4d56-9fa7-a410cf3c9187",
+          "name": "Zoominfo Company Ranking",
+          "request": {
+            "name": "Zoominfo Company Ranking",
+            "description": {
+              "content": "Retrieve accepted Company Ranking values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "companyranking"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6f52814b-5cfa-44f6-879e-ba8625f97006",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "companyranking"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"Id\": \"fortune100\",\n    \"Name\": \"Fortune 100\"\n  },\n  {\n    \"Id\": \"fortune500\",\n    \"Name\": \"Fortune 500\"\n  },\n  {\n    \"Id\": \"fortune1000\",\n    \"Name\": \"Fortune 1000\"\n  },\n  {\n    \"Id\": \"global500\",\n    \"Name\": \"Global 500\"\n  },\n  {\n    \"Id\": \"private500\",\n    \"Name\": \"America's Largest\"\n  },\n  {\n    \"Id\": \"russell3000\",\n    \"Name\": \"Russell 3000\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f3dcd03-e06f-4cf9-832d-7db8048f872d",
+          "name": "Zoominfo Continent",
+          "request": {
+            "name": "Zoominfo Continent",
+            "description": {
+              "content": "Retrieve accepted Continent values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "continent"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c1454aea-9263-4636-8ffb-478bda43d639",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "continent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "69236cc4-a15e-487d-8fdb-2a9a000c207b",
+          "name": "Zoominfo Country",
+          "request": {
+            "name": "Zoominfo Country",
+            "description": {
+              "content": "Retrieve accepted Country values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "country"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d0948418-3f0c-4e3a-9446-12b2ffb20614",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "country"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d27db32-95c9-4428-91e9-2a5fe87f0e4f",
+          "name": "Zoominfo State",
+          "request": {
+            "name": "Zoominfo State",
+            "description": {
+              "content": "Retrieve accepted State values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "state"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4797c8c6-96f2-44cd-a60b-a527b212c0ff",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd9e3955-eaeb-408c-a774-d707d3d91d07",
+          "name": "Zoominfo Contact Departments",
+          "request": {
+            "name": "Zoominfo Contact Departments",
+            "description": {
+              "content": "Retrieve accepted Contact Department values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "department"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "af53d541-985b-421a-9f2a-e401992f424d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "department"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "06c7bc5e-f8f0-4802-9a2b-8850c23da933",
+          "name": "Zoominfo Employee Count",
+          "request": {
+            "name": "Zoominfo Employee Count",
+            "description": {
+              "content": "Retrieve accepted Employee Count values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "employeecount"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e8a43cc9-52ab-4276-bda9-8411e8c13e00",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "employeecount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86a0cce2-3dae-46e4-9cd6-4919a1dbe172",
+          "name": "Zoominfo Sic Codes",
+          "request": {
+            "name": "Zoominfo Sic Codes",
+            "description": {
+              "content": "Retrieve accepted Standard Industrial Classification (SIC) values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "siccode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3e4e6e1b-12ef-4624-8fb3-071fbe66ccaf",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "siccode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce4fd5cb-09c2-4602-afa9-cdf2fde8092e",
+          "name": "Zoominfo Naics Codes",
+          "request": {
+            "name": "Zoominfo Naics Codes",
+            "description": {
+              "content": "Retrieve accepted North American Industry Classification System (NAICS) values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "naicscode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9526e260-d080-4501-af0a-f0bfbfc78327",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "naicscode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fcceaa75-cf88-4047-b7bb-300de4c23a3b",
+          "name": "Zoominfo Industry Codes",
+          "request": {
+            "name": "Zoominfo Industry Codes",
+            "description": {
+              "content": "Retrieve accepted Industry Code values\n\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "industry"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2e3737c1-2811-4d6f-8446-11ca3cf35f25",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "industry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9240b636-a44d-4bd5-81f4-8e935468bb4f",
+          "name": "Zoominfo Job Title Hierarchy",
+          "request": {
+            "name": "Zoominfo Job Title Hierarchy",
+            "description": {
+              "content": "Retrieve accepted Job Title Hierarchy values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "jobtitlehierarchy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6b37a0b9-541a-4572-9d7f-54737c4105a5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "jobtitlehierarchy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6719730e-03f6-451a-bb1e-39b7f544f383",
+          "name": "Zoominfo Job Function",
+          "request": {
+            "name": "Zoominfo Job Function",
+            "description": {
+              "content": "Retrieve accepted Job Function values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "jobfunction"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "43f578e2-8632-4996-8e34-94bb352ce4b7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "jobfunction"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "09a33e43-7b8b-4793-9e95-da612d15a373",
+          "name": "Zoominfo Metro Area",
+          "request": {
+            "name": "Zoominfo Metro Area",
+            "description": {
+              "content": "Retrieve accepted Metro Area values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "metroarea"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f7764f5e-8f7b-4a38-89fb-1c418cfc9653",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "metroarea"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "229b0f98-2761-4732-8ba8-1dbdcd8d3ff2",
+          "name": "Zoominfo Revenue Range",
+          "request": {
+            "name": "Zoominfo Revenue Range",
+            "description": {
+              "content": "Retrieve accepted Revenue Range values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "revenuerange"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "26fe611a-97e4-4065-8c35-11ce7b9a64f9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "revenuerange"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e055cd2-7c8e-4267-9a07-e3f0c639eb67",
+          "name": "Zoominfo Scoop Topics",
+          "request": {
+            "name": "Zoominfo Scoop Topics",
+            "description": {
+              "content": "Retrieve accepted Scoop Topic values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "scooptopic"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fd04da50-2471-4ee9-83f0-33d50b309495",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "scooptopic"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2df2a1e8-8daf-4dc0-b7e1-43e42373827f",
+          "name": "Zoominfo Scoop Types",
+          "request": {
+            "name": "Zoominfo Scoop Types",
+            "description": {
+              "content": "Retrieve accepted Scoop Type values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "scooptype"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d9a106a2-851f-4ea9-928e-ef1c650e5b88",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "scooptype"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28a2ff14-3143-4726-8847-883c865809af",
+          "name": "Zoominfo Scoop Departments",
+          "request": {
+            "name": "Zoominfo Scoop Departments",
+            "description": {
+              "content": "Retrieve accepted Scoop Department values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "scoopdepartment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d7d43bdd-a23f-46e0-82cd-844e68adcf49",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "scoopdepartment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9cf4b80b-7ffe-4512-ad03-73fc8cbf2609",
+          "name": "Zoominfo Company Type",
+          "request": {
+            "name": "Zoominfo Company Type",
+            "description": {
+              "content": "Retrieve accepted Company Type values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "companytype"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d3b503da-a23d-4267-8254-a6c91e147239",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "companytype"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "45a34eb6-ae73-43d9-a97c-f3e0145e340d",
+          "name": "Zoominfo Board Members",
+          "request": {
+            "name": "Zoominfo Board Members",
+            "description": {
+              "content": "Retrieve accepted Board Member values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "boardMember"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "33bb53eb-4c57-4488-8fd8-584281c9e7a1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "boardMember"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00268fb7-c986-46d9-9a38-5bce48e813bb",
+          "name": "Zoominfo Management Levels",
+          "request": {
+            "name": "Zoominfo Management Levels",
+            "description": {
+              "content": "Retrieve accepted Management Level values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "managementLevel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0dd88e64-f10f-4615-a042-83b00d0b97c7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "managementLevel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2b640cf-6342-43a2-9bc5-026fc2d800d0",
+          "name": "Zoominfo Sub Unit Type",
+          "request": {
+            "name": "Zoominfo Sub Unit Type",
+            "description": {
+              "content": "Retrieve accepted Sub Unit Type values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "subunittypes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6b6b7e54-b3c7-4432-b153-d47b7a081000",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "subunittypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d46f40a6-b734-431d-8b36-a7e38fdab885",
+          "name": "Zoominfo Tech - Categories",
+          "request": {
+            "name": "Zoominfo Tech - Categories",
+            "description": {
+              "content": "Retrieve accepted Tech Category values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "tech",
+                "category"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ecfb4de6-9d43-466a-9d17-f9f544c8c663",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "tech",
+                    "category"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "65c9856a-aaaa-4ff1-b619-78caada60358",
+          "name": "Zoominfo Tech - Vendor",
+          "request": {
+            "name": "Zoominfo Tech - Vendor",
+            "description": {
+              "content": "Retrieve accepted Tech Vendor values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "tech",
+                "vendor"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "40004802-83fb-4d3b-9515-da33e59c68ce",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "tech",
+                    "vendor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f901b77f-63f1-4739-a582-5790e4376b06",
+          "name": "Zoominfo Tech - Product",
+          "request": {
+            "name": "Zoominfo Tech - Product",
+            "description": {
+              "content": "Retrieve accepted Tech Product values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "tech",
+                "product"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "vendor",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "parentCategory",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "category",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6fd0b723-ecd0-42c2-b242-41a5f462a8de",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "tech",
+                    "product"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "vendor",
+                      "value": "microsoft corporation"
+                    },
+                    {
+                      "key": "parentCategory",
+                      "value": "Communication and Collaboration"
+                    },
+                    {
+                      "key": "category",
+                      "value": "Unified Communications"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "705bc0f8-8c4f-48c5-a905-abdfa844251f",
+          "name": "Zoominfo Tech Skills",
+          "request": {
+            "name": "Zoominfo Tech Skills",
+            "description": {
+              "content": "Retrieve Tech Skill values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "tech-skills"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "da76ed94-7b1b-442c-93cf-17210571f3de",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "tech-skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "13c5b621-019c-4a8b-baa0-7ba26b5573f6",
+          "name": "Zoominfo Hashtag",
+          "request": {
+            "name": "Zoominfo Hashtag",
+            "description": {
+              "content": "Retrieve accepted Hashtag values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "hashtag"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "vendor",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "parentCategory",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "category",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fd9fffa4-9d16-4e13-b77f-abb9563e189d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "hashtag"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "vendor",
+                      "value": "microsoft corporation"
+                    },
+                    {
+                      "key": "parentCategory",
+                      "value": "Communication and Collaboration"
+                    },
+                    {
+                      "key": "category",
+                      "value": "Unified Communications"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff8472ac-b6ee-4fa7-ad02-5faa54f97723",
+          "name": "Zoominfo Intent Topics",
+          "request": {
+            "name": "Zoominfo Intent Topics",
+            "description": {
+              "content": "Retrieve accepted intent topics and categories.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "intent",
+                "topics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cd1ec928-0cb0-492a-bcfb-8ae514058f8d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "intent",
+                    "topics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"Name\": \"Affordable Care Act (ACA)\",\n    \"Category\": \"Compensation & Benefits\",\n    \"Department\": \"Legal\",\n    \"JobFunction\": \"Governmental Affairs & Regulatory Law\",\n    \"Description\": \"The Affordable Care Act (ACA) is a United States federal statute signed into law by President Obama on March 23, 2010. The ACA was enacted to increase the quality and affordability of health insurance, lower the uninsured rate by expanding public and private insurance coverage, and reduce the costs of healthcare for individuals and the government.\"\n  },\n  {\n    \"Name\": \"Android Push Notifications\",\n    \"Category\": \"Mobile Devices\",\n    \"Department\": \"Information Technology\",\n    \"JobFunction\": \"Cloud / Mobility\",\n    \"Description\": \"Android Push Notifications is a message that pops up on the user's device. Notifications can be triggered locally by an open application, or they can be \\\"\\\"pushed\\\"\\\" from the server to the user even when the app is not running. They allow your users to opt-in to timely updates and allow you to effectively re-engage users with customized content.\"\n  },\n  {\n    \"Name\": \"Claims Processing\",\n    \"Category\": \"Compensation & Benefits\",\n    \"Department\": \"Medical & Health\",\n    \"JobFunction\": \"Medical Administration\",\n    \"Description\": \"Claims processing refers to the insurance company's procedure to check the claim requests for adequate information, validation, justification and authenticity.\"\n  },\n  {\n    \"Name\": \"Cloud Applications\",\n    \"Category\": \"Cloud\",\n    \"Department\": \"Information Technology\",\n    \"JobFunction\": \"Cloud / Mobility\",\n    \"Description\": \"Cloud application or cloud app is a software program where cloud-based and local components work together.\"\n  },\n  {\n    \"Name\": \"Cloud Computing\",\n    \"Category\": \"Cloud\",\n    \"Department\": \"Information Technology\",\n    \"JobFunction\": \"Cloud / Mobility\",\n    \"Description\": \"Cloud computing is a general term for anything that involves delivering hosted services over the internet.\"\n  },\n  {\n    \"Name\": \"Cloud Infrastructure\",\n    \"Category\": \"Cloud\",\n    \"Department\": \"Information Technology\",\n    \"JobFunction\": \"Cloud / Mobility\",\n    \"Description\": \"Cloud infrastructure is a term used to describe the components needed for cloud computing, which includes hardware, abstracted resources, storage, and network resources. Think of cloud infrastructure as the tools needed to build a cloud. In order to host services and applications in the cloud, you need cloud infrastructure.\"\n  },\n  {\n    \"Name\": \"Corporate Culture\",\n    \"Category\": \"Company Culture & Policy\",\n    \"Department\": \"Human Resources\",\n    \"JobFunction\": \"Organizational Development\",\n    \"Description\": \"Corporate culture is the shared values, attitudes, standards, and beliefs that characterize members of an organization and define its nature. It is rooted in an organization's goals, strategies, structure, and approaches to labor, customers, investors, and the greater community.\"\n  },\n  {\n    \"Name\": \"Credit Card Fraud\",\n    \"Category\": \"Banking\",\n    \"Department\": \"Finance\",\n    \"JobFunction\": \"Risk\",\n    \"Description\": \"Credit card fraud is an inclusive term for fraud committed using a payment card, such as a credit card or debit card. The purpose may be to obtain goods or services, or to make payment to another account which is controlled by a criminal.\"\n  },\n  {\n    \"Name\": \"Direct Deposit\",\n    \"Category\": \"Billing & Invoice\",\n    \"Department\": \"Finance\",\n    \"JobFunction\": \"Finance\",\n    \"Description\": \"Direct deposit or direct credit, in banking, is a deposit of money by a payer directly into a payee's bank account. Direct deposits are most commonly made by businesses in the payment of salaries and wages and for the payment of suppliers' accounts, but the facility can be used for payments, such as payment of bills, taxes, and other government charges.\"\n  },\n  {\n    \"Name\": \"eFulfillment Service\",\n    \"Category\": \"Logistics / Supply Chain\",\n    \"Department\": \"Operations\",\n    \"JobFunction\": \"Logistics\",\n    \"Description\": \"eFulfillment Service (EFS) is a process of making order fulfillment fast, easy and affordable for sellers of all types and sizes.\"\n  },\n  {\n    \"Name\": \"Google Search\",\n    \"Category\": \"Search\",\n    \"Department\": \"Information Technology\",\n    \"JobFunction\": \"Collaboration & Web Apps\",\n    \"Description\": \"Google Search, also referred to as Google Web Search or simply Google, is a web search engine developed by Google.\"\n  },\n  {\n    \"Name\": \"Healthcare Law\",\n    \"Category\": \"Regulations\",\n    \"Department\": \"Legal\",\n    \"JobFunction\": \"Governmental Affairs & Regulatory Law\",\n    \"Description\": \"Healthcare law concerns who can receive healthcare, and who should pay for it. This is a surprisingly complicated area of law given how expensive healthcare can be in the United States.\"\n  },\n  {\n    \"Name\": \"Hours of Work\",\n    \"Category\": \"Labor & Employment Policy\",\n    \"Department\": \"Human Resources\",\n    \"JobFunction\": \"Human Resources\",\n    \"Description\": \"Hours of Work is the period of time during which one engages in paid work. It is one way to measure the labor a person performs.\"\n  },\n  {\n    \"Name\": \"In-App Advertising\",\n    \"Category\": \"Advertising\",\n    \"Department\": \"Marketing\",\n    \"JobFunction\": \"Advertising\",\n    \"Description\": \"In-app advertising is an effective monetization strategy for mobile publishers, in which app developers get paid to serve advertisements within their mobile app.\"\n  },\n  {\n    \"Name\": \"Incentive Compensation\",\n    \"Category\": \"Compensation & Benefits\",\n    \"Department\": \"Human Resources\",\n    \"JobFunction\": \"Compensation & Benefits\",\n    \"Description\": \"Incentive compensation is a type of compensation based on the performance of an entity. Often incentive compensation plans are designed to attract and retain key employees, identify with shareholders, and align interests of employees and the company.\"\n  },\n  {\n    \"Name\": \"Java\",\n    \"Category\": \"Application Development\",\n    \"Department\": \"Engineering & Technical\",\n    \"JobFunction\": \"Software Development\",\n    \"Description\": \"Java is a widely used programming language expressly designed for use in the distributed environment of the internet. It is the programming language for Android smartphone applications.\"\n  },\n  {\n    \"Name\": \"Legal\",\n    \"Category\": \"Legal Operations\",\n    \"Department\": \"Legal\",\n    \"JobFunction\": \"Legal\",\n    \"Description\": \"Legal is used to describe things that relate to the law.\"\n  },\n  {\n    \"Name\": \"Mobile / Wireless\",\n    \"Category\": \"Mobile Devices\",\n    \"Department\": \"Information Technology\",\n    \"JobFunction\": \"Cloud / Mobility\",\n    \"Description\": \"Transmission over the air from a base station to a moving cellphone, tablet or laptop. The term may refer to voice only or voice and data.\"\n  },\n  {\n    \"Name\": \"Mobile Apps\",\n    \"Category\": \"Mobile Applications\",\n    \"Department\": \"Information Technology\",\n    \"JobFunction\": \"Cloud / Mobility\",\n    \"Description\": \"Mobile application is a computer program or software application designed to run on a mobile device such as a phone, tablet, or watch.\"\n  },\n  {\n    \"Name\": \"Mobile Security\",\n    \"Category\": \"Cyber Security\",\n    \"Department\": \"Information Technology\",\n    \"JobFunction\": \"Information Security\",\n    \"Description\": \"Mobile security involves protecting both personal and business information stored on and transmitted from smartphones, tablets, laptops and other mobile devices. The term mobile security is a broad one that covers everything from protecting mobile devices from malware threats to reducing risks and securing mobile devices and their data in the case of theft, unauthorized access or accidental loss of the mobile device.\"\n  },\n  {\n    \"Name\": \"Mobile Wallet\",\n    \"Category\": \"Mobile Applications\",\n    \"Department\": \"Information Technology\",\n    \"JobFunction\": \"Cloud / Mobility\",\n    \"Description\": \"Mobile wallet is a virtual wallet that stores payment card information on a mobile device. Mobile wallets are a convenient way for a user to make in-store payments and can be used at merchants listed with the mobile wallet service provider.\"\n  },\n  {\n    \"Name\": \"Node.js\",\n    \"Category\": \"Application Development\",\n    \"Department\": \"Engineering & Technical\",\n    \"JobFunction\": \"Software Development\",\n    \"Description\": \"Node.js is an open-source, cross-platform, JavaScript runtime environment that executes JavaScript code outside of a browser.\"\n  },\n  {\n    \"Name\": \"Organizational Culture\",\n    \"Category\": \"Company Culture & Policy\",\n    \"Department\": \"Human Resources\",\n    \"JobFunction\": \"Organizational Development\",\n    \"Description\": \"Organizational culture is defined as the underlying beliefs, assumptions, values and ways of interacting that contribute to the unique social and psychological environment of an organization.\"\n  },\n  {\n    \"Name\": \"Risk Management Services\",\n    \"Category\": \"Risk\",\n    \"Department\": \"Human Resources\",\n    \"JobFunction\": \"Human Resources\",\n    \"Description\": \"Risk management is the identification, evaluation, and prioritization of risks followed by coordinated and economical application of resources to minimize, monitor, and control the probability or impact of unfortunate events or to maximize the realization of opportunities.\"\n  },\n  {\n    \"Name\": \"Video Conferencing\",\n    \"Category\": \"Collaboration/Web Apps\",\n    \"Department\": \"Information Technology\",\n    \"JobFunction\": \"Collaboration & Web Apps\",\n    \"Description\": \"Video conferencing is a technology that allows users in different locations to hold face-to-face meetings without having to move to a single location together.\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7f78a55-c02a-4a70-b335-7ccca9fe3065",
+          "name": "Zoominfo News Categories",
+          "request": {
+            "name": "Zoominfo News Categories",
+            "description": {
+              "content": "Retrieve accepted news categories.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "news",
+                "categories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2841472a-764d-4ce9-af9a-6231e4971290",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "news",
+                    "categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  \"FINANCIAL_RESULTS\",\n  \"FUNDING\",\n  \"GENERAL_NEWS\",\n  \"GENERAL_PRESS_RELEASE\",\n  \"MERGER_OR_ACQUISTION\",\n  \"PERSON\",\n  \"PRODUCT\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "500eeffc-1540-49c3-8b5e-33c66a4746f5",
+          "name": "Zoominfo Employee Category Band",
+          "request": {
+            "name": "Zoominfo Employee Category Band",
+            "description": {
+              "content": "Retrieve Employee Category Band values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "employee-category-band"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "04799081-7ae5-400d-b022-ad5203e377c1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "employee-category-band"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eeb22392-9954-41a4-9cab-0b653a1d6503",
+          "name": "Zoominfo Revenue Category Band",
+          "request": {
+            "name": "Zoominfo Revenue Category Band",
+            "description": {
+              "content": "Retrieve Revenue Category Band values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "revenue-category-band"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6d1cc91a-78b7-409e-95a3-982bd93d87de",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "revenue-category-band"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea688ca4-950c-4c19-9c69-cd1c6a4f59de",
+          "name": "Zoominfo Years of Experience",
+          "request": {
+            "name": "Zoominfo Years of Experience",
+            "description": {
+              "content": "Retrieve accepted Years Of Experience ranges.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "years-of-experience"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a0d87b7d-fa02-4bf6-9bb7-a2c87a5f909c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "years-of-experience"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49c198a1-bc8c-467b-b7d9-69f7d583e2e4",
+          "name": "Zoominfo Hierarchy Code",
+          "request": {
+            "name": "Zoominfo Hierarchy Code",
+            "description": {
+              "content": "Retrieve Company Hierarchy Code values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "hierarchy-code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "41d0f122-9b21-4e04-b697-f4d201ed612d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "hierarchy-code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b12aad56-ca43-4c81-b97d-39b51e27ee27",
+          "name": "Zoominfo Buying Groups",
+          "request": {
+            "name": "Zoominfo Buying Groups",
+            "description": {
+              "content": "Retrieve buying group information",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "buyinggroups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0ce41647-5afe-4304-babe-f7a3e08ba6e6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "buyinggroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zoominfo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "90a544f6-4a4e-4d1d-899a-5a3686c4d372",
+    "name": "ZoomInfo Authentication Lookup API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...\n\nContact Support:\n Name: ZoomInfo API Support\n Email: support@zoominfo.com",
+      "type": "text/plain"
+    }
+  }
+}

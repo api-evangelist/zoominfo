@@ -1,0 +1,664 @@
+{
+  "item": [
+    {
+      "id": "940e9e0b-826e-48dd-8485-2fa665efe394",
+      "name": "News Enrich",
+      "description": {
+        "content": "Use [News Enrich](#a04f60d9-353e-4eb1-9c37-0539ee6b8d13) to retrieve news data using valid query parameters.\n\nRefer to the examples provided to build a valid JSON request:\n\n*   Use the [News Enrich Inputs](#d58425e5-a4a4-4af0-ad01-fa7bbf91ca84) endpoint to retrieve a list of valid input parameters you can provide\n*   Use the [News Enrich Outputs](#254b86e3-e51b-450d-8704-95e4da168874) endpoint to retrieve a list of valid output fields returned",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "22ceb8f0-ad13-4e91-8298-135987721acf",
+          "name": "Zoominfo News Enrich",
+          "request": {
+            "name": "Zoominfo News Enrich",
+            "description": {
+              "content": "Use this endpoint to match company news information based on [input values](#d58425e5-a4a4-4af0-ad01-fa7bbf91ca84) and return the desired [output fields](#254b86e3-e51b-450d-8704-95e4da168874) in the response.\n\nThe News Enrich endpoint returns a list of news articles related to a specified company:\n\n- News Enrich requests require a valid ZoomInfo Company ID as an input parameter\n- By default, each request will return the 10 most recent news articles associated with the company record\n- You can filter the news articles returned by adjusting the input parameters\n    \n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyId | String | Unique ZoomInfo identifier for a company |\n| limit | Integer | Number of articles to return per page. The maximum limit is 100. |\n| page | Integer | Provides the results for the given page. Used in conjunction with `limit`. |\n| categories | String | Category of news articles. See the News Categories endpoint for values. |\n| url | ArrayList | Search news by text contained in URL strings. You must specify a minimum of 5 characters per input. |\n| pageDateMin | String | Specify the earliest publishing date for news articles returned. For example, `2020-01-01` will return all news articles published on or after Jan 1, 2020. |\n| pageDateMax | String | Specify the latest publishing date for news articles articles. For example, `2020-01-31` will return all new articles published on or before Jan 31, 2020. |\n\n**Output fields**\n\n| Field | Description |\n| --- | --- |\n| companyId | Unique ZoomInfo identifier for a company |\n| companyName | Company name |\n| domain | News article domain |\n| title | News article title |\n| url | News article URL |\n| imageUrl | News article image URL |\n| pageDate | News article date |\n| categories | News article categories |\n| description | News article content description |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrich",
+                "news"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyId\": \"<integer>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"url\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pageDateMin\": \"<string>\",\n  \"pageDateMax\": \"<string>\",\n  \"limit\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fabea922-6d1d-4098-a64f-306be5b0cbe9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrich",
+                    "news"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": 18579882,\n  \"categories\": [\n    \"FUNDING\",\n    \"GENERAL_NEWS\",\n    \"GENERAL_PRESS_RELEASE\",\n    \"MERGER_OR_ACQUISTION\",\n    \"PERSON\",\n    \"PRODUCT\"\n  ],\n  \"url\": [\n    \"www.businesswire.com\"\n  ],\n  \"pageDateMin\": \"2019-12-01T00:00:00.000Z\",\n  \"pageDateMax\": \"2020-12-31T00:00:00.000Z\",\n  \"limit\": 5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-request-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-request-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-record-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-record-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-request-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-request-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-record-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-record-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-unique-id-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-unique-id-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-envoy-upstream-service-time",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "service",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-ratelimit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-ratelimit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-envoy-decorator-operation",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "alt-svc",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Origin-Trial",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-RAY",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"maxResults\": 48,\n  \"totalResults\": 5,\n  \"currentPage\": 1,\n  \"data\": [\n    {\n      \"domain\": \"www.businesswire.com\",\n      \"title\": \"Arvind Krishna Elected IBM Chairman\",\n      \"url\": \"https://www.businesswire.com/news/home/20201216005975/en/Arvind-Krishna-Elected-IBM-Chairman/\",\n      \"imageUrl\": \"https://mms.businesswire.com/media/20201216005975/en/2721/21/IBM8bar_12pxWide.jpg\",\n      \"pageDate\": \"2020-12-16T09:11:00.000Z\",\n      \"categories\": [\n        \"PERSON\"\n      ],\n      \"description\": \"ARMONK, N.Y.--(BUSINESS WIRE)---- $ibm #ibm--The IBM (NYSE: IBM) board of directors has elected Arvind Krishna chairman of the board, effective January 1, 2021. Mr. Krishna, who is IBM's chief executive officer and a member of the board, succeeds IBM executive chairman Virginia M. Rometty, who is retiring on December 31, 2020, as the company previously announced in January of this year. Mr. Krishna, 58, was elected IBM's 10th CEO in January, and assumed the position\",\n      \"company\": [\n        {\n          \"id\": 18579882,\n          \"name\": \"IBM\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.businesswire.com\",\n      \"title\": \"Kaloom Commits to Join IBM Cloud for Telecommunications Ecosystem\",\n      \"url\": \"https://www.businesswire.com/news/home/20201118005085/en/Kaloom-Commits-to-Join-IBM-Cloud-for-Telecommunications-Ecosystem/\",\n      \"imageUrl\": \"https://mms.businesswire.com/media/20201118005085/en/839263/22/Kaloom_corp_logo.jpg\",\n      \"pageDate\": \"2020-11-18T01:00:00.000Z\",\n      \"categories\": [\n        \"GENERAL_PRESS_RELEASE\"\n      ],\n      \"description\": \"MONTREAL--(BUSINESS WIRE)--KaloomTM today announced it has committed to join IBMs (NYSE: IBM) ecosystem of partners supporting the new IBM Cloud for Telecommunications. The IBM Cloud for Telecommunications is an open, hybrid cloud architecture designed to accelerate business transformation with the power of edge and 5G and address the unique requirements of operators, partner ecosystems and their enterprise clients. Built on IBM Cloud Satellite, currently in beta, and leveraging Red Hat OpenSh\",\n      \"company\": [\n        {\n          \"id\": 18579882,\n          \"name\": \"IBM\"\n        },\n        {\n          \"id\": 401162856,\n          \"name\": \"Kaloom\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.businesswire.com\",\n      \"title\": \"Sysdig and IBM Embed Sysdig Secure for Container Security\",\n      \"url\": \"https://www.businesswire.com/news/home/20201117005546/en/Sysdig-and-IBM-Embed-Sysdig-Secure-for-Container-Security/\",\n      \"imageUrl\": \"https://mms.businesswire.com/media/20201117005546/en/839397/22/sysdig_Vert_Color_Logo_RGB_lrg.jpg\",\n      \"pageDate\": \"2020-11-17T12:58:00.000Z\",\n      \"categories\": [\n        \"GENERAL_PRESS_RELEASE\"\n      ],\n      \"description\": \"SAN FRANCISCO--(BUSINESS WIRE)--Sysdig announced global availability of Sysdig Secure embedded within IBM Cloud to provide end-to-end Kubernetes and container monitoring and security\",\n      \"company\": [\n        {\n          \"id\": 18579882,\n          \"name\": \"IBM\"\n        },\n        {\n          \"id\": 370808562,\n          \"name\": \"Sysdig\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.businesswire.com\",\n      \"title\": \"Governance Risk and Compliance Platform Market 2020-2024 | Key Vendor Insights | Technavio\",\n      \"url\": \"https://www.businesswire.com/news/home/20201110005991/en/Governance-Risk-and-Compliance-Platform-Market-2020-2024-Key-Vendor-Insights-Technavio/\",\n      \"imageUrl\": \"https://mms.businesswire.com/media/20201110005991/en/837732/22/IRTNTR44684.jpg\",\n      \"pageDate\": \"2020-11-11T05:40:00.000Z\",\n      \"categories\": [\n        \"GENERAL_PRESS_RELEASE\"\n      ],\n      \"description\": \"LONDON--(BUSINESS WIRE)-- #GlobalGovernanceRiskandCompliancePlatformMarket--The Governance Risk and Compliance Platform Market will grow by $ 28.75 bn during 2020-2024\",\n      \"company\": [\n        {\n          \"id\": 10879721,\n          \"name\": \"Dell\"\n        },\n        {\n          \"id\": 18579882,\n          \"name\": \"IBM\"\n        },\n        {\n          \"id\": 25248426,\n          \"name\": \"Mitratech\"\n        },\n        {\n          \"id\": 345585174,\n          \"name\": \"Technavio\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"www.businesswire.com\",\n      \"title\": \"Global Supply Chain Analytics Market | Trends, Drivers, and Key Vendor Offerings | Technavio\",\n      \"url\": \"https://www.businesswire.com/news/home/20201109005911/en/Global-Supply-Chain-Analytics-Market-Trends-Drivers-and-Key-Vendor-Offerings-Technavio/\",\n      \"imageUrl\": \"https://mms.businesswire.com/media/20201109005911/en/837157/22/IRTNTR45145.jpg\",\n      \"pageDate\": \"2020-11-10T04:00:00.000Z\",\n      \"categories\": [\n        \"GENERAL_PRESS_RELEASE\"\n      ],\n      \"description\": \"LONDON--(BUSINESS WIRE)-- #GlobalSupplyChainAnalyticsMarket--The Supply Chain Analytics Market will grow by $ 3.64 bn during 2020-2024\",\n      \"company\": [\n        {\n          \"id\": 354049788,\n          \"name\": \"Cloudera\"\n        },\n        {\n          \"id\": 18579882,\n          \"name\": \"IBM\"\n        },\n        {\n          \"id\": 24920158,\n          \"name\": \"MicroStrategy\"\n        },\n        {\n          \"id\": 345585174,\n          \"name\": \"Technavio\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "441d0c7c-ca9a-45ae-bcf5-6abc7232890a",
+          "name": "Zoominfo News Enrich Inputs",
+          "request": {
+            "name": "Zoominfo News Enrich Inputs",
+            "description": {
+              "content": "Returns a list of fields you can use as input for the [News Enrich](#a04f60d9-353e-4eb1-9c37-0539ee6b8d13) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "inputfields",
+                "news",
+                "enrich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2b0cb9c7-f550-454e-85c4-e7896536a0af",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "inputfields",
+                    "news",
+                    "enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"companyId\",\n    \"fieldType\": \"Long\",\n    \"description\": \"The id of the company you are searching for\"\n  },\n  {\n    \"fieldName\": \"limit\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Maximum number of articles to return. The maximum limit is 5000.\"\n  },\n  {\n    \"fieldName\": \"categories\",\n    \"fieldType\": \"ArrayList\",\n    \"description\": \"Category of news articles. Accepts an Array of String. See the 'News Categories' endpoint for values.\"\n  },\n  {\n    \"fieldName\": \"pageDateMin\",\n    \"fieldType\": \"String\",\n    \"description\": \"Specify the earliest publishing date for news articles returned. For example, 2020-01-01 will return all news articles published on or after Jan 1, 2020.\"\n  },\n  {\n    \"fieldName\": \"pageDateMax\",\n    \"fieldType\": \"String\",\n    \"description\": \"Specify the latest publishing date for news articles articles. For example, 2020-01-31 will return all new articles published on or before Jan 31, 2020.\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8220f788-3e33-4119-88d9-638fd8915629",
+          "name": "Zoominfo News Enrich Outputs",
+          "request": {
+            "name": "Zoominfo News Enrich Outputs",
+            "description": {
+              "content": "Returns a list of output fields for the [News Enrich](#a04f60d9-353e-4eb1-9c37-0539ee6b8d13) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "outputfields",
+                "news",
+                "enrich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2a3ccacc-6ea6-4c95-9961-da951885d11b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "outputfields",
+                    "news",
+                    "enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"companyId\",\n    \"description\": \"Unique ZoomInfo identifier for a company\"\n  },\n  {\n    \"fieldName\": \"companyName\",\n    \"description\": \"Company name\"\n  },\n  {\n    \"fieldName\": \"domain\",\n    \"description\": \"News article domain\"\n  },\n  {\n    \"fieldName\": \"title\",\n    \"description\": \"News article title\"\n  },\n  {\n    \"fieldName\": \"url\",\n    \"description\": \"News article URL\"\n  },\n  {\n    \"fieldName\": \"imageUrl\",\n    \"description\": \"News article image URL\"\n  },\n  {\n    \"fieldName\": \"pageDate\",\n    \"description\": \"News article date\"\n  },\n  {\n    \"fieldName\": \"categories\",\n    \"description\": \"News article categories\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zoominfo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5bbf06ce-d42f-4bbe-a268-21d1afd4b438",
+    "name": "ZoomInfo Authentication News Enrich API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...\n\nContact Support:\n Name: ZoomInfo API Support\n Email: support@zoominfo.com",
+      "type": "text/plain"
+    }
+  }
+}

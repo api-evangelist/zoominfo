@@ -1,0 +1,1754 @@
+{
+  "item": [
+    {
+      "id": "627fe737-eb53-41ea-b35e-4d86c8aeea79",
+      "name": "Monitoring API/Webhooks",
+      "description": {
+        "content": "ZoomInfo data is highly dynamic, with contacts, companies and related data being constantly updated in real-time in our database. Naturally, our clients want these changes to be delivered in real-time for the records they've already purchased using the ZoomInfo API - that's where webhooks come in.\n\n## Why webhooks?\n\nOrganizations with ZoomInfo API access use the API's endpoints to search for, export, and enrich records to their integrated applications. While you can regularly poll for updates to contact and company records you've already enriched using the API, manually querying the entire database is not the best use of your time. A more efficient method is to configure webhooks to automatically update you when there is a change to a record youve purchased. Once configured, Webhooks will listen for events you subscribe to and automatically send over all (or only relevant) updates securely to your application.\n\n## Monitoring API/Webhooks basics\n\nAvailable to organizations with the Scaling API, the Monitoring API is a set of endpoints that allows for the configuration of webhooks subscriptions that specify:\n\n- **Webhook Title**: Name of the webhook.\n- **Subscription**: The events you are listening for, consisting of object types and event types.\n    - **Object types**: The types of records you want to update. Supported object types are Contact and Company.\n    - **Event types**: The events that trigger a webhook's response. Currently, the only supported event is Update.\n- **Changed attributes**: This is a JSON object that includes a list of fields that are changed as part of a payload.\n- **Payload types (full payload/changed attributes only)**:\n    - A full payload (all fields for a contact or company, including changed attributes)\n    - Only the changed attributes for a contact or company.\n- **Target URL**: The target URL to which the webhook JSON payloads are sent.\n- **Verification Token**: Signature token that will be part of the request we send to you.\n    \n\n## Securing the data transfer\n\nTo secure communication between ZoomInfo and your app, a _verification token_ is generated when you create the webhook. When data is sent to your target URL using a POST request, this verification token will be included in the request header (_x-zoominfo-token_) and can be used in your app to authorize receipt of the data from ZoomInfo.\n\nThe initial token is generated when you create a webhook. To maintain security for your webhook over time, you can periodically generate a new verification token using the [Generate Verification Token](#9cc75e99-622e-4aa2-b9a8-2d33d0ede2ed) webhook.\n\n## Considerations\n\nNote the following considerations:\n\n- To use the Monitoring API/webhooks, you must have access to the Scaling API.\n- To subscribe to events, you must have already enriched at least one contact or company record using the API.\n- You will only receive updates on records that you've purchased using the API within the past 12 months.\n- The default payload type for company or contact updates is the full payload with changed attributes.\n    \n- The maximum number of profiles delivered in a single webhook payload is 25.\n    \n\n## Payload examples\n\nHere are examples of the POST requests your webhook's target URL will receive.\n\nFor contact and company records, you can choose to receive a full payload of all possible fields for a record (including changed attributes), or a payload including only the changed attributes for a record.\n\nIn either case (full or changed attributes only), contact and company records will always include the following fields to support mapping the profile:\n\n**Contacts**: `id`, `firstName`, `lastName`, and `email`\n\n**Companies**: `id`, `name`, and `website`\n\nThe following examples are provided below:\n\n- Example 1: Contact record - full profile (default)\n- Example 2: Contact record - changed attributes only\n- Example 3: Company record - full profile (default)\n- Example 4: Company record - changed attributes only\n    \n\n**Example 1: Contact record - full profile (default)**  \nIncludes all output fields\n\n``` json\n{\n  \"webhookDetails\":\n  {\n    \"id\": \"xxxx\",\n    \"title\": \"webhook-title\",\n    \"objectType\": \"Contact\",\n    \"eventType\": \"Update\"\n  },\n  \"data\":\n  [\n    {\n      \"id\": 1260398587,\n      \"firstName\": \"Henry\",\n      \"middleName\": \"L.\",\n      \"lastName\": \"Schuck\",\n      \"email\": \"henry.schuck@zoominfo.com\",\n      \"hasCanadianEmail\": \"false\",\n      \"phone\": \"(360) 783-6816\",\n      \"directPhoneDoNotCall\": false,\n      \"street\": \"805 Broadway St Ste 900\",\n      \"city\": \"Vancouver\",\n      \"region\": \"Washington\",\n      \"metroArea\": \"Portland\",\n      \"zipCode\": \"98660\",\n      \"state\": \"Washington\",\n      \"country\": \"United States\",\n      \"continent\": \"North America\",\n      \"personHasMoved\": \"Uncertain\",\n      \"withinEu\": false,\n      \"withinCalifornia\": true,\n      \"withinCanada\": false,\n      \"validDate\": \"01/09/2023 07:26 PM\",\n      \"lastUpdatedDate\": \"1/5/2020 7:59 PM\",\n      \"noticeProvidedDate\": \"06/27/2020\",\n      \"salutation\": \"\",\n      \"suffix\": \"\",\n      \"jobTitle\": \"Founder & Chief Executive Officer\",\n      \"jobFunction\":\n      [\n        {\n          \"name\": \"Executive\",\n          \"department\": \"C-Suite\"\n        }\n      ],\n      \"education\":\n      [\n        {\n          \"school\": \"University of Nevada , Las Vegas\",\n          \"educationDegree\":\n          {\n            \"degree\": \"\",\n            \"areaOfStudy\": \"\"\n          }\n        },\n        {\n          \"school\": \"Oxford University\",\n          \"educationDegree\":\n          {\n            \"degree\": \"comparative law\",\n            \"areaOfStudy\": \"\"\n          }\n        },\n        {\n          \"school\": \"The Ohio State University Moritz College of Law\",\n          \"educationDegree\":\n          {\n            \"degree\": \"\",\n            \"areaOfStudy\": \"juris doctorate degree cum laude\"\n          }\n        }\n      ],\n      \"picture\": \"https://www.zoominfo.com/wp-content/uploads/2020/06/henry.png\",\n      \"techSkills\":\n      [\n        {\n          \"id\": 92113,\n          \"name\": \"Microsoft Access\"\n        },\n        {\n          \"id\": 112883,\n          \"name\": \"Forrester\"\n        },\n        {\n          \"id\": 31687,\n          \"name\": \"Wave\"\n        },\n        {\n          \"id\": 68842,\n          \"name\": \"engage\"\n        }\n      ],\n      \"mobile\": \"\",\n      \"personalEmail\": \"\",\n      \"mobilePhone\": \"(818) 679-4647\",\n      \"supplementalEmail\": \"henry.schuck@gmail.com\",\n      \"mobilePhoneDoNotCall\": false,\n      \"externalUrls\":\n      [\n        {\n          \"type\": \"linkedin.com\",\n          \"url\": \"https://www.linkedin.com/in/hschuck\"\n        },\n        {\n          \"type\": \"twitter.com\",\n          \"url\": \"https://www.twitter.com/henrylschuck\"\n        }\n      ],\n      \"contactAccuracyScore\": 94.0,\n      \"isDefunct\": false,\n      \"employmentHistory\":\n      [\n        {\n          \"jobTitle\": \"Vice President of Data and Marketing\",\n          \"managementLevel\":\n          [\n            \"VP-Level\"\n          ],\n          \"fromDate\": \"2002-01-02T00:00:00.000Z\",\n          \"toDate\": \"2006-01-02T00:00:00.000Z\",\n          \"company\":\n          {\n            \"companyId\": 0,\n            \"companyName\": \"iProfile\",\n            \"companyPhone\": \"\",\n            \"companyWebsite\": \"\"\n          }\n        }\n      ],\n      \"managementLevel\":\n      [\n        \"C-Level\"\n      ],\n      \"locationCompanyId\": 344589814,\n      \"positionStartDate\": \"\",\n      \"yearsOfExperience\": \"20-29\",\n      \"company\":\n      {\n        \"division\": \"\",\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\",\n        \"descriptionList\":\n        [\n          {\n            \"description\": \"ZoomInfo was founded in 2000 and is headquartered in Vancouver, Washington. The company offers a business-to-business data platform utilized by sales and marketing teams,\nrecruiters, and other business professionals for lead generation and detailed information on people and companies.\"\n          }\n        ],\n        \"phone\": \"(866) 904-9666\",\n        \"fax\": \"(617) 507-8187\",\n        \"street\": \"805 Broadway St Ste 900\",\n        \"city\": \"Vancouver\",\n        \"state\": \"Washington\",\n        \"zipCode\": \"98660\",\n        \"country\": \"United States\",\n        \"continent\": \"North America\",\n        \"logo\": \"https://res.cloudinary.com/zoominfo-com/image/upload/w_100,h_100,c_fit/zoominfo.com\",\n        \"sicCodes\":\n        [\n          {\n            \"id\": \"27\",\n            \"name\": \"Printing, Publishing, And Allied Industries\"\n          },\n          {\n            \"id\": \"274\",\n            \"name\": \"Miscellaneous Publishing\"\n          },\n          {\n            \"id\": \"2741\",\n            \"name\": \"Miscellaneous Publishing\"\n          },\n          {\n            \"id\": \"73\",\n            \"name\": \"Business Services\"\n          },\n          {\n            \"id\": \"738\",\n            \"name\": \"Miscellaneous Business Services\"\n          },\n          {\n            \"id\": \"7389\",\n            \"name\": \"Business Services, Not Elsewhere Classified\"\n          },\n          {\n            \"id\": \"737\",\n            \"name\": \"Computer Programming, Data Processing, And Other Computer Related Services\"\n          },\n          {\n            \"id\": \"7375\",\n            \"name\": \"Information Retrieval Services\"\n          },\n          {\n            \"id\": \"7374\",\n            \"name\": \"Computer Processing and Data Preparation and Processing Services\"\n          },\n          {\n            \"id\": \"89\",\n            \"name\": \"Miscellaneous Services\"\n          },\n          {\n            \"id\": \"899\",\n            \"name\": \"Miscellaneous Services\"\n          },\n          {\n            \"id\": \"8999\",\n            \"name\": \"Services, Not Elsewhere Classified\"\n          },\n          {\n            \"id\": \"7372\",\n            \"name\": \"Prepackaged Software\"\n          }\n        ],\n        \"naicsCodes\":\n        [\n          {\n            \"id\": \"54\",\n            \"name\": \"Professional, Scientific, and Technical Services\"\n          },\n          {\n            \"id\": \"541\",\n            \"name\": \"Professional, Scientific, and Technical Services\"\n          },\n          {\n            \"id\": \"5416\",\n            \"name\": \"Management, Scientific, and Technical Consulting Services\"\n          },\n          {\n            \"id\": \"54161\",\n            \"name\": \"Management Consulting Services\"\n          },\n          {\n            \"id\": \"541613\",\n            \"name\": \"Marketing Consulting Services\"\n          },\n          {\n            \"id\": \"51\",\n            \"name\": \"Information\"\n          },\n          {\n            \"id\": \"519\",\n            \"name\": \"Other Information Services\"\n          },\n          {\n            \"id\": \"5191\",\n            \"name\": \"Other Information Services\"\n          },\n          {\n            \"id\": \"51919\",\n            \"name\": \"All Other Information Services\"\n          },\n          {\n            \"id\": \"519190\",\n            \"name\": \"All Other Information Services\"\n          },\n          {\n            \"id\": \"5415\",\n            \"name\": \"Computer Systems Design and Related Services\"\n          },\n          {\n            \"id\": \"54151\",\n            \"name\": \"Computer Systems Design and Related Services\"\n          },\n          {\n            \"id\": \"541511\",\n            \"name\": \"Custom Computer Programming Services\"\n          },\n          {\n            \"id\": \"511\",\n            \"name\": \"Publishing Industries (except Internet)\"\n          },\n          {\n            \"id\": \"5112\",\n            \"name\": \"Software Publishers\"\n          },\n          {\n            \"id\": \"51121\",\n            \"name\": \"Software Publishers\"\n          },\n          {\n            \"id\": \"511210\",\n            \"name\": \"Software Publishers\"\n          },\n          {\n            \"id\": \"51913\",\n            \"name\": \"Internet Publishing and Broadcasting and Web Search Portals\"\n          },\n          {\n            \"id\": \"519130\",\n            \"name\": \"Internet Publishing and Broadcasting and Web Search Portals\"\n          },\n          {\n            \"id\": \"517\",\n            \"name\": \"Telecommunications\"\n          },\n          {\n            \"id\": \"5173\",\n            \"name\": \"Wired and Wireless Telecommunications Carriers\"\n          },\n          {\n            \"id\": \"51731\",\n            \"name\": \"Wired and Wireless Telecommunications Carriers\"\n          }\n        ],\n        \"website\": \"www.zoominfo.com\",\n        \"revenue\": \"$835.6 Million\",\n        \"revenueNumeric\": 835600000,\n        \"employeeCount\": 3546,\n        \"type\": \"PUBLIC\",\n        \"ticker\": \"NASDAQ: ZI\",\n        \"ranking\":\n        [],\n        \"socialMediaUrls\":\n        [\n          {\n            \"type\": \"LINKED_IN\",\n            \"url\": \"http://www.linkedin.com/company/zoominfo\",\n            \"followerCount\": \"\"\n          },\n          {\n            \"type\": \"TWITTER\",\n            \"url\": \"http://www.twitter.com/zoominfo\",\n            \"followerCount\": \"14807\"\n          },\n          {\n            \"type\": \"FACEBOOK\",\n            \"url\": \"http://www.facebook.com/109325735758217\",\n            \"followerCount\": \"\"\n          }\n        ],\n        \"primaryIndustry\":\n        [\n          \"Software\"\n        ],\n        \"primaryIndustryCode\":\n        [\n          {\n            \"id\": \"software\",\n            \"name\": \"Software\"\n          }\n        ],\n        \"primarySubIndustryCode\":\n        [],\n        \"industries\":\n        [\n          \"Software\",\n          \"Data Collection & Internet Portals\",\n          \"Media & Internet\"\n        ],\n        \"industryCodes\":\n        [\n          {\n            \"id\": \"software\",\n            \"name\": \"Software\"\n          },\n          {\n            \"id\": \"media.data\",\n            \"name\": \"Data Collection & Internet Portals\"\n          },\n          {\n            \"id\": \"media\",\n            \"name\": \"Media & Internet\"\n          }\n        ],\n        \"revenueRange\": \"$500 mil. - $1 bil.\",\n        \"employeeRange\": \"1,000 - 5,000\",\n        \"employeeGrowth\":\n        {\n          \"oneYearGrowthRate\": \"32.5\",\n          \"twoYearGrowthRate\": \"114.1\",\n          \"employeeGrowthDataPoints\":\n          [\n            {\n              \"label\": \"'20 - Q3\",\n              \"employeeCount\": 1656\n            },\n            {\n              \"label\": \"'20 - Q4\",\n              \"employeeCount\": 1845\n            },\n            {\n              \"label\": \"'21 - Q1\",\n              \"employeeCount\": 2136\n            },\n            {\n              \"label\": \"'21 - Q2\",\n              \"employeeCount\": 2297\n            },\n            {\n              \"label\": \"'21 - Q3\",\n              \"employeeCount\": 2677\n            },\n            {\n              \"label\": \"'21 - Q4\",\n              \"employeeCount\": 3117\n            },\n            {\n              \"label\": \"'22 - Q1\",\n              \"employeeCount\": 3477\n            },\n            {\n              \"label\": \"'22 - Q2\",\n              \"employeeCount\": 3549\n            },\n            {\n              \"label\": \"'22 - Q3\",\n              \"employeeCount\": 3546\n            }\n          ]\n        }\n      },\n      \"changedAttributes\": [\n        \"jobTitle\",\n        \"department\"\n      ]\n    }\n  ]\n}\n\n ```\n\n**Example 2: Contact record - changed attributes only (default)**  \nIncludes only output fields with changed attributes\n\n``` json\n{\n  \"webhookDetails\":\n  {\n    \"id\": \"xxxx\",\n    \"title\": \"webhook-title\",\n    \"objectType\": \"Contact\",\n    \"eventType\": \"Update\"\n  },\n  \"data\":\n  [\n    {\n      \"id\": 1260398587,\n      \"firstName\": \"Henry\",\n      \"lastName\": \"Schuck\",\n      \"email\": \"henry.schuck@zoominfo.com\",\n\"department\":\"C-Suite\",      \n\"jobTitle\": \"Founder & Chief Executive Officer\",\n      \"changedAttributes\": [\n        \"jobTitle\",\n        \"department\"\n      ]\n    }\n\n ```\n\n**Example 3: Company record - full profile (default)**  \nIncludes all output fields\n\n``` json\n{\n  \"webhookDetails\":\n  {\n    \"id\": \"xxxx\",\n    \"title\": \"webhook-title\",\n    \"objectType\": \"company\",\n    \"eventType\": \"Update\"\n  },\n  \"data\":\n  [\n    {\n      \"id\": 344589814,\n      \"ticker\": \"NASDAQ: ZI\",\n      \"name\": \"ZoomInfo\",\n      \"website\": \"www.zoominfo.com\",\n      \"logo\": \"https://res.cloudinary.com/zoominfo-com/image/upload/w_100,h_100,c_fit/zoominfo.com\",\n      \"socialMediaUrls\":\n      [\n        {\n          \"type\": \"LINKED_IN\",\n          \"url\": \"http://www.linkedin.com/company/zoominfo\",\n          \"followerCount\": \"\"\n        },\n        {\n          \"type\": \"TWITTER\",\n          \"url\": \"http://www.twitter.com/zoominfo\",\n          \"followerCount\": \"3496\"\n        },\n        {\n          \"type\": \"FACEBOOK\",\n          \"url\": \"http://www.facebook.com/109325735758217\",\n          \"followerCount\": \"\"\n        }\n      ],\n      \"revenue\": 1210000,\n      \"employeeCount\": 3500,\n      \"phone\": \"(866) 904-9666\",\n      \"fax\": \"(617) 507-8187\",\n      \"street\": \"805 Broadway St Ste 900\",\n      \"city\": \"Vancouver\",\n      \"state\": \"Washington\",\n      \"zipCode\": \"98660\",\n      \"country\": \"United States\",\n      \"companyStatus\": \"ALIVE\",\n      \"companyStatusDate\": \"2022-08-23T00:00:00.000Z\",\n      \"sicCodes\":\n      [\n        {\n          \"id\": \"27\",\n          \"name\": \"Printing, Publishing, And Allied Industries\"\n        },\n        {\n          \"id\": \"274\",\n          \"name\": \"Miscellaneous Publishing\"\n        },\n        {\n          \"id\": \"2741\",\n          \"name\": \"Miscellaneous Publishing\"\n        },\n        {\n          \"id\": \"73\",\n          \"name\": \"Business Services\"\n        },\n        {\n          \"id\": \"738\",\n          \"name\": \"Miscellaneous Business Services\"\n        },\n        {\n          \"id\": \"7389\",\n          \"name\": \"Business Services, Not Elsewhere Classified\"\n        },\n        {\n          \"id\": \"737\",\n          \"name\": \"Computer Programming, Data Processing, And Other Computer Related Services\"\n        },\n        {\n          \"id\": \"7375\",\n          \"name\": \"Information Retrieval Services\"\n        },\n        {\n          \"id\": \"7374\",\n          \"name\": \"Computer Processing and Data Preparation and Processing Services\"\n        },\n        {\n          \"id\": \"89\",\n          \"name\": \"Miscellaneous Services\"\n        },\n        {\n          \"id\": \"899\",\n          \"name\": \"Miscellaneous Services\"\n        },\n        {\n          \"id\": \"8999\",\n          \"name\": \"Services, Not Elsewhere Classified\"\n        },\n        {\n          \"id\": \"7372\",\n          \"name\": \"Prepackaged Software\"\n        }\n      ],\n      \"naicsCodes\":\n      [\n        {\n          \"id\": \"54\",\n          \"name\": \"Professional, Scientific, and Technical Services\"\n        },\n        {\n          \"id\": \"541\",\n          \"name\": \"Professional, Scientific, and Technical Services\"\n        },\n        {\n          \"id\": \"5416\",\n          \"name\": \"Management, Scientific, and Technical Consulting Services\"\n        },\n        {\n          \"id\": \"54161\",\n          \"name\": \"Management Consulting Services\"\n        },\n        {\n          \"id\": \"541613\",\n          \"name\": \"Marketing Consulting Services\"\n        },\n        {\n          \"id\": \"51\",\n          \"name\": \"Information\"\n        },\n        {\n          \"id\": \"519\",\n          \"name\": \"Other Information Services\"\n        },\n        {\n          \"id\": \"5191\",\n          \"name\": \"Other Information Services\"\n        },\n        {\n          \"id\": \"51919\",\n          \"name\": \"All Other Information Services\"\n        },\n        {\n          \"id\": \"519190\",\n          \"name\": \"All Other Information Services\"\n        },\n        {\n          \"id\": \"5415\",\n          \"name\": \"Computer Systems Design and Related Services\"\n        },\n        {\n          \"id\": \"54151\",\n          \"name\": \"Computer Systems Design and Related Services\"\n        },\n        {\n          \"id\": \"541511\",\n          \"name\": \"Custom Computer Programming Services\"\n        },\n        {\n          \"id\": \"511\",\n          \"name\": \"Publishing Industries (except Internet)\"\n        },\n        {\n          \"id\": \"5112\",\n          \"name\": \"Software Publishers\"\n        },\n        {\n          \"id\": \"51121\",\n          \"name\": \"Software Publishers\"\n        },\n        {\n          \"id\": \"511210\",\n          \"name\": \"Software Publishers\"\n        },\n        {\n          \"id\": \"51913\",\n          \"name\": \"Internet Publishing and Broadcasting and Web Search Portals\"\n        },\n        {\n          \"id\": \"519130\",\n          \"name\": \"Internet Publishing and Broadcasting and Web Search Portals\"\n        },\n        {\n          \"id\": \"517\",\n          \"name\": \"Telecommunications\"\n        },\n        {\n          \"id\": \"5173\",\n          \"name\": \"Wired and Wireless Telecommunications Carriers\"\n        },\n        {\n          \"id\": \"51731\",\n          \"name\": \"Wired and Wireless Telecommunications Carriers\"\n        }\n      ],\n      \"competitors\":\n      [\n        {\n          \"rank\": 1,\n          \"id\": 168919661,\n          \"name\": \"LinkedIn Corp\",\n          \"website\": \"linkedin.com\",\n          \"employeeCount\": 21000\n        },\n        {\n          \"rank\": 2,\n          \"id\": 5390594,\n          \"name\": \"Dun & Bradstreet Inc\",\n          \"website\": \"dnb.com\",\n          \"employeeCount\": 6000\n        },\n        {\n          \"rank\": 3,\n          \"id\": 464190707,\n          \"name\": \"Clearbit\",\n          \"website\": \"clearbit.com\",\n          \"employeeCount\": 198\n        },\n        {\n          \"rank\": 4,\n          \"id\": 357808721,\n          \"name\": \"SalesIntel Research Inc\",\n          \"website\": \"salesintel.io\",\n          \"employeeCount\": 27\n        },\n        {\n          \"rank\": 5,\n          \"id\": 408702118,\n          \"name\": \"Lusha Ltd\",\n          \"website\": \"lusha.com\",\n          \"employeeCount\": 270\n        },\n        {\n          \"rank\": 6,\n          \"id\": 159335237,\n          \"name\": \"Lead411\",\n          \"website\": \"lead411.com\",\n          \"employeeCount\": 17\n        },\n        {\n          \"rank\": 7,\n          \"id\": 436418998,\n          \"name\": \"UpLead LLC\",\n          \"website\": \"uplead.com\",\n          \"employeeCount\": 16\n        },\n        {\n          \"rank\": 8,\n          \"id\": 429601687,\n          \"name\": \"Seamless AI\",\n          \"website\": \"seamless.ai\",\n          \"employeeCount\": 175\n        },\n        {\n          \"rank\": 9,\n          \"id\": 115098897,\n          \"name\": \"InsideView Inc\",\n          \"website\": \"insideview.com\",\n          \"employeeCount\": 312\n        },\n        {\n          \"rank\": 10,\n          \"id\": 353571907,\n          \"name\": \"6sense Insights Inc\",\n          \"website\": \"6sense.com\",\n          \"employeeCount\": 1350\n        }\n      ],\n      \"ultimateParentId\": 0,\n      \"ultimateParentRevenue\": 1210000,\n      \"ultimateParentEmployees\": 3500,\n      \"primaryIndustry\":\n      [\n        \"Software\"\n      ],\n      \"primaryIndustryCode\":\n      [\n        {\n          \"id\": \"software\",\n          \"name\": \"Software\"\n        }\n      ],\n      \"primarySubIndustryCode\":\n      [],\n      \"industries\":\n      [\n        \"Software\",\n        \"Data Collection & Internet Portals\",\n        \"Media & Internet\"\n      ],\n      \"industryCodes\":\n      [\n        {\n          \"id\": \"software\",\n          \"name\": \"Software\"\n        },\n        {\n          \"id\": \"media.data\",\n          \"name\": \"Data Collection & Internet Portals\"\n        },\n        {\n          \"id\": \"media\",\n          \"name\": \"Media & Internet\"\n        }\n      ],\n      \"parentId\": 0,\n      \"locationCount\": 22,\n      \"metroArea\": \"Portland-Vancouver-Hillsboro OR-WA\",\n      \"certified\": true,\n      \"revenueRange\": \"$1 bil. - $5 bil.\",\n      \"employeeRange\": \"1,000 - 5,000\",\n      \"companyFunding\":\n      [\n        {\n          \"date\": \"2020-06-04T07:00:00.000Z\",\n          \"type\": \"Stock Issuance/Offering\",\n          \"amount\": 935000,\n          \"investors\":\n          [\n            \"\"\n          ]\n        },\n        {\n          \"date\": \"2021-06-18T07:00:00.000Z\",\n          \"type\": \"Corporate Investment\",\n          \"amount\": 555,\n          \"investors\":\n          [\n            \"\"\n          ]\n        },\n        {\n          \"date\": \"2021-08-27T07:00:00.000Z\",\n          \"type\": \"Stock Issuance/Offering\",\n          \"amount\": 1200000,\n          \"investors\":\n          [\n            \"\"\n          ]\n        },\n        {\n          \"date\": \"2017-08-14T00:00:00.000Z\",\n          \"type\": \"Private Equity\",\n          \"amount\": 240000,\n          \"investors\":\n          [\n            \"Great Hill Partners\"\n          ]\n        },\n        {\n          \"date\": \"2004-07-19T00:00:00.000Z\",\n          \"type\": \"Series A\",\n          \"amount\": 7000,\n          \"investors\":\n          [\n            \"Ascent Venture Partners\",\n            \"Vulcan Capital Management\",\n            \"Venrock Associates\",\n            \"Flagship Pioneering\",\n            \"Commonwealth Capital Ventures\"\n          ]\n        },\n        {\n          \"date\": \"2014-05-30T07:00:00.000Z\",\n          \"type\": \"Private Equity\",\n          \"amount\": 0,\n          \"investors\":\n          [\n            \"TA Associates\"\n          ]\n        },\n        {\n          \"date\": \"2018-03-14T07:00:00.000Z\",\n          \"type\": \"Private Equity\",\n          \"amount\": 0,\n          \"investors\":\n          [\n            \"The Carlyle Group\",\n            \"22C Capital\"\n          ]\n        }\n      ],\n      \"totalFundingAmount\": 2382555,\n      \"employeeGrowth\":\n      {\n        \"oneYearGrowthRate\": \"32.4\",\n        \"twoYearGrowthRate\": \"114.2\",\n        \"employeeGrowthDataPoints\":\n        [\n          {\n            \"label\": \"'20 - Q3\",\n            \"employeeCount\": 1634\n          },\n          {\n            \"label\": \"'20 - Q4\",\n            \"employeeCount\": 1821\n          },\n          {\n            \"label\": \"'21 - Q1\",\n            \"employeeCount\": 2108\n          },\n          {\n            \"label\": \"'21 - Q2\",\n            \"employeeCount\": 2267\n          },\n          {\n            \"label\": \"'21 - Q3\",\n            \"employeeCount\": 2643\n          },\n          {\n            \"label\": \"'21 - Q4\",\n            \"employeeCount\": 3077\n          },\n          {\n            \"label\": \"'22 - Q1\",\n            \"employeeCount\": 3432\n          },\n          {\n            \"label\": \"'22 - Q2\",\n            \"employeeCount\": 3503\n          },\n          {\n            \"label\": \"'22 - Q3\",\n            \"employeeCount\": 3500\n          }\n        ]\n      },\n      \"type\": \"PUBLIC\",\n      \"isDefunct\": false,\n      \"departmentBudgets\":\n      {\n        \"marketingBudget\": 158510,\n        \"itBudget\": 44770,\n        \"financialBudget\": 12100,\n        \"hrBudget\": 7890\n      },\n      \"employeeCountByDepartment\":\n      {\n        \"sales\": 1544,\n        \"engineeringAndTechnical\": 860,\n        \"marketing\": 242,\n        \"informationTechnology\": 192,\n        \"humanResources\": 127,\n        \"finance\": 95,\n        \"operations\": 86,\n        \"legal\": 32,\n        \"cSuite\": 14,\n        \"medicalAndHealth\": 1\n      },\n      \"changedAttributes\": [\n        \"revenue\",\n        \"employeeCount\"\n      ]\n    }\n  ]\n}\n\n ```\n\n**Example 4: Company record - changed attributes only (default)**  \nIncludes only output fields with changed attributes\n\n``` json\n{\n  \"webhookDetails\":\n  {\n    \"id\": \"xxxx\",\n    \"title\": \"webhook-title\",\n    \"objectType\": \"company\",\n    \"eventType\": \"Update\"\n  },\n  \"data\":\n  [\n    {\n      \"id\": 344589814,\n      \"name\": \"ZoomInfo\",\n      \"website\": \"www.zoominfo.com\",\n      \"revenue\": 1210000,\n      \"employeeCount\": 3500,\n      \"changedAttributes\": [\n        \"revenue\",\n        \"employeeCount\"\n      ]\n    }\n  ]\n}\n\n ```",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f19ea4b2-4549-425d-8189-4f94ed1ae795",
+          "name": "Zoominfo Create Webhook",
+          "request": {
+            "name": "Zoominfo Create Webhook",
+            "description": {
+              "content": "Use this endpoint to create a webhook.\n\n**About enabling a webhook**\n\nWhen creating a webhook, we recommend initially setting the `enabled` parameter to `false` so that you can ensure that:\n\n- Your target URL is accessible using the [Validate Target URL](#5fabb9e4-aff2-4651-8404-8b061675eda0) endpoint.\n- You've established a validation method in your app for the webhook verification token that will be generated with this request.\n    \n\nOnce you've completed these tasks, you can activate the webhook using the [Update Webhook](#c853f6cd-10e7-4103-9896-19827c4c5a8a) endpoint, updating the webhook's `enabled` status to `true`.\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| title | String | Title for the webhook |\n| enabled | Boolean | Determines whether the webhook is initially enabled or disabled. |\n| targetUrl | String | Destination URL for the webhook data. Must be in `https://` format. |\n| subscriptions | ArrayList | Specify the `eventType` and `objectType` for the webhook. Also specify the `fullPayload` value (`true` for full payload, `false` for only changed attributes.)|\n\n**Output fields**\n\n| Field | Description |\n| --- | --- |\n| id | Unique ZoomInfo identifier for the webhook |\n| title | Title for the webhook |\n| enabled | Displays whether the webhook is enabled or disabled |\n| targetUrl | Destination URL for the webhook data |\n| createdDate | Timestamp for when the webhook was created |\n| verificationToken | Verification token generated when the webhook was created |\n| subscriptions | List of subscriptions. Each subscription includes the `createdDate`, `modifiedDate`, `eventType`, `objectType` and a unique `subscriptionId`. |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"targetUrl\": \"<string>\",\n  \"subscriptions\": [\n    {\n      \"eventType\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"fullPayload\": \"<boolean>\"\n    },\n    {\n      \"eventType\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"fullPayload\": \"<boolean>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ab93ff03-f9c8-4fc2-9125-343ec7bbef8c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"My Webhook\",\n  \"enabled\": false,\n  \"targetUrl\": \"https://www.mytargeturl10.com\",\n  \"subscriptions\": [\n    {\n      \"eventType\": \"Update\",\n      \"objectType\": \"Contact\",\n      \"fullPayload\": true\n    },\n    {\n      \"eventType\": \"Update\",\n      \"objectType\": \"Company\",\n      \"fullPayload\": false\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"id\": \"967763288\",\n  \"title\": \"My Webhook\",\n  \"enabled\": false,\n  \"targetUrl\": \"https://www.mytargeturl6.com\",\n  \"createdDate\": \"02-15-2021T11:56:11.000Z\",\n  \"verificationToken\": \"i7MOAD4/44zzgsru6toJyiFRJhFqaiYUPwztmd1rWVOsIGbI8eY7FFtw5UQqIWlzkM6VFOCk1Q+T/BhPSzeggA==\",\n  \"subscriptions\": [\n    {\n      \"createdDate\": \"02-15-2021T11:56:11.000Z\",\n      \"modifiedDate\": \"02-15-2021T11:56:11.000Z\",\n      \"eventType\": \"Update\",\n      \"objectType\": \"Contact\",\n      \"fullPayload\": false,\n      \"subscriptionId\": \"908986303\"\n    },\n    {\n      \"createdDate\": \"02-15-2021T11:56:11.000Z\",\n      \"modifiedDate\": \"02-15-2021T11:56:11.000Z\",\n      \"eventType\": \"Update\",\n      \"objectType\": \"Company\",\n      \"fullPayload\": true,\n      \"subscriptionId\": \"979209107\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0076770e-34f1-4ff9-b5e2-257cffe146f5",
+          "name": "Zoominfo Get Webhooks",
+          "request": {
+            "name": "Zoominfo Get Webhooks",
+            "description": {
+              "content": "Use this endpoint to get a list of webhooks.\n\nTo get a specific webhook, append the webhook `id` to the request URL. For example:\n\n`https://api.zoominfo.com/webhooks/213786430`\n\nSee the examples for the response format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "179dfb17-d9c8-4188-9274-d939a2568679",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"webhooks\": [\n    {\n      \"id\": \"271677337\",\n      \"title\": \"Record6\",\n      \"enabled\": true,\n      \"targetUrl\": \"https://www.record79.com\",\n      \"createdDate\": \"02-11-2021T12:00:06.000Z\",\n      \"subscriptions\": [\n        {\n          \"createdDate\": \"02-11-2021T12:00:06.000Z\",\n          \"modifiedDate\": \"02-11-2021T12:00:06.000Z\",\n          \"eventType\": \"Update\",\n          \"objectType\": \"Contact\",\n          \"fullPayload\": false,\n          \"subscriptionId\": \"975208210\"\n        }\n      ]\n    },\n    {\n      \"id\": \"967686737\",\n      \"title\": \"Your webhook title\",\n      \"enabled\": true,\n      \"targetUrl\": \"https://mywebhookapp.com/feeds\",\n      \"createdDate\": \"02-12-2021T08:26:05.000Z\",\n      \"subscriptions\": [\n        {\n          \"createdDate\": \"02-12-2021T08:26:05.000Z\",\n          \"modifiedDate\": \"02-12-2021T08:26:05.000Z\",\n          \"eventType\": \"Update\",\n          \"objectType\": \"Company\",\n          \"fullPayload\": true,\n          \"subscriptionId\": \"223154011\"\n        }\n      ]\n    },\n    {\n      \"id\": \"849814821\",\n      \"enabled\": true,\n      \"targetUrl\": \"https://www.record2.com\",\n      \"createdDate\": \"02-12-2021T14:07:12.000Z\",\n      \"subscriptions\": [\n        {\n          \"createdDate\": \"02-12-2021T14:07:12.000Z\",\n          \"modifiedDate\": \"02-12-2021T14:07:12.000Z\",\n          \"eventType\": \"Update\",\n          \"objectType\": \"Contact\",\n          \"subscriptionId\": \"454498605\"\n        },\n        {\n          \"createdDate\": \"02-12-2021T14:07:12.000Z\",\n          \"modifiedDate\": \"02-12-2021T14:07:12.000Z\",\n          \"eventType\": \"Update\",\n          \"objectType\": \"Company\",\n          \"subscriptionId\": \"416742895\"\n        }\n      ]\n    },\n    {\n      \"id\": \"570575403\",\n      \"enabled\": false,\n      \"targetUrl\": \"https://www.mytargeturl.com\",\n      \"createdDate\": \"02-12-2021T14:09:04.000Z\",\n      \"subscriptions\": [\n        {\n          \"createdDate\": \"02-12-2021T14:09:04.000Z\",\n          \"modifiedDate\": \"02-12-2021T14:09:04.000Z\",\n          \"eventType\": \"Update\",\n          \"objectType\": \"Contact\",\n          \"subscriptionId\": \"879354729\"\n        },\n        {\n          \"createdDate\": \"02-12-2021T14:09:04.000Z\",\n          \"modifiedDate\": \"02-12-2021T14:09:04.000Z\",\n          \"eventType\": \"Update\",\n          \"objectType\": \"Company\",\n          \"subscriptionId\": \"637113259\"\n        }\n      ]\n    },\n    {\n      \"id\": \"213786430\",\n      \"title\": \"My Webhook\",\n      \"enabled\": false,\n      \"targetUrl\": \"https://www.mytargeturl2.com\",\n      \"createdDate\": \"02-12-2021T14:12:08.000Z\",\n      \"subscriptions\": [\n        {\n          \"createdDate\": \"02-12-2021T14:12:08.000Z\",\n          \"modifiedDate\": \"02-12-2021T14:12:08.000Z\",\n          \"eventType\": \"Update\",\n          \"objectType\": \"Contact\",\n          \"subscriptionId\": \"393093719\"\n        },\n        {\n          \"createdDate\": \"02-12-2021T14:12:08.000Z\",\n          \"modifiedDate\": \"02-12-2021T14:12:08.000Z\",\n          \"eventType\": \"Update\",\n          \"objectType\": \"Company\",\n          \"subscriptionId\": \"125773778\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15b70161-834f-4d0d-bb24-c4ed246bf823",
+          "name": "Zoominfo Update Webhook",
+          "request": {
+            "name": "Zoominfo Update Webhook",
+            "description": {
+              "content": "Use this endpoint to update an existing webhook, including its enabled status, target URL, and subscription details.\n\nSpecify the webhook by appending the webhook `id` in the request URL. For example:\n\n`https://api.zoominfo.com/webhooks/213786430`\n\nWhen using the Update Webhook endpoint, values you provide in the JSON body of your request overwrite values in the existing webhook. Common scenarios for using this endpoint include the following.\n\n**Enable a webhook**\n\nAs described in the [Create Webhook](#6cbb2c08-cb50-4b15-9a01-a2d0d3dabaa1) endpoint, we recommend initially configuring a new webhook as disabled so you can ensure the target URL is reachable, and the verification token is in place in your integrated app. Once these tasks are complete, you can use the Update Webhook endpoint to enable the webhook.\n\nFor example, send a request specifying the webhook `id` in the URL to change the `enabled` value to `true`:\n\nRequest URL:\n\n`https://api.zoominfo.com/webhooks/{webhook_id}`\n\nJSON body:\n\n```\n{\n    \"enabled\": true\n}\n\n```\n\n**Update webhook subscription details**\n\nExample: Your webhook has a subscription with the `objectType` set to `Company`, you can change it to `Contact` using the Update Webhook endpoint.\n\nRequest URL:\n\n`https://api.zoominfo.com/webhooks/{webhook_id}`\n\nJSON body:\n\n```\n{\n    \"subscriptions\": [\n        {\n            \"subscriptionId\": \"393093719\",\n            \"eventType\": \"Update\",\n            \"objectType\": \"Contact\"\n        }\n    ]\n} \n\n```\n\n**Add a new objectType to a subscription**\n\nExample: Your webhook has a subscription that includes only the `Contact` `objectType`. You can add the `Company` `objectType` to the subscription.\n\nRequest URL:\n\n`https://api.zoominfo.com/webhooks/{webhook_id}`\n\nJSON body:\n\n```\n{\n    \"subscriptions\": [\n        {\n            \"eventType\": \"Update\",\n            \"objectType\": \"Company\"\n        }\n    ]\n} \n\n```\n\n**Delete a subscription**\n\nYou can delete a subscription by simply sending the `subscriptionId` in your request without specifying any subscription parameters.\n\nRequest URL:\n\n`https://api.zoominfo.com/webhooks/{webhook_id}`\n\nJSON body:\n\n```\n{\n    \"subscriptions\": [\n        {\n            \"subscriptionId\": \"836880237\"\n        }\n    ]\n}\n\n```\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| title | String | Title for the webhook |\n| enabled | Boolean | Enable or disable the webhook |\n| targetUrl | String | Destination URL for the webhook data. Must be in `https://` format. |\n| subscriptions | ArrayList | Specify the `eventType` and `objectType` for the webhook |\n\n**Output fields**\n\n| Field | Description |\n| --- | --- |\n| id | Unique ZoomInfo identifier for the webhook |\n| title | Title for the webhook |\n| enabled | Displays whether the webhook is enabled or disabled |\n| targetUrl | Destination URL for the webhook data |\n| createdDate | Timestamp for when the webhook was created |\n| verificationToken | Verification token generated when the webhook was created |\n| subscriptions | List of subscriptions. Each subscription includes the `createdDate`, `modifiedDate`, `eventType`, `objectType` and a unique `subscriptionId`. |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhooks",
+                "967763288"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"subscriptions\": [\n    {\n      \"subscriptionId\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"fullPayload\": \"<boolean>\"\n    },\n    {\n      \"subscriptionId\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"fullPayload\": \"<boolean>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b10f64b1-1e0e-452f-b1b4-74a58ef1ff59",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "967763288"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"My Webhook New Title\",\n  \"enabled\": false,\n  \"subscriptions\": [\n    {\n      \"subscriptionId\": \"979209107\",\n      \"objectType\": \"Contact\",\n      \"fullPayload\": false\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"id\": \"370425875\",\n  \"title\": \"Record6\",\n  \"enabled\": true,\n  \"targetUrl\": \"http://www.record79.com\",\n  \"createdDate\": \"02-16-2021T13:18:59.000Z\",\n  \"subscriptions\": [\n    {\n      \"createdDate\": \"02-16-2021T13:18:59.000Z\",\n      \"modifiedDate\": \"02-16-2021T13:18:59.000Z\",\n      \"eventType\": \"Update\",\n      \"objectType\": \"Contact\",\n      \"fullPayload\": false,\n      \"subscriptionId\": \"144626982\"\n    },\n    {\n      \"createdDate\": \"02-18-2021T09:56:58.000Z\",\n      \"modifiedDate\": \"02-18-2021T09:56:58.000Z\",\n      \"eventType\": \"Update\",\n      \"objectType\": \"Company\",\n      \"fullPayload\": false,\n      \"subscriptionId\": \"416102777\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c00f31ec-dd5e-4648-994e-ff09f91f3851",
+          "name": "Zoominfo Delete Webhook",
+          "request": {
+            "name": "Zoominfo Delete Webhook",
+            "description": {
+              "content": "Use this endpoint to delete a webhook. Specify the webhook by appending the webhook `id` in the request URL. For example:\n\n`https://api.zoominfo.com/webhooks/213786430`\n\n**Output fields**\n\n| Field                  | Description                                    |\n|------------------------|------------------------------------------------|\n| id                     | Unique ZoomInfo identifier for the webhook   |\n| targetUrl              | Destination URL for the webhook data   |\n| createdDate            | Timestamp for when the webhook was created  |\n| status                 | Status for the webhook\n| subscriptions          | List of subscriptions. Each subscription includes the `createdDate`, `modifiedDate`, `eventType`, `objectType` and a unique `subscriptionId`.|\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhooks",
+                "570575403"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5be260a0-fdb6-4651-95ea-3f3e3f8b0231",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "570575403"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"id\": \"570575403\",\n  \"targetUrl\": \"https://www.mytargeturl.com\",\n  \"createdDate\": \"02-12-2021T14:09:04.000Z\",\n  \"status\": \"deleted\",\n  \"subscriptions\": [\n    {\n      \"createdDate\": \"02-12-2021T14:09:04.000Z\",\n      \"modifiedDate\": \"02-12-2021T14:09:04.000Z\",\n      \"eventType\": \"Update\",\n      \"objectType\": \"Contact\",\n      \"fullPayload\": false,\n      \"subscriptionId\": \"879354729\"\n    },\n    {\n      \"createdDate\": \"02-12-2021T14:09:04.000Z\",\n      \"modifiedDate\": \"02-12-2021T14:09:04.000Z\",\n      \"eventType\": \"Update\",\n      \"objectType\": \"Company\",\n      \"fullPayload\": true,\n      \"subscriptionId\": \"637113259\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba2e4b40-26e3-431b-9a5d-e0367d9e49d4",
+          "name": "Zoominfo Validate Target Url",
+          "request": {
+            "name": "Zoominfo Validate Target Url",
+            "description": {
+              "content": "Use this endpoint to ensure the target URL for a webhook is accessible and that the JSON payload can be delivered.\n\nThis request:\n\n*   Pings the target server to ensure it's responsive\n*   Posts some JSON body for the specified `objectType` to ensure data can be written to the target app\n    \n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| targetUrl | String | Destination URL for the webhook data. Must be in https:// format. |\n| objectType | String | Specify the `objectType` for the webhook |\n\n**Output fields**\n\n| Field | Description |\n| --- | --- |\n| message | Response message from your target URL |\n| success | Indicates success or failure of validation |\n| responseCode | HTTP response code from your target URL |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhooks",
+                "validate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetUrl\": \"<string>\",\n  \"objectType\": \"<string>\",\n  \"fullPayload\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "11d74043-5a49-41cf-819b-0492bfd93b89",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetUrl\": \"https://mytargeturl/feeds/person\",\n  \"objectType\": \"Contact\",\n  \"fullPayload\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"message\": \"Created\",\n  \"success\": true,\n  \"responseCode\": 201\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "146af0a7-9c5e-48b4-97c9-97968f9c3348",
+          "name": "Zoominfo Generate Verification Token",
+          "request": {
+            "name": "Zoominfo Generate Verification Token",
+            "description": {
+              "content": "Use this endpoint to generate a new verification token for an existing webhook. \n\n**Important**: When you generate a new token, the previous token is immediately revoked and becomes invalid. When updating a verification token for an active Webhook, ensure that you update the verification token immediately in your integrated app, as ZoomInfo will still attempt to send the data, but it will fail based on the mismatched tokens.\n\nSpecify the webhook for which you want the token generated by appending the webhook `id` in the request URL. For example: `https://api.zoominfo.com/webhooks/213786430/token`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhooks",
+                "849814821",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "97a2779b-8341-454e-b217-e950652e11ea",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "849814821",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"verificationToken\": \"z5doGe6rx+1deDHMgUI/j56AN0we8NQD0G2YWR2aEODzCCx7L9BdtVm2zVnYLfYZqvyeVu3EpBkLUewxdRJAug==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd22b69c-2a5b-4306-b09d-432b42d23b17",
+          "name": "Zoominfo Get Subscription Types",
+          "request": {
+            "name": "Zoominfo Get Subscription Types",
+            "description": {
+              "content": "Retrieve accepted subscription types (`objectTypes` and `eventTypes`).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhooks",
+                "subscriptiontypes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5c01965e-aa9d-4f3c-9f4e-3c9f1f55f3fc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "subscriptiontypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"objectTypes\": [\n    \"Contact\",\n    \"Company\"\n  ],\n  \"eventTypes\": [\n    \"Update\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zoominfo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e264d957-8cbf-4bdf-b1f7-3ca7fb2d18b5",
+    "name": "ZoomInfo Authentication Monitoring API/Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...\n\nContact Support:\n Name: ZoomInfo API Support\n Email: support@zoominfo.com",
+      "type": "text/plain"
+    }
+  }
+}

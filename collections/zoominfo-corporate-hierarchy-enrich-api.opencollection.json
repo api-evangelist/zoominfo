@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZoomInfo Authentication Corporate Hierarchy Enrich API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Corporate Hierarchy Enrich",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Zoominfo Corporate Hierarchy Enrich",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/enrich/corporatehierarchy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to match corporate hierarchical information based on [input values](#d72da288-2069-47c9-b36f-16cdab5d9988) and return the desired [output fields](#d6813026-dcae-4b20-9ee4-b1301451a2c7) in the response.\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyId | Integer | Unique ZoomInfo identifier for a company |\n| companyName | String | Company name |\n| companyWebsite | String | Company website URL in [http://www.example.com](http://www.example."
+        },
+        {
+          "info": {
+            "name": "Zoominfo Corporate Hierarchy Enrich Inputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/inputfields/corporatehierarchy/enrich"
+          },
+          "docs": "Returns a list of fields you can use as input for the [Corporate Hierarchy Enrich](#1bf83184-9ee9-478f-b839-9afab4dfe18e) endpoint."
+        },
+        {
+          "info": {
+            "name": "Zoominfo Corporate Hierarchy Enrich Outputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/outputfields/corporatehierarchy/enrich"
+          },
+          "docs": "Returns a list of fields you can specify as output for the [Corporate Hierarchy Enrich](#1bf83184-9ee9-478f-b839-9afab4dfe18e) endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

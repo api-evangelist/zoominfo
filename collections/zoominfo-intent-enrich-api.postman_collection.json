@@ -1,0 +1,658 @@
+{
+  "item": [
+    {
+      "id": "74363d9e-c129-4120-8008-b633b94f9776",
+      "name": "Intent Enrich",
+      "description": {
+        "content": "Use [Intent Enrich](#c1e5300d-8ffb-40f0-b899-be98f884e505) to retrieve intent data using valid query parameters.\n\nRefer to the examples provided to build a valid JSON request:\n\n*   Use the [Intent Enrich Inputs](#2dcbe844-7f1f-45f3-ae32-2598ccec5be4) endpoint to retrieve a list of valid input parameters you can provide\n*   Use the [Intent Enrich Outputs](#fc4083cf-6179-4f0f-8b9b-80aedc2e3e67) endpoint to retrieve a list of valid output fields returned",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "842b6ae1-92c4-424e-b1b7-16495d85664e",
+          "name": "Zoominfo Intent Enrich",
+          "request": {
+            "name": "Zoominfo Intent Enrich",
+            "description": {
+              "content": "Use this endpoint to enrich intent data for a company based on [input values](#2dcbe844-7f1f-45f3-ae32-2598ccec5be4) and return the desired [output fields](#fc4083cf-6179-4f0f-8b9b-80aedc2e3e67) in the response.\n\nIntent data is online behavior-based activity across the internet that links buyers and accounts to a topic. Key terminology includes:\n\n- **Topics and categories** - The Intent Enrich endpoint returns specific intent topics for a company based on your subscription. Multiple topics fall under a single category.\n- **Signal** - Recent content consumption activity for a specific topic by people at a company\n- **Signal Score** - Indicates a company's interest in a topic based on how recent content consumption compares to a historical baseline.\n- **Audience Strength** - Indicates the size of the group at the company conducting research in this topic.\n    \n\nThis endpoint can support up to 50 Intent topics separated by OR condition, and up to 12 Intent topics separated with AND condition. The difference between Start and End date should not be more than 90 days.\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyWebsite | String | Company website URL in [http://www.example.com](http://www.example.com) format |\n| companyId | String | Unique ZoomInfo identifier for a company |\n| companyName | String | Company name |\n| topics | String | Intent topics. Separate multiple topics with the pipe symbol. See the **Intent Topics** lookup endpoint for values. |\n| signalStartDate | String | Start date for a company signaling interest in a topic |\n| signalEndDate | String | End date for a company signaling interest in a topic |\n| signalScoreMin | Integer | Minimum signal score. Use with `signalScoreMax` to form a range. Minimum score is 60 and maximum is 100. |\n| signalScoreMax | Integer | Maximum signal score. Use with `signalScoreMin` to form a range. Minimum score is 60 and maximum is 100. |\n| audienceStrengthMin | String | Minimum audience strength score. Use with `audienceStrengthMax` to form a range. Values are `A`, `B`, `C`, `D`, and `E`, with `A` indicating a larger audience. |\n| audienceStrengthMax | String | Maximum audience strength score. Use with `audienceStrengthMin` to form a range. Values are `A`, `B`, `C`, `D`, and `E`, with `A` indicating a larger audience. |\n| findRecommendedContacts | Boolean | Choose whether to get the recommended contacts using the findRecommendedContacts flag. Default is `true`. |\n| rpp | Integer | Limits the results returned to the given number of results per page. Default is 25. |\n| page | Integer | Provides the results for the given page, used in conjunction with `rpp` |\n| sortOrder | String | Provide `sortBy` if specifying `sortOrder`. Valid values are `asc`, `ascending`, `desc`, and `descending`. By default, results are sorted in descending order. |\n| sortBy | String | Sort results by valid output fields. Valid values are: `signalDate`, `signalScore`, `category`, `topic`, `audienceStrength`. |\n\n**Output fields**\n\n| Field | Description |\n| --- | --- |\n| id | Unique ZoomInfo identifier for a topic |\n| category | Intent category |\n| topic | Intent topic |\n| signalScore | Signal score for the topic |\n| audienceStrength | Audience strength for the topic |\n| signalDate | Date the signal was identified |\n| companyId | Unique ZoomInfo identifier for a company |\n| companyName | Company name |\n| companyWebsite | Company website URL in [http://www.example.com](http://www.example.com) format |\n| companyHasOtherTopicConsumption | Indicates whether a company has other topics with increased consumption. Values are `true` and `false`. |\n| recommendedContacts | Suggested contacts at the company that are related to the intent topic |\n| topSignalLocations | Up to 3 top Intent signal locations |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrich",
+                "intent"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyName\": \"<string>\",\n  \"companyWebsite\": \"<string>\",\n  \"companyId\": \"<integer>\",\n  \"topics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"signalStartDate\": \"<string>\",\n  \"signalEndDate\": \"<string>\",\n  \"signalScoreMin\": \"<integer>\",\n  \"signalScoreMax\": \"<integer>\",\n  \"audienceStrengthMin\": \"<string>\",\n  \"audienceStrengthMax\": \"<string>\",\n  \"sortBy\": \"<string>\",\n  \"sortOrder\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d4396655-c4d5-46f1-a5ac-1ceb497dc136",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrich",
+                    "intent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyName\": \"ZoomInfo\",\n  \"companyWebsite\": \"zoominfo.com\",\n  \"companyId\": 344589814,\n  \"topics\": [\n    \"Cloud Applications\",\n    \"Cloud Computing\",\n    \"Cloud Infrastructure\",\n    \"Corporate Culture\",\n    \"Credit Card Fraud\",\n    \"Direct Deposit\",\n    \"eFulfillment Service\",\n    \"Google Search\",\n    \"Healthcare Law\",\n    \"Hours of Work\",\n    \"In-App Advertising\",\n    \"Incentive Compensation\",\n    \"Java\",\n    \"Legal\",\n    \"Mobile / Wireless\",\n    \"Mobile Apps\",\n    \"Mobile Security\",\n    \"Mobile Wallet\",\n    \"Node.js\",\n    \"Organizational Culture\",\n    \"Risk Management Services\",\n    \"Video Conferencing\"\n  ],\n  \"signalStartDate\": \"2020-04-01T00:00:00.000Z\",\n  \"signalEndDate\": \"2020-05-31T00:00:00.000Z\",\n  \"signalScoreMin\": 80,\n  \"signalScoreMax\": 100,\n  \"audienceStrengthMin\": \"C\",\n  \"audienceStrengthMax\": \"A\",\n  \"sortBy\": \"issueDate\",\n  \"sortOrder\": \"desc\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Unique-Id-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Record-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Usage-Websights-Api-Request-Limit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"maxResults\": 8,\n  \"totalResults\": 8,\n  \"currentPage\": 1,\n  \"data\": [\n    {\n      \"id\": \"3e706b1e-97ab-42cc-95f6-1a8d5176c6c7\",\n      \"category\": \"Mobile Devices\",\n      \"topic\": \"Mobile / Wireless\",\n      \"signalScore\": 82,\n      \"audienceStrength\": \"A\",\n      \"newSignal\": true,\n      \"signalDate\": \"5/3/2020 12:00 AM\",\n      \"trend\": 23,\n      \"recommendedContacts\": [\n        {\n          \"id\": 2988050694,\n          \"firstName\": \"Nir\",\n          \"lastName\": \"Keren\",\n          \"jobTitle\": \"Chief Technology Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Engineering & Technical Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Engineering & Technical\",\n              \"department\": \"Engineering & Technical\"\n            }\n          ]\n        },\n        {\n          \"id\": 39841971,\n          \"firstName\": \"Cameron\",\n          \"lastName\": \"Hyzer\",\n          \"jobTitle\": \"Chief Financial Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Finance Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Finance\",\n              \"department\": \"Finance\"\n            }\n          ]\n        },\n        {\n          \"id\": 1645938489,\n          \"firstName\": \"Hila\",\n          \"lastName\": \"Nir\",\n          \"jobTitle\": \"Chief Marketing Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Marketing Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Marketing\",\n              \"department\": \"Marketing\"\n            }\n          ]\n        },\n        {\n          \"id\": 2827525345,\n          \"firstName\": \"Chris\",\n          \"lastName\": \"Hays\",\n          \"jobTitle\": \"Chief Revenue Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Sales Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Sales\",\n              \"department\": \"Sales\"\n            }\n          ]\n        },\n        {\n          \"id\": 1260398587,\n          \"firstName\": \"Henry\",\n          \"lastName\": \"Schuck\",\n          \"jobTitle\": \"Founder & Chief Executive Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"Zoom Information, Inc.\",\n        \"website\": \"www.zoominfo.com\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"1675ee1c-1c38-41e3-9c7c-430d43d6e0ab\",\n      \"category\": \"Banking\",\n      \"topic\": \"Credit Card Fraud\",\n      \"signalScore\": 81,\n      \"audienceStrength\": \"A\",\n      \"newSignal\": false,\n      \"signalDate\": \"5/3/2020 12:00 AM\",\n      \"trend\": 7,\n      \"recommendedContacts\": [\n        {\n          \"id\": 2988050694,\n          \"firstName\": \"Nir\",\n          \"lastName\": \"Keren\",\n          \"jobTitle\": \"Chief Technology Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Engineering & Technical Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Engineering & Technical\",\n              \"department\": \"Engineering & Technical\"\n            }\n          ]\n        },\n        {\n          \"id\": 39841971,\n          \"firstName\": \"Cameron\",\n          \"lastName\": \"Hyzer\",\n          \"jobTitle\": \"Chief Financial Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Finance Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Finance\",\n              \"department\": \"Finance\"\n            }\n          ]\n        },\n        {\n          \"id\": 1645938489,\n          \"firstName\": \"Hila\",\n          \"lastName\": \"Nir\",\n          \"jobTitle\": \"Chief Marketing Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Marketing Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Marketing\",\n              \"department\": \"Marketing\"\n            }\n          ]\n        },\n        {\n          \"id\": 2827525345,\n          \"firstName\": \"Chris\",\n          \"lastName\": \"Hays\",\n          \"jobTitle\": \"Chief Revenue Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Sales Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Sales\",\n              \"department\": \"Sales\"\n            }\n          ]\n        },\n        {\n          \"id\": 1260398587,\n          \"firstName\": \"Henry\",\n          \"lastName\": \"Schuck\",\n          \"jobTitle\": \"Founder & Chief Executive Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"Zoom Information, Inc.\",\n        \"website\": \"www.zoominfo.com\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"c6a931ca-3082-40f0-b7af-628b801cdc89\",\n      \"category\": \"Compensation & Benefits\",\n      \"topic\": \"Incentive Compensation\",\n      \"signalScore\": 84,\n      \"audienceStrength\": \"C\",\n      \"newSignal\": false,\n      \"signalDate\": \"5/3/2020 12:00 AM\",\n      \"trend\": 1,\n      \"recommendedContacts\": [\n        {\n          \"id\": 2988050694,\n          \"firstName\": \"Nir\",\n          \"lastName\": \"Keren\",\n          \"jobTitle\": \"Chief Technology Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Engineering & Technical Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Engineering & Technical\",\n              \"department\": \"Engineering & Technical\"\n            }\n          ]\n        },\n        {\n          \"id\": 39841971,\n          \"firstName\": \"Cameron\",\n          \"lastName\": \"Hyzer\",\n          \"jobTitle\": \"Chief Financial Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Finance Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Finance\",\n              \"department\": \"Finance\"\n            }\n          ]\n        },\n        {\n          \"id\": 1645938489,\n          \"firstName\": \"Hila\",\n          \"lastName\": \"Nir\",\n          \"jobTitle\": \"Chief Marketing Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Marketing Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Marketing\",\n              \"department\": \"Marketing\"\n            }\n          ]\n        },\n        {\n          \"id\": 2827525345,\n          \"firstName\": \"Chris\",\n          \"lastName\": \"Hays\",\n          \"jobTitle\": \"Chief Revenue Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Sales Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Sales\",\n              \"department\": \"Sales\"\n            }\n          ]\n        },\n        {\n          \"id\": 1260398587,\n          \"firstName\": \"Henry\",\n          \"lastName\": \"Schuck\",\n          \"jobTitle\": \"Founder & Chief Executive Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"Zoom Information, Inc.\",\n        \"website\": \"www.zoominfo.com\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"b628a3f6-64fc-4636-85d9-044306079b3a\",\n      \"category\": \"Collaboration/Web Apps\",\n      \"topic\": \"Video Conferencing\",\n      \"signalScore\": 80,\n      \"audienceStrength\": \"A\",\n      \"newSignal\": false,\n      \"signalDate\": \"4/19/2020 12:00 AM\",\n      \"trend\": -9,\n      \"recommendedContacts\": [\n        {\n          \"id\": 2988050694,\n          \"firstName\": \"Nir\",\n          \"lastName\": \"Keren\",\n          \"jobTitle\": \"Chief Technology Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Engineering & Technical Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Engineering & Technical\",\n              \"department\": \"Engineering & Technical\"\n            }\n          ]\n        },\n        {\n          \"id\": 39841971,\n          \"firstName\": \"Cameron\",\n          \"lastName\": \"Hyzer\",\n          \"jobTitle\": \"Chief Financial Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Finance Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Finance\",\n              \"department\": \"Finance\"\n            }\n          ]\n        },\n        {\n          \"id\": 1645938489,\n          \"firstName\": \"Hila\",\n          \"lastName\": \"Nir\",\n          \"jobTitle\": \"Chief Marketing Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Marketing Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Marketing\",\n              \"department\": \"Marketing\"\n            }\n          ]\n        },\n        {\n          \"id\": 2827525345,\n          \"firstName\": \"Chris\",\n          \"lastName\": \"Hays\",\n          \"jobTitle\": \"Chief Revenue Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Sales Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Sales\",\n              \"department\": \"Sales\"\n            }\n          ]\n        },\n        {\n          \"id\": 1260398587,\n          \"firstName\": \"Henry\",\n          \"lastName\": \"Schuck\",\n          \"jobTitle\": \"Founder & Chief Executive Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"Zoom Information, Inc.\",\n        \"website\": \"www.zoominfo.com\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"7c771ec1-b307-4fcb-b5b7-d65a88436942\",\n      \"category\": \"Cyber Security\",\n      \"topic\": \"Mobile Security\",\n      \"signalScore\": 80,\n      \"audienceStrength\": \"A\",\n      \"newSignal\": true,\n      \"signalDate\": \"4/19/2020 12:00 AM\",\n      \"trend\": 21,\n      \"recommendedContacts\": [\n        {\n          \"id\": 3459093549,\n          \"firstName\": \"David\",\n          \"lastName\": \"Lewis\",\n          \"jobTitle\": \"Chief Security Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Information Security\",\n              \"department\": \"Information Technology\"\n            }\n          ]\n        },\n        {\n          \"id\": -1862126495,\n          \"firstName\": \"Anna\",\n          \"lastName\": \"Orlove\",\n          \"jobTitle\": \"Security Solution Specialist\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Information Security\",\n              \"department\": \"Information Technology\"\n            }\n          ]\n        },\n        {\n          \"id\": 2549968949,\n          \"firstName\": \"Tal\",\n          \"lastName\": \"Drory\",\n          \"jobTitle\": \"Security Analyst\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Information Security\",\n              \"department\": \"Information Technology\"\n            }\n          ]\n        },\n        {\n          \"id\": 2988050694,\n          \"firstName\": \"Nir\",\n          \"lastName\": \"Keren\",\n          \"jobTitle\": \"Chief Technology Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Engineering & Technical Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Engineering & Technical\",\n              \"department\": \"Engineering & Technical\"\n            }\n          ]\n        },\n        {\n          \"id\": 39841971,\n          \"firstName\": \"Cameron\",\n          \"lastName\": \"Hyzer\",\n          \"jobTitle\": \"Chief Financial Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Finance Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Finance\",\n              \"department\": \"Finance\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"Zoom Information, Inc.\",\n        \"website\": \"www.zoominfo.com\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"7c75266b-b293-4110-ba77-b5f73b90d42c\",\n      \"category\": \"Application Development\",\n      \"topic\": \"Node.js\",\n      \"signalScore\": 82,\n      \"audienceStrength\": \"A\",\n      \"newSignal\": true,\n      \"signalDate\": \"4/19/2020 12:00 AM\",\n      \"trend\": 23,\n      \"recommendedContacts\": [\n        {\n          \"id\": 1780573066,\n          \"firstName\": \"Justin\",\n          \"lastName\": \"Sweeney\",\n          \"jobTitle\": \"Senior Software Development Manager, Data\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Software Development\",\n              \"department\": \"Engineering & Technical\"\n            },\n            {\n              \"name\": \"Data Science\",\n              \"department\": \"Engineering & Technical\"\n            }\n          ]\n        },\n        {\n          \"id\": 2047851825,\n          \"firstName\": \"Brian\",\n          \"lastName\": \"Thomas\",\n          \"jobTitle\": \"Software Development Manager, Data\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Software Development\",\n              \"department\": \"Engineering & Technical\"\n            },\n            {\n              \"name\": \"Data Science\",\n              \"department\": \"Engineering & Technical\"\n            }\n          ]\n        },\n        {\n          \"id\": -1120287554,\n          \"firstName\": \"Kristen\",\n          \"lastName\": \"Patten\",\n          \"jobTitle\": \"Software Development Manager, Data\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Software Development\",\n              \"department\": \"Engineering & Technical\"\n            },\n            {\n              \"name\": \"Data Science\",\n              \"department\": \"Engineering & Technical\"\n            }\n          ]\n        },\n        {\n          \"id\": 1995022052,\n          \"firstName\": \"Chris\",\n          \"lastName\": \"Baker\",\n          \"jobTitle\": \"Manager of Engineering, Data\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Software Development\",\n              \"department\": \"Engineering & Technical\"\n            },\n            {\n              \"name\": \"Data Science\",\n              \"department\": \"Engineering & Technical\"\n            }\n          ]\n        },\n        {\n          \"id\": 1868007106,\n          \"firstName\": \"Imesh\",\n          \"lastName\": \"Wijewardena\",\n          \"jobTitle\": \"Senior Software Development Manager, Data\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Software Development\",\n              \"department\": \"Engineering & Technical\"\n            },\n            {\n              \"name\": \"Data Science\",\n              \"department\": \"Engineering & Technical\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"Zoom Information, Inc.\",\n        \"website\": \"www.zoominfo.com\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"e15d87cd-ffa1-4771-9da2-bac3bcb2022f\",\n      \"category\": \"Collaboration/Web Apps\",\n      \"topic\": \"Video Conferencing\",\n      \"signalScore\": 89,\n      \"audienceStrength\": \"A\",\n      \"newSignal\": false,\n      \"signalDate\": \"4/12/2020 12:00 AM\",\n      \"trend\": 11,\n      \"recommendedContacts\": [\n        {\n          \"id\": 2988050694,\n          \"firstName\": \"Nir\",\n          \"lastName\": \"Keren\",\n          \"jobTitle\": \"Chief Technology Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Engineering & Technical Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Engineering & Technical\",\n              \"department\": \"Engineering & Technical\"\n            }\n          ]\n        },\n        {\n          \"id\": 39841971,\n          \"firstName\": \"Cameron\",\n          \"lastName\": \"Hyzer\",\n          \"jobTitle\": \"Chief Financial Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Finance Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Finance\",\n              \"department\": \"Finance\"\n            }\n          ]\n        },\n        {\n          \"id\": 1645938489,\n          \"firstName\": \"Hila\",\n          \"lastName\": \"Nir\",\n          \"jobTitle\": \"Chief Marketing Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Marketing Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Marketing\",\n              \"department\": \"Marketing\"\n            }\n          ]\n        },\n        {\n          \"id\": 2827525345,\n          \"firstName\": \"Chris\",\n          \"lastName\": \"Hays\",\n          \"jobTitle\": \"Chief Revenue Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Sales Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Sales\",\n              \"department\": \"Sales\"\n            }\n          ]\n        },\n        {\n          \"id\": 1260398587,\n          \"firstName\": \"Henry\",\n          \"lastName\": \"Schuck\",\n          \"jobTitle\": \"Founder & Chief Executive Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"Zoom Information, Inc.\",\n        \"website\": \"www.zoominfo.com\",\n        \"hasOtherTopicConsumption\": true\n      }\n    },\n    {\n      \"id\": \"d922c989-0f82-40b2-aea8-394304c55724\",\n      \"category\": \"Compensation & Benefits\",\n      \"topic\": \"Incentive Compensation\",\n      \"signalScore\": 90,\n      \"audienceStrength\": \"A\",\n      \"newSignal\": true,\n      \"signalDate\": \"4/5/2020 12:00 AM\",\n      \"trend\": 31,\n      \"recommendedContacts\": [\n        {\n          \"id\": 2988050694,\n          \"firstName\": \"Nir\",\n          \"lastName\": \"Keren\",\n          \"jobTitle\": \"Chief Technology Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Engineering & Technical Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Engineering & Technical\",\n              \"department\": \"Engineering & Technical\"\n            }\n          ]\n        },\n        {\n          \"id\": 39841971,\n          \"firstName\": \"Cameron\",\n          \"lastName\": \"Hyzer\",\n          \"jobTitle\": \"Chief Financial Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Finance Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Finance\",\n              \"department\": \"Finance\"\n            }\n          ]\n        },\n        {\n          \"id\": 1645938489,\n          \"firstName\": \"Hila\",\n          \"lastName\": \"Nir\",\n          \"jobTitle\": \"Chief Marketing Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Marketing Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Marketing\",\n              \"department\": \"Marketing\"\n            }\n          ]\n        },\n        {\n          \"id\": 2827525345,\n          \"firstName\": \"Chris\",\n          \"lastName\": \"Hays\",\n          \"jobTitle\": \"Chief Revenue Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Sales Executive\",\n              \"department\": \"C-Suite\"\n            },\n            {\n              \"name\": \"Sales\",\n              \"department\": \"Sales\"\n            }\n          ]\n        },\n        {\n          \"id\": 1260398587,\n          \"firstName\": \"Henry\",\n          \"lastName\": \"Schuck\",\n          \"jobTitle\": \"Founder & Chief Executive Officer\",\n          \"jobFunction\": [\n            {\n              \"name\": \"Executive\",\n              \"department\": \"C-Suite\"\n            }\n          ]\n        }\n      ],\n      \"company\": {\n        \"id\": 344589814,\n        \"name\": \"Zoom Information, Inc.\",\n        \"website\": \"www.zoominfo.com\",\n        \"hasOtherTopicConsumption\": true\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f3ba5f03-e7c5-4a21-825e-e1c42ede6862",
+          "name": "Zoominfo Intent Enrich Inputs",
+          "request": {
+            "name": "Zoominfo Intent Enrich Inputs",
+            "description": {
+              "content": "Returns a list of fields you can use as input for the [Intent Enrich](#48c36a9f-e4eb-4ce8-8080-a7b810df7c2d) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "inputfields",
+                "intent",
+                "enrich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ff8fd335-94cb-4405-8b8c-cf30572eee0b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "inputfields",
+                    "intent",
+                    "enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-application-context",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"companyWebsite\",\n    \"fieldType\": \"String\",\n    \"description\": \"The website of the company you are searching for\"\n  },\n  {\n    \"fieldName\": \"companyId\",\n    \"fieldType\": \"Long\",\n    \"description\": \"Unique ZoomInfo identifier for a company\"\n  },\n  {\n    \"fieldName\": \"companyName\",\n    \"fieldType\": \"String\",\n    \"description\": \"Company name\"\n  },\n  {\n    \"fieldName\": \"topics\",\n    \"fieldType\": \"ArrayList\",\n    \"description\": \"Intent topics. Accepts an Array of String. See the 'Intent Topics' endpoint for values.\"\n  },\n  {\n    \"fieldName\": \"signalStartDate\",\n    \"fieldType\": \"String\",\n    \"description\": \"Start date for a company signaling interest in a topic\"\n  },\n  {\n    \"fieldName\": \"signalEndDate\",\n    \"fieldType\": \"String\",\n    \"description\": \"End date for a company signaling interest in a topic\"\n  },\n  {\n    \"fieldName\": \"signalScoreMin\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Minimum signal score. Use with signalScoreMax to form a range. Minimum score is 60 and maximum is 100.\"\n  },\n  {\n    \"fieldName\": \"signalScoreMax\",\n    \"fieldType\": \"Integer\",\n    \"description\": \"Maximum signal score. Use with signalScoreMin to form a range. Minimum score is 60 and maximum is 100.\"\n  },\n  {\n    \"fieldName\": \"audienceStrengthMin\",\n    \"fieldType\": \"String\",\n    \"description\": \"Minimum audience strength score. Use with audienceStrengthMax to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.\"\n  },\n  {\n    \"fieldName\": \"audienceStrengthMax\",\n    \"fieldType\": \"String\",\n    \"description\": \"Maximum audience strength score. Use with audienceStrengthMin to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d9d894d-deec-4814-935a-26690adb8cd6",
+          "name": "Zoominfo Intent Enrich Outputs",
+          "request": {
+            "name": "Zoominfo Intent Enrich Outputs",
+            "description": {
+              "content": "Returns a list of output fields for the [Intent Enrich](#48c36a9f-e4eb-4ce8-8080-a7b810df7c2d) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "outputfields",
+                "intent",
+                "enrich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=utf-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1a035c21-4ac1-4f9b-9d96-e73323a4e08c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "outputfields",
+                    "intent",
+                    "enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=utf-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Ray",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "cf-request-id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"id\",\n    \"description\": \"Unique ZoomInfo identifier for a topic\"\n  },\n  {\n    \"fieldName\": \"category\",\n    \"description\": \"Intent category\"\n  },\n  {\n    \"fieldName\": \"topic\",\n    \"description\": \"Intent topic\"\n  },\n  {\n    \"fieldName\": \"signalScore\",\n    \"description\": \"Signal score for the topic\"\n  },\n  {\n    \"fieldName\": \"audienceStrength\",\n    \"description\": \"Audience strength for the topic\"\n  },\n  {\n    \"fieldName\": \"signalDate\",\n    \"description\": \"Date the signal was identified\"\n  },\n  {\n    \"fieldName\": \"companyId\",\n    \"description\": \"Unique ZoomInfo identifier for a company\"\n  },\n  {\n    \"fieldName\": \"companyName\",\n    \"description\": \"Company name\"\n  },\n  {\n    \"fieldName\": \"companyWebsite\",\n    \"description\": \"Company website URL in http://www.example.com format\"\n  },\n  {\n    \"fieldName\": \"companyHasOtherTopicConsumption\",\n    \"description\": \"Indicates whether a company has other topics with increased consumption. Values are true and false.\"\n  },\n  {\n    \"fieldName\": \"recommendedContacts\",\n    \"description\": \"Suggested contacts at the company that are related to the intent topic\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zoominfo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0347acaa-b234-4ede-94f1-af66ceca1f0f",
+    "name": "ZoomInfo Authentication Intent Enrich API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...\n\nContact Support:\n Name: ZoomInfo API Support\n Email: support@zoominfo.com",
+      "type": "text/plain"
+    }
+  }
+}

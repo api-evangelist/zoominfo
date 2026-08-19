@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZoomInfo Authentication Scoop Enrich API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Scoop Enrich",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Zoominfo Scoop Enrich",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zoominfo.com/enrich/scoop",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to match company scoop information based on [input values](#4ebf5d05-d819-4336-977f-2fe72dc6ac19) and return the desired [output fields](##6c2de74a-e026-401b-8910-503ae7aa57c8) in the response.\n\nThe Scoop Enrich endpoint returns a list of scoops related to a specified company:\n\n- Scoop Enrich requests require one of the following: a valid ZoomInfo `companyId`, `companyName`, or `companyWebsite` as an input parameter\n- If you do not provide a date range for when the scoop was pu"
+        },
+        {
+          "info": {
+            "name": "Zoominfo Scoop Enrich Inputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/inputfields/scoop/enrich"
+          },
+          "docs": "Returns a list of fields you can use as input for the [Scoop Enrich](#545c603a-fbe5-48b6-b4b4-bdca626fead0) endpoint."
+        },
+        {
+          "info": {
+            "name": "Zoominfo Scoop Enrich Outputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zoominfo.com/lookup/outputfields/scoop/enrich"
+          },
+          "docs": "Returns a list of output fields for the [Scoop Enrich](#545c603a-fbe5-48b6-b4b4-bdca626fead0) endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

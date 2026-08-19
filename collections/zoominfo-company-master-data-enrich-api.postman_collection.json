@@ -1,0 +1,812 @@
+{
+  "item": [
+    {
+      "id": "3a86b9c3-2562-4a75-8c36-8b172b40f8e3",
+      "name": "Company Master Data Enrich",
+      "description": {
+        "content": "The new [Company Master Data Enrich](#8b6cffe4-cb34-44ab-ad5d-1953d372ffd3) endpoint brings together ZoomInfo firmographic data with the EverString firmographic data along with significant improvements including additional firmographic attributes and enhanced data.\n\nRefer to the examples provided to build a valid JSON request. For supported input and output parameters:\n\n*   Use the [Company Master Enrich Inputs](#d305402c-33d1-488c-8b8f-b5b079868a61) endpoint to retrieve a list of valid input parameters you can provide\n*   Use the [Company Master Enrich Outputs](#58b47522-753a-4104-a0c6-454adf4b6a1d) endpoint to retrieve a list of valid output fields that can be returned",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8efd48ce-82a2-4a9d-b148-4ff8a1a9121a",
+          "name": "Zoominfo Company Master Data Enrich",
+          "request": {
+            "name": "Zoominfo Company Master Data Enrich",
+            "description": {
+              "content": "Use this endpoint to match company information based on [input values](#d305402c-33d1-488c-8b8f-b5b079868a61) and return the desired [output fields](#58b47522-753a-4104-a0c6-454adf4b6a1d) in the response.\n\n**Maximum inputs per request**\n\nYou can input a maximum of 25 companies in a single enrich request, returning the equivalent number of matching records. See the endpoint examples for how to build queries using multiple inputs.\n\n**Declaring desired output**\n\nYou must explicitly list the desired output fields in your request. For example, a simple request might look like this:\n\n```\n{\n    \"matchCompanyInput\": [\n        {\n            \"address\": {\n                \"zi_c_street\": \"805 Broadway St\",\n                \"zi_c_state\": \"Washington\",\n                \"zi_c_city\": \"Vancouver\",\n                \"zi_c_zip\": \"98660\",\n                \"zi_c_country\": \"United States\"\n            },\n            \"phone\": {\n                \"zi_c_phone\": \"+1 3607836800\",\n                \"zi_c_country\": \"United States\"\n            },\n            \"zi_c_location_id\": 2079041960,\n            \"zi_c_url\": \"zoomInfo.com\",\n            \"zi_c_name\": \"zoomInfo\"\n        }\n    ],\n    \"outputFields\": [\n        \"zi_c_location_id\",\n        \"zi_es_ecid\",\n        \"zi_es_location_id\",\n        \"zi_c_is_hq\",\n        \"zi_c_tier_grade\",\n        \"zi_c_name\",\n        \"zi_c_name_display\",\n        \"zi_c_legal_entity_type\",\n        \"zi_c_url\",\n        \"zi_c_street\",\n        \"zi_c_street_2\",\n        \"zi_c_city\",\n        \"zi_c_state\",\n        \"zi_c_zip\",\n        \"zi_c_country\"\n   ]\n}\n\n ```\n\nTo keep the response data clean and unambiguous, if there is no data for a requested field, or it is NULL/EMPTY, the API will not return the field in the response.\n\n**Response status codes and error handling**\n\nThis endpoint supports up to 25 inputs per request and will return a HTTP status code in the response indicating a 200, 400 or 5xx status.\n\n| Code | Meaning |\n| --- | --- |\n| 200 | Request inputs are acceptable. The API can return a successful match or no match. |\n| 400 | Indicates an error in the request input. |\n| 5xx | Indicates a server-side error. Retry the request or contact ZoomInfo Support if the issue persists. |\n\nWhen a request includes multiple companies, the following will occur:\n\n- If at least 1 input succeeds in a request containing multiple inputs (up to the limit of 25), a 200 HTTP status code will be returned.\n- If none of the inputs succeed and the request includes only a combination of bad inputs and internal errors, the API will return a 400 HTTP status code.\n- If all inputs fail due to a server-side error, the response body of all of the input will return a status code of 500.\n    \n\n**Input params**\n\nSee the examples for how to structure your request. You must explicitly list the desired output fields in your request. See the examples included with this endpoint for how to structure a request.\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| zi_c_location_id | Long integer or string | Unique ZoomInfo identifier for a company |\n| zi_es_ecid | Long integer | Unique EverString identifier for a company |\n| zi_c_company_id | String | Unique ZoomInfo identifier for a company HQ location (parent) |\n| zi_es_location_id | String | Unique EverString location id of a company |\n| zi_c_url | String | Website of the company to enrich |\n| zi_c_name | String | Name of the company to enrich |\n| phone | Object | Phone number of a company. The input format is {zi_c_country: United States, zi_c_phone: xxxxxxx}. If \"zi_c_phone\" already has a country code, you do not need to input \"zi_c_country\". |\n| address | Object | Address of the company to enrich. Input format is {zi_c_street: xxxxxxx, zi_c_city: xxxxxxx, zi_c_state: xxxxxxx, zi_c_zip: xxxxxxx, zi_c_country: xxxxxxx} |\n| email | String | An email of a contact from the company |\n| match_reasons | ArrayList | Minimum Match criteria to enrich the company. Accepts an array of objects. Optional customized match reasons specified on different attributes and match_score to decide how the match for that particular attribute should be. Acceptable attributes: zi_c_name, zi_c_url, bldg_name, bldg_number, road_name, road_type, directional, unit, zi_c_city, zi_c_state, zi_c_zip, zi_c_country, zi_c_phone, biz_type and match_score. Acceptable values for attributes: E (exact match), F (fuzzy match), D (different match) and M (missing). Input format is \\[{ zi_c_name: F, zi_c_url: E, zi_c_state: E, match_score: 3 }, { zi_c_name: E, zi_c_phone: E, match_score: 3 }\\] |\n\n**Output fields**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| zi_c_location_id | Long integer | ZoomInfo unique identifier for company location |\n| zi_es_ecid | Long integer | EverString Company ID (ECID) is a unique identifier for a company entity |\n| zi_es_location_id | String | Location ID, which uniquely identifies each separate physical location, office, or branch of a company |\n| zi_c_is_hq | String | This flag indicates if this record is the HQ entity |\n| zi_c_tier_grade | String | Overall data quality tier for a record (A, B, C) |\n| zi_c_name | String | Company name for location |\n| zi_c_name_display | String | Colloquial name of the company |\n| zi_c_legal_entity_type | String | Legal structure of company, generally parsed from the end of the legal name (Inc, LLC) |\n| zi_c_url | String | Primary website of the company. May contain yelp.com URLs for companies without a top-level domain. |\n| zi_c_street | String | Company's physical street address |\n| zi_c_street_2 | String | Company's physical street address continued |\n| zi_c_city | String | Company's physical city |\n| zi_c_state | String | Company's physical state |\n| zi_c_zip | String | Company's physical zip/postal code |\n| zi_c_country | String | Company's physical country |\n| zi_c_cbsa_name | String | Company's core-based statistical area |\n| zi_c_county | String | Company's physical county |\n| zi_c_latitude | Float | Latitude geo-coordinate for company's physical location |\n| zi_c_longitude | Float | Longitude geo-coordinate for company's physical location |\n| zi_c_verified_address | String | Verification of whether this address is deliverable |\n| zi_c_employee_range | String | Employee category band. See the Employee Category Band lookup endpoint for valid ranges. |\n| zi_c_employees | Long integer | Raw employee count for a company |\n| zi_c_revenue_range | String | Revenue category band in USD. See the Revenue Category Band lookup endpoint for valid ranges. |\n| zi_c_revenue | Long integer | Raw revenue number in USD (in thousands) |\n| zi_c_phone | String | Company location phone number |\n| zi_c_fax | String | Primary fax number for company location |\n| zi_c_industry_primary | String | Top-level primary industry of the company |\n| zi_c_sub_industry_primary | String | Top-level primary sub-industry of the company location |\n| zi_c_industries | ArrayList | All industries |\n| zi_c_sub_industries | ArrayList | All sub-industries |\n| zi_es_industry | String | Primary industry based on EverString's industry taxonomy |\n| zi_es_industries_top3 | ArrayList | The top three industries predicted, as many larger companies can operate in multiple industries. |\n| zi_c_naics2 | String | Primary 2-digit NAICS code |\n| zi_c_naics4 | String | Primary 4-digit NAICS code |\n| zi_c_naics6 | String | Primary 6-digit NAICS code |\n| zi_c_naics_top3 | ArrayList | The top three NAICS predicted, as many larger companies can operate in multiple industries. |\n| zi_c_sic2 | String | Primary 2-digit SIC code |\n| zi_c_sic3 | String | Primary 3-digit SIC code |\n| zi_c_sic4 | String | Primary 4-digit SIC code |\n| zi_c_sic_top3 | ArrayList | The top three SIC predicted, as many larger companies can operate in multiple industries. |\n| zi_c_estimated_age | Long integer | Estimated age of the company |\n| zi_c_year_founded | String | Founding year of the company |\n| zi_c_is_b2b | String | A flag to represent a company as B2B (1, 0) |\n| zi_c_is_b2c | String | A flag to represent a company as B2C (1, 0) |\n| zi_c_company_id | Long integer | ZoomInfo Company ID for the headquarters (HQ) of a company entity |\n| zi_es_hq_ecid | Long integer | EverString Company ID (ECID) for the headquarters (HQ) of a company entity |\n| zi_es_hq_location_id | String | Location ID for the headquarters (HQ) of a company entity |\n| zi_c_company_name | String | HQ Company name. May match zi_c_name. |\n| zi_c_company_url | String | HQ Primary website of the company. May contain yelp.com websites. May match zi_c_url. |\n| zi_c_company_street | String | HQ Company's physical street address |\n| zi_c_company_street_2 | String | HQ Company's physical street address continued |\n| zi_c_company_city | String | HQ Company's physical city |\n| zi_c_company_state | String | HQ Company's physical state |\n| zi_c_company_zip | String | HQ Company's physical zip/postal code |\n| zi_c_company_country | String | HQ Company's physical country |\n| zi_c_company_cbsa_name | String | HQ Company's core-based statistical area |\n| zi_c_company_county | String | HQ Company's physical county |\n| zi_c_company_latitude | Float | HQ Company's latitude geo-coordinate |\n| zi_c_company_longitude | Float | HQ Company's longitude geo-coordinate |\n| zi_c_company_verified_address | String | Denotes whether HQ address deliverability is verified |\n| zi_c_company_employee_range | String | HQ Employee category band. Employee Category Band lookup endpoint for valid ranges. |\n| zi_c_company_employees | Long integer | HQ Raw employee number for a company |\n| zi_c_company_revenue_range | String | HQ Revenue category band. See the Revenue Category Band lookup endpoint for valid ranges. |\n| zi_c_company_revenue | Long integer | HQ Raw revenue number in USD (in thousands) |\n| zi_c_company_phone | String | HQ Company's phone number |\n| zi_c_company_fax | String | HQ Company's fax number |\n| zi_c_linkedin_url | String | LinkedIn URL for the company |\n| zi_c_facebook_url | String | Facebook URL for the company |\n| zi_c_twitter_url | String | Twitter URL for the company |\n| zi_c_yelp_url | String | Yelp URL for the company |\n| zi_c_keywords | ArrayList | Machine-generated tags for the company |\n| zi_c_top_keywords | ArrayList | Top ten machine-generated tags for the company |\n| zi_c_num_keywords | Long integer | The number of zi_c_keywords associated with a company. Larger numbers usually indicate a more sophisticated website and/or many lines of businesses. |\n| zi_c_employee_growth_1yr | Float | Approximate company employee growth percentage in the past 1 year |\n| zi_c_employee_growth_2yr | Float | Approximate company employee growth percentage in the past 2 years |\n| zi_es_growth | String | A measure of overall growth from the last month compare against average growth in the industry |\n| zi_es_employee_growth | Float | A measure of employee growth from last month compared against average growth in the industry |\n| zi_es_revenue_growth | Float | A measure of revenue growth from last month compared against average growth in the industry |\n| zi_es_percent_employee_growth | Float | Percentage employee growth from last month compared against average growth in the industry |\n| zi_es_percent_revenue_growth | Float | Percentage revenue growth from last month compared against average growth in the industry |\n| zi_c_name_confidence_score | Float | Confidence score for the zi_c_name field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_url_confidence_score | Float | Confidence score for the zi_c_url field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_address_confidence_score | Float | Confidence score for the zi_c_address field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_phone_confidence_score | Float | Confidence score for the zi_c_phone field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_employees_confidence_score | Float | Confidence score for the zi_c_employee_range field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_revenue_confidence_score | Float | Confidence score for the zi_c_revenue_range field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_es_industry_confidence_score | Float | Confidence score for the zi_es_industry field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_naics_confidence_score | Float | Confidence score for the zi_c_naics field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_sic_confidence_score | Float | Confidence score for the zi_c_sic field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_es_industries_top3_confidence_scores | ArrayList | Confidence score for the zi_es_industries_top3 field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_naics_top3_confidence_scores | ArrayList | Confidence score for the zi_c_naics_top3 field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_sic_top3_confidence_scores | ArrayList | Confidence score for the zi_c_sic_top3 field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_names_other | String | Alternate company name |\n| zi_c_url_status | String | Identifies if a company's website is still active or redirects to another website. Status can be VALID, INVALID, PARKED, REDIRECT. |\n| zi_c_urls_alt | ArrayList | All websites related to a company |\n| zi_c_url_last_updated | String | Date company's URL was last updated |\n| zi_c_inactive_flag | String | Identifies if a company is inactive. (1 or 0, 1 being inactive) |\n| zi_c_ein | String | The Employer Identification Number (EIN) of a company |\n| zi_c_is_small_business | String | A flag to represent a company as a small business (1, 0). Small business is considered less than 500 employees. Note: This flag reflects employee size data at the ECID Location-Level, not HQ-Level. |\n| zi_c_is_public | String | Indication if company is Public or Private (1, 0) |\n| zi_c_ticker | String | Stock ticker for the company |\n| zi_c_tickers_alt | ArrayList | Alternate stock ticker for the company |\n| zi_c_has_mobile_app | String | Identifies if this company has a mobile app link detected on their website (1, 0) |\n| zi_c_currency_code | String | Company's currency code |\n| zi_c_num_locations | Long integer | Number of locations the company has |\n| zi_c_hr_contacts | Long integer | Number of HR contacts available at the company |\n| zi_c_sales_contacts | Long integer | Number of Sales contacts available at the company |\n| zi_c_marketing_contacts | Long integer | Number of Marketing contacts available at the company |\n| zi_c_finance_contacts | Long integer | Number of Finance contacts available at the company |\n| zi_c_c_suite_contacts | Long integer | Number of C-Suite contacts available at the company |\n| zi_c_engineering_contacts | Long integer | Number of Engineering contacts available at the company |\n| zi_c_it_contacts | Long integer | Number of IT contacts available at the company |\n| zi_c_operations_contacts | Long integer | Number of Operations contacts available at the company |\n| zi_c_legal_contacts | Long integer | Number of Legal contacts available at the company |\n| zi_c_medical_contacts | Long integer | Number of Medical contacts available at the company |\n| zi_c_tech_ids | ArrayList | Unique identifier for a technology. Could be a single tech ID, or a comma-separated list of ID's |\n| zi_c_latest_funding_age | Long integer | The number of years since the company's last funding |\n| zi_c_num_of_investors | Long integer | Number of investors for a company |\n| zi_c_investor_names | ArrayList | All investor names from publicly available sources |\n| zi_c_funding_strength | String | A measure of funding strength of a business based on type and who they received funding from (Low, Medium, High) |\n| zi_c_funding_type | ArrayList | Publicly available sources funding type |\n| zi_c_total_funding_amount | Long integer | The total amount of funding a company has received |\n| zi_c_latest_funding_amount | Long integer | The amount of funding in the latest funding round of a company |\n| zi_c_latest_funding_date | String | Date when the latest funding was received |\n| zi_c_num_funding_rounds | Long integer | The number of funding rounds a company has had |\n| zi_c_is_fortune_100 | string | This flag indicates if this record is a Fortune 100 entity (1, 0) |\n| zi_c_is_fortune_500 | string | This flag indicates if this record is a Fortune 500 entity (1, 0) |\n| zi_c_is_s_and_p_500 | string | This flag indicates if this record is a S&P 500 entity (1, 0) |\n| zi_c_is_domestic_hq | String | This flag indicates if this record is a Domestic Parent entity |\n| zi_c_is_ultimate_parent | String | This flag indicates if this record is the ultimate Parent entity (previously called zi_c_is_global_parent) |\n| zi_c_is_subsidiary | String | This flag indicates if this record is a Subsidiary entity |\n| zi_c_is_franchisor | String | This flag indicates if this record is a Franchisor |\n| zi_c_is_franchisee | String | This flag indicates if this record is a Frachisee |\n| zi_c_hierarchy_code | String | This alpha code identifies the record's hierarchy level and location level. Hierarchy levels include Global Parent, Domestic Parent, or Subsidiary. Location levels include Individual Location or Headquarters location. See the Hierarchy Code lookup endpoint for valid codes. |\n| zi_c_hierarchy_level | Long integer | This number indicates the hierarchy level equivalent to the hierarchy code |\n| zi_c_parent_child_confidence_score | Float | Confidence score for the parent child hierarchy linkage (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest) |\n| zi_c_is_immediate_parent | String | 1 if the record is the immediate parent. 0 if it is not the immediate parent. |\n| zi_c_immediate_parent_company_id | Long integer | Unique identifier of parent company of requested company |\n| zi_es_immediate_parent_ecid | Long integer | Immediate parent company's identifier number |\n| zi_es_immediate_parent_location_id | String | Immediate parent company's location identifier |\n| zi_c_immediate_parent_name | String | Immediate parent company's name |\n| zi_c_immediate_parent_url | String | Immediate parent company's website |\n| zi_c_immediate_parent_street | String | Immediate parent company's street address |\n| zi_c_immediate_parent_street_2 | String | Immediate parent company's street address continued |\n| zi_c_immediate_parent_city | String | Immediate parent company's city |\n| zi_c_immediate_parent_zip | String | Immediate parent company's zip code |\n| zi_c_immediate_parent_state | String | Immediate parent company's state |\n| zi_c_immediate_parent_country | String | Immediate parent company's country |\n| zi_c_domestic_parent_company_id | Long integer | Unique identifier of parent company of requested company |\n| zi_es_domestic_parent_ecid | Long integer | Domestic parent company's identifier number |\n| zi_es_domestic_parent_location_id | String | Domestic parent company's location identifier |\n| zi_c_domestic_parent_location_id | String | Domestic parent company's identifier number |\n| zi_c_domestic_parent_name | String | Domestic parent company's name |\n| zi_c_domestic_parent_url | String | Domestic parent company's website |\n| zi_c_domestic_parent_street | String | Domestic parent company's street address |\n| zi_c_domestic_parent_street_2 | String | Domestic parent company's street address continued |\n| zi_c_domestic_parent_city | String | Domestic parent company's city |\n| zi_c_domestic_parent_zip | String | Domestic parent company's zip code |\n| zi_c_domestic_parent_state | String | Domestic parent company's state |\n| zi_c_domestic_parent_country | String | Domestic parent company's country |\n| zi_c_ultimate_parent_company_id | Long integer | Unique identifier of ultimate parent company that has acquired requested company (previously called zi_c_global_parent_company_id) |\n| zi_es_ultimate_parent_ecid | Long integer | Ultimate parent company's identifier number (previously called zi_es_global_parent_ecid) |\n| zi_es_ultimate_parent_location_id | String | Ultimate parent company's location identifier (previously called zi_es_global_parent_location_id) |\n| zi_c_ultimate_parent_name | String | Ultimate parent company's name (previously called zi_c_global_parent_name) |\n| zi_c_ultimate_parent_url | String | Ultimate parent company's website (previously called zi_c_global_parent_url) |\n| zi_c_ultimate_parent_street | String | Ultimate parent company's street address (previously called zi_c_global_parent_street) |\n| zi_c_ultimate_parent_street_2 | String | Ultimate parent company's street address continued (previously called zi_c_global_parent_street_2) |\n| zi_c_ultimate_parent_city | String | Ultimate parent company's city (previously called zi_c_global_parent_city) |\n| zi_c_ultimate_parent_zip | String | Ultimate parent company's zip (previously called zi_c_global_parent_zip) |\n| zi_c_ultimate_parent_state | String | Ultimate parent company's state (previously called zi_c_global_parent_state) |\n| zi_c_ultimate_parent_country | String | Ultimate parent company's country (previously called zi_c_global_parent_country) |\n| zi_c_franchisor_company_id | Long integer | Company franchisor's ZoomInfo Company ID |\n| zi_es_franchisor_ecid | Long integer | Company franchisor's identifier number |\n| zi_es_franchisor_location_id | String | Company franchisor's location number |\n| zi_c_franchisor_name | String | Company franchisor's name |\n| zi_c_franchisor_url | String | Company franchisor's website |\n| zi_c_franchisor_street | String | Company franchisor's street address |\n| zi_c_franchisor_street_2 | String | Company franchisor's street address continued |\n| zi_c_franchisor_city | String | Company franchisor's city |\n| zi_c_franchisor_zip | String | Company franchisor's zip code |\n| zi_c_franchisor_state | String | Company franchisor's state |\n| zi_c_franchisor_country | String | Company franchisor's country |\n| zi_c_tech_spend | String | A measure of Technology spend as modeled by the types of technology purchased by a company (Low, Medium, High) |\n| zi_c_hr_spend | String | A measure of HR spend as modeled by the types of HR technology purchased by a company (Low, Medium, High) |\n| zi_c_sales_spend | String | A measure of Sales spend as modeled by the types of Sales technology purchased by a company (Low, Medium, High) |\n| zi_c_marketing_spend | String | A measure of Marketing spend as modeled by the types of Marketing technology purchase, type of titles, website sophistication by a company (Low, Medium, High) |\n| zi_c_finance_spend | String | A measure of Finance spend as modeled by the types of Finance technology purchased by a company (Low, Medium, High) |\n| zi_c_tech_strength | String | A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High) |\n| zi_c_hr_strength | String | A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High) |\n| zi_c_sales_strength | String | A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High) |\n| zi_c_marketing_strength | String | A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High) |\n| zi_c_finance_strength | String | A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High) |\n| zi_c_tech_sophistication | String | A measure of technology sophistication of a business (Low, Medium, High) |\n| zi_c_hr_sophistication | String | A measure of HR sophistication of a business (Low, Medium, High) |\n| zi_c_sales_sophistication | String | A measure of Sales sophistication of a business (Low, Medium, High) |\n| zi_c_marketing_sophistication | String | A measure of Marketing sophistication of a company (Low, Average, High) |\n| zi_c_social_sophistication | String | A measure of Social sophistication of a business (Low, Medium, High) |\n| zi_c_finance_sophistication | String | A measure of Finance sophistication of a business (Low, Medium, High) |\n| zi_c_last_updated_date | String | Date when the record was last updated |\n| zi_c_release_date | String | Year and Month of this data release in YYYYMM format (e.g., 201902) |\n| zi_match_reason | Object | A nested structure describing how the record was matched. The list can include zi_match_name, zi_match_reason_building_name, zi_match_reason_building_number, zi_match_reason_business_type, zi_match_reason_city, zi_match_reason_company_phone, zi_match_reason_country, zi_match_reason_directional, zi_match_reason_name, zi_match_reason_road_name, zi_match_reason_road_type, zi_match_reason_state, zi_match_reason_unit, zi_match_reason_website, zi_match_reason_zip, zi_match_score. |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrich",
+                "company-master"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"matchCompanyInput\": [\n    {\n      \"zi_c_url\": \"<string>\"\n    },\n    {\n      \"zi_c_url\": \"<string>\"\n    }\n  ],\n  \"outputFields\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7e49d4b2-e275-431e-a073-2b933e0060ee",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrich",
+                    "company-master"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"matchCompanyInput\": [\n    {\n      \"zi_c_url\": \"zoominfo.com\"\n    }\n  ],\n  \"outputFields\": [\n    \"zi_c_location_id\",\n    \"zi_es_ecid\",\n    \"zi_es_location_id\",\n    \"zi_c_is_hq\",\n    \"zi_c_tier_grade\",\n    \"zi_c_name\",\n    \"zi_c_name_display\",\n    \"zi_c_legal_entity_type\",\n    \"zi_c_url\",\n    \"zi_c_street\",\n    \"zi_c_street_2\",\n    \"zi_c_city\",\n    \"zi_c_state\",\n    \"zi_c_zip\",\n    \"zi_c_country\",\n    \"zi_match_reason\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-request-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-request-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-record-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-record-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-request-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-request-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-record-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-record-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-unique-id-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-unique-id-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "content-encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-RAY",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"outputFields\": [\n      \"zi_c_location_id\",\n      \"zi_es_ecid\",\n      \"zi_es_location_id\",\n      \"zi_c_is_hq\",\n      \"zi_c_tier_grade\",\n      \"zi_c_name\",\n      \"zi_c_name_display\",\n      \"zi_c_legal_entity_type\",\n      \"zi_c_url\",\n      \"zi_c_street\",\n      \"zi_c_street_2\",\n      \"zi_c_city\",\n      \"zi_c_state\",\n      \"zi_c_zip\",\n      \"zi_c_country\",\n      \"zi_match_reason\"\n    ],\n    \"result\": [\n      {\n        \"statusCode\": 200,\n        \"input\": {\n          \"address\": {\n            \"zi_c_city\": \"mc lean\",\n            \"zi_c_country\": \"united states\",\n            \"zi_c_state\": \"virginia\",\n            \"zi_c_zip\": \"22102\"\n          },\n          \"match_reasons\": [\n            {\n              \"zi_c_name\": \"e\"\n            }\n          ],\n          \"zi_c_name\": \"capital one\"\n        },\n        \"data\": {\n          \"zi_c_location_id\": 2046129220,\n          \"zi_es_ecid\": 136461914,\n          \"zi_es_location_id\": \"136461914NZOKIRXYRA\",\n          \"zi_c_is_hq\": \"1\",\n          \"zi_c_tier_grade\": \"A\",\n          \"zi_c_name\": \"Capital One Financial\",\n          \"zi_c_name_display\": \"Capital One Financial\",\n          \"zi_c_url\": \"capitalone.com\",\n          \"zi_c_street\": \"1680 Capital One Dr\",\n          \"zi_c_city\": \"Mc Lean\",\n          \"zi_c_state\": \"Virginia\",\n          \"zi_c_zip\": \"22102\",\n          \"zi_c_country\": \"United States\",\n          \"zi_match_reason\": {\n            \"zi_match_name\": \"Capital One Capital\",\n            \"zi_match_reason_building_name\": \"M\",\n            \"zi_match_reason_building_number\": \"M\",\n            \"zi_match_reason_business_type\": \"M\",\n            \"zi_match_reason_city\": \"E\",\n            \"zi_match_reason_company_phone\": \"M\",\n            \"zi_match_reason_country\": \"E\",\n            \"zi_match_reason_directional\": \"M\",\n            \"zi_match_reason_name\": \"E\",\n            \"zi_match_reason_road_name\": \"M\",\n            \"zi_match_reason_road_type\": \"M\",\n            \"zi_match_reason_state\": \"E\",\n            \"zi_match_reason_unit\": \"M\",\n            \"zi_match_reason_website\": \"M\",\n            \"zi_match_reason_zip\": \"E\",\n            \"zi_match_score\": \"5\"\n          }\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e94181b-7e2f-4f6a-a33e-8e91c39454d8",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrich",
+                    "company-master"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"matchCompanyInput\": [\n    {\n      \"zi_c_url\": \"zoominfo.com\"\n    }\n  ],\n  \"outputFields\": [\n    \"zi_c_location_id\",\n    \"zi_es_ecid\",\n    \"zi_es_location_id\",\n    \"zi_c_is_hq\",\n    \"zi_c_tier_grade\",\n    \"zi_c_name\",\n    \"zi_c_name_display\",\n    \"zi_c_legal_entity_type\",\n    \"zi_c_url\",\n    \"zi_c_street\",\n    \"zi_c_street_2\",\n    \"zi_c_city\",\n    \"zi_c_state\",\n    \"zi_c_zip\",\n    \"zi_c_country\",\n    \"zi_match_reason\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-RAY",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-request-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-request-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-record-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-record-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-request-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-request-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-record-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-websights-api-record-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-unique-id-limit-limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-usage-unique-id-limit-remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"responseCode\": 400,\n  \"message\": \"There are invalid fields in your request.\",\n  \"invalidOutputFields\": [\n    \"zi_c_id\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a11f3074-4c8c-4690-b969-5e953bc6f5ec",
+          "name": "Zoominfo Company Master Data Enrich Inputs",
+          "request": {
+            "name": "Zoominfo Company Master Data Enrich Inputs",
+            "description": {
+              "content": "Returns a list of fields you can use as input for the [Company Master Data Enrich](#8b6cffe4-cb34-44ab-ad5d-1953d372ffd3) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "inputfields",
+                "company-master",
+                "enrich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c0beb17-57d6-4276-96a4-70893754cd7e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "inputfields",
+                    "company-master",
+                    "enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "content-encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-RAY",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"zi_c_location_id\",\n    \"fieldType\": \"Long\",\n    \"description\": \"Unique ZoomInfo identifier for a company\"\n  },\n  {\n    \"fieldName\": \"zi_es_ecid\",\n    \"fieldType\": \"Long\",\n    \"description\": \"Unique EverString identifier for a company\"\n  },\n  {\n    \"fieldName\": \"zi_es_location_id\",\n    \"fieldType\": \"String\",\n    \"description\": \"Unique EverString location id of a company\"\n  },\n  {\n    \"fieldName\": \"zi_c_url\",\n    \"fieldType\": \"String\",\n    \"description\": \"Website of the company to enrich\"\n  },\n  {\n    \"fieldName\": \"zi_c_name\",\n    \"fieldType\": \"String\",\n    \"description\": \"Name of the company to enrich\"\n  },\n  {\n    \"fieldName\": \"phone\",\n    \"fieldType\": \"Object\",\n    \"description\": \"Phone of a company. The input format is {zi_c_country: United States, zi_c_phone: xxxxxxx}\"\n  },\n  {\n    \"fieldName\": \"address\",\n    \"fieldType\": \"Object\",\n    \"description\": \"Address of the company to enrich. Input format is {zi_c_street: 170 Data Drive, zi_c_city: Waltham, zi_c_state: MA, zi_c_zip: 02451, zi_c_country: United States}\"\n  },\n  {\n    \"fieldName\": \"email\",\n    \"fieldType\": \"String\",\n    \"description\": \"An email of a contact from the company\"\n  },\n  {\n    \"fieldName\": \"match_reasons\",\n    \"fieldType\": \"ArrayList\",\n    \"description\": \"Minimum Match criteria to enrich the company. Accept an array of objects. Input format is [{ zi_c_name: F, zi_c_url: E, zi_c_state: E, match_score: 3 }, { zi_c_name: E, zi_c_phone: E, match_score: 3 }]\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33c4adac-0369-4083-8a1c-0f583de233f6",
+          "name": "Zoominfo Company Master Data Enrich Outputs",
+          "request": {
+            "name": "Zoominfo Company Master Data Enrich Outputs",
+            "description": {
+              "content": "Returns a list of fields you can specify as output for the [Company Master Data Enrich](#8b6cffe4-cb34-44ab-ad5d-1953d372ffd3) endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup",
+                "outputfields",
+                "company-master",
+                "enrich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d2da3337-1744-448d-99e3-a2c13533bd97",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup",
+                    "outputfields",
+                    "company-master",
+                    "enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Request-Id",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "vary",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "content-encoding",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Via",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-Cache-Status",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Expect-CT",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "CF-RAY",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "[\n  {\n    \"fieldName\": \"zi_c_location_id\",\n    \"dataType\": \"Long\",\n    \"description\": \"ZoomInfo unique identifier for company location\"\n  },\n  {\n    \"fieldName\": \"zi_es_ecid\",\n    \"dataType\": \"Long\",\n    \"description\": \"EverString Company ID (ECID) is a unique identifier for a company entity\"\n  },\n  {\n    \"fieldName\": \"zi_es_location_id\",\n    \"dataType\": \"String\",\n    \"description\": \"Location ID, which uniquely identifies each separate physical location, office, or branch of a company\"\n  },\n  {\n    \"fieldName\": \"zi_c_is_hq\",\n    \"dataType\": \"String\",\n    \"description\": \"This flag indicates if this record is the HQ entity (1, 0)\"\n  },\n  {\n    \"fieldName\": \"zi_c_tier_grade\",\n    \"dataType\": \"String\",\n    \"description\": \"Overall data quality tier for a record (A, B, C)\"\n  },\n  {\n    \"fieldName\": \"zi_c_name\",\n    \"dataType\": \"String\",\n    \"description\": \"Company name for location\"\n  },\n  {\n    \"fieldName\": \"zi_c_name_display\",\n    \"dataType\": \"String\",\n    \"description\": \"Colloquial name of the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_legal_entity_type\",\n    \"dataType\": \"String\",\n    \"description\": \"Legal structure of company, generally parsed from the end of the legal name (Inc, LLC)\"\n  },\n  {\n    \"fieldName\": \"zi_c_url\",\n    \"dataType\": \"String\",\n    \"description\": \"Primary website of the company. May contain yelp.com URLs for companies without a top-level domain\"\n  },\n  {\n    \"fieldName\": \"zi_c_street\",\n    \"dataType\": \"String\",\n    \"description\": \"Company's physical street address\"\n  },\n  {\n    \"fieldName\": \"zi_c_street_2\",\n    \"dataType\": \"String\",\n    \"description\": \"Company's physical street address continued\"\n  },\n  {\n    \"fieldName\": \"zi_c_city\",\n    \"dataType\": \"String\",\n    \"description\": \"Company's physical city\"\n  },\n  {\n    \"fieldName\": \"zi_c_state\",\n    \"dataType\": \"String\",\n    \"description\": \"Company's physical state\"\n  },\n  {\n    \"fieldName\": \"zi_c_zip\",\n    \"dataType\": \"String\",\n    \"description\": \"Company's physical zip/postal code\"\n  },\n  {\n    \"fieldName\": \"zi_c_country\",\n    \"dataType\": \"String\",\n    \"description\": \"Company's physical country\"\n  },\n  {\n    \"fieldName\": \"zi_c_cbsa_name\",\n    \"dataType\": \"String\",\n    \"description\": \"Company's core-based statistical area\"\n  },\n  {\n    \"fieldName\": \"zi_c_county\",\n    \"dataType\": \"String\",\n    \"description\": \"Company's physical county\"\n  },\n  {\n    \"fieldName\": \"zi_c_latitude\",\n    \"dataType\": \"Float\",\n    \"description\": \"Latitude geo-coordinate for company's physical location\"\n  },\n  {\n    \"fieldName\": \"zi_c_longitude\",\n    \"dataType\": \"Float\",\n    \"description\": \"Longitude geo-coordinate for company's physical location\"\n  },\n  {\n    \"fieldName\": \"zi_c_verified_address\",\n    \"dataType\": \"String\",\n    \"description\": \"Verification of whether this address is deliverable\"\n  },\n  {\n    \"fieldName\": \"zi_c_employee_range\",\n    \"dataType\": \"String\",\n    \"description\": \"Employee category band. Please refer to /lookup/employee-category-band\"\n  },\n  {\n    \"fieldName\": \"zi_c_employees\",\n    \"dataType\": \"Long\",\n    \"description\": \"Raw employee count for a company\"\n  },\n  {\n    \"fieldName\": \"zi_c_revenue_range\",\n    \"dataType\": \"String\",\n    \"description\": \"Revenue category band in USD. Please refer to /lookup/revenue-category-band\"\n  },\n  {\n    \"fieldName\": \"zi_c_revenue\",\n    \"dataType\": \"Long\",\n    \"description\": \"Raw revenue number in USD (in thousands)\"\n  },\n  {\n    \"fieldName\": \"zi_c_phone\",\n    \"dataType\": \"String\",\n    \"description\": \"Company location phone number\"\n  },\n  {\n    \"fieldName\": \"zi_c_fax\",\n    \"dataType\": \"String\",\n    \"description\": \"Primary fax number for company location\"\n  },\n  {\n    \"fieldName\": \"zi_c_industry_primary\",\n    \"dataType\": \"String\",\n    \"description\": \"Top-level primary industry of the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_sub_industry_primary\",\n    \"dataType\": \"String\",\n    \"description\": \"Top-level primary sub-industry of the company location\"\n  },\n  {\n    \"fieldName\": \"zi_c_industries\",\n    \"dataType\": \"ArrayList\",\n    \"description\": \"All industries\"\n  },\n  {\n    \"fieldName\": \"zi_c_sub_industries\",\n    \"dataType\": \"ArrayList\",\n    \"description\": \"All sub-industries\"\n  },\n  {\n    \"fieldName\": \"zi_es_industry\",\n    \"dataType\": \"String\",\n    \"description\": \"Primary industry based on EverString's industry taxonomy\"\n  },\n  {\n    \"fieldName\": \"zi_es_industries_top3\",\n    \"dataType\": \"ArrayList\",\n    \"description\": \"The top three industries predicted, as many larger companies can operate in multiple industries.\"\n  },\n  {\n    \"fieldName\": \"zi_c_naics2\",\n    \"dataType\": \"String\",\n    \"description\": \"Primary 2-digit NAICS code\"\n  },\n  {\n    \"fieldName\": \"zi_c_naics4\",\n    \"dataType\": \"String\",\n    \"description\": \"Primary 4-digit NAICS code\"\n  },\n  {\n    \"fieldName\": \"zi_c_naics6\",\n    \"dataType\": \"String\",\n    \"description\": \"Primary 6-digit NAICS code\"\n  },\n  {\n    \"fieldName\": \"zi_c_naics_top3\",\n    \"dataType\": \"ArrayList\",\n    \"description\": \"The top three NAICS predicted, as many larger companies can operate in multiple industries.\"\n  },\n  {\n    \"fieldName\": \"zi_c_sic2\",\n    \"dataType\": \"String\",\n    \"description\": \"Primary 2-digit SIC code\"\n  },\n  {\n    \"fieldName\": \"zi_c_sic3\",\n    \"dataType\": \"String\",\n    \"description\": \"Primary 3-digit SIC code\"\n  },\n  {\n    \"fieldName\": \"zi_c_sic4\",\n    \"dataType\": \"String\",\n    \"description\": \"Primary 4-digit SIC code\"\n  },\n  {\n    \"fieldName\": \"zi_c_sic_top3\",\n    \"dataType\": \"ArrayList\",\n    \"description\": \"The top three SIC predicted, as many larger companies can operate in multiple industries.\"\n  },\n  {\n    \"fieldName\": \"zi_c_estimated_age\",\n    \"dataType\": \"Long\",\n    \"description\": \"Estimated age of the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_year_founded\",\n    \"dataType\": \"String\",\n    \"description\": \"Founding year of the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_is_b2b\",\n    \"dataType\": \"String\",\n    \"description\": \"A flag to represent a company as B2B (1, 0)\"\n  },\n  {\n    \"fieldName\": \"zi_c_is_b2c\",\n    \"dataType\": \"String\",\n    \"description\": \"A flag to represent a company as B2C (1, 0)\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_id\",\n    \"dataType\": \"Long\",\n    \"description\": \"ZoomInfo Company ID for the headquarters (HQ) of a company entity\"\n  },\n  {\n    \"fieldName\": \"zi_es_hq_ecid\",\n    \"dataType\": \"Long\",\n    \"description\": \"EverString Company ID (ECID) for the headquarters (HQ) of a company entity\"\n  },\n  {\n    \"fieldName\": \"zi_es_hq_location_id\",\n    \"dataType\": \"String\",\n    \"description\": \"Location ID for the headquarters (HQ) of a company entity\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_name\",\n    \"dataType\": \"String\",\n    \"description\": \"HQ Company name. May match ZI_C_NAME.\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_url\",\n    \"dataType\": \"String\",\n    \"description\": \"HQ Primary website of the company. May contain yelp.com websites. May match ZI_C_URL.\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_street\",\n    \"dataType\": \"String\",\n    \"description\": \"HQ Company's physical street address\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_street_2\",\n    \"dataType\": \"String\",\n    \"description\": \"HQ Company's physical street address continued\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_city\",\n    \"dataType\": \"String\",\n    \"description\": \"HQ Company's physical city\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_state\",\n    \"dataType\": \"String\",\n    \"description\": \"HQ Company's physical state\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_zip\",\n    \"dataType\": \"String\",\n    \"description\": \"HQ Company's physical zip/postal code\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_country\",\n    \"dataType\": \"String\",\n    \"description\": \"Company's core-based statistical area\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_cbsa_name\",\n    \"dataType\": \"String\",\n    \"description\": \"HQ Company's core-based statistical area\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_county\",\n    \"dataType\": \"String\",\n    \"description\": \"HQ Company's physical county\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_latitude\",\n    \"dataType\": \"Float\",\n    \"description\": \"HQ Company's latitude geo-coordinate\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_longitude\",\n    \"dataType\": \"Float\",\n    \"description\": \"HQ Company's longitude geo-coordinate\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_verified_address\",\n    \"dataType\": \"String\",\n    \"description\": \"Denotes whether HQ address deliverability is verified\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_employee_range\",\n    \"dataType\": \"String\",\n    \"description\": \"HQ Employee category band. Please refer to /lookup/employee-category-band\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_employees\",\n    \"dataType\": \"Long\",\n    \"description\": \"HQ Raw employee number for a company\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_revenue_range\",\n    \"dataType\": \"String\",\n    \"description\": \"HQ Revenue category band. Please refer to /lookup/revenue-category-band\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_revenue\",\n    \"dataType\": \"Long\",\n    \"description\": \"HQ Raw revenue number in USD (in thousands)\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_phone\",\n    \"dataType\": \"String\",\n    \"description\": \"HQ Company's phone number\"\n  },\n  {\n    \"fieldName\": \"zi_c_company_fax\",\n    \"dataType\": \"String\",\n    \"description\": \"HQ Company's fax number\"\n  },\n  {\n    \"fieldName\": \"zi_c_linkedin_url\",\n    \"dataType\": \"String\",\n    \"description\": \"Linkedin URL for the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_facebook_url\",\n    \"dataType\": \"String\",\n    \"description\": \"Facebook URL for the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_twitter_url\",\n    \"dataType\": \"String\",\n    \"description\": \"Twitter URL for the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_yelp_url\",\n    \"dataType\": \"String\",\n    \"description\": \"Yelp URL for the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_alexa_rank\",\n    \"dataType\": \"Long\",\n    \"description\": \"Alexa rank for the company, representing web traffic. Lower number indicates higher rank/traffic.\"\n  },\n  {\n    \"fieldName\": \"zi_c_keywords\",\n    \"dataType\": \"ArrayList\",\n    \"description\": \"Machine generated tags for the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_top_keywords\",\n    \"dataType\": \"ArrayList\",\n    \"description\": \"Top ten machine generated tags for the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_num_keywords\",\n    \"dataType\": \"Long\",\n    \"description\": \"The number of ZI_C_KEYWORDS associated with a company. Larger numbers usually indicate a more sophisticated website and/or many lines of businesses.\"\n  },\n  {\n    \"fieldName\": \"zi_c_employee_growth_1yr\",\n    \"dataType\": \"Float\",\n    \"description\": \"Approximate company employee growth percentage in the past 1 year\"\n  },\n  {\n    \"fieldName\": \"zi_c_employee_growth_2yr\",\n    \"dataType\": \"Float\",\n    \"description\": \"Approximate company employee growth percentage in the past 2 years\"\n  },\n  {\n    \"fieldName\": \"zi_es_growth\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of overall growth from the last month compare against average growth in the industry\"\n  },\n  {\n    \"fieldName\": \"zi_es_employee_growth\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of employee growth from last month compared against average growth in the industry\"\n  },\n  {\n    \"fieldName\": \"zi_es_revenue_growth\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of revenue growth from last month compared against average growth in the industry\"\n  },\n  {\n    \"fieldName\": \"zi_es_percent_employee_growth\",\n    \"dataType\": \"Float\",\n    \"description\": \"Percentage employee growth from last month compared against average growth in the industry\"\n  },\n  {\n    \"fieldName\": \"zi_es_percent_revenue_growth\",\n    \"dataType\": \"Float\",\n    \"description\": \"Percentage revenue growth from last month compared against average growth in the industry\"\n  },\n  {\n    \"fieldName\": \"zi_c_name_confidence_score\",\n    \"dataType\": \"Float\",\n    \"description\": \"Confidence score for the ZI_C_NAME field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)\"\n  },\n  {\n    \"fieldName\": \"zi_c_url_confidence_score\",\n    \"dataType\": \"Float\",\n    \"description\": \"Confidence score for the ZI_C_URL field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)\"\n  },\n  {\n    \"fieldName\": \"zi_c_address_confidence_score\",\n    \"dataType\": \"Float\",\n    \"description\": \"Confidence score for the ZI_C_ADDRESS field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)\"\n  },\n  {\n    \"fieldName\": \"zi_c_phone_confidence_score\",\n    \"dataType\": \"Float\",\n    \"description\": \"Confidence score for the ZI_C_PHONE field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)\"\n  },\n  {\n    \"fieldName\": \"zi_c_employees_confidence_score\",\n    \"dataType\": \"Float\",\n    \"description\": \"Confidence score for the ZI_C_EMPLOYEES_RANGE field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)\"\n  },\n  {\n    \"fieldName\": \"zi_c_revenue_confidence_score\",\n    \"dataType\": \"Float\",\n    \"description\": \"Confidence score for the ZI_C_REVENUE_RANGE field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)\"\n  },\n  {\n    \"fieldName\": \"zi_es_industry_confidence_score\",\n    \"dataType\": \"Float\",\n    \"description\": \"Confidence score for the ZI_ES_INDUSTRY field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)\"\n  },\n  {\n    \"fieldName\": \"zi_c_naics_confidence_score\",\n    \"dataType\": \"Float\",\n    \"description\": \"Confidence score for the ZI_C_NAICS field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)\"\n  },\n  {\n    \"fieldName\": \"zi_c_sic_confidence_score\",\n    \"dataType\": \"Float\",\n    \"description\": \"Confidence score for the ZI_C_SIC field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)\"\n  },\n  {\n    \"fieldName\": \"zi_es_industries_top3_confidence_scores\",\n    \"dataType\": \"ArrayList\",\n    \"description\": \"Confidence score for the ZI_ES_INDUSTRIES_TOP3 field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)\"\n  },\n  {\n    \"fieldName\": \"zi_c_naics_top3_confidence_scores\",\n    \"dataType\": \"ArrayList\",\n    \"description\": \"Confidence score for the ZI_C_NAICS6_TOP3 field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)\"\n  },\n  {\n    \"fieldName\": \"zi_c_sic_top3_confidence_scores\",\n    \"dataType\": \"ArrayList\",\n    \"description\": \"Confidence score for the ZI_C_SIC4_TOP3 field (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)\"\n  },\n  {\n    \"fieldName\": \"zi_c_names_other\",\n    \"dataType\": \"String\",\n    \"description\": \"Alternate company name\"\n  },\n  {\n    \"fieldName\": \"zi_c_url_status\",\n    \"dataType\": \"String\",\n    \"description\": \"Identifies if a company's website is still active or redirects to another website. VALID, INVALID, PARKED, REDIRECT.\"\n  },\n  {\n    \"fieldName\": \"zi_c_urls_alt\",\n    \"dataType\": \"ArrayList\",\n    \"description\": \"All websites related to a company\"\n  },\n  {\n    \"fieldName\": \"zi_c_url_last_updated\",\n    \"dataType\": \"String\",\n    \"description\": \"Date company's URL was last updated\"\n  },\n  {\n    \"fieldName\": \"zi_c_inactive_flag\",\n    \"dataType\": \"String\",\n    \"description\": \"Identifies if a company is inactive. (1 or 0, 1 being inactive)\"\n  },\n  {\n    \"fieldName\": \"zi_c_ein\",\n    \"dataType\": \"String\",\n    \"description\": \"The Employer Identification Number (EIN) of a company\"\n  },\n  {\n    \"fieldName\": \"zi_c_is_small_business\",\n    \"dataType\": \"String\",\n    \"description\": \"A flag to represent a company as a small business (1, 0). Small business is considered less than 500 employees. Note: This flag reflects employee size data at the ECID Location-Level, not HQ-Level\"\n  },\n  {\n    \"fieldName\": \"zi_c_is_public\",\n    \"dataType\": \"String\",\n    \"description\": \"Indication if company is Public or Private (1, 0)\"\n  },\n  {\n    \"fieldName\": \"zi_c_ticker\",\n    \"dataType\": \"String\",\n    \"description\": \"Stock ticker for the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_tickers_alt\",\n    \"dataType\": \"ArrayList\",\n    \"description\": \"Alternate stock ticker for the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_has_mobile_app\",\n    \"dataType\": \"String\",\n    \"description\": \"Identifies if this company has a mobile app link detected on their website (1, 0)\"\n  },\n  {\n    \"fieldName\": \"zi_c_currency_code\",\n    \"dataType\": \"String\",\n    \"description\": \"Company's currency code\"\n  },\n  {\n    \"fieldName\": \"zi_c_num_locations\",\n    \"dataType\": \"Long\",\n    \"description\": \"Number of locations the company has\"\n  },\n  {\n    \"fieldName\": \"zi_c_hr_contacts\",\n    \"dataType\": \"Long\",\n    \"description\": \"Number of HR contacts available at the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_sales_contacts\",\n    \"dataType\": \"Long\",\n    \"description\": \"Number of Sales contacts available at the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_marketing_contacts\",\n    \"dataType\": \"Long\",\n    \"description\": \"Number of Marketing contacts available at the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_finance_contacts\",\n    \"dataType\": \"Long\",\n    \"description\": \"Number of Finance contacts available at the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_c_suite_contacts\",\n    \"dataType\": \"Long\",\n    \"description\": \"Number of C-Suite contacts available at the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_engineering_contacts\",\n    \"dataType\": \"Long\",\n    \"description\": \"Number of Engineering contacts available at the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_it_contacts\",\n    \"dataType\": \"Long\",\n    \"description\": \"Number of IT contacts available at the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_operations_contacts\",\n    \"dataType\": \"Long\",\n    \"description\": \"Number of Operations contacts available at the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_legal_contacts\",\n    \"dataType\": \"Long\",\n    \"description\": \"Number of Legal contacts available at the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_medical_contacts\",\n    \"dataType\": \"Long\",\n    \"description\": \"Number of Medical contacts available at the company\"\n  },\n  {\n    \"fieldName\": \"zi_c_tech_ids\",\n    \"dataType\": \"ArrayList\",\n    \"description\": \"Unique identifier for a technology. Could be a single tech ID, or a comma-separated list of ID's\"\n  },\n  {\n    \"fieldName\": \"zi_c_latest_funding_age\",\n    \"dataType\": \"Long\",\n    \"description\": \"The number of years since the company's last funding\"\n  },\n  {\n    \"fieldName\": \"zi_c_num_of_investors\",\n    \"dataType\": \"Long\",\n    \"description\": \"Number of investors for a company\"\n  },\n  {\n    \"fieldName\": \"zi_c_investor_names\",\n    \"dataType\": \"ArrayList\",\n    \"description\": \"All investor names from publicly available sources\"\n  },\n  {\n    \"fieldName\": \"zi_c_funding_strength\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of funding strength of a business based on type and who they received funding from (Low, Medium, High)\"\n  },\n  {\n    \"fieldName\": \"zi_c_funding_type\",\n    \"dataType\": \"ArrayList\",\n    \"description\": \"Publicly available sources funding type\"\n  },\n  {\n    \"fieldName\": \"zi_c_total_funding_amount\",\n    \"dataType\": \"Long\",\n    \"description\": \"The total amount of funding a company has received\"\n  },\n  {\n    \"fieldName\": \"zi_c_latest_funding_amount\",\n    \"dataType\": \"Long\",\n    \"description\": \"The amount of funding in the latest funding round of a company\"\n  },\n  {\n    \"fieldName\": \"zi_c_latest_funding_date\",\n    \"dataType\": \"String\",\n    \"description\": \"Date when the latest funding was received\"\n  },\n  {\n    \"fieldName\": \"zi_c_num_funding_rounds\",\n    \"dataType\": \"Long\",\n    \"description\": \"The number of funding rounds a company has had\"\n  },\n  {\n    \"fieldName\": \"zi_c_is_fortune_100\",\n    \"dataType\": \"String\",\n    \"description\": \"This flag indicates if this record is a Fortune 100 entity (1, 0)\"\n  },\n  {\n    \"fieldName\": \"zi_c_is_fortune_500\",\n    \"dataType\": \"String\",\n    \"description\": \"This flag indicates if this record is a Fortune 500 entity (1, 0)\"\n  },\n  {\n    \"fieldName\": \"zi_c_is_s_and_p_500\",\n    \"dataType\": \"String\",\n    \"description\": \"This flag indicates if this record is a S&P 500 entity (1, 0)\"\n  },\n  {\n    \"fieldName\": \"zi_c_is_domestic_hq\",\n    \"dataType\": \"String\",\n    \"description\": \"This flag indicates if this record is a Domestic Parent entity (1, 0)\"\n  },\n  {\n    \"fieldName\": \"zi_c_is_global_parent\",\n    \"dataType\": \"String\",\n    \"description\": \"This flag indicates if this record is the Global Parent entity (1, 0)\"\n  },\n  {\n    \"fieldName\": \"zi_c_is_subsidiary\",\n    \"dataType\": \"String\",\n    \"description\": \"This flag indicates if this record is a Subsidiary entity (1, 0)\"\n  },\n  {\n    \"fieldName\": \"zi_c_is_franchisor\",\n    \"dataType\": \"String\",\n    \"description\": \"This flag indicates if this record is a Franchisor (1, 0)\"\n  },\n  {\n    \"fieldName\": \"zi_c_is_franchisee\",\n    \"dataType\": \"String\",\n    \"description\": \"This flag indicates if this record is a Frachisee (1, 0)\"\n  },\n  {\n    \"fieldName\": \"zi_c_hierarchy_code\",\n    \"dataType\": \"String\",\n    \"description\": \"This alpha code identifies the record's hierarchy level and location level. Hierarchy levels include Global Parent, Domestic Parent, or Subsidiary. Location levels include Individual Location or Headquarters location. Please refer to /lookup/hierarchy-code\"\n  },\n  {\n    \"fieldName\": \"zi_c_hierarchy_level\",\n    \"dataType\": \"Long\",\n    \"description\": \"This number indicates the hierarchy level equivalent to the hierarchy code\"\n  },\n  {\n    \"fieldName\": \"zi_c_parent_child_confidence_score\",\n    \"dataType\": \"Float\",\n    \"description\": \"Confidence score for the parent child hierarchy linkage (0.2, 0.4, 0.6, 0.8, 1 - 1 being highest)\"\n  },\n  {\n    \"fieldName\": \"zi_c_immediate_parent_company_id\",\n    \"dataType\": \"Long\",\n    \"description\": \"Unique identifier of parent company of requested company\"\n  },\n  {\n    \"fieldName\": \"zi_es_immediate_parent_ecid\",\n    \"dataType\": \"Long\",\n    \"description\": \"Immediate parent company's identifier number\"\n  },\n  {\n    \"fieldName\": \"zi_es_immediate_parent_location_id\",\n    \"dataType\": \"String\",\n    \"description\": \"Immediate parent company's location identifier\"\n  },\n  {\n    \"fieldName\": \"zi_c_immediate_parent_name\",\n    \"dataType\": \"String\",\n    \"description\": \"Immediate parent company's name\"\n  },\n  {\n    \"fieldName\": \"zi_c_immediate_parent_url\",\n    \"dataType\": \"String\",\n    \"description\": \"Immediate parent company's website\"\n  },\n  {\n    \"fieldName\": \"zi_c_immediate_parent_street\",\n    \"dataType\": \"String\",\n    \"description\": \"Immediate parent company's street address\"\n  },\n  {\n    \"fieldName\": \"zi_c_immediate_parent_street_2\",\n    \"dataType\": \"String\",\n    \"description\": \"Immediate parent company's street address continued\"\n  },\n  {\n    \"fieldName\": \"zi_c_immediate_parent_city\",\n    \"dataType\": \"String\",\n    \"description\": \"Immediate parent company's city\"\n  },\n  {\n    \"fieldName\": \"zi_c_immediate_parent_zip\",\n    \"dataType\": \"String\",\n    \"description\": \"Immediate parent company's zip code\"\n  },\n  {\n    \"fieldName\": \"zi_c_immediate_parent_state\",\n    \"dataType\": \"String\",\n    \"description\": \"Immediate parent company's state\"\n  },\n  {\n    \"fieldName\": \"zi_c_immediate_parent_country\",\n    \"dataType\": \"String\",\n    \"description\": \"Immediate parent company's country\"\n  },\n  {\n    \"fieldName\": \"zi_c_domestic_parent_company_id\",\n    \"dataType\": \"Long\",\n    \"description\": \"Unique identifier of parent company of requested company\"\n  },\n  {\n    \"fieldName\": \"zi_es_domestic_parent_ecid\",\n    \"dataType\": \"Long\",\n    \"description\": \"Domestic parent company's identifier number\"\n  },\n  {\n    \"fieldName\": \"zi_es_domestic_parent_location_id\",\n    \"dataType\": \"String\",\n    \"description\": \"Domestic parent company's location identifier\"\n  },\n  {\n    \"fieldName\": \"zi_c_domestic_parent_name\",\n    \"dataType\": \"String\",\n    \"description\": \"Domestic parent company's name\"\n  },\n  {\n    \"fieldName\": \"zi_c_domestic_parent_url\",\n    \"dataType\": \"String\",\n    \"description\": \"Domestic parent company's website\"\n  },\n  {\n    \"fieldName\": \"zi_c_domestic_parent_street\",\n    \"dataType\": \"String\",\n    \"description\": \"Domestic parent company's street address\"\n  },\n  {\n    \"fieldName\": \"zi_c_domestic_parent_street_2\",\n    \"dataType\": \"String\",\n    \"description\": \"Domestic parent company's street address continued\"\n  },\n  {\n    \"fieldName\": \"zi_c_domestic_parent_city\",\n    \"dataType\": \"String\",\n    \"description\": \"Domestic parent company's city\"\n  },\n  {\n    \"fieldName\": \"zi_c_domestic_parent_zip\",\n    \"dataType\": \"String\",\n    \"description\": \"Domestic parent company's zip code\"\n  },\n  {\n    \"fieldName\": \"zi_c_domestic_parent_state\",\n    \"dataType\": \"String\",\n    \"description\": \"Domestic parent company's state\"\n  },\n  {\n    \"fieldName\": \"zi_c_domestic_parent_country\",\n    \"dataType\": \"String\",\n    \"description\": \"Domestic parent company's country\"\n  },\n  {\n    \"fieldName\": \"zi_c_global_parent_company_id\",\n    \"dataType\": \"Long\",\n    \"description\": \"Unique identifier of global parent company that has acquired requested company\"\n  },\n  {\n    \"fieldName\": \"zi_es_global_parent_ecid\",\n    \"dataType\": \"Long\",\n    \"description\": \"Global parent company's identifier number\"\n  },\n  {\n    \"fieldName\": \"zi_es_global_parent_location_id\",\n    \"dataType\": \"String\",\n    \"description\": \"Global parent company's location identifier\"\n  },\n  {\n    \"fieldName\": \"zi_c_global_parent_name\",\n    \"dataType\": \"String\",\n    \"description\": \"Global parent company's name\"\n  },\n  {\n    \"fieldName\": \"zi_c_global_parent_url\",\n    \"dataType\": \"String\",\n    \"description\": \"Global parent company's website\"\n  },\n  {\n    \"fieldName\": \"zi_c_global_parent_street\",\n    \"dataType\": \"String\",\n    \"description\": \"Global parent company's street address\"\n  },\n  {\n    \"fieldName\": \"zi_c_global_parent_street_2\",\n    \"dataType\": \"String\",\n    \"description\": \"Global parent company's street address continued\"\n  },\n  {\n    \"fieldName\": \"zi_c_global_parent_city\",\n    \"dataType\": \"String\",\n    \"description\": \"Global parent company's city\"\n  },\n  {\n    \"fieldName\": \"zi_c_global_parent_zip\",\n    \"dataType\": \"String\",\n    \"description\": \"Global parent company's zip\"\n  },\n  {\n    \"fieldName\": \"zi_c_global_parent_state\",\n    \"dataType\": \"String\",\n    \"description\": \"Global parent company's state\"\n  },\n  {\n    \"fieldName\": \"zi_c_global_parent_country\",\n    \"dataType\": \"String\",\n    \"description\": \"Global parent company's country\"\n  },\n  {\n    \"fieldName\": \"zi_c_franchisor_company_id\",\n    \"dataType\": \"Long\",\n    \"description\": \"Company franchisor's ZoomInfo Company ID\"\n  },\n  {\n    \"fieldName\": \"zi_es_franchisor_ecid\",\n    \"dataType\": \"Long\",\n    \"description\": \"Company franchisor's identifier number\"\n  },\n  {\n    \"fieldName\": \"zi_es_franchisor_location_id\",\n    \"dataType\": \"String\",\n    \"description\": \"Company franchisor's location number\"\n  },\n  {\n    \"fieldName\": \"zi_c_franchisor_name\",\n    \"dataType\": \"String\",\n    \"description\": \"Company franchisor's name\"\n  },\n  {\n    \"fieldName\": \"zi_c_franchisor_url\",\n    \"dataType\": \"String\",\n    \"description\": \"Company franchisor's website\"\n  },\n  {\n    \"fieldName\": \"zi_c_franchisor_street\",\n    \"dataType\": \"String\",\n    \"description\": \"Company franchisor's street address\"\n  },\n  {\n    \"fieldName\": \"zi_c_franchisor_street_2\",\n    \"dataType\": \"String\",\n    \"description\": \"Company franchisor's street address continued\"\n  },\n  {\n    \"fieldName\": \"zi_c_franchisor_city\",\n    \"dataType\": \"String\",\n    \"description\": \"Company franchisor's city\"\n  },\n  {\n    \"fieldName\": \"zi_c_franchisor_zip\",\n    \"dataType\": \"String\",\n    \"description\": \"Company franchisor's zip code\"\n  },\n  {\n    \"fieldName\": \"zi_c_franchisor_state\",\n    \"dataType\": \"String\",\n    \"description\": \"Company franchisor's state\"\n  },\n  {\n    \"fieldName\": \"zi_c_franchisor_country\",\n    \"dataType\": \"String\",\n    \"description\": \"Company franchisor's country\"\n  },\n  {\n    \"fieldName\": \"zi_c_tech_spend\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of Technology spend as modeled by the types of technology purchased by a company (Low, Medium, High)\"\n  },\n  {\n    \"fieldName\": \"zi_c_hr_spend\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of HR spend as modeled by the types of HR technology purchased by a company (Low, Medium, High)\"\n  },\n  {\n    \"fieldName\": \"zi_c_sales_spend\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of Sales spend as modeled by the types of Sales technology purchased by a company (Low, Medium, High)\"\n  },\n  {\n    \"fieldName\": \"zi_c_marketing_spend\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of Marketing spend as modeled by the types of Marketing technology purchase, type of titles, website sophistication by a company (Low, Medium, High)\"\n  },\n  {\n    \"fieldName\": \"zi_c_finance_spend\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of Finance spend as modeled by the types of Finance technology purchased by a company (Low, Medium, High)\"\n  },\n  {\n    \"fieldName\": \"zi_c_tech_strength\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High)\"\n  },\n  {\n    \"fieldName\": \"zi_c_hr_strength\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High)\"\n  },\n  {\n    \"fieldName\": \"zi_c_sales_strength\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High)\"\n  },\n  {\n    \"fieldName\": \"zi_c_marketing_strength\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High)\"\n  },\n  {\n    \"fieldName\": \"zi_c_finance_strength\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of the relative strength of a particular department when comparing the number of employees in that department vs the overall number of employees for a company (Low, Medium, High)\"\n  },\n  {\n    \"fieldName\": \"zi_c_tech_sophistication\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of technology sophistication of a business (Low, Medium, High)\"\n  },\n  {\n    \"fieldName\": \"zi_c_hr_sophistication\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of HR sophistication of a business (Low, Medium, High)\"\n  },\n  {\n    \"fieldName\": \"zi_c_sales_sophistication\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of Sales sophistication of a business (Low, Medium, High)\"\n  },\n  {\n    \"fieldName\": \"zi_c_marketing_sophistication\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of Marketing sophistication of a company (Low, Average, High)\"\n  },\n  {\n    \"fieldName\": \"zi_c_social_sophistication\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of Social sophistication of a business (Low, Medium, High)\"\n  },\n  {\n    \"fieldName\": \"zi_c_finance_sophistication\",\n    \"dataType\": \"String\",\n    \"description\": \"A measure of Finance sophistication of a business (Low, Medium, High)\"\n  },\n  {\n    \"fieldName\": \"zi_c_last_updated_date\",\n    \"dataType\": \"String\",\n    \"description\": \"Date when the record was last updated\"\n  },\n  {\n    \"fieldName\": \"zi_c_release_date\",\n    \"dataType\": \"String\",\n    \"description\": \"Year and Month of this data release in YYYYMM format (e.g., 201902)\"\n  },\n  {\n    \"fieldName\": \"zi_match_reason\",\n    \"dataType\": \"Object\",\n    \"description\": \"Match reason\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zoominfo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c0c67ced-9eae-4c42-a101-6b1b3c7beffb",
+    "name": "ZoomInfo Authentication Company Master Data Enrich API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...\n\nContact Support:\n Name: ZoomInfo API Support\n Email: support@zoominfo.com",
+      "type": "text/plain"
+    }
+  }
+}
