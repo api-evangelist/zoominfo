@@ -12770,6 +12770,13 @@ apis:
   humanURL: https://docs.zoominfo.com
   baseURL: https://api.zoominfo.com/gtm
   tags:
+  - Artificial Intelligence
+  - Copilot
+  - Recommendations
+  - Insights
+  - ICP
+  - Sales Intelligence
+  tags_raw:
   - AI
   - Copilot
   - Recommendations
@@ -12795,6 +12802,12 @@ apis:
   baseURL: https://api.zoominfo.com/gtm
   tags:
   - Audiences
+  - Go-To-Market
+  - List
+  - Enrichment
+  - Automation
+  tags_raw:
+  - Audiences
   - GTM
   - Lists
   - Enrichment
@@ -12816,6 +12829,11 @@ apis:
   humanURL: https://docs.zoominfo.com
   baseURL: https://api.zoominfo.com/gtm
   tags:
+  - Marketing
+  - Audiences
+  - Advertising
+  - Account Based Marketing
+  tags_raw:
   - Marketing
   - Audiences
   - Advertising
@@ -12876,6 +12894,21 @@ apis:
     url: https://docs.zoominfo.com/reference/api-overview
 name: ZoomInfo
 tags:
+- B2B
+- B2B Data
+- Company Data
+- Contact Database
+- Contacts
+- Data
+- Lead Generation
+- Marketing Intelligence
+- Sales Intelligence
+- Intent Data
+- Go-To-Market
+- Data Enrichment
+- AI Agents
+- MCP
+tags_raw:
 - B2B
 - B2B Data
 - Company Data
