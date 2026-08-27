@@ -12734,160 +12734,271 @@ apis:
     url: examples/zoominfo-webhook-example.json
   - type: GraphQL
     url: graphql/zoominfo-graphql.md
-- aid: zoominfo:zoominfo-data-api
-  name: ZoomInfo Data API
-  description: >-
-    Search and enrich ZoomInfo company, contact, intent, scoop and news records on the current GTM
-    API, plus the lookup endpoints that resolve natural-language filters to the IDs search
-    requires, and a usage endpoint for checking remaining quota. This is the successor to the
-    legacy Enterprise Search and Enrich APIs.
-  humanURL: https://docs.zoominfo.com
-  baseURL: https://api.zoominfo.com/gtm
+- aid: zoominfo:zoominfo-account-summary-api
+  name: ZoomInfo Account Summary API
+  description: The Account Summary API from ZoomInfo — 2 operation(s) for account summary.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
-  - Data
-  - Search
-  - Enrichment
-  - Contacts
-  - Company Data
-  - Intent
+  - Account Summary
   properties:
   - type: OpenAPI
-    url: openapi/zoominfo-gtm-data-v1-openapi.json
-  - type: Overlay
-    url: overlays/zoominfo-gtm-data-v1-overlay.yaml
+    url: openapi/zoominfo-account-summary-api-openapi.yml
   - type: Documentation
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
-- aid: zoominfo:zoominfo-copilot-api
-  name: ZoomInfo Copilot API
-  description: >-
-    Account summaries and question answering over them, company insights by type, company and
-    contact lookalikes, contact recommendations, and full CRUD over the customer GTM configuration
-    — products and services, ideal customer profiles, buyer personas, competitors and settings.
-    Every configuration resource supports archive and unarchive as distinct actions alongside
-    delete.
-  humanURL: https://docs.zoominfo.com
-  baseURL: https://api.zoominfo.com/gtm
+- aid: zoominfo:zoominfo-agent-teams-api
+  name: ZoomInfo Agent Teams API
+  description: The Agent Teams API from ZoomInfo — 4 operation(s) for agent teams.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
-  - Artificial Intelligence
-  - Copilot
-  - Recommendations
-  - Insights
-  - ICP
-  - Sales Intelligence
-  tags_raw:
-  - AI
-  - Copilot
-  - Recommendations
-  - Insights
-  - ICP
-  - Sales Intelligence
+  - Agent Teams
   properties:
   - type: OpenAPI
-    url: openapi/zoominfo-gtm-copilot-v1-openapi.json
-  - type: Overlay
-    url: overlays/zoominfo-gtm-copilot-v1-overlay.yaml
+    url: openapi/zoominfo-agent-teams-api-openapi.yml
   - type: Documentation
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
-- aid: zoominfo:zoominfo-gtm-studio-api
-  name: ZoomInfo GTM Studio API
-  description: >-
-    Audiences as a spreadsheet — folders, audiences, AI-computed columns with declared data
-    dependencies, and rows with single and bulk upsert. Enrichment of an audience is an
-    asynchronous job polled by job ID.
-  humanURL: https://docs.zoominfo.com
-  baseURL: https://api.zoominfo.com/gtm
+- aid: zoominfo:zoominfo-audiences-api
+  name: ZoomInfo Audiences API
+  description: The Audiences API from ZoomInfo — 20 operation(s) for audiences.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
   - Audiences
-  - Go-To-Market
-  - List
-  - Enrichment
-  - Automation
-  tags_raw:
-  - Audiences
-  - GTM
-  - Lists
-  - Enrichment
-  - Automation
   properties:
   - type: OpenAPI
-    url: openapi/zoominfo-gtm-gtm-studio-v1-openapi.json
-  - type: Overlay
-    url: overlays/zoominfo-gtm-gtm-studio-v1-overlay.yaml
+    url: openapi/zoominfo-audiences-api-openapi.yml
   - type: Documentation
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
-- aid: zoominfo:zoominfo-marketing-api
-  name: ZoomInfo Marketing API
+- aid: zoominfo:zoominfo-customer-buyer-persona-api
+  name: ZoomInfo Customer Buyer Persona API
   description: >-
-    Marketing audiences and audience uploads — create, read, update and delete an audience, push
-    an upload to it and poll the upload status.
-  humanURL: https://docs.zoominfo.com
-  baseURL: https://api.zoominfo.com/gtm
+    The Customer Buyer Persona API from ZoomInfo — 4 operation(s) for customer buyer persona.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
-  - Marketing
-  - Audiences
-  - Advertising
-  - Account Based Marketing
-  tags_raw:
-  - Marketing
-  - Audiences
-  - Advertising
-  - ABM
+  - Customer Buyer Persona
   properties:
   - type: OpenAPI
-    url: openapi/zoominfo-gtm-marketing-v1-openapi.json
-  - type: Overlay
-    url: overlays/zoominfo-gtm-marketing-v1-overlay.yaml
+    url: openapi/zoominfo-customer-buyer-persona-api-openapi.yml
   - type: Documentation
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
-- aid: zoominfo:zoominfo-agent-api
-  name: ZoomInfo Agent API
-  description: >-
-    Agents, Agent Teams and Pulses. List and interact with agents (including a streaming
-    interaction endpoint), and run an Agent Team asynchronously then poll the run for status and
-    output. This is the surface ZoomInfo points at for event-driven workflows.
-  humanURL: https://docs.zoominfo.com
-  baseURL: https://api.zoominfo.com/gtm
+- aid: zoominfo:zoominfo-customer-competitors-api
+  name: ZoomInfo Customer Competitors API
+  description: The Customer Competitors API from ZoomInfo — 4 operation(s) for customer competitors.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
-  - AI Agents
-  - Automation
-  - Agents
-  - Workflows
+  - Customer Competitors
   properties:
   - type: OpenAPI
-    url: openapi/zoominfo-gtm-agent-v1-openapi.json
-  - type: Overlay
-    url: overlays/zoominfo-gtm-agent-v1-overlay.yaml
+    url: openapi/zoominfo-customer-competitors-api-openapi.yml
   - type: Documentation
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
-- aid: zoominfo:zoominfo-platform-api
-  name: ZoomInfo Platform API
-  description: >-
-    GTM data-model metadata and records — list entities, introspect their fields and upsert
-    records; upsert, read and delete content-interaction engagements; list, execute and poll
-    workflows; and read the caller's entitlements.
-  humanURL: https://docs.zoominfo.com
-  baseURL: https://api.zoominfo.com/gtm
+- aid: zoominfo:zoominfo-customer-settings-api
+  name: ZoomInfo Customer Settings API
+  description: The Customer Settings API from ZoomInfo — 1 operation(s) for customer settings.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
   tags:
-  - Platform
-  - Metadata
-  - Workflows
+  - Customer Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-customer-settings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-engagements-api
+  name: ZoomInfo Engagements API
+  description: The Engagements API from ZoomInfo — 2 operation(s) for engagements.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
+  tags:
+  - Engagements
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-engagements-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-enrich-api
+  name: ZoomInfo Enrich API
+  description: The Enrich API from ZoomInfo — 9 operation(s) for enrich.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
+  tags:
+  - Enrich
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-enrich-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-entities-api
+  name: ZoomInfo Entities API
+  description: The entities API from ZoomInfo — 3 operation(s) for entities.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
+  tags:
+  - entities
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-entities-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-entitlements-api
+  name: ZoomInfo Entitlements API
+  description: The Entitlements API from ZoomInfo — 1 operation(s) for entitlements.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
+  tags:
   - Entitlements
-  - Data Model
   properties:
   - type: OpenAPI
-    url: openapi/zoominfo-gtm-platform-v1-openapi.json
-  - type: Overlay
-    url: overlays/zoominfo-gtm-platform-v1-overlay.yaml
+    url: openapi/zoominfo-entitlements-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-ideal-customer-profile-api
+  name: ZoomInfo Ideal Customer Profile API
+  description: >-
+    The Ideal Customer Profile API from ZoomInfo — 4 operation(s) for ideal customer profile.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
+  tags:
+  - Ideal Customer Profile
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-ideal-customer-profile-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-insights-api
+  name: ZoomInfo Insights API
+  description: The Insights API from ZoomInfo — 1 operation(s) for insights.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
+  tags:
+  - Insights
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-insights-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-interact-experimental-api
+  name: ZoomInfo Interact [Experimental] API
+  description: >-
+    The Interact [Experimental] API from ZoomInfo — 3 operation(s) for interact [experimental].
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
+  tags:
+  - Interact [Experimental]
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-interact-experimental-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-products-and-services-api
+  name: ZoomInfo Products and Services API
+  description: The Products and Services API from ZoomInfo — 4 operation(s) for products and services.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
+  tags:
+  - Products and Services
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-products-and-services-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-pulses-api
+  name: ZoomInfo Pulses API
+  description: The Pulses API from ZoomInfo — 1 operation(s) for pulses.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
+  tags:
+  - Pulses
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-pulses-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-recommendations-api
+  name: ZoomInfo Recommendations API
+  description: The Recommendations API from ZoomInfo — 3 operation(s) for recommendations.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
+  tags:
+  - Recommendations
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-recommendations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-search-api
+  name: ZoomInfo Search API
+  description: The Search API from ZoomInfo — 5 operation(s) for search.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-search-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-user-api
+  name: ZoomInfo User API
+  description: The User API from ZoomInfo — 1 operation(s) for user.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-user-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zoominfo.com
+  - type: APIReference
+    url: https://docs.zoominfo.com/reference/api-overview
+- aid: zoominfo:zoominfo-workflows-api
+  name: ZoomInfo Workflows API
+  description: The Workflows API from ZoomInfo — 3 operation(s) for workflows.
+  humanURL: https://www.zoominfo.com/
+  baseURL: https://api.zoominfo.com
+  tags:
+  - Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/zoominfo-workflows-api-openapi.yml
   - type: Documentation
     url: https://docs.zoominfo.com
   - type: APIReference
@@ -12940,6 +13051,18 @@ accessModel:
 image: https://www.zoominfo.com/assets/img/zoominfo-logo.png
 access: 3rd-Party
 common:
+- type: Overlay
+  url: overlays/zoominfo-gtm-data-v1-overlay.yaml
+- type: Overlay
+  url: overlays/zoominfo-gtm-copilot-v1-overlay.yaml
+- type: Overlay
+  url: overlays/zoominfo-gtm-gtm-studio-v1-overlay.yaml
+- type: Overlay
+  url: overlays/zoominfo-gtm-marketing-v1-overlay.yaml
+- type: Overlay
+  url: overlays/zoominfo-gtm-agent-v1-overlay.yaml
+- type: Overlay
+  url: overlays/zoominfo-gtm-platform-v1-overlay.yaml
 - type: Documentation
   url: https://docs.zoominfo.com
   title: ZoomInfo API Documentation
