@@ -12,8 +12,11 @@ info:
     OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: zoominfoApi
-  url: ../openapi/zoominfo-openapi.yml
+- name: authenticationApi
+  url: ../openapi/zoominfo-authentication-api-openapi.yml
+  type: openapi
+- name: companyMasterDataEnrichApi
+  url: ../openapi/zoominfo-company-master-data-enrich-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: resolve-company-from-url

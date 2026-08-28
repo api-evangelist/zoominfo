@@ -11,8 +11,14 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: zoominfoApi
-  url: ../openapi/zoominfo-openapi.yml
+- name: authenticationApi
+  url: ../openapi/zoominfo-authentication-api-openapi.yml
+  type: openapi
+- name: scoopEnrichApi
+  url: ../openapi/zoominfo-scoop-enrich-api-openapi.yml
+  type: openapi
+- name: scoopSearchApi
+  url: ../openapi/zoominfo-scoop-search-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: scoop-search-then-enrich

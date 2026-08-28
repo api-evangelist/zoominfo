@@ -11,8 +11,11 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: zoominfoApi
-  url: ../openapi/zoominfo-openapi.yml
+- name: authenticationApi
+  url: ../openapi/zoominfo-authentication-api-openapi.yml
+  type: openapi
+- name: contactSearchApi
+  url: ../openapi/zoominfo-contact-search-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: authenticate-and-search-contacts

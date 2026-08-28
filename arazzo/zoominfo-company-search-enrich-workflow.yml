@@ -11,8 +11,14 @@ info:
     can be read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: zoominfoApi
-  url: ../openapi/zoominfo-openapi.yml
+- name: authenticationApi
+  url: ../openapi/zoominfo-authentication-api-openapi.yml
+  type: openapi
+- name: companyEnrichApi
+  url: ../openapi/zoominfo-company-enrich-api-openapi.yml
+  type: openapi
+- name: companySearchApi
+  url: ../openapi/zoominfo-company-search-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: search-and-enrich-company
