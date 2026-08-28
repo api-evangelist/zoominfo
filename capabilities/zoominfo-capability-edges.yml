@@ -1,0 +1,70 @@
+slug: zoominfo
+provider: ZoomInfo
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Ideal Customer Profile
+  spec_file: zoominfo-ideal-customer-profile-api-openapi.yml
+  capability_id: BC-420.20
+  capability_id_l1: BC-420
+  capability_name: Customer Segmentation Management
+  confidence: 0.8
+  evidence: '''List Ideal Customer Profiles'', ''Upsert Ideal Customer Profile'', ''Archive ICP''; schemas
+    IdealCompanySegment, IdealCompanySegmentAttributes'
+  reason: Full CRUD plus archive over Ideal Customer Profile 'company segment' definitions — this is the
+    maintenance of segment/persona definitions used to target accounts, i.e. customer segmentation management.
+    Some chance it belongs under Sales Strategy segmentation instead.
+- tag: Monitoring API/Webhooks
+  spec_file: zoominfo-monitoring-api-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.8
+  evidence: '''Zoominfo Create Webhook'', ''Zoominfo Validate Target Url'', ''Zoominfo Generate Verification
+    Token'', ''Zoominfo Get Subscription Types'''
+  reason: Complete lifecycle of outbound webhook subscriptions — create/update/delete, target-URL validation,
+    verification tokens and subscription types. The frame has an explicit capability for outbound webhook
+    and event-subscription management, which this realises directly.
+- tag: Customer Buyer Persona
+  spec_file: zoominfo-customer-buyer-persona-api-openapi.yml
+  capability_id: BC-420.20
+  capability_id_l1: BC-420
+  capability_name: Customer Segmentation Management
+  confidence: 0.75
+  evidence: POST /copilot/v1/customer-buyer-personas  Upsert Customer Buyer Persona; schema "CustomerBuyerPersonaAttributes"
+  reason: CRUD plus archive/unarchive lifecycle over buyer-persona definitions maps directly to segmentation
+    and persona management, which the candidate BC-420.20 names explicitly ('segments, personas, treatment
+    strategies').
+- tag: Insights
+  spec_file: zoominfo-insights-api-openapi.yml
+  capability_id: BC-400.30
+  capability_id_l1: BC-400
+  capability_name: Market Intelligence Management
+  confidence: 0.72
+  evidence: POST /copilot/v1/companies/insights 'Get insights by type'; schemas CompetitorIntentInsight,
+    MAInsight, IPOInsight, PartnershipInsight, MarketingCampaignsInsight, DivestitureSignalPayload
+  reason: Returns company-level signals — competitor intent, M&A, IPO, partnerships, campaign activity
+    — about target companies. That is competitive/market intelligence and customer insight, not the buyer's
+    own corporate development.
+- tag: Account Summary
+  spec_file: zoominfo-account-summary-api-openapi.yml
+  capability_id: BC-410.20
+  capability_id_l1: BC-410
+  capability_name: Account Management
+  confidence: 0.7
+  evidence: GET /copilot/v1/companies/{companyId}/account-summary  Get Account Summary; POST .../account-summary/actions/ask  Ask
+    Account Summary Question
+  reason: Generates AI account summaries and answers questions about a target company for sellers, supporting
+    account research and planning. Maps to Account Management; confidence moderated as it is an intelligence/insight
+    surface rather than account plan records.

@@ -13035,6 +13035,18 @@ tags_raw:
 - AI Agents
 - MCP
 kind: contract
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -13051,6 +13063,9 @@ accessModel:
 image: https://www.zoominfo.com/assets/img/zoominfo-logo.png
 access: 3rd-Party
 common:
+- type: CapabilityMap
+  url: capabilities/zoominfo-capability-edges.yml
+  name: ZoomInfo Business Capability Map
 - type: Overlay
   url: overlays/zoominfo-gtm-data-v1-overlay.yaml
 - type: Overlay
