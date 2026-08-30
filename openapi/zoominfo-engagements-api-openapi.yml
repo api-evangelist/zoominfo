@@ -1,0 +1,476 @@
+openapi: 3.2.0
+info:
+  title: Platform API V1 Engagements API
+  version: '1.0'
+  contact:
+    name: ZoomInfo Customer Support
+    email: help@zoominfo.com
+  description: The Platform API
+servers:
+- url: https://api.zoominfo.com/gtm
+  description: Base URL for the Platform API
+security:
+- OAuth2Auth: []
+tags:
+- name: Engagements
+paths:
+  /platform/v1/engagements/content-interactions:
+    post:
+      operationId: EngagementsController_upsertContentInteractions
+      summary: Upsert Content Interactions
+      description: Create or update content interaction engagement records
+      parameters: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ContentInteractionUpsertResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Engagements
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/ContentInteractionUpsertRequest'
+        description: Content interaction engagement data to create or update (supports single or multiple engagements)
+      security:
+      - OAuth2Auth:
+        - api:gtm-data-model:manage
+      x-additional-content-types:
+      - application/json
+  /platform/v1/engagements/content-interactions/{id}:
+    get:
+      operationId: EngagementsController_getContentInteractionEngagement
+      summary: Get content interaction
+      description: Retrieve a specific content interaction engagement by ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique identifier of the content interaction engagement
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ContentInteractionResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Engagements
+      security:
+      - OAuth2Auth:
+        - api:gtm-data-model:read
+    delete:
+      operationId: EngagementsController_deleteContentInteractionEngagement
+      summary: Delete content interaction
+      description: Delete a content interaction engagement record
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique identifier of the content interaction engagement to delete
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema: {}
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Engagements
+      security:
+      - OAuth2Auth:
+        - api:gtm-data-model:manage
+components:
+  schemas:
+    Channel:
+      type: string
+      enum:
+      - Website
+      - Email
+    ContentType:
+      type: string
+      enum:
+      - Demo
+      - Document
+      - Email
+      - Form
+      - Video
+      - Website
+    ContentInteractionUpsertResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentInteraction'
+          description: The primary data of the document
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/UpsertResponseMeta'
+          description: Non-standard meta information about the document
+      description: Response model for content interaction engagement upsert operations
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    ContentInteractionResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/ContentInteraction'
+          description: The primary data of the document
+      description: Response model for getting a specific content interaction
+    InteractionType:
+      type: string
+      enum:
+      - Click
+      - Save
+      - Send
+      - Sign
+      - Submit
+      - View
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+    ContentInteractionAttributes:
+      type: object
+      required:
+      - engagementId
+      - instanceId
+      - channel
+      - interactionType
+      - contentType
+      - actionPerformedAt
+      - status
+      - participant
+      properties:
+        engagementId:
+          type: string
+          description: Unique content interaction identifier
+        instanceId:
+          type: string
+          description: Unique identifier of the customer's organization/tenant/instance in the external platform where the data originated (e.g. unique CRM Organization Id)
+        instanceUrl:
+          type: string
+          description: Unique URL of the customer's organization/tenant/instance in the external platform where the data originated (e.g. unique CRM Organization Url)
+        duration:
+          type: integer
+          format: int32
+          description: Length of interaction in seconds (if applicable)
+        interactionProvider:
+          type: string
+          description: Name of the system where the interaction data originated
+          readOnly: true
+        channel:
+          allOf:
+          - $ref: '#/components/schemas/Channel'
+          description: Source or medium through which the interaction occurred
+        interactionDetails:
+          type: object
+          additionalProperties: {}
+          description: Include all attributes for this interaction that do not fit into the ContentInteraction schema (as key-value pairs)
+        interactionType:
+          allOf:
+          - $ref: '#/components/schemas/InteractionType'
+          description: 'Specific action performed during the interaction. Note: When interactionType = Send, email sends (contentType = Email) are not accepted here — email send events must be submitted via the dedicated Email object.'
+        contentType:
+          allOf:
+          - $ref: '#/components/schemas/ContentType'
+          description: 'Category or format of the content that received the interaction. Note: Email Sends (interactionType = Send and contentType = Email) are not accepted here — email send events must be submitted via the dedicated Email object.'
+        actionPerformedAt:
+          type: string
+          description: Timestamp when the interaction started (if duration is present, this is the start time)
+        endedAt:
+          type: string
+          description: Timestamp when the interaction ended (can be calculated from actionPerformedAt + duration if not explicitly provided)
+        targetUrl:
+          type: string
+          description: Target URL
+        targetName:
+          type: string
+          description: Target name
+        status:
+          allOf:
+          - $ref: '#/components/schemas/Status'
+          description: Interaction status
+        participant:
+          allOf:
+          - $ref: '#/components/schemas/ParticipantAttributes'
+          description: The participant associated with this content interaction
+      description: Content interaction engagement record attributes
+    UpsertResponseMeta:
+      type: object
+      required:
+      - timestamp
+      - processingTime
+      - recordsProcessed
+      - recordsSuccessful
+      - recordsFailed
+      properties:
+        timestamp:
+          type: string
+          description: Response timestamp
+        processingTime:
+          type: integer
+          format: int64
+          description: Processing time in milliseconds
+        recordsProcessed:
+          type: integer
+          format: int32
+          description: Number of records processed
+        recordsSuccessful:
+          type: integer
+          format: int32
+          description: Number of records successfully processed
+        recordsFailed:
+          type: integer
+          format: int32
+          description: Number of records that failed processing
+      description: API response meta information for upsert operations
+    ParticipantAttributes:
+      type: object
+      required:
+      - companyDomain
+      properties:
+        participantId:
+          type: string
+          description: Unique participant identifier
+        email:
+          type: string
+          description: Email address
+        phoneNumber:
+          type: string
+          description: Phone number
+        ipAddress:
+          type: string
+          description: IP address
+        name:
+          type: string
+          description: Full name
+        firstName:
+          type: string
+          description: First name
+        lastName:
+          type: string
+          description: Last name
+        title:
+          type: string
+          description: Job title
+        seniority:
+          type: string
+          description: Seniority level
+        companyDomain:
+          type: string
+          description: Company domain
+        companyName:
+          type: string
+          description: Company name
+        ziPersonId:
+          type: string
+          description: ZoomInfo person ID
+          readOnly: true
+        ziCompanyId:
+          type: string
+          description: ZoomInfo company ID
+          readOnly: true
+      description: Participant model with common properties.
+    ContentInteractionUpsertRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentInteractionCreateItem'
+          description: The primary data of the document
+      description: Model for creating multiple content interaction engagements
+    ContentInteraction:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: ContentInteraction
+          pattern: ContentInteraction
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ContentInteractionAttributes'
+          description: The attributes defining the resource
+      description: Content interaction model
+    Status:
+      type: string
+      enum:
+      - Completed
+    ContentInteractionCreateItem:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: ContentInteraction
+          pattern: ContentInteraction
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ContentInteractionAttributes'
+          description: The attributes defining the resource
+      description: Content interaction model
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.zoominfo.com
+          tokenUrl: https://okta-login.zoominfo.com/oauth2/default/v1/token
+          scopes:
+            api:gtm-data-model:read: Ability to read GTM Data Model entities, schemas, and data
+            api:gtm-data-model:manage: Ability to manage GTM Data Model entities, schemas, and data
+            api:workflows:read: Read Workflows data
+            api:workflows:execute: Execute Workflows
+            api:entitlement:read: Read User entitlements

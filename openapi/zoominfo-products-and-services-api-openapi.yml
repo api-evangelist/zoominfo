@@ -1,0 +1,752 @@
+openapi: 3.2.0
+info:
+  title: Copilot API V1 Products and Services API
+  version: '1.0'
+  contact:
+    name: ZoomInfo Customer Support
+    email: help@zoominfo.com
+  description: Copilot API for interacting with the Copilot related services.
+servers:
+- url: https://api.zoominfo.com/gtm
+  description: Base URL for the Copilot API
+security:
+- OAuth2Auth: []
+tags:
+- name: Products and Services
+paths:
+  /copilot/v1/products:
+    get:
+      operationId: OrganizationOfferingsInterface_listOrganizationOfferings
+      summary: List Products or Services
+      description: 'Returns the complete list of Products or Services configured for the authenticated customer.
+
+
+        An Product or Service represents a product, service, or solution provided by your company and forms
+
+        the foundation of your go-to-market configuration. Products or Services capture key context such as the product''s value proposition,
+
+        the pain points it addresses, proof points, target buyer personas, and ideal customer profiles.
+
+
+        Products or Services serve as the central linking object across GTM configuration, connecting Buyer Personas, Ideal Customer Profiles (ICPs),
+
+        and Competitors to ensure alignment between targeting, messaging, and competitive positioning.
+
+
+        If you do not know the ID of the record you need, call
+
+        [List Products or Services](ref:organizationofferingsinterface_listorganizationofferings) to browse the full set.
+
+
+        Use this endpoint to browse all products or services or retrieve product or service IDs that can be used with other endpoints.
+
+
+        Common use cases
+
+        - Retrieve all configured products or services
+
+        - Discover offering IDs for use in other API operations
+
+        - Load offering data for downstream GTM automation or AI workflows'
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/OrganizationOfferingListResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Products and Services
+      security:
+      - OAuth2Auth:
+        - api:gtm-config:read
+      x-api-roles:
+      - fea:gsa
+    post:
+      operationId: OrganizationOfferingsInterface_upsertOrganizationOffering
+      summary: Upsert Product or Service
+      description: 'Creates or updates a Product or Service for the authenticated customer.
+
+        A Product or Service represents a product, service, or solution provided by your company.
+
+
+        Products or Services form the foundation of your go-to-market configuration and capture key context such as the product''s
+
+        value proposition, the pain points it addresses, proof points, target buyer personas, and the ideal customer profiles it serves.
+
+
+        This endpoint performs an upsert operation:
+
+        If an `id` is included in the request body, the existing product or service is updated.
+
+        Only the attributes provided in the request are modified (partial update).
+
+
+        If an `id` is not provided, a new product or service is created.
+
+
+        When creating a new product or service, name is the only required field. All other attributes are optional.
+
+        A Product or Service acts as a central linking object across GTM configuration. Buyer Personas, Ideal Customer Profiles (ICPs),
+
+        and Competitors can all be associated with a Product or Service to align targeting, messaging, and competitive positioning.
+
+
+        Common use cases
+
+        - Create a new product or service
+
+        - Update positioning, messaging, or targeting attributes for an existing product or service
+
+        - Link products or services to buyer personas, ICPs, or competitors'
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/OrganizationOfferingModel'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '422':
+          description: Unprocessable Content
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Products and Services
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/OrganizationOfferingUpsert'
+        description: Product or service data to create, or fields to update. Include `id` to update an existing record; omit it to create a new one.
+      security:
+      - OAuth2Auth:
+        - api:gtm-config:manage
+      x-additional-content-types:
+      - application/json
+      x-api-roles:
+      - fea:gsa
+  /copilot/v1/products/{offeringId}:
+    get:
+      operationId: OrganizationOfferingsInterface_getOrganizationOffering
+      summary: Get Product or Service
+      description: "Retrieves a single product or service by ID. \n\nA product or service represents a discrete product or service provided by your company \nand forms the foundation of your go-to-market configuration. Each product or service record captures the \nstrategic context of a product: how it is positioned in the market, whom it targets, what pain points \nit addresses, and the value proposition it delivers. Returns **404 Not Found** if the product or service does not\nexist.\n\nIf you do not know the ID of the record you need, call\n[List Products or Services](ref:organizationofferingsinterface_listorganizationofferings) to browse the full set.\n\nThis endpoint is typically used when retrieving the full details of a specific product or service for viewing, editing,\nor integration with external systems.\n\nCommon use cases\n- Retrieve the full configuration of a specific product or service\n- Load product or service details before updating the record\n- Fetch product or service context for downstream workflows or integrations"
+      parameters:
+      - name: offeringId
+        in: path
+        required: true
+        description: UUID of the product or service to retrieve.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/OrganizationOfferingModel'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Products and Services
+      security:
+      - OAuth2Auth:
+        - api:gtm-config:read
+      x-api-roles:
+      - fea:gsa
+    delete:
+      operationId: OrganizationOfferingsInterface_deleteOrganizationOffering
+      summary: Delete Product or Service
+      description: 'Permanently deletes a Product or Service identified by `offeringId`.
+
+
+        A Product or Service represents a product, service, or solution provided by your company and serves as a
+
+        core component of your go-to-market configuration. Deleting a Product or Service removes the associated strategic context
+
+        used for positioning, targeting, and competitive analysis.
+
+
+        This is a hard delete operation. Once deleted, the Product or Service is permanently removed from the system and cannot be recovered.
+
+        If the specified offeringId does not exist, the endpoint returns **404 Not Found**.
+
+        If you want to hide a Product or Service without permanently removing it, use the [Archive Product or Service](ref:organizationofferingsinterface_archiveorganizationoffering) endpoint instead.
+
+
+        Use [Get Product or Service](ref:organizationofferingsinterface_getorganizationoffering)
+
+        to verify the Product or Service exists before deletion, or
+
+        [Upsert Product or Service](ref:organizationofferingsinterface_upsertorganizationoffering)
+
+        to recreate it afterward if needed.
+
+
+        Common use cases
+
+        - Permanently remove an obsolete product or service
+
+        - Clean up incorrect or duplicate product or service records
+
+        - Reset a product or service before recreating it with updated configuration'
+      parameters:
+      - name: offeringId
+        in: path
+        required: true
+        description: UUID of the product or service to permanently delete.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema: {}
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Products and Services
+      security:
+      - OAuth2Auth:
+        - api:gtm-config:manage
+      x-api-roles:
+      - fea:gsa
+  /copilot/v1/products/{offeringId}/actions/archive:
+    post:
+      operationId: OrganizationOfferingsInterface_archiveOrganizationOffering
+      summary: Archive Product or Service
+      description: 'Archives an Product or Service identified by `offeringId`.
+
+
+        Archiving hides the product or service from standard list responses while retaining the record for historical reference, audit purposes,
+
+        and potential restoration. The archived record remains stored in the system and continues to count toward customer limits.
+
+        When a product or service is archived, the system sets the metadata fields `archivedAt` and `archivedBy`.
+
+        This operation is reversible. An archived product or service can be restored using the [Unarchive Product or Service](ref:organizationofferingsinterface_unarchiveorganizationoffering) endpoint.
+
+
+        Common use cases
+
+        - Temporarily remove a product or service that is no longer actively sold
+
+        - Hide deprecated products or services while retaining historical configuration
+
+        - Maintain audit history without permanently deleting records'
+      parameters:
+      - name: offeringId
+        in: path
+        required: true
+        description: UUID of the product or service to archive.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/OrganizationOfferingModel'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Products and Services
+      security:
+      - OAuth2Auth:
+        - api:gtm-config:manage
+      x-api-roles:
+      - fea:gsa
+  /copilot/v1/products/{offeringId}/actions/unarchive:
+    post:
+      operationId: OrganizationOfferingsInterface_unarchiveOrganizationOffering
+      summary: Unarchive Product or Service
+      description: 'Restores a previously archived Product or Service.
+
+
+        Unarchiving makes the product or service visible again in standard list responses and reactivates it for use across GTM configuration workflows.
+
+        When a product or service is unarchived, the metadata fields `archivedAt` and `archivedBy` are cleared.
+
+        If the specified `offeringId` does not exist, the endpoint returns **404 Not Found**.
+
+
+        Common use cases
+
+        - Restore a previously archived product or service
+
+        - Reactivate products or services that have returned to market
+
+        - Re-enable products or services used in GTM configuration'
+      parameters:
+      - name: offeringId
+        in: path
+        required: true
+        description: UUID of the product or service to unarchive.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/OrganizationOfferingModel'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Products and Services
+      security:
+      - OAuth2Auth:
+        - api:gtm-config:manage
+      x-api-roles:
+      - fea:gsa
+components:
+  schemas:
+    CustomFieldItem:
+      type: object
+      required:
+      - title
+      - value
+      properties:
+        title:
+          type: string
+          description: The display title of the custom field.
+        description:
+          type: string
+          description: An optional description of the field. Defaults to an empty string in the backend.
+          default: ''
+        value:
+          type: string
+          description: The string value associated with this custom field.
+      description: Schema for a single custom field item.
+    OrganizationOfferingListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationOffering'
+          description: The primary data of the document
+      description: API model for a list of products or services.
+    GtmConfigAuditFields:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the record was originally created. Auto-populated by backend.
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the most recent modification to the record. Auto-populated by backend.
+          readOnly: true
+        createdBy:
+          type: string
+          description: User ID of the person who created the record. Extracted from the JWT token on creation.
+          readOnly: true
+        updatedBy:
+          type: string
+          description: User ID of the person who last modified the record. Extracted from the JWT token on update.
+          readOnly: true
+        archivedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the record was archived. Archived records are identified by archivedAt and archivedBy
+          readOnly: true
+        archivedBy:
+          type: string
+          description: User ID of the person who archived the record
+          readOnly: true
+      description: 'Common audit fields present on all customer-level GTM configuration entities.
+
+        These fields track the full lifecycle of a record including creation, modification,
+
+        archival (temporary hiding), and soft deletion (permanent hiding for compliance).
+
+        A record can be active, deleted only, or both.'
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    OrganizationOfferingModel:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/OrganizationOffering'
+          description: The primary data of the document
+      description: API model for a single product or service.
+    GtmConfigSourceType:
+      type: string
+      enum:
+      - manual
+      - import
+      - system
+      - mcp
+      description: 'Source type indicating how a GTM configuration record was created or last modified.
+
+        Used across all customer-level entities for audit provenance tracking.
+
+        When source is explicitly set in a request, the corresponding created_by/updated_by must also be provided.
+
+        Defaults to ''manual'' when not specified.'
+      x-enumDescriptions:
+        MANUAL: Created or updated manually by a user through the GTM Studio UI.
+        IMPORT: Imported from an external data source such as CRM or CSV upload.
+        SYSTEM: Generated automatically by the platform (e.g., system enrichment or background jobs).
+        MCP: Created or updated via the GTM Config MCP integration by an AI agent.
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    OrganizationOffering:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: OrganizationOffering
+          pattern: OrganizationOffering
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/OrganizationOfferingAttributes'
+          description: The attributes defining the resource
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/GtmConfigAuditFields'
+          description: Non-standard meta information about the resource
+          readOnly: true
+      description: Product or Service resource.
+    OrganizationOfferingAttributes:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 1024
+          description: Name of the Product or Service. Required when creating a new record. When provided (for create or update), must be between 1 and 1024 characters.
+        description:
+          type: string
+          maxLength: 10000
+          description: Detailed description of the Product or Service, including its purpose, target audience, and key benefits. Maximum 10,000 characters.
+        painPoints:
+          type: array
+          items:
+            type: string
+          maxItems: 100
+          description: Customer pain points this Product or Service addresses.
+        valueProposition:
+          type: array
+          items:
+            type: string
+          maxItems: 100
+          description: Value propositions as articulated by the customer — the key reasons a buyer should choose this Product or Service.
+        proofPoints:
+          type: array
+          items:
+            type: string
+          maxItems: 100
+          description: Reviews, testimonials, or case-study references that validate the Product or Service's effectiveness.
+        url:
+          type: string
+          format: uri
+          description: URL of the Product or Service's webpage or landing page. Maximum 1024 characters.
+        competitors:
+          type: string
+          maxLength: 10000
+          description: Text description of competitor information relevant to this specific Product or Service. Maximum 10,000 characters.
+        idealCompanySegment:
+          type: string
+          maxLength: 10000
+          description: Text description of the ideal company segment for this Product or Service. Maximum 10,000 characters.
+        offeringBuyerPersonas:
+          type: string
+          maxLength: 10000
+          description: Text description of the buyer personas relevant to this Product or Service. Maximum 10,000 characters.
+        source:
+          allOf:
+          - $ref: '#/components/schemas/GtmConfigSourceType'
+          description: Source type indicating how this Product or Service record was created or last modified. Defaults to `manual`. See `GtmConfigSourceType` for allowed values. When set explicitly, the backend validates source consistency with the `created_by` and `updated_by` fields.
+          readOnly: true
+        customFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldItem'
+          description: Flexible key-value store for customer-specific custom fields and extended metadata. The backend validates schema and value types. Use this to capture additional Product or Service details beyond the standard fields.
+      description: "Attributes that define a Product or Service  — the discrete products or services provided by a customer's company.\n\nProducts or services form the foundation of a customer's go-to-market configuration, capturing the essential strategic context of a product. \nA product or service serves as a centralized record for:\n\n* Product Positioning: Capturing how the product is uniquely situated in the market.\n* Targeting: Identifying the specific audiences, industries, or company types the product is intended for.\n* Pain Point Resolution: Documenting the specific customer problems or challenges the product or service is designed to address.\n* Value Proposition: Defining the core benefits and outcomes the product or service provides to the customer.\n\nCollectively, these attributes provide the necessary framework to build a complete GTM picture. The product or service acts as the \nprimary anchor to which Buyer Personas, Ideal Customer Profiles, and Competitive Intelligence are linked, ensuring all \nrevenue-generating activities are aligned with the product's strategic intent."
+    OrganizationOfferingUpsert:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - type
+          - attributes
+          properties:
+            id:
+              type: string
+              description: The unique identifier for the resource
+            type:
+              type: string
+              enum:
+              - OrganizationOffering
+              description: The type of the resource
+            attributes:
+              allOf:
+              - $ref: '#/components/schemas/OrganizationOfferingAttributes'
+              description: The attributes defining the resource
+            meta:
+              allOf:
+              - $ref: '#/components/schemas/GtmConfigAuditFields'
+              description: Non-standard meta information about the resource
+          x-discriminator-property: type
+          description: The primary data of the document
+      description: Product or Service resource for upsert operations.
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.zoominfo.com
+          tokenUrl: https://okta-login.zoominfo.com/oauth2/default/v1/token
+          scopes:
+            api:account-summary:read: Read Copilot Account Summary Data
+            api:insights:read: Read Insights Data
+            api:recommendations:read: Read Copilot recommendation data
+            api:gtm-config:read: Read GTM configuration data
+            api:gtm-config:manage: Manage GTM configuration data (create, update, delete)

@@ -1,0 +1,473 @@
+openapi: 3.2.0
+info:
+  title: Platform API V1 Workflows API
+  version: '1.0'
+  contact:
+    name: ZoomInfo Customer Support
+    email: help@zoominfo.com
+  description: The Platform API
+servers:
+- url: https://api.zoominfo.com/gtm
+  description: Base URL for the Platform API
+security:
+- OAuth2Auth: []
+tags:
+- name: Workflows
+paths:
+  /platform/v1/workflows:
+    get:
+      operationId: WorkflowsController_getWorkflows
+      summary: Get workflows list
+      description: Get a list of workflows with optional filters and pagination
+      parameters:
+      - name: page[size]
+        in: query
+        required: false
+        description: Number of items per page
+        schema:
+          type: integer
+          format: int32
+        explode: false
+      - name: page[number]
+        in: query
+        required: false
+        description: Page number for pagination
+        schema:
+          type: integer
+          format: int32
+        explode: false
+      - name: sort
+        in: query
+        required: false
+        description: Valid values are name, createdAt, updatedAt. Add minus sign ('-') for descending order
+        schema:
+          type: string
+        explode: false
+      - name: filter[runnableOnDemand]
+        in: query
+        required: false
+        description: Filter by workflows that can be run on demand
+        schema:
+          type: boolean
+        explode: false
+      - name: filter[active]
+        in: query
+        required: false
+        description: Filter by active workflows
+        schema:
+          type: boolean
+        explode: false
+      - name: filter[name]
+        in: query
+        required: false
+        description: Filter by a workflow's name
+        schema:
+          type: string
+        explode: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/WorkflowsListResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Workflows
+      security:
+      - OAuth2Auth:
+        - api:workflows:read
+        - api:workflows:execute
+      x-api-scope-requirement: ANY_REQUIRED
+  /platform/v1/workflows/{id}/actions/execute:
+    post:
+      operationId: WorkflowsController_executeWorkflow
+      summary: Execute workflow
+      description: Execute a workflow
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Unique identifier of the workflow to execute
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/WorkflowExecutionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Workflows
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/ExecuteWorkflowRequestBody'
+        description: Execution request body
+      security:
+      - OAuth2Auth:
+        - api:workflows:execute
+      x-additional-content-types:
+      - application/json
+  /platform/v1/workflows/executions/{id}:
+    get:
+      operationId: WorkflowsController_getExecutionStatus
+      summary: Get execution status
+      description: Get the status of a workflow execution
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Unique identifier of the execution
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/WorkflowExecutionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Workflows
+      security:
+      - OAuth2Auth:
+        - api:workflows:execute
+components:
+  schemas:
+    ExecuteWorkflowRequestBody:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/ExecuteWorkflowRequest'
+          description: The primary data of the document
+      description: Workflow execution request body
+    Workflow:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: Workflow
+          pattern: Workflow
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/WorkflowAttributes'
+          description: The attributes defining the resource
+      description: Workflow resource model
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    WorkflowExecutionAttributes:
+      type: object
+      required:
+      - workflowId
+      - status
+      properties:
+        workflowId:
+          type: string
+          description: Identifier of the workflow being executed
+        status:
+          type: string
+          description: Current status of the execution
+      description: Attributes for workflow execution response
+    WorkflowsListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workflow'
+          description: The primary data of the document
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/GetWorkflowsMeta'
+          description: Non-standard meta information about the document
+        links:
+          allOf:
+          - $ref: '#/components/schemas/GetWorkflowsLinks'
+          description: Links related to the primary data
+      description: Response containing a list of workflows
+    GetWorkflowsLinks:
+      type: object
+      properties:
+        first:
+          type: string
+          format: uri
+          description: A link to the first page of data
+        last:
+          type: string
+          format: uri
+          description: A link to the last page of data
+        prev:
+          type: string
+          format: uri
+          description: A link to the previous page of data
+        next:
+          type: string
+          format: uri
+          description: A link to the next page of data
+      description: Links describing the various workflows paging options
+    GetWorkflowsMeta:
+      type: object
+      required:
+      - page
+      - pageSize
+      - totalCount
+      properties:
+        page:
+          type: integer
+          format: uint32
+          description: The current page of workflows being returned
+        pageSize:
+          type: integer
+          format: uint32
+          description: The page size as specified by the request
+        totalCount:
+          type: integer
+          format: uint32
+          description: The total count of workflows within the current search parameters
+      description: Metadata for the current page of workflows returned
+    ExecuteWorkflowAttributes:
+      type: object
+      properties:
+        callback_url:
+          type: string
+          description: URL to call back with execution results
+      description: Attributes for workflow execution request
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    WorkflowAttributes:
+      type: object
+      required:
+      - name
+      - active
+      - runnableOnDemand
+      - lastUpdated
+      - createdAt
+      properties:
+        name:
+          type: string
+          description: Name of the workflow
+        active:
+          type: boolean
+          description: Activation status of the workflow
+        runnableOnDemand:
+          type: boolean
+          description: Whether the workflow can be executed on demand
+        lastUpdated:
+          type: string
+          format: date-time
+          description: Last update timestamp
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          description: Created timestamp
+          readOnly: true
+      description: Attributes for a workflow in the list response
+    ExecuteWorkflowRequest:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: ExecuteWorkflowRequest
+          pattern: ExecuteWorkflowRequest
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ExecuteWorkflowAttributes'
+          description: The attributes defining the resource
+      description: Workflow execution request model
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+    WorkflowExecutionResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/WorkflowExecution'
+          description: The primary data of the document
+      description: Response for workflow execution
+    WorkflowExecution:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: WorkflowExecution
+          pattern: WorkflowExecution
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/WorkflowExecutionAttributes'
+          description: The attributes defining the resource
+      description: Workflow execution response model
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.zoominfo.com
+          tokenUrl: https://okta-login.zoominfo.com/oauth2/default/v1/token
+          scopes:
+            api:gtm-data-model:read: Ability to read GTM Data Model entities, schemas, and data
+            api:gtm-data-model:manage: Ability to manage GTM Data Model entities, schemas, and data
+            api:workflows:read: Read Workflows data
+            api:workflows:execute: Execute Workflows
+            api:entitlement:read: Read User entitlements

@@ -1,0 +1,213 @@
+openapi: 3.2.0
+info:
+  title: Platform API V1 Entitlements API
+  version: '1.0'
+  contact:
+    name: ZoomInfo Customer Support
+    email: help@zoominfo.com
+  description: The Platform API
+servers:
+- url: https://api.zoominfo.com/gtm
+  description: Base URL for the Platform API
+security:
+- OAuth2Auth: []
+tags:
+- name: Entitlements
+paths:
+  /platform/v1/entitlements:
+    get:
+      operationId: EntitlementsController_getEntitlements
+      summary: Get user entitlements
+      description: Retrieve user entitlements filtered by admin status and role type.
+      parameters:
+      - name: filter[admin]
+        in: query
+        required: true
+        description: Whether to retrieve admin entitlements, admin entitlements are only available to users with admin privileges, in the format of adm:roleCode, e.g. adm:fea:api.
+        schema:
+          type: boolean
+        explode: false
+      - name: filter[roleType]
+        in: query
+        required: true
+        description: The role type to filter by.
+        schema:
+          $ref: '#/components/schemas/RoleType'
+        explode: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntitlementsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Entitlements
+      security:
+      - OAuth2Auth:
+        - api:entitlement:read
+components:
+  schemas:
+    EntitlementsResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Entitlement'
+          description: The primary data of the document
+      description: Response model containing a list of entitlements.
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+    Entitlement:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: Entitlement
+          pattern: Entitlement
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/EntitlementAttributes'
+          description: The attributes defining the resource
+      description: Entitlement resource model.
+    EntitlementAttributes:
+      type: object
+      required:
+      - roleCode
+      - roleName
+      - roleType
+      - value
+      properties:
+        roleCode:
+          type: string
+          description: The role code.
+        roleName:
+          type: string
+          description: The role name, description of the role.
+        roleType:
+          allOf:
+          - $ref: '#/components/schemas/RoleType'
+          description: The role type.
+        value:
+          type: string
+          description: The role value, 'Y' indicates entitlement is granted, a number indicates the limit.
+      description: Entitlement details.
+    RoleType:
+      type: string
+      enum:
+      - feature
+      - integration
+      - data
+      - dataset_detail
+      - action
+      - intent
+      - limit
+      - info
+      - signal
+      - vertical_dataset
+      description: Role type enumeration.
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.zoominfo.com
+          tokenUrl: https://okta-login.zoominfo.com/oauth2/default/v1/token
+          scopes:
+            api:gtm-data-model:read: Ability to read GTM Data Model entities, schemas, and data
+            api:gtm-data-model:manage: Ability to manage GTM Data Model entities, schemas, and data
+            api:workflows:read: Read Workflows data
+            api:workflows:execute: Execute Workflows
+            api:entitlement:read: Read User entitlements

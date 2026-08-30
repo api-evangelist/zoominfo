@@ -1,0 +1,201 @@
+openapi: 3.2.0
+info:
+  title: Data API V1 User API
+  version: '1.0'
+  contact:
+    name: ZoomInfo Customer Support
+    email: help@zoominfo.com
+  description: The Data API
+servers:
+- url: https://api.zoominfo.com/gtm
+  description: Base URL for the Data API
+security:
+- OAuth2Auth: []
+tags:
+- name: User
+paths:
+  /data/v1/users/usage:
+    get:
+      operationId: UserInterface_userUsage
+      summary: Usage Data
+      description: Returns current user's API usage and limits.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UsageResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - User
+      security:
+      - OAuth2Auth:
+        - api:data:company
+        - api:data:contact
+        - api:data:intent
+        - api:data:news
+        - api:data:scoops
+        - api:data:lookup
+      x-api-roles:
+      - fea:zia
+      - fea:api
+      x-api-role-requirement: ANY_REQUIRED
+      x-api-scope-requirement: ANY_REQUIRED
+components:
+  schemas:
+    UsageResponseResource:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: UserUsage
+          pattern: UserUsage
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/UserUsageAttributes'
+          description: The attributes defining the resource
+      description: Usage response.
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    UserUsageAttributes:
+      type: object
+      required:
+      - usage
+      properties:
+        usage:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserUsageModel'
+          description: List of usage data
+      description: Attributes describing user usage
+    UsageResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsageResponseResource'
+          description: The primary data of the document
+      description: Usage response.
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    UserUsageModel:
+      type: object
+      properties:
+        limitType:
+          type: string
+          description: Type of limit. Options are request, record, uniqueID, webSightsApiRequest, and webSightsApiRecord.
+        description:
+          type: string
+          description: Description of the limit type.
+        totalLimit:
+          type: integer
+          format: int64
+          description: The number of this type of request you are subscribed for. This is generally an usage limit for a contract period.
+        currentUsage:
+          type: integer
+          format: int64
+          description: The number of this type of request you have already used.
+        usageRemaining:
+          type: integer
+          format: int64
+          description: The remaining number of this type of request you can make before requiring additional purchase.
+      description: Model containing information about usage data
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.zoominfo.com
+          tokenUrl: https://okta-login.zoominfo.com/oauth2/default/v1/token
+          scopes:
+            api:data:contact: Ability to search and enrich ZoomInfo Contact data
+            api:data:company: Ability to search and enrich ZoomInfo Company data
+            api:data:intent: Ability to search and enrich ZoomInfo Intent data
+            api:data:news: Ability to search and enrich ZoomInfo News data
+            api:data:scoops: Ability to search and enrich ZoomInfo Scoop data
+            api:data:lookup: Lookup ZoomInfo Data

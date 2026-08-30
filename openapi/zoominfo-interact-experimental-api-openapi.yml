@@ -1,0 +1,644 @@
+openapi: 3.2.0
+info:
+  title: Agent API V1 Interact [Experimental] API
+  version: '1.0'
+  contact:
+    name: ZoomInfo Customer Support
+    email: help@zoominfo.com
+  description: "This definition only exposes one of many API routes from agentic-ai-platform\n    in order to quickly support an integration opportunity with SalesForce.\n    The model includes some definitions used by API routes that are not being\n    surfaced at this time. They remain included where they are referenced as\n    dependencies, to avoid model refactoring, and with the intent that additional\n    capabilities of agentic-ai-platform will be released under ZI-API in the future/"
+servers:
+- url: https://api.zoominfo.com/gtm
+  description: Base URL for the Agent API
+security:
+- OAuth2Auth: []
+tags:
+- name: Interact [Experimental]
+paths:
+  /agent/v1/agents:
+    get:
+      operationId: AgentInterace_listAgents
+      summary: List agents
+      description: List available agents
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AgentListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Interact [Experimental]
+      security:
+      - OAuth2Auth:
+        - api:agent:agentforce
+      x-api-roles:
+      - fea:afa
+  /agent/v1/agents/{agentId}/actions/interact:
+    post:
+      operationId: AgentInterace_interactAgent
+      summary: Interact with Agent
+      description: Interact with Agent
+      parameters:
+      - name: agentId
+        in: path
+        required: true
+        description: The agent to interact with
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ThreadMessageResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Interact [Experimental]
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/InteractRequestBody'
+        description: The POST body
+      security:
+      - OAuth2Auth:
+        - api:agent:agentforce
+      x-additional-content-types:
+      - application/json
+      x-api-roles:
+      - fea:afa
+  /agent/v1/agents/{agentId}/actions/stream:
+    post:
+      operationId: AgentInterace_interactAgentStream
+      summary: Interact with Agent (Stream)
+      description: Interact with Agent (Stream)
+      parameters:
+      - name: agentId
+        in: path
+        required: true
+        description: The agent to interact with
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/SseResponseBody'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Interact [Experimental]
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/InteractRequestBody'
+        description: The POST body
+      security:
+      - OAuth2Auth:
+        - api:agent:agentforce
+      x-additional-content-types:
+      - application/json
+      x-is-sse: true
+      x-api-roles:
+      - fea:afa
+components:
+  schemas:
+    AgentListItem:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Agent identifier
+      description: Agent List Item
+    AdditionalFields:
+      type: object
+      description: Additional Fields
+    InteractRequestModel:
+      type: object
+      required:
+      - message
+      properties:
+        threadId:
+          type: string
+          description: Thread Id
+        usersId:
+          type: string
+          description: Users Id
+        structuredContent:
+          allOf:
+          - $ref: '#/components/schemas/StructuredContent'
+          description: StructuredContent
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/ThreadMessageSections'
+          description: Sections
+        userMessageId:
+          type: string
+          description: User Message Id
+        interactionId:
+          type: string
+          description: Interaction Id
+        relationships:
+          type: array
+          items:
+            $ref: '#/components/schemas/Relationship'
+          description: Relationships
+        message:
+          type: string
+          description: Message
+      description: InteractRequestModel
+    ControlProps:
+      type: object
+      description: Control Props
+    ThreadMessages:
+      type: object
+      required:
+      - threadId
+      - usersId
+      - role
+      - content
+      - structuredContent
+      - parentThreadMessageId
+      - state
+      properties:
+        id:
+          type: string
+          description: Id
+        createdAt:
+          type: string
+          format: date-time
+          description: Created At
+        updatedAt:
+          type: string
+          format: date-time
+          description: Updated At
+        deletedAt:
+          type: string
+          format: date-time
+          description: Deleted At
+        additionalFields:
+          allOf:
+          - $ref: '#/components/schemas/AdditionalFields'
+          description: Additional Fields
+        threadId:
+          type: string
+          format: uuid
+          description: Thread Id
+        usersId:
+          type: string
+          description: Users Id
+        role:
+          type: string
+          description: Role
+        content:
+          type: string
+          description: Content
+        structuredContent:
+          allOf:
+          - $ref: '#/components/schemas/StructuredContent'
+          description: Structured Content
+        parentThreadMessageId:
+          type: string
+          description: Parent Thread Message Id
+        state:
+          type: string
+          description: State
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/ThreadMessageSections'
+          description: Sections
+      description: ThreadMessages
+    AgentList:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: agent
+          pattern: agent
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/AgentListItem'
+          description: The attributes defining the resource
+      description: Agent List Resource
+    InteractRequest:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: InteractRequest
+          pattern: InteractRequest
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/InteractRequestModel'
+          description: The attributes defining the resource
+      description: Interact Request Body
+    MetaInfo:
+      type: object
+      description: Meta Information
+    RenderProps:
+      type: object
+      description: Render Properties
+    AgentState:
+      type: object
+      description: Agent State
+    SseResponseBody:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: string
+          description: Server-sent events stream content
+      description: SSE Response Body
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    ActionArguments:
+      type: object
+      description: Action Arguments
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    AgentListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentList'
+          description: The primary data of the document
+      description: Agent List Response
+    StructuredContent:
+      type: object
+      properties:
+        agentProps:
+          allOf:
+          - $ref: '#/components/schemas/AgentProps'
+          description: Agent Props
+        triggerActions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TriggerActions'
+          description: Trigger Actions
+        agentState:
+          allOf:
+          - $ref: '#/components/schemas/AgentState'
+          description: Agent State
+      description: StructuredContent
+    ThreadMessageSectionControl:
+      type: object
+      required:
+      - threadMessageSectionId
+      - name
+      - type
+      - props
+      - value
+      - inline
+      - entityType
+      - entityId
+      properties:
+        id:
+          type: string
+          description: Id
+        createdAt:
+          type: string
+          format: date-time
+          description: Created At
+        updatedAt:
+          type: string
+          format: date-time
+          description: Updated At
+        deletedAt:
+          type: string
+          format: date-time
+          description: Deleted At
+        additionalFields:
+          allOf:
+          - $ref: '#/components/schemas/AdditionalFields'
+          description: Additional Fields
+        threadMessageSectionId:
+          type: string
+          format: uuid
+          description: Thread Message Section Id
+        name:
+          type: string
+          description: Name
+        type:
+          type: string
+          description: Type
+        props:
+          allOf:
+          - $ref: '#/components/schemas/ControlProps'
+          description: Props
+        value:
+          allOf:
+          - $ref: '#/components/schemas/ControlValue'
+          description: Value
+        inline:
+          type: boolean
+          description: Inline
+        entityType:
+          type: string
+          description: Entity Type
+        entityId:
+          type: string
+          description: Entity Id
+      description: ThreadMessageSectionControl
+    ThreadMessageResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/Thread'
+          description: The primary data of the document
+      description: ThreadMessageResponse
+    StructuredContentObject:
+      type: object
+      description: Structured Content Object
+    ControlValue:
+      type: object
+      description: Control Value
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+    Relationship:
+      type: object
+      required:
+      - entityType
+      - entityId
+      properties:
+        entityType:
+          type: string
+          description: Entity Type
+        entityId:
+          type: string
+          description: Entity Id
+      description: Relationship
+    AgentProps:
+      type: object
+      description: Agent Properties
+    Thread:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: Thread
+          pattern: Thread
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ThreadMessages'
+          description: The attributes defining the resource
+      description: Response Model
+    InteractRequestBody:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/InteractRequest'
+          description: The primary data of the document
+      description: Interact Request Body
+    TriggerActions:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Id
+        arguments:
+          allOf:
+          - $ref: '#/components/schemas/ActionArguments'
+          description: Arguments
+      description: TriggerActions
+    ThreadMessageSections:
+      type: object
+      required:
+      - threadMessageId
+      - sectionName
+      - contentType
+      - content
+      - structuredContent
+      - renderProps
+      - meta
+      - state
+      - userFacing
+      properties:
+        id:
+          type: string
+          description: Id
+        createdAt:
+          type: string
+          format: date-time
+          description: Created At
+        updatedAt:
+          type: string
+          format: date-time
+          description: Updated At
+        deletedAt:
+          type: string
+          format: date-time
+          description: Deleted At
+        additionalFields:
+          allOf:
+          - $ref: '#/components/schemas/AdditionalFields'
+          description: Additional Fields
+        threadMessageId:
+          type: string
+          format: uuid
+          description: Thread Message Id
+        sectionName:
+          type: string
+          description: Section Name
+        contentType:
+          type: string
+          description: Content Type
+        content:
+          type: string
+          description: Content
+        structuredContent:
+          allOf:
+          - $ref: '#/components/schemas/StructuredContentObject'
+          description: Structured Content
+        renderProps:
+          allOf:
+          - $ref: '#/components/schemas/RenderProps'
+          description: Render Props
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/MetaInfo'
+          description: Meta
+        state:
+          type: string
+          description: State
+        userFacing:
+          type: boolean
+          description: User Facing
+        controls:
+          type: array
+          items:
+            $ref: '#/components/schemas/ThreadMessageSectionControl'
+          description: Controls
+          default: []
+      description: ThreadMessageSections
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.zoominfo.com
+          tokenUrl: https://okta-login.zoominfo.com/oauth2/default/v1/token
+          scopes:
+            api:agent:agentforce: Access Agentforce integration
+            api:agent-teams:read: Read Agent Teams
+            api:agent-teams:execute: Execute Agent Teams and view run status
+            api:agent-pulses:read: Read the authenticated user's pulses

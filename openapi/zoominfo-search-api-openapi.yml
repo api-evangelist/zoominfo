@@ -1,0 +1,2690 @@
+openapi: 3.2.0
+info:
+  title: Data API V1 Search API
+  version: '1.0'
+  contact:
+    name: ZoomInfo Customer Support
+    email: help@zoominfo.com
+  description: The Data API
+servers:
+- url: https://api.zoominfo.com/gtm
+  description: Base URL for the Data API
+security:
+- OAuth2Auth: []
+tags:
+- name: Search
+paths:
+  /data/v1/contacts/search:
+    post:
+      operationId: SearchInterface_searchContact
+      summary: Search Contacts
+      description: 'Returns a list of Contacts from ZoomInfo''s data that meet the specified search criteria.
+
+
+        Input parameters may require specific values. You can use the [Lookup Data](ref:lookupinterface_lookup)
+
+        endpoint to retrieve the list of possible values
+
+
+        The Search Contacts API does not return emails, phone numbers, or any other data that can be used to engage with
+
+        the contacts in your results, but the results do include hints for what data ZoomInfo has for a specific contact.
+
+        To get the additional data for contacts, including emails or phone numbers, use the
+
+        [Enrich Contact API](ref:enrichinterface_enrichcontact)
+
+
+        With reference to ZoomInfo''s [Credit Usage and Limits](doc:credit-usage-and-limits), this endpoint does not
+
+        consume any credits nor do contacts returned count towards record limits, but each request will increment against your
+
+        request limits.'
+      parameters:
+      - name: page[number]
+        in: query
+        required: false
+        description: 'The page of results that you want to retrieve. If not provided, the first page
+
+          of results will be returned. Use in connection with `page[size]` to handle large result sets.
+
+
+          Example: `page[number]=2&page[size]=25` will return the second page of result (results 26-50 based
+
+          on the `sort` value).'
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+        explode: false
+      - name: page[size]
+        in: query
+        required: false
+        description: 'Sets the number of records to return per page. If not provided, the default is 25 records per
+
+          page. Valid values for page size are any integer from 1 to 100.'
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 100
+        explode: false
+      - name: sort
+        in: query
+        required: false
+        description: 'Sort results by the specified output field. Valid values are contactAccuracyScore, lastName, companyName,
+
+          hierarchy, sourceCount, lastMentioned, and relevance. Add minus sign (''-'') for descending order. The default
+
+          value if not provided is sorting by relevance in descending order `-relevance`
+
+
+          Examples:
+
+          - `lastName` will sort results by contact last name in ascending alphabetical order.
+
+          - `-lastMentioned` will sort results in descending order (most recently to least recently mentioned)
+
+          by the `lastMentioned` date for each contact'
+        schema:
+          type: string
+        explode: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ContactSearchResponse'
+              examples:
+                Contact search by companyName, firstName, and lastName:
+                  summary: Contact search by companyName, firstName, and lastName
+                  description: This example demonstrates how to search for contacts using the ZoomInfo API utilizing multiple input fields. In this example, the companyName, firstName, and lastName fields are used to find a list of matching contacts.
+                  value:
+                    data:
+                    - attributes:
+                        company:
+                          id: 344589814
+                          name: ZoomInfo
+                        contactAccuracyScore: 95
+                        directPhoneDoNotCall: false
+                        firstName: Filip
+                        hasCompanyCountry: true
+                        hasCompanyEmployeeCount: true
+                        hasCompanyIndustry: true
+                        hasCompanyPhone: true
+                        hasCompanyRevenue: true
+                        hasCompanyState: true
+                        hasCompanyStreet: true
+                        hasCompanyZipCode: true
+                        hasDirectPhone: false
+                        hasEmail: true
+                        hasMobilePhone: true
+                        hasSupplementalEmail: true
+                        jobTitle: Chief Technology Officer
+                        lastName: Popovic
+                        lastUpdatedDate: '2025-04-04T18:13:00Z'
+                        mobilePhoneDoNotCall: false
+                        validDate: '2024-11-14T22:29:00Z'
+                      id: '4191419698'
+                      type: Contact
+                    links:
+                      first: /data/v1/contacts/search?page[number]=1&page[size]=25
+                      last: /data/v1/contacts/search?page[number]=1&page[size]=25
+                    meta:
+                      page:
+                        number: 1
+                        total: 1
+                      totalResults: 1
+                Contact search by personId:
+                  summary: Contact search by personId
+                  description: This example demonstrates how to search for contacts using the ZoomInfo API utilizing single field. In this example, the personId field is used to find a matching contact.
+                  value:
+                    data:
+                    - attributes:
+                        company:
+                          id: 344589814
+                          name: ZoomInfo
+                        contactAccuracyScore: 94
+                        directPhoneDoNotCall: false
+                        firstName: Henry
+                        hasCompanyCountry: true
+                        hasCompanyEmployeeCount: true
+                        hasCompanyIndustry: true
+                        hasCompanyPhone: true
+                        hasCompanyRevenue: true
+                        hasCompanyState: true
+                        hasCompanyStreet: true
+                        hasCompanyZipCode: true
+                        hasDirectPhone: true
+                        hasEmail: true
+                        hasMobilePhone: false
+                        hasSupplementalEmail: true
+                        jobTitle: Chief Executive Officer & Board Member
+                        lastName: Schuck
+                        lastUpdatedDate: '2024-10-21T14:05:00Z'
+                        middleName: L.
+                        mobilePhoneDoNotCall: false
+                        validDate: '2024-11-14T22:29:00Z'
+                      id: '1260398587'
+                      type: Contact
+                    links:
+                      first: /data/v1/contacts/search?page[number]=1&page[size]=25
+                      last: /data/v1/contacts/search?page[number]=1&page[size]=25
+                    meta:
+                      page:
+                        number: 1
+                        total: 1
+                      totalResults: 1
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Search
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/ContactSearchRequest'
+            examples:
+              Contact search by companyName, firstName, and lastName:
+                summary: Contact search by companyName, firstName, and lastName
+                description: This example demonstrates how to search for contacts using the ZoomInfo API utilizing multiple input fields. In this example, the companyName, firstName, and lastName fields are used to find a list of matching contacts.
+                value:
+                  data:
+                    attributes:
+                      companyName: ZoomInfo
+                      firstName: Filip
+                      lastName: Popovic
+                    type: ContactSearch
+              Contact search by personId:
+                summary: Contact search by personId
+                description: This example demonstrates how to search for contacts using the ZoomInfo API utilizing single field. In this example, the personId field is used to find a matching contact.
+                value:
+                  data:
+                    attributes:
+                      personId: '1260398587'
+                    type: ContactSearch
+        description: The request body containing contact search criteria.
+      security:
+      - OAuth2Auth:
+        - api:data:contact
+      x-additional-content-types:
+      - application/json
+      x-api-roles:
+      - fea:zia
+      - fea:api
+      x-api-role-requirement: ANY_REQUIRED
+  /data/v1/companies/search:
+    post:
+      operationId: SearchInterface_searchCompany
+      summary: Search Companies
+      description: 'Returns a list of Companies from ZoomInfo''s data that meet the specified search criteria.
+
+
+        Input parameters may require specific values. You can use the [Lookup Data](ref:lookupinterface_lookup)
+
+        endpoint to retrieve the list of possible values
+
+
+        The Search Companies API only returns basic information about the company: including name, limited location details,
+
+        website, and few other basic data points. To get the additional data for companies in your results use the
+
+        [Enrich Company API](ref:enrichinterface_enrichcompany)
+
+
+        With reference to ZoomInfo''s [Credit Usage and Limits](doc:credit-usage-and-limits), this endpoint does not
+
+        consume any credits nor do copmanies returned count towards record limits, but each request will increment against your
+
+        request limits.'
+      parameters:
+      - name: page[number]
+        in: query
+        required: false
+        description: 'The page of results that you want to retrieve. If not provided, the first page
+
+          of results will be returned. Use in connection with `page[size]` to handle large result sets.
+
+
+          Example: `page[number]=2&page[size]=25` will return the second page of result (results 26-50 based
+
+          on the `sort` value).'
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+        explode: false
+      - name: page[size]
+        in: query
+        required: false
+        description: 'Sets the number of records to return per page. If not provided, the default is 25 records per
+
+          page. Valid values for page size are any integer from 1 to 100.'
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 100
+        explode: false
+      - name: sort
+        in: query
+        required: false
+        description: "Sort results by the specified output field. Valid values are name, employeeCount, and revenue. \nAdd minus sign ('-') for descending order. The default sort if not provided is to sort the results \nby revenue in descending order `-revenue`\n\nExamples:\n- `name` will sort results by company name in ascending alphabetical order.\n- `-employeeCount` will sort results in descending order (from company with the most number of employees\nto the company with the least number of employees)"
+        schema:
+          type: string
+        explode: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/CompanySearchResponse'
+              examples:
+                Company search by companyName for privileged customer:
+                  summary: Company search by companyName for privileged customer
+                  description: This example demonstrates how to search for companies using the ZoomInfo API utilizing input field. In this example, the companyName field is used to find a list of matching companies.
+                  value:
+                    data:
+                    - attributes:
+                        logo: https://res.cloudinary.com/zoominfo-com/image/upload/w_100,h_100,c_fit/zoominfo.com
+                        name: ZoomInfo
+                        website: www.zoominfo.com
+                      id: '344589814'
+                      type: Company
+                    - attributes:
+                        name: Zoominfo Com C Peter Taflan Marketing Communications
+                      id: '1307620605'
+                      type: Company
+                    links:
+                      first: /data/v1/companies/search?page#[number]=1&page#[size]=25
+                      last: /data/v1/companies/search?page#[number]=1&page#[size]=25
+                    meta:
+                      page:
+                        number: 1
+                        total: 2
+                      totalResults: 2
+                Company search by metro region, industry codes including pagination and sorting url params:
+                  summary: Company search by metro region, industry codes including pagination and sorting url params
+                  description: This example demonstrates how to search for companies using the ZoomInfo API utilizing multiple input fields. In this example, the metroRegion and industryCodes field is used to find a list of matching companies on second page with two records per page sorted by name ascending.
+                  value:
+                    data:
+                    - attributes:
+                        name: 123cd.org
+                      id: '57295081'
+                      type: Company
+                    - attributes:
+                        name: 12Kerala
+                      id: '352306193'
+                      type: Company
+                    links:
+                      first: uri=/data/v1/companies/search?page[number]=1&page[size]=2
+                      last: uri=/data/v1/companies/search?page[number]=1426&page[size]=2
+                      next: uri=/data/v1/companies/search?page[number]=4&page[size]=2
+                      prev: uri=/data/v1/companies/search?page[number]=2&page[size]=2
+                    meta:
+                      page:
+                        number: 2
+                        total: 2
+                      totalResults: 2845
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Search
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/CompanySearchRequest'
+            examples:
+              Company search by companyName for privileged customer:
+                summary: Company search by companyName for privileged customer
+                description: This example demonstrates how to search for companies using the ZoomInfo API utilizing input field. In this example, the companyName field is used to find a list of matching companies.
+                value:
+                  data:
+                    attributes:
+                      companyName: Zoominfo
+                    type: CompanySearch
+              Company search by metro region, industry codes including pagination and sorting url params:
+                summary: Company search by metro region, industry codes including pagination and sorting url params
+                description: This example demonstrates how to search for companies using the ZoomInfo API utilizing multiple input fields. In this example, the metroRegion and industryCodes field is used to find a list of matching companies on second page with two records per page sorted by name ascending.
+                value:
+                  data:
+                    attributes:
+                      metroRegion: usa.california.sanfrancisco
+                      industryCodes: education.university
+                    type: CompanySearch
+        description: The request body containing company search criteria.
+      security:
+      - OAuth2Auth:
+        - api:data:company
+      x-additional-content-types:
+      - application/json
+      x-api-roles:
+      - fea:zia
+      - fea:api
+      x-api-role-requirement: ANY_REQUIRED
+  /data/v1/intent/search:
+    post:
+      operationId: SearchInterface_searchIntent
+      summary: Search Intent
+      description: "Returns a list of Intent Signals from ZoomInfo's data that meet the specified search criteria. It is required \nthat every request include at least 1 and up to 50 intent topics in the request.\n\nIntent data is online behavior-based activity across the internet that links prospective buyers (companies) to a topic.\nIntent Signals are the way ZoomInfo tracks intent data and can be used to indicate recent content consumption for a specific\ntopic by employees at a company. Key terminology for Intent Signals includes:\n\n* **Topic** - A business subject or technology area mapped to a curated collection of keywords and search terms. \nWhen companies research content containing these keywords, it generates intent signals that indicate their buying interest\n* **Signal Score** - Indicates the level of a company's interest in a topic based on how recent content consumption \ncompares to an historical baseline\n* **Audience Strength** - Indicates the size of the group at the company that is conducting the research\n\nUse Search Intent to find Intent Signals across all ZoomInfo companies. To find Intent Signals for a specific company, use the\n[Enrich Intent](ref:enrichinterface_enrichintent) endpoint.\n\nInput parameters may require specific values. You can use the [Lookup Data](ref:lookupinterface_lookup)\nendpoint to retrieve the list of possible values.\n\nWith reference to ZoomInfo's [Credit Usage and Limits](doc:credit-usage-and-limits), this endpoint does not\nconsume any credits, but each Intent Signal returned in the results is counted as a Record and a successful response\nwill count as a Request credit."
+      parameters:
+      - name: page[number]
+        in: query
+        required: false
+        description: 'The page of results that you want to retrieve. If not provided, the first page
+
+          of results will be returned. Use in connection with `page[size]` to handle large result sets.
+
+
+          Example: `page[number]=2&page[size]=25` will return the second page of result (results 26-50 based
+
+          on the `sort` value).'
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+        explode: false
+      - name: page[size]
+        in: query
+        required: false
+        description: 'Sets the number of records to return per page. If not provided, the default is 25 records per
+
+          page. Valid values for page size are any integer from 1 to 100.'
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 100
+        explode: false
+      - name: sort
+        in: query
+        required: false
+        description: 'Sort results by the specified output field. Valid values are `signalDate`, `companyName`, `signalScore`,
+
+          `category`, `topic`, and `audienceStrength`. Add minus sign (''-'') for descending order. The default,
+
+          if not provided, is to sort the results by `topic` name in descending order (`-topic`)
+
+
+          Examples:
+
+          - `companyName` will sort results by company name in ascending alphabetical order.
+
+          - `-signalDate` will sort results in descending order by signal date (from most recent signals to
+
+          the oldest signals)'
+        schema:
+          type: string
+        explode: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/IntentSearchResponse'
+              examples:
+                Intent search by various attributes:
+                  summary: Intent search by various attributes
+                  description: This example demonstrates how to search for intent topics using the ZoomInfo API utilizing input fields.
+                  value:
+                    data:
+                    - attributes:
+                        audienceStrength: B
+                        category: Cloud
+                        recommendedContacts:
+                        - id: '4191419698'
+                          firstName: Filip
+                          lastName: Popovic
+                          jobTitle: Chief Technology Officer
+                          companyName: ZoomInfo
+                        - id: '1260398587'
+                          firstName: John
+                          lastName: Doe
+                          jobTitle: Software Engineer
+                          companyName: TechCorp
+                        signalDate: '2025-05-24T00:00:00Z'
+                        signalScore: 82
+                        spikesInDateRange: 1
+                        topic: Cloud Applications
+                      id: vopctz9gg4g8#47028048#20250524
+                      type: Intent
+                    links:
+                      first: /data/v1/intents/search?page#[number]=1&page#[size]=25
+                      last: /data/v1/intents/search?page#[number]=1&page#[size]=25
+                    meta:
+                      page:
+                        number: 1
+                        total: 1
+                      totalResults: 1
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Search
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/IntentSearchRequest'
+            examples:
+              Intent search by various attributes:
+                summary: Intent search by various attributes
+                description: This example demonstrates how to search for intent topics using the ZoomInfo API utilizing input fields.
+                value:
+                  data:
+                    attributes:
+                      topics:
+                      - Cloud Applications
+                      signalScoreMin: 80
+                      signalScoreMax: 100
+                      audienceStrengthMin: C
+                      audienceStrengthMax: A
+                      metroRegion: usa.california.sanfrancisco
+                      industryCodes: education.university
+                    type: IntentSearch
+        description: The request body containing intent search criteria.
+      security:
+      - OAuth2Auth:
+        - api:data:intent
+      x-additional-content-types:
+      - application/json
+      x-api-roles:
+      - fea:zia
+      - fea:api
+      x-api-role-requirement: ANY_REQUIRED
+  /data/v1/news/search:
+    post:
+      operationId: SearchInterface_searchNews
+      summary: Search News
+      description: 'Returns a list of News articles from ZoomInfo''s data that meet the specified search criteria. All inputs are optional,
+
+        but at least one input must be set to get a successful response.
+
+
+        Input parameters may require specific values. You can use the [Lookup Data](ref:lookupinterface_lookup)
+
+        endpoint to retrieve the list of possible values.
+
+
+        Use Search News to find News articles across all ZoomInfo companies, if you want to get News articles for a specific ZoomInfo company,
+
+        use the [Enrich News](ref:enrichinterface_enrichnews) endpoint.
+
+
+        With reference to ZoomInfo''s [Credit Usage and Limits](doc:credit-usage-and-limits), this endpoint does not
+
+        consume any Credits. Each News article returned in the results does count towards the customer''s Record Limit
+
+        and a successful response will count towards the Request Limit (e.g. for a response that returns 10 news articles, 10 Records will
+
+        be counted and 1 Request will be counted)'
+      parameters:
+      - name: page[number]
+        in: query
+        required: false
+        description: 'The page of results that you want to retrieve. If not provided, the first page
+
+          of results will be returned. Use in connection with `page[size]` to handle large result sets.
+
+
+          Example: `page[number]=2&page[size]=25` will return the second page of result (results 26-50 based
+
+          on the `sort` value).'
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+        explode: false
+      - name: page[size]
+        in: query
+        required: false
+        description: 'Sets the number of records to return per page. If not provided, the default is 25 records per
+
+          page. Valid values for page size are any integer from 1 to 100.'
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 100
+        explode: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NewsSearchResponse'
+              examples:
+                Search news articles by category and publish date:
+                  summary: Search news articles by category and publish date
+                  description: This example demonstrates how to search for news articles using the ZoomInfo API utilizing categories, pageDateMin and pageDateMax. In this example, the categories field is used to filter articles related to specific topics such as 'PRODUCT' and 'PERSON', and the publish date range is set from January 1, 2024, to December 31, 2024. The response includes articles that match these criteria, with pagination enabled to retrieve results in chunks of two articles per page.
+                  value:
+                    data:
+                    - type: News
+                      id: article-1
+                      attributes:
+                        domain: techcrunch.com
+                        title: ZoomInfo Launches New AI Product
+                        url: https://www.techcrunch.com/articles/zoominfo-launch-ai-product
+                        imageUrl: https://www.techcrunch.com/images/zoominfo-launch.jpg
+                        pageDate: '2024-05-20T14:00:00Z'
+                        categories:
+                        - PRODUCT
+                        description: ZoomInfo has launched a new AI-driven product to enhance go-to-market strategies.
+                        company:
+                        - id: 344589814
+                          name: ZoomInfo
+                    - type: News
+                      id: article-2
+                      attributes:
+                        domain: businesswire.com
+                        title: ZoomInfo Appoints New CTO
+                        url: https://www.businesswire.com/news/zoominfo-new-cto
+                        imageUrl: https://www.businesswire.com/images/cto-hire.jpg
+                        pageDate: '2024-03-12T09:30:00Z'
+                        categories:
+                        - PERSON
+                        description: ZoomInfo has appointed Jane Doe as its new Chief Technology Officer.
+                        company:
+                        - id: 344589814
+                          name: ZoomInfo
+                    meta:
+                      page:
+                        number: 1
+                        total: 1
+                      totalResults: 2
+                    links:
+                      first: /data/v1/news/search?page[number]=1&page[size]=2
+                      last: /data/v1/news/search?page[number]=1&page[size]=2
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Search
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/NewsSearchRequest'
+            examples:
+              Search news articles by category and publish date:
+                summary: Search news articles by category and publish date
+                description: This example demonstrates how to search for news articles using the ZoomInfo API utilizing categories, pageDateMin and pageDateMax. In this example, the categories field is used to filter articles related to specific topics such as 'PRODUCT' and 'PERSON', and the publish date range is set from January 1, 2024, to December 31, 2024. The response includes articles that match these criteria, with pagination enabled to retrieve results in chunks of two articles per page.
+                value:
+                  data:
+                    type: NewsSearch
+                    attributes:
+                      categories:
+                      - PRODUCT
+                      - PERSON
+                      pageDateMin: '2024-01-01'
+                      pageDateMax: '2024-12-31'
+        description: The request body containing news search criteria.
+      security:
+      - OAuth2Auth:
+        - api:data:news
+      x-additional-content-types:
+      - application/json
+      x-api-roles:
+      - fea:zia
+      - fea:api
+      x-api-role-requirement: ANY_REQUIRED
+  /data/v1/scoops/search:
+    post:
+      operationId: SearchInterface_searchScoop
+      summary: Search Scoops
+      description: "Returns a list of Scoops from ZoomInfo's data that meet the specified search criteria. \n\nScoops are real-time business intelligence signals that provide timely insights into significant events \nand changes occurring at companies. These actionable data points help sales and marketing teams identify \nopportunities and engage prospects at the right moment.\n\nInput parameters may require specific values. You can use the [Lookup Data](ref:lookupinterface_lookup)\nendpoint to retrieve the list of possible values.\n\nUse Search Scoops to find Scoops across all ZoomInfo companies, if you want to get Scoops for a specific ZoomInfo company,\nuse the [Enrich Scoops](ref:enrichinterface_enrichscoop) endpoint.\n\nWith reference to ZoomInfo's [Credit Usage and Limits](doc:credit-usage-and-limits), this endpoint does not\nconsume any Credits. Each Scoop returned in the results does count towards the customer's Record Limit\nand a successful response will count towards the Request Limit (e.g. for a response that returns 10 Scoops, 10 Records will\nbe counted and 1 Request will be counted)"
+      parameters:
+      - name: page[number]
+        in: query
+        required: false
+        description: 'The page of results that you want to retrieve. If not provided, the first page
+
+          of results will be returned. Use in connection with `page[size]` to handle large result sets.
+
+
+          Example: `page[number]=2&page[size]=25` will return the second page of result (results 26-50 based
+
+          on the `sort` value).'
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+        explode: false
+      - name: page[size]
+        in: query
+        required: false
+        description: 'Sets the number of records to return per page. If not provided, the default is 25 records per
+
+          page. Valid values for page size are any integer from 1 to 100.'
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 100
+        explode: false
+      - name: sort
+        in: query
+        required: false
+        description: 'Sort results by the specified output field. Valid values are `scoopId`, `originalPublishedDate`, `description`,
+
+          `link`, and `linkText`. Add minus sign (''-'') for descending order. The default, if not provided, is to sort the
+
+          results by `originalPublishedDate` in descending order (`-originalPublishedDate`)
+
+
+          Examples:
+
+          - `scoopId` will sort results by Scoop id in ascending alphabetical order.
+
+          - `-description` will sort results in reverse alphabetical order by the Scoop description'
+        schema:
+          type: string
+        explode: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ScoopSearchResponse'
+              examples:
+                Search scoops by company name and scoop type:
+                  summary: Search scoops by company name and scoop type
+                  description: This example demonstrates how to search for scoops using the ZoomInfo API by filtering on company name and scoop type. In this example, we search for ZoomInfo company scoops with scoop type '6' (Award type), within a date range from November 1, 2018, to March 1, 2019. The response returns 3 award-related scoops, each containing company information, descriptions, publication dates, and associated topics and types metadata.
+                  value:
+                    data:
+                    - type: Scoop
+                      id: '1382057'
+                      attributes:
+                        id: '1382057'
+                        company:
+                          id: '344589814'
+                          name: ZoomInfo
+                        description: 'ZoomInfo Datanyze has recently been ranked #986 on the 2019 SaaS 1000 Top SaaS Companies list.'
+                        originalPublishedDate: '2019-02-22T00:00:00Z'
+                        publishedDate: '2019-02-22T00:00:00Z'
+                        types:
+                        - id: '6'
+                          type: Award
+                    - type: Scoop
+                      id: '1382056'
+                      attributes:
+                        id: '1382056'
+                        company:
+                          id: '344589814'
+                          name: ZoomInfo
+                        description: 'ZoomInfo has recently been ranked #139 on the 2019 SaaS 1000 Top SaaS Companies list.'
+                        originalPublishedDate: '2019-02-15T00:00:00Z'
+                        publishedDate: '2019-02-15T00:00:00Z'
+                        topics:
+                        - id: '5'
+                          topic: Award
+                        types:
+                        - id: '6'
+                          type: Award
+                    - type: Scoop
+                      id: '1373240'
+                      attributes:
+                        id: '1373240'
+                        company:
+                          id: '344589814'
+                          name: ZoomInfo
+                        description: ZoomInfo has been recognized as a 2019 Top Rated Sales Intelligence Software by TrustRadius.
+                        originalPublishedDate: '2019-02-11T00:00:00Z'
+                        publishedDate: '2019-02-11T00:00:00Z'
+                        topics:
+                        - id: '5'
+                          topic: Award
+                        types:
+                        - id: '6'
+                          type: Award
+                    links:
+                      first: uri=/data/v1/scoops/search?page[number]=1&page[size]=25
+                      last: uri=/data/v1/scoops/search?page[number]=1&page[size]=25
+                    meta:
+                      page:
+                        number: 1
+                        total: 3
+                      totalResults: 3
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Search
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/ScoopSearchRequest'
+            examples:
+              Search scoops by company name and scoop type:
+                summary: Search scoops by company name and scoop type
+                description: This example demonstrates how to search for scoops using the ZoomInfo API by filtering on company name and scoop type. In this example, we search for ZoomInfo company scoops with scoop type '6' (Award type), within a date range from November 1, 2018, to March 1, 2019. The response returns 3 award-related scoops, each containing company information, descriptions, publication dates, and associated topics and types metadata.
+                value:
+                  data:
+                    type: ScoopSearch
+                    attributes:
+                      scoopType: '6'
+                      updatedSinceCreation: false
+                      publishedStartDate: '2018-11-01'
+                      publishedEndDate: '2019-03-01'
+        description: The request body containing scoop search criteria.
+      security:
+      - OAuth2Auth:
+        - api:data:scoops
+      x-additional-content-types:
+      - application/json
+      x-api-roles:
+      - fea:zia
+      - fea:api
+      x-api-role-requirement: ANY_REQUIRED
+components:
+  schemas:
+    ContactSearchResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+          description: The primary data of the document
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/ResultMeta'
+          description: Non-standard meta information about the document
+        links:
+          allOf:
+          - $ref: '#/components/schemas/Links'
+          description: Links related to the primary data
+      description: A list of contacts that match the criteria specified in the request
+    ScoopCompany:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ZoomInfo identifier for a company.
+        name:
+          type: string
+          description: Company name.
+      description: ScoopCompany
+    ScoopContact:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique ZoomInfo identifier for a person.
+        firstName:
+          type: string
+          description: Contact first name.
+        lastName:
+          type: string
+          description: Contact last name.
+        jobTitle:
+          type: string
+          description: Contact job title at current place of employment.
+        jobFunction:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobFunction'
+          description: Contact job function at their current place of employment.
+      description: ScoopContact
+    IntentSearchResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntentResponse'
+          description: The primary data of the document
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/ResultMeta'
+          description: Non-standard meta information about the document
+        links:
+          allOf:
+          - $ref: '#/components/schemas/Links'
+          description: Links related to the primary data
+      description: A list of intents that match the criteria specified in the request
+    CompanySearchResponseAttributes:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Company Name.
+        city:
+          type: string
+          description: City of the company's primary address.
+        state:
+          type: string
+          description: State or province of the company's primary address.
+        country:
+          type: string
+          description: Country of the company's primary address.
+        revenue:
+          type: string
+          description: Approximate yearly revenue for the company in 1000's. For example, a 100M company is expressed as 100000.
+        employeeCount:
+          type: string
+          description: Approximate number of people employed by the company.
+        website:
+          type: string
+          description: Company website URL.
+        logo:
+          type: string
+          description: The URL which can be used to retrieve the logo for the company.
+        managementStatus:
+          allOf:
+          - $ref: '#/components/schemas/ManagementStatus'
+          description: Management status of the record.
+      description: Response attributes for company search.
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
+    ScoopSearchRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/ScoopSearchResource'
+          description: The primary data of the document
+      description: News search request.
+    IntentSearchRequestAttributes:
+      type: object
+      required:
+      - topics
+      properties:
+        topics:
+          type: array
+          items:
+            type: string
+          description: Intent topics. Accepts an Array of up to 50 Strings. See the 'Intent Topics' Lookup endpoint for values.
+        signalStartDate:
+          type: string
+          format: date
+          description: Start date for a company signaling interest in a topic. Uses YYYY-MM-DD format.
+        signalEndDate:
+          type: string
+          format: date
+          description: End date for a company signaling interest in a topic. Uses YYYY-MM-DD format.
+        signalScoreMin:
+          type: integer
+          format: int32
+          description: Minimum signal score. Use with signalScoreMax to form a range. Minimum score is 60 and maximum is 100.
+        signalScoreMax:
+          type: integer
+          format: int32
+          description: Maximum signal score. Use with signalScoreMin to form a range. Minimum score is 60 and maximum is 100.
+        audienceStrengthMin:
+          type: string
+          description: Minimum audience strength score. Use with audienceStrengthMax to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.
+        audienceStrengthMax:
+          type: string
+          description: Maximum audience strength score. Use with audienceStrengthMin to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.
+        findRecommendedContacts:
+          type: boolean
+          description: Default is true. Set to false to exclude recommended contacts from results.
+        businessModel:
+          type: array
+          items:
+            type: string
+          description: Search using Business Model (B2C, B2B, B2G) for a company. Default is All.
+        companyTicker:
+          type: array
+          items:
+            type: string
+          description: Company stock ticker symbol.
+        companyDescription:
+          type: string
+          description: Search for companies based on description. Accepts a space-separated list of individual words.
+        companyType:
+          type: string
+          description: Company type (private, public, etc.). Accepts a comma-separated list of types.
+        address:
+          type: string
+          description: Full Company Address.
+        street:
+          type: string
+          description: Street address portion of the company's location.
+        state:
+          type: string
+          description: State or province of the company's address.
+        zipCode:
+          type: string
+          description: Zip Code or Postal Code of the company's address.
+        country:
+          type: string
+          description: Country of the primary address of the associated company.
+        continent:
+          type: string
+          description: Continent of the primary address of the associated company.
+        zipCodeRadiusMiles:
+          type: integer
+          format: int16
+          description: Used in conjunction with zipCode, designates a geographical radius (in miles) from the zipCode provided. Supported values are [10, 25, 50, 100, 250]
+        hashTagString:
+          type: string
+          description: Hash tags for a company. Can include a comma-separated list.
+        techAttributeTagList:
+          type: string
+          description: Technology Product Tags. Can include a comma-separated list.
+        primaryIndustriesOnly:
+          type: boolean
+          description: Default is false. Used in conjunction with the industryCodes input parameter. When set to true, any result returned must have one of the specified industries as a primary industry. If no industries are specified, then this parameter will be ignored.
+        subUnitTypes:
+          type: string
+          description: Company sub types (e.g., division, subsidiary). Use this in conjunction with parentId or ultimateParentId.
+        industryCodes:
+          type: string
+          description: Top-level industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list.
+        industryKeywords:
+          type: string
+          description: Industry keywords associated with a company. Can include either 'AND' or 'OR' operators. For example, 'software AND security' or 'software OR security'
+        sicCodes:
+          type: string
+          description: The Standard Industrial Classification is a system for classifying industries by a four-digit code numerical assigned by the U.S. government to business establishments to identify the primary business of the establishment. Accepts a comma-separated list.
+        naicsCodes:
+          type: string
+          description: Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. Accepts a comma-separated list of values.
+        revenue:
+          type: string
+          description: Annual revenue range in U.S. dollars. Accepts a comma-separated list of values.
+        revenueMin:
+          type: integer
+          format: int32
+          description: Minimum annual revenue for a company in U.S. dollars (expressed in thousands). Use with revenueMax to set a range.
+        revenueMax:
+          type: integer
+          format: int32
+          description: Maximum annual revenue for a company in U.S. dollars (expressed in thousands). Use with revenueMin to set a range.
+        employeeRangeMin:
+          type: string
+          description: Minimum employee count for a company. Use with employeeRangeMax to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+        employeeRangeMax:
+          type: string
+          description: Maximum employee count for a company. Use with employeeRangeMin to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+        employeeCount:
+          type: string
+          description: Employee count range. Accepts a comma-separated list of values. Alternatively, for more granular ranges, you can use the employeeRangeMin and employeeRangeMax parameters.
+        companyRanking:
+          type: string
+          description: Company ranking (e.g., Fortune 500). Accepts a comma-separated list of IDs.
+        metroRegion:
+          type: string
+          description: Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas.
+        locationSearchType:
+          type: string
+          description: Location type (PersonOrHQ, PersonAndHQ, Person, HQ, PersonThenHQ).
+        fundingAmountMin:
+          type: integer
+          format: int32
+          description: Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMin is used without fundingAmountMax, the result will be the amount specified or greater.
+        fundingAmountMax:
+          type: integer
+          format: int32
+          description: Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMax is used without fundingAmountMin, the result will be the amount specified or less.
+        fundingStartDate:
+          type: string
+          format: date
+          description: Start date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+        fundingEndDate:
+          type: string
+          format: date
+          description: End date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+        zoominfoContactsMin:
+          type: string
+          description: Minimum number of ZoomInfo contacts associated with company.
+        zoominfoContactsMax:
+          type: string
+          description: Maximum number of ZoomInfo contacts associated with company.
+        excludedRegions:
+          type: string
+          description: Accepts a comma-separated list of U.S. and Canada states and metro areas. Companies from any of these regions will be excluded from search results.
+        companyStructureIncludedSubUnitTypes:
+          type: string
+          description: Company hierarchical structure values. Accepts a comma-separated list of values from 'UNSPECIFIED', 'LOCATION', 'DIVISION', 'ACQUISITION', 'SUBSIDIARY', 'FORMER_NEW_NAME'.
+        oneYearEmployeeGrowthRateMin:
+          type: string
+          description: Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range.
+        oneYearEmployeeGrowthRateMax:
+          type: string
+          description: Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range.
+        twoYearEmployeeGrowthRateMin:
+          type: string
+          description: Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range.
+        twoYearEmployeeGrowthRateMax:
+          type: string
+          description: Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range.
+      description: Request Attributes for intent search.
+    NewsSearchResource:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: NewsSearch
+          pattern: NewsSearch
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/NewsRequestAttributes'
+          description: The attributes defining the resource
+      description: News search request resource.
+    CompanySearchResource:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: CompanySearch
+          pattern: CompanySearch
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/CompanySearchRequestAttributes'
+          description: The attributes defining the resource
+      description: Company search request resource.
+    ScoopSearchRequestAttributes:
+      type: object
+      properties:
+        publishedStartDate:
+          type: string
+          format: date
+          description: Starting date to search for scoops based on publication date. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format.
+        publishedEndDate:
+          type: string
+          format: date
+          description: Ending date to search for scoops based on publication date. Form a range using publishedStartDate. Uses YYYY-MM-DD format.
+        updatedSinceCreation:
+          type: boolean
+          description: Default is false. Setting true will only return scoops that have been updated since publishedStartDate.
+        scoopType:
+          type: string
+          description: Retrieve scoops based on type (e.g. earnings, awards and partnerships). Accepts a comma-separated list of IDs from the lookup endpoint.
+        scoopTopic:
+          type: string
+          description: Retrieve scoops based on topic (e.g. integration, consolidation and compliance). Accepts a comma-separated list of IDs from the lookup endpoint.
+        department:
+          type: string
+          description: Retrieve scoops based on department (IT, finance, HR and so on). See the Scoop Departments lookup endpoint for valid inputs..
+        scoopId:
+          type: string
+          description: ZoomInfo unique identifier for a Scoop. Accepts a comma-separated list.
+        description:
+          type: string
+          description: Search for scoops based on description.  Accepts a space-separated list of individual words.
+        businessModel:
+          type: array
+          items:
+            type: string
+          description: Search using Business Model (B2C, B2B, B2G) for a company. Default is All.
+        personId:
+          type: string
+          description: Unique ZoomInfo identifier for the contact. Can include a comma-separated list.
+        emailAddress:
+          type: string
+          description: Email address for the contact in example@example.com format.
+        hashedEmail:
+          type: string
+          description: 'Hashed email value for the contact. Allows searching via an email address with the extra security of not exposing the email. Supported hash algorithms are: MD5, SHA1, SHA256 and SHA512.'
+        fullName:
+          type: string
+          description: Contact full name.
+        firstName:
+          type: string
+          description: Contact first name.
+        middleInitial:
+          type: string
+          description: Contact middle initial.
+        lastName:
+          type: string
+          description: Contact last name.
+        jobTitle:
+          type: string
+          description: Contact job title at current place of employment.
+        exactJobTitle:
+          type: string
+          description: Contact title at current place of employment using exact match logic. Use OR to input multiple job titles.
+        excludeJobTitle:
+          type: string
+          description: Comma-separated list of job titles to exclude from search results.
+        managementLevel:
+          type: string
+          description: Contact management level at current place of employment.
+        excludeManagementLevel:
+          type: string
+          description: Comma separated list of management levels to exclude from search results.
+        boardMember:
+          type: string
+          description: Exclude or include board members from search results. Default behavior is to exclude board members from search results. Submit this as “include” to include board members, set this as “only” to only include board members..
+        excludePartialProfiles:
+          type: boolean
+          description: Defaults to false. To include partial profiles in your search results, set this to true. Contacts who do not have an active company associated with them are considered partial profiles.
+        executivesOnly:
+          type: boolean
+          description: Defaults to false. Set this to true to include only Executives in search results.
+        requiredFields:
+          type: string
+          description: Specify the fields that must be present for a record to return. Accepts a comma-separated list.
+        contactAccuracyScoreMin:
+          type: string
+          description: Minimum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99.
+        contactAccuracyScoreMax:
+          type: string
+          description: Maximum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99.
+        jobFunction:
+          type: string
+          description: Contact job function at their current place of employment.
+        lastUpdatedInMonths:
+          type: integer
+          format: int32
+          description: Number of months within which the contact's profile was last updated.
+        hasBeenNotified:
+          type: string
+          description: Defaults to include. Set this to “exclude” to exclude contacts who have been notified of inclusion in ZoomInfo's database. Set this to “only” to only include contacts who have been notified.
+        companyPastOrPresent:
+          type: string
+          description: Defaults to only include the present company for a contact. Set this to “past” to return past companies, set this to “pastAndPresent” to include both.
+        school:
+          type: string
+          description: School name.
+        degree:
+          type: string
+          description: Searches by contact's education.
+        locationCompanyId:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Searches by contact's locationIds.
+        certified:
+          type: integer
+          format: int32
+          description: Denotes if ZoomInfo's research and data team has confirmed activity within the past 12 months. 1 = certified, 0 = not certified.
+        companyTicker:
+          type: array
+          items:
+            type: string
+          description: Company stock ticker symbol.
+        companyDescription:
+          type: string
+          description: Search for companies based on description. Accepts a space-separated list of individual words.
+        companyType:
+          type: string
+          description: Company type (private, public, etc.). Accepts a comma-separated list of types.
+        address:
+          type: string
+          description: Full Company Address.
+        street:
+          type: string
+          description: Street address portion of the company's location.
+        state:
+          type: string
+          description: State or province of the company's address.
+        zipCode:
+          type: string
+          description: Zip Code or Postal Code of the company's address.
+        country:
+          type: string
+          description: Country of the primary address of the associated company.
+        continent:
+          type: string
+          description: Continent of the primary address of the associated company.
+        zipCodeRadiusMiles:
+          type: integer
+          format: int16
+          description: Used in conjunction with zipCode, designates a geographical radius (in miles) from the zipCode provided. Supported values are [10, 25, 50, 100, 250]
+        hashTagString:
+          type: string
+          description: Hash tags for a company. Can include a comma-separated list.
+        techAttributeTagList:
+          type: string
+          description: Technology Product Tags. Can include a comma-separated list.
+        primaryIndustriesOnly:
+          type: boolean
+          description: Default is false. Used in conjunction with the industryCodes input parameter. When set to true, any result returned must have one of the specified industries as a primary industry. If no industries are specified, then this parameter will be ignored.
+        subUnitTypes:
+          type: string
+          description: Company sub types (e.g., division, subsidiary). Use this in conjunction with parentId or ultimateParentId.
+        industryCodes:
+          type: string
+          description: Top-level industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list.
+        industryKeywords:
+          type: string
+          description: Industry keywords associated with a company. Can include either 'AND' or 'OR' operators. For example, 'software AND security' or 'software OR security'
+        sicCodes:
+          type: string
+          description: The Standard Industrial Classification is a system for classifying industries by a four-digit code numerical assigned by the U.S. government to business establishments to identify the primary business of the establishment. Accepts a comma-separated list.
+        naicsCodes:
+          type: string
+          description: Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. Accepts a comma-separated list of values.
+        revenue:
+          type: string
+          description: Annual revenue range in U.S. dollars. Accepts a comma-separated list of values.
+        revenueMin:
+          type: integer
+          format: int32
+          description: Minimum annual revenue for a company in U.S. dollars (expressed in thousands). Use with revenueMax to set a range.
+        revenueMax:
+          type: integer
+          format: int32
+          description: Maximum annual revenue for a company in U.S. dollars (expressed in thousands). Use with revenueMin to set a range.
+        employeeRangeMin:
+          type: string
+          description: Minimum employee count for a company. Use with employeeRangeMax to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+        employeeRangeMax:
+          type: string
+          description: Maximum employee count for a company. Use with employeeRangeMin to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+        employeeCount:
+          type: string
+          description: Employee count range. Accepts a comma-separated list of values. Alternatively, for more granular ranges, you can use the employeeRangeMin and employeeRangeMax parameters.
+        companyRanking:
+          type: string
+          description: Company ranking (e.g., Fortune 500). Accepts a comma-separated list of IDs.
+        metroRegion:
+          type: string
+          description: Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas.
+        locationSearchType:
+          type: string
+          description: Location type (PersonOrHQ, PersonAndHQ, Person, HQ, PersonThenHQ).
+        fundingAmountMin:
+          type: integer
+          format: int32
+          description: Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMin is used without fundingAmountMax, the result will be the amount specified or greater.
+        fundingAmountMax:
+          type: integer
+          format: int32
+          description: Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMax is used without fundingAmountMin, the result will be the amount specified or less.
+        fundingStartDate:
+          type: string
+          format: date
+          description: Start date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+        fundingEndDate:
+          type: string
+          format: date
+          description: End date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+        zoominfoContactsMin:
+          type: string
+          description: Minimum number of ZoomInfo contacts associated with company.
+        zoominfoContactsMax:
+          type: string
+          description: Maximum number of ZoomInfo contacts associated with company.
+        excludedRegions:
+          type: string
+          description: Accepts a comma-separated list of U.S. and Canada states and metro areas. Companies from any of these regions will be excluded from search results.
+        companyStructureIncludedSubUnitTypes:
+          type: string
+          description: Company hierarchical structure values. Accepts a comma-separated list of values from 'UNSPECIFIED', 'LOCATION', 'DIVISION', 'ACQUISITION', 'SUBSIDIARY', 'FORMER_NEW_NAME'.
+        oneYearEmployeeGrowthRateMin:
+          type: string
+          description: Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range.
+        oneYearEmployeeGrowthRateMax:
+          type: string
+          description: Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range.
+        twoYearEmployeeGrowthRateMin:
+          type: string
+          description: Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range.
+        twoYearEmployeeGrowthRateMax:
+          type: string
+          description: Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range.
+      description: Scoop search request attributes.
+    CompanySearchRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/CompanySearchResource'
+          description: The primary data of the document
+      description: Company search request.
+    NewsResponse:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: News
+          pattern: News
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/NewsResponseAttributes'
+          description: The attributes defining the resource
+      description: News
+    Contact:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: Contact
+          pattern: Contact
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ContactSearchResponseAttributes'
+          description: The attributes defining the resource
+      description: ZoomInfo Contact
+    NewsSearchResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsResponse'
+          description: The primary data of the document
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/ResultMeta'
+          description: Non-standard meta information about the document
+        links:
+          allOf:
+          - $ref: '#/components/schemas/Links'
+          description: Links related to the primary data
+      description: A list of News that match the criteria specified in the request
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    IntentSearchRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/IntentSearchResource'
+          description: The primary data of the document
+      description: Intent search request.
+    ContactSearchResource:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: ContactSearch
+          pattern: ContactSearch
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ContactSearchRequestAttributes'
+          description: The attributes defining the resource
+      description: Contact search request resource.
+    RecommendedContact:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Unique ZoomInfo identifier for the contact.
+        firstName:
+          type: string
+          description: Contact first name.
+        lastName:
+          type: string
+          description: Contact last name.
+        jobTitle:
+          type: string
+          description: Contact job title at current place of employment.
+        companyName:
+          type: string
+          description: Company name of the contact.
+        jobFunctions:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobFunction'
+          description: Contact's job functions. This is an array of job functions that the contact holds or has held.
+      description: Recommended contact for intent search response.
+    IntentCompany:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ZoomInfo unique identifier for the company.
+        name:
+          type: string
+          description: Company name.
+        website:
+          type: string
+          description: Company domain.
+        hasOtherTopicConsumption:
+          type: boolean
+          description: Indicates whether a company has other topics with increased consumption. Values are true and false.
+      description: ZoomInfo Company
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    ContactSearchResponseAttributes:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: Contact first name.
+        middleName:
+          type: string
+          description: Contact middle name.
+        lastName:
+          type: string
+          description: Contact last name.
+        validDate:
+          type: string
+          format: date-time
+          description: Date on which the contact record was last validated.
+        lastUpdatedDate:
+          type: string
+          format: date-time
+          description: Date on which the contact record was last updated.
+        jobTitle:
+          type: string
+          description: Contact job title at current place of employment.
+        contactAccuracyScore:
+          type: number
+          format: double
+          description: This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 75 and maximum is 99.
+        managementLevel:
+          type: string
+          description: Comma-separated list of contact management levels.
+        school:
+          type: string
+          description: Get last Education information.
+        hasEmail:
+          type: boolean
+          description: Indicates whether ZoomInfo has an email address for the contact.
+        hasSupplementalEmail:
+          type: boolean
+          description: Indicates whether ZoomInfo has a supplemental email address for the contact.
+        hasDirectPhone:
+          type: boolean
+          description: Indicates whether ZoomInfo has a direct phone number for the contact.
+        hasMobilePhone:
+          type: boolean
+          description: Indicates whether ZoomInfo has a mobile phone number for the contact.
+        hasCompanyIndustry:
+          type: boolean
+          description: Indicates whether ZoomInfo has company industry for the contact.
+        hasCompanyPhone:
+          type: boolean
+          description: Indicates whether ZoomInfo has a company phone number for the contact.
+        hasCompanyStreet:
+          type: boolean
+          description: Indicates whether ZoomInfo has a street address for the contact.
+        hasCompanyState:
+          type: boolean
+          description: Indicates whether ZoomInfo has a state for the contact.
+        hasCompanyZipCode:
+          type: boolean
+          description: Indicates whether ZoomInfo has a zip code or postal code for the contact.
+        hasCompanyCountry:
+          type: boolean
+          description: Indicates whether ZoomInfo has a country for the contact.
+        hasCompanyRevenue:
+          type: boolean
+          description: Indicates whether ZoomInfo has company revenue data for the contact.
+        hasCompanyEmployeeCount:
+          type: boolean
+          description: Indicates whether ZoomInfo has company headcount data for the contact.
+        directPhoneDoNotCall:
+          type: boolean
+          description: Contact flagged with do not call for direct phone.
+        mobilePhoneDoNotCall:
+          type: boolean
+          description: Contact flagged with do not call for mobile phone.
+        managementStatus:
+          allOf:
+          - $ref: '#/components/schemas/ManagementStatus'
+          description: Management status of the record.
+        company:
+          allOf:
+          - $ref: '#/components/schemas/ContactCompanySearch'
+          description: Contact's company data for search request.
+      description: Response attributes for contact search.
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
+    NewsCompany:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique ZoomInfo identifier for the company.
+        name:
+          type: string
+          description: Company name.
+      description: Company related to the news article.
+    Page:
+      type: object
+      required:
+      - total
+      - number
+      properties:
+        total:
+          type: integer
+          format: uint32
+          description: The total number of pages within the current result set
+        number:
+          type: integer
+          format: uint32
+          description: The current page number of the results
+      description: Meta information related to the current page and total number of pages
+    NewsSearchRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/NewsSearchResource'
+          description: The primary data of the document
+      description: News search request.
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+          format: uri
+          description: A link to the first page of data
+        last:
+          type: string
+          format: uri
+          description: A link to the last page of data
+        prev:
+          type: string
+          format: uri
+          description: A link to the previous page of data
+        next:
+          type: string
+          format: uri
+          description: A link to the next page of data
+      description: Helpful links for fetching different pages of data from the current result set. When using these links, please provide the exact same request body between requests
+    ManagementStatus:
+      type: object
+      properties:
+        underManagement:
+          type: boolean
+          description: Indicates whether record is under management within the contract period.
+        purchaseDate:
+          type: string
+          format: date-time
+          description: Indicates when record was purchased if it is under management.
+      description: Management status of the record.
+    ScoopSearchResource:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: ScoopSearch
+          pattern: ScoopSearch
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ScoopSearchRequestAttributes'
+          description: The attributes defining the resource
+      description: Scoop search request resource.
+    IntentResponse:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: Intent
+          pattern: Intent
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/IntentSearchResponseAttributes'
+          description: The attributes defining the resource
+      description: ZoomInfo Intent
+    JobFunction:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the job function.
+        department:
+          type: string
+          description: Department associated with the job function.
+      description: Contact job function at current place of employment.
+    NewsResponseAttributes:
+      type: object
+      properties:
+        domain:
+          type: string
+          description: Domain name of the news source.
+        title:
+          type: string
+          description: Title of the news article.
+        url:
+          type: string
+          description: Full URL of the article.
+        imageUrl:
+          type: string
+          description: URL of the article image.
+        pageDate:
+          type: string
+          format: date-time
+          description: Publish date of the article.
+        categories:
+          type: array
+          items:
+            type: string
+          description: Categories assigned to the article.
+        description:
+          type: string
+          description: Summary or body of the article.
+        company:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsCompany'
+          description: Companies mentioned in the article.
+      description: Attributes of a single news result.
+    NewsRequestAttributes:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            type: string
+          description: Category of news articles. Accepts an Array of String. See the 'News Categories' lookup endpoint for values.
+        url:
+          type: array
+          items:
+            type: string
+          description: News URL strings. Accepts an Array of String. Minimum of 5 characters per input
+        pageDateMin:
+          type: string
+          format: date
+          description: Specify the earliest publishing date for news articles returned. Uses YYYY-MM-DD format (e.g., 2020-01-01 will return all news articles published on or after Jan 1, 2020).
+        pageDateMax:
+          type: string
+          format: date
+          description: Specify the latest publishing date for news articles articles. Uses YYYY-MM-DD format (e.g., 2020-01-31 will return all new articles published on or before Jan 31, 2020).
+      description: Request attributes for news.
+    CompanySearchResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyResponse'
+          description: The primary data of the document
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/ResultMeta'
+          description: Non-standard meta information about the document
+        links:
+          allOf:
+          - $ref: '#/components/schemas/Links'
+          description: Links related to the primary data
+      description: A list of companies that match the criteria specified in the request
+    CompanyResponse:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: Company
+          pattern: Company
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/CompanySearchResponseAttributes'
+          description: The attributes defining the resource
+      description: ZoomInfo Company
+    ContactsEmploymentHistory:
+      type: object
+      required:
+      - companyName
+      - jobTitle
+      properties:
+        companyName:
+          type: string
+          description: Company name of past employment.
+        jobTitle:
+          type: string
+          description: Job title at past employment.
+      description: Employment history criteria used in contact search.
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+    CompanySearchRequestAttributes:
+      type: object
+      properties:
+        marketingDepartmentBudgetMin:
+          type: integer
+          format: int32
+          description: Minimum marketing department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+        marketingDepartmentBudgetMax:
+          type: integer
+          format: int32
+          description: Maximum marketing department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+        financeDepartmentBudgetMin:
+          type: integer
+          format: int32
+          description: Minimum finance department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+        financeDepartmentBudgetMax:
+          type: integer
+          format: int32
+          description: Maximum finance department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+        itDepartmentBudgetMin:
+          type: integer
+          format: int32
+          description: Minimum information technology department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+        itDepartmentBudgetMax:
+          type: integer
+          format: int32
+          description: Maximum information technology department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+        hrDepartmentBudgetMin:
+          type: integer
+          format: int32
+          description: Minimum human resources department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+        hrDepartmentBudgetMax:
+          type: integer
+          format: int32
+          description: Maximum human resources department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+        certified:
+          type: integer
+          format: int32
+          description: Denotes if ZoomInfo's research and data team has confirmed activity within the past 12 months. 1 = certified, 0 = not certified.
+        excludeDefunctCompanies:
+          type: boolean
+          description: Defaults to false. Set true to exclude defunct companies from results.
+        businessModel:
+          type: array
+          items:
+            type: string
+          description: Search using Business Model (B2C, B2B, B2G) for a company. Default is All.
+        underManagement:
+          type: boolean
+          description: Returns whether or not record is under management if set to true.
+        companyTicker:
+          type: array
+          items:
+            type: string
+          description: Company stock ticker symbol.
+        companyDescription:
+          type: string
+          description: Search for companies based on description. Accepts a space-separated list of individual words.
+        companyType:
+          type: string
+          description: Company type (private, public, etc.). Accepts a comma-separated list of types.
+        address:
+          type: string
+          description: Full Company Address.
+        street:
+          type: string
+          description: Street address portion of the company's location.
+        state:
+          type: string
+          description: State or province of the company's address.
+        zipCode:
+          type: string
+          description: Zip Code or Postal Code of the company's address.
+        country:
+          type: string
+          description: Country of the primary address of the associated company.
+        continent:
+          type: string
+          description: Continent of the primary address of the associated company.
+        zipCodeRadiusMiles:
+          type: integer
+          format: int16
+          description: Used in conjunction with zipCode, designates a geographical radius (in miles) from the zipCode provided. Supported values are [10, 25, 50, 100, 250]
+        hashTagString:
+          type: string
+          description: Hash tags for a company. Can include a comma-separated list.
+        techAttributeTagList:
+          type: string
+          description: Technology Product Tags. Can include a comma-separated list.
+        primaryIndustriesOnly:
+          type: boolean
+          description: Default is false. Used in conjunction with the industryCodes input parameter. When set to true, any result returned must have one of the specified industries as a primary industry. If no industries are specified, then this parameter will be ignored.
+        subUnitTypes:
+          type: string
+          description: Company sub types (e.g., division, subsidiary). Use this in conjunction with parentId or ultimateParentId.
+        industryCodes:
+          type: string
+          description: Top-level industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list.
+        industryKeywords:
+          type: string
+          description: Industry keywords associated with a company. Can include either 'AND' or 'OR' operators. For example, 'software AND security' or 'software OR security'
+        sicCodes:
+          type: string
+          description: The Standard Industrial Classification is a system for classifying industries by a four-digit code numerical assigned by the U.S. government to business establishments to identify the primary business of the establishment. Accepts a comma-separated list.
+        naicsCodes:
+          type: string
+          description: Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. Accepts a comma-separated list of values.
+        revenue:
+          type: string
+          description: Annual revenue range in U.S. dollars. Accepts a comma-separated list of values.
+        revenueMin:
+          type: integer
+          format: int32
+          description: Minimum annual revenue for a company in U.S. dollars (expressed in thousands). Use with revenueMax to set a range.
+        revenueMax:
+          type: integer
+          format: int32
+          description: Maximum annual revenue for a company in U.S. dollars (expressed in thousands). Use with revenueMin to set a range.
+        employeeRangeMin:
+          type: string
+          description: Minimum employee count for a company. Use with employeeRangeMax to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+        employeeRangeMax:
+          type: string
+          description: Maximum employee count for a company. Use with employeeRangeMin to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+        employeeCount:
+          type: string
+          description: Employee count range. Accepts a comma-separated list of values. Alternatively, for more granular ranges, you can use the employeeRangeMin and employeeRangeMax parameters.
+        companyRanking:
+          type: string
+          description: Company ranking (e.g., Fortune 500). Accepts a comma-separated list of IDs.
+        metroRegion:
+          type: string
+          description: Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas.
+        locationSearchType:
+          type: string
+          description: Location type (PersonOrHQ, PersonAndHQ, Person, HQ, PersonThenHQ).
+        fundingAmountMin:
+          type: integer
+          format: int32
+          description: Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMin is used without fundingAmountMax, the result will be the amount specified or greater.
+        fundingAmountMax:
+          type: integer
+          format: int32
+          description: Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMax is used without fundingAmountMin, the result will be the amount specified or less.
+        fundingStartDate:
+          type: string
+          format: date
+          description: Start date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+        fundingEndDate:
+          type: string
+          format: date
+          description: End date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+        recentFundingRoundTypes:
+          type: array
+          items:
+            type: string
+          description: 'Filters for companies whose most recent funding round matches one of the given types. Accepts an array of values from the endpoint: /lookup/funding-round-types. This is a different filter mode than allFundingRoundTypes (which matches any round in the company''s history), so only one of the two should be supplied per request.'
+        allFundingRoundTypes:
+          type: array
+          items:
+            type: string
+          description: 'Filters for companies that have had any funding round (at any point in their history) matching one of the given types. Accepts an array of values from the endpoint: /lookup/funding-round-types. This is a different filter mode than recentFundingRoundTypes (which matches only the most recent round), so only one of the two should be supplied per request.'
+        zoominfoContactsMin:
+          type: string
+          description: Minimum number of ZoomInfo contacts associated with company.
+        zoominfoContactsMax:
+          type: string
+          description: Maximum number of ZoomInfo contacts associated with company.
+        excludedRegions:
+          type: string
+          description: Accepts a comma-separated list of U.S. and Canada states and metro areas. Companies from any of these regions will be excluded from search results.
+        companyStructureIncludedSubUnitTypes:
+          type: string
+          description: Company hierarchical structure values. Accepts a comma-separated list of values from 'UNSPECIFIED', 'LOCATION', 'DIVISION', 'ACQUISITION', 'SUBSIDIARY', 'FORMER_NEW_NAME'.
+        oneYearEmployeeGrowthRateMin:
+          type: string
+          description: Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range.
+        oneYearEmployeeGrowthRateMax:
+          type: string
+          description: Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range.
+        twoYearEmployeeGrowthRateMin:
+          type: string
+          description: Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range.
+        twoYearEmployeeGrowthRateMax:
+          type: string
+          description: Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range.
+        parentId:
+          type: string
+          description: ZoomInfo Company ID for parent company.
+        ultimateParentId:
+          type: string
+          description: Company sub types (e.g., division, subsidiary). Use this in conjunction with parentId or ultimateParentId.
+        companyId:
+          type: string
+          description: Unique ZoomInfo identifier for a company.
+        companyName:
+          type: string
+          description: Company name.
+        companyWebsite:
+          type: string
+          description: Company website URL in http://www.example.com format. Accepts a comma-separated list.
+        engagementStartDate:
+          type: string
+          format: date
+          description: Engagement start date in YYYY-MM-DD format.
+        engagementEndDate:
+          type: string
+          format: date
+          description: Engagement end date in YYYY-MM-DD format. EngagementStartDate is required.
+        engagementType:
+          type: array
+          items:
+            type: string
+          description: List of engagement types to search for. Accepted values are 'email', 'phone', 'online meeting'. Accepts a comma-separated list of these values.
+        excludeTechAttributeTagList:
+          type: string
+          description: Exclude companies with these technology product tags. String can be one value ('131315') or a comma-separated list which is treated as OR logic ('131315, 132222'). Individual values can also include AND logic ('131315 AND 131301, 132222'). This last example would be evaluated as ((131201 AND 131301) OR 132222).
+      description: Request attributes for company search.
+    ContactCompanySearch:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique ZoomInfo identifier for a company.
+        name:
+          type: string
+          description: Company Name.
+      description: Contact's company data.
+    ContactSearchRequestAttributes:
+      type: object
+      properties:
+        lastUpdatedDateAfter:
+          type: string
+          format: date
+          description: 'Limit results to only contacts that have a `lastUpdateDate` **after** the provided value.
+
+            The value must be a date formatted using the ISO 8601 date format (YYYY-MM-DD).
+
+
+            Example value: `2024-01-01` will return only contacts with a `lastUpdatedDate` after January 1, 2024'
+        validDateAfter:
+          type: string
+          format: date
+          description: 'Limit results to only contacts that have a `validDate` **after** the provided value.
+
+            The value must be a date formatted using the ISO 8601 date format (YYYY-MM-DD)
+
+
+            Example value: `2024-01-01` will return only contacts with a `validDate` after January 1, 2024'
+        phone:
+          type: array
+          items:
+            type: string
+          description: 'List of phone numbers used to locate the contacts you are searching for. The phone numbers can either
+
+            be direct dial office phone numbers or mobile phone numbers. Contacts will be returned if they match a single
+
+            phone number from the provided list. Phone numbers can be formatted in any standard format as all non-digit
+
+            characters will be stripped before searching.
+
+
+            Example: `800-555-2345` is functionally equivalent to `8005552345` as an input value'
+        positionStartDateMin:
+          type: string
+          format: date
+          description: Minimum date for when a contact began current employment. Use with positionStartDateMax to set a range. Uses YYYY-MM-DD format.
+        positionStartDateMax:
+          type: string
+          format: date
+          description: Maximum date for when a contact began current employment. Use with positionStartDateMin to set a range. Uses YYYY-MM-DD format.
+        supplementalEmail:
+          type: array
+          items:
+            type: string
+          description: Supplemental email address for the contact in example@example.com format.
+        webReferences:
+          type: array
+          items:
+            type: string
+          description: List of Web References for a contact. Default criteria is OR between multiple values. Should only contain english letters and numbers.
+        buyingGroup:
+          type: array
+          items:
+            type: string
+          description: Filters results based on the provided Buying Group ID. Only one ID can be submitted.
+        techSkills:
+          type: array
+          items:
+            type: string
+          description: List of technology skill IDs for a contact. Default criteria is OR between multiple values. Should only contain string numbers. Find the IDs for the skills in the lookup endpoint.
+        yearsOfExperience:
+          type: string
+          description: Total years of experience. Accepts a comma-separated list.
+        personId:
+          type: string
+          description: Unique ZoomInfo identifier for the contact. Can include a comma-separated list.
+        emailAddress:
+          type: string
+          description: Email address for the contact in example@example.com format.
+        hashedEmail:
+          type: string
+          description: 'Hashed email value for the contact. Allows searching via an email address with the extra security of not exposing the email. Supported hash algorithms are: MD5, SHA1, SHA256 and SHA512.'
+        fullName:
+          type: string
+          description: Contact full name.
+        firstName:
+          type: string
+          description: Contact first name.
+        middleInitial:
+          type: string
+          description: Contact middle initial.
+        lastName:
+          type: string
+          description: Contact last name.
+        jobTitle:
+          type: string
+          description: Contact title at current place of employment. Use OR to input multiple job titles.
+        exactJobTitle:
+          type: string
+          description: Contact title at current place of employment using exact match logic. Use OR to input multiple job titles.
+        excludeJobTitle:
+          type: string
+          description: Comma-separated list of job titles to exclude from search results.
+        managementLevel:
+          type: string
+          description: Contact management level at current place of employment.
+        excludeManagementLevel:
+          type: string
+          description: Comma-separated list of management levels to exclude from search results.
+        department:
+          type: string
+          description: Contact department at current place of employment. Accepts a comma-separated list of values.
+        boardMember:
+          type: string
+          description: Exclude or include board members from search results. Default behavior is to exclude board members from search results. Submit this as `include` to include board members, set this as `only` to only include board members.
+        excludePartialProfiles:
+          type: boolean
+          description: Defaults to false. To include partial profiles in your search results, set this to true. Contacts who do not have an active company associated with them are considered partial profiles.
+        executivesOnly:
+          type: boolean
+          description: Defaults to false. Set this to true to include only executives in search results.
+        requiredFields:
+          type: string
+          description: Specify a list of required fields for each record returned. Can include email (business email), phone (direct or company phone), directPhone (contact's direct phone), personalEmail, and mobilePhone. Can include a comma-separated list of these fields.
+        contactAccuracyScoreMin:
+          type: string
+          description: Minimum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99.
+        contactAccuracyScoreMax:
+          type: string
+          description: Maximum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99.
+        jobFunction:
+          type: string
+          description: Contact job function at their current place of employment.
+        lastUpdatedInMonths:
+          type: integer
+          format: int32
+          description: Number of months within which the contact's profile was last updated.
+        hasBeenNotified:
+          type: string
+          description: Defaults to include. Set this to `exclude` to exclude contacts who have been notified of inclusion in ZoomInfo's database. Set this to `only` to only include contacts who have been notified.
+        companyPastOrPresent:
+          type: string
+          description: Defaults to only include the present company for a contact. Set this to `past` to return past companies, set this to `pastAndPresent` to include both.
+        school:
+          type: string
+          description: School name.
+        degree:
+          type: string
+          description: Searches by contact's education.
+        locationCompanyId:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Searches by contact's locationIds.
+        underManagement:
+          type: boolean
+          description: Returns whether or not record is under management if set to true.
+        employmentHistory:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactsEmploymentHistory'
+          maxItems: 5
+          description: Search by contact's past employments. Accepts an array of past employment criteria. Contacts matching ANY of the provided past employment records will be returned.
+        companyTicker:
+          type: array
+          items:
+            type: string
+          description: Company stock ticker symbol.
+        companyDescription:
+          type: string
+          description: Search for companies based on description. Accepts a space-separated list of individual words.
+        companyType:
+          type: string
+          description: Company type (private, public, etc.). Accepts a comma-separated list of types.
+        address:
+          type: string
+          description: Full Company Address.
+        street:
+          type: string
+          description: Street address portion of the company's location.
+        state:
+          type: string
+          description: State or province of the company's address.
+        zipCode:
+          type: string
+          description: Zip Code or Postal Code of the company's address.
+        country:
+          type: string
+          description: Country of the primary address of the associated company.
+        continent:
+          type: string
+          description: Continent of the primary address of the associated company.
+        zipCodeRadiusMiles:
+          type: integer
+          format: int16
+          description: Used in conjunction with zipCode, designates a geographical radius (in miles) from the zipCode provided. Supported values are [10, 25, 50, 100, 250]
+        hashTagString:
+          type: string
+          description: Hash tags for a company. Can include a comma-separated list.
+        techAttributeTagList:
+          type: string
+          description: Technology Product Tags. Can include a comma-separated list.
+        primaryIndustriesOnly:
+          type: boolean
+          description: Default is false. Used in conjunction with the industryCodes input parameter. When set to true, any result returned must have one of the specified industries as a primary industry. If no industries are specified, then this parameter will be ignored.
+        subUnitTypes:
+          type: string
+          description: Company sub types (e.g., division, subsidiary). Use this in conjunction with parentId or ultimateParentId.
+        industryCodes:
+          type: string
+          description: Top-level industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact's current company. Can include a comma-separated list.
+        industryKeywords:
+          type: string
+          description: Industry keywords associated with a company. Can include either 'AND' or 'OR' operators. For example, 'software AND security' or 'software OR security'
+        sicCodes:
+          type: string
+          description: The Standard Industrial Classification is a system for classifying industries by a four-digit code numerical assigned by the U.S. government to business establishments to identify the primary business of the establishment. Accepts a comma-separated list.
+        naicsCodes:
+          type: string
+          description: Four-digit numerical codes assigned by the U.S. government to business establishments to identify the primary business of the establishment. Accepts a comma-separated list of values.
+        revenue:
+          type: string
+          description: Annual revenue range in U.S. dollars. Accepts a comma-separated list of values.
+        revenueMin:
+          type: integer
+          format: int32
+          description: Minimum annual revenue for a company in U.S. dollars (expressed in thousands). Use with revenueMax to set a range.
+        revenueMax:
+          type: integer
+          format: int32
+          description: Maximum annual revenue for a company in U.S. dollars (expressed in thousands). Use with revenueMin to set a range.
+        employeeRangeMin:
+          type: string
+          description: Minimum employee count for a company. Use with employeeRangeMax to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+        employeeRangeMax:
+          type: string
+          description: Maximum employee count for a company. Use with employeeRangeMin to set a range. Alternatively, you can use the employeeCount parameter to search for pre-defined ranges.
+        employeeCount:
+          type: string
+          description: Employee count range. Accepts a comma-separated list of values. Alternatively, for more granular ranges, you can use the employeeRangeMin and employeeRangeMax parameters.
+        companyRanking:
+          type: string
+          description: Company ranking (e.g., Fortune 500). Accepts a comma-separated list of IDs.
+        metroRegion:
+          type: string
+          description: Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas.
+        locationSearchType:
+          type: string
+          description: Location type (PersonOrHQ, PersonAndHQ, Person, HQ, PersonThenHQ).
+        fundingAmountMin:
+          type: integer
+          format: int32
+          description: Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMin is used without fundingAmountMax, the result will be the amount specified or greater.
+        fundingAmountMax:
+          type: integer
+          format: int32
+          description: Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If fundingAmountMax is used without fundingAmountMin, the result will be the amount specified or less.
+        fundingStartDate:
+          type: string
+          format: date
+          description: Start date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+        fundingEndDate:
+          type: string
+          format: date
+          description: End date of the funding in YYYY-MM-DD format. If fundingStartDate and fundingEndDate are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date.
+        recentFundingRoundTypes:
+          type: array
+          items:
+            type: string
+          description: 'Filters for companies whose most recent funding round matches one of the given types. Accepts an array of values from the endpoint: /lookup/funding-round-types. This is a different filter mode than allFundingRoundTypes (which matches any round in the company''s history), so only one of the two should be supplied per request.'
+        allFundingRoundTypes:
+          type: array
+          items:
+            type: string
+          description: 'Filters for companies that have had any funding round (at any point in their history) matching one of the given types. Accepts an array of values from the endpoint: /lookup/funding-round-types. This is a different filter mode than recentFundingRoundTypes (which matches only the most recent round), so only one of the two should be supplied per request.'
+        zoominfoContactsMin:
+          type: string
+          description: Minimum number of ZoomInfo contacts associated with company.
+        zoominfoContactsMax:
+          type: string
+          description: Maximum number of ZoomInfo contacts associated with company.
+        excludedRegions:
+          type: string
+          description: Accepts a comma-separated list of U.S. and Canada states and metro areas. Companies from any of these regions will be excluded from search results.
+        companyStructureIncludedSubUnitTypes:
+          type: string
+          description: Company hierarchical structure values. Accepts a comma-separated list of values from 'UNSPECIFIED', 'LOCATION', 'DIVISION', 'ACQUISITION', 'SUBSIDIARY', 'FORMER_NEW_NAME'.
+        oneYearEmployeeGrowthRateMin:
+          type: string
+          description: Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range.
+        oneYearEmployeeGrowthRateMax:
+          type: string
+          description: Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range.
+        twoYearEmployeeGrowthRateMin:
+          type: string
+          description: Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range.
+        twoYearEmployeeGrowthRateMax:
+          type: string
+          description: Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range.
+        parentId:
+          type: string
+          description: ZoomInfo Company ID for parent company.
+        ultimateParentId:
+          type: string
+          description: Company sub types (e.g., division, subsidiary). Use this in conjunction with parentId or ultimateParentId.
+        companyId:
+          type: string
+          description: Unique ZoomInfo identifier for a company.
+        companyName:
+          type: string
+          description: Company name.
+        companyWebsite:
+          type: string
+          description: Company website URL in http://www.example.com format. Accepts a comma-separated list.
+        engagementStartDate:
+          type: string
+          format: date
+          description: Engagement start date in YYYY-MM-DD format.
+        engagementEndDate:
+          type: string
+          format: date
+          description: Engagement end date in YYYY-MM-DD format. EngagementStartDate is required.
+        engagementType:
+          type: array
+          items:
+            type: string
+          description: List of engagement types to search for. Accepted values are 'email', 'phone', 'online meeting'. Accepts a comma-separated list of these values.
+        excludeTechAttributeTagList:
+          type: string
+          description: Exclude companies with these technology product tags. String can be one value ('131315') or a comma-separated list which is treated as OR logic ('131315, 132222'). Individual values can also include AND logic ('131315 AND 131301, 132222'). This last example would be evaluated as ((131201 AND 131301) OR 132222).
+      description: Request Attributes for contact search.
+    ContactSearchRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/ContactSearchResource'
+          description: The primary data of the document
+      description: Contact search request.
+    IntentSearchResponseAttributes:
+      type: object
+      properties:
+        category:
+          type: string
+          description: Intent category.
+        topic:
+          type: string
+          description: Intent topic.
+        signalScore:
+          type: integer
+          format: int32
+          description: Signal score for the topic.
+        audienceStrength:
+          type: string
+          description: Audience strength for the topic.
+        signalDate:
+          type: string
+          format: date-time
+          description: Date the signal was identified.
+        company:
+          allOf:
+          - $ref: '#/components/schemas/IntentCompany'
+          description: Company data for the intent topic.
+        recommendedContacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecommendedContact'
+          description: Suggested contacts at the company that are related to the intent topic.
+        spikesInDateRange:
+          type: integer
+          format: int32
+          description: The total number of intent signals detected during your specified timeframe.
+      description: Response attributes for intent search.
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
+    ScoopSearchResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScoopResponse'
+          description: The primary data of the document
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/ResultMeta'
+          description: Non-standard meta information about the document
+        links:
+          allOf:
+          - $ref: '#/components/schemas/Links'
+          description: Links related to the primary data
+      description: A list of News that match the criteria specified in the request
+    ScoopResponse:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: Scoop
+          pattern: Scoop
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ScoopSearchResponseAttributes'
+          description: The attributes defining the resource
+      description: News
+    IntentSearchResource:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: IntentSearch
+          pattern: IntentSearch
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/IntentSearchRequestAttributes'
+          description: The attributes defining the resource
+      description: Intent search request resource.
+    ScoopSearchResponseAttributes:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ZoomInfo unique identifier for a scoop.
+        publishedDate:
+          type: string
+          format: date-time
+          description: Date when a scoop was published.
+        originalPublishedDate:
+          type: string
+          format: date-time
+          description: Date when a scoop was originally published.
+        linkText:
+          type: string
+          description: Link text for a scoop.
+        link:
+          type: string
+          description: URL for a scoop.
+        description:
+          type: string
+          description: Description associated with the scoop
+        topics:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+          description: Scoop topics.
+        updateText:
+          type: string
+          description: Text related to an updated scoop.
+        types:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+          description: Types associated with a scoop.
+        company:
+          allOf:
+          - $ref: '#/components/schemas/ScoopCompany'
+          description: Company
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScoopContact'
+          description: Contacts associated with a scoop.
+      description: Scoop search response attributes.
+    ResultMeta:
+      type: object
+      required:
+      - totalResults
+      - page
+      properties:
+        totalResults:
+          type: integer
+          format: uint32
+          description: The total number of results based on the specified filters
+        page:
+          allOf:
+          - $ref: '#/components/schemas/Page'
+          description: Paging information for the current result set
+      description: Metadata including paging information and the total number of records in the result set
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.zoominfo.com
+          tokenUrl: https://okta-login.zoominfo.com/oauth2/default/v1/token
+          scopes:
+            api:data:contact: Ability to search and enrich ZoomInfo Contact data
+            api:data:company: Ability to search and enrich ZoomInfo Company data
+            api:data:intent: Ability to search and enrich ZoomInfo Intent data
+            api:data:news: Ability to search and enrich ZoomInfo News data
+            api:data:scoops: Ability to search and enrich ZoomInfo Scoop data
+            api:data:lookup: Lookup ZoomInfo Data

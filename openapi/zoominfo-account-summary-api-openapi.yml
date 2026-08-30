@@ -1,0 +1,320 @@
+openapi: 3.2.0
+info:
+  title: Copilot API V1 Account Summary API
+  version: '1.0'
+  contact:
+    name: ZoomInfo Customer Support
+    email: help@zoominfo.com
+  description: Copilot API for interacting with the Copilot related services.
+servers:
+- url: https://api.zoominfo.com/gtm
+  description: Base URL for the Copilot API
+security:
+- OAuth2Auth: []
+tags:
+- name: Account Summary
+paths:
+  /copilot/v1/companies/{companyId}/account-summary:
+    get:
+      operationId: AccountSummaryInterface_getAccountSummary
+      summary: Get Account Summary
+      description: Retrieve the account summary for a specific company.
+      parameters:
+      - name: companyId
+        in: path
+        required: true
+        description: The unique identifier of the company
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AccountSummaryResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Account Summary
+      security:
+      - OAuth2Auth:
+        - api:account-summary:read
+      x-api-roles:
+      - fea:asu
+  /copilot/v1/companies/{companyId}/account-summary/actions/ask:
+    post:
+      operationId: AccountSummaryInterface_askAccountSummaryQuestion
+      summary: Ask Account Summary Question
+      description: Ask a question about the account summary of a specific company.
+      parameters:
+      - name: companyId
+        in: path
+        required: true
+        description: The unique identifier of the company
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AccountSummaryQuestionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
+      tags:
+      - Account Summary
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/AccountSummaryQuestionRequest'
+        description: The request body containing the question details.
+      security:
+      - OAuth2Auth:
+        - api:account-summary:read
+      x-additional-content-types:
+      - application/json
+      x-api-roles:
+      - fea:cai
+components:
+  schemas:
+    AccountSummaryQuestionAttributes:
+      type: object
+      required:
+      - answer
+      properties:
+        answer:
+          type: string
+          description: The answer to the account summary question.
+      description: Attributes for the AccountSummaryQuestion resource.
+    AccountSummaryQuestionRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/AccountSummaryQuestionRequestResource'
+          description: The primary data of the document
+      description: Request model for asking a question about account-related data.
+    AccountSummaryQuestion:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: AccountSummaryQuestion
+          pattern: AccountSummaryQuestion
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/AccountSummaryQuestionAttributes'
+          description: The attributes defining the resource
+      description: Represents a question and answer about account-related data.
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    AccountSummaryQuestionResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/AccountSummaryQuestion'
+          description: The primary data of the document
+      description: Response model for asking a question about account-related data.
+    AccountSummaryResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/AccountSummary'
+          description: The primary data of the document
+      description: Resource model for an account summary response.
+    AccountSummaryAttributes:
+      type: object
+      required:
+      - markdown
+      properties:
+        markdown:
+          type: string
+          description: Markdown content providing a summary of account-related data.
+      description: Attributes for the AccountSummary resource.
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    AccountSummaryQuestionRequestAttributes:
+      type: object
+      required:
+      - question
+      properties:
+        question:
+          type: string
+          description: The question to ask about account-related data.
+      description: Attributes for the AccountSummaryQuestionRequest resource.
+    AccountSummary:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: AccountSummary
+          pattern: AccountSummary
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/AccountSummaryAttributes'
+          description: The attributes defining the resource
+      description: Represents a summary of account-related data.
+    AccountSummaryQuestionRequestResource:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: AccountSummaryQuestionRequest
+          pattern: AccountSummaryQuestionRequest
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/AccountSummaryQuestionRequestAttributes'
+          description: The attributes defining the resource
+      description: Represents a request to ask a question about account-related data.
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.zoominfo.com
+          tokenUrl: https://okta-login.zoominfo.com/oauth2/default/v1/token
+          scopes:
+            api:account-summary:read: Read Copilot Account Summary Data
+            api:insights:read: Read Insights Data
+            api:recommendations:read: Read Copilot recommendation data
+            api:gtm-config:read: Read GTM configuration data
+            api:gtm-config:manage: Manage GTM configuration data (create, update, delete)
