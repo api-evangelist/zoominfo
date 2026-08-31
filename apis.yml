@@ -12853,6 +12853,8 @@ apis:
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
+  - Entities
+  tags_raw:
   - entities
   properties:
   - type: OpenAPI
