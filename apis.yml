@@ -13065,6 +13065,8 @@ accessModel:
 image: https://www.zoominfo.com/assets/img/zoominfo-logo.png
 access: 3rd-Party
 common:
+- type: Website
+  url: https://www.zoominfo.com/
 - type: CapabilityMap
   url: capabilities/zoominfo-capability-edges.yml
   name: ZoomInfo Business Capability Map
