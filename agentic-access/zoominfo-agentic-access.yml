@@ -1,19 +1,609 @@
-generated: '2026-07-15'
+generated: '2026-09-16'
 method: generated
-source: openapi/zoominfo-openapi.yml
+source: openapi/zoominfo-account-summary-api-openapi.yml, openapi/zoominfo-agent-teams-api-openapi.yml,
+  openapi/zoominfo-audiences-api-openapi.yml, openapi/zoominfo-authentication-api-openapi.yml,
+  openapi/zoominfo-bulk-api-openapi.yml, openapi/zoominfo-company-enrich-api-openapi.yml, openapi/zoominfo-company-location-enrich-api-openapi.yml,
+  openapi/zoominfo-company-master-data-enrich-api-openapi.yml, openapi/zoominfo-company-search-api-openapi.yml,
+  openapi/zoominfo-compliance-api-api-openapi.yml, openapi/zoominfo-contact-enrich-api-openapi.yml,
+  openapi/zoominfo-contact-search-api-openapi.yml, openapi/zoominfo-corporate-hierarchy-enrich-api-openapi.yml,
+  openapi/zoominfo-customer-buyer-persona-api-openapi.yml, openapi/zoominfo-customer-competitors-api-openapi.yml,
+  openapi/zoominfo-customer-settings-api-openapi.yml, openapi/zoominfo-engagements-api-openapi.yml,
+  openapi/zoominfo-enrich-api-openapi.yml, openapi/zoominfo-entities-api-openapi.yml, openapi/zoominfo-entitlements-api-openapi.yml,
+  openapi/zoominfo-hashtags-enrich-api-openapi.yml, openapi/zoominfo-ideal-customer-profile-api-openapi.yml,
+  openapi/zoominfo-insights-api-openapi.yml, openapi/zoominfo-intent-enrich-api-openapi.yml,
+  openapi/zoominfo-intent-search-api-openapi.yml, openapi/zoominfo-interact-experimental-api-openapi.yml,
+  openapi/zoominfo-lookup-api-openapi.yml, openapi/zoominfo-monitoring-api-webhooks-api-openapi.yml,
+  openapi/zoominfo-news-enrich-api-openapi.yml, openapi/zoominfo-news-search-api-openapi.yml,
+  openapi/zoominfo-orgchart-enrich-api-openapi.yml, openapi/zoominfo-products-and-services-api-openapi.yml,
+  openapi/zoominfo-pulses-api-openapi.yml, openapi/zoominfo-recommendations-api-openapi.yml,
+  openapi/zoominfo-scoop-enrich-api-openapi.yml, openapi/zoominfo-scoop-search-api-openapi.yml,
+  openapi/zoominfo-search-api-openapi.yml, openapi/zoominfo-technology-enrich-api-openapi.yml,
+  openapi/zoominfo-usage-api-openapi.yml, openapi/zoominfo-user-api-openapi.yml, openapi/zoominfo-websights-api-api-openapi.yml,
+  openapi/zoominfo-workflows-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
-  operations: 99
+  operations: 199
   by_action_class:
-    acting: 30
-    connected: 69
+    connected: 109
+    acting: 90
   by_consequence:
-    write: 30
-    read: 69
-  human_in_the_loop_required: 0
+    read: 109
+    write: 85
+    safety-critical: 5
+  human_in_the_loop_required: 5
 operations:
+- path: /copilot/v1/companies/{companyId}/account-summary
+  method: get
+  operationId: AccountSummaryInterface_getAccountSummary
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:account-summary:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /copilot/v1/companies/{companyId}/account-summary/actions/ask
+  method: post
+  operationId: AccountSummaryInterface_askAccountSummaryQuestion
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:account-summary:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /agent/v1/agent-teams
+  method: get
+  operationId: AgentTeamsController_listAgentTeams
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:agent-teams:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /agent/v1/agent-teams/{agentTeamId}
+  method: get
+  operationId: AgentTeamsController_getAgentTeamDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:agent-teams:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /agent/v1/agent-teams/{agentTeamId}/runs
+  method: post
+  operationId: AgentTeamsController_runAgentTeam
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - api:agent-teams:execute
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /agent/v1/agent-teams/{agentTeamId}/runs
+  method: get
+  operationId: AgentTeamsController_listAgentTeamRuns
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:agent-teams:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /agent/v1/agent-teams/{agentTeamId}/runs/{runId}
+  method: get
+  operationId: AgentTeamsController_getAgentTeamRun
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:agent-teams:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /studio/v1/folders
+  method: post
+  operationId: Folders_createFolder
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /studio/v1/folders
+  method: get
+  operationId: Folders_listFolders
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:audience:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /studio/v1/folders/{folderId}
+  method: get
+  operationId: Folders_getFolderById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:audience:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /studio/v1/folders/{folderId}
+  method: patch
+  operationId: Folders_updateFolder
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /studio/v1/folders/{folderId}
+  method: delete
+  operationId: Folders_deleteFolder
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /studio/v1/audiences
+  method: post
+  operationId: Audiences_createAudience
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /studio/v1/audiences
+  method: get
+  operationId: Audiences_listAudiences
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:audience:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /studio/v1/audiences/{audienceId}
+  method: get
+  operationId: Audiences_getAudience
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:audience:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /studio/v1/audiences/{audienceId}
+  method: delete
+  operationId: Audiences_deleteAudience
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /studio/v1/audiences/{audienceId}
+  method: patch
+  operationId: Audiences_patchAudience
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /studio/v1/audiences/{audienceId}/filter-metadata
+  method: get
+  operationId: Audiences_getAudienceFilterMetadata
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:audience:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /studio/v1/audiences/{audienceId}/actions/match-criteria
+  method: post
+  operationId: Audiences_upsertMatchCriteria
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /studio/v1/audiences/{audienceId}/actions/enrich
+  method: post
+  operationId: Audiences_enrichAudience
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /studio/v1/audiences/{audienceId}/jobs/{jobId}
+  method: get
+  operationId: Audiences_getJobStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:audience:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /studio/v1/audiences/{audienceId}/columns/actions/bulk/create
+  method: post
+  operationId: Columns_addColumns
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /studio/v1/audiences/{audienceId}/columns/data-dependencies/{tool}
+  method: get
+  operationId: Columns_getSupportedDataDependencies
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:audience:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /studio/v1/audiences/{audienceId}/columns/{columnId}
+  method: patch
+  operationId: Columns_patchColumn
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /studio/v1/audiences/{audienceId}/columns/{columnId}
+  method: delete
+  operationId: Columns_deleteColumn
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /studio/v1/audiences/{audienceId}/rows/{rowId}
+  method: get
+  operationId: Rows_getRowById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:audience:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /studio/v1/audiences/{audienceId}/rows/actions/search
+  method: post
+  operationId: Rows_listRows
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /studio/v1/audiences/{audienceId}/rows/actions/upsert
+  method: post
+  operationId: Rows_upsertRows
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /studio/v1/audiences/{audienceId}/rows/actions/bulk/upsert
+  method: post
+  operationId: Rows_bulkUpsertRows
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /studio/v1/audiences/{audienceId}/rows/actions/bulk/delete
+  method: delete
+  operationId: Rows_deleteRows
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /marketing/v1/audiences
+  method: post
+  operationId: AudienceInterface_createAudience
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /marketing/v1/audiences
+  method: get
+  operationId: AudienceInterface_getAudiences
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:audience:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /marketing/v1/audiences/{audienceId}
+  method: get
+  operationId: AudienceInterface_getAudience
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:audience:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /marketing/v1/audiences/{audienceId}
+  method: put
+  operationId: AudienceInterface_updateAudience
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /marketing/v1/audiences/{audienceId}
+  method: delete
+  operationId: AudienceInterface_deleteAudience
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /marketing/v1/audiences/{audienceId}/uploads
+  method: post
+  operationId: AudienceInterface_uploadAudience
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:audience-member:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /marketing/v1/audiences/{audienceId}/uploads/{uploadId}
+  method: get
+  operationId: AudienceInterface_getAudienceUpload
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:audience-member:manage
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /authenticate
   method: post
   operationId: Authenticate
@@ -30,9 +620,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /search/contact
+- path: /bulk/search/contact
   method: post
-  operationId: ContactSearch
+  operationId: BulkContactSearch
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -46,29 +636,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /lookup/inputfields/contact/search
-  method: get
-  operationId: ContactSearchInputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /lookup/outputfields/contact/search
-  method: get
-  operationId: ContactSearchOutputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /search/company
+- path: /bulk/search/company
   method: post
-  operationId: CompanySearch
+  operationId: BulkCompanySearch
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -82,29 +652,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /lookup/inputfields/company/search
-  method: get
-  operationId: CompanySearchInputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /lookup/outputfields/company/search
-  method: get
-  operationId: CompanySearchOutputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /search/scoop
+- path: /bulk/enrich/contact
   method: post
-  operationId: ScoopSearch
+  operationId: BulkContactEnrich
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -118,29 +668,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /lookup/inputfields/scoop/search
-  method: get
-  operationId: ScoopSearchInputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /lookup/outputfields/scoop/search
-  method: get
-  operationId: ScoopSearchOutputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /search/news
+- path: /bulk/enrich/company
   method: post
-  operationId: NewsSearch
+  operationId: BulkCompanyEnrich
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -154,29 +684,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /lookup/inputfields/news/search
-  method: get
-  operationId: NewsSearchInputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /lookup/outputfields/news/search
-  method: get
-  operationId: NewsSearchOutputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /search/intent
+- path: /bulk/job/status
   method: post
-  operationId: IntentSearch
+  operationId: BulkJobStatus
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -190,29 +700,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /lookup/inputfields/intent/search
-  method: get
-  operationId: IntentSearchInputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /lookup/outputfields/intent/search
-  method: get
-  operationId: IntentSearchOutputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /enrich/contact
+- path: /bulk/job/results
   method: post
-  operationId: ContactEnrich
+  operationId: BulkJobResults
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -226,26 +716,6 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /lookup/inputfields/contact/enrich
-  method: get
-  operationId: ContactEnrichInputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /lookup/outputfields/contact/enrich
-  method: get
-  operationId: ContactEnrichOutputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /enrich/company
   method: post
   operationId: CompanyEnrich
@@ -275,114 +745,6 @@ operations:
 - path: /lookup/outputfields/company/enrich
   method: get
   operationId: CompanyEnrichOutputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /enrich/company-master
-  method: post
-  operationId: CompanyMasterDataEnrich
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /lookup/inputfields/company-master/enrich
-  method: get
-  operationId: CompanyMasterDataEnrichInputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /lookup/outputfields/company-master/enrich
-  method: get
-  operationId: CompanyMasterDataEnrichOutputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /enrich/orgchart
-  method: post
-  operationId: OrgChartEnrich
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /lookup/inputfields/orgchart/enrich
-  method: get
-  operationId: OrgChartEnrichInputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /lookup/outputfields/orgchart/enrich
-  method: get
-  operationId: OrgChartEnrichOutputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /enrich/corporatehierarchy
-  method: post
-  operationId: CorporateHierarchyEnrich
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /lookup/inputfields/corporatehierarchy/enrich
-  method: get
-  operationId: CorporateHierarchyEnrichInputs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /lookup/outputfields/corporatehierarchy/enrich
-  method: get
-  operationId: CorporateHierarchyEnrichOutputs
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -426,9 +788,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /enrich/tech
+- path: /enrich/company-master
   method: post
-  operationId: TechnologyEnrich
+  operationId: CompanyMasterDataEnrich
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -442,13 +804,707 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /lookup/inputfields/tech/enrich
+- path: /lookup/inputfields/company-master/enrich
   method: get
-  operationId: TechnologyEnrichInputs
+  operationId: CompanyMasterDataEnrichInputs
   x-agentic-access:
     action-class: connected
     consequence: read
     subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lookup/outputfields/company-master/enrich
+  method: get
+  operationId: CompanyMasterDataEnrichOutputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /search/company
+  method: post
+  operationId: CompanySearch
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /lookup/inputfields/company/search
+  method: get
+  operationId: CompanySearchInputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lookup/outputfields/company/search
+  method: get
+  operationId: CompanySearchOutputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /compliance
+  method: post
+  operationId: Compliance
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /lookup/inputfields/compliance/enrich
+  method: get
+  operationId: ComplianceInputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lookup/outputfields/compliance/enrich
+  method: get
+  operationId: ComplianceOutputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /enrich/contact
+  method: post
+  operationId: ContactEnrich
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /lookup/inputfields/contact/enrich
+  method: get
+  operationId: ContactEnrichInputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lookup/outputfields/contact/enrich
+  method: get
+  operationId: ContactEnrichOutputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /search/contact
+  method: post
+  operationId: ContactSearch
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /lookup/inputfields/contact/search
+  method: get
+  operationId: ContactSearchInputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lookup/outputfields/contact/search
+  method: get
+  operationId: ContactSearchOutputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /enrich/corporatehierarchy
+  method: post
+  operationId: CorporateHierarchyEnrich
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /lookup/inputfields/corporatehierarchy/enrich
+  method: get
+  operationId: CorporateHierarchyEnrichInputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lookup/outputfields/corporatehierarchy/enrich
+  method: get
+  operationId: CorporateHierarchyEnrichOutputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /copilot/v1/customer-buyer-personas
+  method: get
+  operationId: CustomerBuyerPersonaInterface_listCustomerBuyerPersonas
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:gtm-config:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /copilot/v1/customer-buyer-personas
+  method: post
+  operationId: CustomerBuyerPersonaInterface_upsertCustomerBuyerPersona
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /copilot/v1/customer-buyer-personas/{buyerPersonaId}
+  method: get
+  operationId: CustomerBuyerPersonaInterface_getCustomerBuyerPersona
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:gtm-config:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /copilot/v1/customer-buyer-personas/{buyerPersonaId}
+  method: delete
+  operationId: CustomerBuyerPersonaInterface_deleteCustomerBuyerPersona
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /copilot/v1/customer-buyer-personas/{buyerPersonaId}/actions/archive
+  method: post
+  operationId: CustomerBuyerPersonaInterface_archiveCustomerBuyerPersona
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /copilot/v1/customer-buyer-personas/{buyerPersonaId}/actions/unarchive
+  method: post
+  operationId: CustomerBuyerPersonaInterface_unarchiveCustomerBuyerPersona
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /copilot/v1/customer-competitors
+  method: get
+  operationId: CustomerCompetitorsInterface_listCustomerCompetitors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:gtm-config:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /copilot/v1/customer-competitors
+  method: post
+  operationId: CustomerCompetitorsInterface_upsertCustomerCompetitor
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /copilot/v1/customer-competitors/{competitorId}
+  method: get
+  operationId: CustomerCompetitorsInterface_getCustomerCompetitor
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:gtm-config:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /copilot/v1/customer-competitors/{competitorId}
+  method: delete
+  operationId: CustomerCompetitorsInterface_deleteCustomerCompetitor
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /copilot/v1/customer-competitors/{competitorId}/actions/archive
+  method: post
+  operationId: CustomerCompetitorsInterface_archiveCustomerCompetitor
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /copilot/v1/customer-competitors/{competitorId}/actions/unarchive
+  method: post
+  operationId: CustomerCompetitorsInterface_unarchiveCustomerCompetitor
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /copilot/v1/customer-settings
+  method: get
+  operationId: CustomerSettingsInterface_getCustomerSettings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:gtm-config:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /copilot/v1/customer-settings
+  method: post
+  operationId: CustomerSettingsInterface_upsertCustomerSettings
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /copilot/v1/customer-settings
+  method: delete
+  operationId: CustomerSettingsInterface_deleteCustomerSettings
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /platform/v1/engagements/content-interactions
+  method: post
+  operationId: EngagementsController_upsertContentInteractions
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - api:gtm-data-model:manage
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /platform/v1/engagements/content-interactions/{id}
+  method: get
+  operationId: EngagementsController_getContentInteractionEngagement
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:gtm-data-model:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /platform/v1/engagements/content-interactions/{id}
+  method: delete
+  operationId: EngagementsController_deleteContentInteractionEngagement
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - api:gtm-data-model:manage
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /data/v1/contacts/enrich
+  method: post
+  operationId: EnrichInterface_enrichContact
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:data:contact
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /data/v1/companies/enrich
+  method: post
+  operationId: EnrichInterface_enrichCompany
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:data:company
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /data/v1/companies/corporate-hierarchy/enrich
+  method: post
+  operationId: EnrichInterface_enrichCorporateHierarchy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:data:company
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /data/v1/intent/enrich
+  method: post
+  operationId: EnrichInterface_enrichIntent
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:data:intent
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /data/v1/news/enrich
+  method: post
+  operationId: EnrichInterface_enrichNews
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:data:news
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /data/v1/companies/org-chart/enrich
+  method: post
+  operationId: EnrichInterface_enrichOrgChart
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:data:contact
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /data/v1/scoops/enrich
+  method: post
+  operationId: EnrichInterface_enrichScoop
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:data:scoops
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /data/v1/companies/technologies/enrich
+  method: post
+  operationId: EnrichInterface_enrichTechnology
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:data:company
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /data/v1/companies/hashtags/enrich
+  method: post
+  operationId: EnrichInterface_enrichHashtag
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:data:company
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /platform/v1/metadata/entities
+  method: get
+  operationId: EntitiesController_getEntitiesList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:gtm-data-model:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /platform/v1/metadata/entities/{entityName}/fields
+  method: get
+  operationId: EntitiesController_getEntityFields
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:gtm-data-model:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /platform/v1/entities/{entityName}
+  method: post
+  operationId: EntitiesController_upsertEntitiesRecords
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - api:gtm-data-model:manage
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /platform/v1/entitlements
+  method: get
+  operationId: EntitlementsController_getEntitlements
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:entitlement:read
     token:
       max-ttl: 3600
     audit: none
@@ -478,6 +1534,120 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /copilot/v1/ideal-company-profile
+  method: get
+  operationId: CustomerIdealCompanySegmentInterface_listIdealCompanySegments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:gtm-config:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /copilot/v1/ideal-company-profile
+  method: post
+  operationId: CustomerIdealCompanySegmentInterface_upsertIdealCompanySegment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /copilot/v1/ideal-company-profile/{segmentId}
+  method: get
+  operationId: CustomerIdealCompanySegmentInterface_getIdealCompanySegment
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:gtm-config:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /copilot/v1/ideal-company-profile/{segmentId}
+  method: delete
+  operationId: CustomerIdealCompanySegmentInterface_deleteIdealCompanySegment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /copilot/v1/ideal-company-profile/{segmentId}/actions/archive
+  method: post
+  operationId: CustomerIdealCompanySegmentInterface_archiveIdealCompanySegment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /copilot/v1/ideal-company-profile/{segmentId}/actions/unarchive
+  method: post
+  operationId: CustomerIdealCompanySegmentInterface_unarchiveIdealCompanySegment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /copilot/v1/companies/insights
+  method: post
+  operationId: InsightsInterface_getCompanyInsightsByType
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:insights:read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /enrich/intent
   method: post
   operationId: IntentEnrich
@@ -514,9 +1684,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /enrich/news
+- path: /search/intent
   method: post
-  operationId: NewsEnrich
+  operationId: IntentSearch
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -530,9 +1700,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /lookup/inputfields/news/enrich
+- path: /lookup/inputfields/intent/search
   method: get
-  operationId: NewsEnrichInputs
+  operationId: IntentSearchInputs
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -540,9 +1710,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /lookup/outputfields/news/enrich
+- path: /lookup/outputfields/intent/search
   method: get
-  operationId: NewsEnrichOutputs
+  operationId: IntentSearchOutputs
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -550,13 +1720,27 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /enrich/scoop
+- path: /agent/v1/agents
+  method: get
+  operationId: AgentInterace_listAgents
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:agent:agentforce
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /agent/v1/agents/{agentId}/actions/interact
   method: post
-  operationId: ScoopEnrich
+  operationId: AgentInterace_interactAgent
   x-agentic-access:
     action-class: acting
     consequence: write
     subject: required
+    scope:
+    - api:agent:agentforce
     audience: null
     token:
       max-ttl: 900
@@ -566,23 +1750,72 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /lookup/inputfields/scoop/enrich
+- path: /agent/v1/agents/{agentId}/actions/stream
+  method: post
+  operationId: AgentInterace_interactAgentStream
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:agent:agentforce
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /data/v1/lookup/{fieldName}
   method: get
-  operationId: ScoopEnrichInputs
+  operationId: LookupInterface_lookup
   x-agentic-access:
     action-class: connected
     consequence: read
     subject: optional
+    scope:
+    - api:data:company
+    - api:data:contact
+    - api:data:intent
+    - api:data:lookup
+    - api:data:news
+    - api:data:scoops
     token:
       max-ttl: 3600
     audit: none
-- path: /lookup/outputfields/scoop/enrich
+- path: /data/v1/lookup/search
   method: get
-  operationId: ScoopEnrichOutputs
+  operationId: LookupSearchInterface_lookupSearch
   x-agentic-access:
     action-class: connected
     consequence: read
     subject: optional
+    scope:
+    - api:data:company
+    - api:data:contact
+    - api:data:intent
+    - api:data:lookup
+    - api:data:news
+    - api:data:scoops
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /data/v1/lookup/enrich
+  method: get
+  operationId: LookupEnrichInterface_lookupEnrich
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:data:company
+    - api:data:contact
+    - api:data:intent
+    - api:data:lookup
+    - api:data:news
+    - api:data:scoops
     token:
       max-ttl: 3600
     audit: none
@@ -906,16 +2139,6 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /lookup/usage
-  method: get
-  operationId: Usage
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /webhooks
   method: post
   operationId: CreateWebhook
@@ -1016,9 +2239,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /bulk/search/contact
+- path: /enrich/news
   method: post
-  operationId: BulkContactSearch
+  operationId: NewsEnrich
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -1032,9 +2255,29 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /bulk/search/company
+- path: /lookup/inputfields/news/enrich
+  method: get
+  operationId: NewsEnrichInputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lookup/outputfields/news/enrich
+  method: get
+  operationId: NewsEnrichOutputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /search/news
   method: post
-  operationId: BulkCompanySearch
+  operationId: NewsSearch
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -1048,9 +2291,29 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /bulk/enrich/contact
+- path: /lookup/inputfields/news/search
+  method: get
+  operationId: NewsSearchInputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lookup/outputfields/news/search
+  method: get
+  operationId: NewsSearchOutputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /enrich/orgchart
   method: post
-  operationId: BulkContactEnrich
+  operationId: OrgChartEnrich
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -1064,9 +2327,173 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /bulk/enrich/company
+- path: /lookup/inputfields/orgchart/enrich
+  method: get
+  operationId: OrgChartEnrichInputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lookup/outputfields/orgchart/enrich
+  method: get
+  operationId: OrgChartEnrichOutputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /copilot/v1/products
+  method: get
+  operationId: OrganizationOfferingsInterface_listOrganizationOfferings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:gtm-config:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /copilot/v1/products
   method: post
-  operationId: BulkCompanyEnrich
+  operationId: OrganizationOfferingsInterface_upsertOrganizationOffering
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /copilot/v1/products/{offeringId}
+  method: get
+  operationId: OrganizationOfferingsInterface_getOrganizationOffering
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:gtm-config:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /copilot/v1/products/{offeringId}
+  method: delete
+  operationId: OrganizationOfferingsInterface_deleteOrganizationOffering
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /copilot/v1/products/{offeringId}/actions/archive
+  method: post
+  operationId: OrganizationOfferingsInterface_archiveOrganizationOffering
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /copilot/v1/products/{offeringId}/actions/unarchive
+  method: post
+  operationId: OrganizationOfferingsInterface_unarchiveOrganizationOffering
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:gtm-config:manage
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /agent/v1/pulses
+  method: get
+  operationId: PulsesController_listPulses
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:agent-pulses:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /copilot/v1/companies/lookalikes
+  method: get
+  operationId: CompanyLookalikesInterface_companyLookalikes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:recommendations:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /copilot/v1/contacts/recommendations
+  method: get
+  operationId: ContactRecommendationsInterface_getContactRecommendations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:recommendations:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /copilot/v1/contacts/lookalikes
+  method: get
+  operationId: ContactLookalikesInterface_getContactLookalikes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:recommendations:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /enrich/scoop
+  method: post
+  operationId: ScoopEnrich
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -1080,9 +2507,29 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /bulk/job/status
+- path: /lookup/inputfields/scoop/enrich
+  method: get
+  operationId: ScoopEnrichInputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lookup/outputfields/scoop/enrich
+  method: get
+  operationId: ScoopEnrichOutputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /search/scoop
   method: post
-  operationId: BulkJobStatus
+  operationId: ScoopSearch
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -1096,9 +2543,119 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /bulk/job/results
+- path: /lookup/inputfields/scoop/search
+  method: get
+  operationId: ScoopSearchInputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lookup/outputfields/scoop/search
+  method: get
+  operationId: ScoopSearchOutputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /data/v1/contacts/search
   method: post
-  operationId: BulkJobResults
+  operationId: SearchInterface_searchContact
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:data:contact
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /data/v1/companies/search
+  method: post
+  operationId: SearchInterface_searchCompany
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:data:company
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /data/v1/intent/search
+  method: post
+  operationId: SearchInterface_searchIntent
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:data:intent
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /data/v1/news/search
+  method: post
+  operationId: SearchInterface_searchNews
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:data:news
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /data/v1/scoops/search
+  method: post
+  operationId: SearchInterface_searchScoop
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - api:data:scoops
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /enrich/tech
+  method: post
+  operationId: TechnologyEnrich
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -1112,6 +2669,43 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /lookup/inputfields/tech/enrich
+  method: get
+  operationId: TechnologyEnrichInputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lookup/usage
+  method: get
+  operationId: Usage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /data/v1/users/usage
+  method: get
+  operationId: UserInterface_userUsage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - api:data:company
+    - api:data:contact
+    - api:data:intent
+    - api:data:lookup
+    - api:data:news
+    - api:data:scoops
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /enrich/ip
   method: post
   operationId: IPEnrich
@@ -1148,39 +2742,46 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /compliance
-  method: post
-  operationId: Compliance
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /lookup/inputfields/compliance/enrich
+- path: /platform/v1/workflows
   method: get
-  operationId: ComplianceInputs
+  operationId: WorkflowsController_getWorkflows
   x-agentic-access:
     action-class: connected
     consequence: read
     subject: optional
+    scope:
+    - api:workflows:execute
+    - api:workflows:read
     token:
       max-ttl: 3600
     audit: none
-- path: /lookup/outputfields/compliance/enrich
+- path: /platform/v1/workflows/{id}/actions/execute
+  method: post
+  operationId: WorkflowsController_executeWorkflow
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - api:workflows:execute
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /platform/v1/workflows/executions/{id}
   method: get
-  operationId: ComplianceOutputs
+  operationId: WorkflowsController_getExecutionStatus
   x-agentic-access:
     action-class: connected
     consequence: read
     subject: optional
+    scope:
+    - api:workflows:execute
     token:
       max-ttl: 3600
     audit: none
