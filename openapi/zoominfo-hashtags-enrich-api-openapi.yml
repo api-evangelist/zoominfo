@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: ZoomInfo Authentication Hashtags Enrich API
+  title: ZoomInfo Hashtags Enrich API
   description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
   contact:
     name: ZoomInfo API Support
@@ -15,10 +15,10 @@ security:
 - bearerAuth: []
 tags:
 - name: Hashtags Enrich
-  description: 'Use [Hashtags Enrich](#886fb5cc-b587-4f26-bd68-892798d45ffe) to retrieve company hashtags using valid query parameters. A Hashtags Enrich request requires you to specify the input parameters about the company you are enriching.
+  description: 'Use Hashtags Enrich to retrieve company hashtags using valid query parameters. A Hashtags Enrich request requires you to specify the input parameters about the company you are enriching.
 
 
-    Refer to the examples provided to build a valid JSON request. Use the [Hashtags Enrich Inputs](#a7bea20a-f496-431b-9403-337231c4a22e) endpoint to retrieve a list of valid input parameters you can provide.'
+    Refer to the examples provided to build a valid JSON request. Use the Hashtags Enrich Inputs endpoint to retrieve a list of valid input parameters you can provide.'
 paths:
   /enrich/hashtag:
     parameters: []
@@ -26,7 +26,7 @@ paths:
       tags:
       - Hashtags Enrich
       summary: Zoominfo Hashtags Enrich
-      description: 'Use this endpoint to match hashtag information based on [input values](#a7bea20a-f496-431b-9403-337231c4a22e) and return output fields in the response.
+      description: 'Use this endpoint to match hashtag information based on input values and return output fields in the response.
 
 
         **Input params**
@@ -240,7 +240,7 @@ paths:
       tags:
       - Hashtags Enrich
       summary: Zoominfo Hashtag Enrich Inputs
-      description: Returns a list of fields you can use as input for the [Hashtags Enrich](#886fb5cc-b587-4f26-bd68-892798d45ffe) endpoint.
+      description: Returns a list of fields you can use as input for the Hashtags Enrich endpoint.
       operationId: HashtagEnrichInputs
       parameters: []
       responses:
@@ -374,54 +374,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Enrichhashtagsforacompany:
-      title: Enrichhashtagsforacompany
-      required:
-      - maxResults
-      - totalResults
-      - currentPage
-      - data
-      type: object
-      properties:
-        maxResults:
-          type: integer
-          contentEncoding: int32
-          example: 100
-        totalResults:
-          type: integer
-          contentEncoding: int32
-          example: 100
-        currentPage:
-          type: integer
-          contentEncoding: int32
-          example: 1
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Data37'
-          description: ''
-          example: []
-    GetHashtagEnrichInput:
-      title: GetHashtagEnrichInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: companyId
-        fieldType: String
-        description: The id of the company for which you want to view hashtags
     HashtagsEnrichRequest:
       title: HashtagsEnrichRequest
       required:
@@ -488,6 +440,54 @@ components:
         label:
           type: string
           example: example_value
+    GetHashtagEnrichInput:
+      title: GetHashtagEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        fieldType: String
+        description: The id of the company for which you want to view hashtags
+    Enrichhashtagsforacompany:
+      title: Enrichhashtagsforacompany
+      required:
+      - maxResults
+      - totalResults
+      - currentPage
+      - data
+      type: object
+      properties:
+        maxResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        totalResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        currentPage:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data37'
+          description: ''
+          example: []
   securitySchemes:
     httpBearer:
       type: http

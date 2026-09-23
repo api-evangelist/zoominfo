@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: ZoomInfo Authentication Compliance API API
+  title: ZoomInfo Compliance API
   description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
   contact:
     name: ZoomInfo API Support
@@ -15,9 +15,7 @@ security:
 - bearerAuth: []
 tags:
 - name: Compliance API
-  description: 'Use the Compliance endpoints to request and return data related to data privacy and opt-out compliance for contacts stored in the ZoomInfo database.
-
-    '
+  description: Use the Compliance endpoints to request and return data related to data privacy and opt-out compliance for contacts stored in the ZoomInfo database.
 paths:
   /compliance:
     parameters: []
@@ -45,7 +43,7 @@ paths:
 
         | personLastName | String | Contact last name |
 
-        | personEmailAddress | String | Work email address for the contact in [example@example.com](mailto:example@example.com) format |
+        | personEmailAddress | String | Work email address for the contact in example@example.com format |
 
         | personPhone | String | Contact direct or mobile phone number |
 
@@ -465,7 +463,7 @@ paths:
       tags:
       - Compliance API
       summary: Zoominfo Compliance Inputs
-      description: Returns a list of fields you can use as input for the [Compliance](#55258fdb-c151-4532-b587-9a20d7169ae1) endpoint.
+      description: Returns a list of fields you can use as input for the Compliance endpoint.
       operationId: ComplianceInputs
       parameters: []
       responses:
@@ -676,7 +674,7 @@ paths:
       tags:
       - Compliance API
       summary: Zoominfo Compliance Outputs
-      description: Returns a list of fields included in the response for the [Compliance](#55258fdb-c151-4532-b587-9a20d7169ae1) endpoint.
+      description: Returns a list of fields included in the response for the Compliance endpoint.
       operationId: ComplianceOutputs
       parameters: []
       responses:
@@ -879,284 +877,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Data45:
-      title: Data45
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result19'
-          description: ''
-          example: []
-      examples:
-      - result:
-        - input:
-            companyname: zoominfo
-            personfirstname: henry
-            personlastname: schuck
-          data:
-          - id: 1260398587
-            firstName: Henry
-            lastName: Schuck
-            title: Founder & Chief Executive Officer
-            employmentHistory:
-            - companyName: ZoomInfo
-              title: Founder & Chief Executive Officer
-            - companyName: iProfile
-              title: Vice President of Data and Marketing
-            emailAddresses:
-            - h.schuck@discoverorg.com
-            - henry@grow.discoverorg.com
-            - schuck.h@discoverorg.com
-            - henry.schuck@discoverorg.com
-            - henry@succeed.discoverorg.com
-            - h.schuck@zoominfo.com
-            - henry.schuck@zoominfo.com
-            - hschuck@discoverorg.com
-            - henry@discoverorg.com
-            - hlschuck@discoverorg.com
-            - hlschuck@email.discoverorg.io
-            pastEmailAddresses:
-            - h.schuck@discoverorg.com
-            - schuck.h@discoverorg.com
-            - henry.schuck@discoverorg.com
-            - hschuck@discoverorg.com
-            - henry@discoverorg.com
-            - hlschuck@discoverorg.com
-            withinEu: false
-            hasCanadianEmail: 'false'
-            withinCalifornia: false
-            withinCanada: false
-            noticeProvidedDate: Notice not required
-            hasMoved: 'No'
-            looksLikeEu: 'No'
-            looksLikeCalifornia: 'No'
-            looksLikeCanada: 'No'
-            company:
-              name: ZoomInfo
-        - input:
-            personemailaddress: john.doherty@zoominfo.com
-          data:
-          - id: 3458235736
-            firstName: John
-            lastName: Doherty
-            title: Principal Technical Writer
-            employmentHistory:
-            - companyName: ZoomInfo
-              title: Principal Technical Writer
-            emailAddresses:
-            - john.doherty@zoominfo.com
-            pastEmailAddresses: []
-            withinEu: false
-            hasCanadianEmail: 'false'
-            withinCalifornia: false
-            withinCanada: false
-            noticeProvidedDate: Notice not required
-            hasMoved: Uncertain
-            looksLikeEu: 'No'
-            looksLikeCalifornia: 'No'
-            looksLikeCanada: 'No'
-            company:
-              name: ZoomInfo
-    MatchPersonInput2:
-      title: MatchPersonInput2
-      type: object
-      properties:
-        companyName:
-          type: string
-          example: Acme Corporation
-        personFirstName:
-          type: string
-          example: Acme Corporation
-        personLastName:
-          type: string
-          example: Acme Corporation
-        personEmailAddress:
-          type: string
-          example: jsmith@example.com
-      examples:
-      - companyName: ZoomInfo
-        personFirstName: Henry
-        personLastName: Schuck
-    Compliance:
-      title: Compliance
-      required:
-      - success
-      - data
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
-        data:
-          $ref: '#/components/schemas/Data45'
-      examples:
-      - success: true
-        data:
-          result:
-          - input:
-              companyname: zoominfo
-              personfirstname: henry
-              personlastname: schuck
-            data:
-            - id: 1260398587
-              firstName: Henry
-              lastName: Schuck
-              title: Founder & Chief Executive Officer
-              employmentHistory:
-              - companyName: ZoomInfo
-                title: Founder & Chief Executive Officer
-              - companyName: iProfile
-                title: Vice President of Data and Marketing
-              emailAddresses:
-              - h.schuck@discoverorg.com
-              - henry@grow.discoverorg.com
-              - schuck.h@discoverorg.com
-              - henry.schuck@discoverorg.com
-              - henry@succeed.discoverorg.com
-              - h.schuck@zoominfo.com
-              - henry.schuck@zoominfo.com
-              - hschuck@discoverorg.com
-              - henry@discoverorg.com
-              - hlschuck@discoverorg.com
-              - hlschuck@email.discoverorg.io
-              pastEmailAddresses:
-              - h.schuck@discoverorg.com
-              - schuck.h@discoverorg.com
-              - henry.schuck@discoverorg.com
-              - hschuck@discoverorg.com
-              - henry@discoverorg.com
-              - hlschuck@discoverorg.com
-              withinEu: false
-              hasCanadianEmail: 'false'
-              withinCalifornia: false
-              withinCanada: false
-              noticeProvidedDate: Notice not required
-              hasMoved: 'No'
-              looksLikeEu: 'No'
-              looksLikeCalifornia: 'No'
-              looksLikeCanada: 'No'
-              company:
-                name: ZoomInfo
-          - input:
-              personemailaddress: john.doherty@zoominfo.com
-            data:
-            - id: 3458235736
-              firstName: John
-              lastName: Doherty
-              title: Principal Technical Writer
-              employmentHistory:
-              - companyName: ZoomInfo
-                title: Principal Technical Writer
-              emailAddresses:
-              - john.doherty@zoominfo.com
-              pastEmailAddresses: []
-              withinEu: false
-              hasCanadianEmail: 'false'
-              withinCalifornia: false
-              withinCanada: false
-              noticeProvidedDate: Notice not required
-              hasMoved: Uncertain
-              looksLikeEu: 'No'
-              looksLikeCalifornia: 'No'
-              looksLikeCanada: 'No'
-              company:
-                name: ZoomInfo
-    Company25:
-      title: Company25
-      required:
-      - name
-      type: object
-      properties:
-        name:
-          type: string
-          example: Acme Corporation
-      examples:
-      - name: ZoomInfo
-    Result19:
-      title: Result19
-      required:
-      - input
-      - data
-      type: object
-      properties:
-        input:
-          $ref: '#/components/schemas/Input17'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Data46'
-          description: ''
-          example: []
-      examples:
-      - input:
-          companyname: zoominfo
-          personfirstname: henry
-          personlastname: schuck
-        data:
-        - id: 1260398587
-          firstName: Henry
-          lastName: Schuck
-          title: Founder & Chief Executive Officer
-          employmentHistory:
-          - companyName: ZoomInfo
-            title: Founder & Chief Executive Officer
-          - companyName: iProfile
-            title: Vice President of Data and Marketing
-          emailAddresses:
-          - h.schuck@discoverorg.com
-          - henry@grow.discoverorg.com
-          - schuck.h@discoverorg.com
-          - henry.schuck@discoverorg.com
-          - henry@succeed.discoverorg.com
-          - h.schuck@zoominfo.com
-          - henry.schuck@zoominfo.com
-          - hschuck@discoverorg.com
-          - henry@discoverorg.com
-          - hlschuck@discoverorg.com
-          - hlschuck@email.discoverorg.io
-          pastEmailAddresses:
-          - h.schuck@discoverorg.com
-          - schuck.h@discoverorg.com
-          - henry.schuck@discoverorg.com
-          - hschuck@discoverorg.com
-          - henry@discoverorg.com
-          - hlschuck@discoverorg.com
-          withinEu: false
-          hasCanadianEmail: 'false'
-          withinCalifornia: false
-          withinCanada: false
-          noticeProvidedDate: Notice not required
-          hasMoved: 'No'
-          looksLikeEu: 'No'
-          looksLikeCalifornia: 'No'
-          looksLikeCanada: 'No'
-          company:
-            name: ZoomInfo
-    ComplianceInput:
-      title: ComplianceInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: companyId
-        fieldType: Long
-        description: Unique ZoomInfo identifier for a company
     Data46:
       title: Data46
       required:
@@ -1279,6 +999,118 @@ components:
         looksLikeCanada: 'No'
         company:
           name: ZoomInfo
+    Result19:
+      title: Result19
+      required:
+      - input
+      - data
+      type: object
+      properties:
+        input:
+          $ref: '#/components/schemas/Input17'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data46'
+          description: ''
+          example: []
+      examples:
+      - input:
+          companyname: zoominfo
+          personfirstname: henry
+          personlastname: schuck
+        data:
+        - id: 1260398587
+          firstName: Henry
+          lastName: Schuck
+          title: Founder & Chief Executive Officer
+          employmentHistory:
+          - companyName: ZoomInfo
+            title: Founder & Chief Executive Officer
+          - companyName: iProfile
+            title: Vice President of Data and Marketing
+          emailAddresses:
+          - h.schuck@discoverorg.com
+          - henry@grow.discoverorg.com
+          - schuck.h@discoverorg.com
+          - henry.schuck@discoverorg.com
+          - henry@succeed.discoverorg.com
+          - h.schuck@zoominfo.com
+          - henry.schuck@zoominfo.com
+          - hschuck@discoverorg.com
+          - henry@discoverorg.com
+          - hlschuck@discoverorg.com
+          - hlschuck@email.discoverorg.io
+          pastEmailAddresses:
+          - h.schuck@discoverorg.com
+          - schuck.h@discoverorg.com
+          - henry.schuck@discoverorg.com
+          - hschuck@discoverorg.com
+          - henry@discoverorg.com
+          - hlschuck@discoverorg.com
+          withinEu: false
+          hasCanadianEmail: 'false'
+          withinCalifornia: false
+          withinCanada: false
+          noticeProvidedDate: Notice not required
+          hasMoved: 'No'
+          looksLikeEu: 'No'
+          looksLikeCalifornia: 'No'
+          looksLikeCanada: 'No'
+          company:
+            name: ZoomInfo
+    ComplianceOutput:
+      title: ComplianceOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: id
+        description: Unique ZoomInfo identifier for the contact
+    MatchPersonInput2:
+      title: MatchPersonInput2
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: Acme Corporation
+        personFirstName:
+          type: string
+          example: Acme Corporation
+        personLastName:
+          type: string
+          example: Acme Corporation
+        personEmailAddress:
+          type: string
+          example: jsmith@example.com
+      examples:
+      - companyName: ZoomInfo
+        personFirstName: Henry
+        personLastName: Schuck
+    EmploymentHistory4:
+      title: EmploymentHistory4
+      required:
+      - companyName
+      - title
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: Acme Corporation
+        title:
+          type: string
+          example: Vice President of Sales
+      examples:
+      - companyName: ZoomInfo
+        title: Founder & Chief Executive Officer
     Input17:
       title: Input17
       type: object
@@ -1299,22 +1131,204 @@ components:
       - companyname: zoominfo
         personfirstname: henry
         personlastname: schuck
-    EmploymentHistory4:
-      title: EmploymentHistory4
+    Data45:
+      title: Data45
       required:
-      - companyName
-      - title
+      - result
       type: object
       properties:
-        companyName:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result19'
+          description: ''
+          example: []
+      examples:
+      - result:
+        - input:
+            companyname: zoominfo
+            personfirstname: henry
+            personlastname: schuck
+          data:
+          - id: 1260398587
+            firstName: Henry
+            lastName: Schuck
+            title: Founder & Chief Executive Officer
+            employmentHistory:
+            - companyName: ZoomInfo
+              title: Founder & Chief Executive Officer
+            - companyName: iProfile
+              title: Vice President of Data and Marketing
+            emailAddresses:
+            - h.schuck@discoverorg.com
+            - henry@grow.discoverorg.com
+            - schuck.h@discoverorg.com
+            - henry.schuck@discoverorg.com
+            - henry@succeed.discoverorg.com
+            - h.schuck@zoominfo.com
+            - henry.schuck@zoominfo.com
+            - hschuck@discoverorg.com
+            - henry@discoverorg.com
+            - hlschuck@discoverorg.com
+            - hlschuck@email.discoverorg.io
+            pastEmailAddresses:
+            - h.schuck@discoverorg.com
+            - schuck.h@discoverorg.com
+            - henry.schuck@discoverorg.com
+            - hschuck@discoverorg.com
+            - henry@discoverorg.com
+            - hlschuck@discoverorg.com
+            withinEu: false
+            hasCanadianEmail: 'false'
+            withinCalifornia: false
+            withinCanada: false
+            noticeProvidedDate: Notice not required
+            hasMoved: 'No'
+            looksLikeEu: 'No'
+            looksLikeCalifornia: 'No'
+            looksLikeCanada: 'No'
+            company:
+              name: ZoomInfo
+        - input:
+            personemailaddress: john.doherty@zoominfo.com
+          data:
+          - id: 3458235736
+            firstName: John
+            lastName: Doherty
+            title: Principal Technical Writer
+            employmentHistory:
+            - companyName: ZoomInfo
+              title: Principal Technical Writer
+            emailAddresses:
+            - john.doherty@zoominfo.com
+            pastEmailAddresses: []
+            withinEu: false
+            hasCanadianEmail: 'false'
+            withinCalifornia: false
+            withinCanada: false
+            noticeProvidedDate: Notice not required
+            hasMoved: Uncertain
+            looksLikeEu: 'No'
+            looksLikeCalifornia: 'No'
+            looksLikeCanada: 'No'
+            company:
+              name: ZoomInfo
+    Compliance:
+      title: Compliance
+      required:
+      - success
+      - data
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/Data45'
+      examples:
+      - success: true
+        data:
+          result:
+          - input:
+              companyname: zoominfo
+              personfirstname: henry
+              personlastname: schuck
+            data:
+            - id: 1260398587
+              firstName: Henry
+              lastName: Schuck
+              title: Founder & Chief Executive Officer
+              employmentHistory:
+              - companyName: ZoomInfo
+                title: Founder & Chief Executive Officer
+              - companyName: iProfile
+                title: Vice President of Data and Marketing
+              emailAddresses:
+              - h.schuck@discoverorg.com
+              - henry@grow.discoverorg.com
+              - schuck.h@discoverorg.com
+              - henry.schuck@discoverorg.com
+              - henry@succeed.discoverorg.com
+              - h.schuck@zoominfo.com
+              - henry.schuck@zoominfo.com
+              - hschuck@discoverorg.com
+              - henry@discoverorg.com
+              - hlschuck@discoverorg.com
+              - hlschuck@email.discoverorg.io
+              pastEmailAddresses:
+              - h.schuck@discoverorg.com
+              - schuck.h@discoverorg.com
+              - henry.schuck@discoverorg.com
+              - hschuck@discoverorg.com
+              - henry@discoverorg.com
+              - hlschuck@discoverorg.com
+              withinEu: false
+              hasCanadianEmail: 'false'
+              withinCalifornia: false
+              withinCanada: false
+              noticeProvidedDate: Notice not required
+              hasMoved: 'No'
+              looksLikeEu: 'No'
+              looksLikeCalifornia: 'No'
+              looksLikeCanada: 'No'
+              company:
+                name: ZoomInfo
+          - input:
+              personemailaddress: john.doherty@zoominfo.com
+            data:
+            - id: 3458235736
+              firstName: John
+              lastName: Doherty
+              title: Principal Technical Writer
+              employmentHistory:
+              - companyName: ZoomInfo
+                title: Principal Technical Writer
+              emailAddresses:
+              - john.doherty@zoominfo.com
+              pastEmailAddresses: []
+              withinEu: false
+              hasCanadianEmail: 'false'
+              withinCalifornia: false
+              withinCanada: false
+              noticeProvidedDate: Notice not required
+              hasMoved: Uncertain
+              looksLikeEu: 'No'
+              looksLikeCalifornia: 'No'
+              looksLikeCanada: 'No'
+              company:
+                name: ZoomInfo
+    Company25:
+      title: Company25
+      required:
+      - name
+      type: object
+      properties:
+        name:
           type: string
           example: Acme Corporation
-        title:
-          type: string
-          example: Vice President of Sales
       examples:
-      - companyName: ZoomInfo
-        title: Founder & Chief Executive Officer
+      - name: ZoomInfo
+    ComplianceInput:
+      title: ComplianceInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        fieldType: Long
+        description: Unique ZoomInfo identifier for a company
     ComplianceRequest:
       title: ComplianceRequest
       required:
@@ -1333,22 +1347,6 @@ components:
           personFirstName: Henry
           personLastName: Schuck
         - personEmailAddress: john.doherty@zoominfo.com
-    ComplianceOutput:
-      title: ComplianceOutput
-      required:
-      - fieldName
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: id
-        description: Unique ZoomInfo identifier for the contact
   securitySchemes:
     httpBearer:
       type: http

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: ZoomInfo Authentication OrgChart Enrich API
+  title: ZoomInfo OrgChart Enrich API
   description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
   contact:
     name: ZoomInfo API Support
@@ -15,15 +15,15 @@ security:
 - bearerAuth: []
 tags:
 - name: OrgChart Enrich
-  description: 'Use [Org Chart Enrich](#763b3c10-41d1-4d52-9775-1712f712202e) to retrieve org chart detail using valid query parameters.
+  description: 'Use Org Chart Enrich to retrieve org chart detail using valid query parameters.
 
 
     Refer to the examples provided to build a valid JSON request:
 
 
-    *   Use the [Org Chart Enrich Inputs](#751a9156-1867-4033-a115-a44aa0ecbfad) endpoint to retrieve a list of valid input parameters you can provide
+    * Use the Org Chart Enrich Inputs endpoint to retrieve a list of valid input parameters you can provide
 
-    *   Use the [Org Chart Enrich Outputs](#b2c219d2-df68-4ccd-9914-c7c58218f768) endpoint to retrieve a list of output fields returned'
+    * Use the Org Chart Enrich Outputs endpoint to retrieve a list of output fields returned'
 paths:
   /enrich/orgchart:
     parameters: []
@@ -31,7 +31,7 @@ paths:
       tags:
       - OrgChart Enrich
       summary: Zoominfo Orgchart Enrich
-      description: 'Use this endpoint to match org chart information based on [input values](#751a9156-1867-4033-a115-a44aa0ecbfad) and return the desired [output fields](#b2c219d2-df68-4ccd-9914-c7c58218f768) in the response.
+      description: 'Use this endpoint to match org chart information based on input values and return the desired output fields in the response.
 
 
         **Input params**
@@ -663,7 +663,7 @@ paths:
       tags:
       - OrgChart Enrich
       summary: Zoominfo Org Chart Enrich Inputs
-      description: Returns a list of fields you can use as input for the [Org Chart Enrich](#763b3c10-41d1-4d52-9775-1712f712202e) endpoint.
+      description: Returns a list of fields you can use as input for the Org Chart Enrich endpoint.
       operationId: OrgChartEnrichInputs
       parameters: []
       responses:
@@ -814,7 +814,7 @@ paths:
       tags:
       - OrgChart Enrich
       summary: Zoominfo Org Chart Enrich Outputs
-      description: Returns a list of fields you can specify as output for the [Org Chart Enrich](#763b3c10-41d1-4d52-9775-1712f712202e) endpoint.
+      description: Returns a list of fields you can specify as output for the Org Chart Enrich endpoint.
       operationId: OrgChartEnrichOutputs
       parameters: []
       responses:
@@ -1009,136 +1009,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    OrgChartEnrichOutput:
-      title: OrgChartEnrichOutput
-      required:
-      - fieldName
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: id
-        description: Unique ZoomInfo identifier for the contact
-    OrgChartEnrichRequest:
-      title: OrgChartEnrichRequest
-      required:
-      - companyId
-      - department
-      type: object
-      properties:
-        companyId:
-          type: string
-          example: '500123'
-        department:
-          type: string
-          example: example_value
-      examples:
-      - companyId: '344589814'
-        department: c-suite
-    Company:
-      title: Company
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-      examples:
-      - id: 9867169
-        name: AmerisourceBergen
-    Data30:
-      title: Data30
-      required:
-      - id
-      - firstName
-      - middleName
-      - lastName
-      - lastUpdatedDate
-      - title
-      - hasEmail
-      - hasDirectPhone
-      - department
-      - jobFunction
-      - orgChartTier
-      - orgChartSubTier
-      - contactAccuracyScore
-      - company
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        firstName:
-          type: string
-          example: Acme Corporation
-        middleName:
-          type: string
-          example: Acme Corporation
-        lastName:
-          type: string
-          example: Acme Corporation
-        lastUpdatedDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        title:
-          type: string
-          example: Vice President of Sales
-        hasEmail:
-          type: boolean
-          example: true
-        hasDirectPhone:
-          type: boolean
-          example: true
-        department:
-          type: string
-          example: example_value
-        jobFunction:
-          type: string
-          example: example_value
-        orgChartTier:
-          type: integer
-          contentEncoding: int32
-          example: 100
-        orgChartSubTier:
-          type: integer
-          contentEncoding: int32
-          example: 100
-        contactAccuracyScore:
-          type: integer
-          contentEncoding: int32
-          example: 85
-        company:
-          $ref: '#/components/schemas/Company'
-      examples:
-      - id: 1843376157
-        firstName: Justin
-        middleName: ''
-        lastName: Withers
-        lastUpdatedDate: ''
-        title: Senior VP, Strategy and Corporate Development
-        hasEmail: true
-        hasDirectPhone: true
-        department: C-Suite
-        jobFunction: Operations Executive
-        orgChartTier: 2
-        orgChartSubTier: 7
-        contactAccuracyScore: 96
-        company:
-          id: 344589814
-          name: ZoomInfo
     OrgChartEnrich:
       title: OrgChartEnrich
       required:
@@ -1368,6 +1238,136 @@ components:
       - fieldName: companyId
         fieldType: String
         description: The id of the company for which you want to view the org chart
+    Company:
+      title: Company
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: 9867169
+        name: AmerisourceBergen
+    OrgChartEnrichOutput:
+      title: OrgChartEnrichOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: id
+        description: Unique ZoomInfo identifier for the contact
+    Data30:
+      title: Data30
+      required:
+      - id
+      - firstName
+      - middleName
+      - lastName
+      - lastUpdatedDate
+      - title
+      - hasEmail
+      - hasDirectPhone
+      - department
+      - jobFunction
+      - orgChartTier
+      - orgChartSubTier
+      - contactAccuracyScore
+      - company
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        firstName:
+          type: string
+          example: Acme Corporation
+        middleName:
+          type: string
+          example: Acme Corporation
+        lastName:
+          type: string
+          example: Acme Corporation
+        lastUpdatedDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        title:
+          type: string
+          example: Vice President of Sales
+        hasEmail:
+          type: boolean
+          example: true
+        hasDirectPhone:
+          type: boolean
+          example: true
+        department:
+          type: string
+          example: example_value
+        jobFunction:
+          type: string
+          example: example_value
+        orgChartTier:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        orgChartSubTier:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        contactAccuracyScore:
+          type: integer
+          contentEncoding: int32
+          example: 85
+        company:
+          $ref: '#/components/schemas/Company'
+      examples:
+      - id: 1843376157
+        firstName: Justin
+        middleName: ''
+        lastName: Withers
+        lastUpdatedDate: ''
+        title: Senior VP, Strategy and Corporate Development
+        hasEmail: true
+        hasDirectPhone: true
+        department: C-Suite
+        jobFunction: Operations Executive
+        orgChartTier: 2
+        orgChartSubTier: 7
+        contactAccuracyScore: 96
+        company:
+          id: 344589814
+          name: ZoomInfo
+    OrgChartEnrichRequest:
+      title: OrgChartEnrichRequest
+      required:
+      - companyId
+      - department
+      type: object
+      properties:
+        companyId:
+          type: string
+          example: '500123'
+        department:
+          type: string
+          example: example_value
+      examples:
+      - companyId: '344589814'
+        department: c-suite
   securitySchemes:
     httpBearer:
       type: http

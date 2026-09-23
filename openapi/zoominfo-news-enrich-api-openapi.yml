@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: ZoomInfo Authentication News Enrich API
+  title: ZoomInfo News Enrich API
   description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
   contact:
     name: ZoomInfo API Support
@@ -15,15 +15,15 @@ security:
 - bearerAuth: []
 tags:
 - name: News Enrich
-  description: 'Use [News Enrich](#a04f60d9-353e-4eb1-9c37-0539ee6b8d13) to retrieve news data using valid query parameters.
+  description: 'Use News Enrich to retrieve news data using valid query parameters.
 
 
     Refer to the examples provided to build a valid JSON request:
 
 
-    *   Use the [News Enrich Inputs](#d58425e5-a4a4-4af0-ad01-fa7bbf91ca84) endpoint to retrieve a list of valid input parameters you can provide
+    * Use the News Enrich Inputs endpoint to retrieve a list of valid input parameters you can provide
 
-    *   Use the [News Enrich Outputs](#254b86e3-e51b-450d-8704-95e4da168874) endpoint to retrieve a list of valid output fields returned'
+    * Use the News Enrich Outputs endpoint to retrieve a list of valid output fields returned'
 paths:
   /enrich/news:
     parameters: []
@@ -31,7 +31,65 @@ paths:
       tags:
       - News Enrich
       summary: Zoominfo News Enrich
-      description: "Use this endpoint to match company news information based on [input values](#d58425e5-a4a4-4af0-ad01-fa7bbf91ca84) and return the desired [output fields](#254b86e3-e51b-450d-8704-95e4da168874) in the response.\n\nThe News Enrich endpoint returns a list of news articles related to a specified company:\n\n- News Enrich requests require a valid ZoomInfo Company ID as an input parameter\n- By default, each request will return the 10 most recent news articles associated with the company record\n- You can filter the news articles returned by adjusting the input parameters\n    \n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyId | String | Unique ZoomInfo identifier for a company |\n| limit | Integer | Number of articles to return per page. The maximum limit is 100. |\n| page | Integer | Provides the results for the given page. Used in conjunction with `limit`. |\n| categories | String | Category of news articles. See the News Categories endpoint for values. |\n| url | ArrayList | Search news by text contained in URL strings. You must specify a minimum of 5 characters per input. |\n| pageDateMin | String | Specify the earliest publishing date for news articles returned. For example, `2020-01-01` will return all news articles published on or after Jan 1, 2020. |\n| pageDateMax | String | Specify the latest publishing date for news articles articles. For example, `2020-01-31` will return all new articles published on or before Jan 31, 2020. |\n\n**Output fields**\n\n| Field | Description |\n| --- | --- |\n| companyId | Unique ZoomInfo identifier for a company |\n| companyName | Company name |\n| domain | News article domain |\n| title | News article title |\n| url | News article URL |\n| imageUrl | News article image URL |\n| pageDate | News article date |\n| categories | News article categories |\n| description | News article content description |"
+      description: 'Use this endpoint to match company news information based on input values and return the desired output fields in the response.
+
+
+        The News Enrich endpoint returns a list of news articles related to a specified company:
+
+
+        - News Enrich requests require a valid ZoomInfo Company ID as an input parameter
+
+        - By default, each request will return the 10 most recent news articles associated with the company record
+
+        - You can filter the news articles returned by adjusting the input parameters
+
+
+        **Input params**
+
+
+        | Parameter | DataType | Description |
+
+        | --- | --- | --- |
+
+        | companyId | String | Unique ZoomInfo identifier for a company |
+
+        | limit | Integer | Number of articles to return per page. The maximum limit is 100. |
+
+        | page | Integer | Provides the results for the given page. Used in conjunction with `limit`. |
+
+        | categories | String | Category of news articles. See the News Categories endpoint for values. |
+
+        | url | ArrayList | Search news by text contained in URL strings. You must specify a minimum of 5 characters per input. |
+
+        | pageDateMin | String | Specify the earliest publishing date for news articles returned. For example, `2020-01-01` will return all news articles published on or after Jan 1, 2020. |
+
+        | pageDateMax | String | Specify the latest publishing date for news articles articles. For example, `2020-01-31` will return all new articles published on or before Jan 31, 2020. |
+
+
+        **Output fields**
+
+
+        | Field | Description |
+
+        | --- | --- |
+
+        | companyId | Unique ZoomInfo identifier for a company |
+
+        | companyName | Company name |
+
+        | domain | News article domain |
+
+        | title | News article title |
+
+        | url | News article URL |
+
+        | imageUrl | News article image URL |
+
+        | pageDate | News article date |
+
+        | categories | News article categories |
+
+        | description | News article content description |'
       operationId: NewsEnrich
       parameters: []
       requestBody:
@@ -432,7 +490,7 @@ paths:
       tags:
       - News Enrich
       summary: Zoominfo News Enrich Inputs
-      description: Returns a list of fields you can use as input for the [News Enrich](#a04f60d9-353e-4eb1-9c37-0539ee6b8d13) endpoint.
+      description: Returns a list of fields you can use as input for the News Enrich endpoint.
       operationId: NewsEnrichInputs
       parameters: []
       responses:
@@ -601,7 +659,7 @@ paths:
       tags:
       - News Enrich
       summary: Zoominfo News Enrich Outputs
-      description: Returns a list of output fields for the [News Enrich](#a04f60d9-353e-4eb1-9c37-0539ee6b8d13) endpoint.
+      description: Returns a list of output fields for the News Enrich endpoint.
       operationId: NewsEnrichOutputs
       parameters: []
       responses:
@@ -768,44 +826,61 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Company:
-      title: Company
+    Data39:
+      title: Data39
       required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-      examples:
-      - id: 9867169
-        name: AmerisourceBergen
-    NewsEnrichInput:
-      title: NewsEnrichInput
-      required:
-      - fieldName
-      - fieldType
+      - domain
+      - title
+      - url
+      - imageUrl
+      - pageDate
+      - categories
       - description
+      - company
       type: object
       properties:
-        fieldName:
+        domain:
           type: string
-          example: Acme Corporation
-        fieldType:
+          example: example.com
+        title:
           type: string
-          example: standard
+          example: Vice President of Sales
+        url:
+          type: string
+          example: https://www.example.com/resource
+        imageUrl:
+          type: string
+          example: https://www.example.com/resource
+        pageDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        categories:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
         description:
           type: string
           example: Enterprise software company
+        company:
+          type: array
+          items:
+            $ref: '#/components/schemas/Company'
+          description: ''
+          example: []
       examples:
-      - fieldName: companyId
-        fieldType: Long
-        description: The id of the company you are searching for
+      - domain: www.businesswire.com
+        title: Arvind Krishna Elected IBM Chairman
+        url: https://www.businesswire.com/news/home/20201216005975/en/Arvind-Krishna-Elected-IBM-Chairman/
+        imageUrl: https://mms.businesswire.com/media/20201216005975/en/2721/21/IBM8bar_12pxWide.jpg
+        pageDate: '2020-12-16T09:11:00.000Z'
+        categories:
+        - PERSON
+        description: 'ARMONK, N.Y.--(BUSINESS WIRE)---- $ibm #ibm--The IBM (NYSE: IBM) board of directors has elected Arvind Krishna chairman of the board, effective January 1, 2021. Mr. Krishna, who is IBM''s chief executive officer and a member of the board, succeeds IBM executive chairman Virginia M. Rometty, who is retiring on December 31, 2020, as the company previously announced in January of this year. Mr. Krishna, 58, was elected IBM''s 10th CEO in January, and assumed the position'
+        company:
+        - id: 18579882
+          name: IBM
     NewsEnrichRequest:
       title: NewsEnrichRequest
       required:
@@ -857,22 +932,23 @@ components:
         pageDateMin: '2019-12-01T00:00:00.000Z'
         pageDateMax: '2020-12-31T00:00:00.000Z'
         limit: 5
-    NewsEnrichOutput:
-      title: NewsEnrichOutput
+    Company:
+      title: Company
       required:
-      - fieldName
-      - description
+      - id
+      - name
       type: object
       properties:
-        fieldName:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
           type: string
           example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
       examples:
-      - fieldName: companyId
-        description: Unique ZoomInfo identifier for a company
+      - id: 9867169
+        name: AmerisourceBergen
     NewsEnrich:
       title: NewsEnrich
       required:
@@ -976,61 +1052,43 @@ components:
             name: MicroStrategy
           - id: 345585174
             name: Technavio
-    Data39:
-      title: Data39
+    NewsEnrichInput:
+      title: NewsEnrichInput
       required:
-      - domain
-      - title
-      - url
-      - imageUrl
-      - pageDate
-      - categories
+      - fieldName
+      - fieldType
       - description
-      - company
       type: object
       properties:
-        domain:
+        fieldName:
           type: string
-          example: example.com
-        title:
+          example: Acme Corporation
+        fieldType:
           type: string
-          example: Vice President of Sales
-        url:
-          type: string
-          example: https://www.example.com/resource
-        imageUrl:
-          type: string
-          example: https://www.example.com/resource
-        pageDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        categories:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
+          example: standard
         description:
           type: string
           example: Enterprise software company
-        company:
-          type: array
-          items:
-            $ref: '#/components/schemas/Company'
-          description: ''
-          example: []
       examples:
-      - domain: www.businesswire.com
-        title: Arvind Krishna Elected IBM Chairman
-        url: https://www.businesswire.com/news/home/20201216005975/en/Arvind-Krishna-Elected-IBM-Chairman/
-        imageUrl: https://mms.businesswire.com/media/20201216005975/en/2721/21/IBM8bar_12pxWide.jpg
-        pageDate: '2020-12-16T09:11:00.000Z'
-        categories:
-        - PERSON
-        description: 'ARMONK, N.Y.--(BUSINESS WIRE)---- $ibm #ibm--The IBM (NYSE: IBM) board of directors has elected Arvind Krishna chairman of the board, effective January 1, 2021. Mr. Krishna, who is IBM''s chief executive officer and a member of the board, succeeds IBM executive chairman Virginia M. Rometty, who is retiring on December 31, 2020, as the company previously announced in January of this year. Mr. Krishna, 58, was elected IBM''s 10th CEO in January, and assumed the position'
-        company:
-        - id: 18579882
-          name: IBM
+      - fieldName: companyId
+        fieldType: Long
+        description: The id of the company you are searching for
+    NewsEnrichOutput:
+      title: NewsEnrichOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        description: Unique ZoomInfo identifier for a company
   securitySchemes:
     httpBearer:
       type: http

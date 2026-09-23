@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: ZoomInfo Authentication Bulk API
+  title: ZoomInfo Bulk API
   description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
   contact:
     name: ZoomInfo API Support
@@ -15,7 +15,7 @@ security:
 - bearerAuth: []
 tags:
 - name: Bulk
-  description: "Use the Bulk APIs to search, retrieve, and enrich large ZoomInfo company and contact datasets through asynchronous batch processes.\n\nWith 20x more records than Contact and Company Search and 400x more records than the Contact and Company Enrich, you can leverage Bulk APIs for data ingestion and enrichment at scale.\n\n**Bulk Search API**\n\nWith the Bulk Search API you can:\n\n*   Search for up to 200K records with a single search query\n*   Preview or redeem up to 500 records per page\n    \n\nTwo job types are available with the Bulk Search APIs:\n\n*   The Preview job type returns a company or contact search results preview to help identify records best suited for enrichment. Credits are not charged for the Preview job type.\n*   The Redeem job type enables data retrieval for ingestion, returning selected output fields for a given contact or company. A credit is charged for each unique record that is redeemed.\n    \n\nWhen you submit a search request, an asynchronous job is started, and a job_id is instantly returned. You can use the job_id to check the status of the job and retrieve results.\n\n**Bulk Enrich API**\n\nWith the Bulk Enrich API you can:\n\n*   Enrich up to 10K records in a single job\n*   Retrieve up to 500 results per page\n    \n\nWhen you submit an enrich request, an asynchronous job is started, and a job_id is instantly returned. You can use the job_id to check the status of the job and enrich results.\n\n**Rate Limiting**\n\n*   You can have up to 5 \"active\" jobs (Jobs that are in progress are active jobs. Once a job is completed, you can proceed to creating another job)\n*   You can create up to 1 job per second\n*   Each job you create expires after 24 hours"
+  description: Use the Bulk APIs to search, retrieve, and enrich large ZoomInfo company and contact datasets through asynchronous batch processes.
 paths:
   /bulk/search/contact:
     parameters: []
@@ -23,7 +23,39 @@ paths:
       tags:
       - Bulk
       summary: Zoominfo Bulk Contact Search
-      description: "Use Bulk Contact Search to retrieve contacts using valid query parameters. Your request can consist of the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| jobType | Can be `preview` (default) or `redeem` |\n| query | Can consist of valid input fields from the [Contact Search Inputs](#74630827-dd25-4b6a-bf72-f7cfeffd6c41) endpoint to retrieve the desired results. The following fields are currently not supported with Bulk Search: `sortOrder` and `sortBy`. |\n| outputFields | Required for the `redeem` job type only. Specify the desired output fields to return. See the [Contact Enrich Outputs](#28b47784-3186-4fc4-af91-12e6bc6fb31a) endpoint for the list of output fields you can request. The following fields are currently not supported as an output for Bulk Search: `companyDescriptionList`. |\n\nSee the preview and redeem request examples for syntax.\n\nThe expected output in all cases is a `jobId`. For example:\n\n```\n{\n   \"jobId\": \"e97813aa0bcae7a66f2ea9e1b69a0da2057bbfd8\"\n}\n\n```\n\nSee the [Bulk Job Status](#1f6246d0-fd13-4f63-b170-dda2fedd8322) and [Bulk Job Results](#5417ba88-096d-448a-b6cd-b930089c678d) endpoints for details on how to use the `jobId` to preview and return results."
+      description: 'Use Bulk Contact Search to retrieve contacts using valid query parameters. Your request can consist of the following parameters:
+
+
+        | Parameter | Description |
+
+        | --- | --- |
+
+        | jobType | Can be `preview` (default) or `redeem` |
+
+        | query | Can consist of valid input fields from the Contact Search Inputs endpoint to retrieve the desired results. The following fields are currently not supported with Bulk Search: `sortOrder` and `sortBy`. |
+
+        | outputFields | Required for the `redeem` job type only. Specify the desired output fields to return. See the Contact Enrich Outputs endpoint for the list of output fields you can request. The following fields are currently not supported as an output for Bulk Search: `companyDescriptionList`. |
+
+
+        See the preview and redeem request examples for syntax.
+
+
+        The expected output in all cases is a `jobId`. For example:
+
+
+        ```
+
+        {
+
+        "jobId": "e97813aa0bcae7a66f2ea9e1b69a0da2057bbfd8"
+
+        }
+
+
+        ```
+
+
+        See the Bulk Job Status and Bulk Job Results endpoints for details on how to use the `jobId` to preview and return results.'
       operationId: BulkContactSearch
       parameters: []
       requestBody:
@@ -293,7 +325,42 @@ paths:
       tags:
       - Bulk
       summary: Zoominfo Bulk Company Search
-      description: "Use Bulk Company Search to retrieve companies using valid query parameters. Your request can consist of the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| jobType | Can be `preview` (default) or `redeem` |\n| query | Can consist of valid input fields from the [Company Search Inputs](#ffd4ccc6-09d1-4026-8c4f-863d02fd703e) endpoint to retrieve the desired results. The following fields are currently not supported with Bulk Search: `sortOrder` and `sortBy`. |\n| outputFields | Required for the `redeem` job type only. Specify the desired output fields to return. The following fields are currently not supported as an output for Bulk Search: `descriptionList`. |\n\nSee the [Company Enrich Outputs](#d05239c3-2597-45f8-9384-f2dbd3518cfc) endpoint for the list of output fields you can request. |\n\nSee the preview and redeem request examples for syntax.\n\nThe expected output in all cases is a `jobId`. For example:\n\n```\n{\n   \"jobId\": \"e97813aa0bcae7a66f2ea9e1b69a0da2057bbfd8\"\n}\n\n```\n\nSee the [Bulk Job Status](#1f6246d0-fd13-4f63-b170-dda2fedd8322) and [Bulk Job Results](#5417ba88-096d-448a-b6cd-b930089c678d) endpoints for details on how to use the `jobId` to preview and return results."
+      description: 'Use Bulk Company Search to retrieve companies using valid query parameters. Your request can consist of the following parameters:
+
+
+        | Parameter | Description |
+
+        | --- | --- |
+
+        | jobType | Can be `preview` (default) or `redeem` |
+
+        | query | Can consist of valid input fields from the Company Search Inputs endpoint to retrieve the desired results. The following fields are currently not supported with Bulk Search: `sortOrder` and `sortBy`. |
+
+        | outputFields | Required for the `redeem` job type only. Specify the desired output fields to return. The following fields are currently not supported as an output for Bulk Search: `descriptionList`. |
+
+
+        See the Company Enrich Outputs endpoint for the list of output fields you can request. |
+
+
+        See the preview and redeem request examples for syntax.
+
+
+        The expected output in all cases is a `jobId`. For example:
+
+
+        ```
+
+        {
+
+        "jobId": "e97813aa0bcae7a66f2ea9e1b69a0da2057bbfd8"
+
+        }
+
+
+        ```
+
+
+        See the Bulk Job Status and Bulk Job Results endpoints for details on how to use the `jobId` to preview and return results.'
       operationId: BulkCompanySearch
       parameters: []
       requestBody:
@@ -509,7 +576,39 @@ paths:
       tags:
       - Bulk
       summary: Zoominfo Bulk Contact Enrich
-      description: "With Bulk Contact Enrich you can:\n\n*   Enrich up to 10K records in a single job\n*   Retrieve up to 500 results per page\n    \n\nUse this endpoint to enrich contact information based on [input values](#dbaf31cd-0f7a-4bf3-b6c1-077f3c31f2df) and return the desired [output fields](#28b47784-3186-4fc4-af91-12e6bc6fb31a) in the response.\n\n**Note**: All output fields in the [Contact Enrich](#2b23b5a2-4074-419e-b01f-e63a6f5af77b) endpoint are supported, with the exception of `companyDescriptionList`.\n\nWhen you submit an enrich request, an asynchronous job is started, and a `job_id` is instantly returned. For example:\n\n```\n{\n   \"jobId\": \"e97813aa0bcae7a66f2ea9e1b69a0da2057bbfd8\"\n}\n\n```\n\nYou can use the `job_id` to check the status of the job and enrich results.\n\nSee the [Bulk Job Status](#1f6246d0-fd13-4f63-b170-dda2fedd8322) and [Bulk Job Results](#5417ba88-096d-448a-b6cd-b930089c678d) endpoints for details on how to use the `jobId` to preview and return results."
+      description: 'With Bulk Contact Enrich you can:
+
+
+        * Enrich up to 10K records in a single job
+
+        * Retrieve up to 500 results per page
+
+
+        Use this endpoint to enrich contact information based on input values and return the desired output fields in the response.
+
+
+        **Note**: All output fields in the Contact Enrich endpoint are supported, with the exception of `companyDescriptionList`.
+
+
+        When you submit an enrich request, an asynchronous job is started, and a `job_id` is instantly returned. For example:
+
+
+        ```
+
+        {
+
+        "jobId": "e97813aa0bcae7a66f2ea9e1b69a0da2057bbfd8"
+
+        }
+
+
+        ```
+
+
+        You can use the `job_id` to check the status of the job and enrich results.
+
+
+        See the Bulk Job Status and Bulk Job Results endpoints for details on how to use the `jobId` to preview and return results.'
       operationId: BulkContactEnrich
       parameters: []
       requestBody:
@@ -883,7 +982,39 @@ paths:
       tags:
       - Bulk
       summary: Zoominfo Bulk Company Enrich
-      description: "With Bulk Company Enrich you can:\n\n*   Enrich up to 10K records in a single Enrich job\n*   Retrieve up to 500 results per page\n    \n\nUse this endpoint to enrich company information based on [input values](#7a915792-e8cd-4e3a-9f0e-c19b850be536) and return the desired [output fields](#d05239c3-2597-45f8-9384-f2dbd3518cfc) in the response.\n\n**Note**: All output fields in the [Company Enrich](#5fdf6e5e-f71e-4e1f-9807-0f8296094dcc) endpoint are supported, with the exception of `companyDescriptionList`.\n\nWhen you submit an enrich request, an asynchronous job is started, and a `job_id` is instantly returned. For example:\n\n```\n{\n   \"jobId\": \"e97813aa0bcae7a66f2ea9e1b69a0da2057bbfd8\"\n}\n\n```\n\nYou can use the `job_id` to check the status of the job and enrich results.\n\nSee the [Bulk Job Status](#1f6246d0-fd13-4f63-b170-dda2fedd8322) and [Bulk Job Results](#5417ba88-096d-448a-b6cd-b930089c678d) endpoints for details on how to use the `jobId` to preview and return results."
+      description: 'With Bulk Company Enrich you can:
+
+
+        * Enrich up to 10K records in a single Enrich job
+
+        * Retrieve up to 500 results per page
+
+
+        Use this endpoint to enrich company information based on input values and return the desired output fields in the response.
+
+
+        **Note**: All output fields in the Company Enrich endpoint are supported, with the exception of `companyDescriptionList`.
+
+
+        When you submit an enrich request, an asynchronous job is started, and a `job_id` is instantly returned. For example:
+
+
+        ```
+
+        {
+
+        "jobId": "e97813aa0bcae7a66f2ea9e1b69a0da2057bbfd8"
+
+        }
+
+
+        ```
+
+
+        You can use the `job_id` to check the status of the job and enrich results.
+
+
+        See the Bulk Job Status and Bulk Job Results endpoints for details on how to use the `jobId` to preview and return results.'
       operationId: BulkCompanyEnrich
       parameters: []
       requestBody:
@@ -1165,7 +1296,51 @@ paths:
       tags:
       - Bulk
       summary: Zoominfo Bulk Job Status
-      description: "Use the Bulk Job Status endpoint with the jobId as input to return a job status that shows the total number of matching records and page count.\n\n``` {\n{\n   \"jobId\": \"484424dd9a04adccca98a17f19747435ef6c8705\"\n}\n\n```\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| jobId | String | Job ID generated by running Bulk Contact Search or Bulk Company Search |\n\n**Response data**\n\n| Field | Description |\n| --- | --- |\n| status | Status can be `Queued`, `In_Progress`, `Completed` and `Failed`. |\n| jobType | Job type can be `preview` or `redeem`. |\n| entityType | Entity type can be `company` or `contact`. |\n| totalRecords | Total number of records returned |\n| totalPages | Total number of pages (`totalRecords` divided by 1000 per page) |\n| successfulPagesCount | Number of pages that were successful |\n| successfulPages | Specific pages that were successful |"
+      description: 'Use the Bulk Job Status endpoint with the jobId as input to return a job status that shows the total number of matching records and page count.
+
+
+        ``` {
+
+        {
+
+        "jobId": "484424dd9a04adccca98a17f19747435ef6c8705"
+
+        }
+
+
+        ```
+
+
+        **Input params**
+
+
+        | Parameter | DataType | Description |
+
+        | --- | --- | --- |
+
+        | jobId | String | Job ID generated by running Bulk Contact Search or Bulk Company Search |
+
+
+        **Response data**
+
+
+        | Field | Description |
+
+        | --- | --- |
+
+        | status | Status can be `Queued`, `In_Progress`, `Completed` and `Failed`. |
+
+        | jobType | Job type can be `preview` or `redeem`. |
+
+        | entityType | Entity type can be `company` or `contact`. |
+
+        | totalRecords | Total number of records returned |
+
+        | totalPages | Total number of pages (`totalRecords` divided by 1000 per page) |
+
+        | successfulPagesCount | Number of pages that were successful |
+
+        | successfulPages | Specific pages that were successful |'
       operationId: BulkJobStatus
       parameters: []
       requestBody:
@@ -1321,7 +1496,56 @@ paths:
       tags:
       - Bulk
       summary: Zoominfo Bulk Job Results
-      description: "Use the Bulk Job Results endpoint with the jobId as input to return job results of the matching records for the specified page.\n\n**Note:** Please ensure that the page number is successfully processed and ready to get results.\n\n```\n{\n   \"jobId\": \"484424dd9a04adccca98a17f19747435ef6c8705\",\n   \"page\": 1\n}\n\n```\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| jobId | String | Job ID generated by running Bulk Contact Search or Bulk Company Search |\n| page | Integer | Provides the results for the given page, used in conjunction with `rpp` |\n\n**Response data**\n\n| Field | Description |\n| --- | --- |\n| jobType | Type of job. Can be `preview` or `redeem`. |\n| entityType | Type of entity. Can be `company` or `contact`. |\n| totalRecords | Total number of records returned |\n| currentPage | Current page number |\n| currentResults | Number of results for the current page |\n| result | Results for the requested output fields |"
+      description: 'Use the Bulk Job Results endpoint with the jobId as input to return job results of the matching records for the specified page.
+
+
+        **Note:** Please ensure that the page number is successfully processed and ready to get results.
+
+
+        ```
+
+        {
+
+        "jobId": "484424dd9a04adccca98a17f19747435ef6c8705",
+
+        "page": 1
+
+        }
+
+
+        ```
+
+
+        **Input params**
+
+
+        | Parameter | DataType | Description |
+
+        | --- | --- | --- |
+
+        | jobId | String | Job ID generated by running Bulk Contact Search or Bulk Company Search |
+
+        | page | Integer | Provides the results for the given page, used in conjunction with `rpp` |
+
+
+        **Response data**
+
+
+        | Field | Description |
+
+        | --- | --- |
+
+        | jobType | Type of job. Can be `preview` or `redeem`. |
+
+        | entityType | Type of entity. Can be `company` or `contact`. |
+
+        | totalRecords | Total number of records returned |
+
+        | currentPage | Current page number |
+
+        | currentResults | Number of results for the current page |
+
+        | result | Results for the requested output fields |'
       operationId: BulkJobResults
       parameters: []
       requestBody:
@@ -1525,6 +1749,17 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    BulkContactSearch-Preview:
+      title: BulkContactSearch-Preview
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: d1cecb828a0f2a13ffbc1f97faa06af31945ef89
     BulkJobStatus:
       title: BulkJobStatus
       required:
@@ -1576,34 +1811,6 @@ components:
         - 1
         - 2
         - 8
-    BulkContactSearch-Preview:
-      title: BulkContactSearch-Preview
-      required:
-      - jobId
-      type: object
-      properties:
-        jobId:
-          type: string
-          example: '500123'
-      examples:
-      - jobId: d1cecb828a0f2a13ffbc1f97faa06af31945ef89
-    BulkContactSearchRequest:
-      title: BulkContactSearchRequest
-      required:
-      - jobType
-      - query
-      type: object
-      properties:
-        jobType:
-          type: string
-          example: standard
-        query:
-          $ref: '#/components/schemas/Query'
-      examples:
-      - jobType: preview
-        query:
-          firstName: Mike
-          companyName: Zoominfo
     BulkContactEnrichRequest:
       title: BulkContactEnrichRequest
       required:
@@ -1708,59 +1915,17 @@ components:
         - employmentHistory
         - managementLevel
         - locationCompanyId
-    MatchPersonInput1:
-      title: MatchPersonInput1
+    Query1:
+      title: Query1
       required:
-      - personId
+      - address
       type: object
       properties:
-        personId:
+        address:
           type: string
-          example: '500123'
+          example: 123 Main Street
       examples:
-      - personId: '-1021613465'
-    BulkJobResultsRequest:
-      title: BulkJobResultsRequest
-      required:
-      - jobId
-      - page
-      type: object
-      properties:
-        jobId:
-          type: string
-          example: '500123'
-        page:
-          type: integer
-          contentEncoding: int32
-          example: 1
-      examples:
-      - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
-        page: 5
-    BulkCompanySearchRequest:
-      title: BulkCompanySearchRequest
-      required:
-      - jobType
-      - query
-      - outputFields
-      type: object
-      properties:
-        jobType:
-          type: string
-          example: standard
-        query:
-          $ref: '#/components/schemas/Query1'
-        outputFields:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-      examples:
-      - jobType: preview
-        query:
-          address: '01775'
-        outputFields:
-        - id
+      - address: '01775'
     BulkCompanyEnrichRequest:
       title: BulkCompanyEnrichRequest
       required:
@@ -1819,6 +1984,17 @@ components:
         - name
         - website
         - domainList
+    BulkJobStatusRequest:
+      title: BulkJobStatusRequest
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
     BulkCompanyEnrich:
       title: BulkCompanyEnrich
       required:
@@ -1830,17 +2006,53 @@ components:
           example: '500123'
       examples:
       - jobId: add665cc35af4dcbbbe0b4c2d472dfcab15b55d7
-    BulkCompanySearch-Preview:
-      title: BulkCompanySearch-Preview
+    BulkCompanySearchRequest:
+      title: BulkCompanySearchRequest
       required:
-      - jobId
+      - jobType
+      - query
+      - outputFields
       type: object
       properties:
-        jobId:
+        jobType:
+          type: string
+          example: standard
+        query:
+          $ref: '#/components/schemas/Query1'
+        outputFields:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+      examples:
+      - jobType: preview
+        query:
+          address: '01775'
+        outputFields:
+        - id
+    MatchPersonInput1:
+      title: MatchPersonInput1
+      required:
+      - personId
+      type: object
+      properties:
+        personId:
           type: string
           example: '500123'
       examples:
-      - jobId: fa2b51864e1b29a7dceecd149402d6c3441ba34b
+      - personId: '-1021613465'
+    MatchCompanyInput3:
+      title: MatchCompanyInput3
+      required:
+      - companyId
+      type: object
+      properties:
+        companyId:
+          type: string
+          example: '500123'
+      examples:
+      - companyId: '7783252'
     Query:
       title: Query
       required:
@@ -1857,39 +2069,23 @@ components:
       examples:
       - firstName: Mike
         companyName: Zoominfo
-    BulkJobStatusRequest:
-      title: BulkJobStatusRequest
+    BulkContactSearchRequest:
+      title: BulkContactSearchRequest
       required:
-      - jobId
+      - jobType
+      - query
       type: object
       properties:
-        jobId:
+        jobType:
           type: string
-          example: '500123'
+          example: standard
+        query:
+          $ref: '#/components/schemas/Query'
       examples:
-      - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
-    MatchCompanyInput3:
-      title: MatchCompanyInput3
-      required:
-      - companyId
-      type: object
-      properties:
-        companyId:
-          type: string
-          example: '500123'
-      examples:
-      - companyId: '7783252'
-    Query1:
-      title: Query1
-      required:
-      - address
-      type: object
-      properties:
-        address:
-          type: string
-          example: 123 Main Street
-      examples:
-      - address: '01775'
+      - jobType: preview
+        query:
+          firstName: Mike
+          companyName: Zoominfo
     BulkContactEnrich:
       title: BulkContactEnrich
       required:
@@ -1901,6 +2097,34 @@ components:
           example: '500123'
       examples:
       - jobId: de5c557935a221c2bc2fa612bf2d8768ade9572c
+    BulkCompanySearch-Preview:
+      title: BulkCompanySearch-Preview
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: fa2b51864e1b29a7dceecd149402d6c3441ba34b
+    BulkJobResultsRequest:
+      title: BulkJobResultsRequest
+      required:
+      - jobId
+      - page
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+        page:
+          type: integer
+          contentEncoding: int32
+          example: 1
+      examples:
+      - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
+        page: 5
   securitySchemes:
     httpBearer:
       type: http

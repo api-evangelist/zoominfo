@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: ZoomInfo Authentication Technology Enrich API
+  title: ZoomInfo Technology Enrich API
   description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
   contact:
     name: ZoomInfo API Support
@@ -15,10 +15,10 @@ security:
 - bearerAuth: []
 tags:
 - name: Technology Enrich
-  description: 'Use [Technology Enrich](#9fc40c02-fe95-448f-a6f4-e903c85c81a9) to retrieve company technology detail using valid query parameters.
+  description: 'Use Technology Enrich to retrieve company technology detail using valid query parameters.
 
 
-    Refer to the examples provided to build a valid JSON request. Use the [Technology Enrich Inputs](#2cc6abbc-e782-4ab4-80e8-ce29ed17ee4e) endpoint to retrieve a list of valid input parameters you can provide.'
+    Refer to the examples provided to build a valid JSON request. Use the Technology Enrich Inputs endpoint to retrieve a list of valid input parameters you can provide.'
 paths:
   /enrich/tech:
     parameters: []
@@ -26,7 +26,7 @@ paths:
       tags:
       - Technology Enrich
       summary: Zoominfo Technology Enrich
-      description: 'Use this endpoint to match technology information based on [input values](#2cc6abbc-e782-4ab4-80e8-ce29ed17ee4e) and return output fields in the response.
+      description: 'Use this endpoint to match technology information based on input values and return output fields in the response.
 
 
         **Input params**
@@ -4426,7 +4426,7 @@ paths:
       tags:
       - Technology Enrich
       summary: Zoominfo Technology Enrich Inputs
-      description: Returns a list of fields you can use as input for the [Technology Enrich](#b930a3ff-4e87-4f92-86bd-e4a1548cc037) endpoint.
+      description: Returns a list of fields you can use as input for the Technology Enrich endpoint.
       operationId: TechnologyEnrichInputs
       parameters: []
       responses:

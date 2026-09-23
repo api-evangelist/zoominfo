@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: ZoomInfo Authentication Intent Enrich API
+  title: ZoomInfo Intent Enrich API
   description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
   contact:
     name: ZoomInfo API Support
@@ -15,15 +15,15 @@ security:
 - bearerAuth: []
 tags:
 - name: Intent Enrich
-  description: 'Use [Intent Enrich](#c1e5300d-8ffb-40f0-b899-be98f884e505) to retrieve intent data using valid query parameters.
+  description: 'Use Intent Enrich to retrieve intent data using valid query parameters.
 
 
     Refer to the examples provided to build a valid JSON request:
 
 
-    *   Use the [Intent Enrich Inputs](#2dcbe844-7f1f-45f3-ae32-2598ccec5be4) endpoint to retrieve a list of valid input parameters you can provide
+    * Use the Intent Enrich Inputs endpoint to retrieve a list of valid input parameters you can provide
 
-    *   Use the [Intent Enrich Outputs](#fc4083cf-6179-4f0f-8b9b-80aedc2e3e67) endpoint to retrieve a list of valid output fields returned'
+    * Use the Intent Enrich Outputs endpoint to retrieve a list of valid output fields returned'
 paths:
   /enrich/intent:
     parameters: []
@@ -31,7 +31,92 @@ paths:
       tags:
       - Intent Enrich
       summary: Zoominfo Intent Enrich
-      description: "Use this endpoint to enrich intent data for a company based on [input values](#2dcbe844-7f1f-45f3-ae32-2598ccec5be4) and return the desired [output fields](#fc4083cf-6179-4f0f-8b9b-80aedc2e3e67) in the response.\n\nIntent data is online behavior-based activity across the internet that links buyers and accounts to a topic. Key terminology includes:\n\n- **Topics and categories** - The Intent Enrich endpoint returns specific intent topics for a company based on your subscription. Multiple topics fall under a single category.\n- **Signal** - Recent content consumption activity for a specific topic by people at a company\n- **Signal Score** - Indicates a company's interest in a topic based on how recent content consumption compares to a historical baseline.\n- **Audience Strength** - Indicates the size of the group at the company conducting research in this topic.\n    \n\nThis endpoint can support up to 50 Intent topics separated by OR condition, and up to 12 Intent topics separated with AND condition. The difference between Start and End date should not be more than 90 days.\n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyWebsite | String | Company website URL in [http://www.example.com](http://www.example.com) format |\n| companyId | String | Unique ZoomInfo identifier for a company |\n| companyName | String | Company name |\n| topics | String | Intent topics. Separate multiple topics with the pipe symbol. See the **Intent Topics** lookup endpoint for values. |\n| signalStartDate | String | Start date for a company signaling interest in a topic |\n| signalEndDate | String | End date for a company signaling interest in a topic |\n| signalScoreMin | Integer | Minimum signal score. Use with `signalScoreMax` to form a range. Minimum score is 60 and maximum is 100. |\n| signalScoreMax | Integer | Maximum signal score. Use with `signalScoreMin` to form a range. Minimum score is 60 and maximum is 100. |\n| audienceStrengthMin | String | Minimum audience strength score. Use with `audienceStrengthMax` to form a range. Values are `A`, `B`, `C`, `D`, and `E`, with `A` indicating a larger audience. |\n| audienceStrengthMax | String | Maximum audience strength score. Use with `audienceStrengthMin` to form a range. Values are `A`, `B`, `C`, `D`, and `E`, with `A` indicating a larger audience. |\n| findRecommendedContacts | Boolean | Choose whether to get the recommended contacts using the findRecommendedContacts flag. Default is `true`. |\n| rpp | Integer | Limits the results returned to the given number of results per page. Default is 25. |\n| page | Integer | Provides the results for the given page, used in conjunction with `rpp` |\n| sortOrder | String | Provide `sortBy` if specifying `sortOrder`. Valid values are `asc`, `ascending`, `desc`, and `descending`. By default, results are sorted in descending order. |\n| sortBy | String | Sort results by valid output fields. Valid values are: `signalDate`, `signalScore`, `category`, `topic`, `audienceStrength`. |\n\n**Output fields**\n\n| Field | Description |\n| --- | --- |\n| id | Unique ZoomInfo identifier for a topic |\n| category | Intent category |\n| topic | Intent topic |\n| signalScore | Signal score for the topic |\n| audienceStrength | Audience strength for the topic |\n| signalDate | Date the signal was identified |\n| companyId | Unique ZoomInfo identifier for a company |\n| companyName | Company name |\n| companyWebsite | Company website URL in [http://www.example.com](http://www.example.com) format |\n| companyHasOtherTopicConsumption | Indicates whether a company has other topics with increased consumption. Values are `true` and `false`. |\n| recommendedContacts | Suggested contacts at the company that are related to the intent topic |\n| topSignalLocations | Up to 3 top Intent signal locations |"
+      description: 'Use this endpoint to enrich intent data for a company based on input values and return the desired output fields in the response.
+
+
+        Intent data is online behavior-based activity across the internet that links buyers and accounts to a topic. Key terminology includes:
+
+
+        - **Topics and categories** - The Intent Enrich endpoint returns specific intent topics for a company based on your subscription. Multiple topics fall under a single category.
+
+        - **Signal** - Recent content consumption activity for a specific topic by people at a company
+
+        - **Signal Score** - Indicates a company''s interest in a topic based on how recent content consumption compares to a historical baseline.
+
+        - **Audience Strength** - Indicates the size of the group at the company conducting research in this topic.
+
+
+        This endpoint can support up to 50 Intent topics separated by OR condition, and up to 12 Intent topics separated with AND condition. The difference between Start and End date should not be more than 90 days.
+
+
+        **Input params**
+
+
+        | Parameter | DataType | Description |
+
+        | --- | --- | --- |
+
+        | companyWebsite | String | Company website URL in http://www.example.com format |
+
+        | companyId | String | Unique ZoomInfo identifier for a company |
+
+        | companyName | String | Company name |
+
+        | topics | String | Intent topics. Separate multiple topics with the pipe symbol. See the **Intent Topics** lookup endpoint for values. |
+
+        | signalStartDate | String | Start date for a company signaling interest in a topic |
+
+        | signalEndDate | String | End date for a company signaling interest in a topic |
+
+        | signalScoreMin | Integer | Minimum signal score. Use with `signalScoreMax` to form a range. Minimum score is 60 and maximum is 100. |
+
+        | signalScoreMax | Integer | Maximum signal score. Use with `signalScoreMin` to form a range. Minimum score is 60 and maximum is 100. |
+
+        | audienceStrengthMin | String | Minimum audience strength score. Use with `audienceStrengthMax` to form a range. Values are `A`, `B`, `C`, `D`, and `E`, with `A` indicating a larger audience. |
+
+        | audienceStrengthMax | String | Maximum audience strength score. Use with `audienceStrengthMin` to form a range. Values are `A`, `B`, `C`, `D`, and `E`, with `A` indicating a larger audience. |
+
+        | findRecommendedContacts | Boolean | Choose whether to get the recommended contacts using the findRecommendedContacts flag. Default is `true`. |
+
+        | rpp | Integer | Limits the results returned to the given number of results per page. Default is 25. |
+
+        | page | Integer | Provides the results for the given page, used in conjunction with `rpp` |
+
+        | sortOrder | String | Provide `sortBy` if specifying `sortOrder`. Valid values are `asc`, `ascending`, `desc`, and `descending`. By default, results are sorted in descending order. |
+
+        | sortBy | String | Sort results by valid output fields. Valid values are: `signalDate`, `signalScore`, `category`, `topic`, `audienceStrength`. |
+
+
+        **Output fields**
+
+
+        | Field | Description |
+
+        | --- | --- |
+
+        | id | Unique ZoomInfo identifier for a topic |
+
+        | category | Intent category |
+
+        | topic | Intent topic |
+
+        | signalScore | Signal score for the topic |
+
+        | audienceStrength | Audience strength for the topic |
+
+        | signalDate | Date the signal was identified |
+
+        | companyId | Unique ZoomInfo identifier for a company |
+
+        | companyName | Company name |
+
+        | companyWebsite | Company website URL in http://www.example.com format |
+
+        | companyHasOtherTopicConsumption | Indicates whether a company has other topics with increased consumption. Values are `true` and `false`. |
+
+        | recommendedContacts | Suggested contacts at the company that are related to the intent topic |
+
+        | topSignalLocations | Up to 3 top Intent signal locations |'
       operationId: IntentEnrich
       parameters: []
       requestBody:
@@ -1233,7 +1318,7 @@ paths:
       tags:
       - Intent Enrich
       summary: Zoominfo Intent Enrich Inputs
-      description: Returns a list of fields you can use as input for the [Intent Enrich](#48c36a9f-e4eb-4ce8-8080-a7b810df7c2d) endpoint.
+      description: Returns a list of fields you can use as input for the Intent Enrich endpoint.
       operationId: IntentEnrichInputs
       parameters: []
       responses:
@@ -1432,7 +1517,7 @@ paths:
       tags:
       - Intent Enrich
       summary: Zoominfo Intent Enrich Outputs
-      description: Returns a list of output fields for the [Intent Enrich](#48c36a9f-e4eb-4ce8-8080-a7b810df7c2d) endpoint.
+      description: Returns a list of output fields for the Intent Enrich endpoint.
       operationId: IntentEnrichOutputs
       parameters: []
       responses:
@@ -1611,155 +1696,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    RecommendedContact1:
-      title: RecommendedContact1
-      required:
-      - id
-      - firstName
-      - lastName
-      - jobTitle
-      - jobFunction
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int64
-          example: 500123
-        firstName:
-          type: string
-          example: Acme Corporation
-        lastName:
-          type: string
-          example: Acme Corporation
-        jobTitle:
-          type: string
-          example: Vice President of Sales
-        jobFunction:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobFunction'
-          description: ''
-          example: []
-      examples:
-      - id: 2988050694
-        firstName: Nir
-        lastName: Keren
-        jobTitle: Chief Technology Officer
-        jobFunction:
-        - name: Engineering & Technical Executive
-          department: C-Suite
-        - name: Engineering & Technical
-          department: Engineering & Technical
-    IntentEnrichRequest:
-      title: IntentEnrichRequest
-      required:
-      - companyName
-      - companyWebsite
-      - companyId
-      - topics
-      - signalStartDate
-      - signalEndDate
-      - signalScoreMin
-      - signalScoreMax
-      - audienceStrengthMin
-      - audienceStrengthMax
-      - sortBy
-      - sortOrder
-      type: object
-      properties:
-        companyName:
-          type: string
-          example: Acme Corporation
-        companyWebsite:
-          type: string
-          example: example_value
-        companyId:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        topics:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-        signalStartDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        signalEndDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        signalScoreMin:
-          type: integer
-          contentEncoding: int32
-          example: 85
-        signalScoreMax:
-          type: integer
-          contentEncoding: int32
-          example: 85
-        audienceStrengthMin:
-          type: string
-          example: example_value
-        audienceStrengthMax:
-          type: string
-          example: example_value
-        sortBy:
-          type: string
-          example: example_value
-        sortOrder:
-          type: string
-          example: example_value
-      examples:
-      - companyName: ZoomInfo
-        companyWebsite: zoominfo.com
-        companyId: 344589814
-        topics:
-        - Cloud Applications
-        - Cloud Computing
-        - Cloud Infrastructure
-        - Corporate Culture
-        - Credit Card Fraud
-        - Direct Deposit
-        - eFulfillment Service
-        - Google Search
-        - Healthcare Law
-        - Hours of Work
-        - In-App Advertising
-        - Incentive Compensation
-        - Java
-        - Legal
-        - Mobile / Wireless
-        - Mobile Apps
-        - Mobile Security
-        - Mobile Wallet
-        - Node.js
-        - Organizational Culture
-        - Risk Management Services
-        - Video Conferencing
-        signalStartDate: '2020-04-01T00:00:00.000Z'
-        signalEndDate: '2020-05-31T00:00:00.000Z'
-        signalScoreMin: 80
-        signalScoreMax: 100
-        audienceStrengthMin: C
-        audienceStrengthMax: A
-        sortBy: issueDate
-        sortOrder: desc
-    JobFunction:
-      title: JobFunction
-      required:
-      - name
-      - department
-      type: object
-      properties:
-        name:
-          type: string
-          example: Acme Corporation
-        department:
-          type: string
-          example: example_value
-      examples:
-      - name: Executive
-        department: C-Suite
     IntentEnrichInput:
       title: IntentEnrichInput
       required:
@@ -1781,6 +1717,33 @@ components:
       - fieldName: companyWebsite
         fieldType: String
         description: The website of the company you are searching for
+    Company8:
+      title: Company8
+      required:
+      - id
+      - name
+      - website
+      - hasOtherTopicConsumption
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+        website:
+          type: string
+          example: example_value
+        hasOtherTopicConsumption:
+          type: boolean
+          example: true
+      examples:
+      - id: 118998385
+        name: Golden Gate University
+        website: www.ggu.edu
+        hasOtherTopicConsumption: true
     Data38:
       title: Data38
       required:
@@ -1888,33 +1851,6 @@ components:
           name: Zoom Information, Inc.
           website: www.zoominfo.com
           hasOtherTopicConsumption: true
-    Company8:
-      title: Company8
-      required:
-      - id
-      - name
-      - website
-      - hasOtherTopicConsumption
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-        website:
-          type: string
-          example: example_value
-        hasOtherTopicConsumption:
-          type: boolean
-          example: true
-      examples:
-      - id: 118998385
-        name: Golden Gate University
-        website: www.ggu.edu
-        hasOtherTopicConsumption: true
     IntentEnrich:
       title: IntentEnrich
       required:
@@ -2401,6 +2337,45 @@ components:
             name: Zoom Information, Inc.
             website: www.zoominfo.com
             hasOtherTopicConsumption: true
+    RecommendedContact1:
+      title: RecommendedContact1
+      required:
+      - id
+      - firstName
+      - lastName
+      - jobTitle
+      - jobFunction
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int64
+          example: 500123
+        firstName:
+          type: string
+          example: Acme Corporation
+        lastName:
+          type: string
+          example: Acme Corporation
+        jobTitle:
+          type: string
+          example: Vice President of Sales
+        jobFunction:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobFunction'
+          description: ''
+          example: []
+      examples:
+      - id: 2988050694
+        firstName: Nir
+        lastName: Keren
+        jobTitle: Chief Technology Officer
+        jobFunction:
+        - name: Engineering & Technical Executive
+          department: C-Suite
+        - name: Engineering & Technical
+          department: Engineering & Technical
     IntentEnrichOutput:
       title: IntentEnrichOutput
       required:
@@ -2417,6 +2392,116 @@ components:
       examples:
       - fieldName: id
         description: Unique ZoomInfo identifier for a topic
+    JobFunction:
+      title: JobFunction
+      required:
+      - name
+      - department
+      type: object
+      properties:
+        name:
+          type: string
+          example: Acme Corporation
+        department:
+          type: string
+          example: example_value
+      examples:
+      - name: Executive
+        department: C-Suite
+    IntentEnrichRequest:
+      title: IntentEnrichRequest
+      required:
+      - companyName
+      - companyWebsite
+      - companyId
+      - topics
+      - signalStartDate
+      - signalEndDate
+      - signalScoreMin
+      - signalScoreMax
+      - audienceStrengthMin
+      - audienceStrengthMax
+      - sortBy
+      - sortOrder
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: Acme Corporation
+        companyWebsite:
+          type: string
+          example: example_value
+        companyId:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        topics:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        signalStartDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        signalEndDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        signalScoreMin:
+          type: integer
+          contentEncoding: int32
+          example: 85
+        signalScoreMax:
+          type: integer
+          contentEncoding: int32
+          example: 85
+        audienceStrengthMin:
+          type: string
+          example: example_value
+        audienceStrengthMax:
+          type: string
+          example: example_value
+        sortBy:
+          type: string
+          example: example_value
+        sortOrder:
+          type: string
+          example: example_value
+      examples:
+      - companyName: ZoomInfo
+        companyWebsite: zoominfo.com
+        companyId: 344589814
+        topics:
+        - Cloud Applications
+        - Cloud Computing
+        - Cloud Infrastructure
+        - Corporate Culture
+        - Credit Card Fraud
+        - Direct Deposit
+        - eFulfillment Service
+        - Google Search
+        - Healthcare Law
+        - Hours of Work
+        - In-App Advertising
+        - Incentive Compensation
+        - Java
+        - Legal
+        - Mobile / Wireless
+        - Mobile Apps
+        - Mobile Security
+        - Mobile Wallet
+        - Node.js
+        - Organizational Culture
+        - Risk Management Services
+        - Video Conferencing
+        signalStartDate: '2020-04-01T00:00:00.000Z'
+        signalEndDate: '2020-05-31T00:00:00.000Z'
+        signalScoreMin: 80
+        signalScoreMax: 100
+        audienceStrengthMin: C
+        audienceStrengthMax: A
+        sortBy: issueDate
+        sortOrder: desc
   securitySchemes:
     httpBearer:
       type: http

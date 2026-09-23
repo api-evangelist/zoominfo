@@ -72,49 +72,48 @@ paths:
         - api:entitlement:read
 components:
   schemas:
-    EntitlementsResponse:
+    EntitlementAttributes:
       type: object
       required:
-      - data
+      - roleCode
+      - roleName
+      - roleType
+      - value
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Entitlement'
-          description: The primary data of the document
-      description: Response model containing a list of entitlements.
-    ZoomInfo.Core.Foundations.ErrorResponseModel:
+        roleCode:
+          type: string
+          description: The role code.
+        roleName:
+          type: string
+          description: The role name, description of the role.
+        roleType:
+          allOf:
+          - $ref: '#/components/schemas/RoleType'
+          description: The role type.
+        value:
+          type: string
+          description: The role value, 'Y' indicates entitlement is granted, a number indicates the limit.
+      description: Entitlement details.
+    Entitlement:
       type: object
       required:
-      - errors
+      - id
+      - type
+      - attributes
       properties:
-        detail:
+        id:
           type: string
-          description: A high-level detail of the error(s) that occurred during the request
-        title:
+          description: The unique identifier for the resource
+        type:
           type: string
-          description: A high-level summary of the error(s) detected
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
-          description: The list of errors raised during the request
-      description: The standard error response body model for the ZoomInfo API.
-    ZoomInfo.Core.Foundations.ErrorSourceModel:
-      type: object
-      properties:
-        cookie:
-          type: string
-          description: Identifies the cookie name that caused the issue
-        header:
-          type: string
-          description: Identifies the header name that caused the error
-        pointer:
-          type: string
-          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
-        parameter:
-          type: string
-          description: The name of the path or query parameter that caused the error
+          description: The type of the resource
+          default: Entitlement
+          pattern: Entitlement
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/EntitlementAttributes'
+          description: The attributes defining the resource
+      description: Entitlement resource model.
     ZoomInfo.Core.Foundations.ErrorModel:
       type: object
       required:
@@ -142,48 +141,38 @@ components:
           type: string
           description: The error name that describes this type of error
       description: The object describing a specific error from the API
-    Entitlement:
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
       type: object
       required:
-      - id
-      - type
-      - attributes
+      - errors
       properties:
-        id:
+        detail:
           type: string
-          description: The unique identifier for the resource
-        type:
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
           type: string
-          description: The type of the resource
-          default: Entitlement
-          pattern: Entitlement
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/EntitlementAttributes'
-          description: The attributes defining the resource
-      description: Entitlement resource model.
-    EntitlementAttributes:
-      type: object
-      required:
-      - roleCode
-      - roleName
-      - roleType
-      - value
-      properties:
-        roleCode:
-          type: string
-          description: The role code.
-        roleName:
-          type: string
-          description: The role name, description of the role.
-        roleType:
-          allOf:
-          - $ref: '#/components/schemas/RoleType'
-          description: The role type.
-        value:
-          type: string
-          description: The role value, 'Y' indicates entitlement is granted, a number indicates the limit.
-      description: Entitlement details.
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
     RoleType:
       type: string
       enum:
@@ -198,6 +187,17 @@ components:
       - signal
       - vertical_dataset
       description: Role type enumeration.
+    EntitlementsResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Entitlement'
+          description: The primary data of the document
+      description: Response model containing a list of entitlements.
   securitySchemes:
     OAuth2Auth:
       type: oauth2

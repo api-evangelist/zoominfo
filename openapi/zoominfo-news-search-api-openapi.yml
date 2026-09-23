@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: ZoomInfo Authentication News Search API
+  title: ZoomInfo News Search API
   description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
   contact:
     name: ZoomInfo API Support
@@ -15,14 +15,14 @@ security:
 - bearerAuth: []
 tags:
 - name: News Search
-  description: 'Use [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19) to retrieve news-related data using valid query parameters.
+  description: 'Use News Search to retrieve news-related data using valid query parameters.
 
 
-    *   To build your request, retrieve a list of valid query parameters using [News Search Inputs](#90bfb6fb-2754-478b-b42d-f8c507ffffb2).
+    * To build your request, retrieve a list of valid query parameters using News Search Inputs.
 
-    *   For requests that require you to specify supported values (e.g., news categories), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055) endpoints.
+    * For requests that require you to specify supported values (e.g., news categories), use the Lookup endpoints.
 
-    *   Use [News Search Outputs](#354f6240-e3d3-4c8c-9684-86569fd71581) to retrieve a list of expected response fields that will be returned from [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19).'
+    * Use News Search Outputs to retrieve a list of expected response fields that will be returned from News Search.'
 paths:
   /search/news:
     parameters: []
@@ -932,7 +932,7 @@ paths:
       tags:
       - News Search
       summary: Zoominfo News Search Inputs
-      description: Returns a list of fields you can use as input for the [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19) endpoint.
+      description: Returns a list of fields you can use as input for the News Search endpoint.
       operationId: NewsSearchInputs
       parameters: []
       responses:
@@ -1101,7 +1101,7 @@ paths:
       tags:
       - News Search
       summary: Zoominfo News Search Outputs
-      description: Returns a list of fields included in the response for the [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19) endpoint.
+      description: Returns a list of fields included in the response for the News Search endpoint.
       operationId: NewsSearchOutputs
       parameters: []
       responses:
@@ -1268,88 +1268,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    NewsSearchOutput:
-      title: NewsSearchOutput
-      required:
-      - fieldName
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: companyId
-        description: Unique ZoomInfo identifier for a company
-    Company:
-      title: Company
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-      examples:
-      - id: 9867169
-        name: AmerisourceBergen
-    Datum9:
-      title: Datum9
-      required:
-      - domain
-      - title
-      - url
-      - pageDate
-      - categories
-      - company
-      type: object
-      properties:
-        domain:
-          type: string
-          example: example.com
-        title:
-          type: string
-          example: Vice President of Sales
-        url:
-          type: string
-          example: https://www.example.com/resource
-        imageUrl:
-          type: string
-          example: https://www.example.com/resource
-        pageDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        categories:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-        company:
-          type: array
-          items:
-            $ref: '#/components/schemas/Company'
-          description: ''
-          example: []
-      examples:
-      - domain: newstral.com
-        title: St. Luke's Hospital appoints interim president
-        url: https://newstral.com/en/article/en/1152923450/st-luke-s-hospital-appoints-interim-president
-        imageUrl: http://newstral.com/source-images/29300_original_1529243370.jpg
-        pageDate: '2020-05-28T04:26:13.000Z'
-        categories:
-        - PERSON
-        company:
-        - id: 31380745
-          name: The Toledo Blade
     NewsSearchInput:
       title: NewsSearchInput
       required:
@@ -1371,60 +1289,22 @@ components:
       - fieldName: rpp
         fieldType: Integer
         description: Limits the results returned to the given number of results per page.
-    NewsSearchRequest:
-      title: NewsSearchRequest
+    NewsSearchOutput:
+      title: NewsSearchOutput
       required:
-      - categories
-      - url
-      - pageDateMin
-      - pageDateMax
-      - page
-      - rpp
+      - fieldName
+      - description
       type: object
       properties:
-        categories:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-        url:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: https://www.example.com
-        pageDateMin:
+        fieldName:
           type: string
-          example: '2025-03-15T14:30:00Z'
-        pageDateMax:
+          example: Acme Corporation
+        description:
           type: string
-          example: '2025-03-15T14:30:00Z'
-        page:
-          type: integer
-          contentEncoding: int32
-          example: 1
-        rpp:
-          type: integer
-          contentEncoding: int32
-          example: 100
+          example: Enterprise software company
       examples:
-      - categories:
-        - FINANCIAL_RESULTS
-        - FUNDING
-        - GENERAL_NEWS
-        - GENERAL_PRESS_RELEASE
-        - MERGER_OR_ACQUISTION
-        - PERSON
-        - PRODUCT
-        url:
-        - property
-        - financial
-        - result
-        pageDateMin: '2019-12-01T00:00:00.000Z'
-        pageDateMax: '2020-05-31T00:00:00.000Z'
-        page: 1
-        rpp: 20
+      - fieldName: companyId
+        description: Unique ZoomInfo identifier for a company
     NewsSearchusingpartialinputs:
       title: NewsSearchusingpartialinputs
       required:
@@ -1752,6 +1632,126 @@ components:
           company:
           - id: 1753503
             name: AIDS Healthcare Foundation
+    Company:
+      title: Company
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: 9867169
+        name: AmerisourceBergen
+    NewsSearchRequest:
+      title: NewsSearchRequest
+      required:
+      - categories
+      - url
+      - pageDateMin
+      - pageDateMax
+      - page
+      - rpp
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        url:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: https://www.example.com
+        pageDateMin:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        pageDateMax:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        page:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        rpp:
+          type: integer
+          contentEncoding: int32
+          example: 100
+      examples:
+      - categories:
+        - FINANCIAL_RESULTS
+        - FUNDING
+        - GENERAL_NEWS
+        - GENERAL_PRESS_RELEASE
+        - MERGER_OR_ACQUISTION
+        - PERSON
+        - PRODUCT
+        url:
+        - property
+        - financial
+        - result
+        pageDateMin: '2019-12-01T00:00:00.000Z'
+        pageDateMax: '2020-05-31T00:00:00.000Z'
+        page: 1
+        rpp: 20
+    Datum9:
+      title: Datum9
+      required:
+      - domain
+      - title
+      - url
+      - pageDate
+      - categories
+      - company
+      type: object
+      properties:
+        domain:
+          type: string
+          example: example.com
+        title:
+          type: string
+          example: Vice President of Sales
+        url:
+          type: string
+          example: https://www.example.com/resource
+        imageUrl:
+          type: string
+          example: https://www.example.com/resource
+        pageDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        categories:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        company:
+          type: array
+          items:
+            $ref: '#/components/schemas/Company'
+          description: ''
+          example: []
+      examples:
+      - domain: newstral.com
+        title: St. Luke's Hospital appoints interim president
+        url: https://newstral.com/en/article/en/1152923450/st-luke-s-hospital-appoints-interim-president
+        imageUrl: http://newstral.com/source-images/29300_original_1529243370.jpg
+        pageDate: '2020-05-28T04:26:13.000Z'
+        categories:
+        - PERSON
+        company:
+        - id: 31380745
+          name: The Toledo Blade
   securitySchemes:
     httpBearer:
       type: http

@@ -5,7 +5,17 @@ info:
   contact:
     name: ZoomInfo Customer Support
     email: help@zoominfo.com
-  description: "This definition only exposes one of many API routes from agentic-ai-platform\n    in order to quickly support an integration opportunity with SalesForce.\n    The model includes some definitions used by API routes that are not being\n    surfaced at this time. They remain included where they are referenced as\n    dependencies, to avoid model refactoring, and with the intent that additional\n    capabilities of agentic-ai-platform will be released under ZI-API in the future/"
+  description: 'This definition only exposes one of many API routes from agentic-ai-platform
+
+    in order to quickly support an integration opportunity with SalesForce.
+
+    The model includes some definitions used by API routes that are not being
+
+    surfaced at this time. They remain included where they are referenced as
+
+    dependencies, to avoid model refactoring, and with the intent that additional
+
+    capabilities of agentic-ai-platform will be released under ZI-API in the future/'
 servers:
 - url: https://api.zoominfo.com/gtm
   description: Base URL for the Agent API
@@ -30,16 +40,13 @@ paths:
         Designed for AI / agent consumption. Dismissed, saved, and expired pulses are excluded.
 
 
-
         ## Ordering
 
         Results are returned in stable descending order of `meta.createdAt`, then by `priority`
 
         (`HIGH` first, then `MEDIUM`, then `LOW`), then by `id` ascending as a tiebreaker. The ordering
 
-        is consistent across pages so pagination is safe under concurrent inserts.
-
-        '
+        is consistent across pages so pagination is safe under concurrent inserts.'
       parameters:
       - name: page[size]
         in: query
@@ -102,93 +109,65 @@ paths:
       - fea:pls
 components:
   schemas:
-    PulseAttributes:
-      type: object
-      required:
-      - title
-      - priority
-      - category
-      - pulseType
-      properties:
-        title:
-          type: string
-          maxLength: 256
-          description: Display title of the pulse.
-        priority:
-          allOf:
-          - $ref: '#/components/schemas/PulsePriority'
-          description: Priority level assigned to the pulse.
-        category:
-          allOf:
-          - $ref: '#/components/schemas/PulseCategory'
-          description: Category the pulse belongs to.
-        pulseType:
-          allOf:
-          - $ref: '#/components/schemas/PulseType'
-          description: Type of pulse content.
-        signalType:
-          allOf:
-          - $ref: '#/components/schemas/PulseSignalType'
-          description: Underlying signal that drove the pulse. Present only on signal-derived pulses; absent on task, event, and summary pulses.
-        companies:
-          type: array
-          items:
-            $ref: '#/components/schemas/PulseCompanyRef'
-          maxItems: 100
-          description: Companies associated with the pulse. Each entry carries a ZoomInfo company identifier and display name so agents can chain into other ZoomInfo APIs without an additional lookup step. Absent when the pulse has no company associations (for example, a contact-only pulse).
-        contacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/PulseContactRef'
-          maxItems: 100
-          description: Contacts associated with the pulse. Each entry carries a ZoomInfo contact identifier and display name so agents can chain into other ZoomInfo APIs without an additional lookup step. Absent when the pulse has no contact associations (for example, a company-only pulse).
-        summary:
-          type: string
-          maxLength: 4000
-          description: Plain-text summary of the rendered pulse content. Suitable as input to a large language model (LLM). Absent when the content block fails to render or contains no extractable text.
-        context:
-          type: string
-          maxLength: 2000
-          description: 'LLM-generated natural-language context explaining why this pulse is relevant to the authenticated user. Non-deterministic: the wording, length, and emphasis can change across invocations and across underlying model versions. Treat the field as opaque context, not as a stable contract for downstream parsing.'
-      description: Lightweight view of a pulse optimized for consumption by large language models (LLMs). Omits content blocks, recipients, data sources, and calls to action (CTAs) in favor of typed identity references for associated companies and contacts plus an LLM-generated relevance explanation.
-    ZoomInfo.Core.Foundations.ErrorResponseModel:
-      type: object
-      required:
-      - errors
-      properties:
-        detail:
-          type: string
-          description: A high-level detail of the error(s) that occurred during the request
-        title:
-          type: string
-          description: A high-level summary of the error(s) detected
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
-          description: The list of errors raised during the request
-      description: The standard error response body model for the ZoomInfo API.
-    PulseCategory:
+    PulseType:
       type: string
       enum:
-      - FINANCIAL
-      - PEOPLE
-      - ACTIVITY
-      - COMPETITIVE
-      - INITIATIVE
-      - ENGAGEMENT
-      - PLAY
-      - OTHER
-      description: Top-level category a pulse belongs to.
+      - INSIGHT
+      - TASK
+      - EVENT
+      - SUMMARY
+      description: Type of pulse content.
       x-enumDescriptions:
-        FINANCIAL: Funding, earnings, M&A, and budget-related signals.
-        PEOPLE: Hires, departures, role changes, and leadership moves.
-        ACTIVITY: Website activity, form intent signals, and engagement trends.
-        COMPETITIVE: Competitor actions, market positioning, and win/loss signals.
-        INITIATIVE: Strategic programs, transformations, and internal priorities.
-        ENGAGEMENT: Meetings, calls, and other direct engagement themes.
-        PLAY: Pulse originating from a GTM Studio play.
-        OTHER: Uncategorized pulse.
+        INSIGHT: Insight or group of insights about a company or contact.
+        TASK: Task assigned to a user.
+        EVENT: Event such as an upcoming meeting.
+        SUMMARY: Generic summary of data (for example, a weekly territory analysis or CRM hygiene digest).
+    PulsePriority:
+      type: string
+      enum:
+      - HIGH
+      - MEDIUM
+      - LOW
+      description: Priority level of a pulse.
+      x-enumDescriptions:
+        HIGH: Highest urgency. Surface and act on these first.
+        MEDIUM: Standard urgency.
+        LOW: Lowest urgency. Informational; defer if higher-priority work is available.
+    PagingLinks:
+      type: object
+      properties:
+        first:
+          type: string
+          format: uri
+          description: A link to the first page of data
+        last:
+          type: string
+          format: uri
+          description: A link to the last page of data
+        prev:
+          type: string
+          format: uri
+          description: A link to the previous page of data
+        next:
+          type: string
+          format: uri
+          description: A link to the next page of data
+      description: Links describing the available paging options.
+    PulseContactRef:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ZoomInfo contact identifier.
+        name:
+          type: string
+          maxLength: 256
+          description: Display name of the contact.
+      description: Identity of a contact associated with a pulse. The `id` is a ZoomInfo contact identifier and can be passed to other ZoomInfo APIs.
     PulseSignalType:
       type: string
       enum:
@@ -234,17 +213,33 @@ components:
         PERSON_BASED_NEWS: News mentioning a specific contact at a target account.
         BUYING_INTENT_SPIKE: Account-level intent activity has spiked across buying topics.
         TECHNOLOGY_ADDED: A target account added a new technology to its stack.
-    PulsePriority:
-      type: string
-      enum:
-      - HIGH
-      - MEDIUM
-      - LOW
-      description: Priority level of a pulse.
-      x-enumDescriptions:
-        HIGH: Highest urgency. Surface and act on these first.
-        MEDIUM: Standard urgency.
-        LOW: Lowest urgency. Informational; defer if higher-priority work is available.
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
     ZoomInfo.Core.Foundations.ErrorSourceModel:
       type: object
       properties:
@@ -299,46 +294,23 @@ components:
           maxLength: 256
           description: Display name of the company.
       description: Identity of a company associated with a pulse. The `id` is a ZoomInfo company identifier and can be passed to other ZoomInfo APIs (for example the Data API enrichment endpoints).
-    ZoomInfo.Core.Foundations.ErrorModel:
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
       type: object
       required:
-      - id
-      - code
-      - status
+      - errors
       properties:
-        id:
-          type: string
-          description: The unique id used to identify this specific error instance
-        code:
-          type: string
-          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
         detail:
           type: string
-          description: Message containing the specific details about this occurrence of the error
-        source:
-          allOf:
-          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
-          description: An optional object identifying which part of the request caused the error
-        status:
-          type: string
-          description: The HTTP status code for the error
+          description: A high-level detail of the error(s) that occurred during the request
         title:
           type: string
-          description: The error name that describes this type of error
-      description: The object describing a specific error from the API
-    PulseType:
-      type: string
-      enum:
-      - INSIGHT
-      - TASK
-      - EVENT
-      - SUMMARY
-      description: Type of pulse content.
-      x-enumDescriptions:
-        INSIGHT: Insight or group of insights about a company or contact.
-        TASK: Task assigned to a user.
-        EVENT: Event such as an upcoming meeting.
-        SUMMARY: Generic summary of data (for example, a weekly territory analysis or CRM hygiene digest).
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
     PagingMeta:
       type: object
       required:
@@ -392,41 +364,76 @@ components:
           format: date-time
           description: Time at which the pulse expires. Absent when the pulse has no expiration.
       description: System-managed metadata for a pulse.
-    PagingLinks:
-      type: object
-      properties:
-        first:
-          type: string
-          format: uri
-          description: A link to the first page of data
-        last:
-          type: string
-          format: uri
-          description: A link to the last page of data
-        prev:
-          type: string
-          format: uri
-          description: A link to the previous page of data
-        next:
-          type: string
-          format: uri
-          description: A link to the next page of data
-      description: Links describing the available paging options.
-    PulseContactRef:
+    PulseAttributes:
       type: object
       required:
-      - id
-      - name
+      - title
+      - priority
+      - category
+      - pulseType
       properties:
-        id:
-          type: integer
-          format: int64
-          description: ZoomInfo contact identifier.
-        name:
+        title:
           type: string
           maxLength: 256
-          description: Display name of the contact.
-      description: Identity of a contact associated with a pulse. The `id` is a ZoomInfo contact identifier and can be passed to other ZoomInfo APIs.
+          description: Display title of the pulse.
+        priority:
+          allOf:
+          - $ref: '#/components/schemas/PulsePriority'
+          description: Priority level assigned to the pulse.
+        category:
+          allOf:
+          - $ref: '#/components/schemas/PulseCategory'
+          description: Category the pulse belongs to.
+        pulseType:
+          allOf:
+          - $ref: '#/components/schemas/PulseType'
+          description: Type of pulse content.
+        signalType:
+          allOf:
+          - $ref: '#/components/schemas/PulseSignalType'
+          description: Underlying signal that drove the pulse. Present only on signal-derived pulses; absent on task, event, and summary pulses.
+        companies:
+          type: array
+          items:
+            $ref: '#/components/schemas/PulseCompanyRef'
+          maxItems: 100
+          description: Companies associated with the pulse. Each entry carries a ZoomInfo company identifier and display name so agents can chain into other ZoomInfo APIs without an additional lookup step. Absent when the pulse has no company associations (for example, a contact-only pulse).
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/PulseContactRef'
+          maxItems: 100
+          description: Contacts associated with the pulse. Each entry carries a ZoomInfo contact identifier and display name so agents can chain into other ZoomInfo APIs without an additional lookup step. Absent when the pulse has no contact associations (for example, a company-only pulse).
+        summary:
+          type: string
+          maxLength: 4000
+          description: Plain-text summary of the rendered pulse content. Suitable as input to a large language model (LLM). Absent when the content block fails to render or contains no extractable text.
+        context:
+          type: string
+          maxLength: 2000
+          description: 'LLM-generated natural-language context explaining why this pulse is relevant to the authenticated user. Non-deterministic: the wording, length, and emphasis can change across invocations and across underlying model versions. Treat the field as opaque context, not as a stable contract for downstream parsing.'
+      description: Lightweight view of a pulse optimized for consumption by large language models (LLMs). Omits content blocks, recipients, data sources, and calls to action (CTAs) in favor of typed identity references for associated companies and contacts plus an LLM-generated relevance explanation.
+    PulseCategory:
+      type: string
+      enum:
+      - FINANCIAL
+      - PEOPLE
+      - ACTIVITY
+      - COMPETITIVE
+      - INITIATIVE
+      - ENGAGEMENT
+      - PLAY
+      - OTHER
+      description: Top-level category a pulse belongs to.
+      x-enumDescriptions:
+        FINANCIAL: Funding, earnings, M&A, and budget-related signals.
+        PEOPLE: Hires, departures, role changes, and leadership moves.
+        ACTIVITY: Website activity, form intent signals, and engagement trends.
+        COMPETITIVE: Competitor actions, market positioning, and win/loss signals.
+        INITIATIVE: Strategic programs, transformations, and internal priorities.
+        ENGAGEMENT: Meetings, calls, and other direct engagement themes.
+        PLAY: Pulse originating from a GTM Studio play.
+        OTHER: Uncategorized pulse.
   securitySchemes:
     OAuth2Auth:
       type: oauth2

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: ZoomInfo Authentication Scoop Enrich API
+  title: ZoomInfo Scoop Enrich API
   description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
   contact:
     name: ZoomInfo API Support
@@ -15,15 +15,15 @@ security:
 - bearerAuth: []
 tags:
 - name: Scoop Enrich
-  description: 'Use [Scoop Enrich](#545c603a-fbe5-48b6-b4b4-bdca626fead0) to retrieve Scoop data using valid query parameters.
+  description: 'Use Scoop Enrich to retrieve Scoop data using valid query parameters.
 
 
     Refer to the examples provided to build a valid JSON request:
 
 
-    *   Use the [Scoop Enrich Inputs](#4ebf5d05-d819-4336-977f-2fe72dc6ac19) endpoint to retrieve a list of valid input parameters you can provide
+    * Use the Scoop Enrich Inputs endpoint to retrieve a list of valid input parameters you can provide
 
-    *   Use the [Scoop Enrich Outputs](#3af4b7ad-e694-4202-81c4-20b7bab73946) endpoint to retrieve a list of valid output fields returned'
+    * Use the Scoop Enrich Outputs endpoint to retrieve a list of valid output fields returned'
 paths:
   /enrich/scoop:
     parameters: []
@@ -31,7 +31,87 @@ paths:
       tags:
       - Scoop Enrich
       summary: Zoominfo Scoop Enrich
-      description: "Use this endpoint to match company scoop information based on [input values](#4ebf5d05-d819-4336-977f-2fe72dc6ac19) and return the desired [output fields](##6c2de74a-e026-401b-8910-503ae7aa57c8) in the response.\n\nThe Scoop Enrich endpoint returns a list of scoops related to a specified company:\n\n- Scoop Enrich requests require one of the following: a valid ZoomInfo `companyId`, `companyName`, or `companyWebsite` as an input parameter\n- If you do not provide a date range for when the scoop was published, the last 30 days of scoop records matching the request are returned\n- For charging purposes, each scoop returned is counted as a record\n    \n\n**Input params**\n\n| Parameter | DataType | Description |\n| --- | --- | --- |\n| companyId | String | ZoomInfo unique identifier for the company. Will accept a comma-separated list. |\n| companyName | String | Company name |\n| companyWebsite | String | Company domain |\n| publishedStartDate | String | Starting date to search for scoops based on when published. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format. |\n| publishedEndDate | String | Ending date to search for scoops based on when published. Form a range using publishedEndDate. Uses YYYY-MM-DD format. |\n| updatedSinceCreation | Boolean | Include scoops that have been updated since publishedStartDate |\n| scoopType | String | Retrieve scoops based on type (e.g., earnings, awards, partnerships and so on). See the **Scoop Types** lookup endpoint for valid inputs. |\n| scoopTopic | String | Retrieve scoops based on topic (e.g., integrations, technology, compliance and so on). See the **Scoop Topics** lookup endpoint for valid inputs. |\n| department | String | Retrieve scoops based on department (IT, finance, HR and so on). See the **Scoop Departments** lookup endpoint for valid inputs. |\n| scoopId | String | ZoomInfo unique identifier for a scoop. Will accept a comma-separated list. |\n| description | String | Search for scoops based on description. Will accept a comma-separated list of keywords. |\n| rpp | Integer | Limits the results returned to the given number of results per page. Default is 25. |\n| page | Integer | Provides the results for the given page, used in conjunction with `rpp` |\n| sortOrder | String | Provide `sortBy` if specifying `sortOrder`. Valid values are `asc`, `ascending`, `desc`, and `descending`. By default, results are sorted in descending order. |\n| sortBy | String | Sort results by valid output fields: `scoopId`, `originalPublishedDate`, `description`, `link`, or `linkText` |\n\n**Output fields**\n\n| Field | Description |\n| --- | --- |\n| id | ZoomInfo unique identifier for a scoop |\n| publishedDate | Publish date for a scoop. If updated, this date will reflect that last updated date. |\n| originalPublishedDate | Initial publish date for a scoop |\n| linkText | Link text for a scoop |\n| link | URL for the scoop |\n| description | Short description for the scoop contents |\n| topics | Topic(s) associated with a scoop |\n| updateText | Text related to an updated scoop |\n| types | Type(s) associated with a scoop |\n| companyId | ZoomInfo unique identifier for a company |\n| companyName | Company name |\n| contacts | Contacts associated with a scoop |"
+      description: 'Use this endpoint to match company scoop information based on input values and return the desired output fields in the response.
+
+
+        The Scoop Enrich endpoint returns a list of scoops related to a specified company:
+
+
+        - Scoop Enrich requests require one of the following: a valid ZoomInfo `companyId`, `companyName`, or `companyWebsite` as an input parameter
+
+        - If you do not provide a date range for when the scoop was published, the last 30 days of scoop records matching the request are returned
+
+        - For charging purposes, each scoop returned is counted as a record
+
+
+        **Input params**
+
+
+        | Parameter | DataType | Description |
+
+        | --- | --- | --- |
+
+        | companyId | String | ZoomInfo unique identifier for the company. Will accept a comma-separated list. |
+
+        | companyName | String | Company name |
+
+        | companyWebsite | String | Company domain |
+
+        | publishedStartDate | String | Starting date to search for scoops based on when published. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format. |
+
+        | publishedEndDate | String | Ending date to search for scoops based on when published. Form a range using publishedEndDate. Uses YYYY-MM-DD format. |
+
+        | updatedSinceCreation | Boolean | Include scoops that have been updated since publishedStartDate |
+
+        | scoopType | String | Retrieve scoops based on type (e.g., earnings, awards, partnerships and so on). See the **Scoop Types** lookup endpoint for valid inputs. |
+
+        | scoopTopic | String | Retrieve scoops based on topic (e.g., integrations, technology, compliance and so on). See the **Scoop Topics** lookup endpoint for valid inputs. |
+
+        | department | String | Retrieve scoops based on department (IT, finance, HR and so on). See the **Scoop Departments** lookup endpoint for valid inputs. |
+
+        | scoopId | String | ZoomInfo unique identifier for a scoop. Will accept a comma-separated list. |
+
+        | description | String | Search for scoops based on description. Will accept a comma-separated list of keywords. |
+
+        | rpp | Integer | Limits the results returned to the given number of results per page. Default is 25. |
+
+        | page | Integer | Provides the results for the given page, used in conjunction with `rpp` |
+
+        | sortOrder | String | Provide `sortBy` if specifying `sortOrder`. Valid values are `asc`, `ascending`, `desc`, and `descending`. By default, results are sorted in descending order. |
+
+        | sortBy | String | Sort results by valid output fields: `scoopId`, `originalPublishedDate`, `description`, `link`, or `linkText` |
+
+
+        **Output fields**
+
+
+        | Field | Description |
+
+        | --- | --- |
+
+        | id | ZoomInfo unique identifier for a scoop |
+
+        | publishedDate | Publish date for a scoop. If updated, this date will reflect that last updated date. |
+
+        | originalPublishedDate | Initial publish date for a scoop |
+
+        | linkText | Link text for a scoop |
+
+        | link | URL for the scoop |
+
+        | description | Short description for the scoop contents |
+
+        | topics | Topic(s) associated with a scoop |
+
+        | updateText | Text related to an updated scoop |
+
+        | types | Type(s) associated with a scoop |
+
+        | companyId | ZoomInfo unique identifier for a company |
+
+        | companyName | Company name |
+
+        | contacts | Contacts associated with a scoop |'
       operationId: ScoopEnrich
       parameters: []
       requestBody:
@@ -541,7 +621,7 @@ paths:
       tags:
       - Scoop Enrich
       summary: Zoominfo Scoop Enrich Inputs
-      description: Returns a list of fields you can use as input for the [Scoop Enrich](#545c603a-fbe5-48b6-b4b4-bdca626fead0) endpoint.
+      description: Returns a list of fields you can use as input for the Scoop Enrich endpoint.
       operationId: ScoopEnrichInputs
       parameters: []
       responses:
@@ -763,7 +843,7 @@ paths:
       tags:
       - Scoop Enrich
       summary: Zoominfo Scoop Enrich Outputs
-      description: Returns a list of output fields for the [Scoop Enrich](#545c603a-fbe5-48b6-b4b4-bdca626fead0) endpoint.
+      description: Returns a list of output fields for the Scoop Enrich endpoint.
       operationId: ScoopEnrichOutputs
       parameters: []
       responses:
@@ -946,6 +1026,81 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Company:
+      title: Company
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: 9867169
+        name: AmerisourceBergen
+    Type:
+      title: Type
+      required:
+      - id
+      - type
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        type:
+          type: string
+          example: standard
+      examples:
+      - id: 6
+        type: Award
+    ScoopEnrichRequest:
+      title: ScoopEnrichRequest
+      required:
+      - companyName
+      - publishedStartDate
+      - publishedEndDate
+      - scoopType
+      - department
+      - sortBy
+      - sortOrder
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: Acme Corporation
+        publishedStartDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        publishedEndDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        scoopType:
+          type: string
+          example: standard
+        department:
+          type: string
+          example: example_value
+        sortBy:
+          type: string
+          example: example_value
+        sortOrder:
+          type: string
+          example: example_value
+      examples:
+      - companyName: Zoominfo
+        publishedStartDate: '2018-11-01T00:00:00.000Z'
+        publishedEndDate: '2020-06-21T00:00:00.000Z'
+        scoopType: 1,6,7,8
+        department: '1'
+        sortBy: originalPublishedDate
+        sortOrder: asc
     ScoopEnrichOutput:
       title: ScoopEnrichOutput
       required:
@@ -962,6 +1117,27 @@ components:
       examples:
       - fieldName: id
         description: ZoomInfo unique identifier for a scoop
+    ScoopEnrichInput:
+      title: ScoopEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        fieldType: String
+        description: ZoomInfo unique identifier for the company. Will accept a comma-separated list.
     ScoopEnrich:
       title: ScoopEnrich
       required:
@@ -1203,102 +1379,6 @@ components:
         company:
           id: 344589814
           name: ZoomInfo
-    Company:
-      title: Company
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-      examples:
-      - id: 9867169
-        name: AmerisourceBergen
-    ScoopEnrichRequest:
-      title: ScoopEnrichRequest
-      required:
-      - companyName
-      - publishedStartDate
-      - publishedEndDate
-      - scoopType
-      - department
-      - sortBy
-      - sortOrder
-      type: object
-      properties:
-        companyName:
-          type: string
-          example: Acme Corporation
-        publishedStartDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        publishedEndDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        scoopType:
-          type: string
-          example: standard
-        department:
-          type: string
-          example: example_value
-        sortBy:
-          type: string
-          example: example_value
-        sortOrder:
-          type: string
-          example: example_value
-      examples:
-      - companyName: Zoominfo
-        publishedStartDate: '2018-11-01T00:00:00.000Z'
-        publishedEndDate: '2020-06-21T00:00:00.000Z'
-        scoopType: 1,6,7,8
-        department: '1'
-        sortBy: originalPublishedDate
-        sortOrder: asc
-    Type:
-      title: Type
-      required:
-      - id
-      - type
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        type:
-          type: string
-          example: standard
-      examples:
-      - id: 6
-        type: Award
-    ScoopEnrichInput:
-      title: ScoopEnrichInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: companyId
-        fieldType: String
-        description: ZoomInfo unique identifier for the company. Will accept a comma-separated list.
   securitySchemes:
     httpBearer:
       type: http

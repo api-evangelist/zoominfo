@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: ZoomInfo Authentication Company Search API
+  title: ZoomInfo Company Search API
   description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
   contact:
     name: ZoomInfo API Support
@@ -15,14 +15,14 @@ security:
 - bearerAuth: []
 tags:
 - name: Company Search
-  description: 'Use [Company Search](#4506f0ad-9147-4016-991f-ce8ef6700f07) to retrieve company data using valid query parameters.
+  description: 'Use Company Search to retrieve company data using valid query parameters.
 
 
-    *   To build your request, retrieve a list of valid query parameters using [Company Search Inputs](#ffd4ccc6-09d1-4026-8c4f-863d02fd703e).
+    * To build your request, retrieve a list of valid query parameters using Company Search Inputs.
 
-    *   For requests that require you to specify supported values (e.g., company type, industry codes and so on), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055) endpoints.
+    * For requests that require you to specify supported values (e.g., company type, industry codes and so on), use the Lookup endpoints.
 
-    *   Use [Company Search Outputs](#3dd35354-8523-4a8c-935a-97ed56d059a6) to retrieve a list of expected response fields that will be returned from [Company Search](#4506f0ad-9147-4016-991f-ce8ef6700f07).'
+    * Use Company Search Outputs to retrieve a list of expected response fields that will be returned from Company Search.'
 paths:
   /search/company:
     parameters: []
@@ -30,138 +30,7 @@ paths:
       tags:
       - Company Search
       summary: Zoominfo Company Search
-      description: 'Returns a list of Companies from ZoomInfo''s data which meet the specified search criteria.
-
-
-        Input parameters may require specific values, some of which are too extensive to list in the parameter descriptions. You can retrieve these values using the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055) endpoints.
-
-
-        **Input params**
-
-
-        | Parameter | DataType | Description |
-
-        | --- | --- | --- |
-
-        | rpp | Integer | Limits the results returned to the given number of results per page. Default is 25. |
-
-        | page | Integer | Provides the results for the given page, used in conjunction with `rpp` |
-
-        | sortOrder | String | Provide `sortBy` if specifying `sortOrder`. Valid values are `asc`, `ascending`, `desc`, and `descending`. By default, results are sorted in descending order. |
-
-        | sortBy | String | Sort results by valid output fields: `name`, `employeeCount`, `revenue` |
-
-        | companyId | String | ZoomInfo unique identifier for the company. Will accept-comma-separated list. |
-
-        | companyName | String | Company name |
-
-        | companyWebsite | String | URL to the company website in [http://www.example.com](http://www.example.com) format |
-
-        | companyDescription | String | Text description unique to the company you want to use as search criteria |
-
-        | parentId | String | ZoomInfo Company ID for parent company |
-
-        | ultimateParentId | String | ZoomInfo Company ID for ultimate parent company |
-
-        | companyTicker | Array | Company stock ticker symbol |
-
-        | companyType | String | Company type (private, public, and so on). See the **Company Type** lookup endpoint for values. |
-
-        | businessModel | ArrayList | Search using Business Model (B2C, B2B, B2G) for a company. Default is All |
-
-        | address | String | Company address |
-
-        | street | String | Company street |
-
-        | state | String | Company state (U.S.) or province (Canada). You can use free text state or province names (e.g., "new hampshire"), the two-letter common abbreviation for a U.S. state (e.g., "nh"), or values provided in the **State** lookup endpoint.  <br>  <br>Do not use `state` in conjunction with `country` in a search request, as the system uses `OR` logic between these two fields. If both are included in the request, the returned results will reflect _all_ states. |
-
-        | zipCode | String | Zip Code of the company''s primary address |
-
-        | country | String | Country for the company''s primary address. You can use free text or see the **Country** lookup endpoint for values.  <br>  <br>Do not use `country` in conjunction with `state` in a search request, as the system uses OR logic between these two fields. If both are included in the request, the returned results will reflect _all_ states. |
-
-        | continent | String | Continent for the company''s primary address. See the **Continent** lookup endpoint for values. |
-
-        | zipCodeRadiusMiles | String | Used in conjunction with `zipCode`, designates a geographical radius (in miles) from the `zipCode` provided. |
-
-        | hashTagString | String | Hash tags for a company. Can include a comma-separated list. |
-
-        | techAttributeTagList | String | Specify technology product tags. See the **Tech - Product** lookup endpoint for values. This string uses a numerical dot notation format similar to an IP address. The notation denotes the hierarchical structure: `parent-category.category.vendor`. For example, `333.202.28`. You can use wildcards in the notation (e.g., `333.202.\\\\*`, `\\\\*.202.\\\\*`, and so on). |
-
-        | subUnitTypes | String | Company sub types (e.g., division, subsidiary and so on). See the **Sub Unit Type** lookup endpoint for values. |
-
-        | primaryIndustriesOnly | Boolean | Used in conjunction with the `industryCodes` input parameter. When set to `true`, any result returned must have one of the specified industries as a primary industry. If no industries are specified, then this parameter will be ignored. Default is `false`. |
-
-        | industryCodes | String | Top-level Industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact''s current company. Can include a comma-separated list. See the **Industry Codes** lookup endpoint for values. |
-
-        | industryKeywords | String | Industry keywords associated with a company. Can include either ''AND'' or ''OR'' operators. For example, ''software AND security'' or ''software OR security''. |
-
-        | sicCodes | String | The Standard Industrial Classification is a system for classifying industries by a four-digit code. See the **SIC Codes** lookup endpoint for values. |
-
-        | naicsCodes | String | The North American Industry Classification System (NAICS) is the standard used by Federal statistical agencies in classifying business establishments for the purpose of collecting, analyzing, and publishing statistical data related to the U.S. business economy. See the **NAICS Codes** lookup endpoint for values. |
-
-        | revenueMin | Integer | Minimum annual revenue for a company in U.S. dollars. Use with `revenueMax` to set a range. Alternatively, you can use the `revenue` parameter to search for pre-defined ranges. |
-
-        | revenueMax | Integer | Maximum annual revenue for a company in U.S. dollars. Use with `revenueMin` to set a range. Alternatively, you can use the `revenue` parameter to search for pre-defined ranges. |
-
-        | revenue | String | Annual revenue range in U.S. dollars. Accepts a comma-separated list of values. See the **Revenue Range** lookup endpoint for values. Alternatively, to get more granular ranges, you can use the `revenueMin` and `revenueMax` parameters. |
-
-        | employeeRangeMin | String | Minimum employee count for a company. Use with `employeeRangeMax` to set a range. Alternatively, you can use the `employeeCount` parameter to search for pre-defined ranges. |
-
-        | employeeRangeMax | String | Maximum employee count for a company. Use with `employeeRangeMin` to set a range. Alternatively, you can use the `employeeCount` parameter to search for pre-defined ranges. |
-
-        | employeeCount | String | Employee count range. Accepts a comma-separated list of values. See the **Employee Count** lookup endpoint for values. Alternatively, to get more granular ranges, you can use the `employeeRangeMin` and `employeeRangeMax` parameters. |
-
-        | companyRanking | String | Company ranking list (e.g., Fortune 500 and so on). See the **Company Ranking** lookup endpoint for values. |
-
-        | metroRegion | String | Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas. See the **Metro Area** lookup endpoint for values. |
-
-        | locationSearchType | String | Location criteria for search. Values are `PersonOrHQ`, `PersonAndHQ`, `Person`, `HQ`, `PersonThenHQ`. |
-
-        | fundingAmountMin | Integer | Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If `fundingAmountMin` is used without `fundingAmountMax`, the result will be the amount specified or greater. |
-
-        | fundingAmountMax | Integer | Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If `fundingAmountMax` is used without `fundingAmountMin`, the result will be the amount specified or less. |
-
-        | fundingStartDate | String | Start date of the funding in YYYY-MM-DD format. If `fundingStartDate` and `fundingEndDate` are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date. |
-
-        | fundingEndDate | String | End date of the funding in YYYY-MM-DD format. If `fundingStartDate` and `fundingEndDate` are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date. |
-
-        | excludedRegions | String | Exclude a company metro area. Accepts a comma-separated list of U.S. and Canada metro areas. See the **Metro Area** lookup endpoint for values. |
-
-        | zoominfoContactsMin | String | Minimum number of ZoomInfo contacts associated with company |
-
-        | zoominfoContactsMax | String | Maximum number of ZoomInfo contacts associated with company |
-
-        | companyStructureIncludedSubUnitTypes | String | Company hierarchical structure |
-
-        | certified | Integer | Denotes if ZoomInfo''s research and data team has confirmed activity within the past 12 months |
-
-        | excludeDefunctCompanies | Boolean | Include or exclude defunct companies. The default value is false. |
-
-        | oneYearEmployeeGrowthRateMin | String | Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range. |
-
-        | oneYearEmployeeGrowthRateMax | String | Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range. |
-
-        | twoYearEmployeeGrowthRateMin | String | Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range. |
-
-        | twoYearEmployeeGrowthRateMax | String | Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range. |
-
-        | engagementStartDate | String | Engagement start date in YYYY-MM-DD format. |
-
-        | engagementEndDate | String | Engagement end date in YYYY-MM-DD format. EngagementStartDate is required. |
-
-        | engagementType | Array | List of engagement types to search for. Accepted values are a list of `email`, `phone`, `online meeting`. |
-
-
-        **Response data**
-
-
-        | Field | Description |
-
-        | --- | --- |
-
-        | companyId | Unique ZoomInfo identifier for the company |
-
-        | companyName | Company name |'
+      description: Returns a list of Companies from ZoomInfo's data which meet the specified search criteria.
       operationId: CompanySearch
       parameters: []
       requestBody:
@@ -453,7 +322,7 @@ paths:
       tags:
       - Company Search
       summary: Zoominfo Company Search Inputs
-      description: Returns a list of fields you can use as input for the [Company Search](#4506f0ad-9147-4016-991f-ce8ef6700f07) endpoint.
+      description: Returns a list of fields you can use as input for the Company Search endpoint.
       operationId: CompanySearchInputs
       parameters: []
       responses:
@@ -1095,7 +964,7 @@ paths:
       tags:
       - Company Search
       summary: Zoominfo Company Search Outputs
-      description: Returns a list of fields included in the response for the [Company Search](#4506f0ad-9147-4016-991f-ce8ef6700f07) endpoint.
+      description: Returns a list of fields included in the response for the Company Search endpoint.
       operationId: CompanySearchOutputs
       parameters: []
       responses:

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: ZoomInfo Authentication Contact Search API
+  title: ZoomInfo Contact Search API
   description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
   contact:
     name: ZoomInfo API Support
@@ -15,14 +15,14 @@ security:
 - bearerAuth: []
 tags:
 - name: Contact Search
-  description: 'Use [Contact Search](#2e5121fd-df42-41a4-95d6-0e8f24eebd92) to retrieve contacts using valid query parameters.
+  description: 'Use Contact Search to retrieve contacts using valid query parameters.
 
 
-    *   To build your request, retrieve a list of valid query parameters using [Contact Search Inputs](#74630827-dd25-4b6a-bf72-f7cfeffd6c41).
+    * To build your request, retrieve a list of valid query parameters using Contact Search Inputs.
 
-    *   For requests that require you to specify supported values (e.g., job titles, industry codes and so on), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055) endpoints.
+    * For requests that require you to specify supported values (e.g., job titles, industry codes and so on), use the Lookup endpoints.
 
-    *   Use [Contact Search Outputs](#5ed629a9-f24a-41a3-bc66-89f3f09f051c) to retrieve a list of expected response fields that will be returned from [Contact Search](#2e5121fd-df42-41a4-95d6-0e8f24eebd92).'
+    * Use Contact Search Outputs to retrieve a list of expected response fields that will be returned from Contact Search.'
 paths:
   /search/contact:
     parameters: []
@@ -30,242 +30,7 @@ paths:
       tags:
       - Contact Search
       summary: Zoominfo Contact Search
-      description: 'Returns a list of Contacts from ZoomInfo''s data that meet the specified search criteria.
-
-
-        Input parameters may require specific values, some of which are too extensive to list in the parameter descriptions. You can retrieve these values using the [Lookup](https://) endpoints.
-
-
-        **Input params**
-
-
-        | Parameter | DataType | Description |
-
-        | --- | --- | --- |
-
-        | rpp | Integer | Limits the results returned to the given number of results per page. Default is 25. |
-
-        | page | Integer | Provides the results for the given page, used in conjunction with `rpp` |
-
-        | sortOrder | String | Provide `sortBy` if specifying `sortOrder`. Valid values are `asc`, `ascending`, `desc`, and `descending`. By default, results are sorted in descending order. |
-
-        | sortBy | String | Sort results by valid output fields: `contactAccuracyScore`, `lastName`, `companyName`, `hierarchy`, `sourceCount`, `lastMentioned`, `relevance` |
-
-        | personId | String | Unique ZoomInfo identifier for the contact. Can include a comma-separated list. |
-
-        | emailAddress | String | Work email address for the contact in [example@example.com](https://) format |
-
-        | supplementalEmail | Array | Supplemental email address for the contact in [example@example.com](https://) format |
-
-        | hashedEmail | String | Hashed email value for the contact. Allows searching via an email address with the extra security of not exposing the email. Supported hash algorithms are: MD5, SHA1, SHA256 and SHA512. |
-
-        | phone | Array | List of person phones or mobile numbers. Here''s an example list - any of the following phone number formats are acceptable: `["(123)-456-7890", "1234567890", "123 456 7890", "123-445-7890"]`. Alphabetical characters are not allowed. |
-
-        | fullName | String | Contact full name |
-
-        | firstName | String | Contact first name |
-
-        | middleInitial | String | Contact middle initial |
-
-        | lastName | String | Contact last name |
-
-        | jobTitle | String | Contact title at current place of employment. Use `OR` to input multiple job titles. |
-
-        | excludeJobTitle | String | Exclude comma-separated list of job titles |
-
-        | managementLevel | String | Contact management level at current place of employment. See the **Management Levels** lookup endpoint for values. |
-
-        | excludeManagementLevel | String | Exclude contact based on management level. See the **Management Levels** lookup endpoint for values. |
-
-        | department | String | Contact department at current place of employment. See the **Contact Departments** lookup endpoint for values. |
-
-        | boardMember | String | Exclude or include board members from search results. By default, the API includes board members in results. See the **Board Members** lookup endpoint for values. |
-
-        | excludePartialProfiles | Boolean | Contacts who do not have an active company associated with them are considered partial profiles. Exclude contacts with a partial profile from search results. |
-
-        | executivesOnly | Boolean | Return only executives |
-
-        | requiredFields | String | Specify a list of required fields for each record returned. Can include `email`, `phone` (direct or company), `directPhone`, `personalEmail`, and `mobilePhone`. Can include a comma-separated list of these fields. For example, requiring direct phone (`directPhone`) will only return contacts which have the Direct Phone Number field populated. |
-
-        | contactAccuracyScoreMin | String | Minimum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99. |
-
-        | contactAccuracyScoreMax | String | Maximum accuracy score for search results. This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 70 and maximum is 99. |
-
-        | jobFunction | String | Contact job function at their current place of employment. See the **Job Function** lookup endpoint for values. |
-
-        | lastUpdatedDateAfter | String | The date after which the contact''s profile was last updated in YYYY-MM-DD format |
-
-        | validDateAfter | String | The date after which the contact''s profile was last validated in YYYY-MM-DD format |
-
-        | lastUpdatedInMonths | Integer | Number of months within which the contact''s profile was last updated. For example, if `lastUpdatedinMonths` is `12` only contacts that were updated in the last 12 months will be returned. |
-
-        | hasBeenNotified | String | Contacts who have been notified of inclusion in ZoomInfo''s database. Values are `exclude`, `include`, and `only`. |
-
-        | companyPastOrPresent | String | Returns companies based on a contact''s work history. Values are `present` (default), `past`, and `pastAndPresent`. |
-
-        | school | String | Contact educational institution |
-
-        | degree | String | Contact education degree |
-
-        | locationCompanyId | Array | Searches by contact''s location IDs. Use the **Location Enrich** endpoint to obtain a list of location IDs for a company. |
-
-        | companyId | String | ZoomInfo unique identifier for the company. Will accept a comma-separated list. |
-
-        | companyName | String | Company name. Can use OR and NOT operators to include or exclude companies by name. For example, "Vodaphone OR Comcast NOT Verizon" |
-
-        | companyWebsite | String | URL to the company website in [http://www.example.com](https://) format |
-
-        | companyTicker | Array | Company stock ticker symbol |
-
-        | companyDescription | String | Text description unique to the company you want to use as search criteria |
-
-        | parentId | String | ZoomInfo Company ID for parent company |
-
-        | ultimateParentId | String | ZoomInfo Company ID for ultimate parent company |
-
-        | companyType | String | Company type (private, public, and so on). See the **Company Type** lookup endpoint for values. |
-
-        | address | String | Company address |
-
-        | street | String | Company street |
-
-        | state | String | Company state (U.S.) or province (Canada). You can use free text state or province names (e.g., "new hampshire"), the two-letter common abbreviation for a U.S. state (e.g., "nh"), or values provided in the **State** lookup endpoint. |
-
-        | zipCode | String | Zip Code of the company''s primary address |
-
-        | country | String | Country for the company''s primary address. You can use free text or see the **Country** lookup endpoint for values. |
-
-        | continent | String | Continent for the company''s primary address. See the **Continent** lookup endpoint for values. |
-
-        | zipCodeRadiusMiles | String | Used in conjunction with `zipCode`, designates a geographical radius (in miles) from the `zipCode` provided. |
-
-        | hashTagString | String | Hash tags for a company. Can include a comma-separated list. |
-
-        | techAttributeTagList | String | Specify technology product tags. See the **Tech - Product** lookup endpoint for values. This string uses a numerical dot notation format similar to an IP address. The notation denotes the hierarchical structure: `parent-category.category.vendor`. For example, `333.202.28`. You can use wildcards in the notation (e.g., `333.202.\\\\\\*`, `\\\\\\*.202.\\\\\\*`, and so on). |
-
-        | subUnitTypes | String | Company sub types (e.g., division, subsidiary and so on). See the **Sub Unit Type** lookup endpoint for values. |
-
-        | primaryIndustriesOnly | Boolean | Used in conjunction with the `industryCodes` input parameter. When set to `true`, any result returned must have one of the specified industries as a primary industry. If no industries are specified, then this parameter will be ignored. Default is `false`. |
-
-        | industryCodes | String | Top-level industry that the contact works in. A contact can have multiple top level industries. Tags are based on the contact''s current company. Can include a comma-separated list. See the **Industry Codes** lookup endpoint for values. |
-
-        | industryKeywords | String | Industry keywords associated with a company. Can include a comma-separated list. |
-
-        | sicCodes | String | The Standard Industrial Classification is a system for classifying industries by a four-digit code. See the **SIC Codes** lookup endpoint for values. |
-
-        | naicsCodes | String | The North American Industry Classification System (NAICS) is the standard used by Federal statistical agencies in classifying business establishments for the purpose of collecting, analyzing, and publishing statistical data related to the U.S. business economy. See the **NAICS Codes** lookup endpoint for values. |
-
-        | revenueMin | Integer | Minimum annual revenue for a company in U.S. dollars. Use with `revenueMax` to set a range. Alternatively, you can use the `revenue` parameter to search for pre-defined ranges. |
-
-        | revenueMax | Integer | Maximum annual revenue for a company in U.S. dollars. Use with `revenueMin` to set a range. Alternatively, you can use the `revenue` parameter to search for pre-defined ranges. |
-
-        | revenue | String | Annual revenue range in U.S. dollars. Accepts a comma-separated list of values. See the **Revenue Range** lookup endpoint for values. Alternatively, to get more granular ranges, you can use the `revenueMin` and `revenueMax` parameters. |
-
-        | employeeRangeMin | String | Minimum employee count for a company. Use with `employeeRangeMax` to set a range. Alternatively, you can use the `employeeCount` parameter to search for pre-defined ranges. |
-
-        | employeeRangeMax | String | Maximum employee count for a company. Use with `employeeRangeMin` to set a range. Alternatively, you can use the `employeeCount` parameter to search for pre-defined ranges. |
-
-        | employeeCount | String | Employee count range. Accepts a comma-separated list of values. See the **Employee Count** lookup endpoint for values. Alternatively, to get more granular ranges, you can use the `employeeRangeMin` and `employeeRangeMax` parameters. |
-
-        | companyRanking | String | Company ranking list (e.g., Fortune 500 and so on). See the **Company Ranking** lookup endpoint for values. |
-
-        | metroRegion | String | Company metro area. Accepts a comma-separated list of U.S. and Canada metro areas. See the **Metro Area** lookup endpoint for values. |
-
-        | locationSearchType | String | Location criteria for search. Values are `PersonOrHQ`, `PersonAndHQ`, `Person`, `HQ`, `PersonThenHQ`. |
-
-        | fundingAmountMin | Integer | Minimum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If `fundingAmountMin` is used without `fundingAmountMax`, the result will be the amount specified or greater. |
-
-        | fundingAmountMax | Integer | Maximum funding amount in thousands (e.g., 1 = 1000, 500 = 500,000). If `fundingAmountMax` is used without `fundingAmountMin`, the result will be the amount specified or less. |
-
-        | fundingStartDate | String | Start date of the funding in YYYY-MM-DD format. If `fundingStartDate` and `fundingEndDate` are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date. |
-
-        | fundingEndDate | String | End date of the funding in YYYY-MM-DD format. If `fundingStartDate` and `fundingEndDate` are both specified, they will be used as a range. Start date after end date returns an error. If start date and end date are the same, will return results for exact date. |
-
-        | excludedRegions | String | Exclude a company metro area. Accepts a comma-separated list of U.S. and Canada metro areas. See the **Metro Area** lookup endpoint for values. |
-
-        | zoominfoContactsMin | String | Minimum number of ZoomInfo contacts associated with company |
-
-        | zoominfoContactsMax | String | Maximum number of ZoomInfo contacts associated with company |
-
-        | companyStructureIncludedSubUnitTypes | String | Company hierarchical structure |
-
-        | oneYearEmployeeGrowthRateMin | String | Minimum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMax to set a range. |
-
-        | oneYearEmployeeGrowthRateMax | String | Maximum one year employee growth rate for a company. Use with oneYearEmployeeGrowthRateMin to set a range. |
-
-        | twoYearEmployeeGrowthRateMin | String | Minimum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMax to set a range. |
-
-        | twoYearEmployeeGrowthRateMax | String | Maximum two year employee growth rate for a company. Use with twoYearEmployeeGrowthRateMin to set a range. |
-
-        | positionStartDateMin | String | Minimum date for when a contact began current employment. Use with `positionStartDateMax` to set a range. |
-
-        | positionStartDateMax | String | Maximum date for when a contact began current employment. Use with `positionStartDateMin` to set a range. |
-
-        | webReferences | Array | List of web references for a contact. Default criteria is OR between multiple values. Should only contain english letters and numbers. |
-
-        | filterByBuyingCommittee | Boolean | Boolean flag for Buying Committee. Setting this to TRUE will filter the results based on the Buying Committees set for the account. Default is FALSE. |
-
-        | techSkills | ArrayList | List of technology skills for a contact. Default criteria is OR between multiple values. Should only contain string numbers |
-
-        | yearsOfExperience | String | Years of overall experience. Must be a comma-separated string of values. See the **Years of Experience** lookup endpoint for values. |
-
-        | engagementStartDate | String | Engagement start date in YYYY-MM-DD format. |
-
-        | engagementEndDate | String | Engagement end date in YYYY-MM-DD format. EngagementStartDate is required. |
-
-        | engagementType | Array | List of engagement types to search for. Accepted values are a list of `email`, `phone`, `online meeting`. |
-
-
-        **Response data**
-
-
-        | Field | Description |
-
-        | --- | --- |
-
-        | personId | Unique ZoomInfo identifier for the contact |
-
-        | firstName | Contact first name |
-
-        | lastName | Contact last name |
-
-        | middleName | Contact middle name |
-
-        | companyId | ZoomInfo unique identifier for the company |
-
-        | companyName | Company name |
-
-        | jobTitle | Contact job title at current place of employment |
-
-        | contactAccuracyScore | This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 75 and maximum is 99. |
-
-        | validDate | Date on which the contact record was last validated |
-
-        | lastUpdatedDate | Date on which the contact record was last updated |
-
-        | hasEmail | Indicates whether ZoomInfo has an email address for the contact |
-
-        | hasSupplementalEmail | Indicates whether ZoomInfo has a supplemental email address for the contact |
-
-        | hasDirectPhone | Indicates whether ZoomInfo has a direct phone number for the contact. If do not call is enabled for the contact, the field `directPhoneDoNotCall` is returned in the output with a value of `true`. |
-
-        | hasMobilePhone | Indicates whether ZoomInfo has a mobile phone number for the contact. If do not call is enabled for the contact, the field `mobilePhoneDoNotCall` is returned in the output with a value of `true`. |
-
-        | hasCompanyIndustry | Indicates whether ZoomInfo has company industry for the contact |
-
-        | hasCompanyPhone | Indicates whether ZoomInfo has a company phone number for the contact |
-
-        | hasCompanyStreet | Indicates whether ZoomInfo has a street address for the contact |
-
-        | hasCompanyState | Indicates whether ZoomInfo has a state for the contact |
-
-        | hasCompanyZipCode | Indicates whether ZoomInfo has a Zip Code or Postal Code for the contact |
-
-        | hasCompanyCountry | Indicates whether ZoomInfo has a country for the contact |
-
-        | hasCompanyRevenue | Indicates whether ZoomInfo has company revenue data for the contact |
-
-        | hasCompanyEmployeeCount | Indicates whether ZoomInfo has company headcount data for the contact |'
+      description: Returns a list of Contacts from ZoomInfo's data that meet the specified search criteria.
       operationId: ContactSearch
       parameters: []
       requestBody:
@@ -965,7 +730,7 @@ paths:
       tags:
       - Contact Search
       summary: Zoominfo Contact Search Inputs
-      description: Returns a list of fields you can use as input for the [Contact Search](#2e5121fd-df42-41a4-95d6-0e8f24eebd92) endpoint.
+      description: Returns a list of fields you can use as input for the Contact Search endpoint.
       operationId: ContactSearchInputs
       parameters: []
       responses:
@@ -1807,7 +1572,7 @@ paths:
       tags:
       - Contact Search
       summary: Zoominfo Contact Search Outputs
-      description: Returns a list of fields included in the response for the [Contact Search](#2e5121fd-df42-41a4-95d6-0e8f24eebd92) endpoint.
+      description: Returns a list of fields included in the response for the Contact Search endpoint.
       operationId: ContactSearchOutputs
       parameters: []
       responses:
@@ -2105,6 +1870,23 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Company:
+      title: Company
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: 9867169
+        name: AmerisourceBergen
     SearchcontactsbyZipCoderadius:
       title: SearchcontactsbyZipCoderadius
       required:
@@ -2367,6 +2149,94 @@ components:
           company:
             id: 12240745
             name: Church & Dwight
+    ContactSearchInput:
+      title: ContactSearchInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      - accessGranted
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+        accessGranted:
+          type: string
+          example: example_value
+      examples:
+      - fieldName: personId
+        fieldType: String
+        description: Unique ZoomInfo identifier for the contact. Can include a comma-separated list.
+        accessGranted: 'true'
+    ContactSearchRequest:
+      title: ContactSearchRequest
+      required:
+      - managementLevel
+      - companyType
+      - zipCode
+      - locationSearchType
+      - zipCodeRadiusMiles
+      - techAttributeTagList
+      - requiredFields
+      type: object
+      properties:
+        managementLevel:
+          type: string
+          example: example_value
+        companyType:
+          type: string
+          example: standard
+        zipCode:
+          type: string
+          example: '94105'
+        locationSearchType:
+          type: string
+          example: standard
+        zipCodeRadiusMiles:
+          type: string
+          example: '94105'
+        techAttributeTagList:
+          type: string
+          example: example_value
+        requiredFields:
+          type: string
+          example: example_value
+      examples:
+      - managementLevel: directors
+        companyType: public
+        zipCode: '19101'
+        locationSearchType: PersonAndHQ
+        zipCodeRadiusMiles: '25'
+        techAttributeTagList: 333.202.*
+        requiredFields: directPhone
+    ContactSearchOutput:
+      title: ContactSearchOutput
+      required:
+      - fieldName
+      - description
+      - accessGranted
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+        accessGranted:
+          type: string
+          example: example_value
+      examples:
+      - fieldName: id
+        description: Unique ZoomInfo identifier for the contact
+        accessGranted: 'true'
     Datum:
       title: Datum
       required:
@@ -2481,111 +2351,6 @@ components:
         company:
           id: 9867169
           name: AmerisourceBergen
-    Company:
-      title: Company
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-      examples:
-      - id: 9867169
-        name: AmerisourceBergen
-    ContactSearchRequest:
-      title: ContactSearchRequest
-      required:
-      - managementLevel
-      - companyType
-      - zipCode
-      - locationSearchType
-      - zipCodeRadiusMiles
-      - techAttributeTagList
-      - requiredFields
-      type: object
-      properties:
-        managementLevel:
-          type: string
-          example: example_value
-        companyType:
-          type: string
-          example: standard
-        zipCode:
-          type: string
-          example: '94105'
-        locationSearchType:
-          type: string
-          example: standard
-        zipCodeRadiusMiles:
-          type: string
-          example: '94105'
-        techAttributeTagList:
-          type: string
-          example: example_value
-        requiredFields:
-          type: string
-          example: example_value
-      examples:
-      - managementLevel: directors
-        companyType: public
-        zipCode: '19101'
-        locationSearchType: PersonAndHQ
-        zipCodeRadiusMiles: '25'
-        techAttributeTagList: 333.202.*
-        requiredFields: directPhone
-    ContactSearchInput:
-      title: ContactSearchInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      - accessGranted
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-        accessGranted:
-          type: string
-          example: example_value
-      examples:
-      - fieldName: personId
-        fieldType: String
-        description: Unique ZoomInfo identifier for the contact. Can include a comma-separated list.
-        accessGranted: 'true'
-    ContactSearchOutput:
-      title: ContactSearchOutput
-      required:
-      - fieldName
-      - description
-      - accessGranted
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-        accessGranted:
-          type: string
-          example: example_value
-      examples:
-      - fieldName: id
-        description: Unique ZoomInfo identifier for the contact
-        accessGranted: 'true'
   securitySchemes:
     httpBearer:
       type: http

@@ -35,7 +35,7 @@ paths:
         If no configuration has been created yet, the endpoint will return **404 Not Found**.
 
 
-        Use [Post Customer Settings](ref:customersettingsinterface_upsertcustomersettings) to create or update the settings.
+        Use Post Customer Settings to create or update the settings.
 
 
         Common use cases
@@ -119,9 +119,9 @@ paths:
         - Modify strategic priorities used by AI recommendations
 
 
-        Use [Get Customer Settings](ref:customersettingsinterface_getcustomersettings) to retrieve the current settings
+        Use Get Customer Settings to retrieve the current settings
 
-        before updating, or [Delete Customer Settings](ref:customersettingsinterface_deletecustomersettings) to remove them.'
+        before updating, or Delete Customer Settings to remove them.'
       parameters: []
       responses:
         '201':
@@ -187,7 +187,7 @@ paths:
 
         This is a hard delete operation. Once deleted, the record is removed from the backend and must be recreated using
 
-        [Upsert Customer Settings](ref:customersettingsinterface_upsertcustomersettings) if needed.
+        Upsert Customer Settings if needed.
 
 
         Common use cases
@@ -199,9 +199,9 @@ paths:
         - Clean up configuration that is no longer valid
 
 
-        Use [Get Customer Settings](ref:customersettingsinterface_getcustomersettings) to verify settings exist before deletion,
+        Use Get Customer Settings to verify settings exist before deletion,
 
-        or [Upsert Customer Settings](ref:customersettingsinterface_upsertcustomersettings) to recreate them if needed.'
+        or Upsert Customer Settings to recreate them if needed.'
       parameters: []
       responses:
         '204':
@@ -242,23 +242,6 @@ paths:
       - fea:gsa
 components:
   schemas:
-    CustomFieldItem:
-      type: object
-      required:
-      - title
-      - value
-      properties:
-        title:
-          type: string
-          description: The display title of the custom field.
-        description:
-          type: string
-          description: An optional description of the field. Defaults to an empty string in the backend.
-          default: ''
-        value:
-          type: string
-          description: The string value associated with this custom field.
-      description: Schema for a single custom field item.
     GtmConfigAuditFields:
       type: object
       properties:
@@ -296,54 +279,6 @@ components:
         archival (temporary hiding), and soft deletion (permanent hiding for compliance).
 
         A record can be active, deleted only, or both.'
-    ZoomInfo.Core.Foundations.ErrorResponseModel:
-      type: object
-      required:
-      - errors
-      properties:
-        detail:
-          type: string
-          description: A high-level detail of the error(s) that occurred during the request
-        title:
-          type: string
-          description: A high-level summary of the error(s) detected
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
-          description: The list of errors raised during the request
-      description: The standard error response body model for the ZoomInfo API.
-    CustomerSettingsAttributes:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 1024
-          description: Editable display name for the customer organization. When provided (for create or update), must be between 1 and 1024 characters.
-        elevatorPitch:
-          type: string
-          maxLength: 1024
-          description: Brief elevator pitch or value proposition for the customer organization. Used by AI agents to understand the company's core offering. When provided (for create or update), must be less than 1024 characters.
-        description:
-          type: string
-          maxLength: 10000
-          description: Company description providing context about what the organization does, its market position, and its target audience. Maximum 10,000 characters.
-        strategicPriorities:
-          type: string
-          maxLength: 10000
-          description: Strategic priorities text describing the organization's key business objectives, growth targets, and focus areas. Used by AI agents to align GTM recommendations with business goals. Maximum 10,000 characters.
-        source:
-          allOf:
-          - $ref: '#/components/schemas/GtmConfigSourceType'
-          description: Source type indicating how this settings record was created or last modified. Defaults to `manual`. See `GtmConfigSourceType` for allowed values.
-          readOnly: true
-        customFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomFieldItem'
-          description: Flexible key-value storage for customer-specific custom fields and metadata. The backend validates the schema and value types. This allows storing organization-specific data beyond the standard fields.
-      description: Attributes defining customer-level settings and configuration
     GtmConfigSourceType:
       type: string
       enum:
@@ -379,6 +314,41 @@ components:
           - $ref: '#/components/schemas/CustomerSettingsAttributes'
           description: The attributes defining the resource
       description: Customer Settings resource wrapping attributes in JSON:API format.
+    CustomerSettings:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: CustomerSettings
+          pattern: CustomerSettings
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/CustomerSettingsAttributes'
+          description: The attributes defining the resource
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/GtmConfigAuditFields'
+          description: Non-standard meta information about the resource
+          readOnly: true
+      description: Customer Settings resource wrapping attributes in JSON:API format.
+    CustomerSettingsModel:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/CustomerSettings'
+          description: The primary data of the document
+      description: JSON:API response containing the customer settings singleton.
     ZoomInfo.Core.Foundations.ErrorModel:
       type: object
       required:
@@ -421,16 +391,40 @@ components:
         parameter:
           type: string
           description: The name of the path or query parameter that caused the error
-    CustomerSettingsModel:
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
       type: object
       required:
-      - data
+      - errors
       properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/CustomerSettings'
-          description: The primary data of the document
-      description: JSON:API response containing the customer settings singleton.
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    CustomFieldItem:
+      type: object
+      required:
+      - title
+      - value
+      properties:
+        title:
+          type: string
+          description: The display title of the custom field.
+        description:
+          type: string
+          description: An optional description of the field. Defaults to an empty string in the backend.
+          default: ''
+        value:
+          type: string
+          description: The string value associated with this custom field.
+      description: Schema for a single custom field item.
     CustomerSettingsModelCreate:
       type: object
       required:
@@ -441,31 +435,37 @@ components:
           - $ref: '#/components/schemas/CustomerSettingsCreate'
           description: The primary data of the document
       description: JSON:API response containing the customer settings singleton.
-    CustomerSettings:
+    CustomerSettingsAttributes:
       type: object
-      required:
-      - id
-      - type
-      - attributes
       properties:
-        id:
+        name:
           type: string
-          description: The unique identifier for the resource
-        type:
+          minLength: 1
+          maxLength: 1024
+          description: Editable display name for the customer organization. When provided (for create or update), must be between 1 and 1024 characters.
+        elevatorPitch:
           type: string
-          description: The type of the resource
-          default: CustomerSettings
-          pattern: CustomerSettings
-        attributes:
+          maxLength: 1024
+          description: Brief elevator pitch or value proposition for the customer organization. Used by AI agents to understand the company's core offering. When provided (for create or update), must be less than 1024 characters.
+        description:
+          type: string
+          maxLength: 10000
+          description: Company description providing context about what the organization does, its market position, and its target audience. Maximum 10,000 characters.
+        strategicPriorities:
+          type: string
+          maxLength: 10000
+          description: Strategic priorities text describing the organization's key business objectives, growth targets, and focus areas. Used by AI agents to align GTM recommendations with business goals. Maximum 10,000 characters.
+        source:
           allOf:
-          - $ref: '#/components/schemas/CustomerSettingsAttributes'
-          description: The attributes defining the resource
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/GtmConfigAuditFields'
-          description: Non-standard meta information about the resource
+          - $ref: '#/components/schemas/GtmConfigSourceType'
+          description: Source type indicating how this settings record was created or last modified. Defaults to `manual`. See `GtmConfigSourceType` for allowed values.
           readOnly: true
-      description: Customer Settings resource wrapping attributes in JSON:API format.
+        customFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldItem'
+          description: Flexible key-value storage for customer-specific custom fields and metadata. The backend validates the schema and value types. This allows storing organization-specific data beyond the standard fields.
+      description: Attributes defining customer-level settings and configuration
   securitySchemes:
     OAuth2Auth:
       type: oauth2

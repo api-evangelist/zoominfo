@@ -12,7 +12,7 @@ servers:
 security:
 - OAuth2Auth: []
 tags:
-- name: entities
+- name: Entities
 paths:
   /platform/v1/metadata/entities:
     get:
@@ -46,7 +46,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
       tags:
-      - entities
+      - Entities
       security:
       - OAuth2Auth:
         - api:gtm-data-model:read
@@ -88,7 +88,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
       tags:
-      - entities
+      - Entities
       security:
       - OAuth2Auth:
         - api:gtm-data-model:read
@@ -130,7 +130,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel'
       tags:
-      - entities
+      - Entities
       requestBody:
         required: true
         content:
@@ -145,44 +145,6 @@ paths:
       - application/json
 components:
   schemas:
-    GtmModelAttributes:
-      type: object
-      additionalProperties: {}
-      description: Attributes for GTM model records.
-    UpsertResultModel:
-      type: object
-      required:
-      - recordsProcessed
-      - recordsSuccessful
-      - recordsFailed
-      - processedRecords
-      properties:
-        recordsProcessed:
-          type: number
-          description: recordsProcessed
-        recordsSuccessful:
-          type: number
-          description: recordsSuccessful
-        recordsFailed:
-          type: number
-          description: recordsFailed
-        processedRecords:
-          type: array
-          items:
-            $ref: '#/components/schemas/UpsertRecord'
-          description: processedRecords
-      description: UpsertResultModel
-    GtmEntityFieldsResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/GtmEntityField'
-          description: The primary data of the document
-      description: Response model containing a collection of GTM entity field definitions.
     GtmEntitiesListResponse:
       type: object
       required:
@@ -194,92 +156,6 @@ components:
             $ref: '#/components/schemas/GtmEntity'
           description: The primary data of the document
       description: Response model containing a collection of GTM entities available in the data model.
-    GtmEntity:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: GtmEntity
-          pattern: GtmEntity
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/GtmEntityAttributes'
-          description: The attributes defining the resource
-      description: Represents a GTM data model entity with its core attributes and relationships.
-    ZoomInfo.Core.Foundations.ErrorResponseModel:
-      type: object
-      required:
-      - errors
-      properties:
-        detail:
-          type: string
-          description: A high-level detail of the error(s) that occurred during the request
-        title:
-          type: string
-          description: A high-level summary of the error(s) detected
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
-          description: The list of errors raised during the request
-      description: The standard error response body model for the ZoomInfo API.
-    GtmEntityAttributes:
-      type: object
-      required:
-      - entityName
-      - displayName
-      - description
-      - associations
-      properties:
-        entityName:
-          type: string
-          description: The unique identifier name of the entity within the GTM data model
-        displayName:
-          type: string
-          description: The human-readable name of the entity
-        description:
-          type: string
-          description: A detailed description explaining the purpose and usage of this entity
-        associations:
-          type: array
-          items:
-            $ref: '#/components/schemas/GtmEntityAssociation'
-          description: Collection of associations that define how this entity relates to other entities in the data model
-      description: Core attributes that define a GTM data model entity, including its identity, relationships, and metadata.
-    GtmEntityField:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: GtmEntityField
-          pattern: GtmEntityField
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/GtmEntityFieldAttributes'
-          description: The attributes defining the resource
-      description: Represents a field definition within a GTM entity, containing metadata about the field's characteristics and constraints.
-    EntityNames:
-      type: string
-      enum:
-      - account
-      - contact
-      - user
     GtmEntityFieldAttributes:
       type: object
       required:
@@ -317,19 +193,29 @@ components:
           type: string
           description: Reference to another entity or field
       description: Attributes that define the characteristics and metadata of a field within a GTM entity.
-    GtmEntityAssociation:
+    UpsertResultModel:
       type: object
       required:
-      - associatedEntity
-      - associatedFieldName
+      - recordsProcessed
+      - recordsSuccessful
+      - recordsFailed
+      - processedRecords
       properties:
-        associatedEntity:
-          type: string
-          description: The name of the entity that this association points to
-        associatedFieldName:
-          type: string
-          description: The field name in the associated entity that establishes the relationship
-      description: Represents a relationship between GTM entities, defining how one entity connects to another through specific field associations.
+        recordsProcessed:
+          type: number
+          description: recordsProcessed
+        recordsSuccessful:
+          type: number
+          description: recordsSuccessful
+        recordsFailed:
+          type: number
+          description: recordsFailed
+        processedRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpsertRecord'
+          description: processedRecords
+      description: UpsertResultModel
     UpsertRecord:
       type: object
       required:
@@ -349,21 +235,6 @@ components:
           - $ref: '#/components/schemas/GtmModelAttributes'
           description: The attributes defining the resource
       description: Represents a record. that will be created or updated.
-    ZoomInfo.Core.Foundations.ErrorSourceModel:
-      type: object
-      properties:
-        cookie:
-          type: string
-          description: Identifies the cookie name that caused the issue
-        header:
-          type: string
-          description: Identifies the header name that caused the error
-        pointer:
-          type: string
-          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
-        parameter:
-          type: string
-          description: The name of the path or query parameter that caused the error
     GtmResponseModel:
       type: object
       required:
@@ -384,16 +255,54 @@ components:
           - $ref: '#/components/schemas/UpsertResultModel'
           description: The attributes defining the resource
       description: GtmResponseModel
-    UpsertResponse:
+    GtmEntityFieldsResponse:
       type: object
       required:
       - data
       properties:
         data:
-          allOf:
-          - $ref: '#/components/schemas/GtmResponseModel'
+          type: array
+          items:
+            $ref: '#/components/schemas/GtmEntityField'
           description: The primary data of the document
-      description: Response model containing the results of GTM model record upsert operations.
+      description: Response model containing a collection of GTM entity field definitions.
+    GtmEntity:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: GtmEntity
+          pattern: GtmEntity
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/GtmEntityAttributes'
+          description: The attributes defining the resource
+      description: Represents a GTM data model entity with its core attributes and relationships.
+    GtmModelAttributes:
+      type: object
+      additionalProperties: {}
+      description: Attributes for GTM model records.
+    GtmEntityAssociation:
+      type: object
+      required:
+      - associatedEntity
+      - associatedFieldName
+      properties:
+        associatedEntity:
+          type: string
+          description: The name of the entity that this association points to
+        associatedFieldName:
+          type: string
+          description: The field name in the associated entity that establishes the relationship
+      description: Represents a relationship between GTM entities, defining how one entity connects to another through specific field associations.
     ZoomInfo.Core.Foundations.ErrorModel:
       type: object
       required:
@@ -421,6 +330,38 @@ components:
           type: string
           description: The error name that describes this type of error
       description: The object describing a specific error from the API
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
     UpsertDataPayload:
       type: object
       required:
@@ -432,6 +373,65 @@ components:
             $ref: '#/components/schemas/UpsertRecord'
           description: The primary data of the document
       description: Represents an entity that contains records collection.
+    GtmEntityField:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: GtmEntityField
+          pattern: GtmEntityField
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/GtmEntityFieldAttributes'
+          description: The attributes defining the resource
+      description: Represents a field definition within a GTM entity, containing metadata about the field's characteristics and constraints.
+    UpsertResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/GtmResponseModel'
+          description: The primary data of the document
+      description: Response model containing the results of GTM model record upsert operations.
+    EntityNames:
+      type: string
+      enum:
+      - account
+      - contact
+      - user
+    GtmEntityAttributes:
+      type: object
+      required:
+      - entityName
+      - displayName
+      - description
+      - associations
+      properties:
+        entityName:
+          type: string
+          description: The unique identifier name of the entity within the GTM data model
+        displayName:
+          type: string
+          description: The human-readable name of the entity
+        description:
+          type: string
+          description: A detailed description explaining the purpose and usage of this entity
+        associations:
+          type: array
+          items:
+            $ref: '#/components/schemas/GtmEntityAssociation'
+          description: Collection of associations that define how this entity relates to other entities in the data model
+      description: Core attributes that define a GTM data model entity, including its identity, relationships, and metadata.
   securitySchemes:
     OAuth2Auth:
       type: oauth2

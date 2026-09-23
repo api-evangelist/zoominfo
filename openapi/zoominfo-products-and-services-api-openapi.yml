@@ -35,7 +35,7 @@ paths:
 
         If you do not know the ID of the record you need, call
 
-        [List Products or Services](ref:organizationofferingsinterface_listorganizationofferings) to browse the full set.
+        List Products or Services to browse the full set.
 
 
         Use this endpoint to browse all products or services or retrieve product or service IDs that can be used with other endpoints.
@@ -182,7 +182,37 @@ paths:
     get:
       operationId: OrganizationOfferingsInterface_getOrganizationOffering
       summary: Get Product or Service
-      description: "Retrieves a single product or service by ID. \n\nA product or service represents a discrete product or service provided by your company \nand forms the foundation of your go-to-market configuration. Each product or service record captures the \nstrategic context of a product: how it is positioned in the market, whom it targets, what pain points \nit addresses, and the value proposition it delivers. Returns **404 Not Found** if the product or service does not\nexist.\n\nIf you do not know the ID of the record you need, call\n[List Products or Services](ref:organizationofferingsinterface_listorganizationofferings) to browse the full set.\n\nThis endpoint is typically used when retrieving the full details of a specific product or service for viewing, editing,\nor integration with external systems.\n\nCommon use cases\n- Retrieve the full configuration of a specific product or service\n- Load product or service details before updating the record\n- Fetch product or service context for downstream workflows or integrations"
+      description: 'Retrieves a single product or service by ID.
+
+
+        A product or service represents a discrete product or service provided by your company
+
+        and forms the foundation of your go-to-market configuration. Each product or service record captures the
+
+        strategic context of a product: how it is positioned in the market, whom it targets, what pain points
+
+        it addresses, and the value proposition it delivers. Returns **404 Not Found** if the product or service does not
+
+        exist.
+
+
+        If you do not know the ID of the record you need, call
+
+        List Products or Services to browse the full set.
+
+
+        This endpoint is typically used when retrieving the full details of a specific product or service for viewing, editing,
+
+        or integration with external systems.
+
+
+        Common use cases
+
+        - Retrieve the full configuration of a specific product or service
+
+        - Load product or service details before updating the record
+
+        - Fetch product or service context for downstream workflows or integrations'
       parameters:
       - name: offeringId
         in: path
@@ -252,14 +282,14 @@ paths:
 
         If the specified offeringId does not exist, the endpoint returns **404 Not Found**.
 
-        If you want to hide a Product or Service without permanently removing it, use the [Archive Product or Service](ref:organizationofferingsinterface_archiveorganizationoffering) endpoint instead.
+        If you want to hide a Product or Service without permanently removing it, use the Archive Product or Service endpoint instead.
 
 
-        Use [Get Product or Service](ref:organizationofferingsinterface_getorganizationoffering)
+        Use Get Product or Service
 
         to verify the Product or Service exists before deletion, or
 
-        [Upsert Product or Service](ref:organizationofferingsinterface_upsertorganizationoffering)
+        Upsert Product or Service
 
         to recreate it afterward if needed.
 
@@ -335,7 +365,7 @@ paths:
 
         When a product or service is archived, the system sets the metadata fields `archivedAt` and `archivedBy`.
 
-        This operation is reversible. An archived product or service can be restored using the [Unarchive Product or Service](ref:organizationofferingsinterface_unarchiveorganizationoffering) endpoint.
+        This operation is reversible. An archived product or service can be restored using the Unarchive Product or Service endpoint.
 
 
         Common use cases
@@ -472,34 +502,6 @@ paths:
       - fea:gsa
 components:
   schemas:
-    CustomFieldItem:
-      type: object
-      required:
-      - title
-      - value
-      properties:
-        title:
-          type: string
-          description: The display title of the custom field.
-        description:
-          type: string
-          description: An optional description of the field. Defaults to an empty string in the backend.
-          default: ''
-        value:
-          type: string
-          description: The string value associated with this custom field.
-      description: Schema for a single custom field item.
-    OrganizationOfferingListResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrganizationOffering'
-          description: The primary data of the document
-      description: API model for a list of products or services.
     GtmConfigAuditFields:
       type: object
       properties:
@@ -537,33 +539,6 @@ components:
         archival (temporary hiding), and soft deletion (permanent hiding for compliance).
 
         A record can be active, deleted only, or both.'
-    ZoomInfo.Core.Foundations.ErrorResponseModel:
-      type: object
-      required:
-      - errors
-      properties:
-        detail:
-          type: string
-          description: A high-level detail of the error(s) that occurred during the request
-        title:
-          type: string
-          description: A high-level summary of the error(s) detected
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
-          description: The list of errors raised during the request
-      description: The standard error response body model for the ZoomInfo API.
-    OrganizationOfferingModel:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/OrganizationOffering'
-          description: The primary data of the document
-      description: API model for a single product or service.
     GtmConfigSourceType:
       type: string
       enum:
@@ -583,73 +558,6 @@ components:
         IMPORT: Imported from an external data source such as CRM or CSV upload.
         SYSTEM: Generated automatically by the platform (e.g., system enrichment or background jobs).
         MCP: Created or updated via the GTM Config MCP integration by an AI agent.
-    ZoomInfo.Core.Foundations.ErrorModel:
-      type: object
-      required:
-      - id
-      - code
-      - status
-      properties:
-        id:
-          type: string
-          description: The unique id used to identify this specific error instance
-        code:
-          type: string
-          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
-        detail:
-          type: string
-          description: Message containing the specific details about this occurrence of the error
-        source:
-          allOf:
-          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
-          description: An optional object identifying which part of the request caused the error
-        status:
-          type: string
-          description: The HTTP status code for the error
-        title:
-          type: string
-          description: The error name that describes this type of error
-      description: The object describing a specific error from the API
-    ZoomInfo.Core.Foundations.ErrorSourceModel:
-      type: object
-      properties:
-        cookie:
-          type: string
-          description: Identifies the cookie name that caused the issue
-        header:
-          type: string
-          description: Identifies the header name that caused the error
-        pointer:
-          type: string
-          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
-        parameter:
-          type: string
-          description: The name of the path or query parameter that caused the error
-    OrganizationOffering:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: OrganizationOffering
-          pattern: OrganizationOffering
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/OrganizationOfferingAttributes'
-          description: The attributes defining the resource
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/GtmConfigAuditFields'
-          description: Non-standard meta information about the resource
-          readOnly: true
-      description: Product or Service resource.
     OrganizationOfferingAttributes:
       type: object
       properties:
@@ -707,6 +615,101 @@ components:
             $ref: '#/components/schemas/CustomFieldItem'
           description: Flexible key-value store for customer-specific custom fields and extended metadata. The backend validates schema and value types. Use this to capture additional Product or Service details beyond the standard fields.
       description: "Attributes that define a Product or Service  — the discrete products or services provided by a customer's company.\n\nProducts or services form the foundation of a customer's go-to-market configuration, capturing the essential strategic context of a product. \nA product or service serves as a centralized record for:\n\n* Product Positioning: Capturing how the product is uniquely situated in the market.\n* Targeting: Identifying the specific audiences, industries, or company types the product is intended for.\n* Pain Point Resolution: Documenting the specific customer problems or challenges the product or service is designed to address.\n* Value Proposition: Defining the core benefits and outcomes the product or service provides to the customer.\n\nCollectively, these attributes provide the necessary framework to build a complete GTM picture. The product or service acts as the \nprimary anchor to which Buyer Personas, Ideal Customer Profiles, and Competitive Intelligence are linked, ensuring all \nrevenue-generating activities are aligned with the product's strategic intent."
+    OrganizationOfferingListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationOffering'
+          description: The primary data of the document
+      description: API model for a list of products or services.
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+    OrganizationOffering:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: OrganizationOffering
+          pattern: OrganizationOffering
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/OrganizationOfferingAttributes'
+          description: The attributes defining the resource
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/GtmConfigAuditFields'
+          description: Non-standard meta information about the resource
+          readOnly: true
+      description: Product or Service resource.
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
     OrganizationOfferingUpsert:
       type: object
       required:
@@ -737,6 +740,33 @@ components:
           x-discriminator-property: type
           description: The primary data of the document
       description: Product or Service resource for upsert operations.
+    CustomFieldItem:
+      type: object
+      required:
+      - title
+      - value
+      properties:
+        title:
+          type: string
+          description: The display title of the custom field.
+        description:
+          type: string
+          description: An optional description of the field. Defaults to an empty string in the backend.
+          default: ''
+        value:
+          type: string
+          description: The string value associated with this custom field.
+      description: Schema for a single custom field item.
+    OrganizationOfferingModel:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/OrganizationOffering'
+          description: The primary data of the document
+      description: API model for a single product or service.
   securitySchemes:
     OAuth2Auth:
       type: oauth2

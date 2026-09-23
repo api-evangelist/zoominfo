@@ -32,7 +32,7 @@ paths:
 
         If you do not know the ID of the record you need, call
 
-        [List Customer Competitors](ref:customercompetitorsinterface_listcustomercompetitors) to browse the full set.
+        List Customer Competitors to browse the full set.
 
 
         Common use cases
@@ -110,7 +110,7 @@ paths:
         - Link competitors to products or services in order to track product-level competition
 
 
-        Use [List Customer Competitors](ref:customercompetitorsinterface_listcustomercompetitors)
+        Use List Customer Competitors
 
         to find the `id` of a record you want to update or to check whether a competitor already exists.'
       parameters: []
@@ -187,7 +187,7 @@ paths:
 
         If you do not know the ID of the record you need, call
 
-        [List Customer Competitors](ref:customercompetitorsinterface_listcustomercompetitors)
+        List Customer Competitors
 
         to browse the full set.
 
@@ -263,7 +263,7 @@ paths:
         If the specified `competitorId` does not exist, the endpoint returns **404 Not Found**.
 
 
-        If you want to hide a competitor without permanently removing it, use the [Archive Customer Competitor](ref:customercompetitorsinterface_archivecustomercompetitor) endpoint instead.
+        If you want to hide a competitor without permanently removing it, use the Archive Customer Competitor endpoint instead.
 
 
         Common use cases
@@ -337,7 +337,7 @@ paths:
         When a competitor is archived, the metadata fields `archivedAt` and `archivedBy` are set.
 
 
-        This action is reversible using the [Unarchive Customer Competitor](ref:customercompetitorsinterface_unarchivecustomercompetitor).
+        This action is reversible using the Unarchive Customer Competitor.
 
 
         Common use cases
@@ -473,102 +473,6 @@ paths:
       - fea:gsa
 components:
   schemas:
-    CustomFieldItem:
-      type: object
-      required:
-      - title
-      - value
-      properties:
-        title:
-          type: string
-          description: The display title of the custom field.
-        description:
-          type: string
-          description: An optional description of the field. Defaults to an empty string in the backend.
-          default: ''
-        value:
-          type: string
-          description: The string value associated with this custom field.
-      description: Schema for a single custom field item.
-    GtmConfigAuditFields:
-      type: object
-      properties:
-        createdAt:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the record was originally created. Auto-populated by backend.
-          readOnly: true
-        updatedAt:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp of the most recent modification to the record. Auto-populated by backend.
-          readOnly: true
-        createdBy:
-          type: string
-          description: User ID of the person who created the record. Extracted from the JWT token on creation.
-          readOnly: true
-        updatedBy:
-          type: string
-          description: User ID of the person who last modified the record. Extracted from the JWT token on update.
-          readOnly: true
-        archivedAt:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the record was archived. Archived records are identified by archivedAt and archivedBy
-          readOnly: true
-        archivedBy:
-          type: string
-          description: User ID of the person who archived the record
-          readOnly: true
-      description: 'Common audit fields present on all customer-level GTM configuration entities.
-
-        These fields track the full lifecycle of a record including creation, modification,
-
-        archival (temporary hiding), and soft deletion (permanent hiding for compliance).
-
-        A record can be active, deleted only, or both.'
-    ZoomInfo.Core.Foundations.ErrorResponseModel:
-      type: object
-      required:
-      - errors
-      properties:
-        detail:
-          type: string
-          description: A high-level detail of the error(s) that occurred during the request
-        title:
-          type: string
-          description: A high-level summary of the error(s) detected
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
-          description: The list of errors raised during the request
-      description: The standard error response body model for the ZoomInfo API.
-    CustomerCompetitor:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: CustomerCompetitor
-          pattern: CustomerCompetitor
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/CustomerCompetitorAttributes'
-          description: The attributes defining the resource
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/GtmConfigAuditFields'
-          description: Non-standard meta information about the resource
-          readOnly: true
-      description: Customer Competitor resource.
     CustomerCompetitorAttributes:
       type: object
       properties:
@@ -616,16 +520,43 @@ components:
             $ref: '#/components/schemas/CustomFieldItem'
           description: Flexible key-value store for customer-specific custom fields and extended metadata. The backend validates schema and value types. Use this to capture additional competitor intelligence beyond the standard fields.
       description: Attributes that define a Customer Competitor — a company that competes with the customer in the market.
-    CustomerCompetitorModel:
+    GtmConfigAuditFields:
       type: object
-      required:
-      - data
       properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/CustomerCompetitor'
-          description: The primary data of the document
-      description: API model for a single Customer Competitor.
+        createdAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the record was originally created. Auto-populated by backend.
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the most recent modification to the record. Auto-populated by backend.
+          readOnly: true
+        createdBy:
+          type: string
+          description: User ID of the person who created the record. Extracted from the JWT token on creation.
+          readOnly: true
+        updatedBy:
+          type: string
+          description: User ID of the person who last modified the record. Extracted from the JWT token on update.
+          readOnly: true
+        archivedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the record was archived. Archived records are identified by archivedAt and archivedBy
+          readOnly: true
+        archivedBy:
+          type: string
+          description: User ID of the person who archived the record
+          readOnly: true
+      description: 'Common audit fields present on all customer-level GTM configuration entities.
+
+        These fields track the full lifecycle of a record including creation, modification,
+
+        archival (temporary hiding), and soft deletion (permanent hiding for compliance).
+
+        A record can be active, deleted only, or both.'
     GtmConfigSourceType:
       type: string
       enum:
@@ -645,6 +576,17 @@ components:
         IMPORT: Imported from an external data source such as CRM or CSV upload.
         SYSTEM: Generated automatically by the platform (e.g., system enrichment or background jobs).
         MCP: Created or updated via the GTM Config MCP integration by an AI agent.
+    CustomerCompetitorListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerCompetitor'
+          description: The primary data of the document
+      description: API model for a list of Customer Competitors.
     ZoomInfo.Core.Foundations.ErrorModel:
       type: object
       required:
@@ -687,6 +629,75 @@ components:
         parameter:
           type: string
           description: The name of the path or query parameter that caused the error
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    CustomFieldItem:
+      type: object
+      required:
+      - title
+      - value
+      properties:
+        title:
+          type: string
+          description: The display title of the custom field.
+        description:
+          type: string
+          description: An optional description of the field. Defaults to an empty string in the backend.
+          default: ''
+        value:
+          type: string
+          description: The string value associated with this custom field.
+      description: Schema for a single custom field item.
+    CustomerCompetitorModel:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/CustomerCompetitor'
+          description: The primary data of the document
+      description: API model for a single Customer Competitor.
+    CustomerCompetitor:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: CustomerCompetitor
+          pattern: CustomerCompetitor
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/CustomerCompetitorAttributes'
+          description: The attributes defining the resource
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/GtmConfigAuditFields'
+          description: Non-standard meta information about the resource
+          readOnly: true
+      description: Customer Competitor resource.
     CustomerCompetitorUpsert:
       type: object
       required:
@@ -717,17 +728,6 @@ components:
           x-discriminator-property: type
           description: The primary data of the document
       description: Customer Competitor resource for upsert operations.
-    CustomerCompetitorListResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomerCompetitor'
-          description: The primary data of the document
-      description: API model for a list of Customer Competitors.
   securitySchemes:
     OAuth2Auth:
       type: oauth2

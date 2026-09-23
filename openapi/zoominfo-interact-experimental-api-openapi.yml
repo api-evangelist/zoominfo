@@ -5,7 +5,17 @@ info:
   contact:
     name: ZoomInfo Customer Support
     email: help@zoominfo.com
-  description: "This definition only exposes one of many API routes from agentic-ai-platform\n    in order to quickly support an integration opportunity with SalesForce.\n    The model includes some definitions used by API routes that are not being\n    surfaced at this time. They remain included where they are referenced as\n    dependencies, to avoid model refactoring, and with the intent that additional\n    capabilities of agentic-ai-platform will be released under ZI-API in the future/"
+  description: 'This definition only exposes one of many API routes from agentic-ai-platform
+
+    in order to quickly support an integration opportunity with SalesForce.
+
+    The model includes some definitions used by API routes that are not being
+
+    surfaced at this time. They remain included where they are referenced as
+
+    dependencies, to avoid model refactoring, and with the intent that additional
+
+    capabilities of agentic-ai-platform will be released under ZI-API in the future/'
 servers:
 - url: https://api.zoominfo.com/gtm
   description: Base URL for the Agent API
@@ -56,7 +66,6 @@ paths:
     post:
       operationId: AgentInterace_interactAgent
       summary: Interact with Agent
-      description: Interact with Agent
       parameters:
       - name: agentId
         in: path
@@ -115,7 +124,6 @@ paths:
     post:
       operationId: AgentInterace_interactAgentStream
       summary: Interact with Agent (Stream)
-      description: Interact with Agent (Stream)
       parameters:
       - name: agentId
         in: path
@@ -182,9 +190,6 @@ components:
           type: string
           description: Agent identifier
       description: Agent List Item
-    AdditionalFields:
-      type: object
-      description: Additional Fields
     InteractRequestModel:
       type: object
       required:
@@ -220,9 +225,29 @@ components:
           type: string
           description: Message
       description: InteractRequestModel
-    ControlProps:
+    AgentProps:
       type: object
-      description: Control Props
+      description: Agent Properties
+    StructuredContentObject:
+      type: object
+      description: Structured Content Object
+    StructuredContent:
+      type: object
+      properties:
+        agentProps:
+          allOf:
+          - $ref: '#/components/schemas/AgentProps'
+          description: Agent Props
+        triggerActions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TriggerActions'
+          description: Trigger Actions
+        agentState:
+          allOf:
+          - $ref: '#/components/schemas/AgentState'
+          description: Agent State
+      description: StructuredContent
     ThreadMessages:
       type: object
       required:
@@ -282,7 +307,7 @@ components:
             $ref: '#/components/schemas/ThreadMessageSections'
           description: Sections
       description: ThreadMessages
-    AgentList:
+    Thread:
       type: object
       required:
       - id
@@ -295,13 +320,24 @@ components:
         type:
           type: string
           description: The type of the resource
-          default: agent
-          pattern: agent
+          default: Thread
+          pattern: Thread
         attributes:
           allOf:
-          - $ref: '#/components/schemas/AgentListItem'
+          - $ref: '#/components/schemas/ThreadMessages'
           description: The attributes defining the resource
-      description: Agent List Resource
+      description: Response Model
+    AgentListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentList'
+          description: The primary data of the document
+      description: Agent List Response
     InteractRequest:
       type: object
       required:
@@ -318,87 +354,6 @@ components:
           - $ref: '#/components/schemas/InteractRequestModel'
           description: The attributes defining the resource
       description: Interact Request Body
-    MetaInfo:
-      type: object
-      description: Meta Information
-    RenderProps:
-      type: object
-      description: Render Properties
-    AgentState:
-      type: object
-      description: Agent State
-    SseResponseBody:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: string
-          description: Server-sent events stream content
-      description: SSE Response Body
-    ZoomInfo.Core.Foundations.ErrorResponseModel:
-      type: object
-      required:
-      - errors
-      properties:
-        detail:
-          type: string
-          description: A high-level detail of the error(s) that occurred during the request
-        title:
-          type: string
-          description: A high-level summary of the error(s) detected
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
-          description: The list of errors raised during the request
-      description: The standard error response body model for the ZoomInfo API.
-    ActionArguments:
-      type: object
-      description: Action Arguments
-    ZoomInfo.Core.Foundations.ErrorSourceModel:
-      type: object
-      properties:
-        cookie:
-          type: string
-          description: Identifies the cookie name that caused the issue
-        header:
-          type: string
-          description: Identifies the header name that caused the error
-        pointer:
-          type: string
-          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
-        parameter:
-          type: string
-          description: The name of the path or query parameter that caused the error
-    AgentListResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentList'
-          description: The primary data of the document
-      description: Agent List Response
-    StructuredContent:
-      type: object
-      properties:
-        agentProps:
-          allOf:
-          - $ref: '#/components/schemas/AgentProps'
-          description: Agent Props
-        triggerActions:
-          type: array
-          items:
-            $ref: '#/components/schemas/TriggerActions'
-          description: Trigger Actions
-        agentState:
-          allOf:
-          - $ref: '#/components/schemas/AgentState'
-          description: Agent State
-      description: StructuredContent
     ThreadMessageSectionControl:
       type: object
       required:
@@ -458,6 +413,75 @@ components:
           type: string
           description: Entity Id
       description: ThreadMessageSectionControl
+    SseResponseBody:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: string
+          description: Server-sent events stream content
+      description: SSE Response Body
+    ActionArguments:
+      type: object
+      description: Action Arguments
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    ControlProps:
+      type: object
+      description: Control Props
+    MetaInfo:
+      type: object
+      description: Meta Information
+    TriggerActions:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Id
+        arguments:
+          allOf:
+          - $ref: '#/components/schemas/ActionArguments'
+          description: Arguments
+      description: TriggerActions
+    AgentState:
+      type: object
+      description: Agent State
+    AgentList:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: agent
+          pattern: agent
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/AgentListItem'
+          description: The attributes defining the resource
+      description: Agent List Resource
     ThreadMessageResponse:
       type: object
       required:
@@ -468,12 +492,6 @@ components:
           - $ref: '#/components/schemas/Thread'
           description: The primary data of the document
       description: ThreadMessageResponse
-    StructuredContentObject:
-      type: object
-      description: Structured Content Object
-    ControlValue:
-      type: object
-      description: Control Value
     ZoomInfo.Core.Foundations.ErrorModel:
       type: object
       required:
@@ -514,29 +532,23 @@ components:
           type: string
           description: Entity Id
       description: Relationship
-    AgentProps:
-      type: object
-      description: Agent Properties
-    Thread:
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
       type: object
       required:
-      - id
-      - type
-      - attributes
+      - errors
       properties:
-        id:
+        detail:
           type: string
-          description: The unique identifier for the resource
-        type:
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
           type: string
-          description: The type of the resource
-          default: Thread
-          pattern: Thread
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/ThreadMessages'
-          description: The attributes defining the resource
-      description: Response Model
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
     InteractRequestBody:
       type: object
       required:
@@ -547,19 +559,12 @@ components:
           - $ref: '#/components/schemas/InteractRequest'
           description: The primary data of the document
       description: Interact Request Body
-    TriggerActions:
+    RenderProps:
       type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Id
-        arguments:
-          allOf:
-          - $ref: '#/components/schemas/ActionArguments'
-          description: Arguments
-      description: TriggerActions
+      description: Render Properties
+    AdditionalFields:
+      type: object
+      description: Additional Fields
     ThreadMessageSections:
       type: object
       required:
@@ -630,6 +635,9 @@ components:
           description: Controls
           default: []
       description: ThreadMessageSections
+    ControlValue:
+      type: object
+      description: Control Value
   securitySchemes:
     OAuth2Auth:
       type: oauth2

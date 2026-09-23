@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: ZoomInfo Authentication Company Enrich API
+  title: ZoomInfo Company Enrich API
   description: The ZoomInfo API is a set of HTTPS endpoints you can use to programmatically retrieve and integrate ZoomInfo data into your existing technology stack and ...
   contact:
     name: ZoomInfo API Support
@@ -15,15 +15,7 @@ security:
 - bearerAuth: []
 tags:
 - name: Company Enrich
-  description: 'Use [Company Enrich](#59a59d9e-7eb9-44fa-904a-f10f9ab7c5fd) to retrieve company detail using valid query parameters. A Company Enrich request requires you to specify both input parameters about the company you are enriching, and the output fields you want to retrieve.
-
-
-    Refer to the examples provided to build a valid JSON request. For supported input and output parameters:
-
-
-    *   Use the [Company Enrich Inputs](#7a915792-e8cd-4e3a-9f0e-c19b850be536) endpoint to retrieve a list of valid input parameters you can provide
-
-    *   Use the [Company Enrich Outputs](#d05239c3-2597-45f8-9384-f2dbd3518cfc) endpoint to retrieve a list of valid output fields that can be returned'
+  description: Use Company Enrich to retrieve company detail using valid query parameters.
 paths:
   /enrich/company:
     parameters: []
@@ -31,177 +23,7 @@ paths:
       tags:
       - Company Enrich
       summary: Zoominfo Company Enrich
-      description: 'Use this endpoint to match company information based on [input values](#7a915792-e8cd-4e3a-9f0e-c19b850be536) and return the desired [output fields](#d05239c3-2597-45f8-9384-f2dbd3518cfc) in the response.
-
-
-        **Maximum inputs per request**
-
-
-        You can input a maximum of 25 companies in a single enrich request, returning the equivalent number of matching records. See the endpoint examples for how to build queries using multiple inputs.
-
-
-        **Input params**
-
-
-        | Parameter | DataType | Description |
-
-        | --- | --- | --- |
-
-        | companyId | Long integer or string | Unique ZoomInfo identifier for a company |
-
-        | companyName | String | Company name |
-
-        | companyWebsite | String | Company website URL in [http://www.example.com](http://www.example.com) format |
-
-        | companyTicker | String | Company stock ticker symbol |
-
-        | companyPhone | String | Phone number of the company headquarters |
-
-        | companyFax | String | Fax number of the company headquarters |
-
-        | companyStreet | String | Street address for the company''s primary address |
-
-        | companyCity | String | City for the company''s primary address |
-
-        | companyState | String | Company state (U.S.) or province (Canada). You can use free text state or province names (e.g., "new hampshire"), the two-letter common abbreviation for a U.S. state (e.g., "nh"), or values provided in the **State** lookup endpoint. |
-
-        | companyZipCode | String | Zip Code or Postal Code for the company''s primary address |
-
-        | companyCountry | String | Country for the company''s primary address. You can use free text or see the **Country** lookup endpoint for values. |
-
-        | ipAddress | String | IP address associated with the company |
-
-
-        **Output fields**
-
-
-        | Field | Description |
-
-        | --- | --- |
-
-        | id | Unique ZoomInfo identifier for a company |
-
-        | ticker | Company public stock exchange ticker |
-
-        | name | Company name |
-
-        | website | Company website URL |
-
-        | domainList | List of domains associated with a company |
-
-        | logo | The URL which can be used to retrieve the logo for the company |
-
-        | socialMediaUrls | Social media URLs for the company (e.g., Facebook, Twitter, LinkedIn and so on) |
-
-        | revenue | Approximate yearly revenue for the company in 1000''s. For example, a $100M company is expressed as 100000. |
-
-        | employeeCount | Approximate number of people employed by the company |
-
-        | numberOfContactsInZoomInfo | Number of ZoomInfo contacts associated with company |
-
-        | phone | Phone number of the company''s primary address |
-
-        | fax | Fax number of the company''s primary address |
-
-        | street | Street of the company''s primary address |
-
-        | city | City of the company''s primary address |
-
-        | state | State or province of the company''s primary address |
-
-        | zipCode | Zip Code or Postal Code of the company''s primary address |
-
-        | country | Country of the company''s primary address |
-
-        | continent | Continent of the company''s primary address |
-
-        | companyStatus | Company status |
-
-        | companyStatusDate | Date of last company status update |
-
-        | descriptionList | List of descriptions associated with the company |
-
-        | sicCodes | The Standard Industrial Classification is a system for classifying industries by a four-digit code. |
-
-        | naicsCodes | The North American Industry Classification System (NAICS) is the standard used by Federal statistical agencies in classifying business establishments for the purpose of collecting, analyzing, and publishing statistical data related to the U.S. business economy. |
-
-        | competitors | List of competitors |
-
-        | ultimateParentId | Unique ZoomInfo identifier for parent company (if exists) |
-
-        | ultimateParentName | Company name for ultimate parent company (if exists) |
-
-        | ultimateParentRevenue | Approximate yearly revenue for the ultimate parent company |
-
-        | ultimateParentEmployees | Approximate number of people employed by the ultimate parent company |
-
-        | subUnitCodes | Company sub unit codes |
-
-        | subUnitType | Company sub unit types (e.g., division, subsidiary and so on) |
-
-        | subUnitIndustries | Company sub unit industries |
-
-        | primaryIndustry | Top-level industry for a company |
-
-        | primaryIndustryCode | Top-level industry for a company along with it''s code |
-
-        | primarySubIndustryCode | Top-level sub-industry for a company along with it''s code |
-
-        | industries | The industry grouping for the company. A company can have multiple industries. |
-
-        | industryCodes | The industry grouping for the company along with it''s codes. A company can have multiple industries. |
-
-        | parentId | Unique ZoomInfo identifier associated with the parent company |
-
-        | parentName | Company name associated with the parent company |
-
-        | locationCount | Number of office locations associated with a company |
-
-        | locationMatch | Location details that match address-related input parameters. Includes `companyId`, `address`, and `addressStatus` (`CURRENT`, `VALID`, `PAST`). |
-
-        | metroArea | Company metro area |
-
-        | lastUpdatedDate | Date on which the company record was last updated |
-
-        | createdDate | Date on which the company record was created |
-
-        | certificationDate | Date of certification |
-
-        | certified | Denotes if ZoomInfo''s research and data team has confirmed activity within the past 12 months |
-
-        | hashtags | List of hashtags associated with a company |
-
-        | products | List of products associated with a company |
-
-        | techAttributes | Technology products currently utilized by a company. Organized by category, vendor, and product. |
-
-        | revenueRange | Revenue range for a company |
-
-        | employeeRange | Employee range for a company |
-
-        | companyFunding | List of funding rounds including `date`, `type` , `investors`, and `amount` |
-
-        | recentFundingAmount | Most recent funding amount |
-
-        | recentFundingDate | Date of most recent funding |
-
-        | totalFundingAmount | Total funding to date |
-
-        | employeeGrowth | Employee growth of the company in the past two years. A one- and two-year growth percentage is provided as well as a quarter-by-quarter breakdown of total employee count. |
-
-        | type | Company type (private, public, npo, education, government, other) |
-
-        | foundedYear | Year the company was founded |
-
-        | businessModel | Business Model for a company |
-
-        | isDefunct | Indicates whether the company still exists |
-
-        | departmentBudgets | Estimated department budgets. Returns estimated budget values including `marketingBudget`, `financeBudget`, `itBudget` and `hrBudget`. |
-
-        | employeeCountByDepartment | Employee count by company department |
-
-        | engagements | List of the company''s engagements. Includes the date and type of each engagement |'
+      description: Use this endpoint to match company information based on input values and return the desired output fields in the response.
       operationId: CompanyEnrich
       parameters: []
       requestBody:
@@ -438,7 +260,7 @@ paths:
       tags:
       - Company Enrich
       summary: Zoominfo Company Enrich Inputs
-      description: Returns a list of fields you can use as input for the [Company Enrich](#59a59d9e-7eb9-44fa-904a-f10f9ab7c5fd) endpoint.
+      description: Returns a list of fields you can use as input for the Company Enrich endpoint.
       operationId: CompanyEnrichInputs
       parameters: []
       responses:
@@ -649,7 +471,7 @@ paths:
       tags:
       - Company Enrich
       summary: Zoominfo Company Enrich Outputs
-      description: Returns a list of fields you can specify as output for the [Company Enrich](#59a59d9e-7eb9-44fa-904a-f10f9ab7c5fd) endpoint.
+      description: Returns a list of fields you can specify as output for the Company Enrich endpoint.
       operationId: CompanyEnrichOutputs
       parameters: []
       responses:
@@ -1145,91 +967,29 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    EmployeeGrowth:
-      title: EmployeeGrowth
+    DescriptionList:
+      title: DescriptionList
       required:
-      - oneYearGrowthRate
-      - twoYearGrowthRate
-      - employeeGrowthDataPoints
+      - description
       type: object
       properties:
-        oneYearGrowthRate:
+        description:
           type: string
-          example: example_value
-        twoYearGrowthRate:
-          type: string
-          example: example_value
-        employeeGrowthDataPoints:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmployeeGrowthDataPoint'
-          description: ''
-          example: []
+          example: Enterprise software company
       examples:
-      - oneYearGrowthRate: '52.9'
-        twoYearGrowthRate: '333.3'
-        employeeGrowthDataPoints:
-        - label: '''18 - Q1'
-          employeeCount: 300
-        - label: '''18 - Q2'
-          employeeCount: 325
-        - label: '''18 - Q3'
-          employeeCount: 350
-        - label: '''18 - Q4'
-          employeeCount: 400
-        - label: '''19 - Q1'
-          employeeCount: 850
-        - label: '''19 - Q2'
-          employeeCount: 925
-        - label: '''19 - Q3'
-          employeeCount: 1000
-        - label: '''19 - Q4'
-          employeeCount: 1100
-        - label: '''20 - Q1'
-          employeeCount: 1300
-    CompanyFunding:
-      title: CompanyFunding
+      - description: ZoomInfo was founded in 2000 and is headquartered in Vancouver, Washington. The company offers a business-to-business data platform utilized by sales and marketing teams, recruiters, and other business professionals for lead generation and detailed information on people and companies.
+    EnrichcompanybyID:
+      title: EnrichcompanybyID
       required:
-      - date
-      - type
-      - amount
+      - success
+      - data
       type: object
       properties:
-        date:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        type:
-          type: string
-          example: standard
-        amount:
-          type: integer
-          contentEncoding: int32
-          example: 100
-      examples:
-      - date: '2020-06-04T07:00:00.000Z'
-        type: Stock Issuance/Offering
-        amount: 935000
-    SocialMediaUrl:
-      title: SocialMediaUrl
-      required:
-      - type
-      - url
-      - followerCount
-      type: object
-      properties:
-        type:
-          type: string
-          example: standard
-        url:
-          type: string
-          example: https://www.example.com/resource
-        followerCount:
-          type: string
-          example: example_value
-      examples:
-      - type: FACEBOOK
-        url: http://www.facebook.com/ZoomInformation
-        followerCount: ''
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/Data12'
     Result6:
       title: Result6
       required:
@@ -1245,50 +1005,6 @@ components:
             $ref: '#/components/schemas/Data13'
           description: ''
           example: []
-    MatchCompanyInput:
-      title: MatchCompanyInput
-      required:
-      - companyId
-      type: object
-      properties:
-        companyId:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-      examples:
-      - companyId: 344589814
-    Data12:
-      title: Data12
-      required:
-      - outputFields
-      - result
-      type: object
-      properties:
-        outputFields:
-          type: array
-          items:
-            type: array
-            items:
-              type: string
-          example: []
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result6'
-          description: ''
-          example: []
-    Input6:
-      title: Input6
-      required:
-      - companyid
-      type: object
-      properties:
-        companyid:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-      examples:
-      - companyid: 344589814
     TechAttribute:
       title: TechAttribute
       required:
@@ -1359,182 +1075,6 @@ components:
         createdTime: '2016-08-11T14:14:27.000Z'
         modifiedTime: '2018-10-10T06:45:20.000Z'
         description: Google Compute Engine is the Infrastructure as a service component of google cloud platform which is built on the global infrastructure that runs googles search engine, gmail, youtube and other services. It offers high performance virtual machines, customer-friendly pricing, fast networking, and carbon-neutral impact.
-    CompanyEnrichRequest:
-      title: CompanyEnrichRequest
-      required:
-      - matchCompanyInput
-      - outputFields
-      type: object
-      properties:
-        matchCompanyInput:
-          type: array
-          items:
-            $ref: '#/components/schemas/MatchCompanyInput'
-          description: ''
-          example: []
-        outputFields:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-      examples:
-      - matchCompanyInput:
-        - companyId: 344589814
-        outputFields:
-        - id
-        - ticker
-        - name
-        - website
-        - domainList
-    EnrichcompanybyID:
-      title: EnrichcompanybyID
-      required:
-      - success
-      - data
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
-        data:
-          $ref: '#/components/schemas/Data12'
-    SicCode:
-      title: SicCode
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-          example: '500123'
-        name:
-          type: string
-          example: Acme Corporation
-      examples:
-      - id: '73'
-        name: Business Services
-    NaicsCode:
-      title: NaicsCode
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-          example: '500123'
-        name:
-          type: string
-          example: Acme Corporation
-      examples:
-      - id: '541613'
-        name: Marketing Consulting Services
-    DescriptionList:
-      title: DescriptionList
-      required:
-      - description
-      type: object
-      properties:
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - description: ZoomInfo was founded in 2000 and is headquartered in Vancouver, Washington. The company offers a business-to-business data platform utilized by sales and marketing teams, recruiters, and other business professionals for lead generation and detailed information on people and companies.
-    Competitor:
-      title: Competitor
-      required:
-      - rank
-      - id
-      - name
-      - website
-      - employeeCount
-      type: object
-      properties:
-        rank:
-          type: integer
-          contentEncoding: int32
-          example: 100
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-        website:
-          type: string
-          example: example_value
-        employeeCount:
-          type: integer
-          contentEncoding: int32
-          example: 250
-      examples:
-      - rank: 1
-        id: 346572700
-        name: DiscoverOrg LLC
-        website: www.discoverorg.com
-        employeeCount: 866
-    EmployeeGrowthDataPoint:
-      title: EmployeeGrowthDataPoint
-      required:
-      - label
-      - employeeCount
-      type: object
-      properties:
-        label:
-          type: string
-          example: example_value
-        employeeCount:
-          type: integer
-          contentEncoding: int32
-          example: 250
-      examples:
-      - label: '''18 - Q1'
-        employeeCount: 300
-    CompanyEnrichOutput:
-      title: CompanyEnrichOutput
-      required:
-      - fieldName
-      - description
-      - accessGranted
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-        accessGranted:
-          type: string
-          example: example_value
-      examples:
-      - fieldName: id
-        description: Unique ZoomInfo identifier for a company
-        accessGranted: 'true'
-    CompanyEnrichInput:
-      title: CompanyEnrichInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: companyId
-        fieldType: Long
-        description: Unique ZoomInfo identifier for a company
     Data13:
       title: Data13
       required:
@@ -1800,6 +1340,110 @@ components:
           example: 100
         employeeGrowth:
           $ref: '#/components/schemas/EmployeeGrowth'
+    CompanyEnrichOutput:
+      title: CompanyEnrichOutput
+      required:
+      - fieldName
+      - description
+      - accessGranted
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+        accessGranted:
+          type: string
+          example: example_value
+      examples:
+      - fieldName: id
+        description: Unique ZoomInfo identifier for a company
+        accessGranted: 'true'
+    CompanyFunding:
+      title: CompanyFunding
+      required:
+      - date
+      - type
+      - amount
+      type: object
+      properties:
+        date:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        type:
+          type: string
+          example: standard
+        amount:
+          type: integer
+          contentEncoding: int32
+          example: 100
+      examples:
+      - date: '2020-06-04T07:00:00.000Z'
+        type: Stock Issuance/Offering
+        amount: 935000
+    NaicsCode:
+      title: NaicsCode
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: '541613'
+        name: Marketing Consulting Services
+    CompanyEnrichRequest:
+      title: CompanyEnrichRequest
+      required:
+      - matchCompanyInput
+      - outputFields
+      type: object
+      properties:
+        matchCompanyInput:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchCompanyInput'
+          description: ''
+          example: []
+        outputFields:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+      examples:
+      - matchCompanyInput:
+        - companyId: 344589814
+        outputFields:
+        - id
+        - ticker
+        - name
+        - website
+        - domainList
+    EmployeeGrowthDataPoint:
+      title: EmployeeGrowthDataPoint
+      required:
+      - label
+      - employeeCount
+      type: object
+      properties:
+        label:
+          type: string
+          example: example_value
+        employeeCount:
+          type: integer
+          contentEncoding: int32
+          example: 250
+      examples:
+      - label: '''18 - Q1'
+        employeeCount: 300
     Hashtag:
       title: Hashtag
       required:
@@ -1887,6 +1531,184 @@ components:
         categorizedFlag:
           type: boolean
           example: true
+    SocialMediaUrl:
+      title: SocialMediaUrl
+      required:
+      - type
+      - url
+      - followerCount
+      type: object
+      properties:
+        type:
+          type: string
+          example: standard
+        url:
+          type: string
+          example: https://www.example.com/resource
+        followerCount:
+          type: string
+          example: example_value
+      examples:
+      - type: FACEBOOK
+        url: http://www.facebook.com/ZoomInformation
+        followerCount: ''
+    SicCode:
+      title: SicCode
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: '73'
+        name: Business Services
+    Competitor:
+      title: Competitor
+      required:
+      - rank
+      - id
+      - name
+      - website
+      - employeeCount
+      type: object
+      properties:
+        rank:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+        website:
+          type: string
+          example: example_value
+        employeeCount:
+          type: integer
+          contentEncoding: int32
+          example: 250
+      examples:
+      - rank: 1
+        id: 346572700
+        name: DiscoverOrg LLC
+        website: www.discoverorg.com
+        employeeCount: 866
+    MatchCompanyInput:
+      title: MatchCompanyInput
+      required:
+      - companyId
+      type: object
+      properties:
+        companyId:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+      examples:
+      - companyId: 344589814
+    Input6:
+      title: Input6
+      required:
+      - companyid
+      type: object
+      properties:
+        companyid:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+      examples:
+      - companyid: 344589814
+    Data12:
+      title: Data12
+      required:
+      - outputFields
+      - result
+      type: object
+      properties:
+        outputFields:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          example: []
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result6'
+          description: ''
+          example: []
+    EmployeeGrowth:
+      title: EmployeeGrowth
+      required:
+      - oneYearGrowthRate
+      - twoYearGrowthRate
+      - employeeGrowthDataPoints
+      type: object
+      properties:
+        oneYearGrowthRate:
+          type: string
+          example: example_value
+        twoYearGrowthRate:
+          type: string
+          example: example_value
+        employeeGrowthDataPoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeGrowthDataPoint'
+          description: ''
+          example: []
+      examples:
+      - oneYearGrowthRate: '52.9'
+        twoYearGrowthRate: '333.3'
+        employeeGrowthDataPoints:
+        - label: '''18 - Q1'
+          employeeCount: 300
+        - label: '''18 - Q2'
+          employeeCount: 325
+        - label: '''18 - Q3'
+          employeeCount: 350
+        - label: '''18 - Q4'
+          employeeCount: 400
+        - label: '''19 - Q1'
+          employeeCount: 850
+        - label: '''19 - Q2'
+          employeeCount: 925
+        - label: '''19 - Q3'
+          employeeCount: 1000
+        - label: '''19 - Q4'
+          employeeCount: 1100
+        - label: '''20 - Q1'
+          employeeCount: 1300
+    CompanyEnrichInput:
+      title: CompanyEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        fieldType: Long
+        description: Unique ZoomInfo identifier for a company
   securitySchemes:
     httpBearer:
       type: http
