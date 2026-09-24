@@ -551,8 +551,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-bulk-api
   name: ZoomInfo Bulk API
   description: "Use the Bulk APIs to search, retrieve, and enrich large ZoomInfo company and contact datasets\
@@ -1096,8 +1094,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-company-enrich-api
   name: ZoomInfo Company Enrich API
   description: 'Use [Company Enrich](#59a59d9e-7eb9-44fa-904a-f10f9ab7c5fd) to retrieve company detail
@@ -1636,8 +1632,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-company-location-enrich-api
   name: ZoomInfo Company Location Enrich API
   description: 'Use [Company Location Enrich](#2b221ad0-f6c2-40cb-b721-6513e90afd8d) to retrieve company
@@ -2175,8 +2169,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-company-master-data-enrich-api
   name: ZoomInfo Company Master Data Enrich API
   description: 'The new [Company Master Data Enrich](#8b6cffe4-cb34-44ab-ad5d-1953d372ffd3) endpoint brings
@@ -2715,8 +2707,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-company-search-api
   name: ZoomInfo Company Search API
   description: 'Use [Company Search](#4506f0ad-9147-4016-991f-ce8ef6700f07) to retrieve company data using
@@ -3253,8 +3243,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-compliance-api-api
   name: ZoomInfo Compliance API
   description: Use the Compliance endpoints to request and return data related to data privacy and opt-out
@@ -3782,8 +3770,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-contact-enrich-api
   name: ZoomInfo Contact Enrich API
   description: 'Use [Contact Enrich](#c145dd01-eb54-4fc2-bbdb-9edc04b7ea1b) to retrieve contact detail
@@ -4322,8 +4308,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-contact-search-api
   name: ZoomInfo Contact Search API
   description: 'Use [Contact Search](#2e5121fd-df42-41a4-95d6-0e8f24eebd92) to retrieve contacts using
@@ -4860,8 +4844,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-corporate-hierarchy-enrich-api
   name: ZoomInfo Corporate Hierarchy Enrich API
   description: 'Use [Corporate Hierarchy Enrich](#585acff6-f231-4109-b818-b2ff586c18d3) to retrieve corporate
@@ -5401,8 +5383,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-hashtags-enrich-api
   name: ZoomInfo Hashtags Enrich API
   description: 'Use [Hashtags Enrich](#886fb5cc-b587-4f26-bd68-892798d45ffe) to retrieve company hashtags
@@ -5935,8 +5915,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-intent-enrich-api
   name: ZoomInfo Intent Enrich API
   description: 'Use [Intent Enrich](#c1e5300d-8ffb-40f0-b899-be98f884e505) to retrieve intent data using
@@ -6474,8 +6452,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-intent-search-api
   name: ZoomInfo Intent Search API
   description: 'Use [Intent Search](#93f940a4-4381-49dd-8fbc-42cbc75a7a39) to retrieve Intent-related
@@ -7012,8 +6988,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-lookup-api
   name: ZoomInfo Lookup API
   description: This folder contains a series of lookup endpoints.
@@ -7540,8 +7514,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-monitoring-api-webhooks-api
   name: ZoomInfo Monitoring API/Webhooks API
   description: "ZoomInfo data is highly dynamic, with contacts, companies and related data being constantly\
@@ -8364,8 +8336,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-news-enrich-api
   name: ZoomInfo News Enrich API
   description: 'Use [News Enrich](#a04f60d9-353e-4eb1-9c37-0539ee6b8d13) to retrieve news data using valid
@@ -8903,8 +8873,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-news-search-api
   name: ZoomInfo News Search API
   description: 'Use [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19) to retrieve news-related data
@@ -9441,8 +9409,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-orgchart-enrich-api
   name: ZoomInfo OrgChart Enrich API
   description: 'Use [Org Chart Enrich](#763b3c10-41d1-4d52-9775-1712f712202e) to retrieve org chart detail
@@ -9980,8 +9946,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-scoop-enrich-api
   name: ZoomInfo Scoop Enrich API
   description: 'Use [Scoop Enrich](#545c603a-fbe5-48b6-b4b4-bdca626fead0) to retrieve Scoop data using
@@ -10519,8 +10483,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-scoop-search-api
   name: ZoomInfo Scoop Search API
   description: 'Use [Scoop Search](#3099d72f-6857-4432-89c2-736410680e60) to retrieve scoop-related data
@@ -11057,8 +11019,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-technology-enrich-api
   name: ZoomInfo Technology Enrich API
   description: 'Use [Technology Enrich](#9fc40c02-fe95-448f-a6f4-e903c85c81a9) to retrieve company technology
@@ -11590,8 +11550,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-usage-api
   name: ZoomInfo Usage API
   description: You can use the Usage endpoint to find what your current API usage and limits are.
@@ -12118,8 +12076,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-websights-api-api
   name: ZoomInfo WebSights API
   description: "The Websights API identifies anonymous website traffic by resolving IP addresses (IPv4\
@@ -12666,8 +12622,6 @@ apis:
     url: examples/zoominfo-validate-target-u-r-l-request-example.json
   - type: Examples
     url: examples/zoominfo-webhook-example.json
-  - type: GraphQL
-    url: graphql/zoominfo-graphql.md
 - aid: zoominfo:zoominfo-account-summary-api
   name: ZoomInfo Account Summary API
   description: The Account Summary API from ZoomInfo — 2 operation(s) for account summary.
