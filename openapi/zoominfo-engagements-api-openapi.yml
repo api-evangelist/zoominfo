@@ -161,83 +161,6 @@ paths:
         - api:gtm-data-model:manage
 components:
   schemas:
-    Channel:
-      type: string
-      enum:
-      - Website
-      - Email
-    InteractionType:
-      type: string
-      enum:
-      - Click
-      - Save
-      - Send
-      - Sign
-      - Submit
-      - View
-    UpsertResponseMeta:
-      type: object
-      required:
-      - timestamp
-      - processingTime
-      - recordsProcessed
-      - recordsSuccessful
-      - recordsFailed
-      properties:
-        timestamp:
-          type: string
-          description: Response timestamp
-        processingTime:
-          type: integer
-          format: int64
-          description: Processing time in milliseconds
-        recordsProcessed:
-          type: integer
-          format: int32
-          description: Number of records processed
-        recordsSuccessful:
-          type: integer
-          format: int32
-          description: Number of records successfully processed
-        recordsFailed:
-          type: integer
-          format: int32
-          description: Number of records that failed processing
-      description: API response meta information for upsert operations
-    ContentInteractionResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/ContentInteraction'
-          description: The primary data of the document
-      description: Response model for getting a specific content interaction
-    ContentInteraction:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: ContentInteraction
-          pattern: ContentInteraction
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/ContentInteractionAttributes'
-          description: The attributes defining the resource
-      description: Content interaction model
-    Status:
-      type: string
-      enum:
-      - Completed
     ParticipantAttributes:
       type: object
       required:
@@ -285,79 +208,15 @@ components:
           description: ZoomInfo company ID
           readOnly: true
       description: Participant model with common properties.
-    ContentInteractionUpsertResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContentInteraction'
-          description: The primary data of the document
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/UpsertResponseMeta'
-          description: Non-standard meta information about the document
-      description: Response model for content interaction engagement upsert operations
-    ContentInteractionCreateItem:
-      type: object
-      required:
-      - type
-      - attributes
-      properties:
-        type:
-          type: string
-          description: The type of the resource
-          default: ContentInteraction
-          pattern: ContentInteraction
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/ContentInteractionAttributes'
-          description: The attributes defining the resource
-      description: Content interaction model
-    ZoomInfo.Core.Foundations.ErrorModel:
-      type: object
-      required:
-      - id
-      - code
-      - status
-      properties:
-        id:
-          type: string
-          description: The unique id used to identify this specific error instance
-        code:
-          type: string
-          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
-        detail:
-          type: string
-          description: Message containing the specific details about this occurrence of the error
-        source:
-          allOf:
-          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
-          description: An optional object identifying which part of the request caused the error
-        status:
-          type: string
-          description: The HTTP status code for the error
-        title:
-          type: string
-          description: The error name that describes this type of error
-      description: The object describing a specific error from the API
-    ZoomInfo.Core.Foundations.ErrorSourceModel:
-      type: object
-      properties:
-        cookie:
-          type: string
-          description: Identifies the cookie name that caused the issue
-        header:
-          type: string
-          description: Identifies the header name that caused the error
-        pointer:
-          type: string
-          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
-        parameter:
-          type: string
-          description: The name of the path or query parameter that caused the error
+    ContentType:
+      type: string
+      enum:
+      - Demo
+      - Document
+      - Email
+      - Form
+      - Video
+      - Website
     ZoomInfo.Core.Foundations.ErrorResponseModel:
       type: object
       required:
@@ -375,17 +234,85 @@ components:
             $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
           description: The list of errors raised during the request
       description: The standard error response body model for the ZoomInfo API.
-    ContentInteractionUpsertRequest:
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    ContentInteractionResponse:
       type: object
       required:
       - data
       properties:
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContentInteractionCreateItem'
+          allOf:
+          - $ref: '#/components/schemas/ContentInteraction'
           description: The primary data of the document
-      description: Model for creating multiple content interaction engagements
+      description: Response model for getting a specific content interaction
+    Channel:
+      type: string
+      enum:
+      - Website
+      - Email
+    ContentInteraction:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: ContentInteraction
+          pattern: ContentInteraction
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ContentInteractionAttributes'
+          description: The attributes defining the resource
+      description: Content interaction model
+    UpsertResponseMeta:
+      type: object
+      required:
+      - timestamp
+      - processingTime
+      - recordsProcessed
+      - recordsSuccessful
+      - recordsFailed
+      properties:
+        timestamp:
+          type: string
+          description: Response timestamp
+        processingTime:
+          type: integer
+          format: int64
+          description: Processing time in milliseconds
+        recordsProcessed:
+          type: integer
+          format: int32
+          description: Number of records processed
+        recordsSuccessful:
+          type: integer
+          format: int32
+          description: Number of records successfully processed
+        recordsFailed:
+          type: integer
+          format: int32
+          description: Number of records that failed processing
+      description: API response meta information for upsert operations
     ContentInteractionAttributes:
       type: object
       required:
@@ -452,15 +379,88 @@ components:
           - $ref: '#/components/schemas/ParticipantAttributes'
           description: The participant associated with this content interaction
       description: Content interaction engagement record attributes
-    ContentType:
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+    ContentInteractionUpsertResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentInteraction'
+          description: The primary data of the document
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/UpsertResponseMeta'
+          description: Non-standard meta information about the document
+      description: Response model for content interaction engagement upsert operations
+    ContentInteractionCreateItem:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: ContentInteraction
+          pattern: ContentInteraction
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ContentInteractionAttributes'
+          description: The attributes defining the resource
+      description: Content interaction model
+    InteractionType:
       type: string
       enum:
-      - Demo
-      - Document
-      - Email
-      - Form
-      - Video
-      - Website
+      - Click
+      - Save
+      - Send
+      - Sign
+      - Submit
+      - View
+    Status:
+      type: string
+      enum:
+      - Completed
+    ContentInteractionUpsertRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentInteractionCreateItem'
+          description: The primary data of the document
+      description: Model for creating multiple content interaction engagements
   securitySchemes:
     OAuth2Auth:
       type: oauth2

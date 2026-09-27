@@ -4560,27 +4560,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    GetTechnologyEnrichInput:
-      title: GetTechnologyEnrichInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: companyId
-        fieldType: String
-        description: The id of the company for which you want to view technologies
     Enrichtechnologyforacompany:
       title: Enrichtechnologyforacompany
       required:
@@ -6758,6 +6737,27 @@ components:
         createdTime: 8/11/16 14:14
         modifiedTime: 10/10/18 6:45
         description: Google Compute Engine is the Infrastructure as a service component of google cloud platform which is built on the global infrastructure that runs googles search engine, gmail, youtube and other services. It offers high performance virtual machines, customer-friendly pricing, fast networking, and carbon-neutral impact.
+    GetTechnologyEnrichInput:
+      title: GetTechnologyEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        fieldType: String
+        description: The id of the company for which you want to view technologies
   securitySchemes:
     httpBearer:
       type: http

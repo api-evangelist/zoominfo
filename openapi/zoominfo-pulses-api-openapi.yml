@@ -109,65 +109,98 @@ paths:
       - fea:pls
 components:
   schemas:
-    PulseType:
-      type: string
-      enum:
-      - INSIGHT
-      - TASK
-      - EVENT
-      - SUMMARY
-      description: Type of pulse content.
-      x-enumDescriptions:
-        INSIGHT: Insight or group of insights about a company or contact.
-        TASK: Task assigned to a user.
-        EVENT: Event such as an upcoming meeting.
-        SUMMARY: Generic summary of data (for example, a weekly territory analysis or CRM hygiene digest).
-    PulsePriority:
-      type: string
-      enum:
-      - HIGH
-      - MEDIUM
-      - LOW
-      description: Priority level of a pulse.
-      x-enumDescriptions:
-        HIGH: Highest urgency. Surface and act on these first.
-        MEDIUM: Standard urgency.
-        LOW: Lowest urgency. Informational; defer if higher-priority work is available.
-    PagingLinks:
-      type: object
-      properties:
-        first:
-          type: string
-          format: uri
-          description: A link to the first page of data
-        last:
-          type: string
-          format: uri
-          description: A link to the last page of data
-        prev:
-          type: string
-          format: uri
-          description: A link to the previous page of data
-        next:
-          type: string
-          format: uri
-          description: A link to the next page of data
-      description: Links describing the available paging options.
-    PulseContactRef:
+    PulsesListResponse:
       type: object
       required:
-      - id
-      - name
+      - data
       properties:
-        id:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pulse'
+          description: The primary data of the document
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/PagingMeta'
+          description: Non-standard meta information about the document
+        links:
+          allOf:
+          - $ref: '#/components/schemas/PagingLinks'
+          description: Links related to the primary data
+      description: Response containing a page of the authenticated user's active pulses.
+    PagingMeta:
+      type: object
+      required:
+      - page
+      - pageSize
+      - totalCount
+      properties:
+        page:
           type: integer
-          format: int64
-          description: ZoomInfo contact identifier.
-        name:
+          format: uint32
+          description: The current page of results being returned.
+        pageSize:
+          type: integer
+          format: uint32
+          description: The page size as specified by the request.
+        totalCount:
+          type: integer
+          format: uint32
+          description: The total count of results within the current search parameters.
+      description: Metadata for the current page of results.
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
           type: string
-          maxLength: 256
-          description: Display name of the contact.
-      description: Identity of a contact associated with a pulse. The `id` is a ZoomInfo contact identifier and can be passed to other ZoomInfo APIs.
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    PulseCategory:
+      type: string
+      enum:
+      - FINANCIAL
+      - PEOPLE
+      - ACTIVITY
+      - COMPETITIVE
+      - INITIATIVE
+      - ENGAGEMENT
+      - PLAY
+      - OTHER
+      description: Top-level category a pulse belongs to.
+      x-enumDescriptions:
+        FINANCIAL: Funding, earnings, M&A, and budget-related signals.
+        PEOPLE: Hires, departures, role changes, and leadership moves.
+        ACTIVITY: Website activity, form intent signals, and engagement trends.
+        COMPETITIVE: Competitor actions, market positioning, and win/loss signals.
+        INITIATIVE: Strategic programs, transformations, and internal priorities.
+        ENGAGEMENT: Meetings, calls, and other direct engagement themes.
+        PLAY: Pulse originating from a GTM Studio play.
+        OTHER: Uncategorized pulse.
     PulseSignalType:
       type: string
       enum:
@@ -213,157 +246,6 @@ components:
         PERSON_BASED_NEWS: News mentioning a specific contact at a target account.
         BUYING_INTENT_SPIKE: Account-level intent activity has spiked across buying topics.
         TECHNOLOGY_ADDED: A target account added a new technology to its stack.
-    ZoomInfo.Core.Foundations.ErrorModel:
-      type: object
-      required:
-      - id
-      - code
-      - status
-      properties:
-        id:
-          type: string
-          description: The unique id used to identify this specific error instance
-        code:
-          type: string
-          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
-        detail:
-          type: string
-          description: Message containing the specific details about this occurrence of the error
-        source:
-          allOf:
-          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
-          description: An optional object identifying which part of the request caused the error
-        status:
-          type: string
-          description: The HTTP status code for the error
-        title:
-          type: string
-          description: The error name that describes this type of error
-      description: The object describing a specific error from the API
-    ZoomInfo.Core.Foundations.ErrorSourceModel:
-      type: object
-      properties:
-        cookie:
-          type: string
-          description: Identifies the cookie name that caused the issue
-        header:
-          type: string
-          description: Identifies the header name that caused the error
-        pointer:
-          type: string
-          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
-        parameter:
-          type: string
-          description: The name of the path or query parameter that caused the error
-    Pulse:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: Pulse
-          pattern: Pulse
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/PulseAttributes'
-          description: The attributes defining the resource
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/PulseMeta'
-          description: Non-standard meta information about the resource
-      description: A pulse delivered to the authenticated user.
-    PulseCompanyRef:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: ZoomInfo company identifier.
-        name:
-          type: string
-          maxLength: 256
-          description: Display name of the company.
-      description: Identity of a company associated with a pulse. The `id` is a ZoomInfo company identifier and can be passed to other ZoomInfo APIs (for example the Data API enrichment endpoints).
-    ZoomInfo.Core.Foundations.ErrorResponseModel:
-      type: object
-      required:
-      - errors
-      properties:
-        detail:
-          type: string
-          description: A high-level detail of the error(s) that occurred during the request
-        title:
-          type: string
-          description: A high-level summary of the error(s) detected
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
-          description: The list of errors raised during the request
-      description: The standard error response body model for the ZoomInfo API.
-    PagingMeta:
-      type: object
-      required:
-      - page
-      - pageSize
-      - totalCount
-      properties:
-        page:
-          type: integer
-          format: uint32
-          description: The current page of results being returned.
-        pageSize:
-          type: integer
-          format: uint32
-          description: The page size as specified by the request.
-        totalCount:
-          type: integer
-          format: uint32
-          description: The total count of results within the current search parameters.
-      description: Metadata for the current page of results.
-    PulsesListResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Pulse'
-          description: The primary data of the document
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/PagingMeta'
-          description: Non-standard meta information about the document
-        links:
-          allOf:
-          - $ref: '#/components/schemas/PagingLinks'
-          description: Links related to the primary data
-      description: Response containing a page of the authenticated user's active pulses.
-    PulseMeta:
-      type: object
-      required:
-      - createdAt
-      properties:
-        createdAt:
-          type: string
-          format: date-time
-          description: Time at which the pulse was created.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Time at which the pulse expires. Absent when the pulse has no expiration.
-      description: System-managed metadata for a pulse.
     PulseAttributes:
       type: object
       required:
@@ -413,27 +295,145 @@ components:
           maxLength: 2000
           description: 'LLM-generated natural-language context explaining why this pulse is relevant to the authenticated user. Non-deterministic: the wording, length, and emphasis can change across invocations and across underlying model versions. Treat the field as opaque context, not as a stable contract for downstream parsing.'
       description: Lightweight view of a pulse optimized for consumption by large language models (LLMs). Omits content blocks, recipients, data sources, and calls to action (CTAs) in favor of typed identity references for associated companies and contacts plus an LLM-generated relevance explanation.
-    PulseCategory:
+    Pulse:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: Pulse
+          pattern: Pulse
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/PulseAttributes'
+          description: The attributes defining the resource
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/PulseMeta'
+          description: Non-standard meta information about the resource
+      description: A pulse delivered to the authenticated user.
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+    PulseCompanyRef:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ZoomInfo company identifier.
+        name:
+          type: string
+          maxLength: 256
+          description: Display name of the company.
+      description: Identity of a company associated with a pulse. The `id` is a ZoomInfo company identifier and can be passed to other ZoomInfo APIs (for example the Data API enrichment endpoints).
+    PulseType:
       type: string
       enum:
-      - FINANCIAL
-      - PEOPLE
-      - ACTIVITY
-      - COMPETITIVE
-      - INITIATIVE
-      - ENGAGEMENT
-      - PLAY
-      - OTHER
-      description: Top-level category a pulse belongs to.
+      - INSIGHT
+      - TASK
+      - EVENT
+      - SUMMARY
+      description: Type of pulse content.
       x-enumDescriptions:
-        FINANCIAL: Funding, earnings, M&A, and budget-related signals.
-        PEOPLE: Hires, departures, role changes, and leadership moves.
-        ACTIVITY: Website activity, form intent signals, and engagement trends.
-        COMPETITIVE: Competitor actions, market positioning, and win/loss signals.
-        INITIATIVE: Strategic programs, transformations, and internal priorities.
-        ENGAGEMENT: Meetings, calls, and other direct engagement themes.
-        PLAY: Pulse originating from a GTM Studio play.
-        OTHER: Uncategorized pulse.
+        INSIGHT: Insight or group of insights about a company or contact.
+        TASK: Task assigned to a user.
+        EVENT: Event such as an upcoming meeting.
+        SUMMARY: Generic summary of data (for example, a weekly territory analysis or CRM hygiene digest).
+    PulseMeta:
+      type: object
+      required:
+      - createdAt
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          description: Time at which the pulse was created.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Time at which the pulse expires. Absent when the pulse has no expiration.
+      description: System-managed metadata for a pulse.
+    PulseContactRef:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ZoomInfo contact identifier.
+        name:
+          type: string
+          maxLength: 256
+          description: Display name of the contact.
+      description: Identity of a contact associated with a pulse. The `id` is a ZoomInfo contact identifier and can be passed to other ZoomInfo APIs.
+    PulsePriority:
+      type: string
+      enum:
+      - HIGH
+      - MEDIUM
+      - LOW
+      description: Priority level of a pulse.
+      x-enumDescriptions:
+        HIGH: Highest urgency. Surface and act on these first.
+        MEDIUM: Standard urgency.
+        LOW: Lowest urgency. Informational; defer if higher-priority work is available.
+    PagingLinks:
+      type: object
+      properties:
+        first:
+          type: string
+          format: uri
+          description: A link to the first page of data
+        last:
+          type: string
+          format: uri
+          description: A link to the last page of data
+        prev:
+          type: string
+          format: uri
+          description: A link to the previous page of data
+        next:
+          type: string
+          format: uri
+          description: A link to the next page of data
+      description: Links describing the available paging options.
   securitySchemes:
     OAuth2Auth:
       type: oauth2

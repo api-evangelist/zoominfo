@@ -1870,23 +1870,208 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Company:
-      title: Company
+    ContactSearchInput:
+      title: ContactSearchInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      - accessGranted
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+        accessGranted:
+          type: string
+          example: example_value
+      examples:
+      - fieldName: personId
+        fieldType: String
+        description: Unique ZoomInfo identifier for the contact. Can include a comma-separated list.
+        accessGranted: 'true'
+    Datum:
+      title: Datum
       required:
       - id
-      - name
+      - firstName
+      - middleName
+      - lastName
+      - validDate
+      - lastUpdatedDate
+      - jobTitle
+      - contactAccuracyScore
+      - hasEmail
+      - hasSupplementalEmail
+      - hasDirectPhone
+      - hasMobilePhone
+      - hasCompanyIndustry
+      - hasCompanyPhone
+      - hasCompanyStreet
+      - hasCompanyState
+      - hasCompanyZipCode
+      - hasCompanyCountry
+      - hasCompanyRevenue
+      - hasCompanyEmployeeCount
+      - company
       type: object
       properties:
         id:
           type: integer
           contentEncoding: int32
           example: 500123
-        name:
+        firstName:
           type: string
           example: Acme Corporation
+        middleName:
+          type: string
+          example: Acme Corporation
+        lastName:
+          type: string
+          example: Acme Corporation
+        validDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        lastUpdatedDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        jobTitle:
+          type: string
+          example: Vice President of Sales
+        contactAccuracyScore:
+          type: integer
+          contentEncoding: int32
+          example: 85
+        hasEmail:
+          type: boolean
+          example: true
+        hasSupplementalEmail:
+          type: boolean
+          example: true
+        hasDirectPhone:
+          type: boolean
+          example: true
+        hasMobilePhone:
+          type: boolean
+          example: true
+        hasCompanyIndustry:
+          type: boolean
+          example: true
+        hasCompanyPhone:
+          type: boolean
+          example: true
+        hasCompanyStreet:
+          type: boolean
+          example: true
+        hasCompanyState:
+          type: boolean
+          example: true
+        hasCompanyZipCode:
+          type: boolean
+          example: true
+        hasCompanyCountry:
+          type: boolean
+          example: true
+        hasCompanyRevenue:
+          type: boolean
+          example: true
+        hasCompanyEmployeeCount:
+          type: boolean
+          example: true
+        company:
+          $ref: '#/components/schemas/Company'
       examples:
-      - id: 9867169
-        name: AmerisourceBergen
+      - id: 1434351821
+        firstName: Daniel
+        middleName: ''
+        lastName: Herbert
+        validDate: 6/19/2020 1:41 PM
+        lastUpdatedDate: ''
+        jobTitle: Director & Service Owner Information Technology Tools
+        contactAccuracyScore: 96
+        hasEmail: true
+        hasSupplementalEmail: true
+        hasDirectPhone: true
+        hasMobilePhone: true
+        hasCompanyIndustry: true
+        hasCompanyPhone: true
+        hasCompanyStreet: true
+        hasCompanyState: true
+        hasCompanyZipCode: true
+        hasCompanyCountry: true
+        hasCompanyRevenue: true
+        hasCompanyEmployeeCount: true
+        company:
+          id: 9867169
+          name: AmerisourceBergen
+    ContactSearchOutput:
+      title: ContactSearchOutput
+      required:
+      - fieldName
+      - description
+      - accessGranted
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+        accessGranted:
+          type: string
+          example: example_value
+      examples:
+      - fieldName: id
+        description: Unique ZoomInfo identifier for the contact
+        accessGranted: 'true'
+    ContactSearchRequest:
+      title: ContactSearchRequest
+      required:
+      - managementLevel
+      - companyType
+      - zipCode
+      - locationSearchType
+      - zipCodeRadiusMiles
+      - techAttributeTagList
+      - requiredFields
+      type: object
+      properties:
+        managementLevel:
+          type: string
+          example: example_value
+        companyType:
+          type: string
+          example: standard
+        zipCode:
+          type: string
+          example: '94105'
+        locationSearchType:
+          type: string
+          example: standard
+        zipCodeRadiusMiles:
+          type: string
+          example: '94105'
+        techAttributeTagList:
+          type: string
+          example: example_value
+        requiredFields:
+          type: string
+          example: example_value
+      examples:
+      - managementLevel: directors
+        companyType: public
+        zipCode: '19101'
+        locationSearchType: PersonAndHQ
+        zipCodeRadiusMiles: '25'
+        techAttributeTagList: 333.202.*
+        requiredFields: directPhone
     SearchcontactsbyZipCoderadius:
       title: SearchcontactsbyZipCoderadius
       required:
@@ -2149,208 +2334,23 @@ components:
           company:
             id: 12240745
             name: Church & Dwight
-    ContactSearchInput:
-      title: ContactSearchInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      - accessGranted
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-        accessGranted:
-          type: string
-          example: example_value
-      examples:
-      - fieldName: personId
-        fieldType: String
-        description: Unique ZoomInfo identifier for the contact. Can include a comma-separated list.
-        accessGranted: 'true'
-    ContactSearchRequest:
-      title: ContactSearchRequest
-      required:
-      - managementLevel
-      - companyType
-      - zipCode
-      - locationSearchType
-      - zipCodeRadiusMiles
-      - techAttributeTagList
-      - requiredFields
-      type: object
-      properties:
-        managementLevel:
-          type: string
-          example: example_value
-        companyType:
-          type: string
-          example: standard
-        zipCode:
-          type: string
-          example: '94105'
-        locationSearchType:
-          type: string
-          example: standard
-        zipCodeRadiusMiles:
-          type: string
-          example: '94105'
-        techAttributeTagList:
-          type: string
-          example: example_value
-        requiredFields:
-          type: string
-          example: example_value
-      examples:
-      - managementLevel: directors
-        companyType: public
-        zipCode: '19101'
-        locationSearchType: PersonAndHQ
-        zipCodeRadiusMiles: '25'
-        techAttributeTagList: 333.202.*
-        requiredFields: directPhone
-    ContactSearchOutput:
-      title: ContactSearchOutput
-      required:
-      - fieldName
-      - description
-      - accessGranted
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-        accessGranted:
-          type: string
-          example: example_value
-      examples:
-      - fieldName: id
-        description: Unique ZoomInfo identifier for the contact
-        accessGranted: 'true'
-    Datum:
-      title: Datum
+    Company:
+      title: Company
       required:
       - id
-      - firstName
-      - middleName
-      - lastName
-      - validDate
-      - lastUpdatedDate
-      - jobTitle
-      - contactAccuracyScore
-      - hasEmail
-      - hasSupplementalEmail
-      - hasDirectPhone
-      - hasMobilePhone
-      - hasCompanyIndustry
-      - hasCompanyPhone
-      - hasCompanyStreet
-      - hasCompanyState
-      - hasCompanyZipCode
-      - hasCompanyCountry
-      - hasCompanyRevenue
-      - hasCompanyEmployeeCount
-      - company
+      - name
       type: object
       properties:
         id:
           type: integer
           contentEncoding: int32
           example: 500123
-        firstName:
+        name:
           type: string
           example: Acme Corporation
-        middleName:
-          type: string
-          example: Acme Corporation
-        lastName:
-          type: string
-          example: Acme Corporation
-        validDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        lastUpdatedDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        jobTitle:
-          type: string
-          example: Vice President of Sales
-        contactAccuracyScore:
-          type: integer
-          contentEncoding: int32
-          example: 85
-        hasEmail:
-          type: boolean
-          example: true
-        hasSupplementalEmail:
-          type: boolean
-          example: true
-        hasDirectPhone:
-          type: boolean
-          example: true
-        hasMobilePhone:
-          type: boolean
-          example: true
-        hasCompanyIndustry:
-          type: boolean
-          example: true
-        hasCompanyPhone:
-          type: boolean
-          example: true
-        hasCompanyStreet:
-          type: boolean
-          example: true
-        hasCompanyState:
-          type: boolean
-          example: true
-        hasCompanyZipCode:
-          type: boolean
-          example: true
-        hasCompanyCountry:
-          type: boolean
-          example: true
-        hasCompanyRevenue:
-          type: boolean
-          example: true
-        hasCompanyEmployeeCount:
-          type: boolean
-          example: true
-        company:
-          $ref: '#/components/schemas/Company'
       examples:
-      - id: 1434351821
-        firstName: Daniel
-        middleName: ''
-        lastName: Herbert
-        validDate: 6/19/2020 1:41 PM
-        lastUpdatedDate: ''
-        jobTitle: Director & Service Owner Information Technology Tools
-        contactAccuracyScore: 96
-        hasEmail: true
-        hasSupplementalEmail: true
-        hasDirectPhone: true
-        hasMobilePhone: true
-        hasCompanyIndustry: true
-        hasCompanyPhone: true
-        hasCompanyStreet: true
-        hasCompanyState: true
-        hasCompanyZipCode: true
-        hasCompanyCountry: true
-        hasCompanyRevenue: true
-        hasCompanyEmployeeCount: true
-        company:
-          id: 9867169
-          name: AmerisourceBergen
+      - id: 9867169
+        name: AmerisourceBergen
   securitySchemes:
     httpBearer:
       type: http

@@ -1569,27 +1569,6 @@ components:
         subUnitType: Former_new_name
         locationName: DiscoverOrg
         locationEmployeeCount: 500
-    GetLocationEnrichInput:
-      title: GetLocationEnrichInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: parentId
-        fieldType: String
-        description: The id of the parent company for which you want to find locations
     Data35:
       title: Data35
       required:
@@ -1667,6 +1646,27 @@ components:
       examples:
       - fieldName: companyId
         description: Unique ZoomInfo identifier for a company
+    GetLocationEnrichInput:
+      title: GetLocationEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: parentId
+        fieldType: String
+        description: The id of the parent company for which you want to find locations
     Enrichcompanylocation:
       title: Enrichcompanylocation
       required:

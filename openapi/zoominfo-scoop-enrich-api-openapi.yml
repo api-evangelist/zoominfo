@@ -1026,97 +1026,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Company:
-      title: Company
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-      examples:
-      - id: 9867169
-        name: AmerisourceBergen
-    Type:
-      title: Type
-      required:
-      - id
-      - type
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        type:
-          type: string
-          example: standard
-      examples:
-      - id: 6
-        type: Award
-    ScoopEnrichRequest:
-      title: ScoopEnrichRequest
-      required:
-      - companyName
-      - publishedStartDate
-      - publishedEndDate
-      - scoopType
-      - department
-      - sortBy
-      - sortOrder
-      type: object
-      properties:
-        companyName:
-          type: string
-          example: Acme Corporation
-        publishedStartDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        publishedEndDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        scoopType:
-          type: string
-          example: standard
-        department:
-          type: string
-          example: example_value
-        sortBy:
-          type: string
-          example: example_value
-        sortOrder:
-          type: string
-          example: example_value
-      examples:
-      - companyName: Zoominfo
-        publishedStartDate: '2018-11-01T00:00:00.000Z'
-        publishedEndDate: '2020-06-21T00:00:00.000Z'
-        scoopType: 1,6,7,8
-        department: '1'
-        sortBy: originalPublishedDate
-        sortOrder: asc
-    ScoopEnrichOutput:
-      title: ScoopEnrichOutput
-      required:
-      - fieldName
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: id
-        description: ZoomInfo unique identifier for a scoop
     ScoopEnrichInput:
       title: ScoopEnrichInput
       required:
@@ -1138,6 +1047,80 @@ components:
       - fieldName: companyId
         fieldType: String
         description: ZoomInfo unique identifier for the company. Will accept a comma-separated list.
+    Data40:
+      title: Data40
+      required:
+      - id
+      - publishedDate
+      - originalPublishedDate
+      - linkText
+      - link
+      - description
+      - topics
+      - updateText
+      - types
+      - contacts
+      - company
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        publishedDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        originalPublishedDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        linkText:
+          type: string
+          example: example_value
+        link:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: Enterprise software company
+        topics:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        updateText:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        types:
+          type: array
+          items:
+            $ref: '#/components/schemas/Type'
+          description: ''
+          example: []
+        contacts:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        company:
+          $ref: '#/components/schemas/Company'
+      examples:
+      - id: 1258709
+        publishedDate: 12/4/2018 12:00 AM
+        originalPublishedDate: 12/4/2018 12:00 AM
+        linkText: ''
+        link: ''
+        description: has recently been recognized by The Boston Globe as one of the Top Places to Work for 2018 in Massachusetts in the midsize organization category.
+        topics: []
+        updateText: ''
+        types:
+        - id: 6
+          type: Award
+        contacts: []
+        company:
+          id: 344589814
+          name: ZoomInfo
     ScoopEnrich:
       title: ScoopEnrich
       required:
@@ -1305,80 +1288,97 @@ components:
           company:
             id: 344589814
             name: ZoomInfo
-    Data40:
-      title: Data40
+    ScoopEnrichRequest:
+      title: ScoopEnrichRequest
+      required:
+      - companyName
+      - publishedStartDate
+      - publishedEndDate
+      - scoopType
+      - department
+      - sortBy
+      - sortOrder
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: Acme Corporation
+        publishedStartDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        publishedEndDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        scoopType:
+          type: string
+          example: standard
+        department:
+          type: string
+          example: example_value
+        sortBy:
+          type: string
+          example: example_value
+        sortOrder:
+          type: string
+          example: example_value
+      examples:
+      - companyName: Zoominfo
+        publishedStartDate: '2018-11-01T00:00:00.000Z'
+        publishedEndDate: '2020-06-21T00:00:00.000Z'
+        scoopType: 1,6,7,8
+        department: '1'
+        sortBy: originalPublishedDate
+        sortOrder: asc
+    ScoopEnrichOutput:
+      title: ScoopEnrichOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: id
+        description: ZoomInfo unique identifier for a scoop
+    Type:
+      title: Type
       required:
       - id
-      - publishedDate
-      - originalPublishedDate
-      - linkText
-      - link
-      - description
-      - topics
-      - updateText
-      - types
-      - contacts
-      - company
+      - type
       type: object
       properties:
         id:
           type: integer
           contentEncoding: int32
           example: 500123
-        publishedDate:
+        type:
           type: string
-          example: '2025-03-15T14:30:00Z'
-        originalPublishedDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        linkText:
-          type: string
-          example: example_value
-        link:
-          type: string
-          example: example_value
-        description:
-          type: string
-          example: Enterprise software company
-        topics:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-        updateText:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        types:
-          type: array
-          items:
-            $ref: '#/components/schemas/Type'
-          description: ''
-          example: []
-        contacts:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-        company:
-          $ref: '#/components/schemas/Company'
+          example: standard
       examples:
-      - id: 1258709
-        publishedDate: 12/4/2018 12:00 AM
-        originalPublishedDate: 12/4/2018 12:00 AM
-        linkText: ''
-        link: ''
-        description: has recently been recognized by The Boston Globe as one of the Top Places to Work for 2018 in Massachusetts in the midsize organization category.
-        topics: []
-        updateText: ''
-        types:
-        - id: 6
-          type: Award
-        contacts: []
-        company:
-          id: 344589814
-          name: ZoomInfo
+      - id: 6
+        type: Award
+    Company:
+      title: Company
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: 9867169
+        name: AmerisourceBergen
   securitySchemes:
     httpBearer:
       type: http

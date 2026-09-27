@@ -1749,8 +1749,8 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    BulkContactSearch-Preview:
-      title: BulkContactSearch-Preview
+    BulkCompanyEnrich:
+      title: BulkCompanyEnrich
       required:
       - jobId
       type: object
@@ -1759,58 +1759,137 @@ components:
           type: string
           example: '500123'
       examples:
-      - jobId: d1cecb828a0f2a13ffbc1f97faa06af31945ef89
-    BulkJobStatus:
-      title: BulkJobStatus
+      - jobId: add665cc35af4dcbbbe0b4c2d472dfcab15b55d7
+    BulkJobResultsRequest:
+      title: BulkJobResultsRequest
       required:
-      - status
-      - jobType
-      - entityType
-      - totalRecords
-      - totalPages
-      - successfulPagesCount
-      - successfulPages
+      - jobId
+      - page
       type: object
       properties:
-        status:
+        jobId:
           type: string
-          example: active
-        jobType:
-          type: string
-          example: standard
-        entityType:
-          type: string
-          example: standard
-        totalRecords:
-          type: integer
-          contentEncoding: int32
-          example: 100
-        totalPages:
+          example: '500123'
+        page:
           type: integer
           contentEncoding: int32
           example: 1
-        successfulPagesCount:
-          type: integer
-          contentEncoding: int32
-          example: 250
-        successfulPages:
+      examples:
+      - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
+        page: 5
+    BulkCompanySearchRequest:
+      title: BulkCompanySearchRequest
+      required:
+      - jobType
+      - query
+      - outputFields
+      type: object
+      properties:
+        jobType:
+          type: string
+          example: standard
+        query:
+          $ref: '#/components/schemas/Query1'
+        outputFields:
           type: array
           items:
-            type: integer
-            contentEncoding: int32
+            type: string
           description: ''
           example: []
       examples:
-      - status: IN_PROGRESS
-        jobType: redeem
-        entityType: COMPANY
-        totalRecords: 7655
-        totalPages: 8
-        successfulPagesCount: 3
-        successfulPages:
-        - 1
-        - 2
-        - 8
+      - jobType: preview
+        query:
+          address: '01775'
+        outputFields:
+        - id
+    MatchPersonInput1:
+      title: MatchPersonInput1
+      required:
+      - personId
+      type: object
+      properties:
+        personId:
+          type: string
+          example: '500123'
+      examples:
+      - personId: '-1021613465'
+    BulkJobStatusRequest:
+      title: BulkJobStatusRequest
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
+    BulkContactSearchRequest:
+      title: BulkContactSearchRequest
+      required:
+      - jobType
+      - query
+      type: object
+      properties:
+        jobType:
+          type: string
+          example: standard
+        query:
+          $ref: '#/components/schemas/Query'
+      examples:
+      - jobType: preview
+        query:
+          firstName: Mike
+          companyName: Zoominfo
+    BulkCompanySearch-Preview:
+      title: BulkCompanySearch-Preview
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: fa2b51864e1b29a7dceecd149402d6c3441ba34b
+    BulkContactEnrich:
+      title: BulkContactEnrich
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: de5c557935a221c2bc2fa612bf2d8768ade9572c
+    MatchCompanyInput3:
+      title: MatchCompanyInput3
+      required:
+      - companyId
+      type: object
+      properties:
+        companyId:
+          type: string
+          example: '500123'
+      examples:
+      - companyId: '7783252'
+    Query:
+      title: Query
+      required:
+      - firstName
+      - companyName
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: Acme Corporation
+        companyName:
+          type: string
+          example: Acme Corporation
+      examples:
+      - firstName: Mike
+        companyName: Zoominfo
     BulkContactEnrichRequest:
       title: BulkContactEnrichRequest
       required:
@@ -1915,17 +1994,6 @@ components:
         - employmentHistory
         - managementLevel
         - locationCompanyId
-    Query1:
-      title: Query1
-      required:
-      - address
-      type: object
-      properties:
-        address:
-          type: string
-          example: 123 Main Street
-      examples:
-      - address: '01775'
     BulkCompanyEnrichRequest:
       title: BulkCompanyEnrichRequest
       required:
@@ -1984,8 +2052,8 @@ components:
         - name
         - website
         - domainList
-    BulkJobStatusRequest:
-      title: BulkJobStatusRequest
+    BulkContactSearch-Preview:
+      title: BulkContactSearch-Preview
       required:
       - jobId
       type: object
@@ -1994,137 +2062,69 @@ components:
           type: string
           example: '500123'
       examples:
-      - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
-    BulkCompanyEnrich:
-      title: BulkCompanyEnrich
+      - jobId: d1cecb828a0f2a13ffbc1f97faa06af31945ef89
+    BulkJobStatus:
+      title: BulkJobStatus
       required:
-      - jobId
-      type: object
-      properties:
-        jobId:
-          type: string
-          example: '500123'
-      examples:
-      - jobId: add665cc35af4dcbbbe0b4c2d472dfcab15b55d7
-    BulkCompanySearchRequest:
-      title: BulkCompanySearchRequest
-      required:
+      - status
       - jobType
-      - query
-      - outputFields
+      - entityType
+      - totalRecords
+      - totalPages
+      - successfulPagesCount
+      - successfulPages
       type: object
       properties:
+        status:
+          type: string
+          example: active
         jobType:
           type: string
           example: standard
-        query:
-          $ref: '#/components/schemas/Query1'
-        outputFields:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-      examples:
-      - jobType: preview
-        query:
-          address: '01775'
-        outputFields:
-        - id
-    MatchPersonInput1:
-      title: MatchPersonInput1
-      required:
-      - personId
-      type: object
-      properties:
-        personId:
-          type: string
-          example: '500123'
-      examples:
-      - personId: '-1021613465'
-    MatchCompanyInput3:
-      title: MatchCompanyInput3
-      required:
-      - companyId
-      type: object
-      properties:
-        companyId:
-          type: string
-          example: '500123'
-      examples:
-      - companyId: '7783252'
-    Query:
-      title: Query
-      required:
-      - firstName
-      - companyName
-      type: object
-      properties:
-        firstName:
-          type: string
-          example: Acme Corporation
-        companyName:
-          type: string
-          example: Acme Corporation
-      examples:
-      - firstName: Mike
-        companyName: Zoominfo
-    BulkContactSearchRequest:
-      title: BulkContactSearchRequest
-      required:
-      - jobType
-      - query
-      type: object
-      properties:
-        jobType:
+        entityType:
           type: string
           example: standard
-        query:
-          $ref: '#/components/schemas/Query'
-      examples:
-      - jobType: preview
-        query:
-          firstName: Mike
-          companyName: Zoominfo
-    BulkContactEnrich:
-      title: BulkContactEnrich
-      required:
-      - jobId
-      type: object
-      properties:
-        jobId:
-          type: string
-          example: '500123'
-      examples:
-      - jobId: de5c557935a221c2bc2fa612bf2d8768ade9572c
-    BulkCompanySearch-Preview:
-      title: BulkCompanySearch-Preview
-      required:
-      - jobId
-      type: object
-      properties:
-        jobId:
-          type: string
-          example: '500123'
-      examples:
-      - jobId: fa2b51864e1b29a7dceecd149402d6c3441ba34b
-    BulkJobResultsRequest:
-      title: BulkJobResultsRequest
-      required:
-      - jobId
-      - page
-      type: object
-      properties:
-        jobId:
-          type: string
-          example: '500123'
-        page:
+        totalRecords:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        totalPages:
           type: integer
           contentEncoding: int32
           example: 1
+        successfulPagesCount:
+          type: integer
+          contentEncoding: int32
+          example: 250
+        successfulPages:
+          type: array
+          items:
+            type: integer
+            contentEncoding: int32
+          description: ''
+          example: []
       examples:
-      - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
-        page: 5
+      - status: IN_PROGRESS
+        jobType: redeem
+        entityType: COMPANY
+        totalRecords: 7655
+        totalPages: 8
+        successfulPagesCount: 3
+        successfulPages:
+        - 1
+        - 2
+        - 8
+    Query1:
+      title: Query1
+      required:
+      - address
+      type: object
+      properties:
+        address:
+          type: string
+          example: 123 Main Street
+      examples:
+      - address: '01775'
   securitySchemes:
     httpBearer:
       type: http

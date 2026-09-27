@@ -2030,6 +2030,43 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    IntentSearchInput:
+      title: IntentSearchInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: topics
+        fieldType: ArrayList
+        description: Intent topics. Accepts an Array of String. See the 'Intent Topics' endpoint for values.
+    IntentSearchOutput:
+      title: IntentSearchOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: id
+        description: Unique ZoomInfo identifier for a topic
     IntentSearchRequest:
       title: IntentSearchRequest
       required:
@@ -2091,33 +2128,6 @@ components:
         industryCodes: education.university
         sortBy: topic
         sortOrder: desc
-    Company8:
-      title: Company8
-      required:
-      - id
-      - name
-      - website
-      - hasOtherTopicConsumption
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-        website:
-          type: string
-          example: example_value
-        hasOtherTopicConsumption:
-          type: boolean
-          example: true
-      examples:
-      - id: 118998385
-        name: Golden Gate University
-        website: www.ggu.edu
-        hasOtherTopicConsumption: true
     RecommendedContact:
       title: RecommendedContact
       required:
@@ -2155,6 +2165,120 @@ components:
         jobFunction:
         - name: Executive
           department: C-Suite
+    Datum11:
+      title: Datum11
+      required:
+      - id
+      - category
+      - topic
+      - signalScore
+      - audienceStrength
+      - newSignal
+      - signalDate
+      - trend
+      - recommendedContacts
+      - company
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        category:
+          type: string
+          example: example_value
+        topic:
+          type: string
+          example: example_value
+        signalScore:
+          type: integer
+          contentEncoding: int32
+          example: 85
+        audienceStrength:
+          type: string
+          example: example_value
+        newSignal:
+          type: boolean
+          example: true
+        signalDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        trend:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        recommendedContacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecommendedContact'
+          description: ''
+          example: []
+        company:
+          $ref: '#/components/schemas/Company8'
+      examples:
+      - id: d3ac21f6-f9f4-4a71-8ca9-8f4125937d2c
+        category: Cyber Security
+        topic: Mobile Security
+        signalScore: 83
+        audienceStrength: C
+        newSignal: true
+        signalDate: 7/5/2020 12:00 AM
+        trend: 24
+        recommendedContacts:
+        - id: -1766367996
+          firstName: David
+          lastName: Fike
+          jobTitle: President
+          jobFunction:
+          - name: Executive
+            department: C-Suite
+        company:
+          id: 118998385
+          name: Golden Gate University
+          website: www.ggu.edu
+          hasOtherTopicConsumption: true
+    Company8:
+      title: Company8
+      required:
+      - id
+      - name
+      - website
+      - hasOtherTopicConsumption
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+        website:
+          type: string
+          example: example_value
+        hasOtherTopicConsumption:
+          type: boolean
+          example: true
+      examples:
+      - id: 118998385
+        name: Golden Gate University
+        website: www.ggu.edu
+        hasOtherTopicConsumption: true
+    JobFunction:
+      title: JobFunction
+      required:
+      - name
+      - department
+      type: object
+      properties:
+        name:
+          type: string
+          example: Acme Corporation
+        department:
+          type: string
+          example: example_value
+      examples:
+      - name: Executive
+        department: C-Suite
     IntentSearch:
       title: IntentSearch
       required:
@@ -2755,130 +2879,6 @@ components:
             name: College of Marin
             website: www.marin.edu
             hasOtherTopicConsumption: true
-    JobFunction:
-      title: JobFunction
-      required:
-      - name
-      - department
-      type: object
-      properties:
-        name:
-          type: string
-          example: Acme Corporation
-        department:
-          type: string
-          example: example_value
-      examples:
-      - name: Executive
-        department: C-Suite
-    IntentSearchOutput:
-      title: IntentSearchOutput
-      required:
-      - fieldName
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: id
-        description: Unique ZoomInfo identifier for a topic
-    IntentSearchInput:
-      title: IntentSearchInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: topics
-        fieldType: ArrayList
-        description: Intent topics. Accepts an Array of String. See the 'Intent Topics' endpoint for values.
-    Datum11:
-      title: Datum11
-      required:
-      - id
-      - category
-      - topic
-      - signalScore
-      - audienceStrength
-      - newSignal
-      - signalDate
-      - trend
-      - recommendedContacts
-      - company
-      type: object
-      properties:
-        id:
-          type: string
-          example: '500123'
-        category:
-          type: string
-          example: example_value
-        topic:
-          type: string
-          example: example_value
-        signalScore:
-          type: integer
-          contentEncoding: int32
-          example: 85
-        audienceStrength:
-          type: string
-          example: example_value
-        newSignal:
-          type: boolean
-          example: true
-        signalDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        trend:
-          type: integer
-          contentEncoding: int32
-          example: 100
-        recommendedContacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/RecommendedContact'
-          description: ''
-          example: []
-        company:
-          $ref: '#/components/schemas/Company8'
-      examples:
-      - id: d3ac21f6-f9f4-4a71-8ca9-8f4125937d2c
-        category: Cyber Security
-        topic: Mobile Security
-        signalScore: 83
-        audienceStrength: C
-        newSignal: true
-        signalDate: 7/5/2020 12:00 AM
-        trend: 24
-        recommendedContacts:
-        - id: -1766367996
-          firstName: David
-          lastName: Fike
-          jobTitle: President
-          jobFunction:
-          - name: Executive
-            department: C-Suite
-        company:
-          id: 118998385
-          name: Golden Gate University
-          website: www.ggu.edu
-          hasOtherTopicConsumption: true
   securitySchemes:
     httpBearer:
       type: http

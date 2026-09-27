@@ -877,6 +877,174 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Company25:
+      title: Company25
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - name: ZoomInfo
+    ComplianceInput:
+      title: ComplianceInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        fieldType: Long
+        description: Unique ZoomInfo identifier for a company
+    MatchPersonInput2:
+      title: MatchPersonInput2
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: Acme Corporation
+        personFirstName:
+          type: string
+          example: Acme Corporation
+        personLastName:
+          type: string
+          example: Acme Corporation
+        personEmailAddress:
+          type: string
+          example: jsmith@example.com
+      examples:
+      - companyName: ZoomInfo
+        personFirstName: Henry
+        personLastName: Schuck
+    ComplianceOutput:
+      title: ComplianceOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: id
+        description: Unique ZoomInfo identifier for the contact
+    ComplianceRequest:
+      title: ComplianceRequest
+      required:
+      - matchPersonInput
+      type: object
+      properties:
+        matchPersonInput:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchPersonInput2'
+          description: ''
+          example: []
+      examples:
+      - matchPersonInput:
+        - companyName: ZoomInfo
+          personFirstName: Henry
+          personLastName: Schuck
+        - personEmailAddress: john.doherty@zoominfo.com
+    Data45:
+      title: Data45
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result19'
+          description: ''
+          example: []
+      examples:
+      - result:
+        - input:
+            companyname: zoominfo
+            personfirstname: henry
+            personlastname: schuck
+          data:
+          - id: 1260398587
+            firstName: Henry
+            lastName: Schuck
+            title: Founder & Chief Executive Officer
+            employmentHistory:
+            - companyName: ZoomInfo
+              title: Founder & Chief Executive Officer
+            - companyName: iProfile
+              title: Vice President of Data and Marketing
+            emailAddresses:
+            - h.schuck@discoverorg.com
+            - henry@grow.discoverorg.com
+            - schuck.h@discoverorg.com
+            - henry.schuck@discoverorg.com
+            - henry@succeed.discoverorg.com
+            - h.schuck@zoominfo.com
+            - henry.schuck@zoominfo.com
+            - hschuck@discoverorg.com
+            - henry@discoverorg.com
+            - hlschuck@discoverorg.com
+            - hlschuck@email.discoverorg.io
+            pastEmailAddresses:
+            - h.schuck@discoverorg.com
+            - schuck.h@discoverorg.com
+            - henry.schuck@discoverorg.com
+            - hschuck@discoverorg.com
+            - henry@discoverorg.com
+            - hlschuck@discoverorg.com
+            withinEu: false
+            hasCanadianEmail: 'false'
+            withinCalifornia: false
+            withinCanada: false
+            noticeProvidedDate: Notice not required
+            hasMoved: 'No'
+            looksLikeEu: 'No'
+            looksLikeCalifornia: 'No'
+            looksLikeCanada: 'No'
+            company:
+              name: ZoomInfo
+        - input:
+            personemailaddress: john.doherty@zoominfo.com
+          data:
+          - id: 3458235736
+            firstName: John
+            lastName: Doherty
+            title: Principal Technical Writer
+            employmentHistory:
+            - companyName: ZoomInfo
+              title: Principal Technical Writer
+            emailAddresses:
+            - john.doherty@zoominfo.com
+            pastEmailAddresses: []
+            withinEu: false
+            hasCanadianEmail: 'false'
+            withinCalifornia: false
+            withinCanada: false
+            noticeProvidedDate: Notice not required
+            hasMoved: Uncertain
+            looksLikeEu: 'No'
+            looksLikeCalifornia: 'No'
+            looksLikeCanada: 'No'
+            company:
+              name: ZoomInfo
     Data46:
       title: Data46
       required:
@@ -1059,160 +1227,6 @@ components:
           looksLikeCanada: 'No'
           company:
             name: ZoomInfo
-    ComplianceOutput:
-      title: ComplianceOutput
-      required:
-      - fieldName
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: id
-        description: Unique ZoomInfo identifier for the contact
-    MatchPersonInput2:
-      title: MatchPersonInput2
-      type: object
-      properties:
-        companyName:
-          type: string
-          example: Acme Corporation
-        personFirstName:
-          type: string
-          example: Acme Corporation
-        personLastName:
-          type: string
-          example: Acme Corporation
-        personEmailAddress:
-          type: string
-          example: jsmith@example.com
-      examples:
-      - companyName: ZoomInfo
-        personFirstName: Henry
-        personLastName: Schuck
-    EmploymentHistory4:
-      title: EmploymentHistory4
-      required:
-      - companyName
-      - title
-      type: object
-      properties:
-        companyName:
-          type: string
-          example: Acme Corporation
-        title:
-          type: string
-          example: Vice President of Sales
-      examples:
-      - companyName: ZoomInfo
-        title: Founder & Chief Executive Officer
-    Input17:
-      title: Input17
-      type: object
-      properties:
-        companyname:
-          type: string
-          example: Acme Corporation
-        personfirstname:
-          type: string
-          example: Acme Corporation
-        personlastname:
-          type: string
-          example: Acme Corporation
-        personemailaddress:
-          type: string
-          example: jsmith@example.com
-      examples:
-      - companyname: zoominfo
-        personfirstname: henry
-        personlastname: schuck
-    Data45:
-      title: Data45
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result19'
-          description: ''
-          example: []
-      examples:
-      - result:
-        - input:
-            companyname: zoominfo
-            personfirstname: henry
-            personlastname: schuck
-          data:
-          - id: 1260398587
-            firstName: Henry
-            lastName: Schuck
-            title: Founder & Chief Executive Officer
-            employmentHistory:
-            - companyName: ZoomInfo
-              title: Founder & Chief Executive Officer
-            - companyName: iProfile
-              title: Vice President of Data and Marketing
-            emailAddresses:
-            - h.schuck@discoverorg.com
-            - henry@grow.discoverorg.com
-            - schuck.h@discoverorg.com
-            - henry.schuck@discoverorg.com
-            - henry@succeed.discoverorg.com
-            - h.schuck@zoominfo.com
-            - henry.schuck@zoominfo.com
-            - hschuck@discoverorg.com
-            - henry@discoverorg.com
-            - hlschuck@discoverorg.com
-            - hlschuck@email.discoverorg.io
-            pastEmailAddresses:
-            - h.schuck@discoverorg.com
-            - schuck.h@discoverorg.com
-            - henry.schuck@discoverorg.com
-            - hschuck@discoverorg.com
-            - henry@discoverorg.com
-            - hlschuck@discoverorg.com
-            withinEu: false
-            hasCanadianEmail: 'false'
-            withinCalifornia: false
-            withinCanada: false
-            noticeProvidedDate: Notice not required
-            hasMoved: 'No'
-            looksLikeEu: 'No'
-            looksLikeCalifornia: 'No'
-            looksLikeCanada: 'No'
-            company:
-              name: ZoomInfo
-        - input:
-            personemailaddress: john.doherty@zoominfo.com
-          data:
-          - id: 3458235736
-            firstName: John
-            lastName: Doherty
-            title: Principal Technical Writer
-            employmentHistory:
-            - companyName: ZoomInfo
-              title: Principal Technical Writer
-            emailAddresses:
-            - john.doherty@zoominfo.com
-            pastEmailAddresses: []
-            withinEu: false
-            hasCanadianEmail: 'false'
-            withinCalifornia: false
-            withinCanada: false
-            noticeProvidedDate: Notice not required
-            hasMoved: Uncertain
-            looksLikeEu: 'No'
-            looksLikeCalifornia: 'No'
-            looksLikeCanada: 'No'
-            company:
-              name: ZoomInfo
     Compliance:
       title: Compliance
       required:
@@ -1297,56 +1311,42 @@ components:
               looksLikeCanada: 'No'
               company:
                 name: ZoomInfo
-    Company25:
-      title: Company25
-      required:
-      - name
+    Input17:
+      title: Input17
       type: object
       properties:
-        name:
+        companyname:
           type: string
           example: Acme Corporation
-      examples:
-      - name: ZoomInfo
-    ComplianceInput:
-      title: ComplianceInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      type: object
-      properties:
-        fieldName:
+        personfirstname:
           type: string
           example: Acme Corporation
-        fieldType:
+        personlastname:
           type: string
-          example: standard
-        description:
+          example: Acme Corporation
+        personemailaddress:
           type: string
-          example: Enterprise software company
+          example: jsmith@example.com
       examples:
-      - fieldName: companyId
-        fieldType: Long
-        description: Unique ZoomInfo identifier for a company
-    ComplianceRequest:
-      title: ComplianceRequest
+      - companyname: zoominfo
+        personfirstname: henry
+        personlastname: schuck
+    EmploymentHistory4:
+      title: EmploymentHistory4
       required:
-      - matchPersonInput
+      - companyName
+      - title
       type: object
       properties:
-        matchPersonInput:
-          type: array
-          items:
-            $ref: '#/components/schemas/MatchPersonInput2'
-          description: ''
-          example: []
+        companyName:
+          type: string
+          example: Acme Corporation
+        title:
+          type: string
+          example: Vice President of Sales
       examples:
-      - matchPersonInput:
-        - companyName: ZoomInfo
-          personFirstName: Henry
-          personLastName: Schuck
-        - personEmailAddress: john.doherty@zoominfo.com
+      - companyName: ZoomInfo
+        title: Founder & Chief Executive Officer
   securitySchemes:
     httpBearer:
       type: http

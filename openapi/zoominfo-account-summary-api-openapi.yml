@@ -133,72 +133,15 @@ paths:
       - fea:cai
 components:
   schemas:
-    AccountSummaryQuestionResponse:
+    AccountSummaryQuestionRequestAttributes:
       type: object
       required:
-      - data
+      - question
       properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/AccountSummaryQuestion'
-          description: The primary data of the document
-      description: Response model for asking a question about account-related data.
-    AccountSummaryQuestionAttributes:
-      type: object
-      required:
-      - answer
-      properties:
-        answer:
+        question:
           type: string
-          description: The answer to the account summary question.
-      description: Attributes for the AccountSummaryQuestion resource.
-    AccountSummaryQuestion:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: AccountSummaryQuestion
-          pattern: AccountSummaryQuestion
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/AccountSummaryQuestionAttributes'
-          description: The attributes defining the resource
-      description: Represents a question and answer about account-related data.
-    ZoomInfo.Core.Foundations.ErrorModel:
-      type: object
-      required:
-      - id
-      - code
-      - status
-      properties:
-        id:
-          type: string
-          description: The unique id used to identify this specific error instance
-        code:
-          type: string
-          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
-        detail:
-          type: string
-          description: Message containing the specific details about this occurrence of the error
-        source:
-          allOf:
-          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
-          description: An optional object identifying which part of the request caused the error
-        status:
-          type: string
-          description: The HTTP status code for the error
-        title:
-          type: string
-          description: The error name that describes this type of error
-      description: The object describing a specific error from the API
+          description: The question to ask about account-related data.
+      description: Attributes for the AccountSummaryQuestionRequest resource.
     ZoomInfo.Core.Foundations.ErrorSourceModel:
       type: object
       properties:
@@ -231,15 +174,32 @@ components:
             $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
           description: The list of errors raised during the request
       description: The standard error response body model for the ZoomInfo API.
-    AccountSummaryQuestionRequestAttributes:
+    AccountSummaryQuestionResponse:
       type: object
       required:
-      - question
+      - data
       properties:
-        question:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/AccountSummaryQuestion'
+          description: The primary data of the document
+      description: Response model for asking a question about account-related data.
+    AccountSummaryQuestionRequestResource:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
           type: string
-          description: The question to ask about account-related data.
-      description: Attributes for the AccountSummaryQuestionRequest resource.
+          description: The type of the resource
+          default: AccountSummaryQuestionRequest
+          pattern: AccountSummaryQuestionRequest
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/AccountSummaryQuestionRequestAttributes'
+          description: The attributes defining the resource
+      description: Represents a request to ask a question about account-related data.
     AccountSummaryQuestionRequest:
       type: object
       required:
@@ -250,6 +210,72 @@ components:
           - $ref: '#/components/schemas/AccountSummaryQuestionRequestResource'
           description: The primary data of the document
       description: Request model for asking a question about account-related data.
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+    AccountSummaryQuestion:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: AccountSummaryQuestion
+          pattern: AccountSummaryQuestion
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/AccountSummaryQuestionAttributes'
+          description: The attributes defining the resource
+      description: Represents a question and answer about account-related data.
+    AccountSummaryQuestionAttributes:
+      type: object
+      required:
+      - answer
+      properties:
+        answer:
+          type: string
+          description: The answer to the account summary question.
+      description: Attributes for the AccountSummaryQuestion resource.
+    AccountSummaryResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/AccountSummary'
+          description: The primary data of the document
+      description: Resource model for an account summary response.
     AccountSummaryAttributes:
       type: object
       required:
@@ -279,32 +305,6 @@ components:
           - $ref: '#/components/schemas/AccountSummaryAttributes'
           description: The attributes defining the resource
       description: Represents a summary of account-related data.
-    AccountSummaryQuestionRequestResource:
-      type: object
-      required:
-      - type
-      - attributes
-      properties:
-        type:
-          type: string
-          description: The type of the resource
-          default: AccountSummaryQuestionRequest
-          pattern: AccountSummaryQuestionRequest
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/AccountSummaryQuestionRequestAttributes'
-          description: The attributes defining the resource
-      description: Represents a request to ask a question about account-related data.
-    AccountSummaryResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/AccountSummary'
-          description: The primary data of the document
-      description: Resource model for an account summary response.
   securitySchemes:
     OAuth2Auth:
       type: oauth2

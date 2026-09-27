@@ -1100,6 +1100,86 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Datum5:
+      title: Datum5
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: 114804067
+        name: Holy Names University
+    CompanySearchInput:
+      title: CompanySearchInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      - accessGranted
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+        accessGranted:
+          type: string
+          example: example_value
+      examples:
+      - fieldName: marketingDepartmentBudgetMin
+        fieldType: Integer
+        description: Minimum marketing department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
+        accessGranted: 'true'
+    CompanySearchRequest:
+      title: CompanySearchRequest
+      required:
+      - metroRegion
+      - industryCodes
+      - techAttributeTagList
+      type: object
+      properties:
+        metroRegion:
+          type: string
+          example: example_value
+        industryCodes:
+          type: string
+          example: Software
+        techAttributeTagList:
+          type: string
+          example: example_value
+      examples:
+      - metroRegion: usa.california.sanfrancisco
+        industryCodes: education.university
+        techAttributeTagList: 333.202.*
+    GetCompanySearchOutputField:
+      title: GetCompanySearchOutputField
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        description: company id
     Searchcompaniesbyemployeegrowthrate:
       title: Searchcompaniesbyemployeegrowthrate
       required:
@@ -1162,86 +1242,6 @@ components:
           name: Marcus Foster Education Institute
         - id: 28235366
           name: Berkeley Geochronology Center
-    Datum5:
-      title: Datum5
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-      examples:
-      - id: 114804067
-        name: Holy Names University
-    GetCompanySearchOutputField:
-      title: GetCompanySearchOutputField
-      required:
-      - fieldName
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: companyId
-        description: company id
-    CompanySearchRequest:
-      title: CompanySearchRequest
-      required:
-      - metroRegion
-      - industryCodes
-      - techAttributeTagList
-      type: object
-      properties:
-        metroRegion:
-          type: string
-          example: example_value
-        industryCodes:
-          type: string
-          example: Software
-        techAttributeTagList:
-          type: string
-          example: example_value
-      examples:
-      - metroRegion: usa.california.sanfrancisco
-        industryCodes: education.university
-        techAttributeTagList: 333.202.*
-    CompanySearchInput:
-      title: CompanySearchInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      - accessGranted
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-        accessGranted:
-          type: string
-          example: example_value
-      examples:
-      - fieldName: marketingDepartmentBudgetMin
-        fieldType: Integer
-        description: Minimum marketing department budget amount in thousands (e.g., 1 = 1000, 500 = 500,000).  Minimum value is 0, maximum value is 2147483647 (approximately 2 trillion).
-        accessGranted: 'true'
   securitySchemes:
     httpBearer:
       type: http

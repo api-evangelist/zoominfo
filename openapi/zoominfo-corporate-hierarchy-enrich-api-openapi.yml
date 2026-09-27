@@ -574,18 +574,102 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Enrichcorporatehierarchy-multiplecompanies:
-      title: Enrichcorporatehierarchy-multiplecompanies
+    Data31:
+      title: Data31
       required:
-      - success
-      - data
+      - outputFields
+      - result
       type: object
       properties:
-        success:
-          type: boolean
-          example: true
-        data:
-          $ref: '#/components/schemas/Data31'
+        outputFields:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          example: []
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result15'
+          description: ''
+          example: []
+    MatchCompanyInput2:
+      title: MatchCompanyInput2
+      required:
+      - companyName
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: Acme Corporation
+      examples:
+      - companyName: zoominfo
+    CorporateHierarchyEnrichRequest:
+      title: CorporateHierarchyEnrichRequest
+      required:
+      - matchCompanyInput
+      - outputFields
+      type: object
+      properties:
+        matchCompanyInput:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchCompanyInput2'
+          description: ''
+          example: []
+        outputFields:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+      examples:
+      - matchCompanyInput:
+        - companyName: zoominfo
+        outputFields:
+        - parentage
+        - familyTree
+        - companyId
+    FamilyNode1:
+      title: FamilyNode1
+      required:
+      - companyId
+      - name
+      - city
+      - state
+      - subUnitTypeInfo
+      type: object
+      properties:
+        companyId:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+        city:
+          type: string
+          example: San Francisco
+        state:
+          type: string
+          example: CA
+        subUnitTypeInfo:
+          $ref: '#/components/schemas/SubUnitTypeInfo'
+        familyNodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/FamilyNode2'
+          description: ''
+          example: []
+      examples:
+      - companyId: 357334302
+        name: LeadLedger LLC
+        city: San Francisco
+        state: California
+        subUnitTypeInfo:
+          typeId: 3
+          typeDescription: ''
     Result15:
       title: Result15
       required:
@@ -1011,22 +1095,6 @@ components:
                   typeId: 1
                   typeDescription: Location
           companyId: 344589814
-    GetCorporateHierarchyEnrichOutput:
-      title: GetCorporateHierarchyEnrichOutput
-      required:
-      - fieldName
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: parentage
-        description: All companies higher up in the corporate hierarchy for this company
     Data32:
       title: Data32
       required:
@@ -1469,6 +1537,95 @@ components:
                 typeId: 1
                 typeDescription: Location
         companyId: 344589814
+    FamilyNode:
+      title: FamilyNode
+      required:
+      - companyId
+      - name
+      - city
+      - state
+      - subUnitTypeInfo
+      type: object
+      properties:
+        companyId:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+        city:
+          type: string
+          example: San Francisco
+        state:
+          type: string
+          example: CA
+        subUnitTypeInfo:
+          $ref: '#/components/schemas/SubUnitTypeInfo'
+        familyNodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/FamilyNode1'
+          description: ''
+          example: []
+      examples:
+      - companyId: 440083468
+        name: ''
+        city: Grand Rapids
+        state: Michigan
+        subUnitTypeInfo:
+          typeId: 1
+          typeDescription: Location
+    SubUnitTypeInfo:
+      title: SubUnitTypeInfo
+      required:
+      - typeId
+      - typeDescription
+      type: object
+      properties:
+        typeId:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        typeDescription:
+          type: string
+          example: Enterprise software company
+      examples:
+      - typeId: 1
+        typeDescription: Location
+    FamilyNode2:
+      title: FamilyNode2
+      required:
+      - companyId
+      - name
+      - city
+      - state
+      - subUnitTypeInfo
+      type: object
+      properties:
+        companyId:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+        city:
+          type: string
+          example: San Francisco
+        state:
+          type: string
+          example: CA
+        subUnitTypeInfo:
+          $ref: '#/components/schemas/SubUnitTypeInfo'
+      examples:
+      - companyId: 361511922
+        name: ''
+        city: London
+        state: Greater London
+        subUnitTypeInfo:
+          typeId: 1
+          typeDescription: Location
     Parentage1:
       title: Parentage1
       required:
@@ -1510,45 +1667,6 @@ components:
         subUnitType: '4'
         subUnitDesc: ''
         acquiredByDate: '2019-03-04T00:00:00.000Z'
-    FamilyNode:
-      title: FamilyNode
-      required:
-      - companyId
-      - name
-      - city
-      - state
-      - subUnitTypeInfo
-      type: object
-      properties:
-        companyId:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-        city:
-          type: string
-          example: San Francisco
-        state:
-          type: string
-          example: CA
-        subUnitTypeInfo:
-          $ref: '#/components/schemas/SubUnitTypeInfo'
-        familyNodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/FamilyNode1'
-          description: ''
-          example: []
-      examples:
-      - companyId: 440083468
-        name: ''
-        city: Grand Rapids
-        state: Michigan
-        subUnitTypeInfo:
-          typeId: 1
-          typeDescription: Location
     Parentage:
       title: Parentage
       type: object
@@ -1574,82 +1692,31 @@ components:
         acquiredByDate:
           type: string
           example: '2025-03-15T14:30:00Z'
-    SubUnitTypeInfo:
-      title: SubUnitTypeInfo
-      required:
-      - typeId
-      - typeDescription
+    Input15:
+      title: Input15
       type: object
       properties:
-        typeId:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        typeDescription:
-          type: string
-          example: Enterprise software company
-      examples:
-      - typeId: 1
-        typeDescription: Location
-    FamilyNode1:
-      title: FamilyNode1
-      required:
-      - companyId
-      - name
-      - city
-      - state
-      - subUnitTypeInfo
-      type: object
-      properties:
-        companyId:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
+        companyname:
           type: string
           example: Acme Corporation
-        city:
-          type: string
-          example: San Francisco
-        state:
-          type: string
-          example: CA
-        subUnitTypeInfo:
-          $ref: '#/components/schemas/SubUnitTypeInfo'
-        familyNodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/FamilyNode2'
-          description: ''
-          example: []
+        companyid:
+          type: integer
+          contentEncoding: int32
+          example: 500123
       examples:
-      - companyId: 357334302
-        name: LeadLedger LLC
-        city: San Francisco
-        state: California
-        subUnitTypeInfo:
-          typeId: 3
-          typeDescription: ''
-    Data31:
-      title: Data31
+      - companyname: zoominfo
+    Enrichcorporatehierarchy-multiplecompanies:
+      title: Enrichcorporatehierarchy-multiplecompanies
       required:
-      - outputFields
-      - result
+      - success
+      - data
       type: object
       properties:
-        outputFields:
-          type: array
-          items:
-            type: array
-            items:
-              type: string
-          example: []
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result15'
-          description: ''
-          example: []
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/Data31'
     FamilyTree:
       title: FamilyTree
       required:
@@ -2083,52 +2150,6 @@ components:
             subUnitTypeInfo:
               typeId: 1
               typeDescription: Location
-    Input15:
-      title: Input15
-      type: object
-      properties:
-        companyname:
-          type: string
-          example: Acme Corporation
-        companyid:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-      examples:
-      - companyname: zoominfo
-    FamilyNode2:
-      title: FamilyNode2
-      required:
-      - companyId
-      - name
-      - city
-      - state
-      - subUnitTypeInfo
-      type: object
-      properties:
-        companyId:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-        city:
-          type: string
-          example: San Francisco
-        state:
-          type: string
-          example: CA
-        subUnitTypeInfo:
-          $ref: '#/components/schemas/SubUnitTypeInfo'
-      examples:
-      - companyId: 361511922
-        name: ''
-        city: London
-        state: Greater London
-        subUnitTypeInfo:
-          typeId: 1
-          typeDescription: Location
     GetCorporateHierarchyEnrichInput:
       title: GetCorporateHierarchyEnrichInput
       required:
@@ -2150,43 +2171,22 @@ components:
       - fieldName: companyId
         fieldType: Integer
         description: The id of the company you are searching for
-    MatchCompanyInput2:
-      title: MatchCompanyInput2
+    GetCorporateHierarchyEnrichOutput:
+      title: GetCorporateHierarchyEnrichOutput
       required:
-      - companyName
+      - fieldName
+      - description
       type: object
       properties:
-        companyName:
+        fieldName:
           type: string
           example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
       examples:
-      - companyName: zoominfo
-    CorporateHierarchyEnrichRequest:
-      title: CorporateHierarchyEnrichRequest
-      required:
-      - matchCompanyInput
-      - outputFields
-      type: object
-      properties:
-        matchCompanyInput:
-          type: array
-          items:
-            $ref: '#/components/schemas/MatchCompanyInput2'
-          description: ''
-          example: []
-        outputFields:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-      examples:
-      - matchCompanyInput:
-        - companyName: zoominfo
-        outputFields:
-        - parentage
-        - familyTree
-        - companyId
+      - fieldName: parentage
+        description: All companies higher up in the corporate hierarchy for this company
   securitySchemes:
     httpBearer:
       type: http

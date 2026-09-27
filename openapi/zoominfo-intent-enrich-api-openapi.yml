@@ -1696,6 +1696,155 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    IntentEnrichOutput:
+      title: IntentEnrichOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: id
+        description: Unique ZoomInfo identifier for a topic
+    IntentEnrichRequest:
+      title: IntentEnrichRequest
+      required:
+      - companyName
+      - companyWebsite
+      - companyId
+      - topics
+      - signalStartDate
+      - signalEndDate
+      - signalScoreMin
+      - signalScoreMax
+      - audienceStrengthMin
+      - audienceStrengthMax
+      - sortBy
+      - sortOrder
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: Acme Corporation
+        companyWebsite:
+          type: string
+          example: example_value
+        companyId:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        topics:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        signalStartDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        signalEndDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        signalScoreMin:
+          type: integer
+          contentEncoding: int32
+          example: 85
+        signalScoreMax:
+          type: integer
+          contentEncoding: int32
+          example: 85
+        audienceStrengthMin:
+          type: string
+          example: example_value
+        audienceStrengthMax:
+          type: string
+          example: example_value
+        sortBy:
+          type: string
+          example: example_value
+        sortOrder:
+          type: string
+          example: example_value
+      examples:
+      - companyName: ZoomInfo
+        companyWebsite: zoominfo.com
+        companyId: 344589814
+        topics:
+        - Cloud Applications
+        - Cloud Computing
+        - Cloud Infrastructure
+        - Corporate Culture
+        - Credit Card Fraud
+        - Direct Deposit
+        - eFulfillment Service
+        - Google Search
+        - Healthcare Law
+        - Hours of Work
+        - In-App Advertising
+        - Incentive Compensation
+        - Java
+        - Legal
+        - Mobile / Wireless
+        - Mobile Apps
+        - Mobile Security
+        - Mobile Wallet
+        - Node.js
+        - Organizational Culture
+        - Risk Management Services
+        - Video Conferencing
+        signalStartDate: '2020-04-01T00:00:00.000Z'
+        signalEndDate: '2020-05-31T00:00:00.000Z'
+        signalScoreMin: 80
+        signalScoreMax: 100
+        audienceStrengthMin: C
+        audienceStrengthMax: A
+        sortBy: issueDate
+        sortOrder: desc
+    RecommendedContact1:
+      title: RecommendedContact1
+      required:
+      - id
+      - firstName
+      - lastName
+      - jobTitle
+      - jobFunction
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int64
+          example: 500123
+        firstName:
+          type: string
+          example: Acme Corporation
+        lastName:
+          type: string
+          example: Acme Corporation
+        jobTitle:
+          type: string
+          example: Vice President of Sales
+        jobFunction:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobFunction'
+          description: ''
+          example: []
+      examples:
+      - id: 2988050694
+        firstName: Nir
+        lastName: Keren
+        jobTitle: Chief Technology Officer
+        jobFunction:
+        - name: Engineering & Technical Executive
+          department: C-Suite
+        - name: Engineering & Technical
+          department: Engineering & Technical
     IntentEnrichInput:
       title: IntentEnrichInput
       required:
@@ -1717,140 +1866,6 @@ components:
       - fieldName: companyWebsite
         fieldType: String
         description: The website of the company you are searching for
-    Company8:
-      title: Company8
-      required:
-      - id
-      - name
-      - website
-      - hasOtherTopicConsumption
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-        website:
-          type: string
-          example: example_value
-        hasOtherTopicConsumption:
-          type: boolean
-          example: true
-      examples:
-      - id: 118998385
-        name: Golden Gate University
-        website: www.ggu.edu
-        hasOtherTopicConsumption: true
-    Data38:
-      title: Data38
-      required:
-      - id
-      - category
-      - topic
-      - signalScore
-      - audienceStrength
-      - newSignal
-      - signalDate
-      - trend
-      - recommendedContacts
-      - company
-      type: object
-      properties:
-        id:
-          type: string
-          example: '500123'
-        category:
-          type: string
-          example: example_value
-        topic:
-          type: string
-          example: example_value
-        signalScore:
-          type: integer
-          contentEncoding: int32
-          example: 85
-        audienceStrength:
-          type: string
-          example: example_value
-        newSignal:
-          type: boolean
-          example: true
-        signalDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        trend:
-          type: integer
-          contentEncoding: int32
-          example: 100
-        recommendedContacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/RecommendedContact1'
-          description: ''
-          example: []
-        company:
-          $ref: '#/components/schemas/Company8'
-      examples:
-      - id: 3e706b1e-97ab-42cc-95f6-1a8d5176c6c7
-        category: Mobile Devices
-        topic: Mobile / Wireless
-        signalScore: 82
-        audienceStrength: A
-        newSignal: true
-        signalDate: 5/3/2020 12:00 AM
-        trend: 23
-        recommendedContacts:
-        - id: 2988050694
-          firstName: Nir
-          lastName: Keren
-          jobTitle: Chief Technology Officer
-          jobFunction:
-          - name: Engineering & Technical Executive
-            department: C-Suite
-          - name: Engineering & Technical
-            department: Engineering & Technical
-        - id: 39841971
-          firstName: Cameron
-          lastName: Hyzer
-          jobTitle: Chief Financial Officer
-          jobFunction:
-          - name: Finance Executive
-            department: C-Suite
-          - name: Finance
-            department: Finance
-        - id: 1645938489
-          firstName: Hila
-          lastName: Nir
-          jobTitle: Chief Marketing Officer
-          jobFunction:
-          - name: Marketing Executive
-            department: C-Suite
-          - name: Marketing
-            department: Marketing
-        - id: 2827525345
-          firstName: Chris
-          lastName: Hays
-          jobTitle: Chief Revenue Officer
-          jobFunction:
-          - name: Sales Executive
-            department: C-Suite
-          - name: Sales
-            department: Sales
-        - id: 1260398587
-          firstName: Henry
-          lastName: Schuck
-          jobTitle: Founder & Chief Executive Officer
-          jobFunction:
-          - name: Executive
-            department: C-Suite
-        company:
-          id: 344589814
-          name: Zoom Information, Inc.
-          website: www.zoominfo.com
-          hasOtherTopicConsumption: true
     IntentEnrich:
       title: IntentEnrich
       required:
@@ -2337,61 +2352,33 @@ components:
             name: Zoom Information, Inc.
             website: www.zoominfo.com
             hasOtherTopicConsumption: true
-    RecommendedContact1:
-      title: RecommendedContact1
+    Company8:
+      title: Company8
       required:
       - id
-      - firstName
-      - lastName
-      - jobTitle
-      - jobFunction
+      - name
+      - website
+      - hasOtherTopicConsumption
       type: object
       properties:
         id:
           type: integer
-          contentEncoding: int64
+          contentEncoding: int32
           example: 500123
-        firstName:
+        name:
           type: string
           example: Acme Corporation
-        lastName:
+        website:
           type: string
-          example: Acme Corporation
-        jobTitle:
-          type: string
-          example: Vice President of Sales
-        jobFunction:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobFunction'
-          description: ''
-          example: []
+          example: example_value
+        hasOtherTopicConsumption:
+          type: boolean
+          example: true
       examples:
-      - id: 2988050694
-        firstName: Nir
-        lastName: Keren
-        jobTitle: Chief Technology Officer
-        jobFunction:
-        - name: Engineering & Technical Executive
-          department: C-Suite
-        - name: Engineering & Technical
-          department: Engineering & Technical
-    IntentEnrichOutput:
-      title: IntentEnrichOutput
-      required:
-      - fieldName
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: id
-        description: Unique ZoomInfo identifier for a topic
+      - id: 118998385
+        name: Golden Gate University
+        website: www.ggu.edu
+        hasOtherTopicConsumption: true
     JobFunction:
       title: JobFunction
       required:
@@ -2408,100 +2395,113 @@ components:
       examples:
       - name: Executive
         department: C-Suite
-    IntentEnrichRequest:
-      title: IntentEnrichRequest
+    Data38:
+      title: Data38
       required:
-      - companyName
-      - companyWebsite
-      - companyId
-      - topics
-      - signalStartDate
-      - signalEndDate
-      - signalScoreMin
-      - signalScoreMax
-      - audienceStrengthMin
-      - audienceStrengthMax
-      - sortBy
-      - sortOrder
+      - id
+      - category
+      - topic
+      - signalScore
+      - audienceStrength
+      - newSignal
+      - signalDate
+      - trend
+      - recommendedContacts
+      - company
       type: object
       properties:
-        companyName:
+        id:
           type: string
-          example: Acme Corporation
-        companyWebsite:
+          example: '500123'
+        category:
           type: string
           example: example_value
-        companyId:
+        topic:
+          type: string
+          example: example_value
+        signalScore:
           type: integer
           contentEncoding: int32
-          example: 500123
-        topics:
+          example: 85
+        audienceStrength:
+          type: string
+          example: example_value
+        newSignal:
+          type: boolean
+          example: true
+        signalDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        trend:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        recommendedContacts:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/RecommendedContact1'
           description: ''
           example: []
-        signalStartDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        signalEndDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        signalScoreMin:
-          type: integer
-          contentEncoding: int32
-          example: 85
-        signalScoreMax:
-          type: integer
-          contentEncoding: int32
-          example: 85
-        audienceStrengthMin:
-          type: string
-          example: example_value
-        audienceStrengthMax:
-          type: string
-          example: example_value
-        sortBy:
-          type: string
-          example: example_value
-        sortOrder:
-          type: string
-          example: example_value
+        company:
+          $ref: '#/components/schemas/Company8'
       examples:
-      - companyName: ZoomInfo
-        companyWebsite: zoominfo.com
-        companyId: 344589814
-        topics:
-        - Cloud Applications
-        - Cloud Computing
-        - Cloud Infrastructure
-        - Corporate Culture
-        - Credit Card Fraud
-        - Direct Deposit
-        - eFulfillment Service
-        - Google Search
-        - Healthcare Law
-        - Hours of Work
-        - In-App Advertising
-        - Incentive Compensation
-        - Java
-        - Legal
-        - Mobile / Wireless
-        - Mobile Apps
-        - Mobile Security
-        - Mobile Wallet
-        - Node.js
-        - Organizational Culture
-        - Risk Management Services
-        - Video Conferencing
-        signalStartDate: '2020-04-01T00:00:00.000Z'
-        signalEndDate: '2020-05-31T00:00:00.000Z'
-        signalScoreMin: 80
-        signalScoreMax: 100
-        audienceStrengthMin: C
-        audienceStrengthMax: A
-        sortBy: issueDate
-        sortOrder: desc
+      - id: 3e706b1e-97ab-42cc-95f6-1a8d5176c6c7
+        category: Mobile Devices
+        topic: Mobile / Wireless
+        signalScore: 82
+        audienceStrength: A
+        newSignal: true
+        signalDate: 5/3/2020 12:00 AM
+        trend: 23
+        recommendedContacts:
+        - id: 2988050694
+          firstName: Nir
+          lastName: Keren
+          jobTitle: Chief Technology Officer
+          jobFunction:
+          - name: Engineering & Technical Executive
+            department: C-Suite
+          - name: Engineering & Technical
+            department: Engineering & Technical
+        - id: 39841971
+          firstName: Cameron
+          lastName: Hyzer
+          jobTitle: Chief Financial Officer
+          jobFunction:
+          - name: Finance Executive
+            department: C-Suite
+          - name: Finance
+            department: Finance
+        - id: 1645938489
+          firstName: Hila
+          lastName: Nir
+          jobTitle: Chief Marketing Officer
+          jobFunction:
+          - name: Marketing Executive
+            department: C-Suite
+          - name: Marketing
+            department: Marketing
+        - id: 2827525345
+          firstName: Chris
+          lastName: Hays
+          jobTitle: Chief Revenue Officer
+          jobFunction:
+          - name: Sales Executive
+            department: C-Suite
+          - name: Sales
+            department: Sales
+        - id: 1260398587
+          firstName: Henry
+          lastName: Schuck
+          jobTitle: Founder & Chief Executive Officer
+          jobFunction:
+          - name: Executive
+            department: C-Suite
+        company:
+          id: 344589814
+          name: Zoom Information, Inc.
+          website: www.zoominfo.com
+          hasOtherTopicConsumption: true
   securitySchemes:
     httpBearer:
       type: http

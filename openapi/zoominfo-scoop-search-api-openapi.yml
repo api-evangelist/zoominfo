@@ -1189,44 +1189,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ScoopSearchInput:
-      title: ScoopSearchInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: publishedStartDate
-        fieldType: String
-        description: Starting date to search for scoops based on when published. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format.
-    Company:
-      title: Company
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-      examples:
-      - id: 9867169
-        name: AmerisourceBergen
     ScoopSearch:
       title: ScoopSearch
       required:
@@ -1319,23 +1281,6 @@ components:
           company:
             id: 344589814
             name: ZoomInfo
-    Type:
-      title: Type
-      required:
-      - id
-      - type
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        type:
-          type: string
-          example: standard
-      examples:
-      - id: 6
-        type: Award
     ScoopSearchOutput:
       title: ScoopSearchOutput
       required:
@@ -1462,6 +1407,61 @@ components:
         company:
           id: 344589814
           name: ZoomInfo
+    ScoopSearchInput:
+      title: ScoopSearchInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: publishedStartDate
+        fieldType: String
+        description: Starting date to search for scoops based on when published. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format.
+    Type:
+      title: Type
+      required:
+      - id
+      - type
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        type:
+          type: string
+          example: standard
+      examples:
+      - id: 6
+        type: Award
+    Company:
+      title: Company
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: 9867169
+        name: AmerisourceBergen
   securitySchemes:
     httpBearer:
       type: http

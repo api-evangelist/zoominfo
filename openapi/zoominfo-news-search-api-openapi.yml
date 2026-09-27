@@ -1268,6 +1268,55 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Datum9:
+      title: Datum9
+      required:
+      - domain
+      - title
+      - url
+      - pageDate
+      - categories
+      - company
+      type: object
+      properties:
+        domain:
+          type: string
+          example: example.com
+        title:
+          type: string
+          example: Vice President of Sales
+        url:
+          type: string
+          example: https://www.example.com/resource
+        imageUrl:
+          type: string
+          example: https://www.example.com/resource
+        pageDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        categories:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        company:
+          type: array
+          items:
+            $ref: '#/components/schemas/Company'
+          description: ''
+          example: []
+      examples:
+      - domain: newstral.com
+        title: St. Luke's Hospital appoints interim president
+        url: https://newstral.com/en/article/en/1152923450/st-luke-s-hospital-appoints-interim-president
+        imageUrl: http://newstral.com/source-images/29300_original_1529243370.jpg
+        pageDate: '2020-05-28T04:26:13.000Z'
+        categories:
+        - PERSON
+        company:
+        - id: 31380745
+          name: The Toledo Blade
     NewsSearchInput:
       title: NewsSearchInput
       required:
@@ -1289,22 +1338,6 @@ components:
       - fieldName: rpp
         fieldType: Integer
         description: Limits the results returned to the given number of results per page.
-    NewsSearchOutput:
-      title: NewsSearchOutput
-      required:
-      - fieldName
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: companyId
-        description: Unique ZoomInfo identifier for a company
     NewsSearchusingpartialinputs:
       title: NewsSearchusingpartialinputs
       required:
@@ -1703,55 +1736,22 @@ components:
         pageDateMax: '2020-05-31T00:00:00.000Z'
         page: 1
         rpp: 20
-    Datum9:
-      title: Datum9
+    NewsSearchOutput:
+      title: NewsSearchOutput
       required:
-      - domain
-      - title
-      - url
-      - pageDate
-      - categories
-      - company
+      - fieldName
+      - description
       type: object
       properties:
-        domain:
+        fieldName:
           type: string
-          example: example.com
-        title:
+          example: Acme Corporation
+        description:
           type: string
-          example: Vice President of Sales
-        url:
-          type: string
-          example: https://www.example.com/resource
-        imageUrl:
-          type: string
-          example: https://www.example.com/resource
-        pageDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        categories:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-        company:
-          type: array
-          items:
-            $ref: '#/components/schemas/Company'
-          description: ''
-          example: []
+          example: Enterprise software company
       examples:
-      - domain: newstral.com
-        title: St. Luke's Hospital appoints interim president
-        url: https://newstral.com/en/article/en/1152923450/st-luke-s-hospital-appoints-interim-president
-        imageUrl: http://newstral.com/source-images/29300_original_1529243370.jpg
-        pageDate: '2020-05-28T04:26:13.000Z'
-        categories:
-        - PERSON
-        company:
-        - id: 31380745
-          name: The Toledo Blade
+      - fieldName: companyId
+        description: Unique ZoomInfo identifier for a company
   securitySchemes:
     httpBearer:
       type: http
