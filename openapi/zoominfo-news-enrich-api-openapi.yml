@@ -826,22 +826,23 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    NewsEnrichOutput:
-      title: NewsEnrichOutput
+    Company:
+      title: Company
       required:
-      - fieldName
-      - description
+      - id
+      - name
       type: object
       properties:
-        fieldName:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
           type: string
           example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
       examples:
-      - fieldName: companyId
-        description: Unique ZoomInfo identifier for a company
+      - id: 9867169
+        name: AmerisourceBergen
     NewsEnrichRequest:
       title: NewsEnrichRequest
       required:
@@ -893,27 +894,6 @@ components:
         pageDateMin: '2019-12-01T00:00:00.000Z'
         pageDateMax: '2020-12-31T00:00:00.000Z'
         limit: 5
-    NewsEnrichInput:
-      title: NewsEnrichInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: companyId
-        fieldType: Long
-        description: The id of the company you are searching for
     Data39:
       title: Data39
       required:
@@ -969,23 +949,27 @@ components:
         company:
         - id: 18579882
           name: IBM
-    Company:
-      title: Company
+    NewsEnrichInput:
+      title: NewsEnrichInput
       required:
-      - id
-      - name
+      - fieldName
+      - fieldType
+      - description
       type: object
       properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
+        fieldName:
           type: string
           example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
       examples:
-      - id: 9867169
-        name: AmerisourceBergen
+      - fieldName: companyId
+        fieldType: Long
+        description: The id of the company you are searching for
     NewsEnrich:
       title: NewsEnrich
       required:
@@ -1089,6 +1073,22 @@ components:
             name: MicroStrategy
           - id: 345585174
             name: Technavio
+    NewsEnrichOutput:
+      title: NewsEnrichOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        description: Unique ZoomInfo identifier for a company
   securitySchemes:
     httpBearer:
       type: http

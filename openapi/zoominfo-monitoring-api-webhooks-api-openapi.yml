@@ -2115,6 +2115,99 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ValidateTargetURLisaccessible:
+      title: ValidateTargetURLisaccessible
+      required:
+      - message
+      - success
+      - responseCode
+      type: object
+      properties:
+        message:
+          type: string
+          example: example_value
+        success:
+          type: boolean
+          example: true
+        responseCode:
+          type: integer
+          contentEncoding: int32
+          example: 100
+      examples:
+      - message: Created
+        success: true
+        responseCode: 201
+    CreateWebhookRequest:
+      title: CreateWebhookRequest
+      required:
+      - title
+      - enabled
+      - targetUrl
+      - subscriptions
+      type: object
+      properties:
+        title:
+          type: string
+          example: Vice President of Sales
+        enabled:
+          type: boolean
+          example: true
+        targetUrl:
+          type: string
+          example: https://www.example.com/resource
+        subscriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscription'
+          description: ''
+          example: []
+      examples:
+      - title: My Webhook
+        enabled: false
+        targetUrl: https://www.mytargeturl10.com
+        subscriptions:
+        - eventType: Update
+          objectType: Contact
+          fullPayload: true
+        - eventType: Update
+          objectType: Company
+          fullPayload: false
+    Subscription1:
+      title: Subscription1
+      required:
+      - createdDate
+      - modifiedDate
+      - eventType
+      - objectType
+      - fullPayload
+      - subscriptionId
+      type: object
+      properties:
+        createdDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        modifiedDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        eventType:
+          type: string
+          example: standard
+        objectType:
+          type: string
+          example: standard
+        fullPayload:
+          type: boolean
+          example: true
+        subscriptionId:
+          type: string
+          example: '500123'
+      examples:
+      - createdDate: 02-15-2021T11:56:11.000Z
+        modifiedDate: 02-15-2021T11:56:11.000Z
+        eventType: Update
+        objectType: Contact
+        fullPayload: false
+        subscriptionId: '908986303'
     UpdateWebhookRequest:
       title: UpdateWebhookRequest
       required:
@@ -2142,6 +2235,52 @@ components:
         - subscriptionId: '979209107'
           objectType: Contact
           fullPayload: false
+    ValidateTargetURLRequest:
+      title: ValidateTargetURLRequest
+      required:
+      - targetUrl
+      - objectType
+      - fullPayload
+      type: object
+      properties:
+        targetUrl:
+          type: string
+          example: https://www.example.com/resource
+        objectType:
+          type: string
+          example: standard
+        fullPayload:
+          type: boolean
+          example: true
+      examples:
+      - targetUrl: https://mytargeturl/feeds/person
+        objectType: Contact
+        fullPayload: true
+    GetSubscriptionTypes:
+      title: GetSubscriptionTypes
+      required:
+      - objectTypes
+      - eventTypes
+      type: object
+      properties:
+        objectTypes:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        eventTypes:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+      examples:
+      - objectTypes:
+        - Contact
+        - Company
+        eventTypes:
+        - Update
     Subscription8:
       title: Subscription8
       required:
@@ -2177,6 +2316,108 @@ components:
         objectType: Contact
         fullPayload: false
         subscriptionId: '975208210'
+    DeleteWebhook:
+      title: DeleteWebhook
+      required:
+      - id
+      - targetUrl
+      - createdDate
+      - status
+      - subscriptions
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        targetUrl:
+          type: string
+          example: https://www.example.com/resource
+        createdDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        status:
+          type: string
+          example: active
+        subscriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscription1'
+          description: ''
+          example: []
+      examples:
+      - id: '570575403'
+        targetUrl: https://www.mytargeturl.com
+        createdDate: 02-12-2021T14:09:04.000Z
+        status: deleted
+        subscriptions:
+        - createdDate: 02-12-2021T14:09:04.000Z
+          modifiedDate: 02-12-2021T14:09:04.000Z
+          eventType: Update
+          objectType: Contact
+          fullPayload: false
+          subscriptionId: '879354729'
+        - createdDate: 02-12-2021T14:09:04.000Z
+          modifiedDate: 02-12-2021T14:09:04.000Z
+          eventType: Update
+          objectType: Company
+          fullPayload: true
+          subscriptionId: '637113259'
+    Createawebhook-multipleobjecttypes:
+      title: Createawebhook-multipleobjecttypes
+      required:
+      - id
+      - title
+      - enabled
+      - targetUrl
+      - createdDate
+      - verificationToken
+      - subscriptions
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        title:
+          type: string
+          example: Vice President of Sales
+        enabled:
+          type: boolean
+          example: true
+        targetUrl:
+          type: string
+          example: https://www.example.com/resource
+        createdDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        verificationToken:
+          type: string
+          example: example_value
+        subscriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscription1'
+          description: ''
+          example: []
+      examples:
+      - id: '967763288'
+        title: My Webhook
+        enabled: false
+        targetUrl: https://www.mytargeturl6.com
+        createdDate: 02-15-2021T11:56:11.000Z
+        verificationToken: i7MOAD4/44zzgsru6toJyiFRJhFqaiYUPwztmd1rWVOsIGbI8eY7FFtw5UQqIWlzkM6VFOCk1Q+T/BhPSzeggA==
+        subscriptions:
+        - createdDate: 02-15-2021T11:56:11.000Z
+          modifiedDate: 02-15-2021T11:56:11.000Z
+          eventType: Update
+          objectType: Contact
+          fullPayload: false
+          subscriptionId: '908986303'
+        - createdDate: 02-15-2021T11:56:11.000Z
+          modifiedDate: 02-15-2021T11:56:11.000Z
+          eventType: Update
+          objectType: Company
+          fullPayload: true
+          subscriptionId: '979209107'
     Subscription:
       title: Subscription
       required:
@@ -2198,53 +2439,61 @@ components:
       - eventType: Update
         objectType: Contact
         fullPayload: true
-    GetSubscriptionTypes:
-      title: GetSubscriptionTypes
+    Webhook:
+      title: Webhook
       required:
-      - objectTypes
-      - eventTypes
+      - id
+      - enabled
+      - targetUrl
+      - createdDate
+      - subscriptions
       type: object
       properties:
-        objectTypes:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-        eventTypes:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-      examples:
-      - objectTypes:
-        - Contact
-        - Company
-        eventTypes:
-        - Update
-    ValidateTargetURLisaccessible:
-      title: ValidateTargetURLisaccessible
-      required:
-      - message
-      - success
-      - responseCode
-      type: object
-      properties:
-        message:
+        id:
           type: string
-          example: example_value
-        success:
+          example: '500123'
+        title:
+          type: string
+          example: Vice President of Sales
+        enabled:
           type: boolean
           example: true
-        responseCode:
-          type: integer
-          contentEncoding: int32
-          example: 100
+        targetUrl:
+          type: string
+          example: https://www.example.com/resource
+        createdDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        subscriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscription8'
+          description: ''
+          example: []
       examples:
-      - message: Created
-        success: true
-        responseCode: 201
+      - id: '271677337'
+        title: Record6
+        enabled: true
+        targetUrl: https://www.record79.com
+        createdDate: 02-11-2021T12:00:06.000Z
+        subscriptions:
+        - createdDate: 02-11-2021T12:00:06.000Z
+          modifiedDate: 02-11-2021T12:00:06.000Z
+          eventType: Update
+          objectType: Contact
+          fullPayload: false
+          subscriptionId: '975208210'
+    GenerateVerificationToken:
+      title: GenerateVerificationToken
+      required:
+      - verificationToken
+      type: object
+      properties:
+        verificationToken:
+          type: string
+          example: example_value
+      examples:
+      - verificationToken: z5doGe6rx+1deDHMgUI/j56AN0we8NQD0G2YWR2aEODzCCx7L9BdtVm2zVnYLfYZqvyeVu3EpBkLUewxdRJAug==
     Getallwebhooks:
       title: Getallwebhooks
       required:
@@ -2329,6 +2578,27 @@ components:
             eventType: Update
             objectType: Company
             subscriptionId: '125773778'
+    Subscription3:
+      title: Subscription3
+      required:
+      - subscriptionId
+      - objectType
+      - fullPayload
+      type: object
+      properties:
+        subscriptionId:
+          type: string
+          example: '500123'
+        objectType:
+          type: string
+          example: standard
+        fullPayload:
+          type: boolean
+          example: true
+      examples:
+      - subscriptionId: '979209107'
+        objectType: Contact
+        fullPayload: false
     AddanobjectTypetoasubscription:
       title: AddanobjectTypetoasubscription
       required:
@@ -2380,276 +2650,6 @@ components:
           objectType: Company
           fullPayload: false
           subscriptionId: '416102777'
-    CreateWebhookRequest:
-      title: CreateWebhookRequest
-      required:
-      - title
-      - enabled
-      - targetUrl
-      - subscriptions
-      type: object
-      properties:
-        title:
-          type: string
-          example: Vice President of Sales
-        enabled:
-          type: boolean
-          example: true
-        targetUrl:
-          type: string
-          example: https://www.example.com/resource
-        subscriptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Subscription'
-          description: ''
-          example: []
-      examples:
-      - title: My Webhook
-        enabled: false
-        targetUrl: https://www.mytargeturl10.com
-        subscriptions:
-        - eventType: Update
-          objectType: Contact
-          fullPayload: true
-        - eventType: Update
-          objectType: Company
-          fullPayload: false
-    DeleteWebhook:
-      title: DeleteWebhook
-      required:
-      - id
-      - targetUrl
-      - createdDate
-      - status
-      - subscriptions
-      type: object
-      properties:
-        id:
-          type: string
-          example: '500123'
-        targetUrl:
-          type: string
-          example: https://www.example.com/resource
-        createdDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        status:
-          type: string
-          example: active
-        subscriptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Subscription1'
-          description: ''
-          example: []
-      examples:
-      - id: '570575403'
-        targetUrl: https://www.mytargeturl.com
-        createdDate: 02-12-2021T14:09:04.000Z
-        status: deleted
-        subscriptions:
-        - createdDate: 02-12-2021T14:09:04.000Z
-          modifiedDate: 02-12-2021T14:09:04.000Z
-          eventType: Update
-          objectType: Contact
-          fullPayload: false
-          subscriptionId: '879354729'
-        - createdDate: 02-12-2021T14:09:04.000Z
-          modifiedDate: 02-12-2021T14:09:04.000Z
-          eventType: Update
-          objectType: Company
-          fullPayload: true
-          subscriptionId: '637113259'
-    Subscription3:
-      title: Subscription3
-      required:
-      - subscriptionId
-      - objectType
-      - fullPayload
-      type: object
-      properties:
-        subscriptionId:
-          type: string
-          example: '500123'
-        objectType:
-          type: string
-          example: standard
-        fullPayload:
-          type: boolean
-          example: true
-      examples:
-      - subscriptionId: '979209107'
-        objectType: Contact
-        fullPayload: false
-    Createawebhook-multipleobjecttypes:
-      title: Createawebhook-multipleobjecttypes
-      required:
-      - id
-      - title
-      - enabled
-      - targetUrl
-      - createdDate
-      - verificationToken
-      - subscriptions
-      type: object
-      properties:
-        id:
-          type: string
-          example: '500123'
-        title:
-          type: string
-          example: Vice President of Sales
-        enabled:
-          type: boolean
-          example: true
-        targetUrl:
-          type: string
-          example: https://www.example.com/resource
-        createdDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        verificationToken:
-          type: string
-          example: example_value
-        subscriptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Subscription1'
-          description: ''
-          example: []
-      examples:
-      - id: '967763288'
-        title: My Webhook
-        enabled: false
-        targetUrl: https://www.mytargeturl6.com
-        createdDate: 02-15-2021T11:56:11.000Z
-        verificationToken: i7MOAD4/44zzgsru6toJyiFRJhFqaiYUPwztmd1rWVOsIGbI8eY7FFtw5UQqIWlzkM6VFOCk1Q+T/BhPSzeggA==
-        subscriptions:
-        - createdDate: 02-15-2021T11:56:11.000Z
-          modifiedDate: 02-15-2021T11:56:11.000Z
-          eventType: Update
-          objectType: Contact
-          fullPayload: false
-          subscriptionId: '908986303'
-        - createdDate: 02-15-2021T11:56:11.000Z
-          modifiedDate: 02-15-2021T11:56:11.000Z
-          eventType: Update
-          objectType: Company
-          fullPayload: true
-          subscriptionId: '979209107'
-    GenerateVerificationToken:
-      title: GenerateVerificationToken
-      required:
-      - verificationToken
-      type: object
-      properties:
-        verificationToken:
-          type: string
-          example: example_value
-      examples:
-      - verificationToken: z5doGe6rx+1deDHMgUI/j56AN0we8NQD0G2YWR2aEODzCCx7L9BdtVm2zVnYLfYZqvyeVu3EpBkLUewxdRJAug==
-    Webhook:
-      title: Webhook
-      required:
-      - id
-      - enabled
-      - targetUrl
-      - createdDate
-      - subscriptions
-      type: object
-      properties:
-        id:
-          type: string
-          example: '500123'
-        title:
-          type: string
-          example: Vice President of Sales
-        enabled:
-          type: boolean
-          example: true
-        targetUrl:
-          type: string
-          example: https://www.example.com/resource
-        createdDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        subscriptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Subscription8'
-          description: ''
-          example: []
-      examples:
-      - id: '271677337'
-        title: Record6
-        enabled: true
-        targetUrl: https://www.record79.com
-        createdDate: 02-11-2021T12:00:06.000Z
-        subscriptions:
-        - createdDate: 02-11-2021T12:00:06.000Z
-          modifiedDate: 02-11-2021T12:00:06.000Z
-          eventType: Update
-          objectType: Contact
-          fullPayload: false
-          subscriptionId: '975208210'
-    Subscription1:
-      title: Subscription1
-      required:
-      - createdDate
-      - modifiedDate
-      - eventType
-      - objectType
-      - fullPayload
-      - subscriptionId
-      type: object
-      properties:
-        createdDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        modifiedDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        eventType:
-          type: string
-          example: standard
-        objectType:
-          type: string
-          example: standard
-        fullPayload:
-          type: boolean
-          example: true
-        subscriptionId:
-          type: string
-          example: '500123'
-      examples:
-      - createdDate: 02-15-2021T11:56:11.000Z
-        modifiedDate: 02-15-2021T11:56:11.000Z
-        eventType: Update
-        objectType: Contact
-        fullPayload: false
-        subscriptionId: '908986303'
-    ValidateTargetURLRequest:
-      title: ValidateTargetURLRequest
-      required:
-      - targetUrl
-      - objectType
-      - fullPayload
-      type: object
-      properties:
-        targetUrl:
-          type: string
-          example: https://www.example.com/resource
-        objectType:
-          type: string
-          example: standard
-        fullPayload:
-          type: boolean
-          example: true
-      examples:
-      - targetUrl: https://mytargeturl/feeds/person
-        objectType: Contact
-        fullPayload: true
   securitySchemes:
     httpBearer:
       type: http

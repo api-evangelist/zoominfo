@@ -465,184 +465,6 @@ paths:
       - fea:gsa
 components:
   schemas:
-    CustomFieldItem:
-      type: object
-      required:
-      - title
-      - value
-      properties:
-        title:
-          type: string
-          description: The display title of the custom field.
-        description:
-          type: string
-          description: An optional description of the field. Defaults to an empty string in the backend.
-          default: ''
-        value:
-          type: string
-          description: The string value associated with this custom field.
-      description: Schema for a single custom field item.
-    ZoomInfo.Core.Foundations.ErrorResponseModel:
-      type: object
-      required:
-      - errors
-      properties:
-        detail:
-          type: string
-          description: A high-level detail of the error(s) that occurred during the request
-        title:
-          type: string
-          description: A high-level summary of the error(s) detected
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
-          description: The list of errors raised during the request
-      description: The standard error response body model for the ZoomInfo API.
-    ZoomInfo.Core.Foundations.ErrorSourceModel:
-      type: object
-      properties:
-        cookie:
-          type: string
-          description: Identifies the cookie name that caused the issue
-        header:
-          type: string
-          description: Identifies the header name that caused the error
-        pointer:
-          type: string
-          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
-        parameter:
-          type: string
-          description: The name of the path or query parameter that caused the error
-    GtmConfigSourceType:
-      type: string
-      enum:
-      - manual
-      - import
-      - system
-      - mcp
-      description: 'Source type indicating how a GTM configuration record was created or last modified.
-
-        Used across all customer-level entities for audit provenance tracking.
-
-        When source is explicitly set in a request, the corresponding created_by/updated_by must also be provided.
-
-        Defaults to ''manual'' when not specified.'
-      x-enumDescriptions:
-        MANUAL: Created or updated manually by a user through the GTM Studio UI.
-        IMPORT: Imported from an external data source such as CRM or CSV upload.
-        SYSTEM: Generated automatically by the platform (e.g., system enrichment or background jobs).
-        MCP: Created or updated via the GTM Config MCP integration by an AI agent.
-    GtmConfigAuditFields:
-      type: object
-      properties:
-        createdAt:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the record was originally created. Auto-populated by backend.
-          readOnly: true
-        updatedAt:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp of the most recent modification to the record. Auto-populated by backend.
-          readOnly: true
-        createdBy:
-          type: string
-          description: User ID of the person who created the record. Extracted from the JWT token on creation.
-          readOnly: true
-        updatedBy:
-          type: string
-          description: User ID of the person who last modified the record. Extracted from the JWT token on update.
-          readOnly: true
-        archivedAt:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the record was archived. Archived records are identified by archivedAt and archivedBy
-          readOnly: true
-        archivedBy:
-          type: string
-          description: User ID of the person who archived the record
-          readOnly: true
-      description: 'Common audit fields present on all customer-level GTM configuration entities.
-
-        These fields track the full lifecycle of a record including creation, modification,
-
-        archival (temporary hiding), and soft deletion (permanent hiding for compliance).
-
-        A record can be active, deleted only, or both.'
-    CustomerBuyerPersonaUpsert:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: object
-          required:
-          - type
-          - attributes
-          properties:
-            id:
-              type: string
-              description: The unique identifier for the resource
-            type:
-              type: string
-              enum:
-              - CustomerBuyerPersona
-              description: The type of the resource
-            attributes:
-              allOf:
-              - $ref: '#/components/schemas/CustomerBuyerPersonaAttributes'
-              description: The attributes defining the resource
-            meta:
-              allOf:
-              - $ref: '#/components/schemas/GtmConfigAuditFields'
-              description: Non-standard meta information about the resource
-          x-discriminator-property: type
-          description: The primary data of the document
-      description: Customer Buyer Persona resource for upsert operations.
-    CustomerBuyerPersonaAttributes:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 1024
-          description: Name of the buyer persona. Required when creating a new record. When provided (for create or update), must be between 1 and 1024 characters.
-        description:
-          type: string
-          maxLength: 10000
-          description: Detailed description of this buyer persona, including their role, responsibilities, and relevance to the sales process. Maximum 10,000 characters.
-        personalObjectives:
-          type: string
-          maxLength: 10000
-          description: Personal objectives for this persona such as career goals, KPIs, and success metrics that drive their purchasing decisions. Maximum 10,000 characters.
-        whatDoesThisPersonaCareAbout:
-          type: string
-          maxLength: 10000
-          description: Messaging angle explaining what this persona cares about in the customer's offering. Maximum 10,000 characters.
-        titlesFunctionsSeniority:
-          type: string
-          maxLength: 10000
-          description: Typical job titles, functional areas, and seniority levels associated with this persona. Maximum 10,000 characters.
-        relevantOfferings:
-          type: string
-          maxLength: 10000
-          description: Relevant offerings from the customer's portfolio that this persona would be interested in. Maximum 10,000 characters.
-        source:
-          allOf:
-          - $ref: '#/components/schemas/GtmConfigSourceType'
-          description: Source type indicating how this persona record was created or last modified. Defaults to `manual`. See `GtmConfigSourceType` for allowed values. When set explicitly, the backend validates source consistency with the `created_by` and `updated_by` fields.
-          readOnly: true
-        customFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomFieldItem'
-          description: Flexible key-value store for customer-specific custom fields and extended metadata. The backend validates schema and value types. Use this to capture additional persona attributes beyond the standard fields.
-      description: 'Attributes that define a customer buyer persona — a profile representing a type of buyer
-
-        that the customer''s sales team targets. Buyer personas capture who the ideal buyers are,
-
-        what motivates them, and how to engage them effectively.'
     ZoomInfo.Core.Foundations.ErrorModel:
       type: object
       required:
@@ -705,6 +527,36 @@ components:
           - $ref: '#/components/schemas/CustomerBuyerPersona'
           description: The primary data of the document
       description: API model for a single customer buyer persona.
+    CustomerBuyerPersonaUpsert:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - type
+          - attributes
+          properties:
+            id:
+              type: string
+              description: The unique identifier for the resource
+            type:
+              type: string
+              enum:
+              - CustomerBuyerPersona
+              description: The type of the resource
+            attributes:
+              allOf:
+              - $ref: '#/components/schemas/CustomerBuyerPersonaAttributes'
+              description: The attributes defining the resource
+            meta:
+              allOf:
+              - $ref: '#/components/schemas/GtmConfigAuditFields'
+              description: Non-standard meta information about the resource
+          x-discriminator-property: type
+          description: The primary data of the document
+      description: Customer Buyer Persona resource for upsert operations.
     CustomerBuyerPersonaListResponse:
       type: object
       required:
@@ -716,6 +568,154 @@ components:
             $ref: '#/components/schemas/CustomerBuyerPersona'
           description: The primary data of the document
       description: API model for a list of customer buyer personas.
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    CustomFieldItem:
+      type: object
+      required:
+      - title
+      - value
+      properties:
+        title:
+          type: string
+          description: The display title of the custom field.
+        description:
+          type: string
+          description: An optional description of the field. Defaults to an empty string in the backend.
+          default: ''
+        value:
+          type: string
+          description: The string value associated with this custom field.
+      description: Schema for a single custom field item.
+    GtmConfigSourceType:
+      type: string
+      enum:
+      - manual
+      - import
+      - system
+      - mcp
+      description: 'Source type indicating how a GTM configuration record was created or last modified.
+
+        Used across all customer-level entities for audit provenance tracking.
+
+        When source is explicitly set in a request, the corresponding created_by/updated_by must also be provided.
+
+        Defaults to ''manual'' when not specified.'
+      x-enumDescriptions:
+        MANUAL: Created or updated manually by a user through the GTM Studio UI.
+        IMPORT: Imported from an external data source such as CRM or CSV upload.
+        SYSTEM: Generated automatically by the platform (e.g., system enrichment or background jobs).
+        MCP: Created or updated via the GTM Config MCP integration by an AI agent.
+    CustomerBuyerPersonaAttributes:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 1024
+          description: Name of the buyer persona. Required when creating a new record. When provided (for create or update), must be between 1 and 1024 characters.
+        description:
+          type: string
+          maxLength: 10000
+          description: Detailed description of this buyer persona, including their role, responsibilities, and relevance to the sales process. Maximum 10,000 characters.
+        personalObjectives:
+          type: string
+          maxLength: 10000
+          description: Personal objectives for this persona such as career goals, KPIs, and success metrics that drive their purchasing decisions. Maximum 10,000 characters.
+        whatDoesThisPersonaCareAbout:
+          type: string
+          maxLength: 10000
+          description: Messaging angle explaining what this persona cares about in the customer's offering. Maximum 10,000 characters.
+        titlesFunctionsSeniority:
+          type: string
+          maxLength: 10000
+          description: Typical job titles, functional areas, and seniority levels associated with this persona. Maximum 10,000 characters.
+        relevantOfferings:
+          type: string
+          maxLength: 10000
+          description: Relevant offerings from the customer's portfolio that this persona would be interested in. Maximum 10,000 characters.
+        source:
+          allOf:
+          - $ref: '#/components/schemas/GtmConfigSourceType'
+          description: Source type indicating how this persona record was created or last modified. Defaults to `manual`. See `GtmConfigSourceType` for allowed values. When set explicitly, the backend validates source consistency with the `created_by` and `updated_by` fields.
+          readOnly: true
+        customFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldItem'
+          description: Flexible key-value store for customer-specific custom fields and extended metadata. The backend validates schema and value types. Use this to capture additional persona attributes beyond the standard fields.
+      description: 'Attributes that define a customer buyer persona — a profile representing a type of buyer
+
+        that the customer''s sales team targets. Buyer personas capture who the ideal buyers are,
+
+        what motivates them, and how to engage them effectively.'
+    GtmConfigAuditFields:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the record was originally created. Auto-populated by backend.
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the most recent modification to the record. Auto-populated by backend.
+          readOnly: true
+        createdBy:
+          type: string
+          description: User ID of the person who created the record. Extracted from the JWT token on creation.
+          readOnly: true
+        updatedBy:
+          type: string
+          description: User ID of the person who last modified the record. Extracted from the JWT token on update.
+          readOnly: true
+        archivedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the record was archived. Archived records are identified by archivedAt and archivedBy
+          readOnly: true
+        archivedBy:
+          type: string
+          description: User ID of the person who archived the record
+          readOnly: true
+      description: 'Common audit fields present on all customer-level GTM configuration entities.
+
+        These fields track the full lifecycle of a record including creation, modification,
+
+        archival (temporary hiding), and soft deletion (permanent hiding for compliance).
+
+        A record can be active, deleted only, or both.'
   securitySchemes:
     OAuth2Auth:
       type: oauth2

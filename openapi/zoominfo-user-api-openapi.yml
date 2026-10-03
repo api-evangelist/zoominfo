@@ -62,6 +62,33 @@ paths:
       x-api-scope-requirement: ANY_REQUIRED
 components:
   schemas:
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
     UserUsageModel:
       type: object
       properties:
@@ -84,6 +111,28 @@ components:
           format: int64
           description: The remaining number of this type of request you can make before requiring additional purchase.
       description: Model containing information about usage data
+    UsageResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsageResponseResource'
+          description: The primary data of the document
+      description: Usage response.
+    UserUsageAttributes:
+      type: object
+      required:
+      - usage
+      properties:
+        usage:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserUsageModel'
+          description: List of usage data
+      description: Attributes describing user usage
     ZoomInfo.Core.Foundations.ErrorSourceModel:
       type: object
       properties:
@@ -116,55 +165,6 @@ components:
             $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
           description: The list of errors raised during the request
       description: The standard error response body model for the ZoomInfo API.
-    UsageResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/UsageResponseResource'
-          description: The primary data of the document
-      description: Usage response.
-    ZoomInfo.Core.Foundations.ErrorModel:
-      type: object
-      required:
-      - id
-      - code
-      - status
-      properties:
-        id:
-          type: string
-          description: The unique id used to identify this specific error instance
-        code:
-          type: string
-          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
-        detail:
-          type: string
-          description: Message containing the specific details about this occurrence of the error
-        source:
-          allOf:
-          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
-          description: An optional object identifying which part of the request caused the error
-        status:
-          type: string
-          description: The HTTP status code for the error
-        title:
-          type: string
-          description: The error name that describes this type of error
-      description: The object describing a specific error from the API
-    UserUsageAttributes:
-      type: object
-      required:
-      - usage
-      properties:
-        usage:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserUsageModel'
-          description: List of usage data
-      description: Attributes describing user usage
     UsageResponseResource:
       type: object
       required:

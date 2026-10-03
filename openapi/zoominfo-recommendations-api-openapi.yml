@@ -379,265 +379,6 @@ paths:
       x-api-role-requirement: ANY_REQUIRED
 components:
   schemas:
-    CompanyLookalike:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: CompanyLookalike
-          pattern: CompanyLookalike
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/SimilarCompanyAttributes'
-          description: The attributes defining the resource
-      description: Resource model for a company lookalike result.
-    CompanyLookalikesResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CompanyLookalike'
-          description: The primary data of the document
-      description: Response model for company lookalikes
-    ZoomInfo.Core.Foundations.ErrorResponseModel:
-      type: object
-      required:
-      - errors
-      properties:
-        detail:
-          type: string
-          description: A high-level detail of the error(s) that occurred during the request
-        title:
-          type: string
-          description: A high-level summary of the error(s) detected
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
-          description: The list of errors raised during the request
-      description: The standard error response body model for the ZoomInfo API.
-    ZoomInfo.Core.Foundations.ErrorSourceModel:
-      type: object
-      properties:
-        cookie:
-          type: string
-          description: Identifies the cookie name that caused the issue
-        header:
-          type: string
-          description: Identifies the header name that caused the error
-        pointer:
-          type: string
-          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
-        parameter:
-          type: string
-          description: The name of the path or query parameter that caused the error
-    ContactRecommendationResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactRecommendation'
-          description: The primary data of the document
-      description: Response model for contact recommendations.
-    ContactLookalikeAttributes:
-      type: object
-      required:
-      - rank
-      - score
-      - lookalikePersonBrief
-      properties:
-        rank:
-          type: integer
-          format: int32
-          description: Rank of the lookalike contact, with 1 being the most similar to the reference person.
-        score:
-          type: number
-          format: double
-          description: Similarity score between the reference person and the lookalike contact, ranging from 0 to 1. Higher values indicate higher similarity.
-        lookalikePersonBrief:
-          type: string
-          description: Brief description of the lookalike contact.
-      description: Attributes for a contact lookalike entity.
-    ContactRecommendation:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: ContactRecommendation
-          pattern: ContactRecommendation
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/ContactRecommendationAttributes'
-          description: The attributes defining the resource
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/ExplainabilityMetadata'
-          description: Non-standard meta information about the resource
-      description: Contact recommendation resource.
-    ContactLookalike:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: ContactLookalike
-          pattern: ContactLookalike
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/ContactLookalikeAttributes'
-          description: The attributes defining the resource
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/LookalikeMetadata'
-          description: Non-standard meta information about the resource
-      description: Contact lookalikes resource
-    ContactRecommendationAttributes:
-      type: object
-      required:
-      - rank
-      - score
-      - reRankingScore
-      properties:
-        rank:
-          type: integer
-          format: int32
-          description: Rank of the recommended contact (1-based, lower is better). Contacts are ordered from most to least relevant.
-        score:
-          type: number
-          format: double
-          description: Similarity score between the reference person and the recommended contact. Higher values indicate greater similarity. Due to the nature of vector store similarity calculations, values may occasionally exceed 1.0.
-        reRankingScore:
-          type: number
-          format: double
-          description: Re-ranking score of the recommended contact, produced by a machine learning model applied after initial retrieval to refine relevancy using propensity signals (contact similarity, quality, title boosting, etc.). Higher values indicate greater relevancy. Returns -1.0 when the ML reranking model did not run.
-        recommendedPersonBrief:
-          type: string
-          description: Brief description of the recommended contact's profile, used to explain why this person was recommended. Absent when profile data is unavailable.
-      description: Attributes for a contact recommendation entity.
-    ZoomInfo.Core.Foundations.ErrorModel:
-      type: object
-      required:
-      - id
-      - code
-      - status
-      properties:
-        id:
-          type: string
-          description: The unique id used to identify this specific error instance
-        code:
-          type: string
-          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
-        detail:
-          type: string
-          description: Message containing the specific details about this occurrence of the error
-        source:
-          allOf:
-          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
-          description: An optional object identifying which part of the request caused the error
-        status:
-          type: string
-          description: The HTTP status code for the error
-        title:
-          type: string
-          description: The error name that describes this type of error
-      description: The object describing a specific error from the API
-    ExplainabilityMetadata:
-      type: object
-      properties:
-        sourceType:
-          allOf:
-          - $ref: '#/components/schemas/SourceType'
-          description: Source interaction type used to generate this recommendation, such as copied, exported, viewed, or CRM closed-won contacts.
-        referencePersonId:
-          type: integer
-          format: int64
-          description: Unique identifier for a reference person (ZoomInfo Person ID). A reference person is someone the salesperson has interacted with through the ZoomInfo platform (e.g. copy, export, view) or a contact found in the tenant's CRM from past closed-won deals.
-        referencePersonBrief:
-          type: string
-          description: Brief description of the reference person's profile that was used to generate this recommendation.
-      description: Explainability metadata for a contact recommendation.
-    UseCaseType:
-      type: string
-      enum:
-      - PROSPECTING
-      - DEAL_ACCELERATION
-      - RENEWAL_AND_GROWTH
-      description: Type of use case for contact recommendations.
-      x-enumDescriptions:
-        PROSPECTING: Prospecting. Used when a sales person is looking to reach out to contacts to establish a connection with a new account/company to pitch their company's product.
-        DEAL_ACCELERATION: Deal acceleration. Used when a sales person has already established a connection and pitched their product with a potential buyer account/company, found potential product fit, and is in the process of confirming interest and negotiating a deal.
-        RENEWAL_AND_GROWTH: Renewal and growth. Used when a sales person is interacting with an existing customer to renew a deal or expand the account (for example, more seats or an upgraded pricing model).
-    LookalikeMetadata:
-      type: object
-      required:
-      - referencePersonId
-      - referencePersonBrief
-      properties:
-        referencePersonId:
-          type: integer
-          format: int64
-          description: Unique identifier for the reference person (ZoomInfo Person ID) that is used to search contact lookalikes.
-        referencePersonBrief:
-          type: string
-          description: Brief description of the reference person used to find lookalike contacts.
-      description: Metadata for a lookalike contact entity.
-    SourceType:
-      type: string
-      enum:
-      - AMPLITUDE_COPIED_CONTACTS
-      - AMPLITUDE_EXPORTED_CONTACTS
-      - AMPLITUDE_VIEWED_CONTACTS
-      - CRM_CLOSED_WON_ENGAGED_CONTACTS
-      - CRM_CLOSED_WON_CONTACTS
-      - COLD_START_CONTACTS
-      description: Source interaction type used to generate contact recommendations.
-      x-enumDescriptions:
-        AMPLITUDE_COPIED_CONTACTS: Contacts copied from ZoomInfo during prospecting.
-        AMPLITUDE_EXPORTED_CONTACTS: Contacts exported from ZoomInfo in bulk.
-        AMPLITUDE_VIEWED_CONTACTS: Contacts viewed via contact card/profile in ZoomInfo.
-        CRM_CLOSED_WON_ENGAGED_CONTACTS: Contacts that were engaged with in closed-won deals in the user's CRM.
-        CRM_CLOSED_WON_CONTACTS: Contacts recorded as connected to successful (closed-won) deals in the user's CRM.
-        COLD_START_CONTACTS: Contacts of interest for new users or cold-start scenarios where there is limited interaction history.
-    ContactLookalikeResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactLookalike'
-          description: The primary data of the document
-      description: Response model for contact lookalikes.
     SimilarCompanyAttributes:
       type: object
       required:
@@ -673,6 +414,265 @@ components:
           type: string
           description: Country where the lookalike company is headquartered.
       description: Attributes describing a single similar company.
+    LookalikeMetadata:
+      type: object
+      required:
+      - referencePersonId
+      - referencePersonBrief
+      properties:
+        referencePersonId:
+          type: integer
+          format: int64
+          description: Unique identifier for the reference person (ZoomInfo Person ID) that is used to search contact lookalikes.
+        referencePersonBrief:
+          type: string
+          description: Brief description of the reference person used to find lookalike contacts.
+      description: Metadata for a lookalike contact entity.
+    ContactRecommendationResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactRecommendation'
+          description: The primary data of the document
+      description: Response model for contact recommendations.
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+    ContactLookalikeAttributes:
+      type: object
+      required:
+      - rank
+      - score
+      - lookalikePersonBrief
+      properties:
+        rank:
+          type: integer
+          format: int32
+          description: Rank of the lookalike contact, with 1 being the most similar to the reference person.
+        score:
+          type: number
+          format: double
+          description: Similarity score between the reference person and the lookalike contact, ranging from 0 to 1. Higher values indicate higher similarity.
+        lookalikePersonBrief:
+          type: string
+          description: Brief description of the lookalike contact.
+      description: Attributes for a contact lookalike entity.
+    ExplainabilityMetadata:
+      type: object
+      properties:
+        sourceType:
+          allOf:
+          - $ref: '#/components/schemas/SourceType'
+          description: Source interaction type used to generate this recommendation, such as copied, exported, viewed, or CRM closed-won contacts.
+        referencePersonId:
+          type: integer
+          format: int64
+          description: Unique identifier for a reference person (ZoomInfo Person ID). A reference person is someone the salesperson has interacted with through the ZoomInfo platform (e.g. copy, export, view) or a contact found in the tenant's CRM from past closed-won deals.
+        referencePersonBrief:
+          type: string
+          description: Brief description of the reference person's profile that was used to generate this recommendation.
+      description: Explainability metadata for a contact recommendation.
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    SourceType:
+      type: string
+      enum:
+      - AMPLITUDE_COPIED_CONTACTS
+      - AMPLITUDE_EXPORTED_CONTACTS
+      - AMPLITUDE_VIEWED_CONTACTS
+      - CRM_CLOSED_WON_ENGAGED_CONTACTS
+      - CRM_CLOSED_WON_CONTACTS
+      - COLD_START_CONTACTS
+      description: Source interaction type used to generate contact recommendations.
+      x-enumDescriptions:
+        AMPLITUDE_COPIED_CONTACTS: Contacts copied from ZoomInfo during prospecting.
+        AMPLITUDE_EXPORTED_CONTACTS: Contacts exported from ZoomInfo in bulk.
+        AMPLITUDE_VIEWED_CONTACTS: Contacts viewed via contact card/profile in ZoomInfo.
+        CRM_CLOSED_WON_ENGAGED_CONTACTS: Contacts that were engaged with in closed-won deals in the user's CRM.
+        CRM_CLOSED_WON_CONTACTS: Contacts recorded as connected to successful (closed-won) deals in the user's CRM.
+        COLD_START_CONTACTS: Contacts of interest for new users or cold-start scenarios where there is limited interaction history.
+    ContactLookalikeResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactLookalike'
+          description: The primary data of the document
+      description: Response model for contact lookalikes.
+    CompanyLookalike:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: CompanyLookalike
+          pattern: CompanyLookalike
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/SimilarCompanyAttributes'
+          description: The attributes defining the resource
+      description: Resource model for a company lookalike result.
+    ContactLookalike:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: ContactLookalike
+          pattern: ContactLookalike
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ContactLookalikeAttributes'
+          description: The attributes defining the resource
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/LookalikeMetadata'
+          description: Non-standard meta information about the resource
+      description: Contact lookalikes resource
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    CompanyLookalikesResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyLookalike'
+          description: The primary data of the document
+      description: Response model for company lookalikes
+    ContactRecommendation:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: ContactRecommendation
+          pattern: ContactRecommendation
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ContactRecommendationAttributes'
+          description: The attributes defining the resource
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/ExplainabilityMetadata'
+          description: Non-standard meta information about the resource
+      description: Contact recommendation resource.
+    UseCaseType:
+      type: string
+      enum:
+      - PROSPECTING
+      - DEAL_ACCELERATION
+      - RENEWAL_AND_GROWTH
+      description: Type of use case for contact recommendations.
+      x-enumDescriptions:
+        PROSPECTING: Prospecting. Used when a sales person is looking to reach out to contacts to establish a connection with a new account/company to pitch their company's product.
+        DEAL_ACCELERATION: Deal acceleration. Used when a sales person has already established a connection and pitched their product with a potential buyer account/company, found potential product fit, and is in the process of confirming interest and negotiating a deal.
+        RENEWAL_AND_GROWTH: Renewal and growth. Used when a sales person is interacting with an existing customer to renew a deal or expand the account (for example, more seats or an upgraded pricing model).
+    ContactRecommendationAttributes:
+      type: object
+      required:
+      - rank
+      - score
+      - reRankingScore
+      properties:
+        rank:
+          type: integer
+          format: int32
+          description: Rank of the recommended contact (1-based, lower is better). Contacts are ordered from most to least relevant.
+        score:
+          type: number
+          format: double
+          description: Similarity score between the reference person and the recommended contact. Higher values indicate greater similarity. Due to the nature of vector store similarity calculations, values may occasionally exceed 1.0.
+        reRankingScore:
+          type: number
+          format: double
+          description: Re-ranking score of the recommended contact, produced by a machine learning model applied after initial retrieval to refine relevancy using propensity signals (contact similarity, quality, title boosting, etc.). Higher values indicate greater relevancy. Returns -1.0 when the ML reranking model did not run.
+        recommendedPersonBrief:
+          type: string
+          description: Brief description of the recommended contact's profile, used to explain why this person was recommended. Absent when profile data is unavailable.
+      description: Attributes for a contact recommendation entity.
   securitySchemes:
     OAuth2Auth:
       type: oauth2

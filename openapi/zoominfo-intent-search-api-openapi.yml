@@ -2030,27 +2030,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    IntentSearchInput:
-      title: IntentSearchInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: topics
-        fieldType: ArrayList
-        description: Intent topics. Accepts an Array of String. See the 'Intent Topics' endpoint for values.
     IntentSearchOutput:
       title: IntentSearchOutput
       required:
@@ -2128,43 +2107,33 @@ components:
         industryCodes: education.university
         sortBy: topic
         sortOrder: desc
-    RecommendedContact:
-      title: RecommendedContact
+    Company8:
+      title: Company8
       required:
       - id
-      - firstName
-      - lastName
-      - jobTitle
-      - jobFunction
+      - name
+      - website
+      - hasOtherTopicConsumption
       type: object
       properties:
         id:
           type: integer
           contentEncoding: int32
           example: 500123
-        firstName:
+        name:
           type: string
           example: Acme Corporation
-        lastName:
+        website:
           type: string
-          example: Acme Corporation
-        jobTitle:
-          type: string
-          example: Vice President of Sales
-        jobFunction:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobFunction'
-          description: ''
-          example: []
+          example: example_value
+        hasOtherTopicConsumption:
+          type: boolean
+          example: true
       examples:
-      - id: -1766367996
-        firstName: David
-        lastName: Fike
-        jobTitle: President
-        jobFunction:
-        - name: Executive
-          department: C-Suite
+      - id: 118998385
+        name: Golden Gate University
+        website: www.ggu.edu
+        hasOtherTopicConsumption: true
     Datum11:
       title: Datum11
       required:
@@ -2236,49 +2205,64 @@ components:
           name: Golden Gate University
           website: www.ggu.edu
           hasOtherTopicConsumption: true
-    Company8:
-      title: Company8
+    RecommendedContact:
+      title: RecommendedContact
       required:
       - id
-      - name
-      - website
-      - hasOtherTopicConsumption
+      - firstName
+      - lastName
+      - jobTitle
+      - jobFunction
       type: object
       properties:
         id:
           type: integer
           contentEncoding: int32
           example: 500123
-        name:
+        firstName:
           type: string
           example: Acme Corporation
-        website:
+        lastName:
           type: string
-          example: example_value
-        hasOtherTopicConsumption:
-          type: boolean
-          example: true
+          example: Acme Corporation
+        jobTitle:
+          type: string
+          example: Vice President of Sales
+        jobFunction:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobFunction'
+          description: ''
+          example: []
       examples:
-      - id: 118998385
-        name: Golden Gate University
-        website: www.ggu.edu
-        hasOtherTopicConsumption: true
-    JobFunction:
-      title: JobFunction
+      - id: -1766367996
+        firstName: David
+        lastName: Fike
+        jobTitle: President
+        jobFunction:
+        - name: Executive
+          department: C-Suite
+    IntentSearchInput:
+      title: IntentSearchInput
       required:
-      - name
-      - department
+      - fieldName
+      - fieldType
+      - description
       type: object
       properties:
-        name:
+        fieldName:
           type: string
           example: Acme Corporation
-        department:
+        fieldType:
           type: string
-          example: example_value
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
       examples:
-      - name: Executive
-        department: C-Suite
+      - fieldName: topics
+        fieldType: ArrayList
+        description: Intent topics. Accepts an Array of String. See the 'Intent Topics' endpoint for values.
     IntentSearch:
       title: IntentSearch
       required:
@@ -2879,6 +2863,22 @@ components:
             name: College of Marin
             website: www.marin.edu
             hasOtherTopicConsumption: true
+    JobFunction:
+      title: JobFunction
+      required:
+      - name
+      - department
+      type: object
+      properties:
+        name:
+          type: string
+          example: Acme Corporation
+        department:
+          type: string
+          example: example_value
+      examples:
+      - name: Executive
+        department: C-Suite
   securitySchemes:
     httpBearer:
       type: http

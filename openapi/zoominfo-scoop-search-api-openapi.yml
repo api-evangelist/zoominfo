@@ -1189,98 +1189,23 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ScoopSearch:
-      title: ScoopSearch
+    Company:
+      title: Company
       required:
-      - maxResults
-      - totalResults
-      - currentPage
-      - data
+      - id
+      - name
       type: object
       properties:
-        maxResults:
+        id:
           type: integer
           contentEncoding: int32
-          example: 100
-        totalResults:
-          type: integer
-          contentEncoding: int32
-          example: 100
-        currentPage:
-          type: integer
-          contentEncoding: int32
-          example: 1
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Datum8'
-          description: ''
-          example: []
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
       examples:
-      - maxResults: 4
-        totalResults: 4
-        currentPage: 1
-        data:
-        - id: 1382057
-          publishedDate: 2/22/2019 12:00 AM
-          originalPublishedDate: 2/22/2019 12:00 AM
-          linkText: ''
-          link: ''
-          description: 'Datanyze has recently been ranked #986 on the 2019 SaaS 1000 Top SaaS Companies list.'
-          topics: []
-          updateText: ''
-          types:
-          - id: 6
-            type: Award
-          contacts: []
-          company:
-            id: 344589814
-            name: ZoomInfo
-        - id: 1382056
-          publishedDate: 2/15/2019 12:00 AM
-          originalPublishedDate: 2/15/2019 12:00 AM
-          linkText: ''
-          link: ''
-          description: 'has recently been ranked #139 on the 2019 SaaS 1000 Top SaaS Companies list.'
-          topics: []
-          updateText: ''
-          types:
-          - id: 6
-            type: Award
-          contacts: []
-          company:
-            id: 344589814
-            name: ZoomInfo
-        - id: 1373240
-          publishedDate: 2/11/2019 12:00 AM
-          originalPublishedDate: 2/11/2019 12:00 AM
-          linkText: ''
-          link: ''
-          description: has been recognized as a 2019 Top Rated Sales Intelligence Software by TrustRadius.
-          topics: []
-          updateText: ''
-          types:
-          - id: 6
-            type: Award
-          contacts: []
-          company:
-            id: 344589814
-            name: ZoomInfo
-        - id: 1258709
-          publishedDate: 12/4/2018 12:00 AM
-          originalPublishedDate: 12/4/2018 12:00 AM
-          linkText: ''
-          link: ''
-          description: has recently been recognized by The Boston Globe as one of the Top Places to Work for 2018 in Massachusetts in the midsize organization category.
-          topics: []
-          updateText: ''
-          types:
-          - id: 6
-            type: Award
-          contacts: []
-          company:
-            id: 344589814
-            name: ZoomInfo
+      - id: 9867169
+        name: AmerisourceBergen
     ScoopSearchOutput:
       title: ScoopSearchOutput
       required:
@@ -1297,6 +1222,27 @@ components:
       examples:
       - fieldName: id
         description: ZoomInfo unique identifier for a scoop
+    ScoopSearchInput:
+      title: ScoopSearchInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: publishedStartDate
+        fieldType: String
+        description: Starting date to search for scoops based on when published. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format.
     ScoopSearchRequest:
       title: ScoopSearchRequest
       required:
@@ -1407,27 +1353,98 @@ components:
         company:
           id: 344589814
           name: ZoomInfo
-    ScoopSearchInput:
-      title: ScoopSearchInput
+    ScoopSearch:
+      title: ScoopSearch
       required:
-      - fieldName
-      - fieldType
-      - description
+      - maxResults
+      - totalResults
+      - currentPage
+      - data
       type: object
       properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
+        maxResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        totalResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        currentPage:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Datum8'
+          description: ''
+          example: []
       examples:
-      - fieldName: publishedStartDate
-        fieldType: String
-        description: Starting date to search for scoops based on when published. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format.
+      - maxResults: 4
+        totalResults: 4
+        currentPage: 1
+        data:
+        - id: 1382057
+          publishedDate: 2/22/2019 12:00 AM
+          originalPublishedDate: 2/22/2019 12:00 AM
+          linkText: ''
+          link: ''
+          description: 'Datanyze has recently been ranked #986 on the 2019 SaaS 1000 Top SaaS Companies list.'
+          topics: []
+          updateText: ''
+          types:
+          - id: 6
+            type: Award
+          contacts: []
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1382056
+          publishedDate: 2/15/2019 12:00 AM
+          originalPublishedDate: 2/15/2019 12:00 AM
+          linkText: ''
+          link: ''
+          description: 'has recently been ranked #139 on the 2019 SaaS 1000 Top SaaS Companies list.'
+          topics: []
+          updateText: ''
+          types:
+          - id: 6
+            type: Award
+          contacts: []
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1373240
+          publishedDate: 2/11/2019 12:00 AM
+          originalPublishedDate: 2/11/2019 12:00 AM
+          linkText: ''
+          link: ''
+          description: has been recognized as a 2019 Top Rated Sales Intelligence Software by TrustRadius.
+          topics: []
+          updateText: ''
+          types:
+          - id: 6
+            type: Award
+          contacts: []
+          company:
+            id: 344589814
+            name: ZoomInfo
+        - id: 1258709
+          publishedDate: 12/4/2018 12:00 AM
+          originalPublishedDate: 12/4/2018 12:00 AM
+          linkText: ''
+          link: ''
+          description: has recently been recognized by The Boston Globe as one of the Top Places to Work for 2018 in Massachusetts in the midsize organization category.
+          topics: []
+          updateText: ''
+          types:
+          - id: 6
+            type: Award
+          contacts: []
+          company:
+            id: 344589814
+            name: ZoomInfo
     Type:
       title: Type
       required:
@@ -1445,23 +1462,6 @@ components:
       examples:
       - id: 6
         type: Award
-    Company:
-      title: Company
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-      examples:
-      - id: 9867169
-        name: AmerisourceBergen
   securitySchemes:
     httpBearer:
       type: http

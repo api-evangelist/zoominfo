@@ -1536,39 +1536,22 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Company20:
-      title: Company20
+    LocationEnrichOutput:
+      title: LocationEnrichOutput
       required:
-      - id
-      - addressStatus
-      - subUnitType
-      - locationName
-      - locationEmployeeCount
+      - fieldName
+      - description
       type: object
       properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        addressStatus:
-          type: string
-          example: 123 Main Street
-        subUnitType:
-          type: string
-          example: standard
-        locationName:
+        fieldName:
           type: string
           example: Acme Corporation
-        locationEmployeeCount:
-          type: integer
-          contentEncoding: int32
-          example: 250
+        description:
+          type: string
+          example: Enterprise software company
       examples:
-      - id: 346572700
-        addressStatus: DEFUNCT
-        subUnitType: Former_new_name
-        locationName: DiscoverOrg
-        locationEmployeeCount: 500
+      - fieldName: companyId
+        description: Unique ZoomInfo identifier for a company
     Data35:
       title: Data35
       required:
@@ -1619,6 +1602,39 @@ components:
           subUnitType: Former_new_name
           locationName: DiscoverOrg
           locationEmployeeCount: 500
+    Company20:
+      title: Company20
+      required:
+      - id
+      - addressStatus
+      - subUnitType
+      - locationName
+      - locationEmployeeCount
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        addressStatus:
+          type: string
+          example: 123 Main Street
+        subUnitType:
+          type: string
+          example: standard
+        locationName:
+          type: string
+          example: Acme Corporation
+        locationEmployeeCount:
+          type: integer
+          contentEncoding: int32
+          example: 250
+      examples:
+      - id: 346572700
+        addressStatus: DEFUNCT
+        subUnitType: Former_new_name
+        locationName: DiscoverOrg
+        locationEmployeeCount: 500
     LocationEnrichRequest:
       title: LocationEnrichRequest
       required:
@@ -1630,22 +1646,6 @@ components:
           example: '500123'
       examples:
       - companyId: '344589814'
-    LocationEnrichOutput:
-      title: LocationEnrichOutput
-      required:
-      - fieldName
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: companyId
-        description: Unique ZoomInfo identifier for a company
     GetLocationEnrichInput:
       title: GetLocationEnrichInput
       required:

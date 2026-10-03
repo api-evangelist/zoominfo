@@ -1654,58 +1654,68 @@ paths:
       x-api-role-requirement: ANY_REQUIRED
 components:
   schemas:
-    ScoopEnrichRequestAttributes:
+    Parentage:
       type: object
       properties:
-        publishedStartDate:
+        city:
           type: string
-          format: date
-          description: Starting date to search for scoops based on publication date. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format.
-        publishedEndDate:
+          description: City of the company's primary address.
+        state:
           type: string
-          format: date
-          description: Ending date to search for scoops based on publication date. Form a range using publishedStartDate. Uses YYYY-MM-DD format.
-        updatedSinceCreation:
-          type: boolean
-          description: Default is false. Setting true will only return scoops that have been updated since publishedStartDate.
-        scoopType:
-          type: string
-          description: Retrieve scoops based on type (e.g. earnings, awards and partnerships). Accepts a comma-separated list of IDs from the lookup endpoint.
-        scoopTopic:
-          type: string
-          description: Retrieve scoops based on topic (e.g. integration, consolidation and compliance). Accepts a comma-separated list of IDs from the lookup endpoint.
-        department:
-          type: string
-          description: Retrieve scoops based on department (IT, finance, HR and so on). See the Scoop Departments lookup endpoint for valid inputs..
-        scoopId:
-          type: string
-          description: ZoomInfo unique identifier for a Scoop. Accepts a comma-separated list.
-        description:
-          type: string
-          description: Search for scoops based on description.  Accepts a space-separated list of individual words.
+          description: State or province of the company's primary address.
         companyId:
           type: string
-          description: ZoomInfo unique identifier for the company. Will accept a comma-separated list.
+          description: Unique ZoomInfo identifier for a company.
         companyName:
           type: string
           description: Company name.
-        companyWebsite:
+        subUnitType:
           type: string
-          description: Company website URL in http://www.example.com format. Accepts a comma-separated list.
-      description: Scoop enrich request attributes.
-    CompanyMatchStatus:
+          description: Company sub types (e.g., division, subsidiary). Use this in conjunction with parentId or ultimateParentId.
+        subUnitDesc:
+          type: string
+          description: Contains a description of the sub unit listed in the corporate hierarchy.
+        acquiredByDate:
+          type: string
+          description: Denotes the date when the parent company acquired the input company if available.
+      description: Lists companies higher up in the corporate hierarchy for this company.
+    CompanyStatus:
       type: string
       enum:
-      - FULL_MATCH
-      - NO_MATCH
-      - LIMIT_EXCEEDED
-      - INVALID_INPUT
-      x-enumDescriptions:
-        FULL_MATCH: Match status indicating a full match with all criteria met.
-        NO_MATCH: Match status indicating no match found.
-        LIMIT_EXCEEDED: Match status indicating the enrich request credit limit has been exceeded.
-        INPUT_ERROR: Match status indicating an error with the input data.
-    EnrichCorporateHierarchy:
+      - NEW
+      - ALIVE
+      - DEFUNCT_DOMAIN_DOWN
+      - DEFUNCT_DECLARATION
+      - DEFUNCT_MANUAL
+      - DEFUNCT_FORMER_NAME
+      - DEFUNCT_ACQUISITION
+      description: Represents the current status of the company
+    Page:
+      type: object
+      required:
+      - total
+      - number
+      properties:
+        total:
+          type: integer
+          format: uint32
+          description: The total number of pages within the current result set
+        number:
+          type: integer
+          format: uint32
+          description: The current page number of the results
+      description: Meta information related to the current page and total number of pages
+    EducationDegree:
+      type: object
+      properties:
+        degree:
+          type: string
+          description: Degree type (e.g., Bachelor of Science, Master of Arts, Doctor of Philosophy).
+        areaOfStudy:
+          type: string
+          description: Area of study for the degree (e.g., Computer Science, Business Administration, Economics).
+      description: Education degree for match
+    EnrichCompany:
       type: object
       required:
       - id
@@ -1718,18 +1728,18 @@ components:
         type:
           type: string
           description: The type of the resource
-          default: CorporateHierarchy
-          pattern: CorporateHierarchy
+          default: Company
+          pattern: Company
         attributes:
           allOf:
-          - $ref: '#/components/schemas/CorporateHierarchyEnrichResponseAttributes'
+          - $ref: '#/components/schemas/CompanyEnrichResponseAttributes'
           description: The attributes defining the resource
         meta:
           allOf:
-          - $ref: '#/components/schemas/CorporateHierarchyAttributeMeta'
+          - $ref: '#/components/schemas/CompanyAttributeMeta'
           description: Non-standard meta information about the resource
-      description: A matching corporate hierarchy was identified from the provided input data. This result will always be a FULL_MATCH (where the company information matched). The match status can be found within the meta object for reference.
-    CompanyEnrichRequestAttributes:
+      description: A matching company was identified from the provided input data. This result will always be a FULL_MATCH (where the company information matched). The match status can be found within the meta object for reference.
+    CorporateHierarchyEnrichRequestAttributes:
       type: object
       required:
       - outputFields
@@ -1739,232 +1749,296 @@ components:
           type: array
           items:
             type: string
-            enum:
-            - alternateLogos
-            - businessModel
-            - certificationDate
-            - certified
-            - city
-            - companyFunding
-            - companyStatus
-            - companyStatusDate
-            - competitors
-            - continent
-            - country
-            - createdDate
-            - departmentBudgets
-            - description
-            - domainList
-            - employeeCount
-            - employeeCountByDepartment
-            - employeeGrowth
-            - employeeRange
-            - engagements
-            - fax
-            - foundedYear
-            - id
-            - industries
-            - industryCodes
-            - isDefunct
-            - lastUpdatedDate
-            - locationCount
-            - locationMatch
-            - logo
-            - metroArea
-            - naicsCodes
-            - name
-            - numberOfContactsInZoomInfo
-            - parentId
-            - parentName
-            - phone
-            - primaryIndustry
-            - primaryIndustryCode
-            - primarySubIndustryCode
-            - products
-            - recentFundingAmount
-            - recentFundingDate
-            - revenue
-            - revenueRange
-            - sicCodes
-            - socialMediaUrls
-            - state
-            - street
-            - subUnitIndustries
-            - subUnitType
-            - ticker
-            - totalFundingAmount
-            - type
-            - ultimateParentEmployees
-            - ultimateParentId
-            - ultimateParentName
-            - ultimateParentRevenue
-            - website
-            - zipCode
           description: List of fields to be returned in the response.
         matchCompanyInput:
           type: array
           items:
-            $ref: '#/components/schemas/CompanyEnrichRequestCriteria'
+            $ref: '#/components/schemas/CorporateHierarchyEnrichRequestCriteria'
           minItems: 1
           maxItems: 25
           description: List of criteria to match against.
-      description: Company enrich request attributes.
-    NewsEnrichRequestAttributes:
+      description: Corporate hierarchy enrich request attributes.
+    JobFunction:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the job function.
+        department:
+          type: string
+          description: Department associated with the job function.
+      description: Contact job function at current place of employment.
+    CompanyEnrichResponseResourceUnion:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/EnrichCompany'
+      - $ref: '#/components/schemas/NoMatchCompany'
+      discriminator:
+        propertyName: type
+        mapping:
+          Company: '#/components/schemas/EnrichCompany'
+          NoMatch: '#/components/schemas/NoMatchCompany'
+      description: Represents the possible resource types returned in a company enrich response, including both a successful company match and a no-match result. Used to encapsulate the response resource for company enrichment.
+    IntentEnrichRequestAttributes:
+      type: object
+      required:
+      - topics
+      properties:
+        companyId:
+          type: integer
+          format: int64
+          description: Unique ZoomInfo identifier for a company.
+        companyName:
+          type: string
+          description: Company name.
+        topics:
+          type: array
+          items:
+            type: string
+          description: Intent topics. Accepts an Array of up to 50 Strings. See the 'Intent Topics' Lookup endpoint for values.
+        signalStartDate:
+          type: string
+          format: date
+          description: Start date for a company signaling interest in a topic. Uses YYYY-MM-DD format.
+        signalEndDate:
+          type: string
+          format: date
+          description: End date for a company signaling interest in a topic. Uses YYYY-MM-DD format.
+        signalScoreMin:
+          type: integer
+          format: int32
+          description: Minimum signal score. Use with signalScoreMax to form a range. Minimum score is 60 and maximum is 100.
+        signalScoreMax:
+          type: integer
+          format: int32
+          description: Maximum signal score. Use with signalScoreMin to form a range. Minimum score is 60 and maximum is 100.
+        audienceStrengthMin:
+          type: string
+          description: Minimum audience strength score. Use with audienceStrengthMax to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.
+        audienceStrengthMax:
+          type: string
+          description: Maximum audience strength score. Use with audienceStrengthMin to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.
+        findRecommendedContacts:
+          type: boolean
+          description: Default is true. Set to false to exclude recommended contacts from results.
+        companyWebsite:
+          type: string
+          description: Company website URL in http://www.example.com format. Accepts a comma-separated list.
+      description: Intent enrich request attributes.
+    IntentEnrichRequestResource:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: IntentEnrich
+          pattern: IntentEnrich
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/IntentEnrichRequestAttributes'
+          description: The attributes defining the resource
+      description: Intent enrich request resource.
+    CompanyEnrichRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/CompanyEnrichRequestResource'
+          description: The primary data of the document
+      description: Company enrich request.
+    LocationMatch:
       type: object
       properties:
         companyId:
           type: integer
           format: int64
           description: Unique ZoomInfo identifier for the company.
-        categories:
-          type: array
-          items:
-            type: string
-          description: Category of news articles. Accepts an Array of String. See the 'News Categories' lookup endpoint for values.
-        url:
-          type: array
-          items:
-            type: string
-          description: News URL strings. Accepts an Array of String. Minimum of 5 characters per input
-        pageDateMin:
-          type: string
-          format: date
-          description: Specify the earliest publishing date for news articles returned. Uses YYYY-MM-DD format (e.g., 2020-01-01 will return all news articles published on or after Jan 1, 2020).
-        pageDateMax:
-          type: string
-          format: date
-          description: Specify the latest publishing date for news articles articles. Uses YYYY-MM-DD format (e.g., 2020-01-31 will return all new articles published on or before Jan 31, 2020).
-      description: Request attributes for news enrich.
-    IntentEnrichResponseAttributes:
-      type: object
-      properties:
-        category:
-          type: string
-          description: Intent category.
-        topic:
-          type: string
-          description: Intent topic.
-        signalScore:
-          type: integer
-          format: int32
-          description: Signal score for the topic.
-        audienceStrength:
-          type: string
-          description: Audience strength for the topic.
-        signalDate:
-          type: string
-          format: date-time
-          description: Date the signal was identified.
-        company:
+        address:
           allOf:
-          - $ref: '#/components/schemas/IntentCompany'
-          description: Company data for the intent topic.
-        recommendedContacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/RecommendedContact'
-          description: Suggested contacts at the company that are related to the intent topic.
-        spikesInDateRange:
+          - $ref: '#/components/schemas/Address'
+          description: Address details for the company's location.
+        addressStatus:
+          type: string
+          description: Address status for the location (CURRENT, VALID, PAST).
+      description: Location details that match address-related input parameters. Includes companyId, address, and addressStatus (CURRENT, VALID, PAST).
+    HashtagEnrichRequestResource:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: HashtagEnrich
+          pattern: HashtagEnrich
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/HashtagEnrichRequestAttributes'
+          description: The attributes defining the resource
+      description: Hashtag enrich request resource.
+    ResultMeta:
+      type: object
+      required:
+      - totalResults
+      - page
+      properties:
+        totalResults:
           type: integer
-          format: int32
-          description: The total number of intent signals detected during your specified timeframe.
-        topSignalLocations:
-          type: array
-          items:
-            $ref: '#/components/schemas/TopSignalLocation'
-          description: Up to top 3 signal locations identified for the Intent
-      description: Attributes of a single intent result.
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
-    ScoopEnrichResponseAttributes:
+          format: uint32
+          description: The total number of results based on the specified filters
+        page:
+          allOf:
+          - $ref: '#/components/schemas/Page'
+          description: Paging information for the current result set
+      description: Metadata including paging information and the total number of records in the result set
+    SicCode:
       type: object
       properties:
         id:
           type: string
-          description: ZoomInfo unique identifier for a scoop.
-        publishedDate:
+          description: Unique identifier for the SIC code.
+        name:
           type: string
-          format: date-time
-          description: Date when a scoop was published.
-        originalPublishedDate:
-          type: string
-          format: date-time
-          description: Date when a scoop was originally published.
-        linkText:
-          type: string
-          description: Link text for a scoop.
-        link:
-          type: string
-          description: URL for a scoop.
-        description:
-          type: string
-          description: Description associated with the scoop
-        topics:
-          type: array
-          items:
-            type: object
-            additionalProperties: {}
-          description: Scoop topics.
-        updateText:
-          type: string
-          description: Text related to an updated scoop.
-        types:
-          type: array
-          items:
-            type: object
-            additionalProperties: {}
-          description: Types associated with a scoop.
-        company:
-          allOf:
-          - $ref: '#/components/schemas/ScoopCompany'
-          description: Company
-        contacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScoopContact'
-          description: Contacts associated with a scoop.
-      description: Scoop enrich response attributes.
-    TopSignalLocation:
+          description: Name of the SIC code.
+      description: The Standard Industrial Classification is a system for classifying industries by a four-digit code.
+    CompanyEnrichRequestCriteria:
       type: object
       properties:
-        city:
-          type: string
-          description: City for the intent's signal location.
-        country:
-          type: string
-          description: Country for the intent's signal location.
-        state:
-          type: string
-          description: State for the intent's signal location.
-      description: Intent enrich request attributes.
-    EmployeeGrowthDataPoint:
-      type: object
-      properties:
-        label:
-          type: string
-          description: Label for the data point (e.g., '21 - Q1').
-        employeeCount:
+        companyId:
           type: integer
           format: int64
-          description: Total employee count for the data point.
-      description: Quarter-by-quarter breakdown of total employee count.
-    ZoomInfo.Core.Foundations.ErrorResponseModel:
+          description: Unique ZoomInfo identifier for a company.
+        companyName:
+          type: string
+          description: Company name.
+        companyWebsite:
+          type: string
+          description: Company website URL in http://www.example.com format. Accepts a comma-separated list.
+        companyTicker:
+          type: string
+          description: Company stock ticker symbol.
+        companyPhone:
+          type: string
+          description: Phone number of the company headquarters.
+        companyFax:
+          type: string
+          description: Fax number of the company headquarters.
+        companyStreet:
+          type: string
+          description: Street portion of the company's primary address.
+        companyCity:
+          type: string
+          description: City portion of the company's primary address.
+        companyState:
+          type: string
+          description: Company state (U.S.) or province (Canada). You can use free text state or province names (e.g., 'new hampshire'), or the two-letter common abbreviation for a U.S. state (e.g., 'nh').
+        companyZipCode:
+          type: string
+          description: Zip code or postal code of the company's primary address.
+        companyCountry:
+          type: string
+          description: Country of the company's primary address. You can use free text or see the Country lookup endpoint for values.
+        ipAddress:
+          type: string
+          description: IP address associated with the company.
+      description: Company enrich request criteria.
+    OrgChartEnrichResponseResource:
       type: object
       required:
-      - errors
+      - id
+      - type
+      - attributes
       properties:
-        detail:
+        id:
           type: string
-          description: A high-level detail of the error(s) that occurred during the request
-        title:
+          description: The unique identifier for the resource
+        type:
           type: string
-          description: A high-level summary of the error(s) detected
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
-          description: The list of errors raised during the request
-      description: The standard error response body model for the ZoomInfo API.
-    OrgChartEnrichResponse:
+          description: The type of the resource
+          default: OrgChart
+          pattern: OrgChart
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/OrgChartEnrichResponseAttributes'
+          description: The attributes defining the resource
+      description: Org chart.
+    OrgChartEnrichRequestResource:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: OrgChartEnrich
+          pattern: OrgChartEnrich
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/OrgChartEnrichRequestAttributes'
+          description: The attributes defining the resource
+      description: Org chart enrich request resource.
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+          format: uri
+          description: A link to the first page of data
+        last:
+          type: string
+          format: uri
+          description: A link to the last page of data
+        prev:
+          type: string
+          format: uri
+          description: A link to the previous page of data
+        next:
+          type: string
+          format: uri
+          description: A link to the next page of data
+      description: Helpful links for fetching different pages of data from the current result set. When using these links, please provide the exact same request body between requests
+    ScoopEnrichRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/ScoopEnrichRequestResource'
+          description: The primary data of the document
+      description: Scoop enrich request.
+    EnrichContact:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: Contact
+          pattern: Contact
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ContactEnrichResponseAttributes'
+          description: The attributes defining the resource
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/ContactAttributeMeta'
+          description: Non-standard meta information about the resource
+      description: A matching contact was identified from the provided input data. This result could be either a FULL_MATCH (where both the company and contact information matched), a CONTACT_ONLY_MATCH (only the contact information provided matched and only contact fields requested are returned), or a COMPANY_ONLY_MATCH (only the company information provided matched and only the company fields requested are returned). The match status can be found within the meta object to determine which case was met.
+    NewsEnrichResponse:
       type: object
       required:
       - data
@@ -1972,7 +2046,7 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/OrgChartEnrichResponseResource'
+            $ref: '#/components/schemas/NewsEnrichResponseResource'
           description: The primary data of the document
         meta:
           allOf:
@@ -1982,7 +2056,7 @@ components:
           allOf:
           - $ref: '#/components/schemas/Links'
           description: Links related to the primary data
-      description: Org charts that match the criteria specified in the request
+      description: A list of News that match the criteria specified in the request
     EmployeeGrowth:
       type: object
       properties:
@@ -1998,60 +2072,165 @@ components:
             $ref: '#/components/schemas/EmployeeGrowthDataPoint'
           description: Quarter-by-quarter breakdown of total employee count.
       description: Employee growth of the company in the past two years. A one- and two-year growth percentage is provided as well as a quarter-by-quarter breakdown of total employee count.
-    ScoopEnrichResponseResource:
+    ContactEnrichResponseResourceUnion:
       type: object
-      required:
-      - id
-      - type
-      - attributes
+      oneOf:
+      - $ref: '#/components/schemas/EnrichContact'
+      - $ref: '#/components/schemas/NoMatchContact'
+      discriminator:
+        propertyName: type
+        mapping:
+          Contact: '#/components/schemas/EnrichContact'
+          NoMatch: '#/components/schemas/NoMatchContact'
+      description: Represents the possible resource types returned in a contact enrich response, including both a successful contact match and a no-match result. Used to encapsulate the response resource for contact enrichment.
+    Competitor:
+      type: object
       properties:
         id:
+          type: integer
+          format: int64
+          description: Unique ZoomInfo identifier for the competitor.
+        name:
           type: string
-          description: The unique identifier for the resource
-        type:
+          description: Name of the competitor.
+        rank:
+          type: integer
+          format: int32
+          description: Ranking of the competitor.
+        website:
           type: string
-          description: The type of the resource
-          default: Scoop
-          pattern: Scoop
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/ScoopEnrichResponseAttributes'
-          description: The attributes defining the resource
-      description: Scoop
-    HashtagEnrichRequest:
+          description: Website of the competitor.
+        employeeCount:
+          type: integer
+          format: int32
+          description: EmployeeCount of the competitor.
+      description: Competitor details.
+    IntentEnrichRequest:
       type: object
       required:
       - data
       properties:
         data:
           allOf:
-          - $ref: '#/components/schemas/HashtagEnrichRequestResource'
+          - $ref: '#/components/schemas/IntentEnrichRequestResource'
           description: The primary data of the document
-      description: Hashtag enrich request.
-    EmploymentHistory:
+      description: Intent enrich request.
+    HashtagEnrichRequestAttributes:
       type: object
       properties:
-        jobTitle:
+        companyId:
+          type: integer
+          format: int64
+          description: Unique ZoomInfo Identifier for the company.
+      description: Request attributes for hashtag enrich.
+    NaicsCode:
+      type: object
+      properties:
+        id:
           type: string
-          description: Contact title at current place of employment
-        managementLevel:
+          description: Unique identifier for the NAICS code.
+        name:
+          type: string
+          description: Name of the NAICS code.
+      description: The North American Industry Classification System (NAICS) is the standard used by Federal statistical agencies in classifying business establishments for the purpose of collecting, analyzing, and publishing statistical data related to the U.S. business economy.
+    FamilyNode:
+      type: object
+      required:
+      - subUnitTypeInfo
+      properties:
+        city:
+          type: string
+          description: City of the company's primary address.
+        state:
+          type: string
+          description: State or province of the company's primary address.
+        name:
+          type: string
+          description: Company name.
+        companyId:
+          type: integer
+          format: int64
+          description: Unique ZoomInfo identifier for a company.
+        subUnitTypeInfo:
+          allOf:
+          - $ref: '#/components/schemas/SubUnitTypeInfo'
+          description: Denotes the type of sub-unit represented by a family node within the corporate hierarchy.
+        familyNodes:
+          description: Denotes a branch or sub-branch of the family tree within the corporate hierarchy.
           type: array
           items:
-            type: string
-          description: Contact management level
-        fromDate:
-          type: string
-          format: date
-          description: Start date for this employment. Uses YYYY-MM-DD format.
-        toDate:
-          type: string
-          format: date
-          description: End date for this employment. Uses YYYY-MM-DD format.
-        company:
+            $ref: '#/components/schemas/FamilyNode'
+      description: Family node information.
+    HashtagEnrichResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HashtagEnrichResponseResource'
+          description: The primary data of the document
+        meta:
           allOf:
-          - $ref: '#/components/schemas/EmploymentCompany'
-          description: Company for employment
-      description: Contact employment history
+          - $ref: '#/components/schemas/NonPaginatedResultMeta'
+          description: Non-standard meta information about the document
+      description: Hashtag enrich response.
+    TechnologyEnrichRequestResource:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: TechnologyEnrich
+          pattern: TechnologyEnrich
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/TechnologyEnrichRequestAttributes'
+          description: The attributes defining the resource
+      description: Technology enrich request resource.
+    PrimarySubIndustryCode:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the sub-industry code.
+        name:
+          type: string
+          description: Name of the sub-industry code.
+      description: Top-level sub-industry for a company along with its code.
+    TechnologyEnrichRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/TechnologyEnrichRequestResource'
+          description: The primary data of the document
+      description: Technology enrich request.
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+          description: Street portion of the company's location.
+        city:
+          type: string
+          description: City of the company's primary address.
+        state:
+          type: string
+          description: State or province of the company's address.
+        country:
+          type: string
+          description: Country of the company's primary address.
+        zipCode:
+          type: string
+          description: Zip code or postal code of the company's address.
+      description: Address details for the company's location.
     OrgChartEnrichRequestAttributes:
       type: object
       properties:
@@ -2238,6 +2417,67 @@ components:
           description: Contact's company data.
       description: Contact enrich response attributes.
       x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
+    Warning:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Warning code.
+        message:
+          type: string
+          description: Warning message.
+        fields:
+          type: array
+          items:
+            type: string
+          description: Fields associated with the warning.
+      description: Warning details for validation issues.
+    NewsEnrichResource:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: NewsEnrich
+          pattern: NewsEnrich
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/NewsEnrichRequestAttributes'
+          description: The attributes defining the resource
+      description: News enrich request resource.
+    ContactAttributeMeta:
+      type: object
+      required:
+      - matchStatus
+      - input
+      properties:
+        matchStatus:
+          allOf:
+          - $ref: '#/components/schemas/ContactMatchStatus'
+          description: The match status for the contact enrich operation, indicating whether a match was found and the type of match.
+        input:
+          allOf:
+          - $ref: '#/components/schemas/ContactEnrichRequestCriteria'
+          description: The input criteria that was used to perform the contact enrich match. This provides traceability for the match result.
+        warnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Warning'
+          description: Details about any warnings encountered during the validation of the enrich request input criteria.
+      description: Metadata describing the result of a contact enrich match, including the match status and the input criteria used for the match. Used to provide additional context about how the contact enrich response was determined.
+    PrimaryIndustryCode:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the industry code.
+        name:
+          type: string
+          description: Name of the industry code.
+      description: Top-level industry for a company along with its code.
     CorporateHierarchyAttributeMeta:
       type: object
       required:
@@ -2258,7 +2498,17 @@ components:
             $ref: '#/components/schemas/Warning'
           description: Details about any warnings encountered during the validation of the enrich request input criteria.
       description: Metadata describing the result of a corporate hierarchy enrich match, including the match status and the input criteria used for the match. Used to provide additional context about how the corporate hierarchy enrich response was determined.
-    TechnologyEnrichResponseResource:
+    NewsEnrichRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/NewsEnrichResource'
+          description: The primary data of the document
+      description: News enrich request.
+    NewsEnrichResponseResource:
       type: object
       required:
       - id
@@ -2271,13 +2521,726 @@ components:
         type:
           type: string
           description: The type of the resource
-          default: Technology
-          pattern: Technology
+          default: News
+          pattern: News
         attributes:
           allOf:
-          - $ref: '#/components/schemas/TechnologyEnrichResponseAttributes'
+          - $ref: '#/components/schemas/NewsResponseAttributes'
           description: The attributes defining the resource
-      description: Technology enrich response resource.
+      description: News
+    CompanyMatchStatus:
+      type: string
+      enum:
+      - FULL_MATCH
+      - NO_MATCH
+      - LIMIT_EXCEEDED
+      - INVALID_INPUT
+      x-enumDescriptions:
+        FULL_MATCH: Match status indicating a full match with all criteria met.
+        NO_MATCH: Match status indicating no match found.
+        LIMIT_EXCEEDED: Match status indicating the enrich request credit limit has been exceeded.
+        INPUT_ERROR: Match status indicating an error with the input data.
+    NewsCompany:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique ZoomInfo identifier for the company.
+        name:
+          type: string
+          description: Company name.
+      description: Company related to the news article.
+    EnrichCorporateHierarchy:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: CorporateHierarchy
+          pattern: CorporateHierarchy
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/CorporateHierarchyEnrichResponseAttributes'
+          description: The attributes defining the resource
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/CorporateHierarchyAttributeMeta'
+          description: Non-standard meta information about the resource
+      description: A matching corporate hierarchy was identified from the provided input data. This result will always be a FULL_MATCH (where the company information matched). The match status can be found within the meta object for reference.
+    ContactEnrichRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/ContactEnrichRequestResource'
+          description: The primary data of the document
+      description: Contact enrich request.
+    NewsEnrichRequestAttributes:
+      type: object
+      properties:
+        companyId:
+          type: integer
+          format: int64
+          description: Unique ZoomInfo identifier for the company.
+        categories:
+          type: array
+          items:
+            type: string
+          description: Category of news articles. Accepts an Array of String. See the 'News Categories' lookup endpoint for values.
+        url:
+          type: array
+          items:
+            type: string
+          description: News URL strings. Accepts an Array of String. Minimum of 5 characters per input
+        pageDateMin:
+          type: string
+          format: date
+          description: Specify the earliest publishing date for news articles returned. Uses YYYY-MM-DD format (e.g., 2020-01-01 will return all news articles published on or after Jan 1, 2020).
+        pageDateMax:
+          type: string
+          format: date
+          description: Specify the latest publishing date for news articles articles. Uses YYYY-MM-DD format (e.g., 2020-01-31 will return all new articles published on or before Jan 31, 2020).
+      description: Request attributes for news enrich.
+    CompanyFunding:
+      type: object
+      properties:
+        date:
+          type: string
+          description: Date of funding round.
+        type:
+          type: string
+          description: Type of funding round.
+        amount:
+          type: integer
+          format: int64
+          description: Amount of funding round.
+        investors:
+          type: array
+          items:
+            type: string
+          description: Investors in funding round.
+      description: Company funding details.
+    ScoopEnrichRequestResource:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: ScoopEnrich
+          pattern: ScoopEnrich
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ScoopEnrichRequestAttributes'
+          description: The attributes defining the resource
+      description: Scoop enrich request resource.
+    Engagement:
+      type: object
+      properties:
+        engagementDate:
+          type: string
+          format: date-time
+          description: Date of engagement.
+        engagementType:
+          type: string
+          description: Type of engagement.
+      description: Engagement details.
+    ContactEnrichRequestAttributes:
+      type: object
+      required:
+      - outputFields
+      - matchPersonInput
+      properties:
+        outputFields:
+          type: array
+          items:
+            type: string
+            enum:
+            - city
+            - companyAlternateLogos
+            - companyCity
+            - companyContinent
+            - companyCountry
+            - companyDescription
+            - companyDivision
+            - companyEmployeeCount
+            - companyEmployeeGrowth
+            - companyEmployeeRange
+            - companyFax
+            - companyId
+            - companyIndustries
+            - companyIndustryCodes
+            - companyLogo
+            - companyNaicsCodes
+            - companyName
+            - companyPhone
+            - companyPrimaryIndustry
+            - companyPrimaryIndustryCode
+            - companyPrimarySubIndustryCode
+            - companyRanking
+            - companyRevenue
+            - companyRevenueNumeric
+            - companyRevenueRange
+            - companySicCodes
+            - companySocialMediaUrls
+            - companyState
+            - companyStreet
+            - companyTicker
+            - companyType
+            - companyWebsite
+            - companyZipCode
+            - contactAccuracyScore
+            - continent
+            - country
+            - directPhoneAlt
+            - directPhoneDoNotCall
+            - education
+            - email
+            - emailAlt
+            - employmentHistory
+            - engagements
+            - externalUrls
+            - firstName
+            - hasCanadianEmail
+            - hashedEmails
+            - id
+            - isDefunct
+            - jobFunction
+            - jobTitle
+            - lastName
+            - lastUpdatedDate
+            - locationCompanyId
+            - managementLevel
+            - metroArea
+            - middleName
+            - mobilePhone
+            - mobilePhoneAlt
+            - mobilePhoneDoNotCall
+            - noticeProvidedDate
+            - personHasMoved
+            - phone
+            - picture
+            - positionStartDate
+            - region
+            - salutation
+            - state
+            - street
+            - suffix
+            - supplementalEmail
+            - techSkills
+            - validDate
+            - withinCalifornia
+            - withinCanada
+            - withinEu
+            - yearsOfExperience
+            - zipCode
+          description: Specifies the fields to include in the response. To request company-related fields for a contact, use camel-case field names corresponding to the company object (e.g., companyName, companyPhone, companyId, companyRevenue).
+        requiredFields:
+          type: array
+          items:
+            type: string
+          description: List of fields that are required for the match.
+        matchPersonInput:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactEnrichRequestCriteria'
+          minItems: 1
+          maxItems: 25
+          description: List of matchPersonInput.
+      description: Contact enrich request attributes.
+    CorporateHierarchyEnrichRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/CorporateHierarchyEnrichRequestResource'
+          description: The primary data of the document
+      description: Corporate hierarchy enrich request.
+    CorporateHierarchyEnrichRequestCriteria:
+      type: object
+      properties:
+        companyId:
+          type: integer
+          format: int64
+          description: Unique ZoomInfo identifier for a company.
+        companyName:
+          type: string
+          description: Company name.
+        companyWebsite:
+          type: string
+          description: Company website URL in http://www.example.com format.
+      description: Corporate hierarchy enrich request criteria.
+    EmploymentCompany:
+      type: object
+      properties:
+        companyId:
+          type: integer
+          format: int64
+          description: Unique ZoomInfo identifier for a company.
+        companyName:
+          type: string
+          description: Company name.
+        companyPhone:
+          type: string
+          description: Company phone.
+        companyWebsite:
+          type: string
+          description: Company website URL in http://www.example.com format.
+      description: Company for match.
+    OrgChartEnrichRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/OrgChartEnrichRequestResource'
+          description: The primary data of the document
+      description: Org chart enrich request.
+    OrgChartEnrichResponseAttributes:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: Contact first name.
+        middleName:
+          type: string
+          description: Contact middle name
+        lastName:
+          type: string
+          description: Contact last name.
+        lastUpdatedDate:
+          type: string
+          description: Date on which the contact record was last updated.
+        title:
+          type: string
+          description: Contact job title at current place of employment.
+        hasEmail:
+          type: boolean
+          description: Indicates whether ZoomInfo has an email address for the contact.
+        hasDirectPhone:
+          type: boolean
+          description: Indicates whether ZoomInfo has a direct phone number for the contact.
+        department:
+          type: string
+          description: Contact department at current place of employment.
+        jobFunction:
+          type: string
+          description: Contact job function at current place of employment.
+        orgChartTier:
+          type: integer
+          format: int32
+          description: Integer representing hierarchy within a department, with 1 being the highest.
+        orgChartSubTier:
+          type: integer
+          format: int32
+          description: Secondary tier within orgChartTier.
+        contactAccuracyScore:
+          type: number
+          format: double
+          description: This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 75 and maximum is 99.
+        companyId:
+          type: string
+          description: Unique ZoomInfo identifier for a company.
+        companyName:
+          type: string
+          description: Company name.
+      description: Org chart enrich response attributes.
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+    Education:
+      type: object
+      properties:
+        school:
+          type: string
+          description: School name.
+        educationDegree:
+          allOf:
+          - $ref: '#/components/schemas/EducationDegree'
+          description: School type (e.g., High School, College, University).
+      description: Contact education details.
+    DepartmentBudget:
+      type: object
+      properties:
+        marketingBudget:
+          type: integer
+          format: int32
+          description: Marketing budget.
+        financialBudget:
+          type: integer
+          format: int32
+          description: Finance budget.
+        itBudget:
+          type: integer
+          format: int32
+          description: IT budget.
+        hrBudget:
+          type: integer
+          format: int32
+          description: HR budget.
+      description: Department budget details.
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    ContactMatchStatus:
+      type: string
+      enum:
+      - FULL_MATCH
+      - NO_MATCH
+      - NON_MATCH_BY_LAST_UPDATED_DATE
+      - NON_MATCH_BY_VALID_DATE
+      - NON_MATCH_BY_REQUIRED_FIELDS
+      - NON_MATCH_BY_CONTACT_ACCURACY_MIN
+      - COMPANY_ONLY_MATCH
+      - CONTACT_ONLY_MATCH
+      - OPT_OUT
+      - LIMIT_EXCEEDED
+      - INVALID_INPUT
+      description: Match status indicating the result of an enrich request.
+      x-enumDescriptions:
+        FULL_MATCH: Match status indicating a full match with all criteria met.
+        NO_MATCH: Match status indicating no match found.
+        LAST_UPDATE_NOT_MATCHED: Match status indicating no match. Contact's last updated date is before requested date for field lastUpdatedDateAfter.
+        VALID_DATE_NOT_MATCHED: Match status indicating no match. Contact's valid date is before requested date for field validDateAfter.
+        REQUIRED_FIELDS_MISSING: Match status indicating no match. Required fields data for the enrich request are missing.
+        CONTACT_ACCURACY_NOT_MATCHED: Match status indicating no match. Contact's contact accuracy score is below the requested minimum for field contactAccuracyScoreMin.
+        COMPANY_MATCH_ONLY: Match status indicating a match with company data only.
+        CONTACT_MATCH_ONLY: Match status indicating a match with contact data only.
+        CONTACT_OPTED_OUT: Match status indicating the contact has opted out of ZoomInfo's data collection.
+        LIMIT_EXCEEDED: Match status indicating the enrich request credit limit has been exceeded.
+        INPUT_ERROR: Match status indicating an error with the input data.
+    IntentEnrichResponseAttributes:
+      type: object
+      properties:
+        category:
+          type: string
+          description: Intent category.
+        topic:
+          type: string
+          description: Intent topic.
+        signalScore:
+          type: integer
+          format: int32
+          description: Signal score for the topic.
+        audienceStrength:
+          type: string
+          description: Audience strength for the topic.
+        signalDate:
+          type: string
+          format: date-time
+          description: Date the signal was identified.
+        company:
+          allOf:
+          - $ref: '#/components/schemas/IntentCompany'
+          description: Company data for the intent topic.
+        recommendedContacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecommendedContact'
+          description: Suggested contacts at the company that are related to the intent topic.
+        spikesInDateRange:
+          type: integer
+          format: int32
+          description: The total number of intent signals detected during your specified timeframe.
+        topSignalLocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopSignalLocation'
+          description: Up to top 3 signal locations identified for the Intent
+      description: Attributes of a single intent result.
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
+    EmployeeGrowthDataPoint:
+      type: object
+      properties:
+        label:
+          type: string
+          description: Label for the data point (e.g., '21 - Q1').
+        employeeCount:
+          type: integer
+          format: int64
+          description: Total employee count for the data point.
+      description: Quarter-by-quarter breakdown of total employee count.
+    NonPaginatedResultMeta:
+      type: object
+      required:
+      - totalResults
+      properties:
+        totalResults:
+          type: integer
+          format: uint32
+          description: The total number of results based on the specified filters
+      description: Metadata for non-paginated results, including the total number of results
+    NoMatchCorporateHierarchy:
+      type: object
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the resource
+        type:
+          type: string
+          description: The type identifier of the resource
+          default: NoMatch
+          pattern: NoMatch
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/CorporateHierarchyAttributeMeta'
+          description: Non-standard meta information about the resource
+      description: There was not a matching corporate hierarchy found for the provided input or is been filtered out because of match statue - LIMIT_EXCEEDED (User credit limit has been exceeded). Exact details can be found within the meta object including the match status and other accompanying metadata.
+    SocialMediaUrl:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of social media account. Supported types are Facebook, Twitter (X.com), LinkedIn).
+        url:
+          type: string
+          description: URL for the social media account.
+        followerCount:
+          type: string
+          description: Number of followers for the social media account.
+      description: Social media information for the company.
+    CompanyAttributeMeta:
+      type: object
+      required:
+      - matchStatus
+      - input
+      properties:
+        matchStatus:
+          allOf:
+          - $ref: '#/components/schemas/CompanyMatchStatus'
+          description: The match status for the company enrich operation, indicating whether a match was found and the type of match.
+        input:
+          allOf:
+          - $ref: '#/components/schemas/CompanyEnrichRequestCriteria'
+          description: The input criteria that was used to perform the company enrich match. This provides traceability for the match result.
+        warnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Warning'
+          description: Details about any warnings encountered during the validation of the enrich request input criteria.
+      description: Metadata describing the result of a company enrich match, including the match status and the input criteria used for the match. Used to provide additional context about how the company enrich response was determined.
+    ScoopEnrichRequestAttributes:
+      type: object
+      properties:
+        publishedStartDate:
+          type: string
+          format: date
+          description: Starting date to search for scoops based on publication date. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format.
+        publishedEndDate:
+          type: string
+          format: date
+          description: Ending date to search for scoops based on publication date. Form a range using publishedStartDate. Uses YYYY-MM-DD format.
+        updatedSinceCreation:
+          type: boolean
+          description: Default is false. Setting true will only return scoops that have been updated since publishedStartDate.
+        scoopType:
+          type: string
+          description: Retrieve scoops based on type (e.g. earnings, awards and partnerships). Accepts a comma-separated list of IDs from the lookup endpoint.
+        scoopTopic:
+          type: string
+          description: Retrieve scoops based on topic (e.g. integration, consolidation and compliance). Accepts a comma-separated list of IDs from the lookup endpoint.
+        department:
+          type: string
+          description: Retrieve scoops based on department (IT, finance, HR and so on). See the Scoop Departments lookup endpoint for valid inputs..
+        scoopId:
+          type: string
+          description: ZoomInfo unique identifier for a Scoop. Accepts a comma-separated list.
+        description:
+          type: string
+          description: Search for scoops based on description.  Accepts a space-separated list of individual words.
+        companyId:
+          type: string
+          description: ZoomInfo unique identifier for the company. Will accept a comma-separated list.
+        companyName:
+          type: string
+          description: Company name.
+        companyWebsite:
+          type: string
+          description: Company website URL in http://www.example.com format. Accepts a comma-separated list.
+      description: Scoop enrich request attributes.
+    TechnologyEnrichResponseAttributes:
+      type: object
+      properties:
+        categoryParent:
+          type: string
+          description: Parent Category for the retrieved data.
+        category:
+          type: string
+          description: Category for the retrieved data.
+        vendor:
+          type: string
+          description: Vendor associated with the data being returned.
+        product:
+          type: string
+          description: Product associated with the data being returned.
+        attribute:
+          type: string
+          description: Attribute of the technology.
+        website:
+          type: string
+          description: Website associated with the data being returned.
+        logo:
+          type: string
+          description: The URL which can be used to retrieve the logo.
+        domain:
+          type: string
+          description: Domain associated with the data being returned.
+        createdDate:
+          type: string
+          format: date
+          description: Date when the data was created. Uses YYYY-MM-DD format.
+        modifiedDate:
+          type: string
+          format: date
+          description: Date when the data was last modified. Uses YYYY-MM-DD format.
+        description:
+          type: string
+          description: Description of the data being returned.
+      description: Technology enrich response attributes.
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
+    ScoopEnrichResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScoopEnrichResponseResource'
+          description: The primary data of the document
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/ResultMeta'
+          description: Non-standard meta information about the document
+        links:
+          allOf:
+          - $ref: '#/components/schemas/Links'
+          description: Links related to the primary data
+      description: A list of scoop that match the criteria specified in the request
+    TechSkill:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the technology skill.
+        name:
+          type: string
+          description: Name of the technology skill.
+      description: Technology skill identified for a contact.
+    FamilyTree:
+      type: object
+      properties:
+        city:
+          type: string
+          description: City of the company's primary address.
+        state:
+          type: string
+          description: State or province of the company's primary address.
+        companyId:
+          type: integer
+          format: int64
+          description: Unique ZoomInfo identifier for a company.
+        name:
+          type: string
+          description: Company name.
+        familyNodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/FamilyNode'
+          description: Denotes a branch or sub-branch of the family tree within the corporate hierarchy.
+      description: Family tree information.
+    CorporateHierarchyEnrichResponseAttributes:
+      type: object
+      properties:
+        companyId:
+          type: integer
+          format: int64
+          description: Unique ZoomInfo identifier for a company.
+        parentage:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parentage'
+          description: Lists companies higher up in the corporate hierarchy for this company.
+        familyTree:
+          type: array
+          items:
+            $ref: '#/components/schemas/FamilyTree'
+          description: Lists companies and locations in the family tree for this company.
+      description: Corporate hierarchy enrich response attributes.
+    CorporateHierarchyEnrichRequestResource:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: CorporateHierarchyEnrich
+          pattern: CorporateHierarchyEnrich
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/CorporateHierarchyEnrichRequestAttributes'
+          description: The attributes defining the resource
+      description: Corporate hierarchy enrich request resource.
     ContactEnrichRequestCriteria:
       type: object
       properties:
@@ -2328,335 +3291,191 @@ components:
           type: string
           description: Company name.
       description: The Enrich API provides the ability to enrich contact and company data with ZoomInfo's proprietary data.
-    TechnologyEnrichRequest:
+    TechnologyEnrichResponseResource:
       type: object
       required:
-      - data
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/TechnologyEnrichRequestResource'
-          description: The primary data of the document
-      description: Technology enrich request.
-    IntentEnrichRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/IntentEnrichRequestResource'
-          description: The primary data of the document
-      description: Intent enrich request.
-    HashtagEnrichRequestResource:
-      type: object
-      required:
+      - id
       - type
       - attributes
       properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
         type:
           type: string
           description: The type of the resource
-          default: HashtagEnrich
-          pattern: HashtagEnrich
+          default: Technology
+          pattern: Technology
         attributes:
           allOf:
-          - $ref: '#/components/schemas/HashtagEnrichRequestAttributes'
+          - $ref: '#/components/schemas/TechnologyEnrichResponseAttributes'
           description: The attributes defining the resource
-      description: Hashtag enrich request resource.
-    SocialMediaUrl:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Type of social media account. Supported types are Facebook, Twitter (X.com), LinkedIn).
-        url:
-          type: string
-          description: URL for the social media account.
-        followerCount:
-          type: string
-          description: Number of followers for the social media account.
-      description: Social media information for the company.
-    ContactMatchStatus:
-      type: string
-      enum:
-      - FULL_MATCH
-      - NO_MATCH
-      - NON_MATCH_BY_LAST_UPDATED_DATE
-      - NON_MATCH_BY_VALID_DATE
-      - NON_MATCH_BY_REQUIRED_FIELDS
-      - NON_MATCH_BY_CONTACT_ACCURACY_MIN
-      - COMPANY_ONLY_MATCH
-      - CONTACT_ONLY_MATCH
-      - OPT_OUT
-      - LIMIT_EXCEEDED
-      - INVALID_INPUT
-      description: Match status indicating the result of an enrich request.
-      x-enumDescriptions:
-        FULL_MATCH: Match status indicating a full match with all criteria met.
-        NO_MATCH: Match status indicating no match found.
-        LAST_UPDATE_NOT_MATCHED: Match status indicating no match. Contact's last updated date is before requested date for field lastUpdatedDateAfter.
-        VALID_DATE_NOT_MATCHED: Match status indicating no match. Contact's valid date is before requested date for field validDateAfter.
-        REQUIRED_FIELDS_MISSING: Match status indicating no match. Required fields data for the enrich request are missing.
-        CONTACT_ACCURACY_NOT_MATCHED: Match status indicating no match. Contact's contact accuracy score is below the requested minimum for field contactAccuracyScoreMin.
-        COMPANY_MATCH_ONLY: Match status indicating a match with company data only.
-        CONTACT_MATCH_ONLY: Match status indicating a match with contact data only.
-        CONTACT_OPTED_OUT: Match status indicating the contact has opted out of ZoomInfo's data collection.
-        LIMIT_EXCEEDED: Match status indicating the enrich request credit limit has been exceeded.
-        INPUT_ERROR: Match status indicating an error with the input data.
-    CompanyEnrichRequest:
+      description: Technology enrich response resource.
+    IntentEnrichResponse:
       type: object
       required:
       - data
       properties:
         data:
-          allOf:
-          - $ref: '#/components/schemas/CompanyEnrichRequestResource'
+          type: array
+          items:
+            $ref: '#/components/schemas/IntentEnrichResponseResource'
           description: The primary data of the document
-      description: Company enrich request.
-    Links:
-      type: object
-      properties:
-        first:
-          type: string
-          format: uri
-          description: A link to the first page of data
-        last:
-          type: string
-          format: uri
-          description: A link to the last page of data
-        prev:
-          type: string
-          format: uri
-          description: A link to the previous page of data
-        next:
-          type: string
-          format: uri
-          description: A link to the next page of data
-      description: Helpful links for fetching different pages of data from the current result set. When using these links, please provide the exact same request body between requests
-    TechnologyEnrichRequestAttributes:
-      type: object
-      properties:
-        companyId:
-          type: integer
-          format: int64
-          description: Unique ZoomInfo Identifier for the company.
-      description: Request attributes for technology enrich.
-    CorporateHierarchyEnrichRequestCriteria:
-      type: object
-      properties:
-        companyId:
-          type: integer
-          format: int64
-          description: Unique ZoomInfo identifier for a company.
-        companyName:
-          type: string
-          description: Company name.
-        companyWebsite:
-          type: string
-          description: Company website URL in http://www.example.com format.
-      description: Corporate hierarchy enrich request criteria.
-    NonPaginatedResultMeta:
-      type: object
-      required:
-      - totalResults
-      properties:
-        totalResults:
-          type: integer
-          format: uint32
-          description: The total number of results based on the specified filters
-      description: Metadata for non-paginated results, including the total number of results
-    ScoopEnrichRequestResource:
-      type: object
-      required:
-      - type
-      - attributes
-      properties:
-        type:
-          type: string
-          description: The type of the resource
-          default: ScoopEnrich
-          pattern: ScoopEnrich
-        attributes:
+        meta:
           allOf:
-          - $ref: '#/components/schemas/ScoopEnrichRequestAttributes'
-          description: The attributes defining the resource
-      description: Scoop enrich request resource.
-    CompanyFunding:
+          - $ref: '#/components/schemas/ResultMeta'
+          description: Non-standard meta information about the document
+        links:
+          allOf:
+          - $ref: '#/components/schemas/Links'
+          description: Links related to the primary data
+      description: A list of Intent topics that match the criteria specified in the request
+    SubUnitTypeInfo:
+      type: object
+      required:
+      - typeDescription
+      properties:
+        typeId:
+          type: integer
+          description: ID of the sub unit type.
+        typeDescription:
+          type: string
+          description: Description of the sub unit type.
+      description: Denotes the type of sub-unit represented by a family node within the corporate hierarchy.
+    CorporateHierarchyEnrichResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CorporateHierarchyEnrichResponseResourceUnion'
+          description: The primary data of the document
+      description: Corporate hierarchy enrich response.
+    IndustryCode:
       type: object
       properties:
-        date:
+        id:
           type: string
-          description: Date of funding round.
-        type:
+          description: Unique identifier for the industry code.
+        name:
           type: string
-          description: Type of funding round.
-        amount:
-          type: integer
-          format: int64
-          description: Amount of funding round.
-        investors:
+          description: Name of the industry code.
+      description: The industry grouping for the company along with it's codes. A company can have multiple industries.
+    CompanyEnrichRequestAttributes:
+      type: object
+      required:
+      - outputFields
+      - matchCompanyInput
+      properties:
+        outputFields:
           type: array
           items:
             type: string
-          description: Investors in funding round.
-      description: Company funding details.
-    EmployeeCountByDepartment:
+            enum:
+            - alternateLogos
+            - businessModel
+            - certificationDate
+            - certified
+            - city
+            - companyFunding
+            - companyStatus
+            - companyStatusDate
+            - competitors
+            - continent
+            - country
+            - createdDate
+            - departmentBudgets
+            - description
+            - domainList
+            - employeeCount
+            - employeeCountByDepartment
+            - employeeGrowth
+            - employeeRange
+            - engagements
+            - fax
+            - foundedYear
+            - id
+            - industries
+            - industryCodes
+            - isDefunct
+            - lastUpdatedDate
+            - locationCount
+            - locationMatch
+            - logo
+            - metroArea
+            - naicsCodes
+            - name
+            - numberOfContactsInZoomInfo
+            - parentId
+            - parentName
+            - phone
+            - primaryIndustry
+            - primaryIndustryCode
+            - primarySubIndustryCode
+            - products
+            - recentFundingAmount
+            - recentFundingDate
+            - revenue
+            - revenueRange
+            - sicCodes
+            - socialMediaUrls
+            - state
+            - street
+            - subUnitIndustries
+            - subUnitType
+            - ticker
+            - totalFundingAmount
+            - type
+            - ultimateParentEmployees
+            - ultimateParentId
+            - ultimateParentName
+            - ultimateParentRevenue
+            - website
+            - zipCode
+          description: List of fields to be returned in the response.
+        matchCompanyInput:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyEnrichRequestCriteria'
+          minItems: 1
+          maxItems: 25
+          description: List of criteria to match against.
+      description: Company enrich request attributes.
+    NewsResponseAttributes:
       type: object
       properties:
-        cSuite:
-          type: integer
-          format: int32
-          description: CSuite.
-        finance:
-          type: integer
-          format: int32
-          description: Finance.
-        humanResources:
-          type: integer
-          format: int32
-          description: HumanResources.
-        sales:
-          type: integer
-          format: int32
-          description: Sales.
-        operations:
-          type: integer
-          format: int32
-          description: Operations.
-        informationTechnology:
-          type: integer
-          format: int32
-          description: InformationTechnology.
-        engineeringAndTechnical:
-          type: integer
-          format: int32
-          description: EngineeringAndTechnical.
-        marketing:
-          type: integer
-          format: int32
-          description: Marketing.
-        legal:
-          type: integer
-          format: int32
-          description: Legal.
-        medicalAndHealth:
-          type: integer
-          format: int32
-          description: MedicalAndHealth.
-      description: Employee count by department.
-    Education:
-      type: object
-      properties:
-        school:
+        domain:
           type: string
-          description: School name.
-        educationDegree:
-          allOf:
-          - $ref: '#/components/schemas/EducationDegree'
-          description: School type (e.g., High School, College, University).
-      description: Contact education details.
-    CompanyStatus:
-      type: string
-      enum:
-      - NEW
-      - ALIVE
-      - DEFUNCT_DOMAIN_DOWN
-      - DEFUNCT_DECLARATION
-      - DEFUNCT_MANUAL
-      - DEFUNCT_FORMER_NAME
-      - DEFUNCT_ACQUISITION
-      description: Represents the current status of the company
-    HashtagEnrichResponseResource:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
+          description: Domain name of the news source.
+        title:
           type: string
-          description: The unique identifier for the resource
-        type:
+          description: Title of the news article.
+        url:
           type: string
-          description: The type of the resource
-          default: Hashtag
-          pattern: Hashtag
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/HashtagEnrichResponseAttributes'
-          description: The attributes defining the resource
-      description: Hashtag enrich response resource.
-    CompanyEnrichResponseResourceUnion:
-      type: object
-      oneOf:
-      - $ref: '#/components/schemas/EnrichCompany'
-      - $ref: '#/components/schemas/NoMatchCompany'
-      discriminator:
-        propertyName: type
-        mapping:
-          Company: '#/components/schemas/EnrichCompany'
-          NoMatch: '#/components/schemas/NoMatchCompany'
-      description: Represents the possible resource types returned in a company enrich response, including both a successful company match and a no-match result. Used to encapsulate the response resource for company enrichment.
-    LocationMatch:
-      type: object
-      properties:
-        companyId:
-          type: integer
-          format: int64
-          description: Unique ZoomInfo identifier for the company.
-        address:
-          allOf:
-          - $ref: '#/components/schemas/Address'
-          description: Address details for the company's location.
-        addressStatus:
+          description: Full URL of the article.
+        imageUrl:
           type: string
-          description: Address status for the location (CURRENT, VALID, PAST).
-      description: Location details that match address-related input parameters. Includes companyId, address, and addressStatus (CURRENT, VALID, PAST).
-    EnrichContact:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
+          description: URL of the article image.
+        pageDate:
           type: string
-          description: The unique identifier for the resource
-        type:
+          format: date-time
+          description: Publish date of the article.
+        categories:
+          type: array
+          items:
+            type: string
+          description: Categories assigned to the article.
+        description:
           type: string
-          description: The type of the resource
-          default: Contact
-          pattern: Contact
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/ContactEnrichResponseAttributes'
-          description: The attributes defining the resource
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/ContactAttributeMeta'
-          description: Non-standard meta information about the resource
-      description: A matching contact was identified from the provided input data. This result could be either a FULL_MATCH (where both the company and contact information matched), a CONTACT_ONLY_MATCH (only the contact information provided matched and only contact fields requested are returned), or a COMPANY_ONLY_MATCH (only the company information provided matched and only the company fields requested are returned). The match status can be found within the meta object to determine which case was met.
-    DepartmentBudget:
-      type: object
-      properties:
-        marketingBudget:
-          type: integer
-          format: int32
-          description: Marketing budget.
-        financialBudget:
-          type: integer
-          format: int32
-          description: Finance budget.
-        itBudget:
-          type: integer
-          format: int32
-          description: IT budget.
-        hrBudget:
-          type: integer
-          format: int32
-          description: HR budget.
-      description: Department budget details.
+          description: Summary or body of the article.
+        company:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsCompany'
+          description: Companies mentioned in the article.
+      description: Attributes of a single news result.
     CorporateHierarchyEnrichResponseResourceUnion:
       type: object
       oneOf:
@@ -2668,82 +3487,17 @@ components:
           CorporateHierarchy: '#/components/schemas/EnrichCorporateHierarchy'
           NoMatch: '#/components/schemas/NoMatchCorporateHierarchy'
       description: Represents the possible resource types returned in a corporate hierarchy enrich response, including both a successful corporate hierarchy match and a no-match result. Used to encapsulate the response resource for corporate hierarchy enrichment.
-    CorporateHierarchyEnrichRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/CorporateHierarchyEnrichRequestResource'
-          description: The primary data of the document
-      description: Corporate hierarchy enrich request.
-    ContactEnrichResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactEnrichResponseResourceUnion'
-          description: The primary data of the document
-      description: Contact enrich response.
-    ContactAttributeMeta:
-      type: object
-      required:
-      - matchStatus
-      - input
-      properties:
-        matchStatus:
-          allOf:
-          - $ref: '#/components/schemas/ContactMatchStatus'
-          description: The match status for the contact enrich operation, indicating whether a match was found and the type of match.
-        input:
-          allOf:
-          - $ref: '#/components/schemas/ContactEnrichRequestCriteria'
-          description: The input criteria that was used to perform the contact enrich match. This provides traceability for the match result.
-        warnings:
-          type: array
-          items:
-            $ref: '#/components/schemas/Warning'
-          description: Details about any warnings encountered during the validation of the enrich request input criteria.
-      description: Metadata describing the result of a contact enrich match, including the match status and the input criteria used for the match. Used to provide additional context about how the contact enrich response was determined.
-    NewsEnrichResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/NewsEnrichResponseResource'
-          description: The primary data of the document
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/ResultMeta'
-          description: Non-standard meta information about the document
-        links:
-          allOf:
-          - $ref: '#/components/schemas/Links'
-          description: Links related to the primary data
-      description: A list of News that match the criteria specified in the request
-    ZoomInfo.Core.Foundations.ErrorSourceModel:
+    ExternalUrl:
       type: object
       properties:
-        cookie:
+        type:
           type: string
-          description: Identifies the cookie name that caused the issue
-        header:
+          description: Type of social media account (e.g., Facebook, Twitter, LinkedIn).
+        url:
           type: string
-          description: Identifies the header name that caused the error
-        pointer:
-          type: string
-          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
-        parameter:
-          type: string
-          description: The name of the path or query parameter that caused the error
-    NoMatchCorporateHierarchy:
+          description: URL for the social media account.
+      description: Social media URLs for the contact (e.g., Facebook, Twitter, LinkedIn).
+    NoMatchCompany:
       type: object
       required:
       - id
@@ -2759,86 +3513,10 @@ components:
           pattern: NoMatch
         meta:
           allOf:
-          - $ref: '#/components/schemas/CorporateHierarchyAttributeMeta'
+          - $ref: '#/components/schemas/CompanyAttributeMeta'
           description: Non-standard meta information about the resource
-      description: There was not a matching corporate hierarchy found for the provided input or is been filtered out because of match statue - LIMIT_EXCEEDED (User credit limit has been exceeded). Exact details can be found within the meta object including the match status and other accompanying metadata.
-    OrgChartEnrichResponseResource:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: OrgChart
-          pattern: OrgChart
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/OrgChartEnrichResponseAttributes'
-          description: The attributes defining the resource
-      description: Org chart.
-    TechSkill:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the technology skill.
-        name:
-          type: string
-          description: Name of the technology skill.
-      description: Technology skill identified for a contact.
-    IntentEnrichRequestAttributes:
-      type: object
-      required:
-      - topics
-      properties:
-        companyId:
-          type: integer
-          format: int64
-          description: Unique ZoomInfo identifier for a company.
-        companyName:
-          type: string
-          description: Company name.
-        topics:
-          type: array
-          items:
-            type: string
-          description: Intent topics. Accepts an Array of up to 50 Strings. See the 'Intent Topics' Lookup endpoint for values.
-        signalStartDate:
-          type: string
-          format: date
-          description: Start date for a company signaling interest in a topic. Uses YYYY-MM-DD format.
-        signalEndDate:
-          type: string
-          format: date
-          description: End date for a company signaling interest in a topic. Uses YYYY-MM-DD format.
-        signalScoreMin:
-          type: integer
-          format: int32
-          description: Minimum signal score. Use with signalScoreMax to form a range. Minimum score is 60 and maximum is 100.
-        signalScoreMax:
-          type: integer
-          format: int32
-          description: Maximum signal score. Use with signalScoreMin to form a range. Minimum score is 60 and maximum is 100.
-        audienceStrengthMin:
-          type: string
-          description: Minimum audience strength score. Use with audienceStrengthMax to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.
-        audienceStrengthMax:
-          type: string
-          description: Maximum audience strength score. Use with audienceStrengthMin to form a range. Values are A, B, C, D, and E, with A indicating a larger audience.
-        findRecommendedContacts:
-          type: boolean
-          description: Default is true. Set to false to exclude recommended contacts from results.
-        companyWebsite:
-          type: string
-          description: Company website URL in http://www.example.com format. Accepts a comma-separated list.
-      description: Intent enrich request attributes.
-    ScoopEnrichResponse:
+      description: There was not a matching company found for the provided input or is been filtered out because of match statue - LIMIT_EXCEEDED (User credit limit has been exceeded). Exact details can be found within the meta object including the match status and other accompanying metadata.
+    TechnologyEnrichResponse:
       type: object
       required:
       - data
@@ -2846,7 +3524,67 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/ScoopEnrichResponseResource'
+            $ref: '#/components/schemas/TechnologyEnrichResponseResource'
+          description: The primary data of the document
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/NonPaginatedResultMeta'
+          description: Non-standard meta information about the document
+      description: Technology enrich response.
+    NoMatchContact:
+      type: object
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the resource
+        type:
+          type: string
+          description: The type identifier of the resource
+          default: NoMatch
+          pattern: NoMatch
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/ContactAttributeMeta'
+          description: Non-standard meta information about the resource
+      description: There was not a matching contact found for the provided input or is been filtered out because either of match statues - NON_MATCH_BY_LAST_UPDATED_DATE (Contact's last updated date is before requested date for field lastUpdatedDateAfter), NON_MATCH_BY_VALID_DATE (Contact's valid date is before requested date for field validDateAfter), NON_MATCH_BY_REQUIRED_FIELDS (Required fields data for the enrich request are missing), NON_MATCH_BY_CONTACT_ACCURACY_MIN (Contact's contact accuracy score is below the requested minimum for field contactAccuracyScoreMin), OPT_OUT (Contact has opted out of ZoomInfo's data collection), LIMIT_EXCEEDED (User credit limit has been exceeded). Exact details can be found within the meta object including the match status and other accompanying metadata.
+    RecommendedContact:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Unique ZoomInfo identifier for the contact.
+        firstName:
+          type: string
+          description: Contact first name.
+        lastName:
+          type: string
+          description: Contact last name.
+        jobTitle:
+          type: string
+          description: Contact job title at current place of employment.
+        companyName:
+          type: string
+          description: Company name of the contact.
+        jobFunctions:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobFunction'
+          description: Contact's job functions. This is an array of job functions that the contact holds or has held.
+      description: Recommended contact for intent search response.
+    OrgChartEnrichResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrgChartEnrichResponseResource'
           description: The primary data of the document
         meta:
           allOf:
@@ -2856,17 +3594,53 @@ components:
           allOf:
           - $ref: '#/components/schemas/Links'
           description: Links related to the primary data
-      description: A list of scoop that match the criteria specified in the request
-    OrgChartEnrichRequest:
+      description: Org charts that match the criteria specified in the request
+    CompanyEnrichResponse:
       type: object
       required:
       - data
       properties:
         data:
-          allOf:
-          - $ref: '#/components/schemas/OrgChartEnrichRequestResource'
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyEnrichResponseResourceUnion'
           description: The primary data of the document
-      description: Org chart enrich request.
+      description: Company enrich response.
+    ScoopContact:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique ZoomInfo identifier for a person.
+        firstName:
+          type: string
+          description: Contact first name.
+        lastName:
+          type: string
+          description: Contact last name.
+        jobTitle:
+          type: string
+          description: Contact job title at current place of employment.
+        jobFunction:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobFunction'
+          description: Contact job function at their current place of employment.
+      description: ScoopContact
+    TopSignalLocation:
+      type: object
+      properties:
+        city:
+          type: string
+          description: City for the intent's signal location.
+        country:
+          type: string
+          description: Country for the intent's signal location.
+        state:
+          type: string
+          description: State for the intent's signal location.
+      description: Intent enrich request attributes.
     ContactCompanyEnrich:
       type: object
       properties:
@@ -2991,342 +3765,6 @@ components:
           type: string
           description: Contact primary division name at current place of employment.
       description: Contact's company data for an enrich request.
-    PrimarySubIndustryCode:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the sub-industry code.
-        name:
-          type: string
-          description: Name of the sub-industry code.
-      description: Top-level sub-industry for a company along with its code.
-    OrgChartEnrichResponseAttributes:
-      type: object
-      properties:
-        firstName:
-          type: string
-          description: Contact first name.
-        middleName:
-          type: string
-          description: Contact middle name
-        lastName:
-          type: string
-          description: Contact last name.
-        lastUpdatedDate:
-          type: string
-          description: Date on which the contact record was last updated.
-        title:
-          type: string
-          description: Contact job title at current place of employment.
-        hasEmail:
-          type: boolean
-          description: Indicates whether ZoomInfo has an email address for the contact.
-        hasDirectPhone:
-          type: boolean
-          description: Indicates whether ZoomInfo has a direct phone number for the contact.
-        department:
-          type: string
-          description: Contact department at current place of employment.
-        jobFunction:
-          type: string
-          description: Contact job function at current place of employment.
-        orgChartTier:
-          type: integer
-          format: int32
-          description: Integer representing hierarchy within a department, with 1 being the highest.
-        orgChartSubTier:
-          type: integer
-          format: int32
-          description: Secondary tier within orgChartTier.
-        contactAccuracyScore:
-          type: number
-          format: double
-          description: This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 75 and maximum is 99.
-        companyId:
-          type: string
-          description: Unique ZoomInfo identifier for a company.
-        companyName:
-          type: string
-          description: Company name.
-      description: Org chart enrich response attributes.
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
-    Competitor:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique ZoomInfo identifier for the competitor.
-        name:
-          type: string
-          description: Name of the competitor.
-        rank:
-          type: integer
-          format: int32
-          description: Ranking of the competitor.
-        website:
-          type: string
-          description: Website of the competitor.
-        employeeCount:
-          type: integer
-          format: int32
-          description: EmployeeCount of the competitor.
-      description: Competitor details.
-    ContactEnrichRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/ContactEnrichRequestResource'
-          description: The primary data of the document
-      description: Contact enrich request.
-    OrgChartEnrichRequestResource:
-      type: object
-      required:
-      - type
-      - attributes
-      properties:
-        type:
-          type: string
-          description: The type of the resource
-          default: OrgChartEnrich
-          pattern: OrgChartEnrich
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/OrgChartEnrichRequestAttributes'
-          description: The attributes defining the resource
-      description: Org chart enrich request resource.
-    ScoopContact:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique ZoomInfo identifier for a person.
-        firstName:
-          type: string
-          description: Contact first name.
-        lastName:
-          type: string
-          description: Contact last name.
-        jobTitle:
-          type: string
-          description: Contact job title at current place of employment.
-        jobFunction:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobFunction'
-          description: Contact job function at their current place of employment.
-      description: ScoopContact
-    SubUnitTypeInfo:
-      type: object
-      required:
-      - typeDescription
-      properties:
-        typeId:
-          type: integer
-          description: ID of the sub unit type.
-        typeDescription:
-          type: string
-          description: Description of the sub unit type.
-      description: Denotes the type of sub-unit represented by a family node within the corporate hierarchy.
-    Parentage:
-      type: object
-      properties:
-        city:
-          type: string
-          description: City of the company's primary address.
-        state:
-          type: string
-          description: State or province of the company's primary address.
-        companyId:
-          type: string
-          description: Unique ZoomInfo identifier for a company.
-        companyName:
-          type: string
-          description: Company name.
-        subUnitType:
-          type: string
-          description: Company sub types (e.g., division, subsidiary). Use this in conjunction with parentId or ultimateParentId.
-        subUnitDesc:
-          type: string
-          description: Contains a description of the sub unit listed in the corporate hierarchy.
-        acquiredByDate:
-          type: string
-          description: Denotes the date when the parent company acquired the input company if available.
-      description: Lists companies higher up in the corporate hierarchy for this company.
-    ZoomInfo.Core.Foundations.ErrorModel:
-      type: object
-      required:
-      - id
-      - code
-      - status
-      properties:
-        id:
-          type: string
-          description: The unique id used to identify this specific error instance
-        code:
-          type: string
-          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
-        detail:
-          type: string
-          description: Message containing the specific details about this occurrence of the error
-        source:
-          allOf:
-          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
-          description: An optional object identifying which part of the request caused the error
-        status:
-          type: string
-          description: The HTTP status code for the error
-        title:
-          type: string
-          description: The error name that describes this type of error
-      description: The object describing a specific error from the API
-    SicCode:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the SIC code.
-        name:
-          type: string
-          description: Name of the SIC code.
-      description: The Standard Industrial Classification is a system for classifying industries by a four-digit code.
-    IntentEnrichResponseResource:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: Intent
-          pattern: Intent
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/IntentEnrichResponseAttributes'
-          description: The attributes defining the resource
-      description: Intent
-    CompanyEnrichRequestResource:
-      type: object
-      required:
-      - type
-      - attributes
-      properties:
-        type:
-          type: string
-          description: The type of the resource
-          default: CompanyEnrich
-          pattern: CompanyEnrich
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/CompanyEnrichRequestAttributes'
-          description: The attributes defining the resource
-      description: Company enrich request resource.
-    IndustryCode:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the industry code.
-        name:
-          type: string
-          description: Name of the industry code.
-      description: The industry grouping for the company along with it's codes. A company can have multiple industries.
-    IntentEnrichRequestResource:
-      type: object
-      required:
-      - type
-      - attributes
-      properties:
-        type:
-          type: string
-          description: The type of the resource
-          default: IntentEnrich
-          pattern: IntentEnrich
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/IntentEnrichRequestAttributes'
-          description: The attributes defining the resource
-      description: Intent enrich request resource.
-    CorporateHierarchyEnrichResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CorporateHierarchyEnrichResponseResourceUnion'
-          description: The primary data of the document
-      description: Corporate hierarchy enrich response.
-    HashtagEnrichResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/HashtagEnrichResponseResource'
-          description: The primary data of the document
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/NonPaginatedResultMeta'
-          description: Non-standard meta information about the document
-      description: Hashtag enrich response.
-    CompanyEnrichResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CompanyEnrichResponseResourceUnion'
-          description: The primary data of the document
-      description: Company enrich response.
-    CorporateHierarchyEnrichRequestResource:
-      type: object
-      required:
-      - type
-      - attributes
-      properties:
-        type:
-          type: string
-          description: The type of the resource
-          default: CorporateHierarchyEnrich
-          pattern: CorporateHierarchyEnrich
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/CorporateHierarchyEnrichRequestAttributes'
-          description: The attributes defining the resource
-      description: Corporate hierarchy enrich request resource.
-    EmploymentCompany:
-      type: object
-      properties:
-        companyId:
-          type: integer
-          format: int64
-          description: Unique ZoomInfo identifier for a company.
-        companyName:
-          type: string
-          description: Company name.
-        companyPhone:
-          type: string
-          description: Company phone.
-        companyWebsite:
-          type: string
-          description: Company website URL in http://www.example.com format.
-      description: Company for match.
     IntentCompany:
       type: object
       properties:
@@ -3343,26 +3781,38 @@ components:
           type: boolean
           description: Indicates whether a company has other topics with increased consumption. Values are true and false.
       description: ZoomInfo Company
-    NewsEnrichResponseResource:
+    TechnologyEnrichRequestAttributes:
       type: object
-      required:
-      - id
-      - type
-      - attributes
       properties:
-        id:
+        companyId:
+          type: integer
+          format: int64
+          description: Unique ZoomInfo Identifier for the company.
+      description: Request attributes for technology enrich.
+    EmploymentHistory:
+      type: object
+      properties:
+        jobTitle:
           type: string
-          description: The unique identifier for the resource
-        type:
+          description: Contact title at current place of employment
+        managementLevel:
+          type: array
+          items:
+            type: string
+          description: Contact management level
+        fromDate:
           type: string
-          description: The type of the resource
-          default: News
-          pattern: News
-        attributes:
+          format: date
+          description: Start date for this employment. Uses YYYY-MM-DD format.
+        toDate:
+          type: string
+          format: date
+          description: End date for this employment. Uses YYYY-MM-DD format.
+        company:
           allOf:
-          - $ref: '#/components/schemas/NewsResponseAttributes'
-          description: The attributes defining the resource
-      description: News
+          - $ref: '#/components/schemas/EmploymentCompany'
+          description: Company for employment
+      description: Contact employment history
     ContactDataWithSource:
       type: object
       properties:
@@ -3373,198 +3823,6 @@ components:
           type: string
           description: The source identifier indicating which data source provided this value.
       description: Alternative phone number or email with its source identifier.
-    ContactEnrichRequestResource:
-      type: object
-      required:
-      - type
-      - attributes
-      properties:
-        type:
-          type: string
-          description: The type of the resource
-          default: ContactEnrich
-          pattern: ContactEnrich
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/ContactEnrichRequestAttributes'
-          description: The attributes defining the resource
-      description: Contact enrich request resource.
-    NewsEnrichRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/NewsEnrichResource'
-          description: The primary data of the document
-      description: News enrich request.
-    ScoopEnrichRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/ScoopEnrichRequestResource'
-          description: The primary data of the document
-      description: Scoop enrich request.
-    TechnologyEnrichResponseAttributes:
-      type: object
-      properties:
-        categoryParent:
-          type: string
-          description: Parent Category for the retrieved data.
-        category:
-          type: string
-          description: Category for the retrieved data.
-        vendor:
-          type: string
-          description: Vendor associated with the data being returned.
-        product:
-          type: string
-          description: Product associated with the data being returned.
-        attribute:
-          type: string
-          description: Attribute of the technology.
-        website:
-          type: string
-          description: Website associated with the data being returned.
-        logo:
-          type: string
-          description: The URL which can be used to retrieve the logo.
-        domain:
-          type: string
-          description: Domain associated with the data being returned.
-        createdDate:
-          type: string
-          format: date
-          description: Date when the data was created. Uses YYYY-MM-DD format.
-        modifiedDate:
-          type: string
-          format: date
-          description: Date when the data was last modified. Uses YYYY-MM-DD format.
-        description:
-          type: string
-          description: Description of the data being returned.
-      description: Technology enrich response attributes.
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
-    NewsCompany:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique ZoomInfo identifier for the company.
-        name:
-          type: string
-          description: Company name.
-      description: Company related to the news article.
-    Page:
-      type: object
-      required:
-      - total
-      - number
-      properties:
-        total:
-          type: integer
-          format: uint32
-          description: The total number of pages within the current result set
-        number:
-          type: integer
-          format: uint32
-          description: The current page number of the results
-      description: Meta information related to the current page and total number of pages
-    ResultMeta:
-      type: object
-      required:
-      - totalResults
-      - page
-      properties:
-        totalResults:
-          type: integer
-          format: uint32
-          description: The total number of results based on the specified filters
-        page:
-          allOf:
-          - $ref: '#/components/schemas/Page'
-          description: Paging information for the current result set
-      description: Metadata including paging information and the total number of records in the result set
-    FamilyNode:
-      type: object
-      required:
-      - subUnitTypeInfo
-      properties:
-        city:
-          type: string
-          description: City of the company's primary address.
-        state:
-          type: string
-          description: State or province of the company's primary address.
-        name:
-          type: string
-          description: Company name.
-        companyId:
-          type: integer
-          format: int64
-          description: Unique ZoomInfo identifier for a company.
-        subUnitTypeInfo:
-          allOf:
-          - $ref: '#/components/schemas/SubUnitTypeInfo'
-          description: Denotes the type of sub-unit represented by a family node within the corporate hierarchy.
-        familyNodes:
-          description: Denotes a branch or sub-branch of the family tree within the corporate hierarchy.
-          type: array
-          items:
-            $ref: '#/components/schemas/FamilyNode'
-      description: Family node information.
-    NewsResponseAttributes:
-      type: object
-      properties:
-        domain:
-          type: string
-          description: Domain name of the news source.
-        title:
-          type: string
-          description: Title of the news article.
-        url:
-          type: string
-          description: Full URL of the article.
-        imageUrl:
-          type: string
-          description: URL of the article image.
-        pageDate:
-          type: string
-          format: date-time
-          description: Publish date of the article.
-        categories:
-          type: array
-          items:
-            type: string
-          description: Categories assigned to the article.
-        description:
-          type: string
-          description: Summary or body of the article.
-        company:
-          type: array
-          items:
-            $ref: '#/components/schemas/NewsCompany'
-          description: Companies mentioned in the article.
-      description: Attributes of a single news result.
-    ContactEnrichResponseResourceUnion:
-      type: object
-      oneOf:
-      - $ref: '#/components/schemas/EnrichContact'
-      - $ref: '#/components/schemas/NoMatchContact'
-      discriminator:
-        propertyName: type
-        mapping:
-          Contact: '#/components/schemas/EnrichContact'
-          NoMatch: '#/components/schemas/NoMatchContact'
-      description: Represents the possible resource types returned in a contact enrich response, including both a successful contact match and a no-match result. Used to encapsulate the response resource for contact enrichment.
     HashtagEnrichResponseAttributes:
       type: object
       properties:
@@ -3601,32 +3859,6 @@ components:
           description: Label for the hashtag.
       description: Hashtag enrich response Attributes.
       x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
-    RecommendedContact:
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Unique ZoomInfo identifier for the contact.
-        firstName:
-          type: string
-          description: Contact first name.
-        lastName:
-          type: string
-          description: Contact last name.
-        jobTitle:
-          type: string
-          description: Contact job title at current place of employment.
-        companyName:
-          type: string
-          description: Company name of the contact.
-        jobFunctions:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobFunction'
-          description: Contact's job functions. This is an array of job functions that the contact holds or has held.
-      description: Recommended contact for intent search response.
     CompanyEnrichResponseAttributes:
       type: object
       properties:
@@ -3861,399 +4093,7 @@ components:
           description: List of the company's engagements. Includes the date and type of each engagement.
       description: Company enrich response attributes.
       x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
-    TechnologyEnrichResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TechnologyEnrichResponseResource'
-          description: The primary data of the document
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/NonPaginatedResultMeta'
-          description: Non-standard meta information about the document
-      description: Technology enrich response.
-    Warning:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Warning code.
-        message:
-          type: string
-          description: Warning message.
-        fields:
-          type: array
-          items:
-            type: string
-          description: Fields associated with the warning.
-      description: Warning details for validation issues.
-    Address:
-      type: object
-      properties:
-        street:
-          type: string
-          description: Street portion of the company's location.
-        city:
-          type: string
-          description: City of the company's primary address.
-        state:
-          type: string
-          description: State or province of the company's address.
-        country:
-          type: string
-          description: Country of the company's primary address.
-        zipCode:
-          type: string
-          description: Zip code or postal code of the company's address.
-      description: Address details for the company's location.
-    FamilyTree:
-      type: object
-      properties:
-        city:
-          type: string
-          description: City of the company's primary address.
-        state:
-          type: string
-          description: State or province of the company's primary address.
-        companyId:
-          type: integer
-          format: int64
-          description: Unique ZoomInfo identifier for a company.
-        name:
-          type: string
-          description: Company name.
-        familyNodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/FamilyNode'
-          description: Denotes a branch or sub-branch of the family tree within the corporate hierarchy.
-      description: Family tree information.
-    JobFunction:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the job function.
-        department:
-          type: string
-          description: Department associated with the job function.
-      description: Contact job function at current place of employment.
-    Engagement:
-      type: object
-      properties:
-        engagementDate:
-          type: string
-          format: date-time
-          description: Date of engagement.
-        engagementType:
-          type: string
-          description: Type of engagement.
-      description: Engagement details.
-    NewsEnrichResource:
-      type: object
-      required:
-      - type
-      - attributes
-      properties:
-        type:
-          type: string
-          description: The type of the resource
-          default: NewsEnrich
-          pattern: NewsEnrich
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/NewsEnrichRequestAttributes'
-          description: The attributes defining the resource
-      description: News enrich request resource.
-    NaicsCode:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the NAICS code.
-        name:
-          type: string
-          description: Name of the NAICS code.
-      description: The North American Industry Classification System (NAICS) is the standard used by Federal statistical agencies in classifying business establishments for the purpose of collecting, analyzing, and publishing statistical data related to the U.S. business economy.
-    TechnologyEnrichRequestResource:
-      type: object
-      required:
-      - type
-      - attributes
-      properties:
-        type:
-          type: string
-          description: The type of the resource
-          default: TechnologyEnrich
-          pattern: TechnologyEnrich
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/TechnologyEnrichRequestAttributes'
-          description: The attributes defining the resource
-      description: Technology enrich request resource.
-    CompanyAttributeMeta:
-      type: object
-      required:
-      - matchStatus
-      - input
-      properties:
-        matchStatus:
-          allOf:
-          - $ref: '#/components/schemas/CompanyMatchStatus'
-          description: The match status for the company enrich operation, indicating whether a match was found and the type of match.
-        input:
-          allOf:
-          - $ref: '#/components/schemas/CompanyEnrichRequestCriteria'
-          description: The input criteria that was used to perform the company enrich match. This provides traceability for the match result.
-        warnings:
-          type: array
-          items:
-            $ref: '#/components/schemas/Warning'
-          description: Details about any warnings encountered during the validation of the enrich request input criteria.
-      description: Metadata describing the result of a company enrich match, including the match status and the input criteria used for the match. Used to provide additional context about how the company enrich response was determined.
-    NoMatchCompany:
-      type: object
-      required:
-      - id
-      - type
-      properties:
-        id:
-          type: string
-          description: The unique identifier of the resource
-        type:
-          type: string
-          description: The type identifier of the resource
-          default: NoMatch
-          pattern: NoMatch
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/CompanyAttributeMeta'
-          description: Non-standard meta information about the resource
-      description: There was not a matching company found for the provided input or is been filtered out because of match statue - LIMIT_EXCEEDED (User credit limit has been exceeded). Exact details can be found within the meta object including the match status and other accompanying metadata.
-    ScoopCompany:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ZoomInfo identifier for a company.
-        name:
-          type: string
-          description: Company name.
-      description: ScoopCompany
-    PrimaryIndustryCode:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the industry code.
-        name:
-          type: string
-          description: Name of the industry code.
-      description: Top-level industry for a company along with its code.
-    EducationDegree:
-      type: object
-      properties:
-        degree:
-          type: string
-          description: Degree type (e.g., Bachelor of Science, Master of Arts, Doctor of Philosophy).
-        areaOfStudy:
-          type: string
-          description: Area of study for the degree (e.g., Computer Science, Business Administration, Economics).
-      description: Education degree for match
-    CorporateHierarchyEnrichResponseAttributes:
-      type: object
-      properties:
-        companyId:
-          type: integer
-          format: int64
-          description: Unique ZoomInfo identifier for a company.
-        parentage:
-          type: array
-          items:
-            $ref: '#/components/schemas/Parentage'
-          description: Lists companies higher up in the corporate hierarchy for this company.
-        familyTree:
-          type: array
-          items:
-            $ref: '#/components/schemas/FamilyTree'
-          description: Lists companies and locations in the family tree for this company.
-      description: Corporate hierarchy enrich response attributes.
-    ContactEnrichRequestAttributes:
-      type: object
-      required:
-      - outputFields
-      - matchPersonInput
-      properties:
-        outputFields:
-          type: array
-          items:
-            type: string
-            enum:
-            - city
-            - companyAlternateLogos
-            - companyCity
-            - companyContinent
-            - companyCountry
-            - companyDescription
-            - companyDivision
-            - companyEmployeeCount
-            - companyEmployeeGrowth
-            - companyEmployeeRange
-            - companyFax
-            - companyId
-            - companyIndustries
-            - companyIndustryCodes
-            - companyLogo
-            - companyNaicsCodes
-            - companyName
-            - companyPhone
-            - companyPrimaryIndustry
-            - companyPrimaryIndustryCode
-            - companyPrimarySubIndustryCode
-            - companyRanking
-            - companyRevenue
-            - companyRevenueNumeric
-            - companyRevenueRange
-            - companySicCodes
-            - companySocialMediaUrls
-            - companyState
-            - companyStreet
-            - companyTicker
-            - companyType
-            - companyWebsite
-            - companyZipCode
-            - contactAccuracyScore
-            - continent
-            - country
-            - directPhoneAlt
-            - directPhoneDoNotCall
-            - education
-            - email
-            - emailAlt
-            - employmentHistory
-            - engagements
-            - externalUrls
-            - firstName
-            - hasCanadianEmail
-            - hashedEmails
-            - id
-            - isDefunct
-            - jobFunction
-            - jobTitle
-            - lastName
-            - lastUpdatedDate
-            - locationCompanyId
-            - managementLevel
-            - metroArea
-            - middleName
-            - mobilePhone
-            - mobilePhoneAlt
-            - mobilePhoneDoNotCall
-            - noticeProvidedDate
-            - personHasMoved
-            - phone
-            - picture
-            - positionStartDate
-            - region
-            - salutation
-            - state
-            - street
-            - suffix
-            - supplementalEmail
-            - techSkills
-            - validDate
-            - withinCalifornia
-            - withinCanada
-            - withinEu
-            - yearsOfExperience
-            - zipCode
-          description: Specifies the fields to include in the response. To request company-related fields for a contact, use camel-case field names corresponding to the company object (e.g., companyName, companyPhone, companyId, companyRevenue).
-        requiredFields:
-          type: array
-          items:
-            type: string
-          description: List of fields that are required for the match.
-        matchPersonInput:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactEnrichRequestCriteria'
-          minItems: 1
-          maxItems: 25
-          description: List of matchPersonInput.
-      description: Contact enrich request attributes.
-    CompanyEnrichRequestCriteria:
-      type: object
-      properties:
-        companyId:
-          type: integer
-          format: int64
-          description: Unique ZoomInfo identifier for a company.
-        companyName:
-          type: string
-          description: Company name.
-        companyWebsite:
-          type: string
-          description: Company website URL in http://www.example.com format. Accepts a comma-separated list.
-        companyTicker:
-          type: string
-          description: Company stock ticker symbol.
-        companyPhone:
-          type: string
-          description: Phone number of the company headquarters.
-        companyFax:
-          type: string
-          description: Fax number of the company headquarters.
-        companyStreet:
-          type: string
-          description: Street portion of the company's primary address.
-        companyCity:
-          type: string
-          description: City portion of the company's primary address.
-        companyState:
-          type: string
-          description: Company state (U.S.) or province (Canada). You can use free text state or province names (e.g., 'new hampshire'), or the two-letter common abbreviation for a U.S. state (e.g., 'nh').
-        companyZipCode:
-          type: string
-          description: Zip code or postal code of the company's primary address.
-        companyCountry:
-          type: string
-          description: Country of the company's primary address. You can use free text or see the Country lookup endpoint for values.
-        ipAddress:
-          type: string
-          description: IP address associated with the company.
-      description: Company enrich request criteria.
-    CorporateHierarchyEnrichRequestAttributes:
-      type: object
-      required:
-      - outputFields
-      - matchCompanyInput
-      properties:
-        outputFields:
-          type: array
-          items:
-            type: string
-          description: List of fields to be returned in the response.
-        matchCompanyInput:
-          type: array
-          items:
-            $ref: '#/components/schemas/CorporateHierarchyEnrichRequestCriteria'
-          minItems: 1
-          maxItems: 25
-          description: List of criteria to match against.
-      description: Corporate hierarchy enrich request attributes.
-    HashtagEnrichRequestAttributes:
-      type: object
-      properties:
-        companyId:
-          type: integer
-          format: int64
-          description: Unique ZoomInfo Identifier for the company.
-      description: Request attributes for hashtag enrich.
-    EnrichCompany:
+    ScoopEnrichResponseResource:
       type: object
       required:
       - id
@@ -4266,28 +4106,14 @@ components:
         type:
           type: string
           description: The type of the resource
-          default: Company
-          pattern: Company
+          default: Scoop
+          pattern: Scoop
         attributes:
           allOf:
-          - $ref: '#/components/schemas/CompanyEnrichResponseAttributes'
+          - $ref: '#/components/schemas/ScoopEnrichResponseAttributes'
           description: The attributes defining the resource
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/CompanyAttributeMeta'
-          description: Non-standard meta information about the resource
-      description: A matching company was identified from the provided input data. This result will always be a FULL_MATCH (where the company information matched). The match status can be found within the meta object for reference.
-    ExternalUrl:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Type of social media account (e.g., Facebook, Twitter, LinkedIn).
-        url:
-          type: string
-          description: URL for the social media account.
-      description: Social media URLs for the contact (e.g., Facebook, Twitter, LinkedIn).
-    IntentEnrichResponse:
+      description: Scoop
+    ContactEnrichResponse:
       type: object
       required:
       - data
@@ -4295,36 +4121,210 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/IntentEnrichResponseResource'
+            $ref: '#/components/schemas/ContactEnrichResponseResourceUnion'
           description: The primary data of the document
-        meta:
+      description: Contact enrich response.
+    CompanyEnrichRequestResource:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: CompanyEnrich
+          pattern: CompanyEnrich
+        attributes:
           allOf:
-          - $ref: '#/components/schemas/ResultMeta'
-          description: Non-standard meta information about the document
-        links:
+          - $ref: '#/components/schemas/CompanyEnrichRequestAttributes'
+          description: The attributes defining the resource
+      description: Company enrich request resource.
+    ScoopCompany:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ZoomInfo identifier for a company.
+        name:
+          type: string
+          description: Company name.
+      description: ScoopCompany
+    ContactEnrichRequestResource:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: ContactEnrich
+          pattern: ContactEnrich
+        attributes:
           allOf:
-          - $ref: '#/components/schemas/Links'
-          description: Links related to the primary data
-      description: A list of Intent topics that match the criteria specified in the request
-    NoMatchContact:
+          - $ref: '#/components/schemas/ContactEnrichRequestAttributes'
+          description: The attributes defining the resource
+      description: Contact enrich request resource.
+    HashtagEnrichRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/HashtagEnrichRequestResource'
+          description: The primary data of the document
+      description: Hashtag enrich request.
+    EmployeeCountByDepartment:
+      type: object
+      properties:
+        cSuite:
+          type: integer
+          format: int32
+          description: CSuite.
+        finance:
+          type: integer
+          format: int32
+          description: Finance.
+        humanResources:
+          type: integer
+          format: int32
+          description: HumanResources.
+        sales:
+          type: integer
+          format: int32
+          description: Sales.
+        operations:
+          type: integer
+          format: int32
+          description: Operations.
+        informationTechnology:
+          type: integer
+          format: int32
+          description: InformationTechnology.
+        engineeringAndTechnical:
+          type: integer
+          format: int32
+          description: EngineeringAndTechnical.
+        marketing:
+          type: integer
+          format: int32
+          description: Marketing.
+        legal:
+          type: integer
+          format: int32
+          description: Legal.
+        medicalAndHealth:
+          type: integer
+          format: int32
+          description: MedicalAndHealth.
+      description: Employee count by department.
+    HashtagEnrichResponseResource:
       type: object
       required:
       - id
       - type
+      - attributes
       properties:
         id:
           type: string
-          description: The unique identifier of the resource
+          description: The unique identifier for the resource
         type:
           type: string
-          description: The type identifier of the resource
-          default: NoMatch
-          pattern: NoMatch
-        meta:
+          description: The type of the resource
+          default: Hashtag
+          pattern: Hashtag
+        attributes:
           allOf:
-          - $ref: '#/components/schemas/ContactAttributeMeta'
-          description: Non-standard meta information about the resource
-      description: There was not a matching contact found for the provided input or is been filtered out because either of match statues - NON_MATCH_BY_LAST_UPDATED_DATE (Contact's last updated date is before requested date for field lastUpdatedDateAfter), NON_MATCH_BY_VALID_DATE (Contact's valid date is before requested date for field validDateAfter), NON_MATCH_BY_REQUIRED_FIELDS (Required fields data for the enrich request are missing), NON_MATCH_BY_CONTACT_ACCURACY_MIN (Contact's contact accuracy score is below the requested minimum for field contactAccuracyScoreMin), OPT_OUT (Contact has opted out of ZoomInfo's data collection), LIMIT_EXCEEDED (User credit limit has been exceeded). Exact details can be found within the meta object including the match status and other accompanying metadata.
+          - $ref: '#/components/schemas/HashtagEnrichResponseAttributes'
+          description: The attributes defining the resource
+      description: Hashtag enrich response resource.
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    ScoopEnrichResponseAttributes:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ZoomInfo unique identifier for a scoop.
+        publishedDate:
+          type: string
+          format: date-time
+          description: Date when a scoop was published.
+        originalPublishedDate:
+          type: string
+          format: date-time
+          description: Date when a scoop was originally published.
+        linkText:
+          type: string
+          description: Link text for a scoop.
+        link:
+          type: string
+          description: URL for a scoop.
+        description:
+          type: string
+          description: Description associated with the scoop
+        topics:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+          description: Scoop topics.
+        updateText:
+          type: string
+          description: Text related to an updated scoop.
+        types:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+          description: Types associated with a scoop.
+        company:
+          allOf:
+          - $ref: '#/components/schemas/ScoopCompany'
+          description: Company
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScoopContact'
+          description: Contacts associated with a scoop.
+      description: Scoop enrich response attributes.
+    IntentEnrichResponseResource:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: Intent
+          pattern: Intent
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/IntentEnrichResponseAttributes'
+          description: The attributes defining the resource
+      description: Intent
   securitySchemes:
     OAuth2Auth:
       type: oauth2

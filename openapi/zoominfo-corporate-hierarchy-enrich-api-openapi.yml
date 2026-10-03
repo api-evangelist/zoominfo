@@ -574,527 +574,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Data31:
-      title: Data31
-      required:
-      - outputFields
-      - result
-      type: object
-      properties:
-        outputFields:
-          type: array
-          items:
-            type: array
-            items:
-              type: string
-          example: []
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result15'
-          description: ''
-          example: []
-    MatchCompanyInput2:
-      title: MatchCompanyInput2
-      required:
-      - companyName
-      type: object
-      properties:
-        companyName:
-          type: string
-          example: Acme Corporation
-      examples:
-      - companyName: zoominfo
-    CorporateHierarchyEnrichRequest:
-      title: CorporateHierarchyEnrichRequest
-      required:
-      - matchCompanyInput
-      - outputFields
-      type: object
-      properties:
-        matchCompanyInput:
-          type: array
-          items:
-            $ref: '#/components/schemas/MatchCompanyInput2'
-          description: ''
-          example: []
-        outputFields:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-      examples:
-      - matchCompanyInput:
-        - companyName: zoominfo
-        outputFields:
-        - parentage
-        - familyTree
-        - companyId
-    FamilyNode1:
-      title: FamilyNode1
-      required:
-      - companyId
-      - name
-      - city
-      - state
-      - subUnitTypeInfo
-      type: object
-      properties:
-        companyId:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-        city:
-          type: string
-          example: San Francisco
-        state:
-          type: string
-          example: CA
-        subUnitTypeInfo:
-          $ref: '#/components/schemas/SubUnitTypeInfo'
-        familyNodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/FamilyNode2'
-          description: ''
-          example: []
-      examples:
-      - companyId: 357334302
-        name: LeadLedger LLC
-        city: San Francisco
-        state: California
-        subUnitTypeInfo:
-          typeId: 3
-          typeDescription: ''
-    Result15:
-      title: Result15
-      required:
-      - input
-      - data
-      type: object
-      properties:
-        input:
-          $ref: '#/components/schemas/Input15'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Data32'
-          description: ''
-          example: []
-      examples:
-      - input:
-          companyname: zoominfo
-        data:
-        - parentage: []
-          familyTree:
-          - companyId: 344589814
-            name: Zoom Information, Inc.
-            city: Vancouver
-            state: Washington
-            familyNodes:
-            - companyId: 440083468
-              name: ''
-              city: Grand Rapids
-              state: Michigan
-              subUnitTypeInfo:
-                typeId: 1
-                typeDescription: Location
-            - companyId: 444874817
-              name: ''
-              city: Ra'anana
-              state: Central District
-              subUnitTypeInfo:
-                typeId: 1
-                typeDescription: Location
-            - companyId: 12715058
-              name: Eliyon Technologies Corp.
-              city: Cambridge
-              state: Massachusetts
-              subUnitTypeInfo:
-                typeId: 5
-                typeDescription: ''
-            - companyId: 356263316
-              name: Datanyze Inc
-              city: San Mateo
-              state: California
-              subUnitTypeInfo:
-                typeId: 3
-                typeDescription: ''
-              familyNodes:
-              - companyId: 357334302
-                name: LeadLedger LLC
-                city: San Francisco
-                state: California
-                subUnitTypeInfo:
-                  typeId: 3
-                  typeDescription: ''
-              - companyId: 370064497
-                name: ''
-                city: San Mateo
-                state: California
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 370092210
-                name: ''
-                city: San Mateo
-                state: California
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-            - companyId: 346572700
-              name: DiscoverOrg LLC
-              city: Vancouver
-              state: Washington
-              subUnitTypeInfo:
-                typeId: 4
-                typeDescription: ''
-              familyNodes:
-              - companyId: 360079580
-                name: ''
-                city: Vancouver
-                state: Washington
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 362940152
-                name: ''
-                city: Columbus
-                state: Ohio
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 372341509
-                name: ''
-                city: Narberth
-                state: Pennsylvania
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 417210616
-                name: ''
-                city: Bethesda
-                state: Maryland
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 433070340
-                name: ''
-                city: Vancouver
-                state: Washington
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 438585188
-                name: ''
-                city: Conshohocken
-                state: Pennsylvania
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 127632468
-                name: iProfile
-                city: Austin
-                state: Texas
-                subUnitTypeInfo:
-                  typeId: 3
-                  typeDescription: ''
-                familyNodes:
-                - companyId: 361511922
-                  name: ''
-                  city: London
-                  state: Greater London
-                  subUnitTypeInfo:
-                    typeId: 1
-                    typeDescription: Location
-                - companyId: 361511923
-                  name: ''
-                  city: Austin
-                  state: Texas
-                  subUnitTypeInfo:
-                    typeId: 1
-                    typeDescription: Location
-                - companyId: 362981183
-                  name: ''
-                  city: London
-                  state: Greater London
-                  subUnitTypeInfo:
-                    typeId: 1
-                    typeDescription: Location
-                - companyId: 362981185
-                  name: ''
-                  city: Henderson
-                  state: Nevada
-                  subUnitTypeInfo:
-                    typeId: 1
-                    typeDescription: Location
-                - companyId: 400311147
-                  name: ''
-                  city: Vancouver
-                  state: Washington
-                  subUnitTypeInfo:
-                    typeId: 1
-                    typeDescription: Location
-                - companyId: 451872063
-                  name: ''
-                  city: Palo Alto
-                  state: California
-                  subUnitTypeInfo:
-                    typeId: 1
-                    typeDescription: Location
-                - companyId: 455100136
-                  name: ''
-                  city: Austin
-                  state: Texas
-                  subUnitTypeInfo:
-                    typeId: 1
-                    typeDescription: Location
-                - companyId: 480462081
-                  name: ''
-                  city: Chicago
-                  state: Illinois
-                  subUnitTypeInfo:
-                    typeId: 1
-                    typeDescription: Location
-              - companyId: 467273758
-                name: ''
-                city: Waltham
-                state: Massachusetts
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 405950842
-                name: NeverBounce
-                city: Cleveland
-                state: Ohio
-                subUnitTypeInfo:
-                  typeId: 3
-                  typeDescription: ''
-                familyNodes:
-                - companyId: 415852278
-                  name: ''
-                  city: Cleveland
-                  state: Ohio
-                  subUnitTypeInfo:
-                    typeId: 1
-                    typeDescription: Location
-                - companyId: 435226486
-                  name: ''
-                  city: Park City
-                  state: Utah
-                  subUnitTypeInfo:
-                    typeId: 1
-                    typeDescription: Location
-                - companyId: 480181228
-                  name: ''
-                  city: Vancouver
-                  state: Washington
-                  subUnitTypeInfo:
-                    typeId: 1
-                    typeDescription: Location
-              - companyId: 472733346
-                name: ''
-                city: Seattle
-                state: Washington
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 474323829
-                name: ''
-                city: Gaithersburg
-                state: Maryland
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 474323830
-                name: ''
-                city: New Britain
-                state: Connecticut
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 474323831
-                name: ''
-                city: Conyers
-                state: Georgia
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 474323832
-                name: ''
-                city: Walnut Creek
-                state: California
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 474323833
-                name: ''
-                city: Portland
-                state: Oregon
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 474323834
-                name: ''
-                city: Vancouver
-                state: Washington
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 474323835
-                name: ''
-                city: Cheyenne
-                state: Wyoming
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 474323836
-                name: ''
-                city: Mountain View
-                state: California
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 474323837
-                name: ''
-                city: Watertown
-                state: Massachusetts
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 474323838
-                name: ''
-                city: Woodbridge
-                state: New Jersey
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 474323839
-                name: ''
-                city: El Segundo
-                state: California
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 474323840
-                name: ''
-                city: New York City
-                state: New York
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 474323841
-                name: ''
-                city: Egham
-                state: Surrey
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 474323842
-                name: ''
-                city: Vienna
-                state: Virginia
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 474323843
-                name: ''
-                city: Buffalo
-                state: New York
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 474323844
-                name: ''
-                city: Northport
-                state: New York
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 395930676
-                name: RainKing Software Inc
-                city: Bethesda
-                state: Maryland
-                subUnitTypeInfo:
-                  typeId: 3
-                  typeDescription: ''
-                familyNodes:
-                - companyId: 477747958
-                  name: ''
-                  city: Bethesda
-                  state: Maryland
-                  subUnitTypeInfo:
-                    typeId: 1
-                    typeDescription: Location
-              - companyId: 477857692
-                name: ''
-                city: Mc Lean
-                state: Virginia
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-              - companyId: 478822278
-                name: ''
-                city: New Hudson
-                state: Michigan
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-            - companyId: 474328613
-              name: ''
-              city: Conshohocken
-              state: Pennsylvania
-              subUnitTypeInfo:
-                typeId: 1
-                typeDescription: Location
-            - companyId: 474328614
-              name: ''
-              city: Bethesda
-              state: Maryland
-              subUnitTypeInfo:
-                typeId: 1
-                typeDescription: Location
-            - companyId: 474630732
-              name: ''
-              city: Waltham
-              state: Massachusetts
-              subUnitTypeInfo:
-                typeId: 1
-                typeDescription: Location
-            - companyId: 476310572
-              name: ''
-              city: Waltham
-              state: Massachusetts
-              subUnitTypeInfo:
-                typeId: 1
-                typeDescription: Location
-            - companyId: 478161257
-              name: ''
-              city: Cleveland
-              state: Ohio
-              subUnitTypeInfo:
-                typeId: 1
-                typeDescription: Location
-            - companyId: 371535605
-              name: Komiko Limited
-              city: Redmond
-              state: Washington
-              subUnitTypeInfo:
-                typeId: 3
-                typeDescription: ''
-              familyNodes:
-              - companyId: 480849085
-                name: ''
-                city: Vancouver
-                state: Washington
-                subUnitTypeInfo:
-                  typeId: 1
-                  typeDescription: Location
-          companyId: 344589814
     Data32:
       title: Data32
       required:
@@ -1537,8 +1016,499 @@ components:
                 typeId: 1
                 typeDescription: Location
         companyId: 344589814
-    FamilyNode:
-      title: FamilyNode
+    Result15:
+      title: Result15
+      required:
+      - input
+      - data
+      type: object
+      properties:
+        input:
+          $ref: '#/components/schemas/Input15'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data32'
+          description: ''
+          example: []
+      examples:
+      - input:
+          companyname: zoominfo
+        data:
+        - parentage: []
+          familyTree:
+          - companyId: 344589814
+            name: Zoom Information, Inc.
+            city: Vancouver
+            state: Washington
+            familyNodes:
+            - companyId: 440083468
+              name: ''
+              city: Grand Rapids
+              state: Michigan
+              subUnitTypeInfo:
+                typeId: 1
+                typeDescription: Location
+            - companyId: 444874817
+              name: ''
+              city: Ra'anana
+              state: Central District
+              subUnitTypeInfo:
+                typeId: 1
+                typeDescription: Location
+            - companyId: 12715058
+              name: Eliyon Technologies Corp.
+              city: Cambridge
+              state: Massachusetts
+              subUnitTypeInfo:
+                typeId: 5
+                typeDescription: ''
+            - companyId: 356263316
+              name: Datanyze Inc
+              city: San Mateo
+              state: California
+              subUnitTypeInfo:
+                typeId: 3
+                typeDescription: ''
+              familyNodes:
+              - companyId: 357334302
+                name: LeadLedger LLC
+                city: San Francisco
+                state: California
+                subUnitTypeInfo:
+                  typeId: 3
+                  typeDescription: ''
+              - companyId: 370064497
+                name: ''
+                city: San Mateo
+                state: California
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 370092210
+                name: ''
+                city: San Mateo
+                state: California
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+            - companyId: 346572700
+              name: DiscoverOrg LLC
+              city: Vancouver
+              state: Washington
+              subUnitTypeInfo:
+                typeId: 4
+                typeDescription: ''
+              familyNodes:
+              - companyId: 360079580
+                name: ''
+                city: Vancouver
+                state: Washington
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 362940152
+                name: ''
+                city: Columbus
+                state: Ohio
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 372341509
+                name: ''
+                city: Narberth
+                state: Pennsylvania
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 417210616
+                name: ''
+                city: Bethesda
+                state: Maryland
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 433070340
+                name: ''
+                city: Vancouver
+                state: Washington
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 438585188
+                name: ''
+                city: Conshohocken
+                state: Pennsylvania
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 127632468
+                name: iProfile
+                city: Austin
+                state: Texas
+                subUnitTypeInfo:
+                  typeId: 3
+                  typeDescription: ''
+                familyNodes:
+                - companyId: 361511922
+                  name: ''
+                  city: London
+                  state: Greater London
+                  subUnitTypeInfo:
+                    typeId: 1
+                    typeDescription: Location
+                - companyId: 361511923
+                  name: ''
+                  city: Austin
+                  state: Texas
+                  subUnitTypeInfo:
+                    typeId: 1
+                    typeDescription: Location
+                - companyId: 362981183
+                  name: ''
+                  city: London
+                  state: Greater London
+                  subUnitTypeInfo:
+                    typeId: 1
+                    typeDescription: Location
+                - companyId: 362981185
+                  name: ''
+                  city: Henderson
+                  state: Nevada
+                  subUnitTypeInfo:
+                    typeId: 1
+                    typeDescription: Location
+                - companyId: 400311147
+                  name: ''
+                  city: Vancouver
+                  state: Washington
+                  subUnitTypeInfo:
+                    typeId: 1
+                    typeDescription: Location
+                - companyId: 451872063
+                  name: ''
+                  city: Palo Alto
+                  state: California
+                  subUnitTypeInfo:
+                    typeId: 1
+                    typeDescription: Location
+                - companyId: 455100136
+                  name: ''
+                  city: Austin
+                  state: Texas
+                  subUnitTypeInfo:
+                    typeId: 1
+                    typeDescription: Location
+                - companyId: 480462081
+                  name: ''
+                  city: Chicago
+                  state: Illinois
+                  subUnitTypeInfo:
+                    typeId: 1
+                    typeDescription: Location
+              - companyId: 467273758
+                name: ''
+                city: Waltham
+                state: Massachusetts
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 405950842
+                name: NeverBounce
+                city: Cleveland
+                state: Ohio
+                subUnitTypeInfo:
+                  typeId: 3
+                  typeDescription: ''
+                familyNodes:
+                - companyId: 415852278
+                  name: ''
+                  city: Cleveland
+                  state: Ohio
+                  subUnitTypeInfo:
+                    typeId: 1
+                    typeDescription: Location
+                - companyId: 435226486
+                  name: ''
+                  city: Park City
+                  state: Utah
+                  subUnitTypeInfo:
+                    typeId: 1
+                    typeDescription: Location
+                - companyId: 480181228
+                  name: ''
+                  city: Vancouver
+                  state: Washington
+                  subUnitTypeInfo:
+                    typeId: 1
+                    typeDescription: Location
+              - companyId: 472733346
+                name: ''
+                city: Seattle
+                state: Washington
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 474323829
+                name: ''
+                city: Gaithersburg
+                state: Maryland
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 474323830
+                name: ''
+                city: New Britain
+                state: Connecticut
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 474323831
+                name: ''
+                city: Conyers
+                state: Georgia
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 474323832
+                name: ''
+                city: Walnut Creek
+                state: California
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 474323833
+                name: ''
+                city: Portland
+                state: Oregon
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 474323834
+                name: ''
+                city: Vancouver
+                state: Washington
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 474323835
+                name: ''
+                city: Cheyenne
+                state: Wyoming
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 474323836
+                name: ''
+                city: Mountain View
+                state: California
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 474323837
+                name: ''
+                city: Watertown
+                state: Massachusetts
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 474323838
+                name: ''
+                city: Woodbridge
+                state: New Jersey
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 474323839
+                name: ''
+                city: El Segundo
+                state: California
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 474323840
+                name: ''
+                city: New York City
+                state: New York
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 474323841
+                name: ''
+                city: Egham
+                state: Surrey
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 474323842
+                name: ''
+                city: Vienna
+                state: Virginia
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 474323843
+                name: ''
+                city: Buffalo
+                state: New York
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 474323844
+                name: ''
+                city: Northport
+                state: New York
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 395930676
+                name: RainKing Software Inc
+                city: Bethesda
+                state: Maryland
+                subUnitTypeInfo:
+                  typeId: 3
+                  typeDescription: ''
+                familyNodes:
+                - companyId: 477747958
+                  name: ''
+                  city: Bethesda
+                  state: Maryland
+                  subUnitTypeInfo:
+                    typeId: 1
+                    typeDescription: Location
+              - companyId: 477857692
+                name: ''
+                city: Mc Lean
+                state: Virginia
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+              - companyId: 478822278
+                name: ''
+                city: New Hudson
+                state: Michigan
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+            - companyId: 474328613
+              name: ''
+              city: Conshohocken
+              state: Pennsylvania
+              subUnitTypeInfo:
+                typeId: 1
+                typeDescription: Location
+            - companyId: 474328614
+              name: ''
+              city: Bethesda
+              state: Maryland
+              subUnitTypeInfo:
+                typeId: 1
+                typeDescription: Location
+            - companyId: 474630732
+              name: ''
+              city: Waltham
+              state: Massachusetts
+              subUnitTypeInfo:
+                typeId: 1
+                typeDescription: Location
+            - companyId: 476310572
+              name: ''
+              city: Waltham
+              state: Massachusetts
+              subUnitTypeInfo:
+                typeId: 1
+                typeDescription: Location
+            - companyId: 478161257
+              name: ''
+              city: Cleveland
+              state: Ohio
+              subUnitTypeInfo:
+                typeId: 1
+                typeDescription: Location
+            - companyId: 371535605
+              name: Komiko Limited
+              city: Redmond
+              state: Washington
+              subUnitTypeInfo:
+                typeId: 3
+                typeDescription: ''
+              familyNodes:
+              - companyId: 480849085
+                name: ''
+                city: Vancouver
+                state: Washington
+                subUnitTypeInfo:
+                  typeId: 1
+                  typeDescription: Location
+          companyId: 344589814
+    GetCorporateHierarchyEnrichInput:
+      title: GetCorporateHierarchyEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        fieldType: Integer
+        description: The id of the company you are searching for
+    Parentage:
+      title: Parentage
+      type: object
+      properties:
+        companyId:
+          type: string
+          example: '500123'
+        companyName:
+          type: string
+          example: Acme Corporation
+        city:
+          type: string
+          example: San Francisco
+        state:
+          type: string
+          example: CA
+        subUnitType:
+          type: string
+          example: standard
+        subUnitDesc:
+          type: string
+          example: example_value
+        acquiredByDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+    Data31:
+      title: Data31
+      required:
+      - outputFields
+      - result
+      type: object
+      properties:
+        outputFields:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          example: []
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result15'
+          description: ''
+          example: []
+    FamilyNode1:
+      title: FamilyNode1
       required:
       - companyId
       - name
@@ -1565,17 +1535,58 @@ components:
         familyNodes:
           type: array
           items:
-            $ref: '#/components/schemas/FamilyNode1'
+            $ref: '#/components/schemas/FamilyNode2'
           description: ''
           example: []
       examples:
-      - companyId: 440083468
-        name: ''
-        city: Grand Rapids
-        state: Michigan
+      - companyId: 357334302
+        name: LeadLedger LLC
+        city: San Francisco
+        state: California
         subUnitTypeInfo:
-          typeId: 1
-          typeDescription: Location
+          typeId: 3
+          typeDescription: ''
+    Parentage1:
+      title: Parentage1
+      required:
+      - companyId
+      - companyName
+      - city
+      - state
+      - subUnitType
+      - subUnitDesc
+      - acquiredByDate
+      type: object
+      properties:
+        companyId:
+          type: string
+          example: '500123'
+        companyName:
+          type: string
+          example: Acme Corporation
+        city:
+          type: string
+          example: San Francisco
+        state:
+          type: string
+          example: CA
+        subUnitType:
+          type: string
+          example: standard
+        subUnitDesc:
+          type: string
+          example: example_value
+        acquiredByDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+      examples:
+      - companyId: '346572700'
+        companyName: DiscoverOrg LLC
+        city: Vancouver
+        state: Washington
+        subUnitType: '4'
+        subUnitDesc: ''
+        acquiredByDate: '2019-03-04T00:00:00.000Z'
     SubUnitTypeInfo:
       title: SubUnitTypeInfo
       required:
@@ -1626,72 +1637,6 @@ components:
         subUnitTypeInfo:
           typeId: 1
           typeDescription: Location
-    Parentage1:
-      title: Parentage1
-      required:
-      - companyId
-      - companyName
-      - city
-      - state
-      - subUnitType
-      - subUnitDesc
-      - acquiredByDate
-      type: object
-      properties:
-        companyId:
-          type: string
-          example: '500123'
-        companyName:
-          type: string
-          example: Acme Corporation
-        city:
-          type: string
-          example: San Francisco
-        state:
-          type: string
-          example: CA
-        subUnitType:
-          type: string
-          example: standard
-        subUnitDesc:
-          type: string
-          example: example_value
-        acquiredByDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-      examples:
-      - companyId: '346572700'
-        companyName: DiscoverOrg LLC
-        city: Vancouver
-        state: Washington
-        subUnitType: '4'
-        subUnitDesc: ''
-        acquiredByDate: '2019-03-04T00:00:00.000Z'
-    Parentage:
-      title: Parentage
-      type: object
-      properties:
-        companyId:
-          type: string
-          example: '500123'
-        companyName:
-          type: string
-          example: Acme Corporation
-        city:
-          type: string
-          example: San Francisco
-        state:
-          type: string
-          example: CA
-        subUnitType:
-          type: string
-          example: standard
-        subUnitDesc:
-          type: string
-          example: example_value
-        acquiredByDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
     Input15:
       title: Input15
       type: object
@@ -1705,18 +1650,82 @@ components:
           example: 500123
       examples:
       - companyname: zoominfo
-    Enrichcorporatehierarchy-multiplecompanies:
-      title: Enrichcorporatehierarchy-multiplecompanies
+    FamilyNode:
+      title: FamilyNode
       required:
-      - success
-      - data
+      - companyId
+      - name
+      - city
+      - state
+      - subUnitTypeInfo
       type: object
       properties:
-        success:
-          type: boolean
-          example: true
-        data:
-          $ref: '#/components/schemas/Data31'
+        companyId:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+        city:
+          type: string
+          example: San Francisco
+        state:
+          type: string
+          example: CA
+        subUnitTypeInfo:
+          $ref: '#/components/schemas/SubUnitTypeInfo'
+        familyNodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/FamilyNode1'
+          description: ''
+          example: []
+      examples:
+      - companyId: 440083468
+        name: ''
+        city: Grand Rapids
+        state: Michigan
+        subUnitTypeInfo:
+          typeId: 1
+          typeDescription: Location
+    MatchCompanyInput2:
+      title: MatchCompanyInput2
+      required:
+      - companyName
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: Acme Corporation
+      examples:
+      - companyName: zoominfo
+    CorporateHierarchyEnrichRequest:
+      title: CorporateHierarchyEnrichRequest
+      required:
+      - matchCompanyInput
+      - outputFields
+      type: object
+      properties:
+        matchCompanyInput:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchCompanyInput2'
+          description: ''
+          example: []
+        outputFields:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+      examples:
+      - matchCompanyInput:
+        - companyName: zoominfo
+        outputFields:
+        - parentage
+        - familyTree
+        - companyId
     FamilyTree:
       title: FamilyTree
       required:
@@ -2150,27 +2159,18 @@ components:
             subUnitTypeInfo:
               typeId: 1
               typeDescription: Location
-    GetCorporateHierarchyEnrichInput:
-      title: GetCorporateHierarchyEnrichInput
+    Enrichcorporatehierarchy-multiplecompanies:
+      title: Enrichcorporatehierarchy-multiplecompanies
       required:
-      - fieldName
-      - fieldType
-      - description
+      - success
+      - data
       type: object
       properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: companyId
-        fieldType: Integer
-        description: The id of the company you are searching for
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/Data31'
     GetCorporateHierarchyEnrichOutput:
       title: GetCorporateHierarchyEnrichOutput
       required:

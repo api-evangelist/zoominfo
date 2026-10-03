@@ -374,54 +374,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Enrichhashtagsforacompany:
-      title: Enrichhashtagsforacompany
-      required:
-      - maxResults
-      - totalResults
-      - currentPage
-      - data
-      type: object
-      properties:
-        maxResults:
-          type: integer
-          contentEncoding: int32
-          example: 100
-        totalResults:
-          type: integer
-          contentEncoding: int32
-          example: 100
-        currentPage:
-          type: integer
-          contentEncoding: int32
-          example: 1
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Data37'
-          description: ''
-          example: []
-    GetHashtagEnrichInput:
-      title: GetHashtagEnrichInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: companyId
-        fieldType: String
-        description: The id of the company for which you want to view hashtags
     HashtagsEnrichRequest:
       title: HashtagsEnrichRequest
       required:
@@ -488,6 +440,54 @@ components:
         label:
           type: string
           example: example_value
+    Enrichhashtagsforacompany:
+      title: Enrichhashtagsforacompany
+      required:
+      - maxResults
+      - totalResults
+      - currentPage
+      - data
+      type: object
+      properties:
+        maxResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        totalResults:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        currentPage:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data37'
+          description: ''
+          example: []
+    GetHashtagEnrichInput:
+      title: GetHashtagEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        fieldType: String
+        description: The id of the company for which you want to view hashtags
   securitySchemes:
     httpBearer:
       type: http

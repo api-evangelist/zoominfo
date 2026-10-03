@@ -401,25 +401,86 @@ paths:
       - fea:pls
 components:
   schemas:
-    AgentTeamsListResponse:
+    RunAgentTeamRequest:
       type: object
       required:
-      - data
+      - type
+      - attributes
       properties:
-        data:
+        type:
+          type: string
+          description: The type of the resource
+          default: RunAgentTeamRequest
+          pattern: RunAgentTeamRequest
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/RunAgentTeamRequestAttributes'
+          description: The attributes defining the resource
+      description: Agent Team run request resource.
+    RunAgentTeamRequestAttributes:
+      type: object
+      properties:
+        inputs:
           type: array
           items:
-            $ref: '#/components/schemas/AgentTeam'
-          description: The primary data of the document
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/PagingMeta'
-          description: Non-standard meta information about the document
-        links:
-          allOf:
-          - $ref: '#/components/schemas/PagingLinks'
-          description: Links related to the primary data
-      description: Response containing a list of Agent Teams.
+            $ref: '#/components/schemas/AgentTeamInput'
+          description: Optional list of named input values to pass to the Agent Team.
+      description: Attributes for an Agent Team run request.
+    AgentTeamDetailAttributes:
+      type: object
+      required:
+      - name
+      - triggers
+      - active
+      properties:
+        name:
+          type: string
+          description: Name of the Agent Team.
+        description:
+          type: string
+          description: Human-readable description of the Agent Team. This field is omitted when no objective or description is defined.
+        triggers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentTeamTriggerType'
+          description: The trigger types associated with this Agent Team
+        active:
+          type: boolean
+          description: Flag indicating whether the Agent Team's triggers are active or not. Agent Teams that are inactive can still be triggered manually
+        inputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputParameter'
+          description: 'The input parameters defined for this Agent Team. '
+      description: Public Agent Team details.
+    AgentTeamRunMeta:
+      type: object
+      required:
+      - createdAt
+      - createdBy
+      - updatedAt
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          description: The UTC date time when the Agent Team run was created
+        createdBy:
+          type: integer
+          format: int32
+          description: The id of the user that executed this Agent Team run
+        updatedAt:
+          type: string
+          format: date-time
+          description: The UTC date time when the Agent Team run was last updated
+        completedAt:
+          type: string
+          format: date-time
+          description: The UTC date time when the Agent Team run completed
+        totalCredits:
+          type: integer
+          format: int32
+          description: The total number of credits consumed by this Agent Team run. This value is only provided after the Agent Team has successfully finished executing
+      description: Metadata information for an Agent Team run
     AgentTeamRunResponse:
       type: object
       required:
@@ -430,56 +491,133 @@ components:
           - $ref: '#/components/schemas/AgentTeamRun'
           description: The primary data of the document
       description: Response containing a single Agent Team run.
-    AgentTeamInput:
+    AgentTeamDetailResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/AgentTeamDetail'
+          description: The primary data of the document
+      description: Response for a single Agent Team with input parameter details
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+    PagingMeta:
+      type: object
+      required:
+      - page
+      - pageSize
+      - totalCount
+      properties:
+        page:
+          type: integer
+          format: uint32
+          description: The current page of results being returned.
+        pageSize:
+          type: integer
+          format: uint32
+          description: The page size as specified by the request.
+        totalCount:
+          type: integer
+          format: uint32
+          description: The total count of results within the current search parameters.
+      description: Metadata for the current page of results.
+    AgentTeamAttributes:
       type: object
       required:
       - name
-      - value
+      - triggers
+      - active
       properties:
         name:
           type: string
-          description: Name of the Agent Team input.
-        value:
+          description: Name of the Agent Team.
+        description:
           type: string
-          description: Value supplied for the input.
-      description: Input parameter passed to an Agent Team run.
-    PagingLinks:
-      type: object
-      properties:
-        first:
-          type: string
-          format: uri
-          description: A link to the first page of data
-        last:
-          type: string
-          format: uri
-          description: A link to the last page of data
-        prev:
-          type: string
-          format: uri
-          description: A link to the previous page of data
-        next:
-          type: string
-          format: uri
-          description: A link to the next page of data
-      description: Links describing the available paging options.
-    ZoomInfo.Core.Foundations.ErrorResponseModel:
-      type: object
-      required:
-      - errors
-      properties:
-        detail:
-          type: string
-          description: A high-level detail of the error(s) that occurred during the request
-        title:
-          type: string
-          description: A high-level summary of the error(s) detected
-        errors:
+          description: Human-readable description of the Agent Team. This field is omitted when no objective or description is defined.
+        triggers:
           type: array
           items:
-            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
-          description: The list of errors raised during the request
-      description: The standard error response body model for the ZoomInfo API.
+            $ref: '#/components/schemas/AgentTeamTriggerType'
+          description: The trigger types associated with this Agent Team
+        active:
+          type: boolean
+          description: Flag indicating whether the Agent Team's triggers are active or not. Agent Teams that are inactive can still be triggered manually
+      description: Public Agent Team details.
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    AgentTeamRunsListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentTeamRun'
+          description: The primary data of the document
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/PagingMeta'
+          description: Non-standard meta information about the document
+        links:
+          allOf:
+          - $ref: '#/components/schemas/PagingLinks'
+          description: Links related to the primary data
+      description: Response containing a list of Agent Team runs.
+    RunAgentTeamRequestBody:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/RunAgentTeamRequest'
+          description: The primary data of the document
+      description: Request body for running an Agent Team.
+    InputParameterType:
+      type: string
+      enum:
+      - STRING
     AgentTeam:
       type: object
       required:
@@ -504,6 +642,38 @@ components:
           - $ref: '#/components/schemas/AgentTeamMeta'
           description: Non-standard meta information about the resource
       description: Agent Team resource.
+    AgentTeamTriggerType:
+      type: string
+      enum:
+      - MANUAL
+      - ACCOUNT_CHANGE
+      - WEBSITE_VISIT
+      - EMAIL_RECEIVED
+      - MEETING
+      - WEBHOOK
+      - CONTACT_CHANGE
+      - OPPORTUNITY_CHANGE
+      - SCHEDULE
+    PagingLinks:
+      type: object
+      properties:
+        first:
+          type: string
+          format: uri
+          description: A link to the first page of data
+        last:
+          type: string
+          format: uri
+          description: A link to the last page of data
+        prev:
+          type: string
+          format: uri
+          description: A link to the previous page of data
+        next:
+          type: string
+          format: uri
+          description: A link to the next page of data
+      description: Links describing the available paging options.
     InputParameter:
       type: object
       required:
@@ -522,110 +692,6 @@ components:
           - $ref: '#/components/schemas/InputParameterType'
           description: The data type of the input parameter. Currently only STRING type parameters are supported
       description: Describes an input parameter that is used to start an agent team run
-    AgentTeamAttributes:
-      type: object
-      required:
-      - name
-      - triggers
-      - active
-      properties:
-        name:
-          type: string
-          description: Name of the Agent Team.
-        description:
-          type: string
-          description: Human-readable description of the Agent Team. This field is omitted when no objective or description is defined.
-        triggers:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentTeamTriggerType'
-          description: The trigger types associated with this Agent Team
-        active:
-          type: boolean
-          description: Flag indicating whether the Agent Team's triggers are active or not. Agent Teams that are inactive can still be triggered manually
-      description: Public Agent Team details.
-    InputParameterType:
-      type: string
-      enum:
-      - STRING
-    RunAgentTeamRequestAttributes:
-      type: object
-      properties:
-        inputs:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentTeamInput'
-          description: Optional list of named input values to pass to the Agent Team.
-      description: Attributes for an Agent Team run request.
-    PagingMeta:
-      type: object
-      required:
-      - page
-      - pageSize
-      - totalCount
-      properties:
-        page:
-          type: integer
-          format: uint32
-          description: The current page of results being returned.
-        pageSize:
-          type: integer
-          format: uint32
-          description: The page size as specified by the request.
-        totalCount:
-          type: integer
-          format: uint32
-          description: The total count of results within the current search parameters.
-      description: Metadata for the current page of results.
-    ZoomInfo.Core.Foundations.ErrorSourceModel:
-      type: object
-      properties:
-        cookie:
-          type: string
-          description: Identifies the cookie name that caused the issue
-        header:
-          type: string
-          description: Identifies the header name that caused the error
-        pointer:
-          type: string
-          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
-        parameter:
-          type: string
-          description: The name of the path or query parameter that caused the error
-    AgentTeamDetailResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/AgentTeamDetail'
-          description: The primary data of the document
-      description: Response for a single Agent Team with input parameter details
-    AgentTeamRun:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: AgentTeamRun
-          pattern: AgentTeamRun
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/AgentTeamRunAttributes'
-          description: The attributes defining the resource
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/AgentTeamRunMeta'
-          description: Non-standard meta information about the resource
-      description: Model describing an Agent Team run
     AgentTeamRunStatus:
       type: string
       enum:
@@ -696,34 +762,19 @@ components:
           format: date-time
           description: The date of the last successful run of this Agent Team
       description: Metadata information for an Agent Team
-    AgentTeamRunMeta:
+    AgentTeamInput:
       type: object
       required:
-      - createdAt
-      - createdBy
-      - updatedAt
+      - name
+      - value
       properties:
-        createdAt:
+        name:
           type: string
-          format: date-time
-          description: The UTC date time when the Agent Team run was created
-        createdBy:
-          type: integer
-          format: int32
-          description: The id of the user that executed this Agent Team run
-        updatedAt:
+          description: Name of the Agent Team input.
+        value:
           type: string
-          format: date-time
-          description: The UTC date time when the Agent Team run was last updated
-        completedAt:
-          type: string
-          format: date-time
-          description: The UTC date time when the Agent Team run completed
-        totalCredits:
-          type: integer
-          format: int32
-          description: The total number of credits consumed by this Agent Team run. This value is only provided after the Agent Team has successfully finished executing
-      description: Metadata information for an Agent Team run
+          description: Value supplied for the input.
+      description: Input parameter passed to an Agent Team run.
     AgentTeamRunAttributes:
       type: object
       required:
@@ -746,99 +797,48 @@ components:
           type: string
           description: Final or in-progress output for the Agent Team run. This field is omitted for runs that have not yet produced output.
       description: Attributes describing an Agent Team run
-    AgentTeamDetailAttributes:
-      type: object
-      required:
-      - name
-      - triggers
-      - active
-      properties:
-        name:
-          type: string
-          description: Name of the Agent Team.
-        description:
-          type: string
-          description: Human-readable description of the Agent Team. This field is omitted when no objective or description is defined.
-        triggers:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentTeamTriggerType'
-          description: The trigger types associated with this Agent Team
-        active:
-          type: boolean
-          description: Flag indicating whether the Agent Team's triggers are active or not. Agent Teams that are inactive can still be triggered manually
-        inputs:
-          type: array
-          items:
-            $ref: '#/components/schemas/InputParameter'
-          description: 'The input parameters defined for this Agent Team. '
-      description: Public Agent Team details.
-    RunAgentTeamRequest:
-      type: object
-      required:
-      - type
-      - attributes
-      properties:
-        type:
-          type: string
-          description: The type of the resource
-          default: RunAgentTeamRequest
-          pattern: RunAgentTeamRequest
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/RunAgentTeamRequestAttributes'
-          description: The attributes defining the resource
-      description: Agent Team run request resource.
-    RunAgentTeamRequestBody:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/RunAgentTeamRequest'
-          description: The primary data of the document
-      description: Request body for running an Agent Team.
-    ZoomInfo.Core.Foundations.ErrorModel:
+    AgentTeamRun:
       type: object
       required:
       - id
-      - code
-      - status
+      - type
+      - attributes
       properties:
         id:
           type: string
-          description: The unique id used to identify this specific error instance
-        code:
+          description: The unique identifier for the resource
+        type:
           type: string
-          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+          description: The type of the resource
+          default: AgentTeamRun
+          pattern: AgentTeamRun
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/AgentTeamRunAttributes'
+          description: The attributes defining the resource
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/AgentTeamRunMeta'
+          description: Non-standard meta information about the resource
+      description: Model describing an Agent Team run
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
         detail:
           type: string
-          description: Message containing the specific details about this occurrence of the error
-        source:
-          allOf:
-          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
-          description: An optional object identifying which part of the request caused the error
-        status:
-          type: string
-          description: The HTTP status code for the error
+          description: A high-level detail of the error(s) that occurred during the request
         title:
           type: string
-          description: The error name that describes this type of error
-      description: The object describing a specific error from the API
-    AgentTeamTriggerType:
-      type: string
-      enum:
-      - MANUAL
-      - ACCOUNT_CHANGE
-      - WEBSITE_VISIT
-      - EMAIL_RECEIVED
-      - MEETING
-      - WEBHOOK
-      - CONTACT_CHANGE
-      - OPPORTUNITY_CHANGE
-      - SCHEDULE
-    AgentTeamRunsListResponse:
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    AgentTeamsListResponse:
       type: object
       required:
       - data
@@ -846,7 +846,7 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/AgentTeamRun'
+            $ref: '#/components/schemas/AgentTeam'
           description: The primary data of the document
         meta:
           allOf:
@@ -856,7 +856,7 @@ components:
           allOf:
           - $ref: '#/components/schemas/PagingLinks'
           description: Links related to the primary data
-      description: Response containing a list of Agent Team runs.
+      description: Response containing a list of Agent Teams.
   securitySchemes:
     OAuth2Auth:
       type: oauth2

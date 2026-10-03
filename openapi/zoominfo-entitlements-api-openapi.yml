@@ -72,6 +72,66 @@ paths:
         - api:entitlement:read
 components:
   schemas:
+    EntitlementsResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Entitlement'
+          description: The primary data of the document
+      description: Response model containing a list of entitlements.
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+    EntitlementAttributes:
+      type: object
+      required:
+      - roleCode
+      - roleName
+      - roleType
+      - value
+      properties:
+        roleCode:
+          type: string
+          description: The role code.
+        roleName:
+          type: string
+          description: The role name, description of the role.
+        roleType:
+          allOf:
+          - $ref: '#/components/schemas/RoleType'
+          description: The role type.
+        value:
+          type: string
+          description: The role value, 'Y' indicates entitlement is granted, a number indicates the limit.
+      description: Entitlement details.
     ZoomInfo.Core.Foundations.ErrorSourceModel:
       type: object
       properties:
@@ -104,28 +164,6 @@ components:
             $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
           description: The list of errors raised during the request
       description: The standard error response body model for the ZoomInfo API.
-    EntitlementAttributes:
-      type: object
-      required:
-      - roleCode
-      - roleName
-      - roleType
-      - value
-      properties:
-        roleCode:
-          type: string
-          description: The role code.
-        roleName:
-          type: string
-          description: The role name, description of the role.
-        roleType:
-          allOf:
-          - $ref: '#/components/schemas/RoleType'
-          description: The role type.
-        value:
-          type: string
-          description: The role value, 'Y' indicates entitlement is granted, a number indicates the limit.
-      description: Entitlement details.
     Entitlement:
       type: object
       required:
@@ -146,44 +184,6 @@ components:
           - $ref: '#/components/schemas/EntitlementAttributes'
           description: The attributes defining the resource
       description: Entitlement resource model.
-    ZoomInfo.Core.Foundations.ErrorModel:
-      type: object
-      required:
-      - id
-      - code
-      - status
-      properties:
-        id:
-          type: string
-          description: The unique id used to identify this specific error instance
-        code:
-          type: string
-          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
-        detail:
-          type: string
-          description: Message containing the specific details about this occurrence of the error
-        source:
-          allOf:
-          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
-          description: An optional object identifying which part of the request caused the error
-        status:
-          type: string
-          description: The HTTP status code for the error
-        title:
-          type: string
-          description: The error name that describes this type of error
-      description: The object describing a specific error from the API
-    EntitlementsResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Entitlement'
-          description: The primary data of the document
-      description: Response model containing a list of entitlements.
     RoleType:
       type: string
       enum:

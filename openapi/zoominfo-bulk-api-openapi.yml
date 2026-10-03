@@ -1749,8 +1749,8 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    BulkCompanyEnrich:
-      title: BulkCompanyEnrich
+    BulkJobStatusRequest:
+      title: BulkJobStatusRequest
       required:
       - jobId
       type: object
@@ -1758,25 +1758,8 @@ components:
         jobId:
           type: string
           example: '500123'
-      examples:
-      - jobId: add665cc35af4dcbbbe0b4c2d472dfcab15b55d7
-    BulkJobResultsRequest:
-      title: BulkJobResultsRequest
-      required:
-      - jobId
-      - page
-      type: object
-      properties:
-        jobId:
-          type: string
-          example: '500123'
-        page:
-          type: integer
-          contentEncoding: int32
-          example: 1
       examples:
       - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
-        page: 5
     BulkCompanySearchRequest:
       title: BulkCompanySearchRequest
       required:
@@ -1802,28 +1785,17 @@ components:
           address: '01775'
         outputFields:
         - id
-    MatchPersonInput1:
-      title: MatchPersonInput1
+    MatchCompanyInput3:
+      title: MatchCompanyInput3
       required:
-      - personId
+      - companyId
       type: object
       properties:
-        personId:
+        companyId:
           type: string
           example: '500123'
       examples:
-      - personId: '-1021613465'
-    BulkJobStatusRequest:
-      title: BulkJobStatusRequest
-      required:
-      - jobId
-      type: object
-      properties:
-        jobId:
-          type: string
-          example: '500123'
-      examples:
-      - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
+      - companyId: '7783252'
     BulkContactSearchRequest:
       title: BulkContactSearchRequest
       required:
@@ -1841,8 +1813,25 @@ components:
         query:
           firstName: Mike
           companyName: Zoominfo
-    BulkCompanySearch-Preview:
-      title: BulkCompanySearch-Preview
+    BulkJobResultsRequest:
+      title: BulkJobResultsRequest
+      required:
+      - jobId
+      - page
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+        page:
+          type: integer
+          contentEncoding: int32
+          example: 1
+      examples:
+      - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
+        page: 5
+    BulkCompanyEnrich:
+      title: BulkCompanyEnrich
       required:
       - jobId
       type: object
@@ -1851,29 +1840,7 @@ components:
           type: string
           example: '500123'
       examples:
-      - jobId: fa2b51864e1b29a7dceecd149402d6c3441ba34b
-    BulkContactEnrich:
-      title: BulkContactEnrich
-      required:
-      - jobId
-      type: object
-      properties:
-        jobId:
-          type: string
-          example: '500123'
-      examples:
-      - jobId: de5c557935a221c2bc2fa612bf2d8768ade9572c
-    MatchCompanyInput3:
-      title: MatchCompanyInput3
-      required:
-      - companyId
-      type: object
-      properties:
-        companyId:
-          type: string
-          example: '500123'
-      examples:
-      - companyId: '7783252'
+      - jobId: add665cc35af4dcbbbe0b4c2d472dfcab15b55d7
     Query:
       title: Query
       required:
@@ -1890,6 +1857,170 @@ components:
       examples:
       - firstName: Mike
         companyName: Zoominfo
+    BulkContactEnrich:
+      title: BulkContactEnrich
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: de5c557935a221c2bc2fa612bf2d8768ade9572c
+    BulkCompanyEnrichRequest:
+      title: BulkCompanyEnrichRequest
+      required:
+      - matchCompanyInput
+      - outputFields
+      type: object
+      properties:
+        matchCompanyInput:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchCompanyInput3'
+          description: ''
+          example: []
+        outputFields:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+      examples:
+      - matchCompanyInput:
+        - companyId: '7783252'
+        - companyId: '30147212'
+        - companyId: '18008595'
+        - companyId: '558366052'
+        - companyId: '239305146'
+        - companyId: '77103155'
+        - companyId: '37051158'
+        - companyId: '29425770'
+        - companyId: '345444435'
+        - companyId: '347451938'
+        - companyId: '20234595'
+        - companyId: '353492965'
+        - companyId: '91406858'
+        - companyId: '559977935'
+        - companyId: '18633856'
+        - companyId: '67459255'
+        - companyId: '130203765'
+        - companyId: '17353843'
+        - companyId: '122634324'
+        - companyId: '106676542'
+        - companyId: '80265858'
+        - companyId: '124404507'
+        - companyId: '28738687'
+        - companyId: '421520839'
+        - companyId: '50498255'
+        - companyId: '34537887'
+        - companyId: '8520039'
+        - companyId: '49187454'
+        - companyId: '94340946'
+        - companyId: '89195983'
+        - companyId: '9240875'
+        outputFields:
+        - id
+        - ticker
+        - name
+        - website
+        - domainList
+    BulkJobStatus:
+      title: BulkJobStatus
+      required:
+      - status
+      - jobType
+      - entityType
+      - totalRecords
+      - totalPages
+      - successfulPagesCount
+      - successfulPages
+      type: object
+      properties:
+        status:
+          type: string
+          example: active
+        jobType:
+          type: string
+          example: standard
+        entityType:
+          type: string
+          example: standard
+        totalRecords:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        totalPages:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        successfulPagesCount:
+          type: integer
+          contentEncoding: int32
+          example: 250
+        successfulPages:
+          type: array
+          items:
+            type: integer
+            contentEncoding: int32
+          description: ''
+          example: []
+      examples:
+      - status: IN_PROGRESS
+        jobType: redeem
+        entityType: COMPANY
+        totalRecords: 7655
+        totalPages: 8
+        successfulPagesCount: 3
+        successfulPages:
+        - 1
+        - 2
+        - 8
+    Query1:
+      title: Query1
+      required:
+      - address
+      type: object
+      properties:
+        address:
+          type: string
+          example: 123 Main Street
+      examples:
+      - address: '01775'
+    BulkCompanySearch-Preview:
+      title: BulkCompanySearch-Preview
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: fa2b51864e1b29a7dceecd149402d6c3441ba34b
+    BulkContactSearch-Preview:
+      title: BulkContactSearch-Preview
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: d1cecb828a0f2a13ffbc1f97faa06af31945ef89
+    MatchPersonInput1:
+      title: MatchPersonInput1
+      required:
+      - personId
+      type: object
+      properties:
+        personId:
+          type: string
+          example: '500123'
+      examples:
+      - personId: '-1021613465'
     BulkContactEnrichRequest:
       title: BulkContactEnrichRequest
       required:
@@ -1994,137 +2125,6 @@ components:
         - employmentHistory
         - managementLevel
         - locationCompanyId
-    BulkCompanyEnrichRequest:
-      title: BulkCompanyEnrichRequest
-      required:
-      - matchCompanyInput
-      - outputFields
-      type: object
-      properties:
-        matchCompanyInput:
-          type: array
-          items:
-            $ref: '#/components/schemas/MatchCompanyInput3'
-          description: ''
-          example: []
-        outputFields:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-      examples:
-      - matchCompanyInput:
-        - companyId: '7783252'
-        - companyId: '30147212'
-        - companyId: '18008595'
-        - companyId: '558366052'
-        - companyId: '239305146'
-        - companyId: '77103155'
-        - companyId: '37051158'
-        - companyId: '29425770'
-        - companyId: '345444435'
-        - companyId: '347451938'
-        - companyId: '20234595'
-        - companyId: '353492965'
-        - companyId: '91406858'
-        - companyId: '559977935'
-        - companyId: '18633856'
-        - companyId: '67459255'
-        - companyId: '130203765'
-        - companyId: '17353843'
-        - companyId: '122634324'
-        - companyId: '106676542'
-        - companyId: '80265858'
-        - companyId: '124404507'
-        - companyId: '28738687'
-        - companyId: '421520839'
-        - companyId: '50498255'
-        - companyId: '34537887'
-        - companyId: '8520039'
-        - companyId: '49187454'
-        - companyId: '94340946'
-        - companyId: '89195983'
-        - companyId: '9240875'
-        outputFields:
-        - id
-        - ticker
-        - name
-        - website
-        - domainList
-    BulkContactSearch-Preview:
-      title: BulkContactSearch-Preview
-      required:
-      - jobId
-      type: object
-      properties:
-        jobId:
-          type: string
-          example: '500123'
-      examples:
-      - jobId: d1cecb828a0f2a13ffbc1f97faa06af31945ef89
-    BulkJobStatus:
-      title: BulkJobStatus
-      required:
-      - status
-      - jobType
-      - entityType
-      - totalRecords
-      - totalPages
-      - successfulPagesCount
-      - successfulPages
-      type: object
-      properties:
-        status:
-          type: string
-          example: active
-        jobType:
-          type: string
-          example: standard
-        entityType:
-          type: string
-          example: standard
-        totalRecords:
-          type: integer
-          contentEncoding: int32
-          example: 100
-        totalPages:
-          type: integer
-          contentEncoding: int32
-          example: 1
-        successfulPagesCount:
-          type: integer
-          contentEncoding: int32
-          example: 250
-        successfulPages:
-          type: array
-          items:
-            type: integer
-            contentEncoding: int32
-          description: ''
-          example: []
-      examples:
-      - status: IN_PROGRESS
-        jobType: redeem
-        entityType: COMPANY
-        totalRecords: 7655
-        totalPages: 8
-        successfulPagesCount: 3
-        successfulPages:
-        - 1
-        - 2
-        - 8
-    Query1:
-      title: Query1
-      required:
-      - address
-      type: object
-      properties:
-        address:
-          type: string
-          example: 123 Main Street
-      examples:
-      - address: '01775'
   securitySchemes:
     httpBearer:
       type: http
