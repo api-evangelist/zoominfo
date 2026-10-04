@@ -473,6 +473,17 @@ paths:
       - fea:gsa
 components:
   schemas:
+    CustomerCompetitorListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerCompetitor'
+          description: The primary data of the document
+      description: API model for a list of Customer Competitors.
     CustomerCompetitorUpsert:
       type: object
       required:
@@ -503,91 +514,23 @@ components:
           x-discriminator-property: type
           description: The primary data of the document
       description: Customer Competitor resource for upsert operations.
-    ZoomInfo.Core.Foundations.ErrorModel:
+    CustomFieldItem:
       type: object
       required:
-      - id
-      - code
-      - status
+      - title
+      - value
       properties:
-        id:
-          type: string
-          description: The unique id used to identify this specific error instance
-        code:
-          type: string
-          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
-        detail:
-          type: string
-          description: Message containing the specific details about this occurrence of the error
-        source:
-          allOf:
-          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
-          description: An optional object identifying which part of the request caused the error
-        status:
-          type: string
-          description: The HTTP status code for the error
         title:
           type: string
-          description: The error name that describes this type of error
-      description: The object describing a specific error from the API
-    CustomerCompetitorAttributes:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 1024
-          description: Name of the competitor company. Required when creating a new record. When provided (for create or update), must be between 1 and 1024 characters.
+          description: The display title of the custom field.
         description:
           type: string
-          maxLength: 10000
-          description: Detailed description of the competitor, including market position, strengths, and relevance to the customer's business. Maximum 10,000 characters.
-        url:
+          description: An optional description of the field. Defaults to an empty string in the backend.
+          default: ''
+        value:
           type: string
-          format: uri
-          description: URL of the competitor's website. Maximum 1024 characters.
-        competitorProducts:
-          type: string
-          maxLength: 10000
-          description: Description of the products or services this competitor offers that overlap with the customer's portfolio. Maximum 10,000 characters.
-        reasonsTheyWin:
-          type: string
-          maxLength: 10000
-          description: Analysis of why this competitor wins deals, covering key strengths, differentiators, and advantages in competitive situations. Maximum 10,000 characters.
-        reasonsTheyLose:
-          type: string
-          maxLength: 10000
-          description: Analysis of why this competitor loses deals, covering weaknesses, gaps, and areas where the customer holds an advantage. Maximum 10,000 characters.
-        customersWeWon:
-          type: string
-          maxLength: 10000
-          description: Accounts that the customer has won from this competitor. Useful for case-study development and competitive proof points. Maximum 10,000 characters.
-        competitiveProducts:
-          type: string
-          maxLength: 10000
-          description: The customer's own products that directly compete with this competitor's products or services. Useful for competitive mapping and battle-card generation. Maximum 10,000 characters.
-        source:
-          allOf:
-          - $ref: '#/components/schemas/GtmConfigSourceType'
-          description: Source type indicating how this competitor record was created or last modified. Defaults to `manual`. See `GtmConfigSourceType` for allowed values. When set explicitly, the backend validates source consistency with the `created_by` and `updated_by` fields.
-          readOnly: true
-        customFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomFieldItem'
-          description: Flexible key-value store for customer-specific custom fields and extended metadata. The backend validates schema and value types. Use this to capture additional competitor intelligence beyond the standard fields.
-      description: Attributes that define a Customer Competitor — a company that competes with the customer in the market.
-    CustomerCompetitorListResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomerCompetitor'
-          description: The primary data of the document
-      description: API model for a list of Customer Competitors.
+          description: The string value associated with this custom field.
+      description: Schema for a single custom field item.
     ZoomInfo.Core.Foundations.ErrorSourceModel:
       type: object
       properties:
@@ -645,23 +588,90 @@ components:
             $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
           description: The list of errors raised during the request
       description: The standard error response body model for the ZoomInfo API.
-    CustomFieldItem:
+    ZoomInfo.Core.Foundations.ErrorModel:
       type: object
       required:
-      - title
-      - value
+      - id
+      - code
+      - status
       properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
         title:
           type: string
-          description: The display title of the custom field.
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+    CustomerCompetitorModel:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/CustomerCompetitor'
+          description: The primary data of the document
+      description: API model for a single Customer Competitor.
+    CustomerCompetitorAttributes:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 1024
+          description: Name of the competitor company. Required when creating a new record. When provided (for create or update), must be between 1 and 1024 characters.
         description:
           type: string
-          description: An optional description of the field. Defaults to an empty string in the backend.
-          default: ''
-        value:
+          maxLength: 10000
+          description: Detailed description of the competitor, including market position, strengths, and relevance to the customer's business. Maximum 10,000 characters.
+        url:
           type: string
-          description: The string value associated with this custom field.
-      description: Schema for a single custom field item.
+          format: uri
+          description: URL of the competitor's website. Maximum 1024 characters.
+        competitorProducts:
+          type: string
+          maxLength: 10000
+          description: Description of the products or services this competitor offers that overlap with the customer's portfolio. Maximum 10,000 characters.
+        reasonsTheyWin:
+          type: string
+          maxLength: 10000
+          description: Analysis of why this competitor wins deals, covering key strengths, differentiators, and advantages in competitive situations. Maximum 10,000 characters.
+        reasonsTheyLose:
+          type: string
+          maxLength: 10000
+          description: Analysis of why this competitor loses deals, covering weaknesses, gaps, and areas where the customer holds an advantage. Maximum 10,000 characters.
+        customersWeWon:
+          type: string
+          maxLength: 10000
+          description: Accounts that the customer has won from this competitor. Useful for case-study development and competitive proof points. Maximum 10,000 characters.
+        competitiveProducts:
+          type: string
+          maxLength: 10000
+          description: The customer's own products that directly compete with this competitor's products or services. Useful for competitive mapping and battle-card generation. Maximum 10,000 characters.
+        source:
+          allOf:
+          - $ref: '#/components/schemas/GtmConfigSourceType'
+          description: Source type indicating how this competitor record was created or last modified. Defaults to `manual`. See `GtmConfigSourceType` for allowed values. When set explicitly, the backend validates source consistency with the `created_by` and `updated_by` fields.
+          readOnly: true
+        customFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldItem'
+          description: Flexible key-value store for customer-specific custom fields and extended metadata. The backend validates schema and value types. Use this to capture additional competitor intelligence beyond the standard fields.
+      description: Attributes that define a Customer Competitor — a company that competes with the customer in the market.
     GtmConfigSourceType:
       type: string
       enum:
@@ -681,16 +691,6 @@ components:
         IMPORT: Imported from an external data source such as CRM or CSV upload.
         SYSTEM: Generated automatically by the platform (e.g., system enrichment or background jobs).
         MCP: Created or updated via the GTM Config MCP integration by an AI agent.
-    CustomerCompetitorModel:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/CustomerCompetitor'
-          description: The primary data of the document
-      description: API model for a single Customer Competitor.
     GtmConfigAuditFields:
       type: object
       properties:

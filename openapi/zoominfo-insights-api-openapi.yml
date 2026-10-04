@@ -121,6 +121,394 @@ paths:
       - fea:gtmpl
 components:
   schemas:
+    IPOSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - text
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        text:
+          type: string
+          description: The text content of the signal.
+      description: IPO signal payload.
+    MAInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.m&a
+          pattern: zi.m&a
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/MASignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: M&A insight model
+    ActivityLocationInfo:
+      type: object
+      properties:
+        locationCity:
+          type: string
+          description: City of the location.
+        locationState:
+          type: string
+          description: State of the location.
+        locationStateCode:
+          type: string
+          description: State code of the location.
+        locationCountry:
+          type: string
+          description: Location country.
+        locationCountryCode:
+          type: string
+          description: Location country code.
+      description: Activity location information for TrustRadius signals.
+    PartnershipSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - text
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        text:
+          type: string
+          description: The text content of the signal.
+      description: Partnership signal payload.
+    SeniorJobPostingsInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.seniorjobpostings
+          pattern: zi.seniorjobpostings
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/SeniorJobPostingsSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Senior job postings insight model
+    PainPointInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.painpoint
+          pattern: zi.painpoint
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/PainPointSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Pain point insight model
+    TechnologySignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - category
+      - subCategory
+      - vendor
+      - text
+      - changeType
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        category:
+          type: string
+          description: High-level technology category (e.g. 'CRM', 'Marketing Automation', 'Cloud Infrastructure').
+        subCategory:
+          type: string
+          description: More specific classification within the category (e.g. 'Sales CRM', 'Email Marketing').
+        vendor:
+          type: string
+          description: Name of the technology vendor or provider (e.g. 'Salesforce', 'HubSpot').
+        text:
+          type: string
+          description: Description of the technology and its relevance to the signal (e.g. 'Salesforce is a cloud-based CRM platform used to manage sales pipelines and customer relationships').
+        changeType:
+          allOf:
+          - $ref: '#/components/schemas/TechnologyStatus'
+          description: Status of the Technology signal.
+      description: Technology signal payload.
+    PersonChangeSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - ziCompanyId
+      - ziContactId
+      - name
+      - changeType
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: ZoomInfo company id.
+        ziContactId:
+          type: integer
+          format: int64
+          description: ZoomInfo contact id for the person.
+        name:
+          type: string
+          description: Name of the person associated with this signal.
+        title:
+          type: string
+          description: Person's job title.
+        isPersonOfInterest:
+          type: boolean
+          description: Indicates if this person was identified as a contact of interest.
+        isCLevel:
+          type: boolean
+          description: Indicates if the person holds a C-level executive position.
+        inBuyingGroup:
+          type: boolean
+          description: Indicates if the person is part of an identified buying committee or decision-making group.
+        changeType:
+          type: string
+          description: Specific type of change that triggered this signal.
+        previousCompanyId:
+          type: integer
+          format: int64
+          description: ZoomInfo company ID of the person's previous employer.
+        previousTitle:
+          type: string
+          description: Person's previous job title.
+        previousCompanyName:
+          type: string
+          description: Name of the company where the person was previously employed.
+      description: Base model for person-related signal payloads with change tracking.
+    EarningsSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - text
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        text:
+          type: string
+          description: The text content of the signal.
+      description: Earnings signal payload.
+    TechnologyStatus:
+      type: string
+      enum:
+      - ADD
+      - DROP
+      description: Indicates whether a technology was added to the company's tech stack.
+      x-enumDescriptions:
+        ADD: The company has recently adopted this technology into their tech stack.
+    EarningsInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.earnings
+          pattern: zi.earnings
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/EarningsSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Earnings insight model
+    CxoChangeSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - ziCompanyId
+      - ziContactId
+      - name
+      - changeType
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: ZoomInfo company id.
+        ziContactId:
+          type: integer
+          format: int64
+          description: ZoomInfo contact id for the person.
+        name:
+          type: string
+          description: Name of the person associated with this signal.
+        title:
+          type: string
+          description: Person's job title.
+        isPersonOfInterest:
+          type: boolean
+          description: Indicates if this person was identified as a contact of interest.
+        isCLevel:
+          type: boolean
+          description: Indicates if the person holds a C-level executive position.
+        inBuyingGroup:
+          type: boolean
+          description: Indicates if the person is part of an identified buying committee or decision-making group.
+        changeType:
+          type: string
+          description: Specific type of change that triggered this signal.
+        previousCompanyId:
+          type: integer
+          format: int64
+          description: ZoomInfo company ID of the person's previous employer.
+        previousTitle:
+          type: string
+          description: Person's previous job title.
+        previousCompanyName:
+          type: string
+          description: Name of the company where the person was previously employed.
+      description: CXO change signal payload.
     PartnershipInsight:
       type: object
       required:
@@ -162,7 +550,411 @@ components:
           format: date-time
           description: Date of creation of the insight.
       description: Partnership insight model
-    EarningsSignalPayload:
+    PersonBasedNewsInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.personbasednews
+          pattern: zi.personbasednews
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/PersonBasedNewsSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Person based news insight model
+    PodcastMentionsInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.podcastmentions
+          pattern: zi.podcastmentions
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/PodcastMentionsSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Podcast mentions insight model
+    TrustRadiusInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.trustradius
+          pattern: zi.trustradius
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/TrustRadiusSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: TrustRadius insight model
+    PersonChangeInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.personchange
+          pattern: zi.personchange
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/PersonChangeSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Person change insight model
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    ScoopsInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.scoop
+          pattern: zi.scoop
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/ScoopsSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Scoops insight model
+    NewContactPreviouslyWorkedForCustomerSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - ziCompanyId
+      - ziContactId
+      - name
+      - changeType
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: ZoomInfo company id.
+        ziContactId:
+          type: integer
+          format: int64
+          description: ZoomInfo contact id for the person.
+        name:
+          type: string
+          description: Name of the person associated with this signal.
+        title:
+          type: string
+          description: Person's job title.
+        isPersonOfInterest:
+          type: boolean
+          description: Indicates if this person was identified as a contact of interest.
+        isCLevel:
+          type: boolean
+          description: Indicates if the person holds a C-level executive position.
+        inBuyingGroup:
+          type: boolean
+          description: Indicates if the person is part of an identified buying committee or decision-making group.
+        changeType:
+          type: string
+          description: Specific type of change that triggered this signal.
+        previousCompanyId:
+          type: integer
+          format: int64
+          description: ZoomInfo company ID of the person's previous employer.
+        previousTitle:
+          type: string
+          description: Person's previous job title.
+        previousCompanyName:
+          type: string
+          description: Name of the company where the person was previously employed.
+      description: New contact previously worked for customer signal payload.
+    G2Insight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.g2
+          pattern: zi.g2
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/G2SignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: G2 insight model
+    FundingInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.funding
+          pattern: zi.funding
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/FundingSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Funding insight model
+    LowActiveContactsSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - engagedContactsCount
+      - lastEngagementDate
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        engagedContactsCount:
+          type: integer
+          format: int64
+          description: Number of contacts at this account who have been engaged (via CRM or Chorus activity) on the open opportunity.
+        lastEngagementDate:
+          type: string
+          format: date-time
+          description: UTC timestamp of the most recent engagement activity detected on the open opportunity.
+      description: Low active contacts signal payload.
+    NoDecisionMakerSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - engagedContactsCount
+      - lastEngagementDate
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        engagedContactsCount:
+          type: integer
+          format: int64
+          description: Number of contacts at this account who have been engaged (via CRM or Chorus activity) on the open opportunity.
+        lastEngagementDate:
+          type: string
+          format: date-time
+          description: UTC timestamp of the most recent engagement activity detected on the open opportunity.
+      description: No decision maker signal payload.
+    AwardSignalPayload:
       type: object
       required:
       - displayText
@@ -179,8 +971,134 @@ components:
         text:
           type: string
           description: The text content of the signal.
-      description: Earnings signal payload.
-    LayoffsSignalPayload:
+      description: Award signal payload.
+    WonDealInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.wondeal
+          pattern: zi.wondeal
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/WonDealSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Won deal insight model
+    MpocChangeInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.mpocchange
+          pattern: zi.mpocchange
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/MpocChangeSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: MPOC change insight model
+    UpcomingRenewalSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - renewalDate
+      - signalId
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        renewalDate:
+          type: string
+          format: date-time
+          description: UTC timestamp of when the renewal is due.
+        signalId:
+          type: string
+          description: Unique identifier for this upcoming renewal signal instance.
+      description: Upcoming renewal signal payload.
+    AnomalousHiringSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - text
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        text:
+          type: string
+          description: Summary describing the unusual hiring activity, including context about the scale or nature of the hiring surge.
+        department:
+          type: string
+          description: Department where the unusual volume of hiring was detected (e.g. 'Engineering', 'Sales').
+      description: Anomalous hiring signal payload.
+    PainPointSignalPayload:
       type: object
       required:
       - displayText
@@ -197,13 +1115,58 @@ components:
         text:
           type: string
           description: The text content of the signal.
-      description: Layoffs signal payload.
-    IPOSignalPayload:
+      description: Pain point signal payload.
+    NoDecisionMakerInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.nodecisionmaker
+          pattern: zi.nodecisionmaker
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/NoDecisionMakerSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: No decision maker insight model
+    NoPostMeetingFollowUpSignalPayload:
       type: object
       required:
       - displayText
       - date
-      - text
+      - ziCompanyId
+      - ziContactId
+      - name
+      - subject
+      - numberOfParticipants
       properties:
         displayText:
           type: string
@@ -212,10 +1175,139 @@ components:
           type: string
           format: date-time
           description: UTC timestamp when the signal event was originally recorded or detected.
-        text:
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: ZoomInfo company id.
+        ziContactId:
+          type: integer
+          format: int64
+          description: ZoomInfo contact id for the person.
+        name:
           type: string
-          description: The text content of the signal.
-      description: IPO signal payload.
+          description: Name of the person associated with this signal.
+        title:
+          type: string
+          description: Person's job title.
+        isPersonOfInterest:
+          type: boolean
+          description: Indicates if this person was identified as a contact of interest.
+        isCLevel:
+          type: boolean
+          description: Indicates if the person holds a C-level executive position.
+        inBuyingGroup:
+          type: boolean
+          description: Indicates if the person is part of an identified buying committee or decision-making group.
+        subject:
+          type: string
+          description: Subject line of the meeting that occurred without a follow-up email.
+        meetingSource:
+          type: string
+          description: System or integration that recorded the meeting (e.g. 'Chorus', 'Salesforce').
+        numberOfParticipants:
+          type: integer
+          format: int64
+          description: Number of meeting participants.
+      description: No post meeting follow up signal payload.
+    TrustRadiusActivityType:
+      type: string
+      enum:
+      - view
+      - click
+      - share
+      description: Type of activity performed by a contact on TrustRadius.
+      x-enumDescriptions:
+        VIEW: The contact viewed a TrustRadius page.
+        CLICK: The contact clicked on a TrustRadius page element.
+        SHARE: The contact shared a TrustRadius page or review.
+    CompetitorIntentSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - competitor
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        competitor:
+          allOf:
+          - $ref: '#/components/schemas/CompetitorIntentSignal'
+          description: Details about the competitor being researched, including the competitor's company ID, name, and relevant products or services.
+      description: Competitor intent signal payload.
+    FundingSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - type
+      - amount
+      - investors
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        type:
+          type: string
+          description: Type of funding round or event (e.g. 'Series A', 'Venture Round', 'Private Equity').
+        amount:
+          type: string
+          description: Total capital raised in this funding event, expressed as a formatted string (e.g. '$10M').
+        investors:
+          type: array
+          items:
+            type: string
+          description: List of investor names participating in the funding round.
+      description: Funding signal payload - represents company funding events.
+    BuyingCommitteeChangeInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.buyingcommitteechange
+          pattern: zi.buyingcommitteechange
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/BuyingCommitteeChangeSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Buying committee change insight model
     FormCompleteInsight:
       type: object
       required:
@@ -257,6 +1349,1249 @@ components:
           format: date-time
           description: Date of creation of the insight.
       description: Form complete insight model
+    NewContactPreviouslyWorkedForCustomerInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.newcontactpreviouslyworkedforcustomer
+          pattern: zi.newcontactpreviouslyworkedforcustomer
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/NewContactPreviouslyWorkedForCustomerSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: New contact previously worked for customer insight model
+    AnomalousHiringInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.anomaloushiring
+          pattern: zi.anomaloushiring
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/AnomalousHiringSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Anomalous hiring insight model
+    CompetitorIntentInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.intent.competitor.spike
+          pattern: zi.intent.competitor.spike
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/CompetitorIntentSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Competitor intent insight model
+    AliLocation:
+      type: object
+      required:
+      - location
+      - buyersCount
+      properties:
+        location:
+          type: string
+          description: Geographic location name.
+        buyersCount:
+          type: integer
+          format: int64
+          description: Number of active buyers detected.
+      description: Account Level Intent (ALI) location information.
+    LayoffsSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - text
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        text:
+          type: string
+          description: The text content of the signal.
+      description: Layoffs signal payload.
+    CxoChangeInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.cxochange
+          pattern: zi.cxochange
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/CxoChangeSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: CXO change insight model
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+    CompanyInsightsByTypeRequestAttributes:
+      type: object
+      required:
+      - ziCompanyIds
+      properties:
+        ziCompanyIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          maxItems: 50
+          description: List of ZoomInfo company IDs to retrieve insights for (maximum 50 companies per request).
+        signalTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SignalType'
+          description: Optional filter for specific insight types. If not provided or empty, returns insights of all available types.
+      description: Request attributes for retrieving company insights filtered by signal type.
+    FormCompleteSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - ziCompanyId
+      - ziContactId
+      - name
+      - formName
+      - formStatus
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: ZoomInfo company id.
+        ziContactId:
+          type: integer
+          format: int64
+          description: ZoomInfo contact id for the person.
+        name:
+          type: string
+          description: Name of the person associated with this signal.
+        title:
+          type: string
+          description: Person's job title.
+        isPersonOfInterest:
+          type: boolean
+          description: Indicates if this person was identified as a contact of interest.
+        isCLevel:
+          type: boolean
+          description: Indicates if the person holds a C-level executive position.
+        inBuyingGroup:
+          type: boolean
+          description: Indicates if the person is part of an identified buying committee or decision-making group.
+        formName:
+          type: string
+          description: The customer-defined name of the submitted form, as configured in ZoomInfo FormComplete.
+        formStatus:
+          allOf:
+          - $ref: '#/components/schemas/FormStatus'
+          description: Status of the form.
+      description: Form complete signal payload.
+    ProjectSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - text
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        text:
+          type: string
+          description: The text content of the signal.
+      description: Project signal payload.
+    G2SignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - type
+      - subject
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        type:
+          type: string
+          description: 'The type of G2 page visited. One of: ''Category'', ''Compare'', ''Competitors'', ''Licensed Content'', ''Pricing Page'', ''Product Reference Page'', ''Profile''.'
+        subject:
+          type: string
+          description: 'Label combining type and content in the format ''{type}: {content}'' (e.g. ''Competitors: Acme Corp'', ''Category: Sales Intelligence'').'
+      description: G2 signal payload.
+    SeniorJobPostingsSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - text
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        department:
+          type: string
+          description: Department associated with the open senior leadership role (e.g. 'Engineering', 'Finance').
+        text:
+          type: string
+          description: Description of the open senior leadership role, including job title and any relevant details from the posting.
+      description: Senior job postings signal payload.
+    WonDealSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - signalId
+      - companyName
+      - opportunityName
+      - type
+      - closeDate
+      - amount
+      - opportunityOwner
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        signalId:
+          type: string
+          description: Signal ID for the won deal signal.
+        companyName:
+          type: string
+          description: Name of the customer company the deal was closed with (e.g. 'Acme Corp').
+        opportunityName:
+          type: string
+          description: Name of the CRM opportunity associated with the won deal.
+        type:
+          type: string
+          description: CRM opportunity type classifying the nature of the deal (e.g. 'New Business', 'Renewal', 'Upsell').
+        closeDate:
+          type: string
+          description: Date the deal was closed, formatted as a string (e.g. '2024-01-15').
+        amount:
+          type: string
+          description: Monetary value of the closed deal, expressed as a formatted string (e.g. '$50,000').
+        opportunityOwner:
+          type: string
+          description: Name of the CRM user who owns the opportunity.
+      description: Won deal signal payload.
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    WebsightsInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.websights
+          pattern: zi.websights
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/WebsightsSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Websights insight model
+    PersonWebsightsIntentLevel:
+      type: string
+      enum:
+      - High
+      - Medium
+      - Low
+      - Unspecified
+      description: Buying intent level inferred from a known contact's website visit behavior.
+      x-enumDescriptions:
+        HIGH: The contact has shown strong buying intent based on their website visit behavior.
+        MEDIUM: The contact has shown moderate buying intent based on their website visit behavior.
+        LOW: The contact has shown limited buying intent based on their website visit behavior.
+        UNSPECIFIED: Intent level could not be determined for this contact's visit.
+    TrustRadiusActivitySource:
+      type: string
+      enum:
+      - Category
+      - Competitor
+      - Licensed Product
+      description: Source indicating where the TrustRadius activity originated.
+      x-enumDescriptions:
+        CATEGORY: Activity originated from browsing a product category on TrustRadius.
+        COMPETITOR: Activity originated from viewing a competitor's product page.
+        LICENSED_PRODUCT: Activity originated from a product page that the tenant has licensed on TrustRadius.
+    TechnologyInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.technology
+          pattern: zi.technology
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/TechnologySignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Technology insight model
+    MarketingCampaignsInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.marketingcampaigns
+          pattern: zi.marketingcampaigns
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/MarketingCampaignsSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Marketing campaigns insight model
+    BuyingCommitteeChangeSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - ziCompanyId
+      - ziContactId
+      - name
+      - changeType
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: ZoomInfo company id.
+        ziContactId:
+          type: integer
+          format: int64
+          description: ZoomInfo contact id for the person.
+        name:
+          type: string
+          description: Name of the person associated with this signal.
+        title:
+          type: string
+          description: Person's job title.
+        isPersonOfInterest:
+          type: boolean
+          description: Indicates if this person was identified as a contact of interest.
+        isCLevel:
+          type: boolean
+          description: Indicates if the person holds a C-level executive position.
+        inBuyingGroup:
+          type: boolean
+          description: Indicates if the person is part of an identified buying committee or decision-making group.
+        changeType:
+          type: string
+          description: Specific type of change that triggered this signal.
+        previousCompanyId:
+          type: integer
+          format: int64
+          description: ZoomInfo company ID of the person's previous employer.
+        previousTitle:
+          type: string
+          description: Person's previous job title.
+        previousCompanyName:
+          type: string
+          description: Name of the company where the person was previously employed.
+      description: Buying committee change signal payload.
+    PersonWebsightsInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.personwebsights
+          pattern: zi.personwebsights
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/PersonWebsightsSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Person websights insight model
+    AccountLevelIntentSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - clusterName
+      - score
+      - scoreChange
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        clusterName:
+          type: string
+          description: Name of the intent topic cluster that spiked. e.g. 'Sales Strategy'.
+        score:
+          type: integer
+          format: int64
+          description: 'The account''s current intent score after this signal. Values: 0 = NONE, 1 = LOW, 2 = MODERATE, 3 = HIGH. Always higher than the previous score as this represents a spike event.'
+        scoreChange:
+          type: string
+          description: Description of how the intent score changed (e.g. from LOW to HIGH).
+        topics:
+          type: array
+          items:
+            type: string
+          description: List of individual intent topic names within the cluster that contributed to the spike.
+        topLocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/AliLocation'
+          description: Geographic breakdown of where the intent activity was detected, including location name and number of active buyers.
+      description: Account level intent signal payload.
+    LowActiveContactsInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.lowactivecontacts
+          pattern: zi.lowactivecontacts
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/LowActiveContactsSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Low active contacts insight model
+    CompanyInsight:
+      type: object
+      required:
+      - insights
+      properties:
+        insights:
+          type: array
+          items:
+            $ref: '#/components/schemas/InsightUnion'
+          description: Array of insights for this company.
+      description: Attributes for company insight.
+    AwardInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.award
+          pattern: zi.award
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/AwardSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Award insight model
+    IPOInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.ipo
+          pattern: zi.ipo
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/IPOSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: IPO insight model
+    UpcomingMeetingInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.upcomingmeeting
+          pattern: zi.upcomingmeeting
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/UpcomingMeetingSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Upcoming meeting insight model
+    PersonBasedNewsSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - ziCompanyId
+      - ziContactId
+      - name
+      - description
+      - source
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: ZoomInfo company id.
+        ziContactId:
+          type: integer
+          format: int64
+          description: ZoomInfo contact id for the person.
+        name:
+          type: string
+          description: Name of the person associated with this signal.
+        title:
+          type: string
+          description: Person's job title.
+        isPersonOfInterest:
+          type: boolean
+          description: Indicates if this person was identified as a contact of interest.
+        isCLevel:
+          type: boolean
+          description: Indicates if the person holds a C-level executive position.
+        inBuyingGroup:
+          type: boolean
+          description: Indicates if the person is part of an identified buying committee or decision-making group.
+        description:
+          type: string
+          description: Summary of the news article or story featuring this contact.
+        source:
+          type: string
+          description: Name of the publication or outlet that published the news (e.g. 'TechCrunch', 'Forbes').
+      description: Person based news signal payload.
+    UpcomingMeetingSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - meetingSubject
+      - meetingBrief
+      - meetingStartTime
+      - externalParticipants
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        meetingSubject:
+          type: string
+          description: Subject line of the upcoming meeting as recorded in the calendar or CRM.
+        meetingBrief:
+          type: string
+          description: AI-generated summary providing context about the meeting, attendees, and key talking points.
+        meetingStartTime:
+          type: string
+          description: Scheduled start time of the meeting as an ISO 8601 string (e.g. '2024-06-15T14:00:00Z').
+        externalParticipants:
+          type: array
+          items:
+            type: string
+          description: List of external meeting participants (those outside your organization). Each entry is the participant's full name (e.g. 'Jane Doe'), full name with job title (e.g. 'Jane Doe, VP of Marketing'), or email address if no name is available (e.g. 'alex@example.com').
+      description: Upcoming meeting signal payload.
+    DivestitureSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - text
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        text:
+          type: string
+          description: The text content of the signal.
+      description: Divestiture signal payload.
+    PodcastMentionsSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - ziCompanyId
+      - text
+      - ziContactId
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: ZoomInfo company id.
+        text:
+          type: string
+          description: AI-generated summary of the podcast episode in which the contact was featured as a guest.
+        ziContactId:
+          type: integer
+          format: int64
+          description: The ZoomInfo contact ID for the person.
+        externalUrl:
+          type: string
+          description: URL to the podcast episode where the contact appeared.
+      description: Podcast mentions signal payload.
+    TrustRadiusActivityLabel:
+      type: string
+      enum:
+      - Category
+      - Product Listing
+      - Product Details
+      - Product Pricing
+      - Product Reviews
+      - Review
+      - Comparison
+      - Comparisons
+      - Competitors
+      - Features Scorecard
+      - Product Paid CTA
+      - Category Top Rated
+      - Category Products
+      - Product Overview
+      description: Label indicating which type of TrustRadius page the activity occurred on.
+      x-enumDescriptions:
+        CATEGORY: Activity on a product category page.
+        PRODUCT_LISTING: Activity on a product listing page.
+        PRODUCT_DETAILS: Activity on a product details page.
+        PRODUCT_PRICING: Activity on a product pricing page — strong buying intent signal.
+        PRODUCT_REVIEWS: Activity on a product reviews page.
+        REVIEW: Activity on an individual review.
+        COMPARISON: Activity on a single product comparison page.
+        COMPARISONS: Activity on a multi-product comparisons page.
+        COMPETITORS: Activity on a competitors page for a product.
+        FEATURES_SCORECARD: Activity on a features scorecard page comparing product capabilities.
+        PRODUCT_PAID_CTA: Activity on a paid call-to-action on a product page.
+        CATEGORY_TOP_RATED: Activity on a top-rated products list within a category.
+        CATEGORY_PRODUCTS: Activity on the products listing within a category.
+        PRODUCT_OVERVIEW: Activity on a product overview page.
+    DivestitureInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.divestiture
+          pattern: zi.divestiture
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/DivestitureSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Divestiture insight model
+    ProductLaunchInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.productlaunch
+          pattern: zi.productlaunch
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/ProductLaunchSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Product launch insight model
+    CompanyInsightsByTypeResponseResource:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: CompanyInsights
+          pattern: CompanyInsights
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/CompanyInsight'
+          description: The attributes defining the resource
+      description: Company insights by type response resource.
+    MASignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - text
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        text:
+          type: string
+          description: The text content of the signal.
+      description: M&A signal payload.
+    MarketingCampaignsSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - ziCompanyId
+      - description
+      - campaignName
+      - campaignAudienceCompanyName
+      - clicks
+      - impressions
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: ZoomInfo company id.
+        description:
+          type: string
+          description: Summary of the marketing campaign and its targeting criteria.
+        campaignName:
+          type: string
+          description: Name of the marketing campaign.
+        campaignAudienceCompanyName:
+          type: string
+          description: Name of the company targeted by the campaign.
+        clicks:
+          type: integer
+          format: int64
+          description: Number of clicks the campaign received.
+        impressions:
+          type: integer
+          format: int64
+          description: Number of impressions the campaign received.
+      description: Marketing campaigns signal payload.
+    TrustRadiusSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - activityLabel
+      - activitySource
+      - activityType
+      - activityLocationInfo
+      - text
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        activityLabel:
+          allOf:
+          - $ref: '#/components/schemas/TrustRadiusActivityLabel'
+          description: Label of the TrustRadius Signal.
+        activitySource:
+          allOf:
+          - $ref: '#/components/schemas/TrustRadiusActivitySource'
+          description: Source of the TrustRadius Signal.
+        activityType:
+          allOf:
+          - $ref: '#/components/schemas/TrustRadiusActivityType'
+          description: Type of the TrustRadius Signal.
+        activityLocationInfo:
+          allOf:
+          - $ref: '#/components/schemas/ActivityLocationInfo'
+          description: Activity Location Info including city, state, country, etc.
+        vendor:
+          type: string
+          description: Vendor of the primary product or listing associated with this activity.
+        name:
+          type: string
+          description: The TrustRadius page type where the activity occurred (e.g. 'ProductListing', 'Comparison', 'Competitors').
+        type:
+          type: string
+          description: Listing type of the primary product associated with this activity (e.g. 'product', 'service').
+        vendorB:
+          type: string
+          description: If the activity includes a comparison between A and B, this field indicates the vendor of the comparison object B.
+        nameB:
+          type: string
+          description: If the activity includes a comparison between A and B, this field indicates the name of the comparison object B.
+        typeB:
+          type: string
+          description: If the activity includes a comparison between A and B, this field indicates the type of the comparison object B.
+        text:
+          type: string
+          description: Human-readable sentence describing the activity (e.g. 'Viewed the Acme Corp product listing'). Combines the activity type with the subject product name.
+      description: TrustRadius signal payload.
     SignalType:
       type: string
       enum:
@@ -334,15 +2669,12 @@ components:
         IPO: Initial public offering or a stock market launch. Signal lasts 30 days. No setup requirements.
         AWARD: Recognition of a company, product, or employee in formal awards or industry rankings (e.g., 'Best of', 'Top Company'). Aligned to topics related to your account's value proposition. Signal lasts 30 days. No setup requirements.
         PROJECT: Department-specific initiatives being planned, underway, or recently completed. Filtered to scoop topics aligned to your account's value proposition. Signal lasts 30 days. No setup requirements.
-    BuyingCommitteeChangeSignalPayload:
+    ScoopsSignalPayload:
       type: object
       required:
       - displayText
       - date
-      - ziCompanyId
-      - ziContactId
-      - name
-      - changeType
+      - text
       properties:
         displayText:
           type: string
@@ -351,43 +2683,10 @@ components:
           type: string
           format: date-time
           description: UTC timestamp when the signal event was originally recorded or detected.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: ZoomInfo company id.
-        ziContactId:
-          type: integer
-          format: int64
-          description: ZoomInfo contact id for the person.
-        name:
+        text:
           type: string
-          description: Name of the person associated with this signal.
-        title:
-          type: string
-          description: Person's job title.
-        isPersonOfInterest:
-          type: boolean
-          description: Indicates if this person was identified as a contact of interest.
-        isCLevel:
-          type: boolean
-          description: Indicates if the person holds a C-level executive position.
-        inBuyingGroup:
-          type: boolean
-          description: Indicates if the person is part of an identified buying committee or decision-making group.
-        changeType:
-          type: string
-          description: Specific type of change that triggered this signal.
-        previousCompanyId:
-          type: integer
-          format: int64
-          description: ZoomInfo company ID of the person's previous employer.
-        previousTitle:
-          type: string
-          description: Person's previous job title.
-        previousCompanyName:
-          type: string
-          description: Name of the company where the person was previously employed.
-      description: Buying committee change signal payload.
+          description: The text content of the signal.
+      description: Scoops signal payload.
     CompetitorIntentSignal:
       type: object
       required:
@@ -414,7 +2713,7 @@ components:
           type: string
           description: Competitor's products or services that are being researched by the account.
       description: Competitor Intent Signal information.
-    TrustRadiusInsight:
+    LayoffsInsight:
       type: object
       required:
       - ziCompanyId
@@ -436,11 +2735,11 @@ components:
         signalType:
           type: string
           description: Type of the signal.
-          default: zi.trustradius
-          pattern: zi.trustradius
+          default: zi.layoffs
+          pattern: zi.layoffs
         signalPayload:
           allOf:
-          - $ref: '#/components/schemas/TrustRadiusSignalPayload'
+          - $ref: '#/components/schemas/LayoffsSignalPayload'
           description: Structured payload containing signal-specific data based on the signal type.
         insightDate:
           type: string
@@ -454,291 +2753,8 @@ components:
           type: string
           format: date-time
           description: Date of creation of the insight.
-      description: TrustRadius insight model
-    CompetitorIntentSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - competitor
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        competitor:
-          allOf:
-          - $ref: '#/components/schemas/CompetitorIntentSignal'
-          description: Details about the competitor being researched, including the competitor's company ID, name, and relevant products or services.
-      description: Competitor intent signal payload.
-    TrustRadiusActivitySource:
-      type: string
-      enum:
-      - Category
-      - Competitor
-      - Licensed Product
-      description: Source indicating where the TrustRadius activity originated.
-      x-enumDescriptions:
-        CATEGORY: Activity originated from browsing a product category on TrustRadius.
-        COMPETITOR: Activity originated from viewing a competitor's product page.
-        LICENSED_PRODUCT: Activity originated from a product page that the tenant has licensed on TrustRadius.
-    TechnologySignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - category
-      - subCategory
-      - vendor
-      - text
-      - changeType
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        category:
-          type: string
-          description: High-level technology category (e.g. 'CRM', 'Marketing Automation', 'Cloud Infrastructure').
-        subCategory:
-          type: string
-          description: More specific classification within the category (e.g. 'Sales CRM', 'Email Marketing').
-        vendor:
-          type: string
-          description: Name of the technology vendor or provider (e.g. 'Salesforce', 'HubSpot').
-        text:
-          type: string
-          description: Description of the technology and its relevance to the signal (e.g. 'Salesforce is a cloud-based CRM platform used to manage sales pipelines and customer relationships').
-        changeType:
-          allOf:
-          - $ref: '#/components/schemas/TechnologyStatus'
-          description: Status of the Technology signal.
-      description: Technology signal payload.
-    ProductLaunchSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - text
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        text:
-          type: string
-          description: The text content of the signal.
-      description: Product launch signal payload.
-    PodcastMentionsInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.podcastmentions
-          pattern: zi.podcastmentions
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/PodcastMentionsSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Podcast mentions insight model
-    UpcomingRenewalSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - renewalDate
-      - signalId
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        renewalDate:
-          type: string
-          format: date-time
-          description: UTC timestamp of when the renewal is due.
-        signalId:
-          type: string
-          description: Unique identifier for this upcoming renewal signal instance.
-      description: Upcoming renewal signal payload.
-    PersonWebsightsIntentLevel:
-      type: string
-      enum:
-      - High
-      - Medium
-      - Low
-      - Unspecified
-      description: Buying intent level inferred from a known contact's website visit behavior.
-      x-enumDescriptions:
-        HIGH: The contact has shown strong buying intent based on their website visit behavior.
-        MEDIUM: The contact has shown moderate buying intent based on their website visit behavior.
-        LOW: The contact has shown limited buying intent based on their website visit behavior.
-        UNSPECIFIED: Intent level could not be determined for this contact's visit.
-    G2Insight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.g2
-          pattern: zi.g2
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/G2SignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: G2 insight model
-    EarningsInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.earnings
-          pattern: zi.earnings
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/EarningsSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Earnings insight model
-    NoPostMeetingFollowUpInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.nopostmeetingfollowup
-          pattern: zi.nopostmeetingfollowup
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/NoPostMeetingFollowUpSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: No post meeting follow up insight model
-    CxoChangeSignalPayload:
+      description: Layoffs insight model
+    PersonWebsightsSignalPayload:
       type: object
       required:
       - displayText
@@ -746,7 +2762,8 @@ components:
       - ziCompanyId
       - ziContactId
       - name
-      - changeType
+      - url
+      - intentLevel
       properties:
         displayText:
           type: string
@@ -778,34 +2795,167 @@ components:
         inBuyingGroup:
           type: boolean
           description: Indicates if the person is part of an identified buying committee or decision-making group.
-        changeType:
+        url:
           type: string
-          description: Specific type of change that triggered this signal.
-        previousCompanyId:
-          type: integer
-          format: int64
-          description: ZoomInfo company ID of the person's previous employer.
-        previousTitle:
-          type: string
-          description: Person's previous job title.
-        previousCompanyName:
-          type: string
-          description: Name of the company where the person was previously employed.
-      description: CXO change signal payload.
-    AliLocation:
+          description: URL of the page on your website that the contact visited.
+        intentLevel:
+          allOf:
+          - $ref: '#/components/schemas/PersonWebsightsIntentLevel'
+          description: Intent level of the signal.
+      description: Person websights signal payload.
+    UpcomingRenewalInsight:
       type: object
       required:
-      - location
-      - buyersCount
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
       properties:
-        location:
-          type: string
-          description: Geographic location name.
-        buyersCount:
+        id:
           type: integer
           format: int64
-          description: Number of active buyers detected.
-      description: Account Level Intent (ALI) location information.
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.upcomingrenewal
+          pattern: zi.upcomingrenewal
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/UpcomingRenewalSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Upcoming renewal insight model
+    CompanyInsightsByTypeResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyInsightsByTypeResponseResource'
+          description: The primary data of the document
+      description: Response model for retrieving company insights by type.
+    ProductLaunchSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - text
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        text:
+          type: string
+          description: The text content of the signal.
+      description: Product launch signal payload.
+    ProjectInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.project
+          pattern: zi.project
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/ProjectSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Project insight model
+    CompanyInsightsSearch:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: CompanyInsightsSearch
+          pattern: CompanyInsightsSearch
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/CompanyInsightsByTypeRequestAttributes'
+          description: The attributes defining the resource
+      description: Company insights by type request resource.
+    WebsightsSignalPayload:
+      type: object
+      required:
+      - displayText
+      - date
+      - strength
+      - url
+      - signalId
+      properties:
+        displayText:
+          type: string
+          description: Text describing this signal for display purposes.
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp when the signal event was originally recorded or detected.
+        strength:
+          type: string
+          description: Computed intent strength label based on the pages visited. May be empty if intent level could not be determined.
+        url:
+          type: string
+          description: Domain of the customer's website that was visited (e.g. 'zoominfo.com'). This is the domain only, not a full URL with path.
+        signalId:
+          type: string
+          description: ZoomInfo-internal identifier that uniquely identifies this signal through the processing pipeline.
+      description: Websights signal payload - represents web activity insights.
     MpocChangeSignalPayload:
       type: object
       required:
@@ -860,947 +3010,17 @@ components:
           type: string
           description: Name of the company where the person was previously employed.
       description: MPOC change signal payload.
-    G2SignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - type
-      - subject
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        type:
-          type: string
-          description: 'The type of G2 page visited. One of: ''Category'', ''Compare'', ''Competitors'', ''Licensed Content'', ''Pricing Page'', ''Product Reference Page'', ''Profile''.'
-        subject:
-          type: string
-          description: 'Label combining type and content in the format ''{type}: {content}'' (e.g. ''Competitors: Acme Corp'', ''Category: Sales Intelligence'').'
-      description: G2 signal payload.
-    UpcomingMeetingInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.upcomingmeeting
-          pattern: zi.upcomingmeeting
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/UpcomingMeetingSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Upcoming meeting insight model
-    AnomalousHiringSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - text
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        text:
-          type: string
-          description: Summary describing the unusual hiring activity, including context about the scale or nature of the hiring surge.
-        department:
-          type: string
-          description: Department where the unusual volume of hiring was detected (e.g. 'Engineering', 'Sales').
-      description: Anomalous hiring signal payload.
-    AnomalousHiringInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.anomaloushiring
-          pattern: zi.anomaloushiring
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/AnomalousHiringSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Anomalous hiring insight model
-    PainPointInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.painpoint
-          pattern: zi.painpoint
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/PainPointSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Pain point insight model
-    LowActiveContactsInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.lowactivecontacts
-          pattern: zi.lowactivecontacts
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/LowActiveContactsSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Low active contacts insight model
-    PersonBasedNewsSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - ziCompanyId
-      - ziContactId
-      - name
-      - description
-      - source
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: ZoomInfo company id.
-        ziContactId:
-          type: integer
-          format: int64
-          description: ZoomInfo contact id for the person.
-        name:
-          type: string
-          description: Name of the person associated with this signal.
-        title:
-          type: string
-          description: Person's job title.
-        isPersonOfInterest:
-          type: boolean
-          description: Indicates if this person was identified as a contact of interest.
-        isCLevel:
-          type: boolean
-          description: Indicates if the person holds a C-level executive position.
-        inBuyingGroup:
-          type: boolean
-          description: Indicates if the person is part of an identified buying committee or decision-making group.
-        description:
-          type: string
-          description: Summary of the news article or story featuring this contact.
-        source:
-          type: string
-          description: Name of the publication or outlet that published the news (e.g. 'TechCrunch', 'Forbes').
-      description: Person based news signal payload.
-    PainPointSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - text
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        text:
-          type: string
-          description: The text content of the signal.
-      description: Pain point signal payload.
-    FormCompleteSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - ziCompanyId
-      - ziContactId
-      - name
-      - formName
-      - formStatus
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: ZoomInfo company id.
-        ziContactId:
-          type: integer
-          format: int64
-          description: ZoomInfo contact id for the person.
-        name:
-          type: string
-          description: Name of the person associated with this signal.
-        title:
-          type: string
-          description: Person's job title.
-        isPersonOfInterest:
-          type: boolean
-          description: Indicates if this person was identified as a contact of interest.
-        isCLevel:
-          type: boolean
-          description: Indicates if the person holds a C-level executive position.
-        inBuyingGroup:
-          type: boolean
-          description: Indicates if the person is part of an identified buying committee or decision-making group.
-        formName:
-          type: string
-          description: The customer-defined name of the submitted form, as configured in ZoomInfo FormComplete.
-        formStatus:
-          allOf:
-          - $ref: '#/components/schemas/FormStatus'
-          description: Status of the form.
-      description: Form complete signal payload.
-    AccountLevelIntentInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.account-level-intent.spike
-          pattern: zi.account-level-intent.spike
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/AccountLevelIntentSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Account level intent insight model
-    NoPostMeetingFollowUpSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - ziCompanyId
-      - ziContactId
-      - name
-      - subject
-      - numberOfParticipants
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: ZoomInfo company id.
-        ziContactId:
-          type: integer
-          format: int64
-          description: ZoomInfo contact id for the person.
-        name:
-          type: string
-          description: Name of the person associated with this signal.
-        title:
-          type: string
-          description: Person's job title.
-        isPersonOfInterest:
-          type: boolean
-          description: Indicates if this person was identified as a contact of interest.
-        isCLevel:
-          type: boolean
-          description: Indicates if the person holds a C-level executive position.
-        inBuyingGroup:
-          type: boolean
-          description: Indicates if the person is part of an identified buying committee or decision-making group.
-        subject:
-          type: string
-          description: Subject line of the meeting that occurred without a follow-up email.
-        meetingSource:
-          type: string
-          description: System or integration that recorded the meeting (e.g. 'Chorus', 'Salesforce').
-        numberOfParticipants:
-          type: integer
-          format: int64
-          description: Number of meeting participants.
-      description: No post meeting follow up signal payload.
-    PersonWebsightsSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - ziCompanyId
-      - ziContactId
-      - name
-      - url
-      - intentLevel
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: ZoomInfo company id.
-        ziContactId:
-          type: integer
-          format: int64
-          description: ZoomInfo contact id for the person.
-        name:
-          type: string
-          description: Name of the person associated with this signal.
-        title:
-          type: string
-          description: Person's job title.
-        isPersonOfInterest:
-          type: boolean
-          description: Indicates if this person was identified as a contact of interest.
-        isCLevel:
-          type: boolean
-          description: Indicates if the person holds a C-level executive position.
-        inBuyingGroup:
-          type: boolean
-          description: Indicates if the person is part of an identified buying committee or decision-making group.
-        url:
-          type: string
-          description: URL of the page on your website that the contact visited.
-        intentLevel:
-          allOf:
-          - $ref: '#/components/schemas/PersonWebsightsIntentLevel'
-          description: Intent level of the signal.
-      description: Person websights signal payload.
-    BuyingCommitteeChangeInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.buyingcommitteechange
-          pattern: zi.buyingcommitteechange
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/BuyingCommitteeChangeSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Buying committee change insight model
-    WebsightsSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - strength
-      - url
-      - signalId
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        strength:
-          type: string
-          description: Computed intent strength label based on the pages visited. May be empty if intent level could not be determined.
-        url:
-          type: string
-          description: Domain of the customer's website that was visited (e.g. 'zoominfo.com'). This is the domain only, not a full URL with path.
-        signalId:
-          type: string
-          description: ZoomInfo-internal identifier that uniquely identifies this signal through the processing pipeline.
-      description: Websights signal payload - represents web activity insights.
-    UpcomingRenewalInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.upcomingrenewal
-          pattern: zi.upcomingrenewal
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/UpcomingRenewalSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Upcoming renewal insight model
-    WonDealInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.wondeal
-          pattern: zi.wondeal
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/WonDealSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Won deal insight model
-    TechnologyStatus:
-      type: string
-      enum:
-      - ADD
-      - DROP
-      description: Indicates whether a technology was added to the company's tech stack.
-      x-enumDescriptions:
-        ADD: The company has recently adopted this technology into their tech stack.
-    WonDealSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - signalId
-      - companyName
-      - opportunityName
-      - type
-      - closeDate
-      - amount
-      - opportunityOwner
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        signalId:
-          type: string
-          description: Signal ID for the won deal signal.
-        companyName:
-          type: string
-          description: Name of the customer company the deal was closed with (e.g. 'Acme Corp').
-        opportunityName:
-          type: string
-          description: Name of the CRM opportunity associated with the won deal.
-        type:
-          type: string
-          description: CRM opportunity type classifying the nature of the deal (e.g. 'New Business', 'Renewal', 'Upsell').
-        closeDate:
-          type: string
-          description: Date the deal was closed, formatted as a string (e.g. '2024-01-15').
-        amount:
-          type: string
-          description: Monetary value of the closed deal, expressed as a formatted string (e.g. '$50,000').
-        opportunityOwner:
-          type: string
-          description: Name of the CRM user who owns the opportunity.
-      description: Won deal signal payload.
-    PersonWebsightsInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.personwebsights
-          pattern: zi.personwebsights
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/PersonWebsightsSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Person websights insight model
-    AwardSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - text
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        text:
-          type: string
-          description: The text content of the signal.
-      description: Award signal payload.
-    PersonBasedNewsInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.personbasednews
-          pattern: zi.personbasednews
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/PersonBasedNewsSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Person based news insight model
-    MAInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.m&a
-          pattern: zi.m&a
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/MASignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: M&A insight model
-    CompetitorIntentInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.intent.competitor.spike
-          pattern: zi.intent.competitor.spike
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/CompetitorIntentSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Competitor intent insight model
-    TrustRadiusActivityLabel:
-      type: string
-      enum:
-      - Category
-      - Product Listing
-      - Product Details
-      - Product Pricing
-      - Product Reviews
-      - Review
-      - Comparison
-      - Comparisons
-      - Competitors
-      - Features Scorecard
-      - Product Paid CTA
-      - Category Top Rated
-      - Category Products
-      - Product Overview
-      description: Label indicating which type of TrustRadius page the activity occurred on.
-      x-enumDescriptions:
-        CATEGORY: Activity on a product category page.
-        PRODUCT_LISTING: Activity on a product listing page.
-        PRODUCT_DETAILS: Activity on a product details page.
-        PRODUCT_PRICING: Activity on a product pricing page — strong buying intent signal.
-        PRODUCT_REVIEWS: Activity on a product reviews page.
-        REVIEW: Activity on an individual review.
-        COMPARISON: Activity on a single product comparison page.
-        COMPARISONS: Activity on a multi-product comparisons page.
-        COMPETITORS: Activity on a competitors page for a product.
-        FEATURES_SCORECARD: Activity on a features scorecard page comparing product capabilities.
-        PRODUCT_PAID_CTA: Activity on a paid call-to-action on a product page.
-        CATEGORY_TOP_RATED: Activity on a top-rated products list within a category.
-        CATEGORY_PRODUCTS: Activity on the products listing within a category.
-        PRODUCT_OVERVIEW: Activity on a product overview page.
-    LowActiveContactsSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - engagedContactsCount
-      - lastEngagementDate
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        engagedContactsCount:
-          type: integer
-          format: int64
-          description: Number of contacts at this account who have been engaged (via CRM or Chorus activity) on the open opportunity.
-        lastEngagementDate:
-          type: string
-          format: date-time
-          description: UTC timestamp of the most recent engagement activity detected on the open opportunity.
-      description: Low active contacts signal payload.
-    CompanyInsightsByTypeResponse:
+    CompanyInsightsByTypeRequest:
       type: object
       required:
       - data
       properties:
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CompanyInsightsByTypeResponseResource'
+          allOf:
+          - $ref: '#/components/schemas/CompanyInsightsSearch'
           description: The primary data of the document
-      description: Response model for retrieving company insights by type.
-    ZoomInfo.Core.Foundations.ErrorModel:
-      type: object
-      required:
-      - id
-      - code
-      - status
-      properties:
-        id:
-          type: string
-          description: The unique id used to identify this specific error instance
-        code:
-          type: string
-          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
-        detail:
-          type: string
-          description: Message containing the specific details about this occurrence of the error
-        source:
-          allOf:
-          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
-          description: An optional object identifying which part of the request caused the error
-        status:
-          type: string
-          description: The HTTP status code for the error
-        title:
-          type: string
-          description: The error name that describes this type of error
-      description: The object describing a specific error from the API
-    NoDecisionMakerInsight:
+      description: Request model for retrieving company insights by type.
+    NoPostMeetingFollowUpInsight:
       type: object
       required:
       - ziCompanyId
@@ -1822,11 +3042,11 @@ components:
         signalType:
           type: string
           description: Type of the signal.
-          default: zi.nodecisionmaker
-          pattern: zi.nodecisionmaker
+          default: zi.nopostmeetingfollowup
+          pattern: zi.nopostmeetingfollowup
         signalPayload:
           allOf:
-          - $ref: '#/components/schemas/NoDecisionMakerSignalPayload'
+          - $ref: '#/components/schemas/NoPostMeetingFollowUpSignalPayload'
           description: Structured payload containing signal-specific data based on the signal type.
         insightDate:
           type: string
@@ -1840,861 +3060,7 @@ components:
           type: string
           format: date-time
           description: Date of creation of the insight.
-      description: No decision maker insight model
-    ZoomInfo.Core.Foundations.ErrorSourceModel:
-      type: object
-      properties:
-        cookie:
-          type: string
-          description: Identifies the cookie name that caused the issue
-        header:
-          type: string
-          description: Identifies the header name that caused the error
-        pointer:
-          type: string
-          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
-        parameter:
-          type: string
-          description: The name of the path or query parameter that caused the error
-    FundingInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.funding
-          pattern: zi.funding
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/FundingSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Funding insight model
-    SeniorJobPostingsInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.seniorjobpostings
-          pattern: zi.seniorjobpostings
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/SeniorJobPostingsSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Senior job postings insight model
-    PartnershipSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - text
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        text:
-          type: string
-          description: The text content of the signal.
-      description: Partnership signal payload.
-    NewContactPreviouslyWorkedForCustomerSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - ziCompanyId
-      - ziContactId
-      - name
-      - changeType
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: ZoomInfo company id.
-        ziContactId:
-          type: integer
-          format: int64
-          description: ZoomInfo contact id for the person.
-        name:
-          type: string
-          description: Name of the person associated with this signal.
-        title:
-          type: string
-          description: Person's job title.
-        isPersonOfInterest:
-          type: boolean
-          description: Indicates if this person was identified as a contact of interest.
-        isCLevel:
-          type: boolean
-          description: Indicates if the person holds a C-level executive position.
-        inBuyingGroup:
-          type: boolean
-          description: Indicates if the person is part of an identified buying committee or decision-making group.
-        changeType:
-          type: string
-          description: Specific type of change that triggered this signal.
-        previousCompanyId:
-          type: integer
-          format: int64
-          description: ZoomInfo company ID of the person's previous employer.
-        previousTitle:
-          type: string
-          description: Person's previous job title.
-        previousCompanyName:
-          type: string
-          description: Name of the company where the person was previously employed.
-      description: New contact previously worked for customer signal payload.
-    PersonChangeInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.personchange
-          pattern: zi.personchange
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/PersonChangeSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Person change insight model
-    FormStatus:
-      type: string
-      enum:
-      - SUBMITTED
-      - PENDING
-      description: Submission status of a completed form.
-      x-enumDescriptions:
-        SUBMITTED: The form was fully completed and submitted by the contact.
-        PENDING: The form was started but not fully submitted (abandoned/partial).
-    CompanyInsight:
-      type: object
-      required:
-      - insights
-      properties:
-        insights:
-          type: array
-          items:
-            $ref: '#/components/schemas/InsightUnion'
-          description: Array of insights for this company.
-      description: Attributes for company insight.
-    ProjectInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.project
-          pattern: zi.project
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/ProjectSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Project insight model
-    DivestitureSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - text
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        text:
-          type: string
-          description: The text content of the signal.
-      description: Divestiture signal payload.
-    PodcastMentionsSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - ziCompanyId
-      - text
-      - ziContactId
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: ZoomInfo company id.
-        text:
-          type: string
-          description: AI-generated summary of the podcast episode in which the contact was featured as a guest.
-        ziContactId:
-          type: integer
-          format: int64
-          description: The ZoomInfo contact ID for the person.
-        externalUrl:
-          type: string
-          description: URL to the podcast episode where the contact appeared.
-      description: Podcast mentions signal payload.
-    MarketingCampaignsInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.marketingcampaigns
-          pattern: zi.marketingcampaigns
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/MarketingCampaignsSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Marketing campaigns insight model
-    ScoopsInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.scoop
-          pattern: zi.scoop
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/ScoopsSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Scoops insight model
-    CompanyInsightsSearch:
-      type: object
-      required:
-      - type
-      - attributes
-      properties:
-        type:
-          type: string
-          description: The type of the resource
-          default: CompanyInsightsSearch
-          pattern: CompanyInsightsSearch
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/CompanyInsightsByTypeRequestAttributes'
-          description: The attributes defining the resource
-      description: Company insights by type request resource.
-    CompanyInsightsByTypeRequestAttributes:
-      type: object
-      required:
-      - ziCompanyIds
-      properties:
-        ziCompanyIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          maxItems: 50
-          description: List of ZoomInfo company IDs to retrieve insights for (maximum 50 companies per request).
-        signalTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/SignalType'
-          description: Optional filter for specific insight types. If not provided or empty, returns insights of all available types.
-      description: Request attributes for retrieving company insights filtered by signal type.
-    ProductLaunchInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.productlaunch
-          pattern: zi.productlaunch
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/ProductLaunchSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Product launch insight model
-    TechnologyInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.technology
-          pattern: zi.technology
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/TechnologySignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Technology insight model
-    AwardInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.award
-          pattern: zi.award
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/AwardSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Award insight model
-    PersonChangeSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - ziCompanyId
-      - ziContactId
-      - name
-      - changeType
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: ZoomInfo company id.
-        ziContactId:
-          type: integer
-          format: int64
-          description: ZoomInfo contact id for the person.
-        name:
-          type: string
-          description: Name of the person associated with this signal.
-        title:
-          type: string
-          description: Person's job title.
-        isPersonOfInterest:
-          type: boolean
-          description: Indicates if this person was identified as a contact of interest.
-        isCLevel:
-          type: boolean
-          description: Indicates if the person holds a C-level executive position.
-        inBuyingGroup:
-          type: boolean
-          description: Indicates if the person is part of an identified buying committee or decision-making group.
-        changeType:
-          type: string
-          description: Specific type of change that triggered this signal.
-        previousCompanyId:
-          type: integer
-          format: int64
-          description: ZoomInfo company ID of the person's previous employer.
-        previousTitle:
-          type: string
-          description: Person's previous job title.
-        previousCompanyName:
-          type: string
-          description: Name of the company where the person was previously employed.
-      description: Base model for person-related signal payloads with change tracking.
-    WebsightsInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.websights
-          pattern: zi.websights
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/WebsightsSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Websights insight model
-    CompanyInsightsByTypeResponseResource:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: CompanyInsights
-          pattern: CompanyInsights
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/CompanyInsight'
-          description: The attributes defining the resource
-      description: Company insights by type response resource.
-    FundingSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - type
-      - amount
-      - investors
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        type:
-          type: string
-          description: Type of funding round or event (e.g. 'Series A', 'Venture Round', 'Private Equity').
-        amount:
-          type: string
-          description: Total capital raised in this funding event, expressed as a formatted string (e.g. '$10M').
-        investors:
-          type: array
-          items:
-            type: string
-          description: List of investor names participating in the funding round.
-      description: Funding signal payload - represents company funding events.
-    AccountLevelIntentSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - clusterName
-      - score
-      - scoreChange
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        clusterName:
-          type: string
-          description: Name of the intent topic cluster that spiked. e.g. 'Sales Strategy'.
-        score:
-          type: integer
-          format: int64
-          description: 'The account''s current intent score after this signal. Values: 0 = NONE, 1 = LOW, 2 = MODERATE, 3 = HIGH. Always higher than the previous score as this represents a spike event.'
-        scoreChange:
-          type: string
-          description: Description of how the intent score changed (e.g. from LOW to HIGH).
-        topics:
-          type: array
-          items:
-            type: string
-          description: List of individual intent topic names within the cluster that contributed to the spike.
-        topLocations:
-          type: array
-          items:
-            $ref: '#/components/schemas/AliLocation'
-          description: Geographic breakdown of where the intent activity was detected, including location name and number of active buyers.
-      description: Account level intent signal payload.
-    NoDecisionMakerSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - engagedContactsCount
-      - lastEngagementDate
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        engagedContactsCount:
-          type: integer
-          format: int64
-          description: Number of contacts at this account who have been engaged (via CRM or Chorus activity) on the open opportunity.
-        lastEngagementDate:
-          type: string
-          format: date-time
-          description: UTC timestamp of the most recent engagement activity detected on the open opportunity.
-      description: No decision maker signal payload.
-    MpocChangeInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.mpocchange
-          pattern: zi.mpocchange
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/MpocChangeSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: MPOC change insight model
-    UpcomingMeetingSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - meetingSubject
-      - meetingBrief
-      - meetingStartTime
-      - externalParticipants
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        meetingSubject:
-          type: string
-          description: Subject line of the upcoming meeting as recorded in the calendar or CRM.
-        meetingBrief:
-          type: string
-          description: AI-generated summary providing context about the meeting, attendees, and key talking points.
-        meetingStartTime:
-          type: string
-          description: Scheduled start time of the meeting as an ISO 8601 string (e.g. '2024-06-15T14:00:00Z').
-        externalParticipants:
-          type: array
-          items:
-            type: string
-          description: List of external meeting participants (those outside your organization). Each entry is the participant's full name (e.g. 'Jane Doe'), full name with job title (e.g. 'Jane Doe, VP of Marketing'), or email address if no name is available (e.g. 'alex@example.com').
-      description: Upcoming meeting signal payload.
-    MASignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - text
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        text:
-          type: string
-          description: The text content of the signal.
-      description: M&A signal payload.
+      description: No post meeting follow up insight model
     InsightUnion:
       type: object
       oneOf:
@@ -2773,422 +3139,56 @@ components:
           zi.ipo: '#/components/schemas/IPOInsight'
           zi.award: '#/components/schemas/AwardInsight'
           zi.project: '#/components/schemas/ProjectInsight'
-    TrustRadiusActivityType:
+    AccountLevelIntentInsight:
+      type: object
+      required:
+      - ziCompanyId
+      - signalId
+      - signalType
+      - signalPayload
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique id for the insight.
+        ziCompanyId:
+          type: integer
+          format: int64
+          description: Company id.
+        signalId:
+          type: string
+          description: Signal id.
+        signalType:
+          type: string
+          description: Type of the signal.
+          default: zi.account-level-intent.spike
+          pattern: zi.account-level-intent.spike
+        signalPayload:
+          allOf:
+          - $ref: '#/components/schemas/AccountLevelIntentSignalPayload'
+          description: Structured payload containing signal-specific data based on the signal type.
+        insightDate:
+          type: string
+          format: date-time
+          description: Date of the insight.
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration date of the insight.
+        createdAt:
+          type: string
+          format: date-time
+          description: Date of creation of the insight.
+      description: Account level intent insight model
+    FormStatus:
       type: string
       enum:
-      - view
-      - click
-      - share
-      description: Type of activity performed by a contact on TrustRadius.
+      - SUBMITTED
+      - PENDING
+      description: Submission status of a completed form.
       x-enumDescriptions:
-        VIEW: The contact viewed a TrustRadius page.
-        CLICK: The contact clicked on a TrustRadius page element.
-        SHARE: The contact shared a TrustRadius page or review.
-    LayoffsInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.layoffs
-          pattern: zi.layoffs
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/LayoffsSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Layoffs insight model
-    NewContactPreviouslyWorkedForCustomerInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.newcontactpreviouslyworkedforcustomer
-          pattern: zi.newcontactpreviouslyworkedforcustomer
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/NewContactPreviouslyWorkedForCustomerSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: New contact previously worked for customer insight model
-    IPOInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.ipo
-          pattern: zi.ipo
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/IPOSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: IPO insight model
-    CxoChangeInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.cxochange
-          pattern: zi.cxochange
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/CxoChangeSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: CXO change insight model
-    ScoopsSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - text
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        text:
-          type: string
-          description: The text content of the signal.
-      description: Scoops signal payload.
-    DivestitureInsight:
-      type: object
-      required:
-      - ziCompanyId
-      - signalId
-      - signalType
-      - signalPayload
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique id for the insight.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: Company id.
-        signalId:
-          type: string
-          description: Signal id.
-        signalType:
-          type: string
-          description: Type of the signal.
-          default: zi.divestiture
-          pattern: zi.divestiture
-        signalPayload:
-          allOf:
-          - $ref: '#/components/schemas/DivestitureSignalPayload'
-          description: Structured payload containing signal-specific data based on the signal type.
-        insightDate:
-          type: string
-          format: date-time
-          description: Date of the insight.
-        expiresAt:
-          type: string
-          format: date-time
-          description: Expiration date of the insight.
-        createdAt:
-          type: string
-          format: date-time
-          description: Date of creation of the insight.
-      description: Divestiture insight model
-    CompanyInsightsByTypeRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/CompanyInsightsSearch'
-          description: The primary data of the document
-      description: Request model for retrieving company insights by type.
-    ProjectSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - text
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        text:
-          type: string
-          description: The text content of the signal.
-      description: Project signal payload.
-    MarketingCampaignsSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - ziCompanyId
-      - description
-      - campaignName
-      - campaignAudienceCompanyName
-      - clicks
-      - impressions
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        ziCompanyId:
-          type: integer
-          format: int64
-          description: ZoomInfo company id.
-        description:
-          type: string
-          description: Summary of the marketing campaign and its targeting criteria.
-        campaignName:
-          type: string
-          description: Name of the marketing campaign.
-        campaignAudienceCompanyName:
-          type: string
-          description: Name of the company targeted by the campaign.
-        clicks:
-          type: integer
-          format: int64
-          description: Number of clicks the campaign received.
-        impressions:
-          type: integer
-          format: int64
-          description: Number of impressions the campaign received.
-      description: Marketing campaigns signal payload.
-    ActivityLocationInfo:
-      type: object
-      properties:
-        locationCity:
-          type: string
-          description: City of the location.
-        locationState:
-          type: string
-          description: State of the location.
-        locationStateCode:
-          type: string
-          description: State code of the location.
-        locationCountry:
-          type: string
-          description: Location country.
-        locationCountryCode:
-          type: string
-          description: Location country code.
-      description: Activity location information for TrustRadius signals.
-    ZoomInfo.Core.Foundations.ErrorResponseModel:
-      type: object
-      required:
-      - errors
-      properties:
-        detail:
-          type: string
-          description: A high-level detail of the error(s) that occurred during the request
-        title:
-          type: string
-          description: A high-level summary of the error(s) detected
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
-          description: The list of errors raised during the request
-      description: The standard error response body model for the ZoomInfo API.
-    TrustRadiusSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - activityLabel
-      - activitySource
-      - activityType
-      - activityLocationInfo
-      - text
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        activityLabel:
-          allOf:
-          - $ref: '#/components/schemas/TrustRadiusActivityLabel'
-          description: Label of the TrustRadius Signal.
-        activitySource:
-          allOf:
-          - $ref: '#/components/schemas/TrustRadiusActivitySource'
-          description: Source of the TrustRadius Signal.
-        activityType:
-          allOf:
-          - $ref: '#/components/schemas/TrustRadiusActivityType'
-          description: Type of the TrustRadius Signal.
-        activityLocationInfo:
-          allOf:
-          - $ref: '#/components/schemas/ActivityLocationInfo'
-          description: Activity Location Info including city, state, country, etc.
-        vendor:
-          type: string
-          description: Vendor of the primary product or listing associated with this activity.
-        name:
-          type: string
-          description: The TrustRadius page type where the activity occurred (e.g. 'ProductListing', 'Comparison', 'Competitors').
-        type:
-          type: string
-          description: Listing type of the primary product associated with this activity (e.g. 'product', 'service').
-        vendorB:
-          type: string
-          description: If the activity includes a comparison between A and B, this field indicates the vendor of the comparison object B.
-        nameB:
-          type: string
-          description: If the activity includes a comparison between A and B, this field indicates the name of the comparison object B.
-        typeB:
-          type: string
-          description: If the activity includes a comparison between A and B, this field indicates the type of the comparison object B.
-        text:
-          type: string
-          description: Human-readable sentence describing the activity (e.g. 'Viewed the Acme Corp product listing'). Combines the activity type with the subject product name.
-      description: TrustRadius signal payload.
-    SeniorJobPostingsSignalPayload:
-      type: object
-      required:
-      - displayText
-      - date
-      - text
-      properties:
-        displayText:
-          type: string
-          description: Text describing this signal for display purposes.
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp when the signal event was originally recorded or detected.
-        department:
-          type: string
-          description: Department associated with the open senior leadership role (e.g. 'Engineering', 'Finance').
-        text:
-          type: string
-          description: Description of the open senior leadership role, including job title and any relevant details from the posting.
-      description: Senior job postings signal payload.
+        SUBMITTED: The form was fully completed and submitted by the contact.
+        PENDING: The form was started but not fully submitted (abandoned/partial).
   securitySchemes:
     OAuth2Auth:
       type: oauth2

@@ -846,65 +846,71 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Data44:
-      title: Data44
+    IspInfo:
+      title: IspInfo
       required:
-      - company
-      - geoLocation
+      - domain
+      - ip_hi_string
+      - ip_lo_string
+      - name
+      - type
       type: object
       properties:
-        company:
-          $ref: '#/components/schemas/Company24'
-        geoLocation:
-          $ref: '#/components/schemas/GeoLocation'
-      examples:
-      - company:
-          city: Vancouver
-          country: United States
-          employeeCount: 1800
-          id: 344589814
-          industries:
-          - Software
-          - Data Collection & Internet Portals
-          - Media & Internet
-          name: ZoomInfo
-          revenue: 476200
-          state: Washington
-          street: 805 Broadway St Suite 900
-          ticker: 'NASDAQ: ZI'
-          website: www.zoominfo.com
-          zipCode: '98660'
-        geoLocation:
-          location_long: -118.13118
-          location_lat: 34.18973
-          country_code: US
-          province: California
-    GeoLocation:
-      title: GeoLocation
-      required:
-      - location_long
-      - location_lat
-      - country_code
-      - province
-      type: object
-      properties:
-        location_long:
-          type: number
-          example: 75.5
-        location_lat:
-          type: number
-          example: 75.5
-        country_code:
+        domain:
           type: string
-          example: US
-        province:
+          example: example.com
+        ip_hi_string:
           type: string
           example: example_value
+        ip_lo_string:
+          type: string
+          example: example_value
+        name:
+          type: string
+          example: Acme Corporation
+        type:
+          type: string
+          example: standard
       examples:
-      - location_long: -71.06616
-        location_lat: 42.45843
-        country_code: US
-        province: Massachusetts
+      - domain: comcast.com
+        ip_hi_string: 73.143.255.255
+        ip_lo_string: 73.142.0.0
+        name: Comcast Cable Communications, Inc.
+        type: isp
+    IPEnrichRequest:
+      title: IPEnrichRequest
+      required:
+      - ipAddress
+      type: object
+      properties:
+        ipAddress:
+          type: string
+          example: 123 Main Street
+      examples:
+      - ipAddress: 207.106.190.66
+    Data42:
+      title: Data42
+      required:
+      - geoLocation
+      - ispInfo
+      type: object
+      properties:
+        geoLocation:
+          $ref: '#/components/schemas/GeoLocation'
+        ispInfo:
+          $ref: '#/components/schemas/IspInfo'
+      examples:
+      - geoLocation:
+          location_long: -71.06616
+          location_lat: 42.45843
+          country_code: US
+          province: Massachusetts
+        ispInfo:
+          domain: comcast.com
+          ip_hi_string: 73.143.255.255
+          ip_lo_string: 73.142.0.0
+          name: Comcast Cable Communications, Inc.
+          type: isp
     IPEnrichOutput:
       title: IPEnrichOutput
       required:
@@ -921,6 +927,27 @@ components:
       examples:
       - fieldName: id
         description: Unique ZoomInfo identifier for a company
+    GetIPEnrichInput:
+      title: GetIPEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: ipAddress
+        fieldType: String
+        description: The ipAddress you are searching for
     IPbelongstoacompany:
       title: IPbelongstoacompany
       required:
@@ -974,132 +1001,32 @@ components:
                 location_lat: 34.18973
                 country_code: US
                 province: California
-    IPbelongstoISP:
-      title: IPbelongstoISP
+    GeoLocation:
+      title: GeoLocation
       required:
-      - success
-      - data
+      - location_long
+      - location_lat
+      - country_code
+      - province
       type: object
       properties:
-        success:
-          type: boolean
-          example: true
-        data:
-          $ref: '#/components/schemas/Data41'
-      examples:
-      - success: true
-        data:
-          outputFields:
-          - - city
-            - country
-            - employeeCount
-            - id
-            - industries
-            - name
-            - revenue
-            - state
-            - street
-            - ticker
-            - website
-            - zipCode
-          result:
-          - input:
-            - 73.142.173.46
-            data:
-              geoLocation:
-                location_long: -71.06616
-                location_lat: 42.45843
-                country_code: US
-                province: Massachusetts
-              ispInfo:
-                domain: comcast.com
-                ip_hi_string: 73.143.255.255
-                ip_lo_string: 73.142.0.0
-                name: Comcast Cable Communications, Inc.
-                type: isp
-    Data41:
-      title: Data41
-      required:
-      - outputFields
-      - result
-      type: object
-      properties:
-        outputFields:
-          type: array
-          items:
-            type: array
-            items:
-              type: string
-          example: []
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result17'
-          description: ''
-          example: []
-      examples:
-      - outputFields:
-        - - city
-          - country
-          - employeeCount
-          - id
-          - industries
-          - name
-          - revenue
-          - state
-          - street
-          - ticker
-          - website
-          - zipCode
-        result:
-        - input:
-          - 73.142.173.46
-          data:
-            geoLocation:
-              location_long: -71.06616
-              location_lat: 42.45843
-              country_code: US
-              province: Massachusetts
-            ispInfo:
-              domain: comcast.com
-              ip_hi_string: 73.143.255.255
-              ip_lo_string: 73.142.0.0
-              name: Comcast Cable Communications, Inc.
-              type: isp
-    Data42:
-      title: Data42
-      required:
-      - geoLocation
-      - ispInfo
-      type: object
-      properties:
-        geoLocation:
-          $ref: '#/components/schemas/GeoLocation'
-        ispInfo:
-          $ref: '#/components/schemas/IspInfo'
-      examples:
-      - geoLocation:
-          location_long: -71.06616
-          location_lat: 42.45843
-          country_code: US
-          province: Massachusetts
-        ispInfo:
-          domain: comcast.com
-          ip_hi_string: 73.143.255.255
-          ip_lo_string: 73.142.0.0
-          name: Comcast Cable Communications, Inc.
-          type: isp
-    IPEnrichRequest:
-      title: IPEnrichRequest
-      required:
-      - ipAddress
-      type: object
-      properties:
-        ipAddress:
+        location_long:
+          type: number
+          example: 75.5
+        location_lat:
+          type: number
+          example: 75.5
+        country_code:
           type: string
-          example: 123 Main Street
+          example: US
+        province:
+          type: string
+          example: example_value
       examples:
-      - ipAddress: 207.106.190.66
+      - location_long: -71.06616
+        location_lat: 42.45843
+        country_code: US
+        province: Massachusetts
     Data43:
       title: Data43
       required:
@@ -1159,107 +1086,39 @@ components:
               location_lat: 34.18973
               country_code: US
               province: California
-    Result18:
-      title: Result18
+    Data44:
+      title: Data44
       required:
-      - input
-      - data
+      - company
+      - geoLocation
       type: object
       properties:
-        input:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-        data:
-          $ref: '#/components/schemas/Data44'
+        company:
+          $ref: '#/components/schemas/Company24'
+        geoLocation:
+          $ref: '#/components/schemas/GeoLocation'
       examples:
-      - input:
-        - 207.106.190.66
-        data:
-          company:
-            city: Vancouver
-            country: United States
-            employeeCount: 1800
-            id: 344589814
-            industries:
-            - Software
-            - Data Collection & Internet Portals
-            - Media & Internet
-            name: ZoomInfo
-            revenue: 476200
-            state: Washington
-            street: 805 Broadway St Suite 900
-            ticker: 'NASDAQ: ZI'
-            website: www.zoominfo.com
-            zipCode: '98660'
-          geoLocation:
-            location_long: -118.13118
-            location_lat: 34.18973
-            country_code: US
-            province: California
-    Result17:
-      title: Result17
-      required:
-      - input
-      - data
-      type: object
-      properties:
-        input:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-        data:
-          $ref: '#/components/schemas/Data42'
-      examples:
-      - input:
-        - 73.142.173.46
-        data:
-          geoLocation:
-            location_long: -71.06616
-            location_lat: 42.45843
-            country_code: US
-            province: Massachusetts
-          ispInfo:
-            domain: comcast.com
-            ip_hi_string: 73.143.255.255
-            ip_lo_string: 73.142.0.0
-            name: Comcast Cable Communications, Inc.
-            type: isp
-    IspInfo:
-      title: IspInfo
-      required:
-      - domain
-      - ip_hi_string
-      - ip_lo_string
-      - name
-      - type
-      type: object
-      properties:
-        domain:
-          type: string
-          example: example.com
-        ip_hi_string:
-          type: string
-          example: example_value
-        ip_lo_string:
-          type: string
-          example: example_value
-        name:
-          type: string
-          example: Acme Corporation
-        type:
-          type: string
-          example: standard
-      examples:
-      - domain: comcast.com
-        ip_hi_string: 73.143.255.255
-        ip_lo_string: 73.142.0.0
-        name: Comcast Cable Communications, Inc.
-        type: isp
+      - company:
+          city: Vancouver
+          country: United States
+          employeeCount: 1800
+          id: 344589814
+          industries:
+          - Software
+          - Data Collection & Internet Portals
+          - Media & Internet
+          name: ZoomInfo
+          revenue: 476200
+          state: Washington
+          street: 805 Broadway St Suite 900
+          ticker: 'NASDAQ: ZI'
+          website: www.zoominfo.com
+          zipCode: '98660'
+        geoLocation:
+          location_long: -118.13118
+          location_lat: 34.18973
+          country_code: US
+          province: California
     Company24:
       title: Company24
       required:
@@ -1335,27 +1194,168 @@ components:
         ticker: 'NASDAQ: ZI'
         website: www.zoominfo.com
         zipCode: '98660'
-    GetIPEnrichInput:
-      title: GetIPEnrichInput
+    Result17:
+      title: Result17
       required:
-      - fieldName
-      - fieldType
-      - description
+      - input
+      - data
       type: object
       properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
+        input:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        data:
+          $ref: '#/components/schemas/Data42'
       examples:
-      - fieldName: ipAddress
-        fieldType: String
-        description: The ipAddress you are searching for
+      - input:
+        - 73.142.173.46
+        data:
+          geoLocation:
+            location_long: -71.06616
+            location_lat: 42.45843
+            country_code: US
+            province: Massachusetts
+          ispInfo:
+            domain: comcast.com
+            ip_hi_string: 73.143.255.255
+            ip_lo_string: 73.142.0.0
+            name: Comcast Cable Communications, Inc.
+            type: isp
+    IPbelongstoISP:
+      title: IPbelongstoISP
+      required:
+      - success
+      - data
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/Data41'
+      examples:
+      - success: true
+        data:
+          outputFields:
+          - - city
+            - country
+            - employeeCount
+            - id
+            - industries
+            - name
+            - revenue
+            - state
+            - street
+            - ticker
+            - website
+            - zipCode
+          result:
+          - input:
+            - 73.142.173.46
+            data:
+              geoLocation:
+                location_long: -71.06616
+                location_lat: 42.45843
+                country_code: US
+                province: Massachusetts
+              ispInfo:
+                domain: comcast.com
+                ip_hi_string: 73.143.255.255
+                ip_lo_string: 73.142.0.0
+                name: Comcast Cable Communications, Inc.
+                type: isp
+    Result18:
+      title: Result18
+      required:
+      - input
+      - data
+      type: object
+      properties:
+        input:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        data:
+          $ref: '#/components/schemas/Data44'
+      examples:
+      - input:
+        - 207.106.190.66
+        data:
+          company:
+            city: Vancouver
+            country: United States
+            employeeCount: 1800
+            id: 344589814
+            industries:
+            - Software
+            - Data Collection & Internet Portals
+            - Media & Internet
+            name: ZoomInfo
+            revenue: 476200
+            state: Washington
+            street: 805 Broadway St Suite 900
+            ticker: 'NASDAQ: ZI'
+            website: www.zoominfo.com
+            zipCode: '98660'
+          geoLocation:
+            location_long: -118.13118
+            location_lat: 34.18973
+            country_code: US
+            province: California
+    Data41:
+      title: Data41
+      required:
+      - outputFields
+      - result
+      type: object
+      properties:
+        outputFields:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          example: []
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result17'
+          description: ''
+          example: []
+      examples:
+      - outputFields:
+        - - city
+          - country
+          - employeeCount
+          - id
+          - industries
+          - name
+          - revenue
+          - state
+          - street
+          - ticker
+          - website
+          - zipCode
+        result:
+        - input:
+          - 73.142.173.46
+          data:
+            geoLocation:
+              location_long: -71.06616
+              location_lat: 42.45843
+              country_code: US
+              province: Massachusetts
+            ispInfo:
+              domain: comcast.com
+              ip_hi_string: 73.143.255.255
+              ip_lo_string: 73.142.0.0
+              name: Comcast Cable Communications, Inc.
+              type: isp
   securitySchemes:
     httpBearer:
       type: http

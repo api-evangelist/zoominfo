@@ -1206,153 +1206,23 @@ components:
       examples:
       - id: 9867169
         name: AmerisourceBergen
-    ScoopSearchOutput:
-      title: ScoopSearchOutput
-      required:
-      - fieldName
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: id
-        description: ZoomInfo unique identifier for a scoop
-    ScoopSearchInput:
-      title: ScoopSearchInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: publishedStartDate
-        fieldType: String
-        description: Starting date to search for scoops based on when published. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format.
-    ScoopSearchRequest:
-      title: ScoopSearchRequest
-      required:
-      - companyName
-      - publishedStartDate
-      - publishedEndDate
-      - scoopType
-      - updatedSinceCreation
-      - description
-      type: object
-      properties:
-        companyName:
-          type: string
-          example: Acme Corporation
-        publishedStartDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        publishedEndDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        scoopType:
-          type: string
-          example: standard
-        updatedSinceCreation:
-          type: boolean
-          example: true
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - companyName: Zoominfo
-        publishedStartDate: '2018-11-01T00:00:00.000Z'
-        publishedEndDate: '2020-06-21T00:00:00.000Z'
-        scoopType: '6'
-        updatedSinceCreation: false
-        description: SaaS
-    Datum8:
-      title: Datum8
+    Type:
+      title: Type
       required:
       - id
-      - publishedDate
-      - originalPublishedDate
-      - linkText
-      - link
-      - description
-      - topics
-      - updateText
-      - types
-      - contacts
-      - company
+      - type
       type: object
       properties:
         id:
           type: integer
           contentEncoding: int32
           example: 500123
-        publishedDate:
+        type:
           type: string
-          example: '2025-03-15T14:30:00Z'
-        originalPublishedDate:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        linkText:
-          type: string
-          example: example_value
-        link:
-          type: string
-          example: example_value
-        description:
-          type: string
-          example: Enterprise software company
-        topics:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-        updateText:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        types:
-          type: array
-          items:
-            $ref: '#/components/schemas/Type'
-          description: ''
-          example: []
-        contacts:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-        company:
-          $ref: '#/components/schemas/Company'
+          example: standard
       examples:
-      - id: 1382057
-        publishedDate: 2/22/2019 12:00 AM
-        originalPublishedDate: 2/22/2019 12:00 AM
-        linkText: ''
-        link: ''
-        description: 'Datanyze has recently been ranked #986 on the 2019 SaaS 1000 Top SaaS Companies list.'
-        topics: []
-        updateText: ''
-        types:
-        - id: 6
-          type: Award
-        contacts: []
-        company:
-          id: 344589814
-          name: ZoomInfo
+      - id: 6
+        type: Award
     ScoopSearch:
       title: ScoopSearch
       required:
@@ -1445,23 +1315,153 @@ components:
           company:
             id: 344589814
             name: ZoomInfo
-    Type:
-      title: Type
+    ScoopSearchInput:
+      title: ScoopSearchInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: publishedStartDate
+        fieldType: String
+        description: Starting date to search for scoops based on when published. Form a range using publishedEndDate or omit publishedEndDate to search to the current date. Uses YYYY-MM-DD format.
+    Datum8:
+      title: Datum8
       required:
       - id
-      - type
+      - publishedDate
+      - originalPublishedDate
+      - linkText
+      - link
+      - description
+      - topics
+      - updateText
+      - types
+      - contacts
+      - company
       type: object
       properties:
         id:
           type: integer
           contentEncoding: int32
           example: 500123
-        type:
+        publishedDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        originalPublishedDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        linkText:
+          type: string
+          example: example_value
+        link:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: Enterprise software company
+        topics:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        updateText:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        types:
+          type: array
+          items:
+            $ref: '#/components/schemas/Type'
+          description: ''
+          example: []
+        contacts:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        company:
+          $ref: '#/components/schemas/Company'
+      examples:
+      - id: 1382057
+        publishedDate: 2/22/2019 12:00 AM
+        originalPublishedDate: 2/22/2019 12:00 AM
+        linkText: ''
+        link: ''
+        description: 'Datanyze has recently been ranked #986 on the 2019 SaaS 1000 Top SaaS Companies list.'
+        topics: []
+        updateText: ''
+        types:
+        - id: 6
+          type: Award
+        contacts: []
+        company:
+          id: 344589814
+          name: ZoomInfo
+    ScoopSearchRequest:
+      title: ScoopSearchRequest
+      required:
+      - companyName
+      - publishedStartDate
+      - publishedEndDate
+      - scoopType
+      - updatedSinceCreation
+      - description
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: Acme Corporation
+        publishedStartDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        publishedEndDate:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        scoopType:
           type: string
           example: standard
+        updatedSinceCreation:
+          type: boolean
+          example: true
+        description:
+          type: string
+          example: Enterprise software company
       examples:
-      - id: 6
-        type: Award
+      - companyName: Zoominfo
+        publishedStartDate: '2018-11-01T00:00:00.000Z'
+        publishedEndDate: '2020-06-21T00:00:00.000Z'
+        scoopType: '6'
+        updatedSinceCreation: false
+        description: SaaS
+    ScoopSearchOutput:
+      title: ScoopSearchOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: id
+        description: ZoomInfo unique identifier for a scoop
   securitySchemes:
     httpBearer:
       type: http

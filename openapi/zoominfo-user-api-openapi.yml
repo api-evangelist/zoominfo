@@ -62,77 +62,6 @@ paths:
       x-api-scope-requirement: ANY_REQUIRED
 components:
   schemas:
-    ZoomInfo.Core.Foundations.ErrorModel:
-      type: object
-      required:
-      - id
-      - code
-      - status
-      properties:
-        id:
-          type: string
-          description: The unique id used to identify this specific error instance
-        code:
-          type: string
-          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
-        detail:
-          type: string
-          description: Message containing the specific details about this occurrence of the error
-        source:
-          allOf:
-          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
-          description: An optional object identifying which part of the request caused the error
-        status:
-          type: string
-          description: The HTTP status code for the error
-        title:
-          type: string
-          description: The error name that describes this type of error
-      description: The object describing a specific error from the API
-    UserUsageModel:
-      type: object
-      properties:
-        limitType:
-          type: string
-          description: Type of limit. Options are request, record, uniqueID, webSightsApiRequest, and webSightsApiRecord.
-        description:
-          type: string
-          description: Description of the limit type.
-        totalLimit:
-          type: integer
-          format: int64
-          description: The number of this type of request you are subscribed for. This is generally an usage limit for a contract period.
-        currentUsage:
-          type: integer
-          format: int64
-          description: The number of this type of request you have already used.
-        usageRemaining:
-          type: integer
-          format: int64
-          description: The remaining number of this type of request you can make before requiring additional purchase.
-      description: Model containing information about usage data
-    UsageResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/UsageResponseResource'
-          description: The primary data of the document
-      description: Usage response.
-    UserUsageAttributes:
-      type: object
-      required:
-      - usage
-      properties:
-        usage:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserUsageModel'
-          description: List of usage data
-      description: Attributes describing user usage
     ZoomInfo.Core.Foundations.ErrorSourceModel:
       type: object
       properties:
@@ -148,6 +77,28 @@ components:
         parameter:
           type: string
           description: The name of the path or query parameter that caused the error
+    UserUsageAttributes:
+      type: object
+      required:
+      - usage
+      properties:
+        usage:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserUsageModel'
+          description: List of usage data
+      description: Attributes describing user usage
+    UsageResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsageResponseResource'
+          description: The primary data of the document
+      description: Usage response.
     ZoomInfo.Core.Foundations.ErrorResponseModel:
       type: object
       required:
@@ -185,6 +136,55 @@ components:
           - $ref: '#/components/schemas/UserUsageAttributes'
           description: The attributes defining the resource
       description: Usage response.
+    UserUsageModel:
+      type: object
+      properties:
+        limitType:
+          type: string
+          description: Type of limit. Options are request, record, uniqueID, webSightsApiRequest, and webSightsApiRecord.
+        description:
+          type: string
+          description: Description of the limit type.
+        totalLimit:
+          type: integer
+          format: int64
+          description: The number of this type of request you are subscribed for. This is generally an usage limit for a contract period.
+        currentUsage:
+          type: integer
+          format: int64
+          description: The number of this type of request you have already used.
+        usageRemaining:
+          type: integer
+          format: int64
+          description: The remaining number of this type of request you can make before requiring additional purchase.
+      description: Model containing information about usage data
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
   securitySchemes:
     OAuth2Auth:
       type: oauth2

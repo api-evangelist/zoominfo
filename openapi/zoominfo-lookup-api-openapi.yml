@@ -1972,72 +1972,31 @@ paths:
       description: ZoomInfo API Production Server
 components:
   schemas:
-    NewsSearchInputLookUp:
+    LookupSearchResponse:
       type: object
       required:
-      - id
-      - type
-      - attributes
+      - data
       properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: NewsSearchInput
-          pattern: NewsSearchInput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the news search input lookup
-    JobFunctionLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: JobFunction
-          pattern: JobFunction
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for the job function
-    BuyingGroupAttributes:
-      type: object
-      required:
-      - accessLevel
-      - isDefault
-      - name
-      - personas
-      properties:
-        accessLevel:
-          allOf:
-          - $ref: '#/components/schemas/BuyingGroupAccessLevel'
-          description: The access level of the buying group
-        isDefault:
-          type: boolean
-          description: Whether this is the default buying group
-        name:
-          type: string
-          description: The name of the buying group
-        personas:
+        data:
           type: array
           items:
-            $ref: '#/components/schemas/PersonaAttributes'
-          description: The details of the personas of the buying group
-      description: The attributes for a buying group
+            $ref: '#/components/schemas/LookupSearchInputOutputResponseResourceUnion'
+          description: The primary data of the document
+      description: Lookup search output response
+    AttributedEntityModelAttributes:
+      type: object
+      required:
+      - name
+      properties:
+        attribute:
+          type: string
+          description: An attribute of the entity
+        name:
+          type: string
+          description: The name of the entity
+      description: An entity with additional attributes
       x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
-    TechVendorLookup:
+    OrgChartEnrichOutputLookUp:
       type: object
       required:
       - id
@@ -2050,33 +2009,33 @@ components:
         type:
           type: string
           description: The type of the resource
-          default: TechVendor
-          pattern: TechVendor
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for the tech vendor
-    CompanySearchOutputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: CompanySearchOutput
-          pattern: CompanySearchOutput
+          default: OrgChartEnrichOutput
+          pattern: OrgChartEnrichOutput
         attributes:
           allOf:
           - $ref: '#/components/schemas/LookupFieldAttributes'
           description: The attributes defining the resource
-      description: Model for the company search output lookup
+      description: Model for the org chart enrich output lookup
+    SubUnitTypeLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: SubUnitType
+          pattern: SubUnitType
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for sub unit types
     CorporateHierarchyEnrichOutputLookUp:
       type: object
       required:
@@ -2097,7 +2056,7 @@ components:
           - $ref: '#/components/schemas/LookupFieldAttributes'
           description: The attributes defining the resource
       description: Model for the corporate hierarchy enrich output lookup
-    HashtagEnrichOutputLookUp:
+    RevenueRangeLookup:
       type: object
       required:
       - id
@@ -2110,79 +2069,14 @@ components:
         type:
           type: string
           description: The type of the resource
-          default: HashtagEnrichOutput
-          pattern: HashtagEnrichOutput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the technology enrich output lookup
-    PersonaAttributes:
-      type: object
-      required:
-      - departmentsAndJobFunctions
-      - managementLevels
-      properties:
-        departmentsAndJobFunctions:
-          type: array
-          items:
-            type: string
-          description: The departments and job functions of the persona
-        managementLevels:
-          type: array
-          items:
-            type: string
-          description: The management levels of the persona
-        titles:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: The titles of the persona
-      description: The attributes of the persona
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
-    TechCategoryLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: TechCategory
-          pattern: TechCategory
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/TechCategoryEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for the tech category, the attribute is the parent category
-    IndustryLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: Industry
-          pattern: Industry
+          default: RevenueRange
+          pattern: RevenueRange
         attributes:
           allOf:
           - $ref: '#/components/schemas/BasicEntityModelAttributes'
           description: The attributes defining the resource
-      description: Model for the industry
-    ContinentLookup:
+      description: Model for revenue ranges. Values are in $1,000s
+    ScoopEnrichOutputLookUp:
       type: object
       required:
       - id
@@ -2195,184 +2089,13 @@ components:
         type:
           type: string
           description: The type of the resource
-          default: Continent
-          pattern: Continent
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for a continent
-    IntentEnrichInputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: IntentEnrichInput
-          pattern: IntentEnrichInput
+          default: ScoopEnrichOutput
+          pattern: ScoopEnrichOutput
         attributes:
           allOf:
           - $ref: '#/components/schemas/LookupFieldAttributes'
           description: The attributes defining the resource
-      description: Model for the intent enrich input lookup
-    EnrichEntityNameEnum:
-      type: string
-      enum:
-      - company
-      - contact
-      - scoop
-      - news
-      - intent
-      - technology
-      - hashtag
-      - orgChart
-      - corporate-hierarchy
-      description: All possible enrich lookup field names
-      x-enumDescriptions:
-        company: Returns a list of fields you can use as input or output for the Company Enrich endpoint.
-        contact: Returns a list of fields you can use as input or output for the Contact Enrich endpoint.
-        scoop: Returns a list of fields you can use as input or output for the Scoop Enrich endpoint.
-        news: Returns a list of fields you can use as input or output for the News Enrich endpoint.
-        intent: Returns a list of fields you can use as input or output for the Intent Enrich endpoint.
-        technology: Returns a list of fields you can use as input or output for the Company Technology Enrich endpoint.
-        hashtag: Returns a list of fields you can use as input or output for the Company Hashtag Enrich endpoint.
-        orgChart: Returns a list of fields you can use as input or output for the Company OrgChart Enrich endpoint.
-        corporateHierarchy: Returns a list of fields you can use as input or output for the Company CorporateHierarchy Enrich endpoint.
-    IntentTopicLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: IntentTopic
-          pattern: IntentTopic
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/TopicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for the intent topic
-    CompanyRankingLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: CompanyRanking
-          pattern: CompanyRanking
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for the company rankings
-    ContactSearchOutputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: ContactSearchOutput
-          pattern: ContactSearchOutput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the contact search output lookup
-    BuyingGroupAccessLevel:
-      type: string
-      enum:
-      - private
-      - public
-      x-enumDescriptions:
-        private: The access level of the buying group is private
-        public: The access level of the buying group is public
-    TechnologyEnrichInputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: TechnologyEnrichInput
-          pattern: TechnologyEnrichInput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the technology enrich input lookup
-    ScoopDepartmentLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: ScoopDepartment
-          pattern: ScoopDepartment
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for the scoop department
-    TechnologyEnrichOutputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: TechnologyEnrichOutput
-          pattern: TechnologyEnrichOutput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the technology enrich output lookup
+      description: Model for the scoop enrich output lookup
     StateLookup:
       type: object
       required:
@@ -2419,7 +2142,7 @@ components:
           description: The name of the entity
       description: A topic entity
       x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
-    TechSkillLookup:
+    CompanySearchInputLookUp:
       type: object
       required:
       - id
@@ -2432,14 +2155,14 @@ components:
         type:
           type: string
           description: The type of the resource
-          default: TechSkill
-          pattern: TechSkill
+          default: CompanySearchInput
+          pattern: CompanySearchInput
         attributes:
           allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          - $ref: '#/components/schemas/LookupFieldAttributes'
           description: The attributes defining the resource
-      description: Model for the tech skill
-    NewsCategoryLookup:
+      description: Model for the company search input lookup
+    CompanyRankingLookup:
       type: object
       required:
       - id
@@ -2452,14 +2175,14 @@ components:
         type:
           type: string
           description: The type of the resource
-          default: NewsCategory
-          pattern: NewsCategory
+          default: CompanyRanking
+          pattern: CompanyRanking
         attributes:
           allOf:
           - $ref: '#/components/schemas/BasicEntityModelAttributes'
           description: The attributes defining the resource
-      description: Model for the news category
-    DepartmentLookup:
+      description: Model for the company rankings
+    TechnologyEnrichOutputLookUp:
       type: object
       required:
       - id
@@ -2472,13 +2195,73 @@ components:
         type:
           type: string
           description: The type of the resource
-          default: Department
-          pattern: Department
+          default: TechnologyEnrichOutput
+          pattern: TechnologyEnrichOutput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the technology enrich output lookup
+    TechVendorLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: TechVendor
+          pattern: TechVendor
         attributes:
           allOf:
           - $ref: '#/components/schemas/BasicEntityModelAttributes'
           description: The attributes defining the resource
-      description: Model for the department
+      description: Model for the tech vendor
+    CompanyEnrichInputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: CompanyEnrichInput
+          pattern: CompanyEnrichInput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the company enrich  input lookup
+    ScoopDepartmentLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: ScoopDepartment
+          pattern: ScoopDepartment
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for the scoop department
     JobTitleLookup:
       type: object
       required:
@@ -2499,7 +2282,7 @@ components:
           - $ref: '#/components/schemas/OrderedEntityModelAttributes'
           description: The attributes defining the resource
       description: Model for the job title hierarchy
-    ScoopSearchOutputLookUp:
+    IntentSearchInputLookUp:
       type: object
       required:
       - id
@@ -2512,155 +2295,62 @@ components:
         type:
           type: string
           description: The type of the resource
-          default: ScoopSearchOutput
-          pattern: ScoopSearchOutput
+          default: IntentSearchInput
+          pattern: IntentSearchInput
         attributes:
           allOf:
           - $ref: '#/components/schemas/LookupFieldAttributes'
           description: The attributes defining the resource
-      description: Model for the scoop search output lookup
-    ScoopSearchInputLookUp:
+      description: Model for the intent search input lookup
+    PersonaAttributes:
       type: object
       required:
-      - id
-      - type
-      - attributes
+      - departmentsAndJobFunctions
+      - managementLevels
       properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: ScoopSearchInput
-          pattern: ScoopSearchInput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the scoop search input lookup
-    BoardMemberLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: BoardMember
-          pattern: BoardMember
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for board member filters.
-    CorporateHierarchyEnrichInputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: CorporateHierarchyEnrichInput
-          pattern: CorporateHierarchyEnrichInput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the corporate hierarchy enrich input lookup
-    SICCodeLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: SICCode
-          pattern: SICCode
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for the SIC code
-    HashtagLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: Hashtag
-          pattern: Hashtag
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for the hashtag lookup results
-    NewsEnrichOutputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: NewsEnrichOutput
-          pattern: NewsEnrichOutput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the news enrich output lookup
-    BasicEntityModelAttributes:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: The name of the entity
-      description: Attributes for a basic entity
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
-    LookupEnrichResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
+        departmentsAndJobFunctions:
           type: array
           items:
-            $ref: '#/components/schemas/LookupEnrichInputOutputResponseResourceUnion'
-          description: The primary data of the document
-      description: Lookup enrich output response
-    RevenueRangeLookup:
+            type: string
+          description: The departments and job functions of the persona
+        managementLevels:
+          type: array
+          items:
+            type: string
+          description: The management levels of the persona
+        titles:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: The titles of the persona
+      description: The attributes of the persona
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
+    EnrichEntityNameEnum:
+      type: string
+      enum:
+      - company
+      - contact
+      - scoop
+      - news
+      - intent
+      - technology
+      - hashtag
+      - orgChart
+      - corporate-hierarchy
+      description: All possible enrich lookup field names
+      x-enumDescriptions:
+        company: Returns a list of fields you can use as input or output for the Company Enrich endpoint.
+        contact: Returns a list of fields you can use as input or output for the Contact Enrich endpoint.
+        scoop: Returns a list of fields you can use as input or output for the Scoop Enrich endpoint.
+        news: Returns a list of fields you can use as input or output for the News Enrich endpoint.
+        intent: Returns a list of fields you can use as input or output for the Intent Enrich endpoint.
+        technology: Returns a list of fields you can use as input or output for the Company Technology Enrich endpoint.
+        hashtag: Returns a list of fields you can use as input or output for the Company Hashtag Enrich endpoint.
+        orgChart: Returns a list of fields you can use as input or output for the Company OrgChart Enrich endpoint.
+        corporateHierarchy: Returns a list of fields you can use as input or output for the Company CorporateHierarchy Enrich endpoint.
+    TechProductLookup:
       type: object
       required:
       - id
@@ -2673,33 +2363,13 @@ components:
         type:
           type: string
           description: The type of the resource
-          default: RevenueRange
-          pattern: RevenueRange
+          default: TechProduct
+          pattern: TechProduct
         attributes:
           allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          - $ref: '#/components/schemas/AttributedEntityModelAttributes'
           description: The attributes defining the resource
-      description: Model for revenue ranges. Values are in $1,000s
-    CompanyEnrichOutputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: CompanyEnrichOutput
-          pattern: CompanyEnrichOutput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the company enrich output lookup
+      description: Model for the tech product, the attribute is the product's full coded id 'vendorId.parentCategoryId.categoryId.productId'
     CountryLookup:
       type: object
       required:
@@ -2720,6 +2390,450 @@ components:
           - $ref: '#/components/schemas/BasicEntityModelAttributes'
           description: The attributes defining the resource
       description: Model for a country
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    HashtagEnrichOutputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: HashtagEnrichOutput
+          pattern: HashtagEnrichOutput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the technology enrich output lookup
+    ScoopEnrichInputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: ScoopEnrichInput
+          pattern: ScoopEnrichInput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the scoop enrich input lookup
+    LookupResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LookupResponseResourceUnion'
+          description: The primary data of the document
+      description: Lookup response
+    LookupEnrichInputOutputResponseResourceUnion:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/ContactEnrichInputLookUp'
+      - $ref: '#/components/schemas/CompanyEnrichInputLookUp'
+      - $ref: '#/components/schemas/NewsEnrichInputLookUp'
+      - $ref: '#/components/schemas/IntentEnrichInputLookUp'
+      - $ref: '#/components/schemas/ScoopEnrichInputLookUp'
+      - $ref: '#/components/schemas/TechnologyEnrichInputLookUp'
+      - $ref: '#/components/schemas/HashtagEnrichInputLookUp'
+      - $ref: '#/components/schemas/OrgChartEnrichInputLookUp'
+      - $ref: '#/components/schemas/CorporateHierarchyEnrichInputLookUp'
+      - $ref: '#/components/schemas/ContactEnrichOutputLookUp'
+      - $ref: '#/components/schemas/CompanyEnrichOutputLookUp'
+      - $ref: '#/components/schemas/NewsEnrichOutputLookUp'
+      - $ref: '#/components/schemas/IntentEnrichOutputLookUp'
+      - $ref: '#/components/schemas/ScoopEnrichOutputLookUp'
+      - $ref: '#/components/schemas/TechnologyEnrichOutputLookUp'
+      - $ref: '#/components/schemas/HashtagEnrichOutputLookUp'
+      - $ref: '#/components/schemas/OrgChartEnrichOutputLookUp'
+      - $ref: '#/components/schemas/CorporateHierarchyEnrichOutputLookUp'
+      discriminator:
+        propertyName: type
+        mapping:
+          ContactEnrichInput: '#/components/schemas/ContactEnrichInputLookUp'
+          CompanyEnrichInput: '#/components/schemas/CompanyEnrichInputLookUp'
+          NewsEnrichInput: '#/components/schemas/NewsEnrichInputLookUp'
+          IntentEnrichInput: '#/components/schemas/IntentEnrichInputLookUp'
+          ScoopEnrichInput: '#/components/schemas/ScoopEnrichInputLookUp'
+          TechnologyEnrichInput: '#/components/schemas/TechnologyEnrichInputLookUp'
+          HashtagEnrichInput: '#/components/schemas/HashtagEnrichInputLookUp'
+          OrgChartEnrichInput: '#/components/schemas/OrgChartEnrichInputLookUp'
+          CorporateHierarchyEnrichInput: '#/components/schemas/CorporateHierarchyEnrichInputLookUp'
+          ContactEnrichOutput: '#/components/schemas/ContactEnrichOutputLookUp'
+          CompanyEnrichOutput: '#/components/schemas/CompanyEnrichOutputLookUp'
+          NewsEnrichOutput: '#/components/schemas/NewsEnrichOutputLookUp'
+          IntentEnrichOutput: '#/components/schemas/IntentEnrichOutputLookUp'
+          ScoopEnrichOutput: '#/components/schemas/ScoopEnrichOutputLookUp'
+          TechnologyEnrichOutput: '#/components/schemas/TechnologyEnrichOutputLookUp'
+          HashtagEnrichOutput: '#/components/schemas/HashtagEnrichOutputLookUp'
+          OrgChartEnrichOutput: '#/components/schemas/OrgChartEnrichOutputLookUp'
+          CorporateHierarchyEnrichOutput: '#/components/schemas/CorporateHierarchyEnrichOutputLookUp'
+      description: Represents the possible resource types returned in a lookup enrich input response.
+    MetroRegionLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: MetroRegion
+          pattern: MetroRegion
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for a metro region
+    IntentEnrichInputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: IntentEnrichInput
+          pattern: IntentEnrichInput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the intent enrich input lookup
+    LookupEnrichResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LookupEnrichInputOutputResponseResourceUnion'
+          description: The primary data of the document
+      description: Lookup enrich output response
+    IntentEnrichOutputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: IntentEnrichOutput
+          pattern: IntentEnrichOutput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the intent enrich output lookup
+    BuyingGroupAttributes:
+      type: object
+      required:
+      - accessLevel
+      - isDefault
+      - name
+      - personas
+      properties:
+        accessLevel:
+          allOf:
+          - $ref: '#/components/schemas/BuyingGroupAccessLevel'
+          description: The access level of the buying group
+        isDefault:
+          type: boolean
+          description: Whether this is the default buying group
+        name:
+          type: string
+          description: The name of the buying group
+        personas:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonaAttributes'
+          description: The details of the personas of the buying group
+      description: The attributes for a buying group
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
+    ContactEnrichOutputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: ContactEnrichOutput
+          pattern: ContactEnrichOutput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the contact enrich output lookup
+    FundingRoundTypeLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: FundingRoundType
+          pattern: FundingRoundType
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for the funding round type
+    BoardMemberLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: BoardMember
+          pattern: BoardMember
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for board member filters.
+    SearchEntityNameEnum:
+      type: string
+      enum:
+      - company
+      - contact
+      - scoop
+      - news
+      - intent
+      description: All possible search lookup field names
+      x-enumDescriptions:
+        company: Returns a list of fields you can use as input or output for the Company Search endpoint.
+        contact: Returns a list of fields you can use as input or output for the Contact Search endpoint.
+        scoop: Returns a list of fields you can use as input or output for the Scoop Search endpoint.
+        news: Returns a list of fields you can use as input or output for the News Search endpoint.
+        intent: Returns a list of fields you can use as input or output for the Intent Search endpoint.
+    JobFunctionLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: JobFunction
+          pattern: JobFunction
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for the job function
+    OrgChartEnrichInputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: OrgChartEnrichInput
+          pattern: OrgChartEnrichInput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the orgChart enrich input lookup
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
+    ScoopTypeLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: ScoopType
+          pattern: ScoopType
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for the scoop type
+    ContactEnrichInputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: ContactEnrichInput
+          pattern: ContactEnrichInput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the contact search enrich lookup
+    CompanyTypeLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: CompanyType
+          pattern: CompanyType
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for the company type
+    IntentTopicLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: IntentTopic
+          pattern: IntentTopic
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/TopicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for the intent topic
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
     NewsSearchOutputLookUp:
       type: object
       required:
@@ -2740,6 +2854,530 @@ components:
           - $ref: '#/components/schemas/LookupFieldAttributes'
           description: The attributes defining the resource
       description: Model for the news search output lookup
+    TechCategoryLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: TechCategory
+          pattern: TechCategory
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/TechCategoryEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for the tech category, the attribute is the parent category
+    YearsOfExperienceLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: YearsOfExperience
+          pattern: YearsOfExperience
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for the years of experience
+    TechnologyEnrichInputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: TechnologyEnrichInput
+          pattern: TechnologyEnrichInput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the technology enrich input lookup
+    EmployeeCountLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: EmployeeCount
+          pattern: EmployeeCount
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for the employee count
+    HashtagEnrichInputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: HashtagEnrichInput
+          pattern: HashtagEnrichInput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the hashtag enrich input lookup
+    NAICSCodeLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: NAICSCode
+          pattern: NAICSCode
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for the NAICS code
+    FieldNameEnum:
+      type: string
+      enum:
+      - board-members
+      - buying-groups
+      - company-rankings
+      - company-types
+      - continents
+      - countries
+      - departments
+      - employee-count
+      - funding-round-types
+      - hashtags
+      - industries
+      - intent-topics
+      - job-functions
+      - job-titles
+      - management-levels
+      - metro-regions
+      - naics-codes
+      - news-categories
+      - revenue-ranges
+      - scoop-departments
+      - scoop-topics
+      - scoop-types
+      - sic-codes
+      - states
+      - sub-unit-types
+      - tech-categories
+      - tech-products
+      - tech-skills
+      - tech-vendors
+      - years-of-experience
+      description: All possible lookup field names
+      x-enumDescriptions:
+        boardMembers: Retrieve accepted Board Member values.
+        buyingGroups: Retrieve buying group information.
+        companyRankings: Retrieve accepted Company Ranking values.
+        companyTypes: Retrieve accepted Company Type values.
+        continents: Retrieve accepted Continent values.
+        countries: Retrieve accepted Country values.
+        departments: Retrieve accepted Contact Department values.
+        employeeCount: Retrieve accepted Employee Count values.
+        fundingRoundTypes: Retrieve accepted Funding Round Type values.
+        hashtags: Retrieve accepted Hashtag values.
+        industries: Retrieve accepted Industry Code values.
+        intentTopics: Retrieve accepted intent topics and categories.
+        jobFunctions: Retrieve accepted Job Function values.
+        jobTitles: Retrieve accepted Job Title values.
+        managementLevels: Retrieve accepted Management Level values.
+        metroRegions: Retrieve accepted Metro Area values
+        naicsCodes: Retrieve accepted North American Industry Classification System (NAICS) values.
+        newsCategories: Retrieve accepted news categories.
+        revenueRanges: Retrieve accepted Revenue Range values.
+        scoopDepartments: Retrieve accepted Scoop Department values.
+        scoopTopics: Retrieve accepted Scoop Topic values.
+        scoopTypes: Retrieve accepted Scoop Type values.
+        sicCodes: Retrieve accepted Standard Industrial Classification (SIC) values.
+        states: Retrieve accepted State values.
+        subUnitTypes: Retrieve accepted Sub Unit Type values.
+        techCategories: Retrieve accepted Tech Category values.
+        techProducts: Retrieve accepted Tech Product values.
+        techSkills: Retrieve Tech Skill value.
+        techVendors: Retrieve accepted Tech Vendor values.
+        yearsOfExperience: Retrieve accepted Years Of Experience ranges.
+    ManagementLevelLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: ManagementLevel
+          pattern: ManagementLevel
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for the management level
+    ContactSearchOutputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: ContactSearchOutput
+          pattern: ContactSearchOutput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the contact search output lookup
+    FieldTypeEnum:
+      type: string
+      enum:
+      - input
+      - output
+      x-enumDescriptions:
+        input: Returns a list of fields you can use as input for supported entity types.
+        output: Returns a list of fields you can use as output for supported entity types.
+    NewsCategoryLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: NewsCategory
+          pattern: NewsCategory
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for the news category
+    NewsEnrichInputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: NewsEnrichInput
+          pattern: NewsEnrichInput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the news enrich input lookup
+    TechSkillLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: TechSkill
+          pattern: TechSkill
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for the tech skill
+    OrderedEntityModelAttributes:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: The name of the entity
+        order:
+          type: string
+          description: The ranking order of the entity
+      description: An ordered entity
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
+    ScoopSearchOutputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: ScoopSearchOutput
+          pattern: ScoopSearchOutput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the scoop search output lookup
+    NewsEnrichOutputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: NewsEnrichOutput
+          pattern: NewsEnrichOutput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the news enrich output lookup
+    CorporateHierarchyEnrichInputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: CorporateHierarchyEnrichInput
+          pattern: CorporateHierarchyEnrichInput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the corporate hierarchy enrich input lookup
+    ScoopSearchInputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: ScoopSearchInput
+          pattern: ScoopSearchInput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the scoop search input lookup
+    ContactSearchInputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: ContactSearchInput
+          pattern: ContactSearchInput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the contact search input lookup
+    SICCodeLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: SICCode
+          pattern: SICCode
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for the SIC code
+    IntentSearchOutputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: IntentSearchOutput
+          pattern: IntentSearchOutput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the intent search output lookup
+    BuyingGroupAccessLevel:
+      type: string
+      enum:
+      - private
+      - public
+      x-enumDescriptions:
+        private: The access level of the buying group is private
+        public: The access level of the buying group is public
+    NewsSearchInputLookUp:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: NewsSearchInput
+          pattern: NewsSearchInput
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/LookupFieldAttributes'
+          description: The attributes defining the resource
+      description: Model for the news search input lookup
+    BasicEntityModelAttributes:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: The name of the entity
+      description: Attributes for a basic entity
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
+    IndustryLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: Industry
+          pattern: Industry
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for the industry
+    DepartmentLookup:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: Department
+          pattern: Department
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
+          description: The attributes defining the resource
+      description: Model for the department
     LookupResponseResourceUnion:
       type: object
       oneOf:
@@ -2806,7 +3444,7 @@ components:
           TechSkill: '#/components/schemas/TechSkillLookup'
           TechVendor: '#/components/schemas/TechVendorLookup'
           YearsOfExperience: '#/components/schemas/YearsOfExperienceLookup'
-    CompanyEnrichInputLookUp:
+    CompanyEnrichOutputLookUp:
       type: object
       required:
       - id
@@ -2819,14 +3457,14 @@ components:
         type:
           type: string
           description: The type of the resource
-          default: CompanyEnrichInput
-          pattern: CompanyEnrichInput
+          default: CompanyEnrichOutput
+          pattern: CompanyEnrichOutput
         attributes:
           allOf:
           - $ref: '#/components/schemas/LookupFieldAttributes'
           description: The attributes defining the resource
-      description: Model for the company enrich  input lookup
-    ContactSearchInputLookUp:
+      description: Model for the company enrich output lookup
+    CompanySearchOutputLookUp:
       type: object
       required:
       - id
@@ -2839,589 +3477,13 @@ components:
         type:
           type: string
           description: The type of the resource
-          default: ContactSearchInput
-          pattern: ContactSearchInput
+          default: CompanySearchOutput
+          pattern: CompanySearchOutput
         attributes:
           allOf:
           - $ref: '#/components/schemas/LookupFieldAttributes'
           description: The attributes defining the resource
-      description: Model for the contact search input lookup
-    AttributedEntityModelAttributes:
-      type: object
-      required:
-      - name
-      properties:
-        attribute:
-          type: string
-          description: An attribute of the entity
-        name:
-          type: string
-          description: The name of the entity
-      description: An entity with additional attributes
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
-    ZoomInfo.Core.Foundations.ErrorModel:
-      type: object
-      required:
-      - id
-      - code
-      - status
-      properties:
-        id:
-          type: string
-          description: The unique id used to identify this specific error instance
-        code:
-          type: string
-          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
-        detail:
-          type: string
-          description: Message containing the specific details about this occurrence of the error
-        source:
-          allOf:
-          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
-          description: An optional object identifying which part of the request caused the error
-        status:
-          type: string
-          description: The HTTP status code for the error
-        title:
-          type: string
-          description: The error name that describes this type of error
-      description: The object describing a specific error from the API
-    FieldTypeEnum:
-      type: string
-      enum:
-      - input
-      - output
-      x-enumDescriptions:
-        input: Returns a list of fields you can use as input for supported entity types.
-        output: Returns a list of fields you can use as output for supported entity types.
-    ZoomInfo.Core.Foundations.ErrorSourceModel:
-      type: object
-      properties:
-        cookie:
-          type: string
-          description: Identifies the cookie name that caused the issue
-        header:
-          type: string
-          description: Identifies the header name that caused the error
-        pointer:
-          type: string
-          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
-        parameter:
-          type: string
-          description: The name of the path or query parameter that caused the error
-    ScoopTypeLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: ScoopType
-          pattern: ScoopType
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for the scoop type
-    CompanyTypeLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: CompanyType
-          pattern: CompanyType
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for the company type
-    ManagementLevelLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: ManagementLevel
-          pattern: ManagementLevel
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for the management level
-    IntentSearchInputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: IntentSearchInput
-          pattern: IntentSearchInput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the intent search input lookup
-    LookupEnrichInputOutputResponseResourceUnion:
-      type: object
-      oneOf:
-      - $ref: '#/components/schemas/ContactEnrichInputLookUp'
-      - $ref: '#/components/schemas/CompanyEnrichInputLookUp'
-      - $ref: '#/components/schemas/NewsEnrichInputLookUp'
-      - $ref: '#/components/schemas/IntentEnrichInputLookUp'
-      - $ref: '#/components/schemas/ScoopEnrichInputLookUp'
-      - $ref: '#/components/schemas/TechnologyEnrichInputLookUp'
-      - $ref: '#/components/schemas/HashtagEnrichInputLookUp'
-      - $ref: '#/components/schemas/OrgChartEnrichInputLookUp'
-      - $ref: '#/components/schemas/CorporateHierarchyEnrichInputLookUp'
-      - $ref: '#/components/schemas/ContactEnrichOutputLookUp'
-      - $ref: '#/components/schemas/CompanyEnrichOutputLookUp'
-      - $ref: '#/components/schemas/NewsEnrichOutputLookUp'
-      - $ref: '#/components/schemas/IntentEnrichOutputLookUp'
-      - $ref: '#/components/schemas/ScoopEnrichOutputLookUp'
-      - $ref: '#/components/schemas/TechnologyEnrichOutputLookUp'
-      - $ref: '#/components/schemas/HashtagEnrichOutputLookUp'
-      - $ref: '#/components/schemas/OrgChartEnrichOutputLookUp'
-      - $ref: '#/components/schemas/CorporateHierarchyEnrichOutputLookUp'
-      discriminator:
-        propertyName: type
-        mapping:
-          ContactEnrichInput: '#/components/schemas/ContactEnrichInputLookUp'
-          CompanyEnrichInput: '#/components/schemas/CompanyEnrichInputLookUp'
-          NewsEnrichInput: '#/components/schemas/NewsEnrichInputLookUp'
-          IntentEnrichInput: '#/components/schemas/IntentEnrichInputLookUp'
-          ScoopEnrichInput: '#/components/schemas/ScoopEnrichInputLookUp'
-          TechnologyEnrichInput: '#/components/schemas/TechnologyEnrichInputLookUp'
-          HashtagEnrichInput: '#/components/schemas/HashtagEnrichInputLookUp'
-          OrgChartEnrichInput: '#/components/schemas/OrgChartEnrichInputLookUp'
-          CorporateHierarchyEnrichInput: '#/components/schemas/CorporateHierarchyEnrichInputLookUp'
-          ContactEnrichOutput: '#/components/schemas/ContactEnrichOutputLookUp'
-          CompanyEnrichOutput: '#/components/schemas/CompanyEnrichOutputLookUp'
-          NewsEnrichOutput: '#/components/schemas/NewsEnrichOutputLookUp'
-          IntentEnrichOutput: '#/components/schemas/IntentEnrichOutputLookUp'
-          ScoopEnrichOutput: '#/components/schemas/ScoopEnrichOutputLookUp'
-          TechnologyEnrichOutput: '#/components/schemas/TechnologyEnrichOutputLookUp'
-          HashtagEnrichOutput: '#/components/schemas/HashtagEnrichOutputLookUp'
-          OrgChartEnrichOutput: '#/components/schemas/OrgChartEnrichOutputLookUp'
-          CorporateHierarchyEnrichOutput: '#/components/schemas/CorporateHierarchyEnrichOutputLookUp'
-      description: Represents the possible resource types returned in a lookup enrich input response.
-    LookupSearchResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LookupSearchInputOutputResponseResourceUnion'
-          description: The primary data of the document
-      description: Lookup search output response
-    ScoopEnrichInputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: ScoopEnrichInput
-          pattern: ScoopEnrichInput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the scoop enrich input lookup
-    OrgChartEnrichInputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: OrgChartEnrichInput
-          pattern: OrgChartEnrichInput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the orgChart enrich input lookup
-    EmployeeCountLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: EmployeeCount
-          pattern: EmployeeCount
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for the employee count
-    SearchEntityNameEnum:
-      type: string
-      enum:
-      - company
-      - contact
-      - scoop
-      - news
-      - intent
-      description: All possible search lookup field names
-      x-enumDescriptions:
-        company: Returns a list of fields you can use as input or output for the Company Search endpoint.
-        contact: Returns a list of fields you can use as input or output for the Contact Search endpoint.
-        scoop: Returns a list of fields you can use as input or output for the Scoop Search endpoint.
-        news: Returns a list of fields you can use as input or output for the News Search endpoint.
-        intent: Returns a list of fields you can use as input or output for the Intent Search endpoint.
-    TechCategoryEntityModelAttributes:
-      type: object
-      required:
-      - categories
-      properties:
-        categories:
-          type: array
-          items:
-            type: string
-          description: The names of the tech categories
-      description: An entity with additional array attributes
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
-    MetroRegionLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: MetroRegion
-          pattern: MetroRegion
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for a metro region
-    OrderedEntityModelAttributes:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: The name of the entity
-        order:
-          type: string
-          description: The ranking order of the entity
-      description: An ordered entity
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
-    IntentSearchOutputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: IntentSearchOutput
-          pattern: IntentSearchOutput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the intent search output lookup
-    LookupFieldAttributes:
-      type: object
-      required:
-      - fieldName
-      - description
-      properties:
-        fieldType:
-          type: string
-          description: 'The type of the input lookup field e.g: Long or String'
-        fieldName:
-          type: string
-          description: The name of the lookup field
-        description:
-          type: string
-          description: The description of the lookup field
-        accessGranted:
-          type: boolean
-          description: The access level of the lookup field is currently limited to input fields and is not available for output fields.
-      description: Common attributes for lookup fields, used in both input and output lookups.
-    HashtagEnrichInputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: HashtagEnrichInput
-          pattern: HashtagEnrichInput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the hashtag enrich input lookup
-    CompanySearchInputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: CompanySearchInput
-          pattern: CompanySearchInput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the company search input lookup
-    YearsOfExperienceLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: YearsOfExperience
-          pattern: YearsOfExperience
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for the years of experience
-    FundingRoundTypeLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: FundingRoundType
-          pattern: FundingRoundType
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for the funding round type
-    NewsEnrichInputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: NewsEnrichInput
-          pattern: NewsEnrichInput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the news enrich input lookup
-    SubUnitTypeLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: SubUnitType
-          pattern: SubUnitType
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for sub unit types
-    OrgChartEnrichOutputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: OrgChartEnrichOutput
-          pattern: OrgChartEnrichOutput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the org chart enrich output lookup
-    ContactEnrichInputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: ContactEnrichInput
-          pattern: ContactEnrichInput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the contact search enrich lookup
-    BuyingGroupLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: BuyingGroup
-          pattern: BuyingGroup
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BuyingGroupAttributes'
-          description: The attributes defining the resource
-      description: Model for the buying groups
-    NAICSCodeLookup:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: NAICSCode
-          pattern: NAICSCode
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/BasicEntityModelAttributes'
-          description: The attributes defining the resource
-      description: Model for the NAICS code
-    ContactEnrichOutputLookUp:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: ContactEnrichOutput
-          pattern: ContactEnrichOutput
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
-          description: The attributes defining the resource
-      description: Model for the contact enrich output lookup
+      description: Model for the company search output lookup
     LookupSearchInputOutputResponseResourceUnion:
       type: object
       oneOf:
@@ -3449,72 +3511,7 @@ components:
           IntentSearchOutput: '#/components/schemas/IntentSearchOutputLookUp'
           ScoopSearchOutput: '#/components/schemas/ScoopSearchOutputLookUp'
       description: Represents the possible resource types returned in a lookup search input response.
-    FieldNameEnum:
-      type: string
-      enum:
-      - board-members
-      - buying-groups
-      - company-rankings
-      - company-types
-      - continents
-      - countries
-      - departments
-      - employee-count
-      - funding-round-types
-      - hashtags
-      - industries
-      - intent-topics
-      - job-functions
-      - job-titles
-      - management-levels
-      - metro-regions
-      - naics-codes
-      - news-categories
-      - revenue-ranges
-      - scoop-departments
-      - scoop-topics
-      - scoop-types
-      - sic-codes
-      - states
-      - sub-unit-types
-      - tech-categories
-      - tech-products
-      - tech-skills
-      - tech-vendors
-      - years-of-experience
-      description: All possible lookup field names
-      x-enumDescriptions:
-        boardMembers: Retrieve accepted Board Member values.
-        buyingGroups: Retrieve buying group information.
-        companyRankings: Retrieve accepted Company Ranking values.
-        companyTypes: Retrieve accepted Company Type values.
-        continents: Retrieve accepted Continent values.
-        countries: Retrieve accepted Country values.
-        departments: Retrieve accepted Contact Department values.
-        employeeCount: Retrieve accepted Employee Count values.
-        fundingRoundTypes: Retrieve accepted Funding Round Type values.
-        hashtags: Retrieve accepted Hashtag values.
-        industries: Retrieve accepted Industry Code values.
-        intentTopics: Retrieve accepted intent topics and categories.
-        jobFunctions: Retrieve accepted Job Function values.
-        jobTitles: Retrieve accepted Job Title values.
-        managementLevels: Retrieve accepted Management Level values.
-        metroRegions: Retrieve accepted Metro Area values
-        naicsCodes: Retrieve accepted North American Industry Classification System (NAICS) values.
-        newsCategories: Retrieve accepted news categories.
-        revenueRanges: Retrieve accepted Revenue Range values.
-        scoopDepartments: Retrieve accepted Scoop Department values.
-        scoopTopics: Retrieve accepted Scoop Topic values.
-        scoopTypes: Retrieve accepted Scoop Type values.
-        sicCodes: Retrieve accepted Standard Industrial Classification (SIC) values.
-        states: Retrieve accepted State values.
-        subUnitTypes: Retrieve accepted Sub Unit Type values.
-        techCategories: Retrieve accepted Tech Category values.
-        techProducts: Retrieve accepted Tech Product values.
-        techSkills: Retrieve Tech Skill value.
-        techVendors: Retrieve accepted Tech Vendor values.
-        yearsOfExperience: Retrieve accepted Years Of Experience ranges.
-    IntentEnrichOutputLookUp:
+    HashtagLookup:
       type: object
       required:
       - id
@@ -3527,14 +3524,33 @@ components:
         type:
           type: string
           description: The type of the resource
-          default: IntentEnrichOutput
-          pattern: IntentEnrichOutput
+          default: Hashtag
+          pattern: Hashtag
         attributes:
           allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
           description: The attributes defining the resource
-      description: Model for the intent enrich output lookup
-    TechProductLookup:
+      description: Model for the hashtag lookup results
+    LookupFieldAttributes:
+      type: object
+      required:
+      - fieldName
+      - description
+      properties:
+        fieldType:
+          type: string
+          description: 'The type of the input lookup field e.g: Long or String'
+        fieldName:
+          type: string
+          description: The name of the lookup field
+        description:
+          type: string
+          description: The description of the lookup field
+        accessGranted:
+          type: boolean
+          description: The access level of the lookup field is currently limited to input fields and is not available for output fields.
+      description: Common attributes for lookup fields, used in both input and output lookups.
+    ContinentLookup:
       type: object
       required:
       - id
@@ -3547,13 +3563,13 @@ components:
         type:
           type: string
           description: The type of the resource
-          default: TechProduct
-          pattern: TechProduct
+          default: Continent
+          pattern: Continent
         attributes:
           allOf:
-          - $ref: '#/components/schemas/AttributedEntityModelAttributes'
+          - $ref: '#/components/schemas/BasicEntityModelAttributes'
           description: The attributes defining the resource
-      description: Model for the tech product, the attribute is the product's full coded id 'vendorId.parentCategoryId.categoryId.productId'
+      description: Model for a continent
     ScoopTopicLookup:
       type: object
       required:
@@ -3574,7 +3590,7 @@ components:
           - $ref: '#/components/schemas/BasicEntityModelAttributes'
           description: The attributes defining the resource
       description: Model for the scoop topic
-    ScoopEnrichOutputLookUp:
+    BuyingGroupLookup:
       type: object
       required:
       - id
@@ -3587,57 +3603,25 @@ components:
         type:
           type: string
           description: The type of the resource
-          default: ScoopEnrichOutput
-          pattern: ScoopEnrichOutput
+          default: BuyingGroup
+          pattern: BuyingGroup
         attributes:
           allOf:
-          - $ref: '#/components/schemas/LookupFieldAttributes'
+          - $ref: '#/components/schemas/BuyingGroupAttributes'
           description: The attributes defining the resource
-      description: Model for the scoop enrich output lookup
-    LookupResponse:
+      description: Model for the buying groups
+    TechCategoryEntityModelAttributes:
       type: object
       required:
-      - data
+      - categories
       properties:
-        data:
+        categories:
           type: array
           items:
-            $ref: '#/components/schemas/LookupResponseResourceUnion'
-          description: The primary data of the document
-      description: Lookup response
-    ZoomInfo.Core.Foundations.ErrorResponseModel:
-      type: object
-      required:
-      - errors
-      properties:
-        detail:
-          type: string
-          description: A high-level detail of the error(s) that occurred during the request
-        title:
-          type: string
-          description: A high-level summary of the error(s) detected
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
-          description: The list of errors raised during the request
-      description: The standard error response body model for the ZoomInfo API.
-    GetCompanyRanking:
-      title: GetCompanyRanking
-      required:
-      - Id
-      - Name
-      type: object
-      properties:
-        Id:
-          type: string
-          example: '500123'
-        Name:
-          type: string
-          example: Acme Corporation
-      examples:
-      - Id: fortune100
-        Name: Fortune 100
+            type: string
+          description: The names of the tech categories
+      description: An entity with additional array attributes
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)'
     IntentTopic:
       title: IntentTopic
       required:
@@ -3669,6 +3653,22 @@ components:
         Department: Legal
         JobFunction: Governmental Affairs & Regulatory Law
         Description: The Affordable Care Act (ACA) is a United States federal statute signed into law by President Obama on March 23, 2010. The ACA was enacted to increase the quality and affordability of health insurance, lower the uninsured rate by expanding public and private insurance coverage, and reduce the costs of healthcare for individuals and the government.
+    GetCompanyRanking:
+      title: GetCompanyRanking
+      required:
+      - Id
+      - Name
+      type: object
+      properties:
+        Id:
+          type: string
+          example: '500123'
+        Name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - Id: fortune100
+        Name: Fortune 100
   securitySchemes:
     OAuth2Auth:
       type: oauth2

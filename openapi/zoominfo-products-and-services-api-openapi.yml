@@ -527,6 +527,106 @@ components:
           description: Non-standard meta information about the resource
           readOnly: true
       description: Product or Service resource.
+    OrganizationOfferingModel:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/OrganizationOffering'
+          description: The primary data of the document
+      description: API model for a single product or service.
+    OrganizationOfferingListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationOffering'
+          description: The primary data of the document
+      description: API model for a list of products or services.
+    OrganizationOfferingUpsert:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - type
+          - attributes
+          properties:
+            id:
+              type: string
+              description: The unique identifier for the resource
+            type:
+              type: string
+              enum:
+              - OrganizationOffering
+              description: The type of the resource
+            attributes:
+              allOf:
+              - $ref: '#/components/schemas/OrganizationOfferingAttributes'
+              description: The attributes defining the resource
+            meta:
+              allOf:
+              - $ref: '#/components/schemas/GtmConfigAuditFields'
+              description: Non-standard meta information about the resource
+          x-discriminator-property: type
+          description: The primary data of the document
+      description: Product or Service resource for upsert operations.
+    CustomFieldItem:
+      type: object
+      required:
+      - title
+      - value
+      properties:
+        title:
+          type: string
+          description: The display title of the custom field.
+        description:
+          type: string
+          description: An optional description of the field. Defaults to an empty string in the backend.
+          default: ''
+        value:
+          type: string
+          description: The string value associated with this custom field.
+      description: Schema for a single custom field item.
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
     ZoomInfo.Core.Foundations.ErrorModel:
       type: object
       required:
@@ -554,16 +654,6 @@ components:
           type: string
           description: The error name that describes this type of error
       description: The object describing a specific error from the API
-    OrganizationOfferingModel:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/OrganizationOffering'
-          description: The primary data of the document
-      description: API model for a single product or service.
     OrganizationOfferingAttributes:
       type: object
       properties:
@@ -621,66 +711,6 @@ components:
             $ref: '#/components/schemas/CustomFieldItem'
           description: Flexible key-value store for customer-specific custom fields and extended metadata. The backend validates schema and value types. Use this to capture additional Product or Service details beyond the standard fields.
       description: "Attributes that define a Product or Service  — the discrete products or services provided by a customer's company.\n\nProducts or services form the foundation of a customer's go-to-market configuration, capturing the essential strategic context of a product. \nA product or service serves as a centralized record for:\n\n* Product Positioning: Capturing how the product is uniquely situated in the market.\n* Targeting: Identifying the specific audiences, industries, or company types the product is intended for.\n* Pain Point Resolution: Documenting the specific customer problems or challenges the product or service is designed to address.\n* Value Proposition: Defining the core benefits and outcomes the product or service provides to the customer.\n\nCollectively, these attributes provide the necessary framework to build a complete GTM picture. The product or service acts as the \nprimary anchor to which Buyer Personas, Ideal Customer Profiles, and Competitive Intelligence are linked, ensuring all \nrevenue-generating activities are aligned with the product's strategic intent."
-    ZoomInfo.Core.Foundations.ErrorSourceModel:
-      type: object
-      properties:
-        cookie:
-          type: string
-          description: Identifies the cookie name that caused the issue
-        header:
-          type: string
-          description: Identifies the header name that caused the error
-        pointer:
-          type: string
-          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
-        parameter:
-          type: string
-          description: The name of the path or query parameter that caused the error
-    OrganizationOfferingListResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrganizationOffering'
-          description: The primary data of the document
-      description: API model for a list of products or services.
-    ZoomInfo.Core.Foundations.ErrorResponseModel:
-      type: object
-      required:
-      - errors
-      properties:
-        detail:
-          type: string
-          description: A high-level detail of the error(s) that occurred during the request
-        title:
-          type: string
-          description: A high-level summary of the error(s) detected
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
-          description: The list of errors raised during the request
-      description: The standard error response body model for the ZoomInfo API.
-    CustomFieldItem:
-      type: object
-      required:
-      - title
-      - value
-      properties:
-        title:
-          type: string
-          description: The display title of the custom field.
-        description:
-          type: string
-          description: An optional description of the field. Defaults to an empty string in the backend.
-          default: ''
-        value:
-          type: string
-          description: The string value associated with this custom field.
-      description: Schema for a single custom field item.
     GtmConfigSourceType:
       type: string
       enum:
@@ -700,36 +730,6 @@ components:
         IMPORT: Imported from an external data source such as CRM or CSV upload.
         SYSTEM: Generated automatically by the platform (e.g., system enrichment or background jobs).
         MCP: Created or updated via the GTM Config MCP integration by an AI agent.
-    OrganizationOfferingUpsert:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: object
-          required:
-          - type
-          - attributes
-          properties:
-            id:
-              type: string
-              description: The unique identifier for the resource
-            type:
-              type: string
-              enum:
-              - OrganizationOffering
-              description: The type of the resource
-            attributes:
-              allOf:
-              - $ref: '#/components/schemas/OrganizationOfferingAttributes'
-              description: The attributes defining the resource
-            meta:
-              allOf:
-              - $ref: '#/components/schemas/GtmConfigAuditFields'
-              description: Non-standard meta information about the resource
-          x-discriminator-property: type
-          description: The primary data of the document
-      description: Product or Service resource for upsert operations.
     GtmConfigAuditFields:
       type: object
       properties:

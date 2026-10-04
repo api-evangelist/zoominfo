@@ -1306,22 +1306,60 @@ components:
       - fieldName: rpp
         fieldType: Integer
         description: Limits the results returned to the given number of results per page.
-    NewsSearchOutput:
-      title: NewsSearchOutput
+    NewsSearchRequest:
+      title: NewsSearchRequest
       required:
-      - fieldName
-      - description
+      - categories
+      - url
+      - pageDateMin
+      - pageDateMax
+      - page
+      - rpp
       type: object
       properties:
-        fieldName:
+        categories:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        url:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: https://www.example.com
+        pageDateMin:
           type: string
-          example: Acme Corporation
-        description:
+          example: '2025-03-15T14:30:00Z'
+        pageDateMax:
           type: string
-          example: Enterprise software company
+          example: '2025-03-15T14:30:00Z'
+        page:
+          type: integer
+          contentEncoding: int32
+          example: 1
+        rpp:
+          type: integer
+          contentEncoding: int32
+          example: 100
       examples:
-      - fieldName: companyId
-        description: Unique ZoomInfo identifier for a company
+      - categories:
+        - FINANCIAL_RESULTS
+        - FUNDING
+        - GENERAL_NEWS
+        - GENERAL_PRESS_RELEASE
+        - MERGER_OR_ACQUISTION
+        - PERSON
+        - PRODUCT
+        url:
+        - property
+        - financial
+        - result
+        pageDateMin: '2019-12-01T00:00:00.000Z'
+        pageDateMax: '2020-05-31T00:00:00.000Z'
+        page: 1
+        rpp: 20
     NewsSearchusingpartialinputs:
       title: NewsSearchusingpartialinputs
       required:
@@ -1649,60 +1687,22 @@ components:
           company:
           - id: 1753503
             name: AIDS Healthcare Foundation
-    NewsSearchRequest:
-      title: NewsSearchRequest
+    NewsSearchOutput:
+      title: NewsSearchOutput
       required:
-      - categories
-      - url
-      - pageDateMin
-      - pageDateMax
-      - page
-      - rpp
+      - fieldName
+      - description
       type: object
       properties:
-        categories:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-        url:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: https://www.example.com
-        pageDateMin:
+        fieldName:
           type: string
-          example: '2025-03-15T14:30:00Z'
-        pageDateMax:
+          example: Acme Corporation
+        description:
           type: string
-          example: '2025-03-15T14:30:00Z'
-        page:
-          type: integer
-          contentEncoding: int32
-          example: 1
-        rpp:
-          type: integer
-          contentEncoding: int32
-          example: 100
+          example: Enterprise software company
       examples:
-      - categories:
-        - FINANCIAL_RESULTS
-        - FUNDING
-        - GENERAL_NEWS
-        - GENERAL_PRESS_RELEASE
-        - MERGER_OR_ACQUISTION
-        - PERSON
-        - PRODUCT
-        url:
-        - property
-        - financial
-        - result
-        pageDateMin: '2019-12-01T00:00:00.000Z'
-        pageDateMax: '2020-05-31T00:00:00.000Z'
-        page: 1
-        rpp: 20
+      - fieldName: companyId
+        description: Unique ZoomInfo identifier for a company
     Datum9:
       title: Datum9
       required:

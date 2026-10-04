@@ -1870,6 +1870,23 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Company:
+      title: Company
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: 9867169
+        name: AmerisourceBergen
     Datum:
       title: Datum
       required:
@@ -1984,23 +2001,53 @@ components:
         company:
           id: 9867169
           name: AmerisourceBergen
-    Company:
-      title: Company
+    ContactSearchOutput:
+      title: ContactSearchOutput
       required:
-      - id
-      - name
+      - fieldName
+      - description
+      - accessGranted
       type: object
       properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
+        fieldName:
           type: string
           example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+        accessGranted:
+          type: string
+          example: example_value
       examples:
-      - id: 9867169
-        name: AmerisourceBergen
+      - fieldName: id
+        description: Unique ZoomInfo identifier for the contact
+        accessGranted: 'true'
+    ContactSearchInput:
+      title: ContactSearchInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      - accessGranted
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+        accessGranted:
+          type: string
+          example: example_value
+      examples:
+      - fieldName: personId
+        fieldType: String
+        description: Unique ZoomInfo identifier for the contact. Can include a comma-separated list.
+        accessGranted: 'true'
     ContactSearchRequest:
       title: ContactSearchRequest
       required:
@@ -2042,32 +2089,6 @@ components:
         zipCodeRadiusMiles: '25'
         techAttributeTagList: 333.202.*
         requiredFields: directPhone
-    ContactSearchInput:
-      title: ContactSearchInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      - accessGranted
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-        accessGranted:
-          type: string
-          example: example_value
-      examples:
-      - fieldName: personId
-        fieldType: String
-        description: Unique ZoomInfo identifier for the contact. Can include a comma-separated list.
-        accessGranted: 'true'
     SearchcontactsbyZipCoderadius:
       title: SearchcontactsbyZipCoderadius
       required:
@@ -2330,27 +2351,6 @@ components:
           company:
             id: 12240745
             name: Church & Dwight
-    ContactSearchOutput:
-      title: ContactSearchOutput
-      required:
-      - fieldName
-      - description
-      - accessGranted
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-        accessGranted:
-          type: string
-          example: example_value
-      examples:
-      - fieldName: id
-        description: Unique ZoomInfo identifier for the contact
-        accessGranted: 'true'
   securitySchemes:
     httpBearer:
       type: http

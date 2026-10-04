@@ -1100,6 +1100,60 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    CompanySearchRequest:
+      title: CompanySearchRequest
+      required:
+      - metroRegion
+      - industryCodes
+      - techAttributeTagList
+      type: object
+      properties:
+        metroRegion:
+          type: string
+          example: example_value
+        industryCodes:
+          type: string
+          example: Software
+        techAttributeTagList:
+          type: string
+          example: example_value
+      examples:
+      - metroRegion: usa.california.sanfrancisco
+        industryCodes: education.university
+        techAttributeTagList: 333.202.*
+    Datum5:
+      title: Datum5
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: 114804067
+        name: Holy Names University
+    GetCompanySearchOutputField:
+      title: GetCompanySearchOutputField
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        description: company id
     CompanySearchInput:
       title: CompanySearchInput
       required:
@@ -1188,60 +1242,6 @@ components:
           name: Marcus Foster Education Institute
         - id: 28235366
           name: Berkeley Geochronology Center
-    CompanySearchRequest:
-      title: CompanySearchRequest
-      required:
-      - metroRegion
-      - industryCodes
-      - techAttributeTagList
-      type: object
-      properties:
-        metroRegion:
-          type: string
-          example: example_value
-        industryCodes:
-          type: string
-          example: Software
-        techAttributeTagList:
-          type: string
-          example: example_value
-      examples:
-      - metroRegion: usa.california.sanfrancisco
-        industryCodes: education.university
-        techAttributeTagList: 333.202.*
-    GetCompanySearchOutputField:
-      title: GetCompanySearchOutputField
-      required:
-      - fieldName
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: companyId
-        description: company id
-    Datum5:
-      title: Datum5
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-      examples:
-      - id: 114804067
-        name: Holy Names University
   securitySchemes:
     httpBearer:
       type: http
