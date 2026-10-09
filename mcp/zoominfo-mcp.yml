@@ -181,3 +181,25 @@ docs:
   available_tools: https://docs.zoominfo.com/docs/available-mcp-tools.md
   plugin_repo: https://github.com/Zoominfo/zoominfo-mcp-plugin
   skills: skills/_index.yml
+rfc9728:
+  endpoint: https://mcp.zoominfo.com/mcp
+  metadata_url: https://mcp.zoominfo.com/.well-known/oauth-protected-resource
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://mcp.zoominfo.com
+    authorization_servers:
+    - https://mcp.zoominfo.com
+    scopes_supported:
+    - openid
+    - profile
+    - zi_api
+    - email
+    - offline_access
+    - zi_mcp
+    - api:data:mcp
+    bearer_methods_supported:
+    - header
+    resource_documentation: https://mcp.zoominfo.com/docs

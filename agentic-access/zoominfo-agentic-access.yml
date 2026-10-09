@@ -1,4 +1,4 @@
-generated: '2026-09-16'
+generated: '2026-09-23'
 method: generated
 source: openapi/zoominfo-account-summary-api-openapi.yml, openapi/zoominfo-agent-teams-api-openapi.yml,
   openapi/zoominfo-audiences-api-openapi.yml, openapi/zoominfo-authentication-api-openapi.yml,
@@ -26,11 +26,11 @@ description: Recommended x-agentic-access execution contracts, classified heuris
 summary:
   operations: 199
   by_action_class:
-    connected: 109
-    acting: 90
+    connected: 116
+    acting: 83
   by_consequence:
-    read: 109
-    write: 85
+    read: 116
+    write: 78
     safety-critical: 5
   human_in_the_loop_required: 5
 operations:
@@ -428,20 +428,14 @@ operations:
   method: post
   operationId: Rows_listRows
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - api:audience:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /studio/v1/audiences/{audienceId}/rows/actions/upsert
   method: post
   operationId: Rows_upsertRows
@@ -1634,20 +1628,14 @@ operations:
   method: post
   operationId: InsightsInterface_getCompanyInsightsByType
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - api:insights:read
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /enrich/intent
   method: post
   operationId: IntentEnrich
@@ -2567,92 +2555,62 @@ operations:
   method: post
   operationId: SearchInterface_searchContact
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - api:data:contact
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /data/v1/companies/search
   method: post
   operationId: SearchInterface_searchCompany
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - api:data:company
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /data/v1/intent/search
   method: post
   operationId: SearchInterface_searchIntent
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - api:data:intent
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /data/v1/news/search
   method: post
   operationId: SearchInterface_searchNews
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - api:data:news
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /data/v1/scoops/search
   method: post
   operationId: SearchInterface_searchScoop
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
+    action-class: connected
+    consequence: read
+    subject: optional
     scope:
     - api:data:scoops
-    audience: null
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /enrich/tech
   method: post
   operationId: TechnologyEnrich

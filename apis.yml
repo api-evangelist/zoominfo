@@ -12950,6 +12950,8 @@ accessModel:
 image: https://www.zoominfo.com/assets/img/zoominfo-logo.png
 access: 3rd-Party
 common:
+- type: FinOps
+  url: finops/zoominfo-finops.yml
 - type: Website
   url: https://www.zoominfo.com/
 - type: CapabilityMap
