@@ -1,0 +1,230 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-folder-json-api-list-schema.json",
+  "title": "FolderJsonApiList",
+  "description": "JSON API model for Folder List.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/FolderJsonApiList",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Folder"
+      },
+      "description": "The primary data of the document"
+    },
+    "meta": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Pagination"
+        }
+      ],
+      "description": "Non-standard meta information about the document"
+    },
+    "links": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/FoldersPagingLinks"
+        }
+      ],
+      "description": "Links related to the primary data"
+    }
+  },
+  "$defs": {
+    "Folder": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "Folder",
+          "pattern": "Folder"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/FolderAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        },
+        "meta": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/FolderMeta"
+            }
+          ],
+          "description": "Non-standard meta information about the resource",
+          "readOnly": true
+        }
+      },
+      "description": "Folder request resource."
+    },
+    "FolderAttributes": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the folder. Required on create."
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional free-text description of the folder's purpose."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional notes about the folder for internal reference."
+        },
+        "starred": {
+          "type": "boolean",
+          "description": "Whether the folder is starred for quick access. Optional; defaults to `false`.",
+          "default": false
+        },
+        "audiences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of `audienceId` values for the audiences contained in this folder. Read-only; updated automatically as audiences are added or moved.",
+          "readOnly": true
+        }
+      },
+      "description": "Attributes for a folder that organizes audiences in GTM Studio."
+    },
+    "FolderMeta": {
+      "type": "object",
+      "required": [
+        "createdAt",
+        "createdById",
+        "createdByName",
+        "updatedAt",
+        "updatedById",
+        "updatedByName"
+      ],
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the resource was created",
+          "readOnly": true
+        },
+        "createdById": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "Id of the user who created the resource",
+          "readOnly": true
+        },
+        "createdByName": {
+          "type": "string",
+          "description": "Name of the user who created the resource",
+          "readOnly": true
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the resource was last updated",
+          "readOnly": true
+        },
+        "updatedById": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "Id of the user who last updated the resource",
+          "readOnly": true
+        },
+        "updatedByName": {
+          "type": "string",
+          "description": "Name of the user who last updated the resource",
+          "readOnly": true
+        }
+      },
+      "description": "Metadata for Folder model."
+    },
+    "FoldersPagingLinks": {
+      "type": "object",
+      "properties": {
+        "first": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the first page of data"
+        },
+        "last": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the last page of data"
+        },
+        "prev": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the previous page of data"
+        },
+        "next": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the next page of data"
+        }
+      },
+      "description": "Paging links for Folder list."
+    },
+    "Page": {
+      "type": "object",
+      "required": [
+        "size",
+        "number"
+      ],
+      "properties": {
+        "size": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "Number of items per page"
+        },
+        "number": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "Current page number"
+        }
+      },
+      "description": "Page details for paginated responses."
+    },
+    "Pagination": {
+      "type": "object",
+      "required": [
+        "page",
+        "total"
+      ],
+      "properties": {
+        "page": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Page"
+            }
+          ],
+          "description": "Field representing the current page number"
+        },
+        "total": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "Total number of items available"
+        }
+      },
+      "description": "Pagination details for paginated responses."
+    }
+  }
+}

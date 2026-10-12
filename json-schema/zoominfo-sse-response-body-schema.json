@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-sse-response-body-schema.json",
+  "title": "SseResponseBody",
+  "description": "SSE Response Body",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-interact-experimental-api-openapi.yml#/components/schemas/SseResponseBody",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "string",
+      "description": "Server-sent events stream content"
+    }
+  }
+}

@@ -1,0 +1,449 @@
+generated: '2026-10-12'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/zoominfo-account-summary-api-openapi.yml
+- openapi/zoominfo-agent-teams-api-openapi.yml
+- openapi/zoominfo-audiences-api-openapi.yml
+- openapi/zoominfo-authentication-api-openapi.yml
+- openapi/zoominfo-bulk-api-openapi.yml
+vocabulary:
+  name: ZoomInfo Domain Vocabulary
+  description: 'Terms declared by ZoomInfo''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-12'
+  terms:
+  - term: Authentication
+    definition: The ZoomInfo API authenticates client access requests using a JSON Web Token (JWT).
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-authentication-api-openapi.yml
+  - term: Bulk
+    definition: Use the Bulk APIs to search, retrieve, and enrich large ZoomInfo company and contact datasets through asynchronous batch processes.
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-bulk-api-openapi.yml
+  - term: Company Enrich
+    definition: Use Company Enrich to retrieve company detail using valid query parameters.
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-company-enrich-api-openapi.yml
+  - term: Company Location Enrich
+    definition: 'Use Company Location Enrich to retrieve company location detail using valid query parameters. Refer to the examples provided
+      to build a valid JSON request: * Use the Location Enrich Inputs endpoint to retrieve a list of valid input parameters you can provide *
+      Use the Location Enrich Outputs endpoint to retrieve a list of output fields returned'
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-company-location-enrich-api-openapi.yml
+  - term: Company Master Data Enrich
+    definition: The new Company Master Data Enrich endpoint brings together ZoomInfo firmographic data with the EverString firmographic data along
+      with significant improvements including additional firmographic attributes and enhanced data.
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-company-master-data-enrich-api-openapi.yml
+  - term: Company Search
+    definition: Use Company Search to retrieve company data using valid query parameters. * To build your request, retrieve a list of valid query
+      parameters using Company Search Inputs. * For requests that require you to specify supported values (e.g., company type, industry codes
+      and so on), use the Lookup endpoints. * Use Company Search Outputs to retrieve a list of expected response fields that will be returne
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-company-search-api-openapi.yml
+  - term: Compliance API
+    definition: Use the Compliance endpoints to request and return data related to data privacy and opt-out compliance for contacts stored in
+      the ZoomInfo database.
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-compliance-api-api-openapi.yml
+  - term: Contact Enrich
+    definition: Use Contact Enrich to retrieve contact detail using valid query parameters.
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-contact-enrich-api-openapi.yml
+  - term: Contact Search
+    definition: Use Contact Search to retrieve contacts using valid query parameters. * To build your request, retrieve a list of valid query
+      parameters using Contact Search Inputs. * For requests that require you to specify supported values (e.g., job titles, industry codes and
+      so on), use the Lookup endpoints. * Use Contact Search Outputs to retrieve a list of expected response fields that will be returned from
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-contact-search-api-openapi.yml
+  - term: Corporate Hierarchy Enrich
+    definition: Use Corporate Hierarchy Enrich to retrieve corporate hierarchy detail using valid query parameters.
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-corporate-hierarchy-enrich-api-openapi.yml
+  - term: Hashtags Enrich
+    definition: Use Hashtags Enrich to retrieve company hashtags using valid query parameters. A Hashtags Enrich request requires you to specify
+      the input parameters about the company you are enriching. Refer to the examples provided to build a valid JSON request. Use the Hashtags
+      Enrich Inputs endpoint to retrieve a list of valid input parameters you can provide.
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-hashtags-enrich-api-openapi.yml
+  - term: Intent Enrich
+    definition: 'Use Intent Enrich to retrieve intent data using valid query parameters. Refer to the examples provided to build a valid JSON
+      request: * Use the Intent Enrich Inputs endpoint to retrieve a list of valid input parameters you can provide * Use the Intent Enrich Outputs
+      endpoint to retrieve a list of valid output fields returned'
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-intent-enrich-api-openapi.yml
+  - term: Intent Search
+    definition: Use Intent Search to retrieve Intent-related data using valid query parameters. * To build your request, retrieve a list of valid
+      query parameters using Intent Search Inputs. * For requests that require you to specify supported values (e.g., Intent topics), use the
+      Lookup endpoints. * Use Intent Search Outputs to retrieve a list of expected response fields that will be returned from Intent Search.
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-intent-search-api-openapi.yml
+  - term: Monitoring API/Webhooks
+    definition: ZoomInfo data is highly dynamic, with contacts, companies and related data being constantly updated in real-time in our database.
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-monitoring-api-webhooks-api-openapi.yml
+  - term: News Enrich
+    definition: 'Use News Enrich to retrieve news data using valid query parameters. Refer to the examples provided to build a valid JSON request:
+      * Use the News Enrich Inputs endpoint to retrieve a list of valid input parameters you can provide * Use the News Enrich Outputs endpoint
+      to retrieve a list of valid output fields returned'
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-news-enrich-api-openapi.yml
+  - term: News Search
+    definition: Use News Search to retrieve news-related data using valid query parameters. * To build your request, retrieve a list of valid
+      query parameters using News Search Inputs. * For requests that require you to specify supported values (e.g., news categories), use the
+      Lookup endpoints. * Use News Search Outputs to retrieve a list of expected response fields that will be returned from News Search.
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-news-search-api-openapi.yml
+  - term: OrgChart Enrich
+    definition: 'Use Org Chart Enrich to retrieve org chart detail using valid query parameters. Refer to the examples provided to build a valid
+      JSON request: * Use the Org Chart Enrich Inputs endpoint to retrieve a list of valid input parameters you can provide * Use the Org Chart
+      Enrich Outputs endpoint to retrieve a list of output fields returned'
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-orgchart-enrich-api-openapi.yml
+  - term: Scoop Enrich
+    definition: 'Use Scoop Enrich to retrieve Scoop data using valid query parameters. Refer to the examples provided to build a valid JSON request:
+      * Use the Scoop Enrich Inputs endpoint to retrieve a list of valid input parameters you can provide * Use the Scoop Enrich Outputs endpoint
+      to retrieve a list of valid output fields returned'
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-scoop-enrich-api-openapi.yml
+  - term: Scoop Search
+    definition: 'Use Scoop Search to retrieve scoop-related data using valid query parameters. * To build your request, retrieve a list of valid
+      query parameters using Scoop Search Inputs. * For requests that require you to specify supported values (e.g., job titles, industry codes
+      and so on), use the Lookup endpoints. * Use Scoop Search Outputs to retrieve a list of expected response fields that will be returned '
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-scoop-search-api-openapi.yml
+  - term: Technology Enrich
+    definition: Use Technology Enrich to retrieve company technology detail using valid query parameters. Refer to the examples provided to build
+      a valid JSON request. Use the Technology Enrich Inputs endpoint to retrieve a list of valid input parameters you can provide.
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-technology-enrich-api-openapi.yml
+  - term: Usage
+    definition: You can use the Usage endpoint to find what your current API usage and limits are.
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-usage-api-openapi.yml
+  - term: WebSights API
+    definition: The Websights API identifies anonymous website traffic by resolving IP addresses (IPv4 & IPv6) to return company and ISP profiles
+      and IP geolocation details.
+    tags:
+    - Resource Group
+    source: openapi/zoominfo-websights-api-api-openapi.yml
+  - term: AccountSummaryQuestion
+    definition: Represents a question and answer about account-related data.
+    tags:
+    - Object
+    source: openapi/zoominfo-account-summary-api-openapi.yml#/components/schemas/AccountSummaryQuestion
+  - term: AccountSummaryQuestionAttributes
+    definition: Attributes for the AccountSummaryQuestion resource.
+    tags:
+    - Object
+    source: openapi/zoominfo-account-summary-api-openapi.yml#/components/schemas/AccountSummaryQuestionAttributes
+  - term: AccountSummaryQuestionRequest
+    definition: Request model for asking a question about account-related data.
+    tags:
+    - Object
+    source: openapi/zoominfo-account-summary-api-openapi.yml#/components/schemas/AccountSummaryQuestionRequest
+  - term: ZoomInfo.Core.Foundations.ErrorSourceModel
+    definition: 'Object declared by the contract with fields: cookie, header, pointer, parameter.'
+    tags:
+    - Object
+    source: openapi/zoominfo-account-summary-api-openapi.yml#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel
+  - term: AccountSummary
+    definition: Represents a summary of account-related data.
+    tags:
+    - Object
+    source: openapi/zoominfo-account-summary-api-openapi.yml#/components/schemas/AccountSummary
+  - term: AccountSummaryAttributes
+    definition: Attributes for the AccountSummary resource.
+    tags:
+    - Object
+    source: openapi/zoominfo-account-summary-api-openapi.yml#/components/schemas/AccountSummaryAttributes
+  - term: AccountSummaryQuestionResponse
+    definition: Response model for asking a question about account-related data.
+    tags:
+    - Object
+    source: openapi/zoominfo-account-summary-api-openapi.yml#/components/schemas/AccountSummaryQuestionResponse
+  - term: ZoomInfo.Core.Foundations.ErrorResponseModel
+    definition: The standard error response body model for the ZoomInfo API.
+    tags:
+    - Object
+    source: openapi/zoominfo-account-summary-api-openapi.yml#/components/schemas/ZoomInfo.Core.Foundations.ErrorResponseModel
+  - term: ZoomInfo.Core.Foundations.ErrorModel
+    definition: The object describing a specific error from the API
+    tags:
+    - Object
+    source: openapi/zoominfo-account-summary-api-openapi.yml#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel
+  - term: AccountSummaryResponse
+    definition: Resource model for an account summary response.
+    tags:
+    - Object
+    source: openapi/zoominfo-account-summary-api-openapi.yml#/components/schemas/AccountSummaryResponse
+  - term: AccountSummaryQuestionRequestAttributes
+    definition: Attributes for the AccountSummaryQuestionRequest resource.
+    tags:
+    - Object
+    source: openapi/zoominfo-account-summary-api-openapi.yml#/components/schemas/AccountSummaryQuestionRequestAttributes
+  - term: AccountSummaryQuestionRequestResource
+    definition: Represents a request to ask a question about account-related data.
+    tags:
+    - Object
+    source: openapi/zoominfo-account-summary-api-openapi.yml#/components/schemas/AccountSummaryQuestionRequestResource
+  - term: AgentTeamRunMeta
+    definition: Metadata information for an Agent Team run
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/AgentTeamRunMeta
+  - term: AgentTeamRunStatus
+    definition: Lifecycle states for an Agent Team run.
+    tags:
+    - Enumeration
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/AgentTeamRunStatus
+  - term: AgentTeamTriggerType
+    definition: 'Enumeration declared by the contract with values: MANUAL, ACCOUNT_CHANGE, WEBSITE_VISIT, EMAIL_RECEIVED, MEETING, WEBHOOK, CONTACT_CHANGE,
+      OPPORTUNITY_CHANGE, SCHEDULE.'
+    tags:
+    - Enumeration
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/AgentTeamTriggerType
+  - term: InputParameter
+    definition: Describes an input parameter that is used to start an agent team run
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/InputParameter
+  - term: AgentTeam
+    definition: Agent Team resource.
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/AgentTeam
+  - term: AgentTeamRun
+    definition: Model describing an Agent Team run
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/AgentTeamRun
+  - term: AgentTeamRunAttributes
+    definition: Attributes describing an Agent Team run
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/AgentTeamRunAttributes
+  - term: AgentTeamInput
+    definition: Input parameter passed to an Agent Team run.
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/AgentTeamInput
+  - term: AgentTeamRunsListResponse
+    definition: Response containing a list of Agent Team runs.
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/AgentTeamRunsListResponse
+  - term: PagingLinks
+    definition: Links describing the available paging options.
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/PagingLinks
+  - term: PagingMeta
+    definition: Metadata for the current page of results.
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/PagingMeta
+  - term: AgentTeamMeta
+    definition: Metadata information for an Agent Team
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/AgentTeamMeta
+  - term: AgentTeamAttributes
+    definition: Public Agent Team details.
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/AgentTeamAttributes
+  - term: RunAgentTeamRequestBody
+    definition: Request body for running an Agent Team.
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/RunAgentTeamRequestBody
+  - term: RunAgentTeamRequestAttributes
+    definition: Attributes for an Agent Team run request.
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/RunAgentTeamRequestAttributes
+  - term: AgentTeamsListResponse
+    definition: Response containing a list of Agent Teams.
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/AgentTeamsListResponse
+  - term: InputParameterType
+    definition: 'Enumeration declared by the contract with values: STRING.'
+    tags:
+    - Enumeration
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/InputParameterType
+  - term: AgentTeamDetail
+    definition: Agent Team resource with full input parameter details.
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/AgentTeamDetail
+  - term: AgentTeamDetailResponse
+    definition: Response for a single Agent Team with input parameter details
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/AgentTeamDetailResponse
+  - term: AgentTeamRunResponse
+    definition: Response containing a single Agent Team run.
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/AgentTeamRunResponse
+  - term: AgentTeamDetailAttributes
+    definition: Public Agent Team details.
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/AgentTeamDetailAttributes
+  - term: RunAgentTeamRequest
+    definition: Agent Team run request resource.
+    tags:
+    - Object
+    source: openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/RunAgentTeamRequest
+  - term: ReadColumnListJsonApiModel
+    definition: JSON API model for read Column.
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/ReadColumnListJsonApiModel
+  - term: FoldersPagingLinks
+    definition: Paging links for Folder list.
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/FoldersPagingLinks
+  - term: ZoominfoMatchColumn
+    definition: Column model representing a ZoomInfo match column — values are populated by matching rows against ZoomInfo's database using defined
+      criteria. This Column accepts only ZI_COMPANY_ID or ZI_CONTACT_ID as data type since these columns are used for matching against ZoomInfo
+      data and these are the only supported data types for matching.
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/ZoominfoMatchColumn
+  - term: GetRowsAttributes
+    definition: Attributes defining the request parameters for retrieving Rows
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/GetRowsAttributes
+  - term: UpsertRow
+    definition: Row attributes for upsert operations. Identical to `RowAttributes` but `id` is optional — omit it to create a new row, provide
+      it to update an existing one.
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/UpsertRow
+  - term: CreateAudienceResponse
+    definition: Audience response resource returned on creation.
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/CreateAudienceResponse
+  - term: ColumnAttributes
+    definition: 'CUSTOM - Column model representing static column in an audience. FORMULA - Column model representing a formula-based column where
+      values are generated from a prompt. AI - Column model representing an AI-powered column where values are generated using a prompt, optional
+      tool selection, and optional data dependency context. ZOOMINFO_MATCH - Column model representing a ZoomInfo match column — values '
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/ColumnAttributes
+  - term: ReadAudienceAttributes
+    definition: Audience model representing audience details.
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/ReadAudienceAttributes
+  - term: SourceOrigin
+    definition: Indicates how the audience was originally populated. Read-only; set by the system based on the creation method.
+    tags:
+    - Enumeration
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/SourceOrigin
+  - term: ColumnMeta
+    definition: Metadata for Column model.
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/ColumnMeta
+  - term: CreateAudienceResponseAttributes
+    definition: Audience attributes returned upon creation
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/CreateAudienceResponseAttributes
+  - term: GenericFilterOperator
+    definition: 'Enumeration declared by the contract with values: EQUALS, NOT_EQUALS, CONTAINS, DOES_NOT_CONTAINS, CONTAINS_WORD, DOES_NOT_CONTAIN_WORD,
+      EMPTY, NOT_EMPTY, STARTS_WITH, DOES_NOT_START_WITH, GREATER_THAN, LESS_THAN. (13 more)'
+    tags:
+    - Enumeration
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/GenericFilterOperator
+  - term: AudienceType
+    definition: Determines the record type the audience holds. Set at creation and cannot be changed.
+    tags:
+    - Enumeration
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/AudienceType
+  - term: Audience
+    definition: Audience request resource.
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/Audience
+  - term: FormulaExpressionLanguage
+    definition: Supported expression languages for formula columns.
+    tags:
+    - Enumeration
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/FormulaExpressionLanguage
+  - term: ColumnType
+    definition: 'Enumeration declared by the contract with values: CUSTOM, CRM_SEARCH, CRM, CSV, FORMULA, ACCOUNT_AI, CONNECTORS, ROUTING, SNOWFLAKE,
+      AI, ZOOMINFO_COPILOT_SIGNALS, ZOOMINFO_AUDIENCE. (21 more)'
+    tags:
+    - Enumeration
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/ColumnType
+  - term: FolderCreate
+    definition: Folder request resource.
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/FolderCreate
+  - term: UpdateColumn
+    definition: Column update request resource.
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/UpdateColumn
+  - term: FolderJsonApiModel
+    definition: JSON API model for Folder.
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/FolderJsonApiModel
+  - term: RunStatus
+    definition: Terminal and in-progress states for an asynchronous job.
+    tags:
+    - Enumeration
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/RunStatus
+  - term: EnrichAudience
+    definition: Audience enrichment request resource.
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/EnrichAudience
+  - term: RowAsyncJob
+    definition: Row async job response resource.
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/RowAsyncJob
+  - term: AudiencesJsonApiList
+    definition: JSON API model for Audience list.
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/AudiencesJsonApiList
+  - term: JobStatusResponseJsonApiModel
+    definition: JSON API model for Job status response.
+    tags:
+    - Object
+    source: openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/JobStatusResponseJsonApiModel

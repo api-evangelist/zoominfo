@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-company-lookalikes-response-schema.json",
+  "title": "CompanyLookalikesResponse",
+  "description": "Response model for company lookalikes",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-recommendations-api-openapi.yml#/components/schemas/CompanyLookalikesResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CompanyLookalike"
+      },
+      "description": "The primary data of the document"
+    }
+  },
+  "$defs": {
+    "CompanyLookalike": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "CompanyLookalike",
+          "pattern": "CompanyLookalike"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SimilarCompanyAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Resource model for a company lookalike result."
+    },
+    "SimilarCompanyAttributes": {
+      "type": "object",
+      "required": [
+        "companyName",
+        "score",
+        "rank",
+        "industry",
+        "revenueRange",
+        "employeeRange",
+        "country"
+      ],
+      "properties": {
+        "companyName": {
+          "type": "string",
+          "description": "Name of the lookalike company."
+        },
+        "score": {
+          "type": "number",
+          "format": "double",
+          "description": "Similarity score between the input company and the lookalike company, ranging from 0 to 1. Higher values indicate higher similarity."
+        },
+        "rank": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Rank of the lookalike company in the results, with 1 being the most similar."
+        },
+        "industry": {
+          "type": "string",
+          "description": "Primary industry of the lookalike company."
+        },
+        "revenueRange": {
+          "type": "string",
+          "description": "Revenue range of the lookalike company."
+        },
+        "employeeRange": {
+          "type": "string",
+          "description": "Employee count range of the lookalike company."
+        },
+        "country": {
+          "type": "string",
+          "description": "Country where the lookalike company is headquartered."
+        }
+      },
+      "description": "Attributes describing a single similar company."
+    }
+  }
+}

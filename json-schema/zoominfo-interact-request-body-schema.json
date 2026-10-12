@@ -1,0 +1,390 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-interact-request-body-schema.json",
+  "title": "InteractRequestBody",
+  "description": "Interact Request Body",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-interact-experimental-api-openapi.yml#/components/schemas/InteractRequestBody",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/InteractRequest"
+        }
+      ],
+      "description": "The primary data of the document"
+    }
+  },
+  "$defs": {
+    "ActionArguments": {
+      "type": "object",
+      "description": "Action Arguments"
+    },
+    "AdditionalFields": {
+      "type": "object",
+      "description": "Additional Fields"
+    },
+    "AgentProps": {
+      "type": "object",
+      "description": "Agent Properties"
+    },
+    "AgentState": {
+      "type": "object",
+      "description": "Agent State"
+    },
+    "ControlProps": {
+      "type": "object",
+      "description": "Control Props"
+    },
+    "ControlValue": {
+      "type": "object",
+      "description": "Control Value"
+    },
+    "InteractRequest": {
+      "type": "object",
+      "required": [
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "InteractRequest",
+          "pattern": "InteractRequest"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/InteractRequestModel"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Interact Request Body"
+    },
+    "InteractRequestModel": {
+      "type": "object",
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "threadId": {
+          "type": "string",
+          "description": "Thread Id"
+        },
+        "usersId": {
+          "type": "string",
+          "description": "Users Id"
+        },
+        "structuredContent": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/StructuredContent"
+            }
+          ],
+          "description": "StructuredContent"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ThreadMessageSections"
+          },
+          "description": "Sections"
+        },
+        "userMessageId": {
+          "type": "string",
+          "description": "User Message Id"
+        },
+        "interactionId": {
+          "type": "string",
+          "description": "Interaction Id"
+        },
+        "relationships": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Relationship"
+          },
+          "description": "Relationships"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message"
+        }
+      },
+      "description": "InteractRequestModel"
+    },
+    "MetaInfo": {
+      "type": "object",
+      "description": "Meta Information"
+    },
+    "Relationship": {
+      "type": "object",
+      "required": [
+        "entityType",
+        "entityId"
+      ],
+      "properties": {
+        "entityType": {
+          "type": "string",
+          "description": "Entity Type"
+        },
+        "entityId": {
+          "type": "string",
+          "description": "Entity Id"
+        }
+      },
+      "description": "Relationship"
+    },
+    "RenderProps": {
+      "type": "object",
+      "description": "Render Properties"
+    },
+    "StructuredContent": {
+      "type": "object",
+      "properties": {
+        "agentProps": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AgentProps"
+            }
+          ],
+          "description": "Agent Props"
+        },
+        "triggerActions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TriggerActions"
+          },
+          "description": "Trigger Actions"
+        },
+        "agentState": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AgentState"
+            }
+          ],
+          "description": "Agent State"
+        }
+      },
+      "description": "StructuredContent"
+    },
+    "StructuredContentObject": {
+      "type": "object",
+      "description": "Structured Content Object"
+    },
+    "ThreadMessageSectionControl": {
+      "type": "object",
+      "required": [
+        "threadMessageSectionId",
+        "name",
+        "type",
+        "props",
+        "value",
+        "inline",
+        "entityType",
+        "entityId"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Id"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Created At"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Updated At"
+        },
+        "deletedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Deleted At"
+        },
+        "additionalFields": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AdditionalFields"
+            }
+          ],
+          "description": "Additional Fields"
+        },
+        "threadMessageSectionId": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Thread Message Section Id"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type"
+        },
+        "props": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ControlProps"
+            }
+          ],
+          "description": "Props"
+        },
+        "value": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ControlValue"
+            }
+          ],
+          "description": "Value"
+        },
+        "inline": {
+          "type": "boolean",
+          "description": "Inline"
+        },
+        "entityType": {
+          "type": "string",
+          "description": "Entity Type"
+        },
+        "entityId": {
+          "type": "string",
+          "description": "Entity Id"
+        }
+      },
+      "description": "ThreadMessageSectionControl"
+    },
+    "ThreadMessageSections": {
+      "type": "object",
+      "required": [
+        "threadMessageId",
+        "sectionName",
+        "contentType",
+        "content",
+        "structuredContent",
+        "renderProps",
+        "meta",
+        "state",
+        "userFacing"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Id"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Created At"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Updated At"
+        },
+        "deletedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Deleted At"
+        },
+        "additionalFields": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AdditionalFields"
+            }
+          ],
+          "description": "Additional Fields"
+        },
+        "threadMessageId": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Thread Message Id"
+        },
+        "sectionName": {
+          "type": "string",
+          "description": "Section Name"
+        },
+        "contentType": {
+          "type": "string",
+          "description": "Content Type"
+        },
+        "content": {
+          "type": "string",
+          "description": "Content"
+        },
+        "structuredContent": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/StructuredContentObject"
+            }
+          ],
+          "description": "Structured Content"
+        },
+        "renderProps": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/RenderProps"
+            }
+          ],
+          "description": "Render Props"
+        },
+        "meta": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/MetaInfo"
+            }
+          ],
+          "description": "Meta"
+        },
+        "state": {
+          "type": "string",
+          "description": "State"
+        },
+        "userFacing": {
+          "type": "boolean",
+          "description": "User Facing"
+        },
+        "controls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ThreadMessageSectionControl"
+          },
+          "description": "Controls",
+          "default": []
+        }
+      },
+      "description": "ThreadMessageSections"
+    },
+    "TriggerActions": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Id"
+        },
+        "arguments": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ActionArguments"
+            }
+          ],
+          "description": "Arguments"
+        }
+      },
+      "description": "TriggerActions"
+    }
+  }
+}

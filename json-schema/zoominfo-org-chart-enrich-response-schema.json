@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-org-chart-enrich-response-schema.json",
+  "title": "OrgChartEnrichResponse",
+  "description": "Org charts that match the criteria specified in the request",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-enrich-api-openapi.yml#/components/schemas/OrgChartEnrichResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/OrgChartEnrichResponseResource"
+      },
+      "description": "The primary data of the document"
+    },
+    "meta": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ResultMeta"
+        }
+      ],
+      "description": "Non-standard meta information about the document"
+    },
+    "links": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Links"
+        }
+      ],
+      "description": "Links related to the primary data"
+    }
+  },
+  "$defs": {
+    "Links": {
+      "type": "object",
+      "properties": {
+        "first": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the first page of data"
+        },
+        "last": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the last page of data"
+        },
+        "prev": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the previous page of data"
+        },
+        "next": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the next page of data"
+        }
+      },
+      "description": "Helpful links for fetching different pages of data from the current result set. When using these links, please provide the exact same request body between requests"
+    },
+    "OrgChartEnrichResponseAttributes": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "description": "Contact first name."
+        },
+        "middleName": {
+          "type": "string",
+          "description": "Contact middle name"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Contact last name."
+        },
+        "lastUpdatedDate": {
+          "type": "string",
+          "description": "Date on which the contact record was last updated."
+        },
+        "title": {
+          "type": "string",
+          "description": "Contact job title at current place of employment."
+        },
+        "hasEmail": {
+          "type": "boolean",
+          "description": "Indicates whether ZoomInfo has an email address for the contact."
+        },
+        "hasDirectPhone": {
+          "type": "boolean",
+          "description": "Indicates whether ZoomInfo has a direct phone number for the contact."
+        },
+        "department": {
+          "type": "string",
+          "description": "Contact department at current place of employment."
+        },
+        "jobFunction": {
+          "type": "string",
+          "description": "Contact job function at current place of employment."
+        },
+        "orgChartTier": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Integer representing hierarchy within a department, with 1 being the highest."
+        },
+        "orgChartSubTier": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Secondary tier within orgChartTier."
+        },
+        "contactAccuracyScore": {
+          "type": "number",
+          "format": "double",
+          "description": "This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 75 and maximum is 99."
+        },
+        "companyId": {
+          "type": "string",
+          "description": "Unique ZoomInfo identifier for a company."
+        },
+        "companyName": {
+          "type": "string",
+          "description": "Company name."
+        }
+      },
+      "description": "Org chart enrich response attributes.",
+      "x-class-extra-annotation": "@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)"
+    },
+    "OrgChartEnrichResponseResource": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "OrgChart",
+          "pattern": "OrgChart"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/OrgChartEnrichResponseAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Org chart."
+    },
+    "Page": {
+      "type": "object",
+      "required": [
+        "total",
+        "number"
+      ],
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The total number of pages within the current result set"
+        },
+        "number": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The current page number of the results"
+        }
+      },
+      "description": "Meta information related to the current page and total number of pages"
+    },
+    "ResultMeta": {
+      "type": "object",
+      "required": [
+        "totalResults",
+        "page"
+      ],
+      "properties": {
+        "totalResults": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The total number of results based on the specified filters"
+        },
+        "page": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Page"
+            }
+          ],
+          "description": "Paging information for the current result set"
+        }
+      },
+      "description": "Metadata including paging information and the total number of records in the result set"
+    }
+  }
+}

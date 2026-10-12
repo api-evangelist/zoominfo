@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-usage-response-schema.json",
+  "title": "UsageResponse",
+  "description": "Usage response.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-user-api-openapi.yml#/components/schemas/UsageResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/UsageResponseResource"
+      },
+      "description": "The primary data of the document"
+    }
+  },
+  "$defs": {
+    "UsageResponseResource": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "UserUsage",
+          "pattern": "UserUsage"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/UserUsageAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Usage response."
+    },
+    "UserUsageAttributes": {
+      "type": "object",
+      "required": [
+        "usage"
+      ],
+      "properties": {
+        "usage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/UserUsageModel"
+          },
+          "description": "List of usage data"
+        }
+      },
+      "description": "Attributes describing user usage"
+    },
+    "UserUsageModel": {
+      "type": "object",
+      "properties": {
+        "limitType": {
+          "type": "string",
+          "description": "Type of limit. Options are request, record, uniqueID, webSightsApiRequest, and webSightsApiRecord."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the limit type."
+        },
+        "totalLimit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The number of this type of request you are subscribed for. This is generally an usage limit for a contract period."
+        },
+        "currentUsage": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The number of this type of request you have already used."
+        },
+        "usageRemaining": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The remaining number of this type of request you can make before requiring additional purchase."
+        }
+      },
+      "description": "Model containing information about usage data"
+    }
+  }
+}

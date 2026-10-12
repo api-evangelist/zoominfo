@@ -1,3 +1,4 @@
+name: ZoomInfo API Plans
 specification: API Commons Plans
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
@@ -5,89 +6,91 @@ provider: ZoomInfo
 providerId: zoominfo
 generated: '2026-08-13'
 method: searched
-source: >-
-  https://docs.zoominfo.com/docs/rate-limits.md,
-  https://docs.zoominfo.com/docs/available-mcp-tools.md,
-  https://docs.zoominfo.com/docs/pagination-batching-and-bulk.md
+source: https://www.zoominfo.com/pricing
 created: '2026-05-04'
 modified: '2026-08-13'
-supersedes: >-
-  The 2026-05-04 bulk-sweep scaffold (free/pro/enterprise placeholder tiers with invented prices) that
-  previously occupied this file. No invented price survives.
-description: >-
-  ZoomInfo publishes no API price list. What it DOES publish is a named package ladder with hard rate
-  limits per package, and a credit-consumption model per operation class. Both are recorded below; prices
-  are recorded as unpublished rather than guessed.
-
+supersedes: The 2026-05-04 bulk-sweep scaffold (free/pro/enterprise placeholder tiers with invented prices) that previously occupied this file. No invented price survives.
+description: ZoomInfo publishes no API price list. What it DOES publish is a named package ladder with hard rate limits per package, and a credit-consumption model per operation class. Both are recorded
+  below; prices are recorded as unpublished rather than guessed.
 plan_count: 3
 prices_published: false
 pricing_page:
   url: https://www.zoominfo.com/pricing
-  http_status: 403
-  note: >-
-    The pricing page returns "Access to this page has been denied" to non-browser requests. ZoomInfo
-    discloses this in its own llms.txt — "Some pages (e.g. pricing) may not be accessible via non-browser
-    requests due to bot protection" — and instructs agents to send users to the page rather than infer its
-    contents. No price was read, so none is recorded.
-  probed: '2026-08-13'
+  http_status: 200
+  note: 'Re-probed 2026-10-12 with a browser user-agent: 200. The page names no prices; its call to action is "Contact sales". The 2026-08-13 probe got a bot-protection 403.'
+  probed: '2026-10-12'
 sales_model: contact-sales
 self_serve:
   available: true
   product: GTM.ai
-  note: >-
-    A self-serve tier exists (GTM.ai, with its own developer portal at gtm-studio.zoominfo.com) alongside
-    Enterprise, but its price is behind the same bot-protected pricing page.
-
+  note: A self-serve tier exists (GTM.ai, with its own developer portal at gtm-studio.zoominfo.com) alongside Enterprise, but its price is behind the same bot-protected pricing page.
 plans:
-  - id: builder
-    name: Builder
-    price: null
-    currency: null
-    billing_period: null
-    price_note: Not published.
-    limits:
-      requests_per_second: 5
-      requests_per_hour: 10800
-      requests_per_day: 129600
-    source: https://docs.zoominfo.com/docs/rate-limits.md
-  - id: standard
-    name: Standard
-    price: null
-    currency: null
-    billing_period: null
-    price_note: Not published.
-    limits:
-      requests_per_second: 25
-      requests_per_hour: 54000
-      requests_per_day: 648000
-    source: https://docs.zoominfo.com/docs/rate-limits.md
-  - id: scaling
-    name: Scaling
-    price: null
-    currency: null
-    billing_period: null
-    price_note: Not published.
-    limits:
-      requests_per_second: 35
-      requests_per_hour: 75600
-      requests_per_day: 907200
-    source: https://docs.zoominfo.com/docs/rate-limits.md
-
+- id: builder
+  name: Builder
+  currency: null
+  billing_period: null
+  price_note: Not published.
+  limits:
+  - name: requests_per_second
+    max: 5
+  - name: requests_per_hour
+    max: 10800
+  - name: requests_per_day
+    max: 129600
+  source: https://docs.zoominfo.com/docs/rate-limits.md
+  price_text: Contact sales
+- id: standard
+  name: Standard
+  currency: null
+  billing_period: null
+  price_note: Not published.
+  limits:
+  - name: requests_per_second
+    max: 25
+  - name: requests_per_hour
+    max: 54000
+  - name: requests_per_day
+    max: 648000
+  source: https://docs.zoominfo.com/docs/rate-limits.md
+  price_text: Contact sales
+- id: scaling
+  name: Scaling
+  currency: null
+  billing_period: null
+  price_note: Not published.
+  limits:
+  - name: requests_per_second
+    max: 35
+  - name: requests_per_hour
+    max: 75600
+  - name: requests_per_day
+    max: 907200
+  source: https://docs.zoominfo.com/docs/rate-limits.md
+  price_text: Contact sales
 metering:
   model: credits
-  note: >-
-    Rate limits govern throughput; credits govern data. They are separate budgets and either can stop a
-    workload. Credit balances are not exposed on the plan — they are per-account entitlements set in the
-    Admin Portal.
+  note: Rate limits govern throughput; credits govern data. They are separate budgets and either can stop a workload. Credit balances are not exposed on the plan — they are per-account entitlements set
+    in the Admin Portal.
   credit_classes:
-    - {name: free, description: 'Search, lookup, lookalikes, recommendations, audience browsing and GTM context reads consume no credits.'}
-    - {name: bulk-data, description: 'Enrichment consumes one bulk credit per NEW record redeemed — company, contact, intent, scoop or news.'}
-    - {name: ai-action, description: 'Agentic research and synthesis consume AI action credits. conversation_intelligence is documented at a ~9-credit minimum per call.'}
+  - name: free
+    description: Search, lookup, lookalikes, recommendations, audience browsing and GTM context reads consume no credits.
+  - name: bulk-data
+    description: Enrichment consumes one bulk credit per NEW record redeemed — company, contact, intent, scoop or news.
+  - name: ai-action
+    description: Agentic research and synthesis consume AI action credits. conversation_intelligence is documented at a ~9-credit minimum per call.
   batch_limits:
-    - {operation: Enrich Companies, max_records_per_call: 25, cost: 1 bulk credit per new company record}
-    - {operation: Enrich Contacts, max_records_per_call: 25, cost: 1 bulk credit per new contact record}
-    - {operation: Account Research, max_records_per_call: 1, cost: AI action credits}
-    - {operation: Contact Research, max_records_per_call: 1, cost: AI action credits}
+  - operation: Enrich Companies
+    max_records_per_call: 25
+    cost: 1 bulk credit per new company record
+  - operation: Enrich Contacts
+    max_records_per_call: 25
+    cost: 1 bulk credit per new contact record
+  - operation: Account Research
+    max_records_per_call: 1
+    cost: AI action credits
+  - operation: Contact Research
+    max_records_per_call: 1
+    cost: AI action credits
   exhaustion:
     error_code: PFAPI0011
     status: 400
@@ -95,11 +98,9 @@ metering:
   usage_visibility:
     current_api: GET /data/v1/users/usage (UserInterface_userUsage)
     legacy_api: GET /lookup/usage plus X-Usage-* response headers on every metered call
-
 overage:
   published: false
   note: No overage rate or burst-purchase mechanism is published. Exceeding the credit limit is an error, not a charge.
-
 limit_increase:
   process: Contact the ZoomInfo account team or helpmenow@zoominfo.com with your Tenant ID and desired per-second value.
   effective_within: 24 hours
@@ -128,3 +129,9 @@ x-canonical:
     model_how: derived
     units: []
     periods: []
+audience: business-product
+pricing_basis: negotiated
+published: false
+delivery:
+  delivery: managed
+limits_source: https://docs.zoominfo.com/docs/rate-limits.md

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-account-summary-response-schema.json",
+  "title": "AccountSummaryResponse",
+  "description": "Resource model for an account summary response.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-account-summary-api-openapi.yml#/components/schemas/AccountSummaryResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/AccountSummary"
+        }
+      ],
+      "description": "The primary data of the document"
+    }
+  },
+  "$defs": {
+    "AccountSummary": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "AccountSummary",
+          "pattern": "AccountSummary"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AccountSummaryAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Represents a summary of account-related data."
+    },
+    "AccountSummaryAttributes": {
+      "type": "object",
+      "required": [
+        "markdown"
+      ],
+      "properties": {
+        "markdown": {
+          "type": "string",
+          "description": "Markdown content providing a summary of account-related data."
+        }
+      },
+      "description": "Attributes for the AccountSummary resource."
+    }
+  }
+}

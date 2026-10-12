@@ -1,0 +1,264 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-scoop-enrich-response-schema.json",
+  "title": "ScoopEnrichResponse",
+  "description": "A list of scoop that match the criteria specified in the request",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-enrich-api-openapi.yml#/components/schemas/ScoopEnrichResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ScoopEnrichResponseResource"
+      },
+      "description": "The primary data of the document"
+    },
+    "meta": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ResultMeta"
+        }
+      ],
+      "description": "Non-standard meta information about the document"
+    },
+    "links": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Links"
+        }
+      ],
+      "description": "Links related to the primary data"
+    }
+  },
+  "$defs": {
+    "JobFunction": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the job function."
+        },
+        "department": {
+          "type": "string",
+          "description": "Department associated with the job function."
+        }
+      },
+      "description": "Contact job function at current place of employment."
+    },
+    "Links": {
+      "type": "object",
+      "properties": {
+        "first": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the first page of data"
+        },
+        "last": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the last page of data"
+        },
+        "prev": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the previous page of data"
+        },
+        "next": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the next page of data"
+        }
+      },
+      "description": "Helpful links for fetching different pages of data from the current result set. When using these links, please provide the exact same request body between requests"
+    },
+    "Page": {
+      "type": "object",
+      "required": [
+        "total",
+        "number"
+      ],
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The total number of pages within the current result set"
+        },
+        "number": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The current page number of the results"
+        }
+      },
+      "description": "Meta information related to the current page and total number of pages"
+    },
+    "ResultMeta": {
+      "type": "object",
+      "required": [
+        "totalResults",
+        "page"
+      ],
+      "properties": {
+        "totalResults": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The total number of results based on the specified filters"
+        },
+        "page": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Page"
+            }
+          ],
+          "description": "Paging information for the current result set"
+        }
+      },
+      "description": "Metadata including paging information and the total number of records in the result set"
+    },
+    "ScoopCompany": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique ZoomInfo identifier for a company."
+        },
+        "name": {
+          "type": "string",
+          "description": "Company name."
+        }
+      },
+      "description": "ScoopCompany"
+    },
+    "ScoopContact": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Unique ZoomInfo identifier for a person."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "Contact first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Contact last name."
+        },
+        "jobTitle": {
+          "type": "string",
+          "description": "Contact job title at current place of employment."
+        },
+        "jobFunction": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/JobFunction"
+          },
+          "description": "Contact job function at their current place of employment."
+        }
+      },
+      "description": "ScoopContact"
+    },
+    "ScoopEnrichResponseAttributes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ZoomInfo unique identifier for a scoop."
+        },
+        "publishedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date when a scoop was published."
+        },
+        "originalPublishedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date when a scoop was originally published."
+        },
+        "linkText": {
+          "type": "string",
+          "description": "Link text for a scoop."
+        },
+        "link": {
+          "type": "string",
+          "description": "URL for a scoop."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description associated with the scoop"
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {}
+          },
+          "description": "Scoop topics."
+        },
+        "updateText": {
+          "type": "string",
+          "description": "Text related to an updated scoop."
+        },
+        "types": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {}
+          },
+          "description": "Types associated with a scoop."
+        },
+        "company": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ScoopCompany"
+            }
+          ],
+          "description": "Company"
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ScoopContact"
+          },
+          "description": "Contacts associated with a scoop."
+        }
+      },
+      "description": "Scoop enrich response attributes."
+    },
+    "ScoopEnrichResponseResource": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "Scoop",
+          "pattern": "Scoop"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ScoopEnrichResponseAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Scoop"
+    }
+  }
+}

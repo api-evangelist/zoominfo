@@ -1,0 +1,142 @@
+generated: '2026-10-12'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 11
+  own: 8
+  other_domain: 0
+  platform: 3
+  roles:
+  - api
+  - collections
+  - docs
+  - identity
+  - marketing
+  - other
+  - portal
+  - source
+  - status
+  - website
+hosts:
+- host: api-docs.zoominfo.com
+  found_by:
+  - pointer
+  types:
+  - Postman
+  serves: []
+  registrable_domain: zoominfo.com
+  role: collections
+  relation: own
+- host: api.zoominfo.com
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: zoominfo.com
+  role: api
+  relation: own
+- host: developer.zoominfo.com
+  found_by:
+  - pointer
+  types:
+  - SignUp
+  - DeveloperPortal
+  serves: []
+  registrable_domain: zoominfo.com
+  role: portal
+  relation: own
+- host: docs.zoominfo.com
+  found_by:
+  - pointer
+  types:
+  - Documentation
+  - Authentication
+  - GettingStarted
+  - RateLimits
+  - APIReference
+  serves: []
+  registrable_domain: zoominfo.com
+  role: docs
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrganization
+  - Hub
+  - MCPServer
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: login.zoominfo.com
+  found_by:
+  - pointer
+  types:
+  - Login
+  serves: []
+  registrable_domain: zoominfo.com
+  role: identity
+  relation: own
+- host: pipeline.zoominfo.com
+  found_by:
+  - pointer
+  types:
+  - Blog
+  - Glossary
+  serves: []
+  registrable_domain: zoominfo.com
+  role: marketing
+  relation: own
+- host: status.zoominfo.com
+  found_by:
+  - pointer
+  types:
+  - StatusPage
+  serves: []
+  registrable_domain: zoominfo.com
+  role: status
+  relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
+- host: www.postman.com
+  found_by:
+  - pointer
+  types:
+  - PostmanWorkspace
+  serves: []
+  registrable_domain: postman.com
+  role: other
+  relation: platform
+- host: www.zoominfo.com
+  found_by:
+  - pointer
+  - apis[]
+  - vendor-detect
+  types:
+  - Newsroom
+  - Leadership
+  - Website
+  - Pricing
+  - Customers
+  - Partners
+  - Support
+  - FAQ
+  - TermsOfService
+  - PrivacyPolicy
+  serves:
+  - docs
+  - cdn
+  vendor: cloudflare
+  registrable_domain: zoominfo.com
+  role: website
+  relation: own

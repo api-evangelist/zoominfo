@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-contact-recommendation-response-schema.json",
+  "title": "ContactRecommendationResponse",
+  "description": "Response model for contact recommendations.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-recommendations-api-openapi.yml#/components/schemas/ContactRecommendationResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ContactRecommendation"
+      },
+      "description": "The primary data of the document"
+    }
+  },
+  "$defs": {
+    "ContactRecommendation": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "ContactRecommendation",
+          "pattern": "ContactRecommendation"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ContactRecommendationAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        },
+        "meta": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ExplainabilityMetadata"
+            }
+          ],
+          "description": "Non-standard meta information about the resource"
+        }
+      },
+      "description": "Contact recommendation resource."
+    },
+    "ContactRecommendationAttributes": {
+      "type": "object",
+      "required": [
+        "rank",
+        "score",
+        "reRankingScore"
+      ],
+      "properties": {
+        "rank": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Rank of the recommended contact (1-based, lower is better). Contacts are ordered from most to least relevant."
+        },
+        "score": {
+          "type": "number",
+          "format": "double",
+          "description": "Similarity score between the reference person and the recommended contact. Higher values indicate greater similarity. Due to the nature of vector store similarity calculations, values may occasionally exceed 1.0."
+        },
+        "reRankingScore": {
+          "type": "number",
+          "format": "double",
+          "description": "Re-ranking score of the recommended contact, produced by a machine learning model applied after initial retrieval to refine relevancy using propensity signals (contact similarity, quality, title boosting, etc.). Higher values indicate greater relevancy. Returns -1.0 when the ML reranking model did not run."
+        },
+        "recommendedPersonBrief": {
+          "type": "string",
+          "description": "Brief description of the recommended contact's profile, used to explain why this person was recommended. Absent when profile data is unavailable."
+        }
+      },
+      "description": "Attributes for a contact recommendation entity."
+    },
+    "ExplainabilityMetadata": {
+      "type": "object",
+      "properties": {
+        "sourceType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SourceType"
+            }
+          ],
+          "description": "Source interaction type used to generate this recommendation, such as copied, exported, viewed, or CRM closed-won contacts."
+        },
+        "referencePersonId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Unique identifier for a reference person (ZoomInfo Person ID). A reference person is someone the salesperson has interacted with through the ZoomInfo platform (e.g. copy, export, view) or a contact found in the tenant's CRM from past closed-won deals."
+        },
+        "referencePersonBrief": {
+          "type": "string",
+          "description": "Brief description of the reference person's profile that was used to generate this recommendation."
+        }
+      },
+      "description": "Explainability metadata for a contact recommendation."
+    },
+    "SourceType": {
+      "type": "string",
+      "enum": [
+        "AMPLITUDE_COPIED_CONTACTS",
+        "AMPLITUDE_EXPORTED_CONTACTS",
+        "AMPLITUDE_VIEWED_CONTACTS",
+        "CRM_CLOSED_WON_ENGAGED_CONTACTS",
+        "CRM_CLOSED_WON_CONTACTS",
+        "COLD_START_CONTACTS"
+      ],
+      "description": "Source interaction type used to generate contact recommendations.",
+      "x-enumDescriptions": {
+        "AMPLITUDE_COPIED_CONTACTS": "Contacts copied from ZoomInfo during prospecting.",
+        "AMPLITUDE_EXPORTED_CONTACTS": "Contacts exported from ZoomInfo in bulk.",
+        "AMPLITUDE_VIEWED_CONTACTS": "Contacts viewed via contact card/profile in ZoomInfo.",
+        "CRM_CLOSED_WON_ENGAGED_CONTACTS": "Contacts that were engaged with in closed-won deals in the user's CRM.",
+        "CRM_CLOSED_WON_CONTACTS": "Contacts recorded as connected to successful (closed-won) deals in the user's CRM.",
+        "COLD_START_CONTACTS": "Contacts of interest for new users or cold-start scenarios where there is limited interaction history."
+      }
+    }
+  }
+}

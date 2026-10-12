@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-gtm-entity-fields-response-schema.json",
+  "title": "GtmEntityFieldsResponse",
+  "description": "Response model containing a collection of GTM entity field definitions.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-entities-api-openapi.yml#/components/schemas/GtmEntityFieldsResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/GtmEntityField"
+      },
+      "description": "The primary data of the document"
+    }
+  },
+  "$defs": {
+    "GtmEntityField": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "GtmEntityField",
+          "pattern": "GtmEntityField"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/GtmEntityFieldAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Represents a field definition within a GTM entity, containing metadata about the field's characteristics and constraints."
+    },
+    "GtmEntityFieldAttributes": {
+      "type": "object",
+      "required": [
+        "name",
+        "displayName",
+        "dataType",
+        "required",
+        "fieldType",
+        "description"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The unique identifier name of the field"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The human-readable name of the field"
+        },
+        "dataType": {
+          "type": "string",
+          "description": "The data type of the field"
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Indicates whether this field is required"
+        },
+        "fieldType": {
+          "type": "string",
+          "description": "The classification type of the field"
+        },
+        "description": {
+          "type": "string",
+          "description": "A description explaining the purpose of this field"
+        },
+        "pickListValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Available predefined values for fields with limited options"
+        },
+        "reference": {
+          "type": "string",
+          "description": "Reference to another entity or field"
+        }
+      },
+      "description": "Attributes that define the characteristics and metadata of a field within a GTM entity."
+    }
+  }
+}

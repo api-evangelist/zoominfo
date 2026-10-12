@@ -88,6 +88,7 @@ field_selection:
     what a given key may ask for.
 
 idempotency:
+  coverage: none
   supported: false
   idempotency_key_header: null
   note: >-

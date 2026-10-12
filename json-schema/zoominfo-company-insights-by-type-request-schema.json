@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-company-insights-by-type-request-schema.json",
+  "title": "CompanyInsightsByTypeRequest",
+  "description": "Request model for retrieving company insights by type.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-insights-api-openapi.yml#/components/schemas/CompanyInsightsByTypeRequest",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/CompanyInsightsSearch"
+        }
+      ],
+      "description": "The primary data of the document"
+    }
+  },
+  "$defs": {
+    "CompanyInsightsByTypeRequestAttributes": {
+      "type": "object",
+      "required": [
+        "ziCompanyIds"
+      ],
+      "properties": {
+        "ziCompanyIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "maxItems": 50,
+          "description": "List of ZoomInfo company IDs to retrieve insights for (maximum 50 companies per request)."
+        },
+        "signalTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SignalType"
+          },
+          "description": "Optional filter for specific insight types. If not provided or empty, returns insights of all available types."
+        }
+      },
+      "description": "Request attributes for retrieving company insights filtered by signal type."
+    },
+    "CompanyInsightsSearch": {
+      "type": "object",
+      "required": [
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "CompanyInsightsSearch",
+          "pattern": "CompanyInsightsSearch"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/CompanyInsightsByTypeRequestAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Company insights by type request resource."
+    },
+    "SignalType": {
+      "type": "string",
+      "enum": [
+        "zi.funding",
+        "zi.cxochange",
+        "zi.scoop",
+        "zi.websights",
+        "zi.buyingcommitteechange",
+        "zi.account-level-intent.spike",
+        "zi.intent.competitor.spike",
+        "zi.mpocchange",
+        "zi.g2",
+        "zi.trustradius",
+        "zi.anomaloushiring",
+        "zi.formcomplete",
+        "zi.podcastmentions",
+        "zi.marketingcampaigns",
+        "zi.technology",
+        "zi.seniorjobpostings",
+        "zi.personwebsights",
+        "zi.personbasednews",
+        "zi.wondeal",
+        "zi.newcontactpreviouslyworkedforcustomer",
+        "zi.personchange",
+        "zi.upcomingmeeting",
+        "zi.lowactivecontacts",
+        "zi.nodecisionmaker",
+        "zi.nopostmeetingfollowup",
+        "zi.upcomingrenewal",
+        "zi.m&a",
+        "zi.productlaunch",
+        "zi.earnings",
+        "zi.partnership",
+        "zi.layoffs",
+        "zi.painpoint",
+        "zi.divestiture",
+        "zi.ipo",
+        "zi.award",
+        "zi.project"
+      ],
+      "description": "Type of sales intelligence signal for a company insight.",
+      "x-enumDescriptions": {
+        "FUNDING": "Major funding rounds indicating growth or investment momentum. Signal lasts 90 days. No setup requirements.",
+        "CXO_CHANGE": "Promotions, new hires, and departures where contacts must have a C-level job title. Signal lasts 30 days. No setup requirements.",
+        "SCOOPS": "Proprietary ZoomInfo intelligence gathered from research, indicating a company has a known initiative, pain point, or project that creates a sales opportunity.",
+        "WEBSIGHT": "Unusual spike in website visits indicating heightened account activity. Defined as 0.75 standard deviation above the mean over a rolling 7 day period with at least 5 unique visits and an average session duration longer than 5 seconds on high or medium ranked pages. Requires Websights setup.",
+        "BUYING_COMMITTEE_CHANGE": "Promotions, new hires, and departures where contacts must match the criteria of a user's default buying group. Signal lasts 30 days. No setup requirements.",
+        "ACCOUNT_LEVEL_INTENT": "Increase in Account Level Intent score in either the past day (for AI Enterprise package) or past week (for AI Advanced package) vs prior baseline level. Requires topics or topic clusters to be assigned.",
+        "COMPETITOR_INTENT": "Account is meaningfully researching a competitor or competitive topic (an intent topic that is mapped as a competitive product or company to the user's company). Requires topics or topic clusters to be assigned.",
+        "MPOC_CHANGE": "Promotions, new hires, and departures. Signal lasts 30 days. Requires CRM integration.",
+        "G2": "Visits to G2 competitor or company product pages. Signal lasts 90 days. Requires an active G2 subscription and integration.",
+        "TRUST_RADIUS": "Visits to competitor or product pages on TrustRadius revealing competitive or interest intent. Signal lasts 90 days. Requires an active TrustRadius subscription and integration.",
+        "ANOMALOUS_HIRING": "Publicly announced hiring plans indicating team expansion or organizational growth. Restricted to hiring plans describing greater than normal hiring in departments in the user's default buying group. Signal lasts 30 days. No setup requirements.",
+        "FORM_COMPLETE": "Form submissions or abandonments detected via ZoomInfo FormComplete. Contact matches the criteria of the user's default buying group or the company has an open opportunity. Signal lasts 14 days. Requires ZoomInfo FormComplete setup.",
+        "PODCAST_MENTIONS": "Contact features as a guest on a recent podcast episode. Contact must be in user's default buying group. Signal lasts 30 days. No setup requirements.",
+        "MARKETING_CAMPAIGNS": "Account actively engaged by a ZoomInfo Marketing campaign. Requires ZoomInfo Marketing to be used for the campaign.",
+        "TECHNOLOGY": "Technology is related to one of your technologies, helping you tailor your pitch and gauge the potential fit for your solution. Signal lasts 30 days. No setup requirements.",
+        "SENIOR_JOB_POSTINGS": "Open senior leadership roles (C-level, VP, or Head) indicating organizational change. Signal lasts 30 days. No setup requirements.",
+        "PERSON_WEBSIGHTS": "Identifies key contacts visiting your website, revealing engagement and potential buying intent. Contact must be in user's default buying group. Signal lasts 30 days. Requires Enterprise package and Websights setup.",
+        "PERSON_BASED_NEWS": "News about key contacts enabling personalized outreach and timely re-engagement. Contact must be in user's default buying group. Signal lasts 30 days. No setup requirements.",
+        "WON_DEAL": "Someone at your company recently won a deal that is similar to one of your accounts. Similarity based on Similar Companies data with emphasis on industry. Requires CRM to be connected.",
+        "NEW_CONTACT_PREVIOUSLY_WORKED_FOR_CUSTOMER": "Promotions, new hires, and departures. Signal lasts 30 days. Requires CRM integration.",
+        "PERSON_CHANGE": "Promotions, new hires, and departures where contacts must have received prior communication. Signal lasts 30 days. No setup requirements.",
+        "UPCOMING_MEETING": "Alerts for upcoming meetings with attendee context and AI-generated summaries. Requires CRM (Salesforce, HubSpot, or Microsoft Dynamics) and Chorus (user-level) to be connected.",
+        "LOW_ACTIVE_CONTACTS": "Open opportunity with engagement limited to one contact after 30 days. Monitors CRM and Chorus activity types. Requires CRM (Salesforce, HubSpot, or Microsoft Dynamics) and Chorus (user-level) to be connected.",
+        "NO_DECISION_MAKER": "Opportunity open for 30 days without engagement from a director-level or higher contact. Monitors CRM and Chorus activity types. Requires CRM (Salesforce, HubSpot, or Microsoft Dynamics) and Chorus (user-level) to be connected.",
+        "NO_POSTMEETING_FOLLOWUP": "A meeting has taken place but no email has been sent within 24 hours. Requires CRM (Salesforce, HubSpot, or Microsoft Dynamics) and Chorus (user-level) to be connected.",
+        "UPCOMING_RENEWAL": "Renewal due within 90 days but no recent engagement detected. Triggered by Chorus engagement (email, meeting) and CRM (opportunity, tasks, events) with no activity. Requires CRM (Salesforce, HubSpot, or Microsoft Dynamics) and Chorus (user-level) to be connected.",
+        "MA": "Mergers, acquisitions, or other consolidations of companies or assets. Signal lasts 30 days. No setup requirements.",
+        "PRODUCT_LAUNCH": "Announcement of new products, services, or features. Filtered to scoop topics aligned to your account's value proposition. Signal lasts 30 days. No setup requirements.",
+        "EARNINGS": "Summaries of public company earnings calls revealing strategic direction and performance signals. Signal lasts 30 days. Requires Enterprise package.",
+        "PARTNERSHIP": "Service agreements, outsourcing agreements, agreement mediations, contract extensions and other collaborative efforts. Filtered to scoop topics aligned to your account's value proposition. Signal lasts 30 days. No setup requirements.",
+        "LAYOFFS": "Publicly announced layoffs suggesting organizational change or contraction. Signal lasts 30 days. No setup requirements.",
+        "PAINPOINT": "Challenges identified that may impact business operations or performance. Filtered to scoop topics aligned to your account's value proposition. Signal lasts 30 days. No setup requirements.",
+        "DIVESTITURE": "Company announces the sale or spin-off of a division or asset. Signal lasts 30 days. No setup requirements.",
+        "IPO": "Initial public offering or a stock market launch. Signal lasts 30 days. No setup requirements.",
+        "AWARD": "Recognition of a company, product, or employee in formal awards or industry rankings (e.g., 'Best of', 'Top Company'). Aligned to topics related to your account's value proposition. Signal lasts 30 days. No setup requirements.",
+        "PROJECT": "Department-specific initiatives being planned, underway, or recently completed. Filtered to scoop topics aligned to your account's value proposition. Signal lasts 30 days. No setup requirements."
+      }
+    }
+  }
+}

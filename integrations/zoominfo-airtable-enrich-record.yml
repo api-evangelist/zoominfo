@@ -1,0 +1,130 @@
+arazzo: 1.0.1
+info:
+  title: Enrich Airtable records with ZoomInfo company data
+  summary: Read an Airtable record, enrich the company from ZoomInfo, update the record.
+  description: Reads an Airtable record holding a ZoomInfo company id, enriches it through ZoomInfo Company Enrich and writes revenue and employee count back to the record.
+  version: 1.0.0
+sourceDescriptions:
+- name: zoominfoAuth
+  url: https://raw.githubusercontent.com/api-evangelist/zoominfo/refs/heads/main/openapi/zoominfo-authentication-api-openapi.yml
+  type: openapi
+- name: zoominfoCompanyEnrich
+  url: https://raw.githubusercontent.com/api-evangelist/zoominfo/refs/heads/main/openapi/zoominfo-company-enrich-api-openapi.yml
+  type: openapi
+- name: airtableRecords
+  url: https://raw.githubusercontent.com/api-evangelist/airtable/refs/heads/main/openapi/airtable-records-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: zoominfo-airtable-enrich-record
+  summary: Read an Airtable record, enrich the company from ZoomInfo, update the record.
+  description: Reads an Airtable record holding a ZoomInfo company id, enriches it through ZoomInfo Company Enrich and writes revenue and employee count back to the record.
+  inputs:
+    type: object
+    properties:
+      zoominfoUsername:
+        type: string
+      zoominfoPassword:
+        type: string
+      baseId:
+        type: string
+      tableIdOrName:
+        type: string
+      recordId:
+        type: string
+  steps:
+  - stepId: get-record
+    description: Read the record.
+    operationId: $sourceDescriptions.airtableRecords.getRecord
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    - name: recordId
+      in: path
+      value: $inputs.recordId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      companyId: $response.body#/fields/ZoomInfo Company ID
+  - stepId: authenticate
+    description: Exchange ZoomInfo credentials for a 60-minute JWT.
+    operationId: $sourceDescriptions.zoominfoAuth.Authenticate
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.zoominfoUsername
+        password: $inputs.zoominfoPassword
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jwt: $response.body#/jwt
+  - stepId: enrich-company
+    description: Enrich the company by ZoomInfo company id.
+    operationId: $sourceDescriptions.zoominfoCompanyEnrich.CompanyEnrich
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer {$steps.authenticate.outputs.jwt}
+    requestBody:
+      contentType: application/json
+      payload:
+        matchCompanyInput:
+        - companyId: $steps.get-record.outputs.companyId
+        outputFields:
+        - id
+        - name
+        - website
+        - revenue
+        - employeeCount
+        - city
+        - state
+        - country
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      name: $response.body#/data/result/0/data/0/name
+      website: $response.body#/data/result/0/data/0/website
+      revenue: $response.body#/data/result/0/data/0/revenue
+      employeeCount: $response.body#/data/result/0/data/0/employeeCount
+  - stepId: update-record
+    description: Write the firmographics back.
+    operationId: $sourceDescriptions.airtableRecords.updateRecord
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    - name: recordId
+      in: path
+      value: $inputs.recordId
+    requestBody:
+      contentType: application/json
+      payload:
+        fields:
+          Revenue: $steps.enrich-company.outputs.revenue
+          Employees: $steps.enrich-company.outputs.employeeCount
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      recordId: $response.body#/id
+  outputs:
+    recordId: $steps.update-record.outputs.recordId
+x-integration:
+  partner: airtable
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-12'
+  generator: provider-integrations-arazzo (enrich local-v5)
+  edge_evidence: https://zapier.com/apps/zoominfo/integrations
+  guessed_steps:
+  - step: authenticate
+    cause: provider-contract
+    why: The Authenticate operation declares only a default response with no schema, so the 200 success code and the /jwt output path are not settled by the spec.
+  - step: get-record
+    cause: partner-contract
+    why: Airtable fields are user-defined, so the "ZoomInfo Company ID" field name is a convention of this workflow, not the spec.

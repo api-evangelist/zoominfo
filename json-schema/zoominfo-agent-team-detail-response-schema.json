@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-agent-team-detail-response-schema.json",
+  "title": "AgentTeamDetailResponse",
+  "description": "Response for a single Agent Team with input parameter details",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/AgentTeamDetailResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/AgentTeamDetail"
+        }
+      ],
+      "description": "The primary data of the document"
+    }
+  },
+  "$defs": {
+    "AgentTeamDetail": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "AgentTeam",
+          "pattern": "AgentTeam"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AgentTeamDetailAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        },
+        "meta": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AgentTeamMeta"
+            }
+          ],
+          "description": "Non-standard meta information about the resource"
+        }
+      },
+      "description": "Agent Team resource with full input parameter details."
+    },
+    "AgentTeamDetailAttributes": {
+      "type": "object",
+      "required": [
+        "name",
+        "triggers",
+        "active"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the Agent Team."
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of the Agent Team. This field is omitted when no objective or description is defined."
+        },
+        "triggers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AgentTeamTriggerType"
+          },
+          "description": "The trigger types associated with this Agent Team"
+        },
+        "active": {
+          "type": "boolean",
+          "description": "Flag indicating whether the Agent Team's triggers are active or not. Agent Teams that are inactive can still be triggered manually"
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/InputParameter"
+          },
+          "description": "The input parameters defined for this Agent Team. "
+        }
+      },
+      "description": "Public Agent Team details."
+    },
+    "AgentTeamMeta": {
+      "type": "object",
+      "required": [
+        "createdAt",
+        "createdBy",
+        "updatedAt",
+        "creditsUsed"
+      ],
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when this Agent Team was created"
+        },
+        "createdBy": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The id of the user that created this Agent Team"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp for the last time this Agent Team was updated"
+        },
+        "creditsUsed": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The total amount of AI Credits consumed by this Agent Team over its lifespan"
+        },
+        "lastRunDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date of the last successful run of this Agent Team"
+        }
+      },
+      "description": "Metadata information for an Agent Team"
+    },
+    "AgentTeamTriggerType": {
+      "type": "string",
+      "enum": [
+        "MANUAL",
+        "ACCOUNT_CHANGE",
+        "WEBSITE_VISIT",
+        "EMAIL_RECEIVED",
+        "MEETING",
+        "WEBHOOK",
+        "CONTACT_CHANGE",
+        "OPPORTUNITY_CHANGE",
+        "SCHEDULE"
+      ]
+    },
+    "InputParameter": {
+      "type": "object",
+      "required": [
+        "name",
+        "required",
+        "type"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the input parameter. This will be provided in the `name` attribute for the `RunAgentTeamRequest`"
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Indicates whether the parameter is required to start the Agent Team run"
+        },
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/InputParameterType"
+            }
+          ],
+          "description": "The data type of the input parameter. Currently only STRING type parameters are supported"
+        }
+      },
+      "description": "Describes an input parameter that is used to start an agent team run"
+    },
+    "InputParameterType": {
+      "type": "string",
+      "enum": [
+        "STRING"
+      ]
+    }
+  }
+}

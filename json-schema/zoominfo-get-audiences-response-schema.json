@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-get-audiences-response-schema.json",
+  "title": "GetAudiencesResponse",
+  "description": "A paged list of ZoomInfo Audiences",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/GetAudiencesResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Audience_2"
+      },
+      "description": "The primary data of the document"
+    },
+    "meta": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/GetAudiencesMeta"
+        }
+      ],
+      "description": "Non-standard meta information about the document"
+    },
+    "links": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/GetAudiencesLinks"
+        }
+      ],
+      "description": "Links related to the primary data"
+    }
+  },
+  "$defs": {
+    "AudienceAttributes_2": {
+      "type": "object",
+      "required": [
+        "name",
+        "type",
+        "status"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the audience"
+        },
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AudienceType_2"
+            }
+          ],
+          "description": "The audience type defining whether the audience is targeting businesses (B2B) or consumers (B2C)"
+        },
+        "status": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AudienceStatus"
+            }
+          ],
+          "description": "The status of the audience",
+          "readOnly": true
+        }
+      },
+      "description": "Attributes defining a ZoomInfo Audience"
+    },
+    "AudienceStatus": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "ARCHIVED"
+      ]
+    },
+    "AudienceType_2": {
+      "type": "string",
+      "enum": [
+        "B2B",
+        "B2C"
+      ]
+    },
+    "Audience_2": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "Audience",
+          "pattern": "Audience"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AudienceAttributes_2"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "ZoomInfo Audience"
+    },
+    "GetAudiencesLinks": {
+      "type": "object",
+      "properties": {
+        "first": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the first page of data"
+        },
+        "last": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the last page of data"
+        },
+        "prev": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the previous page of data"
+        }
+      },
+      "description": "Links describing the various audience paging options"
+    },
+    "GetAudiencesMeta": {
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize",
+        "totalCount"
+      ],
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The current page of audiences being returned"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The page size as specified by the request"
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The total count of audience within the current search parameters"
+        }
+      },
+      "description": "Metadata for the current page of audiences returned"
+    }
+  }
+}

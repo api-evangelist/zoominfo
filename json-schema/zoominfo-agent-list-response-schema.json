@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-agent-list-response-schema.json",
+  "title": "AgentListResponse",
+  "description": "Agent List Response",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-interact-experimental-api-openapi.yml#/components/schemas/AgentListResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AgentList"
+      },
+      "description": "The primary data of the document"
+    }
+  },
+  "$defs": {
+    "AgentList": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "agent",
+          "pattern": "agent"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AgentListItem"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Agent List Resource"
+    },
+    "AgentListItem": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Agent identifier"
+        }
+      },
+      "description": "Agent List Item"
+    }
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-agent-team-run-response-schema.json",
+  "title": "AgentTeamRunResponse",
+  "description": "Response containing a single Agent Team run.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/AgentTeamRunResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/AgentTeamRun"
+        }
+      ],
+      "description": "The primary data of the document"
+    }
+  },
+  "$defs": {
+    "AgentTeamInput": {
+      "type": "object",
+      "required": [
+        "name",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the Agent Team input."
+        },
+        "value": {
+          "type": "string",
+          "description": "Value supplied for the input."
+        }
+      },
+      "description": "Input parameter passed to an Agent Team run."
+    },
+    "AgentTeamRun": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "AgentTeamRun",
+          "pattern": "AgentTeamRun"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AgentTeamRunAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        },
+        "meta": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AgentTeamRunMeta"
+            }
+          ],
+          "description": "Non-standard meta information about the resource"
+        }
+      },
+      "description": "Model describing an Agent Team run"
+    },
+    "AgentTeamRunAttributes": {
+      "type": "object",
+      "required": [
+        "agentTeamId",
+        "status"
+      ],
+      "properties": {
+        "agentTeamId": {
+          "type": "string",
+          "description": "The unique identifier of the Agent Team associated with this run."
+        },
+        "status": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AgentTeamRunStatus"
+            }
+          ],
+          "description": "Current execution status of the Agent Team run."
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AgentTeamInput"
+          },
+          "description": "The inputs provided for this run of the Agent Team"
+        },
+        "output": {
+          "type": "string",
+          "description": "Final or in-progress output for the Agent Team run. This field is omitted for runs that have not yet produced output."
+        }
+      },
+      "description": "Attributes describing an Agent Team run"
+    },
+    "AgentTeamRunMeta": {
+      "type": "object",
+      "required": [
+        "createdAt",
+        "createdBy",
+        "updatedAt"
+      ],
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The UTC date time when the Agent Team run was created"
+        },
+        "createdBy": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The id of the user that executed this Agent Team run"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The UTC date time when the Agent Team run was last updated"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The UTC date time when the Agent Team run completed"
+        },
+        "totalCredits": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The total number of credits consumed by this Agent Team run. This value is only provided after the Agent Team has successfully finished executing"
+        }
+      },
+      "description": "Metadata information for an Agent Team run"
+    },
+    "AgentTeamRunStatus": {
+      "type": "string",
+      "enum": [
+        "QUEUED",
+        "RUNNING",
+        "COMPLETED",
+        "FAILED",
+        "CANCELLED",
+        "STOPPING"
+      ],
+      "description": "Lifecycle states for an Agent Team run.",
+      "x-enumDescriptions": {
+        "QUEUED": "The Agent Team run is queued and waiting to start.",
+        "RUNNING": "The Agent Team run is currently executing.",
+        "COMPLETED": "The Agent Team run completed successfully.",
+        "FAILED": "The Agent Team run completed with a failure.",
+        "CANCELLED": "The Agent Team run was stopped before completion.",
+        "STOPPING": "The Agent Team run is currently in the process of shutting down"
+      }
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-contact-lookalike-response-schema.json",
+  "title": "ContactLookalikeResponse",
+  "description": "Response model for contact lookalikes.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-recommendations-api-openapi.yml#/components/schemas/ContactLookalikeResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ContactLookalike"
+      },
+      "description": "The primary data of the document"
+    }
+  },
+  "$defs": {
+    "ContactLookalike": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "ContactLookalike",
+          "pattern": "ContactLookalike"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ContactLookalikeAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        },
+        "meta": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/LookalikeMetadata"
+            }
+          ],
+          "description": "Non-standard meta information about the resource"
+        }
+      },
+      "description": "Contact lookalikes resource"
+    },
+    "ContactLookalikeAttributes": {
+      "type": "object",
+      "required": [
+        "rank",
+        "score",
+        "lookalikePersonBrief"
+      ],
+      "properties": {
+        "rank": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Rank of the lookalike contact, with 1 being the most similar to the reference person."
+        },
+        "score": {
+          "type": "number",
+          "format": "double",
+          "description": "Similarity score between the reference person and the lookalike contact, ranging from 0 to 1. Higher values indicate higher similarity."
+        },
+        "lookalikePersonBrief": {
+          "type": "string",
+          "description": "Brief description of the lookalike contact."
+        }
+      },
+      "description": "Attributes for a contact lookalike entity."
+    },
+    "LookalikeMetadata": {
+      "type": "object",
+      "required": [
+        "referencePersonId",
+        "referencePersonBrief"
+      ],
+      "properties": {
+        "referencePersonId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Unique identifier for the reference person (ZoomInfo Person ID) that is used to search contact lookalikes."
+        },
+        "referencePersonBrief": {
+          "type": "string",
+          "description": "Brief description of the reference person used to find lookalike contacts."
+        }
+      },
+      "description": "Metadata for a lookalike contact entity."
+    }
+  }
+}

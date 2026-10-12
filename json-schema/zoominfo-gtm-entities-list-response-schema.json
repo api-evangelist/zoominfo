@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-gtm-entities-list-response-schema.json",
+  "title": "GtmEntitiesListResponse",
+  "description": "Response model containing a collection of GTM entities available in the data model.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-entities-api-openapi.yml#/components/schemas/GtmEntitiesListResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/GtmEntity"
+      },
+      "description": "The primary data of the document"
+    }
+  },
+  "$defs": {
+    "GtmEntity": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "GtmEntity",
+          "pattern": "GtmEntity"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/GtmEntityAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Represents a GTM data model entity with its core attributes and relationships."
+    },
+    "GtmEntityAssociation": {
+      "type": "object",
+      "required": [
+        "associatedEntity",
+        "associatedFieldName"
+      ],
+      "properties": {
+        "associatedEntity": {
+          "type": "string",
+          "description": "The name of the entity that this association points to"
+        },
+        "associatedFieldName": {
+          "type": "string",
+          "description": "The field name in the associated entity that establishes the relationship"
+        }
+      },
+      "description": "Represents a relationship between GTM entities, defining how one entity connects to another through specific field associations."
+    },
+    "GtmEntityAttributes": {
+      "type": "object",
+      "required": [
+        "entityName",
+        "displayName",
+        "description",
+        "associations"
+      ],
+      "properties": {
+        "entityName": {
+          "type": "string",
+          "description": "The unique identifier name of the entity within the GTM data model"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The human-readable name of the entity"
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed description explaining the purpose and usage of this entity"
+        },
+        "associations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GtmEntityAssociation"
+          },
+          "description": "Collection of associations that define how this entity relates to other entities in the data model"
+        }
+      },
+      "description": "Core attributes that define a GTM data model entity, including its identity, relationships, and metadata."
+    }
+  }
+}

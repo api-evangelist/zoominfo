@@ -1,0 +1,116 @@
+arazzo: 1.0.1
+info:
+  title: Enrich Pardot prospects with ZoomInfo contact data
+  summary: Read a Pardot prospect, enrich it from ZoomInfo, write the fields back.
+  description: Reads a Pardot (Account Engagement) prospect, enriches the matching person through ZoomInfo Contact Enrich, and patches the prospect with the job title and phone. Mirrors the Zapier template
+    that enriches new Pardot prospects added to a list.
+  version: 1.0.0
+sourceDescriptions:
+- name: zoominfoAuth
+  url: https://raw.githubusercontent.com/api-evangelist/zoominfo/refs/heads/main/openapi/zoominfo-authentication-api-openapi.yml
+  type: openapi
+- name: zoominfoContactEnrich
+  url: https://raw.githubusercontent.com/api-evangelist/zoominfo/refs/heads/main/openapi/zoominfo-contact-enrich-api-openapi.yml
+  type: openapi
+- name: pardotObjects
+  url: https://raw.githubusercontent.com/api-evangelist/pardot/refs/heads/main/openapi/pardot-objects-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: zoominfo-pardot-enrich-prospect
+  summary: Read a Pardot prospect, enrich it from ZoomInfo, write the fields back.
+  description: Reads a Pardot (Account Engagement) prospect, enriches the matching person through ZoomInfo Contact Enrich, and patches the prospect with the job title and phone. Mirrors the Zapier template
+    that enriches new Pardot prospects added to a list.
+  inputs:
+    type: object
+    properties:
+      zoominfoUsername:
+        type: string
+      zoominfoPassword:
+        type: string
+      prospectId:
+        type: integer
+      zoominfoPersonId:
+        type: integer
+  steps:
+  - stepId: get-prospect
+    description: Read the prospect.
+    operationId: $sourceDescriptions.pardotObjects.getObjectsProspectsById
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.prospectId
+    - name: fields
+      in: query
+      value: id,email,firstName,lastName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      email: $response.body#/email
+  - stepId: authenticate
+    description: Exchange ZoomInfo credentials for a 60-minute JWT.
+    operationId: $sourceDescriptions.zoominfoAuth.Authenticate
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.zoominfoUsername
+        password: $inputs.zoominfoPassword
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jwt: $response.body#/jwt
+  - stepId: enrich-contact
+    description: Enrich the person in ZoomInfo.
+    operationId: $sourceDescriptions.zoominfoContactEnrich.ContactEnrich
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer {$steps.authenticate.outputs.jwt}
+    requestBody:
+      contentType: application/json
+      payload:
+        matchPersonInput:
+        - personId: $inputs.zoominfoPersonId
+        outputFields:
+        - jobTitle
+        - phone
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jobTitle: $response.body#/data/result/0/data/0/jobTitle
+      phone: $response.body#/data/result/0/data/0/phone
+  - stepId: update-prospect
+    description: Write the enriched fields back.
+    operationId: $sourceDescriptions.pardotObjects.patchObjectsProspectsById
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.prospectId
+    requestBody:
+      contentType: application/json
+      payload:
+        jobTitle: $steps.enrich-contact.outputs.jobTitle
+        phone: $steps.enrich-contact.outputs.phone
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      prospectId: $response.body#/id
+  outputs:
+    prospectId: $steps.update-prospect.outputs.prospectId
+x-integration:
+  partner: pardot
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-12'
+  generator: provider-integrations-arazzo (enrich local-v5)
+  template: https://zapier.com/apps/pardot/integrations/zoominfo/255623075/enrich-new-pardot-prospects-in-zoominfo-when-added-to-a-list
+  edge_evidence: https://zapier.com/apps/zoominfo/integrations
+  guessed_steps:
+  - step: authenticate
+    cause: provider-contract
+    why: The Authenticate operation declares only a default response with no schema, so the 200 success code and the /jwt output path are not settled by the spec.
+  - step: enrich-contact
+    cause: provider-contract
+    why: The ZoomInfo contract types MatchPersonInput with personId only, so matching on the prospect email the template uses is not expressible; the workflow takes a ZoomInfo personId input instead.
+  - step: get-prospect
+    cause: partner-contract
+    why: The Pardot getObjectsProspectsById response schema does not settle the /email output path.

@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-technology-enrich-response-schema.json",
+  "title": "TechnologyEnrichResponse",
+  "description": "Technology enrich response.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-enrich-api-openapi.yml#/components/schemas/TechnologyEnrichResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/TechnologyEnrichResponseResource"
+      },
+      "description": "The primary data of the document"
+    },
+    "meta": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/NonPaginatedResultMeta"
+        }
+      ],
+      "description": "Non-standard meta information about the document"
+    }
+  },
+  "$defs": {
+    "NonPaginatedResultMeta": {
+      "type": "object",
+      "required": [
+        "totalResults"
+      ],
+      "properties": {
+        "totalResults": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The total number of results based on the specified filters"
+        }
+      },
+      "description": "Metadata for non-paginated results, including the total number of results"
+    },
+    "TechnologyEnrichResponseAttributes": {
+      "type": "object",
+      "properties": {
+        "categoryParent": {
+          "type": "string",
+          "description": "Parent Category for the retrieved data."
+        },
+        "category": {
+          "type": "string",
+          "description": "Category for the retrieved data."
+        },
+        "vendor": {
+          "type": "string",
+          "description": "Vendor associated with the data being returned."
+        },
+        "product": {
+          "type": "string",
+          "description": "Product associated with the data being returned."
+        },
+        "attribute": {
+          "type": "string",
+          "description": "Attribute of the technology."
+        },
+        "website": {
+          "type": "string",
+          "description": "Website associated with the data being returned."
+        },
+        "logo": {
+          "type": "string",
+          "description": "The URL which can be used to retrieve the logo."
+        },
+        "domain": {
+          "type": "string",
+          "description": "Domain associated with the data being returned."
+        },
+        "createdDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date when the data was created. Uses YYYY-MM-DD format."
+        },
+        "modifiedDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date when the data was last modified. Uses YYYY-MM-DD format."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the data being returned."
+        }
+      },
+      "description": "Technology enrich response attributes.",
+      "x-class-extra-annotation": "@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)"
+    },
+    "TechnologyEnrichResponseResource": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "Technology",
+          "pattern": "Technology"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/TechnologyEnrichResponseAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Technology enrich response resource."
+    }
+  }
+}

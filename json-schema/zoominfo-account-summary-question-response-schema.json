@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-account-summary-question-response-schema.json",
+  "title": "AccountSummaryQuestionResponse",
+  "description": "Response model for asking a question about account-related data.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-account-summary-api-openapi.yml#/components/schemas/AccountSummaryQuestionResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/AccountSummaryQuestion"
+        }
+      ],
+      "description": "The primary data of the document"
+    }
+  },
+  "$defs": {
+    "AccountSummaryQuestion": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "AccountSummaryQuestion",
+          "pattern": "AccountSummaryQuestion"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AccountSummaryQuestionAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Represents a question and answer about account-related data."
+    },
+    "AccountSummaryQuestionAttributes": {
+      "type": "object",
+      "required": [
+        "answer"
+      ],
+      "properties": {
+        "answer": {
+          "type": "string",
+          "description": "The answer to the account summary question."
+        }
+      },
+      "description": "Attributes for the AccountSummaryQuestion resource."
+    }
+  }
+}

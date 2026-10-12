@@ -1,0 +1,114 @@
+arazzo: 1.0.1
+info:
+  title: Enrich Pipedrive organizations with ZoomInfo company data
+  summary: Read a Pipedrive organization, enrich from ZoomInfo, update it.
+  description: Reads a Pipedrive organization, enriches the company through ZoomInfo Company Enrich, and writes the canonical name back to the organization.
+  version: 1.0.0
+sourceDescriptions:
+- name: zoominfoAuth
+  url: https://raw.githubusercontent.com/api-evangelist/zoominfo/refs/heads/main/openapi/zoominfo-authentication-api-openapi.yml
+  type: openapi
+- name: zoominfoCompanyEnrich
+  url: https://raw.githubusercontent.com/api-evangelist/zoominfo/refs/heads/main/openapi/zoominfo-company-enrich-api-openapi.yml
+  type: openapi
+- name: pipedriveOrganizations
+  url: https://raw.githubusercontent.com/api-evangelist/pipedrive/refs/heads/main/openapi/pipedrive-organizations-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: zoominfo-pipedrive-enrich-organization
+  summary: Read a Pipedrive organization, enrich from ZoomInfo, update it.
+  description: Reads a Pipedrive organization, enriches the company through ZoomInfo Company Enrich, and writes the canonical name back to the organization.
+  inputs:
+    type: object
+    properties:
+      zoominfoUsername:
+        type: string
+      zoominfoPassword:
+        type: string
+      organizationId:
+        type: integer
+      zoominfoCompanyId:
+        type: integer
+  steps:
+  - stepId: get-organization
+    description: Read the organization.
+    operationId: $sourceDescriptions.pipedriveOrganizations.getOrganization
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.organizationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      name: $response.body#/data/name
+  - stepId: authenticate
+    description: Exchange ZoomInfo credentials for a 60-minute JWT.
+    operationId: $sourceDescriptions.zoominfoAuth.Authenticate
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.zoominfoUsername
+        password: $inputs.zoominfoPassword
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jwt: $response.body#/jwt
+  - stepId: enrich-company
+    description: Enrich the company by ZoomInfo company id.
+    operationId: $sourceDescriptions.zoominfoCompanyEnrich.CompanyEnrich
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer {$steps.authenticate.outputs.jwt}
+    requestBody:
+      contentType: application/json
+      payload:
+        matchCompanyInput:
+        - companyId: $inputs.zoominfoCompanyId
+        outputFields:
+        - id
+        - name
+        - website
+        - revenue
+        - employeeCount
+        - city
+        - state
+        - country
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      name: $response.body#/data/result/0/data/0/name
+      website: $response.body#/data/result/0/data/0/website
+      revenue: $response.body#/data/result/0/data/0/revenue
+      employeeCount: $response.body#/data/result/0/data/0/employeeCount
+  - stepId: update-organization
+    description: Write the enriched name back.
+    operationId: $sourceDescriptions.pipedriveOrganizations.updateOrganization
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.organizationId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $steps.enrich-company.outputs.name
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      organizationId: $response.body#/data/id
+  outputs:
+    organizationId: $steps.update-organization.outputs.organizationId
+x-integration:
+  partner: pipedrive
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-12'
+  generator: provider-integrations-arazzo (enrich local-v5)
+  edge_evidence: https://zapier.com/apps/zoominfo/integrations
+  guessed_steps:
+  - step: authenticate
+    cause: provider-contract
+    why: The Authenticate operation declares only a default response with no schema, so the 200 success code and the /jwt output path are not settled by the spec.
+  - step: enrich-company
+    cause: provider-contract
+    why: MatchCompanyInput is typed with companyId only, so matching on the Pipedrive organization name or domain is not expressible; a ZoomInfo companyId is taken as input.

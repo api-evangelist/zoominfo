@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-account-summary-question-request-schema.json",
+  "title": "AccountSummaryQuestionRequest",
+  "description": "Request model for asking a question about account-related data.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-account-summary-api-openapi.yml#/components/schemas/AccountSummaryQuestionRequest",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/AccountSummaryQuestionRequestResource"
+        }
+      ],
+      "description": "The primary data of the document"
+    }
+  },
+  "$defs": {
+    "AccountSummaryQuestionRequestAttributes": {
+      "type": "object",
+      "required": [
+        "question"
+      ],
+      "properties": {
+        "question": {
+          "type": "string",
+          "description": "The question to ask about account-related data."
+        }
+      },
+      "description": "Attributes for the AccountSummaryQuestionRequest resource."
+    },
+    "AccountSummaryQuestionRequestResource": {
+      "type": "object",
+      "required": [
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "AccountSummaryQuestionRequest",
+          "pattern": "AccountSummaryQuestionRequest"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AccountSummaryQuestionRequestAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Represents a request to ask a question about account-related data."
+    }
+  }
+}

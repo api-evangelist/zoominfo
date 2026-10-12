@@ -1,25 +1,368 @@
 aid: zoominfo
+
 url: https://raw.githubusercontent.com/api-evangelist/zoominfo/refs/heads/main/apis.yml
+
+name: ZoomInfo
+
+tags:
+- B2B
+- B2B Data
+- Company Data
+- Contact Database
+- Contacts
+- Data
+- Lead Generation
+- Marketing Intelligence
+- Sales Intelligence
+- Intent Data
+- Go-To-Market
+- Data Enrichment
+- AI Agents
+- MCP
+
+kind: contract
+
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
+
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+
+image: https://www.zoominfo.com/assets/img/zoominfo-logo.png
+
+access: 3rd-Party
+
+created: '2025-02-09'
+
+modified: '2026-09-16'
+
+position: Consuming
+
+description: 'ZoomInfo is a B2B go-to-market intelligence platform whose contact and company database, buyer-intent signals, scoops and news feeds
+  are sold to sales, marketing, operations and recruiting teams. Its API estate is mid-migration: the legacy Enterprise API on api.zoominfo.com
+  is documented as deprecating, while the current GTM API on api.zoominfo.com/gtm ships six published OpenAPI specifications covering data, Copilot,
+  GTM Studio, marketing, agents and platform. ZoomInfo also operates a hosted, OAuth-gated Model Context Protocol server at mcp.zoominfo.com and
+  publishes 35 agent skills and a first-party CLI that talks to that MCP server rather than to REST.'
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+
+specificationVersion: '0.23'
+
+common:
+- type: Spectral
+  url: rules/zoominfo-spectral-rules.yml
+- type: Spectral
+  url: rules/zoominfo-rules.yml
+- type: Spectral
+  url: rules/zoominfo-jsonschema-spectral-rules.yml
+- type: Vocabulary
+  url: vocabulary/zoominfo-vocabulary.yml
+- type: Hosts
+  url: hosts/zoominfo-hosts.yml
+- type: IntegrationEdges
+  url: integrations/zoominfo-integration-edges.yml
+- type: Vendors
+  url: vendors/zoominfo-vendors.yml
+- type: Newsroom
+  url: https://www.zoominfo.com/newsroom
+- type: Leadership
+  url: https://www.zoominfo.com/about/leadership
+- type: FinOps
+  url: finops/zoominfo-finops.yml
+- type: Website
+  url: https://www.zoominfo.com/
+- type: CapabilityMap
+  url: capabilities/zoominfo-capability-edges.yml
+  name: ZoomInfo Business Capability Map
+- type: Overlay
+  url: overlays/zoominfo-gtm-data-v1-overlay.yaml
+- type: Overlay
+  url: overlays/zoominfo-gtm-copilot-v1-overlay.yaml
+- type: Overlay
+  url: overlays/zoominfo-gtm-gtm-studio-v1-overlay.yaml
+- type: Overlay
+  url: overlays/zoominfo-gtm-marketing-v1-overlay.yaml
+- type: Overlay
+  url: overlays/zoominfo-gtm-agent-v1-overlay.yaml
+- type: Overlay
+  url: overlays/zoominfo-gtm-platform-v1-overlay.yaml
+- type: Documentation
+  url: https://docs.zoominfo.com
+  title: ZoomInfo API Documentation
+- type: Packages
+  url: packages/zoominfo-packages.yml
+  title: Client Libraries
+- type: SDKs
+  url: packages/zoominfo-packages.yml
+  title: First-Party Client Libraries
+- type: CLI
+  url: cli/zoominfo-cli.yml
+  title: GTM AI CLI
+- type: MCPServer
+  url: mcp/zoominfo-mcp.yml
+  title: Hosted MCP Server
+- type: ToolCrosswalk
+  url: mcp/zoominfo-tool-crosswalk.yml
+  title: MCP Tool to REST Crosswalk
+- type: AgentSkill
+  url: skills/_index.yml
+  title: Provider-Published Agent Skills
+- type: LLMsTxt
+  url: llms/zoominfo-llms.txt
+  title: llms.txt
+- type: LLMsTxt
+  url: llms/zoominfo-docs-llms.txt
+  title: Developer Documentation llms.txt
+- type: WellKnown
+  url: well-known/zoominfo-well-known.yml
+  title: Well-Known Probe
+- type: Conventions
+  url: conventions/zoominfo-conventions.yml
+  title: API Conventions
+- type: ErrorCatalog
+  url: errors/zoominfo-problem-types.yml
+  title: Error Catalog
+- type: Lifecycle
+  url: lifecycle/zoominfo-lifecycle.yml
+  title: Lifecycle
+- type: Deprecation
+  url: lifecycle/zoominfo-lifecycle.yml
+  title: Deprecation Policy
+- type: ChangeLog
+  url: changelog/zoominfo-changelog.yml
+  title: API Release Notes
+- type: Conformance
+  url: conformance/zoominfo-conformance.yml
+  title: Standards Conformance
+- type: Compliance
+  url: security/zoominfo-trust-center.yml
+  title: Certifications and Compliance
+- type: TrustCenter
+  url: security/zoominfo-trust-center.yml
+  title: Trust Center
+- type: Security
+  url: security/zoominfo-vulnerability-disclosure.yml
+  title: Vulnerability Disclosure
+- type: VulnerabilityDisclosure
+  url: security/zoominfo-vulnerability-disclosure.yml
+  title: Bug Bounty Program
+- type: DataModel
+  url: data-model/zoominfo-data-model.yml
+  title: Data Model
+- type: Webhooks
+  url: asyncapi/zoominfo-webhooks.yml
+  title: Webhook and Event Surface
+- type: RateLimits
+  url: rate-limits/zoominfo-rate-limits.yml
+  title: Published Rate Limits
+- type: Plans
+  url: plans/zoominfo-plans-pricing.yml
+  title: Packages and Credit Model
+- type: Postman
+  url: https://api-docs.zoominfo.com
+  title: Public Postman Collection (Legacy Enterprise API)
+- type: SignUp
+  url: https://developer.zoominfo.com/
+  title: Developer Portal Sign In
+- type: Login
+  url: https://login.zoominfo.com
+  title: Login
+- type: OAuthScopes
+  url: scopes/zoominfo-scopes.yml
+- type: AgenticAccess
+  url: agentic-access/zoominfo-agentic-access.yml
+- type: DomainSecurity
+  url: security/zoominfo-domain-security.yml
+- type: Authentication
+  url: authentication/zoominfo-authentication.yml
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/zoominfo/overview
+- type: Arazzo
+  url: arazzo/zoominfo-authenticate-contact-search-workflow.yml
+  name: ZoomInfo Authenticate and Search Contacts
+- type: Arazzo
+  url: arazzo/zoominfo-company-master-data-enrich-workflow.yml
+  name: ZoomInfo Resolve a Company from a URL
+- type: Arazzo
+  url: arazzo/zoominfo-company-search-enrich-workflow.yml
+  name: ZoomInfo Search and Enrich a Company
+- type: Arazzo
+  url: arazzo/zoominfo-company-search-intent-enrich-workflow.yml
+  name: ZoomInfo Search a Company and Pull Its Intent
+- type: Arazzo
+  url: arazzo/zoominfo-contact-search-enrich-workflow.yml
+  name: ZoomInfo Search and Enrich a Contact
+- type: Arazzo
+  url: arazzo/zoominfo-intent-search-enrich-company-workflow.yml
+  name: ZoomInfo Find Intent Signals and Enrich the Account
+- type: Arazzo
+  url: arazzo/zoominfo-scoop-search-enrich-company-workflow.yml
+  name: ZoomInfo Find Scoops and Enrich the Company
+- type: Arazzo
+  url: arazzo/zoominfo-scoop-search-then-enrich-workflow.yml
+  name: ZoomInfo Discover Scoops then Refine by Department
+- type: LinkedIn
+  url: https://www.linkedin.com/company/zoominfo
+- url: https://www.zoominfo.com/pricing
+  name: Pricing | ZoomInfo
+  type: Pricing
+- url: https://pipeline.zoominfo.com/
+  name: B2B Sales and Marketing Content | ZoomInfo Blog
+  type: Blog
+- url: https://www.zoominfo.com/about/case-studies
+  name: Case Studies | Customer Success | ZoomInfo
+  type: Customers
+- url: https://www.zoominfo.com/partner
+  name: Program Partnership Benefits | Partner with ZoomInfo
+  type: Partners
+- url: https://www.zoominfo.com/about/help-center
+  name: Help Center | ZoomInfo
+  type: Support
+- url: https://www.zoominfo.com/faqs/business
+  name: Frequently Asked Questions About ZoomInfos Business
+  type: FAQ
+- url: https://pipeline.zoominfo.com/glossary
+  name: Go-to-Market Glossary | ZoomInfo Blog
+  type: Glossary
+- url: https://docs.zoominfo.com/docs/authorization-code-flow-pkce
+  type: Authentication
+- url: https://docs.zoominfo.com/docs/overview
+  type: GettingStarted
+- url: https://docs.zoominfo.com/docs/rate-limits
+  type: RateLimits
+- url: https://www.zoominfo.com/legal/terms-of-use
+  type: TermsOfService
+- url: https://www.zoominfo.com/legal/privacy-policy
+  type: PrivacyPolicy
+- url: https://status.zoominfo.com
+  type: StatusPage
+- type: Features
+  data:
+  - name: Contact Search
+    description: Search for contacts by job title, company, location, industry, and other criteria
+  - name: Company Search
+    description: Search for companies by industry, revenue, employee count, location, and technology stack
+  - name: Contact Enrichment
+    description: Enrich contact records with verified email addresses, phone numbers, and professional details
+  - name: Company Enrichment
+    description: Enrich company records with firmographic data including revenue, employee count, and technographics
+  - name: Intent Data
+    description: Identify companies showing buying intent signals based on content consumption patterns
+  - name: Scoops
+    description: Access business intelligence scoops about company changes, hiring, and strategic initiatives
+  - name: News Intelligence
+    description: Search and enrich news articles related to companies and contacts
+  - name: Technology Tracking
+    description: Identify technologies used by companies across their tech stack
+  - name: Corporate Hierarchy
+    description: Map organizational structures including parent companies, subsidiaries, and divisions
+  - name: Org Chart
+    description: Access organizational chart data showing reporting relationships within companies
+  - name: Webhooks
+    description: Real-time notifications for data changes and updates via webhook subscriptions
+  - name: Bulk Operations
+    description: Submit batch search and enrichment jobs for large-scale data processing
+  - name: WebSights
+    description: Identify website visitors by IP address and enrich with company information
+  - name: Compliance
+    description: Access compliance data to support GDPR and privacy regulation requirements
+- type: UseCases
+  data:
+  - name: Sales Prospecting
+    description: Identify and prioritize ideal prospects using firmographic and intent data to build targeted sales pipelines
+  - name: Lead Enrichment
+    description: Automatically enrich inbound leads with verified contact and company data for faster qualification
+  - name: Account-Based Marketing
+    description: Build targeted account lists and personalize outreach using detailed company intelligence
+  - name: CRM Data Hygiene
+    description: Cleanse and update CRM records with accurate contact information and company details
+  - name: Market Research
+    description: Analyze market segments, technology adoption, and competitive landscapes using company data
+  - name: Competitive Intelligence
+    description: Monitor competitor activities, technology changes, and strategic moves through scoops and news
+  - name: Buyer Intent Analysis
+    description: Identify accounts actively researching solutions in your category based on intent signals
+  - name: Website Visitor Identification
+    description: Convert anonymous website traffic into identified company accounts using IP enrichment
+- type: Integrations
+  data:
+  - name: Salesforce
+    description: Native integration to enrich and sync contact and company data with Salesforce CRM
+  - name: HubSpot
+    description: Seamless integration to push enriched data into HubSpot CRM and marketing automation
+  - name: Microsoft Dynamics 365
+    description: Integration to enrich records and sync data with Microsoft Dynamics CRM
+  - name: Marketo
+    description: Marketing automation integration for lead enrichment and scoring with Marketo
+  - name: Outreach
+    description: Sales engagement platform integration for enriched prospect data in Outreach sequences
+  - name: Salesloft
+    description: Integration to power Salesloft cadences with verified contact information
+  - name: Slack
+    description: Notifications and alerts for intent signals and data updates delivered to Slack channels
+  - name: Snowflake
+    description: Data sharing integration to access ZoomInfo data directly in Snowflake data warehouse
+  - name: Google Ads
+    description: Audience targeting integration to reach ideal prospects with Google advertising campaigns
+  - name: LinkedIn
+    description: Integration to match and enrich LinkedIn profile data with ZoomInfo intelligence
+- type: GitHubOrganization
+  url: https://github.com/Zoominfo
+- type: DeveloperPortal
+  url: https://developer.zoominfo.com/
+- type: APIReference
+  url: https://docs.zoominfo.com/reference/api-overview
+- type: Hub
+  url: https://github.com/Zoominfo/zoominfo-mcp-plugin
+  title: MCP Server
+- type: SpectralRules
+  url: rules/zoominfo-spectral-rules.yml
+- type: Vocabulary
+  url: vocabulary/zoominfo-vocabulary.yaml
+- name: MCP Server
+  url: https://github.com/Zoominfo/zoominfo-mcp-plugin
+  type: MCPServer
+
 apis:
 - aid: zoominfo:zoominfo-authentication-api
   name: ZoomInfo Authentication API
-  description: 'The ZoomInfo API authenticates client access requests using a JSON Web Token (JWT). A
-    JWT is a string that is generated by the server for the client that can then be passed along in an
-    HTTPS request.
+  description: 'The ZoomInfo API authenticates client access requests using a JSON Web Token (JWT). A JWT is a string that is generated by the
+    server for the client that can then be passed along in an HTTPS request.
 
 
-    **Note**: The Authenticate endpoint is one method for authenticating with the ZoomInfo API with a
-    username and password. For other methods that utilize public libraries for Java, Python, and NodeJS,
-    see the ''Authentication methods'' section in the [ZoomInfo API introduction](#intro).
+    **Note**: The Authenticate endpoint is one method for authenticating with the ZoomInfo API with a username and password. For other methods
+    that utilize public libraries for Java, Python, and NodeJS, see the ''Authentication methods'' section in the [ZoomInfo API introduction](#intro).
 
 
-    To obtain the token, the client exchanges valid user credentials with the server which generates the
-    token and provides it back to the client. An access token generally has a set expiration time after
-    which a new token will need to be requested by the client.
+    To obtain the token, the client exchanges valid user credentials with the server which generates the token and provides it back to the client.
+    An access token generally has a set expiration time after which a new token will need to be requested by the client.
 
 
-    Use the Authenticate endpoint to pass valid ZoomInfo user credentials to the API. If authentication
-    is successful, a JWT access token is provided in the response body.
+    Use the Authenticate endpoint to pass valid ZoomInfo user credentials to the API. If authentication is successful, a JWT access token is provided
+    in the response body.
 
 
     **Important: The token is good for 60 minutes from the time that the response was generated.**
@@ -553,23 +896,18 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-bulk-api
   name: ZoomInfo Bulk API
-  description: "Use the Bulk APIs to search, retrieve, and enrich large ZoomInfo company and contact datasets\
-    \ through asynchronous batch processes.\n\nWith 20x more records than Contact and Company Search and\
-    \ 400x more records than the Contact and Company Enrich, you can leverage Bulk APIs for data ingestion\
-    \ and enrichment at scale.\n\n**Bulk Search API**\n\nWith the Bulk Search API you can:\n\n*   Search\
-    \ for up to 200K records with a single search query\n*   Preview or redeem up to 500 records per page\n\
-    \    \n\nTwo job types are available with the Bulk Search APIs:\n\n*   The Preview job type returns\
-    \ a company or contact search results preview to help identify records best suited for enrichment.\
-    \ Credits are not charged for the Preview job type.\n*   The Redeem job type enables data retrieval\
-    \ for ingestion, returning selected output fields for a given contact or company. A credit is charged\
-    \ for each unique record that is redeemed.\n    \n\nWhen you submit a search request, an asynchronous\
-    \ job is started, and a job_id is instantly returned. You can use the job_id to check the status of\
-    \ the job and retrieve results.\n\n**Bulk Enrich API**\n\nWith the Bulk Enrich API you can:\n\n* \
-    \  Enrich up to 10K records in a single job\n*   Retrieve up to 500 results per page\n    \n\nWhen\
-    \ you submit an enrich request, an asynchronous job is started, and a job_id is instantly returned.\
-    \ You can use the job_id to check the status of the job and enrich results.\n\n**Rate Limiting**\n\
-    \n*   You can have up to 5 \"active\" jobs (Jobs that are in progress are active jobs. Once a job\
-    \ is completed, you can proceed to creating another job)\n*   You can create up to 1 job per second\n\
+  description: "Use the Bulk APIs to search, retrieve, and enrich large ZoomInfo company and contact datasets through asynchronous batch processes.\n\
+    \nWith 20x more records than Contact and Company Search and 400x more records than the Contact and Company Enrich, you can leverage Bulk APIs\
+    \ for data ingestion and enrichment at scale.\n\n**Bulk Search API**\n\nWith the Bulk Search API you can:\n\n*   Search for up to 200K records\
+    \ with a single search query\n*   Preview or redeem up to 500 records per page\n    \n\nTwo job types are available with the Bulk Search APIs:\n\
+    \n*   The Preview job type returns a company or contact search results preview to help identify records best suited for enrichment. Credits\
+    \ are not charged for the Preview job type.\n*   The Redeem job type enables data retrieval for ingestion, returning selected output fields\
+    \ for a given contact or company. A credit is charged for each unique record that is redeemed.\n    \n\nWhen you submit a search request,\
+    \ an asynchronous job is started, and a job_id is instantly returned. You can use the job_id to check the status of the job and retrieve results.\n\
+    \n**Bulk Enrich API**\n\nWith the Bulk Enrich API you can:\n\n*   Enrich up to 10K records in a single job\n*   Retrieve up to 500 results\
+    \ per page\n    \n\nWhen you submit an enrich request, an asynchronous job is started, and a job_id is instantly returned. You can use the\
+    \ job_id to check the status of the job and enrich results.\n\n**Rate Limiting**\n\n*   You can have up to 5 \"active\" jobs (Jobs that are\
+    \ in progress are active jobs. Once a job is completed, you can proceed to creating another job)\n*   You can create up to 1 job per second\n\
     *   Each job you create expires after 24 hours"
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
@@ -1096,19 +1434,17 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-company-enrich-api
   name: ZoomInfo Company Enrich API
-  description: 'Use [Company Enrich](#59a59d9e-7eb9-44fa-904a-f10f9ab7c5fd) to retrieve company detail
-    using valid query parameters. A Company Enrich request requires you to specify both input parameters
-    about the company you are enriching, and the output fields you want to retrieve.
+  description: 'Use [Company Enrich](#59a59d9e-7eb9-44fa-904a-f10f9ab7c5fd) to retrieve company detail using valid query parameters. A Company
+    Enrich request requires you to specify both input parameters about the company you are enriching, and the output fields you want to retrieve.
 
 
     Refer to the examples provided to build a valid JSON request. For supported input and output parameters:
 
 
-    *   Use the [Company Enrich Inputs](#7a915792-e8cd-4e3a-9f0e-c19b850be536) endpoint to retrieve a
-    list of valid input parameters you can provide
+    *   Use the [Company Enrich Inputs](#7a915792-e8cd-4e3a-9f0e-c19b850be536) endpoint to retrieve a list of valid input parameters you can provide
 
-    *   Use the [Company Enrich Outputs](#d05239c3-2597-45f8-9384-f2dbd3518cfc) endpoint to retrieve a
-    list of valid output fields that can be returned'
+    *   Use the [Company Enrich Outputs](#d05239c3-2597-45f8-9384-f2dbd3518cfc) endpoint to retrieve a list of valid output fields that can be
+    returned'
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -1634,18 +1970,16 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-company-location-enrich-api
   name: ZoomInfo Company Location Enrich API
-  description: 'Use [Company Location Enrich](#2b221ad0-f6c2-40cb-b721-6513e90afd8d) to retrieve company
-    location detail using valid query parameters.
+  description: 'Use [Company Location Enrich](#2b221ad0-f6c2-40cb-b721-6513e90afd8d) to retrieve company location detail using valid query parameters.
 
 
     Refer to the examples provided to build a valid JSON request:
 
 
-    *   Use the [Location Enrich Inputs](#5517cdb0-18c9-40ad-9d80-bdee7872d9e0) endpoint to retrieve a
-    list of valid input parameters you can provide
+    *   Use the [Location Enrich Inputs](#5517cdb0-18c9-40ad-9d80-bdee7872d9e0) endpoint to retrieve a list of valid input parameters you can
+    provide
 
-    *   Use the [Location Enrich Outputs](#d1fbccf4-2224-4ba8-b72c-5b15e250c2f7) endpoint to retrieve
-    a list of output fields returned'
+    *   Use the [Location Enrich Outputs](#d1fbccf4-2224-4ba8-b72c-5b15e250c2f7) endpoint to retrieve a list of output fields returned'
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -2171,19 +2505,18 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-company-master-data-enrich-api
   name: ZoomInfo Company Master Data Enrich API
-  description: 'The new [Company Master Data Enrich](#8b6cffe4-cb34-44ab-ad5d-1953d372ffd3) endpoint brings
-    together ZoomInfo firmographic data with the EverString firmographic data along with significant improvements
-    including additional firmographic attributes and enhanced data.
+  description: 'The new [Company Master Data Enrich](#8b6cffe4-cb34-44ab-ad5d-1953d372ffd3) endpoint brings together ZoomInfo firmographic data
+    with the EverString firmographic data along with significant improvements including additional firmographic attributes and enhanced data.
 
 
     Refer to the examples provided to build a valid JSON request. For supported input and output parameters:
 
 
-    *   Use the [Company Master Enrich Inputs](#d305402c-33d1-488c-8b8f-b5b079868a61) endpoint to retrieve
-    a list of valid input parameters you can provide
+    *   Use the [Company Master Enrich Inputs](#d305402c-33d1-488c-8b8f-b5b079868a61) endpoint to retrieve a list of valid input parameters you
+    can provide
 
-    *   Use the [Company Master Enrich Outputs](#58b47522-753a-4104-a0c6-454adf4b6a1d) endpoint to retrieve
-    a list of valid output fields that can be returned'
+    *   Use the [Company Master Enrich Outputs](#58b47522-753a-4104-a0c6-454adf4b6a1d) endpoint to retrieve a list of valid output fields that
+    can be returned'
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -2709,17 +3042,16 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-company-search-api
   name: ZoomInfo Company Search API
-  description: 'Use [Company Search](#4506f0ad-9147-4016-991f-ce8ef6700f07) to retrieve company data using
-    valid query parameters.
+  description: 'Use [Company Search](#4506f0ad-9147-4016-991f-ce8ef6700f07) to retrieve company data using valid query parameters.
 
 
     *   To build your request, retrieve a list of valid query parameters using [Company Search Inputs](#ffd4ccc6-09d1-4026-8c4f-863d02fd703e).
 
-    *   For requests that require you to specify supported values (e.g., company type, industry codes
-    and so on), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055) endpoints.
+    *   For requests that require you to specify supported values (e.g., company type, industry codes and so on), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055)
+    endpoints.
 
-    *   Use [Company Search Outputs](#3dd35354-8523-4a8c-935a-97ed56d059a6) to retrieve a list of expected
-    response fields that will be returned from [Company Search](#4506f0ad-9147-4016-991f-ce8ef6700f07).'
+    *   Use [Company Search Outputs](#3dd35354-8523-4a8c-935a-97ed56d059a6) to retrieve a list of expected response fields that will be returned
+    from [Company Search](#4506f0ad-9147-4016-991f-ce8ef6700f07).'
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -3245,8 +3577,8 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-compliance-api-api
   name: ZoomInfo Compliance API
-  description: Use the Compliance endpoints to request and return data related to data privacy and opt-out
-    compliance for contacts stored in the ZoomInfo database.
+  description: Use the Compliance endpoints to request and return data related to data privacy and opt-out compliance for contacts stored in the
+    ZoomInfo database.
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -3772,19 +4104,17 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-contact-enrich-api
   name: ZoomInfo Contact Enrich API
-  description: 'Use [Contact Enrich](#c145dd01-eb54-4fc2-bbdb-9edc04b7ea1b) to retrieve contact detail
-    using valid query parameters. A Contact Enrich request requires you to specify both input parameters
-    about the contact you are enriching, and the output fields you want to retrieve.
+  description: 'Use [Contact Enrich](#c145dd01-eb54-4fc2-bbdb-9edc04b7ea1b) to retrieve contact detail using valid query parameters. A Contact
+    Enrich request requires you to specify both input parameters about the contact you are enriching, and the output fields you want to retrieve.
 
 
     Refer to the examples provided to build a valid JSON request. For supported input and output parameters:
 
 
-    *   Use the [Contact Enrich Inputs](#dbaf31cd-0f7a-4bf3-b6c1-077f3c31f2df) endpoint to retrieve a
-    list of valid input parameters you can provide
+    *   Use the [Contact Enrich Inputs](#dbaf31cd-0f7a-4bf3-b6c1-077f3c31f2df) endpoint to retrieve a list of valid input parameters you can provide
 
-    *   Use the [Contact Enrich Outputs](#28b47784-3186-4fc4-af91-12e6bc6fb31a) endpoint to retrieve a
-    list of valid output fields that can be returned'
+    *   Use the [Contact Enrich Outputs](#28b47784-3186-4fc4-af91-12e6bc6fb31a) endpoint to retrieve a list of valid output fields that can be
+    returned'
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -4310,17 +4640,16 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-contact-search-api
   name: ZoomInfo Contact Search API
-  description: 'Use [Contact Search](#2e5121fd-df42-41a4-95d6-0e8f24eebd92) to retrieve contacts using
-    valid query parameters.
+  description: 'Use [Contact Search](#2e5121fd-df42-41a4-95d6-0e8f24eebd92) to retrieve contacts using valid query parameters.
 
 
     *   To build your request, retrieve a list of valid query parameters using [Contact Search Inputs](#74630827-dd25-4b6a-bf72-f7cfeffd6c41).
 
-    *   For requests that require you to specify supported values (e.g., job titles, industry codes and
-    so on), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055) endpoints.
+    *   For requests that require you to specify supported values (e.g., job titles, industry codes and so on), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055)
+    endpoints.
 
-    *   Use [Contact Search Outputs](#5ed629a9-f24a-41a3-bc66-89f3f09f051c) to retrieve a list of expected
-    response fields that will be returned from [Contact Search](#2e5121fd-df42-41a4-95d6-0e8f24eebd92).'
+    *   Use [Contact Search Outputs](#5ed629a9-f24a-41a3-bc66-89f3f09f051c) to retrieve a list of expected response fields that will be returned
+    from [Contact Search](#2e5121fd-df42-41a4-95d6-0e8f24eebd92).'
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -4846,20 +5175,19 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-corporate-hierarchy-enrich-api
   name: ZoomInfo Corporate Hierarchy Enrich API
-  description: 'Use [Corporate Hierarchy Enrich](#585acff6-f231-4109-b818-b2ff586c18d3) to retrieve corporate
-    hierarchy detail using valid query parameters. A Corporate Hierarchy Enrich request requires you to
-    specify both input parameters about the company you are enriching, and the output fields you want
-    to retrieve.
+  description: 'Use [Corporate Hierarchy Enrich](#585acff6-f231-4109-b818-b2ff586c18d3) to retrieve corporate hierarchy detail using valid query
+    parameters. A Corporate Hierarchy Enrich request requires you to specify both input parameters about the company you are enriching, and the
+    output fields you want to retrieve.
 
 
     Refer to the examples provided to build a valid JSON request. For supported input and output parameters:
 
 
-    *   Use the [Corporate Hierarchy Enrich Inputs](#d72da288-2069-47c9-b36f-16cdab5d9988) endpoint to
-    retrieve a list of valid input parameters you can provide
+    *   Use the [Corporate Hierarchy Enrich Inputs](#d72da288-2069-47c9-b36f-16cdab5d9988) endpoint to retrieve a list of valid input parameters
+    you can provide
 
-    *   Use the [Corporate Hierarchy Enrich Outputs](#d6813026-dcae-4b20-9ee4-b1301451a2c7) endpoint to
-    retrieve a list of valid output fields that can be returned'
+    *   Use the [Corporate Hierarchy Enrich Outputs](#d6813026-dcae-4b20-9ee4-b1301451a2c7) endpoint to retrieve a list of valid output fields
+    that can be returned'
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -5385,13 +5713,12 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-hashtags-enrich-api
   name: ZoomInfo Hashtags Enrich API
-  description: 'Use [Hashtags Enrich](#886fb5cc-b587-4f26-bd68-892798d45ffe) to retrieve company hashtags
-    using valid query parameters. A Hashtags Enrich request requires you to specify the input parameters
-    about the company you are enriching.
+  description: 'Use [Hashtags Enrich](#886fb5cc-b587-4f26-bd68-892798d45ffe) to retrieve company hashtags using valid query parameters. A Hashtags
+    Enrich request requires you to specify the input parameters about the company you are enriching.
 
 
-    Refer to the examples provided to build a valid JSON request. Use the [Hashtags Enrich Inputs](#a7bea20a-f496-431b-9403-337231c4a22e)
-    endpoint to retrieve a list of valid input parameters you can provide.'
+    Refer to the examples provided to build a valid JSON request. Use the [Hashtags Enrich Inputs](#a7bea20a-f496-431b-9403-337231c4a22e) endpoint
+    to retrieve a list of valid input parameters you can provide.'
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -5917,18 +6244,15 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-intent-enrich-api
   name: ZoomInfo Intent Enrich API
-  description: 'Use [Intent Enrich](#c1e5300d-8ffb-40f0-b899-be98f884e505) to retrieve intent data using
-    valid query parameters.
+  description: 'Use [Intent Enrich](#c1e5300d-8ffb-40f0-b899-be98f884e505) to retrieve intent data using valid query parameters.
 
 
     Refer to the examples provided to build a valid JSON request:
 
 
-    *   Use the [Intent Enrich Inputs](#2dcbe844-7f1f-45f3-ae32-2598ccec5be4) endpoint to retrieve a list
-    of valid input parameters you can provide
+    *   Use the [Intent Enrich Inputs](#2dcbe844-7f1f-45f3-ae32-2598ccec5be4) endpoint to retrieve a list of valid input parameters you can provide
 
-    *   Use the [Intent Enrich Outputs](#fc4083cf-6179-4f0f-8b9b-80aedc2e3e67) endpoint to retrieve a
-    list of valid output fields returned'
+    *   Use the [Intent Enrich Outputs](#fc4083cf-6179-4f0f-8b9b-80aedc2e3e67) endpoint to retrieve a list of valid output fields returned'
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -6454,8 +6778,7 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-intent-search-api
   name: ZoomInfo Intent Search API
-  description: 'Use [Intent Search](#93f940a4-4381-49dd-8fbc-42cbc75a7a39) to retrieve Intent-related
-    data using valid query parameters.
+  description: 'Use [Intent Search](#93f940a4-4381-49dd-8fbc-42cbc75a7a39) to retrieve Intent-related data using valid query parameters.
 
 
     *   To build your request, retrieve a list of valid query parameters using [Intent Search Inputs](#14669274-88b8-4762-8d61-57d2fd5abf12).
@@ -6463,8 +6786,8 @@ apis:
     *   For requests that require you to specify supported values (e.g., Intent topics), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055)
     endpoints.
 
-    *   Use [Intent Search Outputs](#8f3540ee-4093-48e4-aebb-97133a864912) to retrieve a list of expected
-    response fields that will be returned from [Intent Search](#93f940a4-4381-49dd-8fbc-42cbc75a7a39).'
+    *   Use [Intent Search Outputs](#8f3540ee-4093-48e4-aebb-97133a864912) to retrieve a list of expected response fields that will be returned
+    from [Intent Search](#93f940a4-4381-49dd-8fbc-42cbc75a7a39).'
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -7516,303 +7839,219 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-monitoring-api-webhooks-api
   name: ZoomInfo Monitoring API/Webhooks API
-  description: "ZoomInfo data is highly dynamic, with contacts, companies and related data being constantly\
-    \ updated in real-time in our database. Naturally, our clients want these changes to be delivered\
-    \ in real-time for the records they've already purchased using the ZoomInfo API - that's where webhooks\
-    \ come in.\n\n## Why webhooks?\n\nOrganizations with ZoomInfo API access use the API's endpoints to\
-    \ search for, export, and enrich records to their integrated applications. While you can regularly\
-    \ poll for updates to contact and company records you've already enriched using the API, manually\
-    \ querying the entire database is not the best use of your time. A more efficient method is to configure\
-    \ webhooks to automatically update you when there is a change to a record youve purchased. Once configured,\
-    \ Webhooks will listen for events you subscribe to and automatically send over all (or only relevant)\
-    \ updates securely to your application.\n\n## Monitoring API/Webhooks basics\n\nAvailable to organizations\
-    \ with the Scaling API, the Monitoring API is a set of endpoints that allows for the configuration\
-    \ of webhooks subscriptions that specify:\n\n- **Webhook Title**: Name of the webhook.\n- **Subscription**:\
-    \ The events you are listening for, consisting of object types and event types.\n    - **Object types**:\
-    \ The types of records you want to update. Supported object types are Contact and Company.\n    -\
-    \ **Event types**: The events that trigger a webhook's response. Currently, the only supported event\
-    \ is Update.\n- **Changed attributes**: This is a JSON object that includes a list of fields that\
-    \ are changed as part of a payload.\n- **Payload types (full payload/changed attributes only)**:\n\
-    \    - A full payload (all fields for a contact or company, including changed attributes)\n    - Only\
-    \ the changed attributes for a contact or company.\n- **Target URL**: The target URL to which the\
-    \ webhook JSON payloads are sent.\n- **Verification Token**: Signature token that will be part of\
-    \ the request we send to you.\n    \n\n## Securing the data transfer\n\nTo secure communication between\
-    \ ZoomInfo and your app, a _verification token_ is generated when you create the webhook. When data\
-    \ is sent to your target URL using a POST request, this verification token will be included in the\
-    \ request header (_x-zoominfo-token_) and can be used in your app to authorize receipt of the data\
-    \ from ZoomInfo.\n\nThe initial token is generated when you create a webhook. To maintain security\
-    \ for your webhook over time, you can periodically generate a new verification token using the [Generate\
-    \ Verification Token](#9cc75e99-622e-4aa2-b9a8-2d33d0ede2ed) webhook.\n\n## Considerations\n\nNote\
-    \ the following considerations:\n\n- To use the Monitoring API/webhooks, you must have access to the\
-    \ Scaling API.\n- To subscribe to events, you must have already enriched at least one contact or company\
-    \ record using the API.\n- You will only receive updates on records that you've purchased using the\
-    \ API within the past 12 months.\n- The default payload type for company or contact updates is the\
-    \ full payload with changed attributes.\n    \n- The maximum number of profiles delivered in a single\
-    \ webhook payload is 25.\n    \n\n## Payload examples\n\nHere are examples of the POST requests your\
-    \ webhook's target URL will receive.\n\nFor contact and company records, you can choose to receive\
-    \ a full payload of all possible fields for a record (including changed attributes), or a payload\
-    \ including only the changed attributes for a record.\n\nIn either case (full or changed attributes\
-    \ only), contact and company records will always include the following fields to support mapping the\
-    \ profile:\n\n**Contacts**: `id`, `firstName`, `lastName`, and `email`\n\n**Companies**: `id`, `name`,\
-    \ and `website`\n\nThe following examples are provided below:\n\n- Example 1: Contact record - full\
-    \ profile (default)\n- Example 2: Contact record - changed attributes only\n- Example 3: Company record\
-    \ - full profile (default)\n- Example 4: Company record - changed attributes only\n    \n\n**Example\
-    \ 1: Contact record - full profile (default)**  \nIncludes all output fields\n\n``` json\n{\n  \"\
-    webhookDetails\":\n  {\n    \"id\": \"xxxx\",\n    \"title\": \"webhook-title\",\n    \"objectType\"\
-    : \"Contact\",\n    \"eventType\": \"Update\"\n  },\n  \"data\":\n  [\n    {\n      \"id\": 1260398587,\n\
-    \      \"firstName\": \"Henry\",\n      \"middleName\": \"L.\",\n      \"lastName\": \"Schuck\",\n\
-    \      \"email\": \"henry.schuck@zoominfo.com\",\n      \"hasCanadianEmail\": \"false\",\n      \"\
-    phone\": \"(360) 783-6816\",\n      \"directPhoneDoNotCall\": false,\n      \"street\": \"805 Broadway\
-    \ St Ste 900\",\n      \"city\": \"Vancouver\",\n      \"region\": \"Washington\",\n      \"metroArea\"\
-    : \"Portland\",\n      \"zipCode\": \"98660\",\n      \"state\": \"Washington\",\n      \"country\"\
-    : \"United States\",\n      \"continent\": \"North America\",\n      \"personHasMoved\": \"Uncertain\"\
-    ,\n      \"withinEu\": false,\n      \"withinCalifornia\": true,\n      \"withinCanada\": false,\n\
-    \      \"validDate\": \"01/09/2023 07:26 PM\",\n      \"lastUpdatedDate\": \"1/5/2020 7:59 PM\",\n\
-    \      \"noticeProvidedDate\": \"06/27/2020\",\n      \"salutation\": \"\",\n      \"suffix\": \"\"\
-    ,\n      \"jobTitle\": \"Founder & Chief Executive Officer\",\n      \"jobFunction\":\n      [\n \
-    \       {\n          \"name\": \"Executive\",\n          \"department\": \"C-Suite\"\n        }\n\
-    \      ],\n      \"education\":\n      [\n        {\n          \"school\": \"University of Nevada\
-    \ , Las Vegas\",\n          \"educationDegree\":\n          {\n            \"degree\": \"\",\n   \
-    \         \"areaOfStudy\": \"\"\n          }\n        },\n        {\n          \"school\": \"Oxford\
-    \ University\",\n          \"educationDegree\":\n          {\n            \"degree\": \"comparative\
-    \ law\",\n            \"areaOfStudy\": \"\"\n          }\n        },\n        {\n          \"school\"\
-    : \"The Ohio State University Moritz College of Law\",\n          \"educationDegree\":\n         \
-    \ {\n            \"degree\": \"\",\n            \"areaOfStudy\": \"juris doctorate degree cum laude\"\
-    \n          }\n        }\n      ],\n      \"picture\": \"https://www.zoominfo.com/wp-content/uploads/2020/06/henry.png\"\
-    ,\n      \"techSkills\":\n      [\n        {\n          \"id\": 92113,\n          \"name\": \"Microsoft\
-    \ Access\"\n        },\n        {\n          \"id\": 112883,\n          \"name\": \"Forrester\"\n\
-    \        },\n        {\n          \"id\": 31687,\n          \"name\": \"Wave\"\n        },\n     \
-    \   {\n          \"id\": 68842,\n          \"name\": \"engage\"\n        }\n      ],\n      \"mobile\"\
-    : \"\",\n      \"personalEmail\": \"\",\n      \"mobilePhone\": \"(818) 679-4647\",\n      \"supplementalEmail\"\
-    : \"henry.schuck@gmail.com\",\n      \"mobilePhoneDoNotCall\": false,\n      \"externalUrls\":\n \
-    \     [\n        {\n          \"type\": \"linkedin.com\",\n          \"url\": \"https://www.linkedin.com/in/hschuck\"\
-    \n        },\n        {\n          \"type\": \"twitter.com\",\n          \"url\": \"https://www.twitter.com/henrylschuck\"\
-    \n        }\n      ],\n      \"contactAccuracyScore\": 94.0,\n      \"isDefunct\": false,\n      \"\
-    employmentHistory\":\n      [\n        {\n          \"jobTitle\": \"Vice President of Data and Marketing\"\
-    ,\n          \"managementLevel\":\n          [\n            \"VP-Level\"\n          ],\n         \
-    \ \"fromDate\": \"2002-01-02T00:00:00.000Z\",\n          \"toDate\": \"2006-01-02T00:00:00.000Z\"\
-    ,\n          \"company\":\n          {\n            \"companyId\": 0,\n            \"companyName\"\
-    : \"iProfile\",\n            \"companyPhone\": \"\",\n            \"companyWebsite\": \"\"\n     \
-    \     }\n        }\n      ],\n      \"managementLevel\":\n      [\n        \"C-Level\"\n      ],\n\
-    \      \"locationCompanyId\": 344589814,\n      \"positionStartDate\": \"\",\n      \"yearsOfExperience\"\
-    : \"20-29\",\n      \"company\":\n      {\n        \"division\": \"\",\n        \"id\": 344589814,\n\
-    \        \"name\": \"ZoomInfo\",\n        \"descriptionList\":\n        [\n          {\n         \
-    \   \"description\": \"ZoomInfo was founded in 2000 and is headquartered in Vancouver, Washington.\
-    \ The company offers a business-to-business data platform utilized by sales and marketing teams,\n\
-    recruiters, and other business professionals for lead generation and detailed information on people\
-    \ and companies.\"\n          }\n        ],\n        \"phone\": \"(866) 904-9666\",\n        \"fax\"\
-    : \"(617) 507-8187\",\n        \"street\": \"805 Broadway St Ste 900\",\n        \"city\": \"Vancouver\"\
-    ,\n        \"state\": \"Washington\",\n        \"zipCode\": \"98660\",\n        \"country\": \"United\
-    \ States\",\n        \"continent\": \"North America\",\n        \"logo\": \"https://res.cloudinary.com/zoominfo-com/image/upload/w_100,h_100,c_fit/zoominfo.com\"\
-    ,\n        \"sicCodes\":\n        [\n          {\n            \"id\": \"27\",\n            \"name\"\
-    : \"Printing, Publishing, And Allied Industries\"\n          },\n          {\n            \"id\":\
-    \ \"274\",\n            \"name\": \"Miscellaneous Publishing\"\n          },\n          {\n      \
-    \      \"id\": \"2741\",\n            \"name\": \"Miscellaneous Publishing\"\n          },\n     \
-    \     {\n            \"id\": \"73\",\n            \"name\": \"Business Services\"\n          },\n\
-    \          {\n            \"id\": \"738\",\n            \"name\": \"Miscellaneous Business Services\"\
-    \n          },\n          {\n            \"id\": \"7389\",\n            \"name\": \"Business Services,\
-    \ Not Elsewhere Classified\"\n          },\n          {\n            \"id\": \"737\",\n          \
-    \  \"name\": \"Computer Programming, Data Processing, And Other Computer Related Services\"\n    \
-    \      },\n          {\n            \"id\": \"7375\",\n            \"name\": \"Information Retrieval\
-    \ Services\"\n          },\n          {\n            \"id\": \"7374\",\n            \"name\": \"Computer\
-    \ Processing and Data Preparation and Processing Services\"\n          },\n          {\n         \
-    \   \"id\": \"89\",\n            \"name\": \"Miscellaneous Services\"\n          },\n          {\n\
-    \            \"id\": \"899\",\n            \"name\": \"Miscellaneous Services\"\n          },\n  \
-    \        {\n            \"id\": \"8999\",\n            \"name\": \"Services, Not Elsewhere Classified\"\
-    \n          },\n          {\n            \"id\": \"7372\",\n            \"name\": \"Prepackaged Software\"\
-    \n          }\n        ],\n        \"naicsCodes\":\n        [\n          {\n            \"id\": \"\
-    54\",\n            \"name\": \"Professional, Scientific, and Technical Services\"\n          },\n\
-    \          {\n            \"id\": \"541\",\n            \"name\": \"Professional, Scientific, and\
-    \ Technical Services\"\n          },\n          {\n            \"id\": \"5416\",\n            \"name\"\
-    : \"Management, Scientific, and Technical Consulting Services\"\n          },\n          {\n     \
-    \       \"id\": \"54161\",\n            \"name\": \"Management Consulting Services\"\n          },\n\
-    \          {\n            \"id\": \"541613\",\n            \"name\": \"Marketing Consulting Services\"\
-    \n          },\n          {\n            \"id\": \"51\",\n            \"name\": \"Information\"\n\
-    \          },\n          {\n            \"id\": \"519\",\n            \"name\": \"Other Information\
-    \ Services\"\n          },\n          {\n            \"id\": \"5191\",\n            \"name\": \"Other\
-    \ Information Services\"\n          },\n          {\n            \"id\": \"51919\",\n            \"\
-    name\": \"All Other Information Services\"\n          },\n          {\n            \"id\": \"519190\"\
-    ,\n            \"name\": \"All Other Information Services\"\n          },\n          {\n         \
-    \   \"id\": \"5415\",\n            \"name\": \"Computer Systems Design and Related Services\"\n  \
-    \        },\n          {\n            \"id\": \"54151\",\n            \"name\": \"Computer Systems\
-    \ Design and Related Services\"\n          },\n          {\n            \"id\": \"541511\",\n    \
-    \        \"name\": \"Custom Computer Programming Services\"\n          },\n          {\n         \
-    \   \"id\": \"511\",\n            \"name\": \"Publishing Industries (except Internet)\"\n        \
-    \  },\n          {\n            \"id\": \"5112\",\n            \"name\": \"Software Publishers\"\n\
-    \          },\n          {\n            \"id\": \"51121\",\n            \"name\": \"Software Publishers\"\
-    \n          },\n          {\n            \"id\": \"511210\",\n            \"name\": \"Software Publishers\"\
-    \n          },\n          {\n            \"id\": \"51913\",\n            \"name\": \"Internet Publishing\
-    \ and Broadcasting and Web Search Portals\"\n          },\n          {\n            \"id\": \"519130\"\
-    ,\n            \"name\": \"Internet Publishing and Broadcasting and Web Search Portals\"\n       \
-    \   },\n          {\n            \"id\": \"517\",\n            \"name\": \"Telecommunications\"\n\
-    \          },\n          {\n            \"id\": \"5173\",\n            \"name\": \"Wired and Wireless\
-    \ Telecommunications Carriers\"\n          },\n          {\n            \"id\": \"51731\",\n     \
-    \       \"name\": \"Wired and Wireless Telecommunications Carriers\"\n          }\n        ],\n  \
-    \      \"website\": \"www.zoominfo.com\",\n        \"revenue\": \"$835.6 Million\",\n        \"revenueNumeric\"\
-    : 835600000,\n        \"employeeCount\": 3546,\n        \"type\": \"PUBLIC\",\n        \"ticker\"\
-    : \"NASDAQ: ZI\",\n        \"ranking\":\n        [],\n        \"socialMediaUrls\":\n        [\n  \
-    \        {\n            \"type\": \"LINKED_IN\",\n            \"url\": \"http://www.linkedin.com/company/zoominfo\"\
-    ,\n            \"followerCount\": \"\"\n          },\n          {\n            \"type\": \"TWITTER\"\
-    ,\n            \"url\": \"http://www.twitter.com/zoominfo\",\n            \"followerCount\": \"14807\"\
-    \n          },\n          {\n            \"type\": \"FACEBOOK\",\n            \"url\": \"http://www.facebook.com/109325735758217\"\
-    ,\n            \"followerCount\": \"\"\n          }\n        ],\n        \"primaryIndustry\":\n  \
-    \      [\n          \"Software\"\n        ],\n        \"primaryIndustryCode\":\n        [\n      \
-    \    {\n            \"id\": \"software\",\n            \"name\": \"Software\"\n          }\n     \
-    \   ],\n        \"primarySubIndustryCode\":\n        [],\n        \"industries\":\n        [\n   \
-    \       \"Software\",\n          \"Data Collection & Internet Portals\",\n          \"Media & Internet\"\
-    \n        ],\n        \"industryCodes\":\n        [\n          {\n            \"id\": \"software\"\
-    ,\n            \"name\": \"Software\"\n          },\n          {\n            \"id\": \"media.data\"\
-    ,\n            \"name\": \"Data Collection & Internet Portals\"\n          },\n          {\n     \
-    \       \"id\": \"media\",\n            \"name\": \"Media & Internet\"\n          }\n        ],\n\
-    \        \"revenueRange\": \"$500 mil. - $1 bil.\",\n        \"employeeRange\": \"1,000 - 5,000\"\
-    ,\n        \"employeeGrowth\":\n        {\n          \"oneYearGrowthRate\": \"32.5\",\n          \"\
-    twoYearGrowthRate\": \"114.1\",\n          \"employeeGrowthDataPoints\":\n          [\n          \
-    \  {\n              \"label\": \"'20 - Q3\",\n              \"employeeCount\": 1656\n            },\n\
-    \            {\n              \"label\": \"'20 - Q4\",\n              \"employeeCount\": 1845\n  \
-    \          },\n            {\n              \"label\": \"'21 - Q1\",\n              \"employeeCount\"\
-    : 2136\n            },\n            {\n              \"label\": \"'21 - Q2\",\n              \"employeeCount\"\
-    : 2297\n            },\n            {\n              \"label\": \"'21 - Q3\",\n              \"employeeCount\"\
-    : 2677\n            },\n            {\n              \"label\": \"'21 - Q4\",\n              \"employeeCount\"\
-    : 3117\n            },\n            {\n              \"label\": \"'22 - Q1\",\n              \"employeeCount\"\
-    : 3477\n            },\n            {\n              \"label\": \"'22 - Q2\",\n              \"employeeCount\"\
-    : 3549\n            },\n            {\n              \"label\": \"'22 - Q3\",\n              \"employeeCount\"\
-    : 3546\n            }\n          ]\n        }\n      },\n      \"changedAttributes\": [\n        \"\
-    jobTitle\",\n        \"department\"\n      ]\n    }\n  ]\n}\n\n ```\n\n**Example 2: Contact record\
-    \ - changed attributes only (default)**  \nIncludes only output fields with changed attributes\n\n\
-    ``` json\n{\n  \"webhookDetails\":\n  {\n    \"id\": \"xxxx\",\n    \"title\": \"webhook-title\",\n\
-    \    \"objectType\": \"Contact\",\n    \"eventType\": \"Update\"\n  },\n  \"data\":\n  [\n    {\n\
-    \      \"id\": 1260398587,\n      \"firstName\": \"Henry\",\n      \"lastName\": \"Schuck\",\n   \
-    \   \"email\": \"henry.schuck@zoominfo.com\",\n\"department\":\"C-Suite\",      \n\"jobTitle\": \"\
-    Founder & Chief Executive Officer\",\n      \"changedAttributes\": [\n        \"jobTitle\",\n    \
-    \    \"department\"\n      ]\n    }\n\n ```\n\n**Example 3: Company record - full profile (default)**\
-    \  \nIncludes all output fields\n\n``` json\n{\n  \"webhookDetails\":\n  {\n    \"id\": \"xxxx\",\n\
-    \    \"title\": \"webhook-title\",\n    \"objectType\": \"company\",\n    \"eventType\": \"Update\"\
-    \n  },\n  \"data\":\n  [\n    {\n      \"id\": 344589814,\n      \"ticker\": \"NASDAQ: ZI\",\n   \
-    \   \"name\": \"ZoomInfo\",\n      \"website\": \"www.zoominfo.com\",\n      \"logo\": \"https://res.cloudinary.com/zoominfo-com/image/upload/w_100,h_100,c_fit/zoominfo.com\"\
-    ,\n      \"socialMediaUrls\":\n      [\n        {\n          \"type\": \"LINKED_IN\",\n          \"\
-    url\": \"http://www.linkedin.com/company/zoominfo\",\n          \"followerCount\": \"\"\n        },\n\
-    \        {\n          \"type\": \"TWITTER\",\n          \"url\": \"http://www.twitter.com/zoominfo\"\
-    ,\n          \"followerCount\": \"3496\"\n        },\n        {\n          \"type\": \"FACEBOOK\"\
-    ,\n          \"url\": \"http://www.facebook.com/109325735758217\",\n          \"followerCount\": \"\
-    \"\n        }\n      ],\n      \"revenue\": 1210000,\n      \"employeeCount\": 3500,\n      \"phone\"\
-    : \"(866) 904-9666\",\n      \"fax\": \"(617) 507-8187\",\n      \"street\": \"805 Broadway St Ste\
-    \ 900\",\n      \"city\": \"Vancouver\",\n      \"state\": \"Washington\",\n      \"zipCode\": \"\
-    98660\",\n      \"country\": \"United States\",\n      \"companyStatus\": \"ALIVE\",\n      \"companyStatusDate\"\
-    : \"2022-08-23T00:00:00.000Z\",\n      \"sicCodes\":\n      [\n        {\n          \"id\": \"27\"\
-    ,\n          \"name\": \"Printing, Publishing, And Allied Industries\"\n        },\n        {\n  \
-    \        \"id\": \"274\",\n          \"name\": \"Miscellaneous Publishing\"\n        },\n        {\n\
-    \          \"id\": \"2741\",\n          \"name\": \"Miscellaneous Publishing\"\n        },\n     \
-    \   {\n          \"id\": \"73\",\n          \"name\": \"Business Services\"\n        },\n        {\n\
-    \          \"id\": \"738\",\n          \"name\": \"Miscellaneous Business Services\"\n        },\n\
-    \        {\n          \"id\": \"7389\",\n          \"name\": \"Business Services, Not Elsewhere Classified\"\
-    \n        },\n        {\n          \"id\": \"737\",\n          \"name\": \"Computer Programming, Data\
-    \ Processing, And Other Computer Related Services\"\n        },\n        {\n          \"id\": \"7375\"\
-    ,\n          \"name\": \"Information Retrieval Services\"\n        },\n        {\n          \"id\"\
-    : \"7374\",\n          \"name\": \"Computer Processing and Data Preparation and Processing Services\"\
-    \n        },\n        {\n          \"id\": \"89\",\n          \"name\": \"Miscellaneous Services\"\
-    \n        },\n        {\n          \"id\": \"899\",\n          \"name\": \"Miscellaneous Services\"\
-    \n        },\n        {\n          \"id\": \"8999\",\n          \"name\": \"Services, Not Elsewhere\
-    \ Classified\"\n        },\n        {\n          \"id\": \"7372\",\n          \"name\": \"Prepackaged\
-    \ Software\"\n        }\n      ],\n      \"naicsCodes\":\n      [\n        {\n          \"id\": \"\
-    54\",\n          \"name\": \"Professional, Scientific, and Technical Services\"\n        },\n    \
-    \    {\n          \"id\": \"541\",\n          \"name\": \"Professional, Scientific, and Technical\
-    \ Services\"\n        },\n        {\n          \"id\": \"5416\",\n          \"name\": \"Management,\
-    \ Scientific, and Technical Consulting Services\"\n        },\n        {\n          \"id\": \"54161\"\
-    ,\n          \"name\": \"Management Consulting Services\"\n        },\n        {\n          \"id\"\
-    : \"541613\",\n          \"name\": \"Marketing Consulting Services\"\n        },\n        {\n    \
-    \      \"id\": \"51\",\n          \"name\": \"Information\"\n        },\n        {\n          \"id\"\
-    : \"519\",\n          \"name\": \"Other Information Services\"\n        },\n        {\n          \"\
-    id\": \"5191\",\n          \"name\": \"Other Information Services\"\n        },\n        {\n     \
-    \     \"id\": \"51919\",\n          \"name\": \"All Other Information Services\"\n        },\n   \
-    \     {\n          \"id\": \"519190\",\n          \"name\": \"All Other Information Services\"\n \
-    \       },\n        {\n          \"id\": \"5415\",\n          \"name\": \"Computer Systems Design\
-    \ and Related Services\"\n        },\n        {\n          \"id\": \"54151\",\n          \"name\"\
-    : \"Computer Systems Design and Related Services\"\n        },\n        {\n          \"id\": \"541511\"\
-    ,\n          \"name\": \"Custom Computer Programming Services\"\n        },\n        {\n         \
-    \ \"id\": \"511\",\n          \"name\": \"Publishing Industries (except Internet)\"\n        },\n\
-    \        {\n          \"id\": \"5112\",\n          \"name\": \"Software Publishers\"\n        },\n\
-    \        {\n          \"id\": \"51121\",\n          \"name\": \"Software Publishers\"\n        },\n\
-    \        {\n          \"id\": \"511210\",\n          \"name\": \"Software Publishers\"\n        },\n\
-    \        {\n          \"id\": \"51913\",\n          \"name\": \"Internet Publishing and Broadcasting\
-    \ and Web Search Portals\"\n        },\n        {\n          \"id\": \"519130\",\n          \"name\"\
-    : \"Internet Publishing and Broadcasting and Web Search Portals\"\n        },\n        {\n       \
-    \   \"id\": \"517\",\n          \"name\": \"Telecommunications\"\n        },\n        {\n        \
-    \  \"id\": \"5173\",\n          \"name\": \"Wired and Wireless Telecommunications Carriers\"\n   \
-    \     },\n        {\n          \"id\": \"51731\",\n          \"name\": \"Wired and Wireless Telecommunications\
-    \ Carriers\"\n        }\n      ],\n      \"competitors\":\n      [\n        {\n          \"rank\"\
-    : 1,\n          \"id\": 168919661,\n          \"name\": \"LinkedIn Corp\",\n          \"website\"\
-    : \"linkedin.com\",\n          \"employeeCount\": 21000\n        },\n        {\n          \"rank\"\
-    : 2,\n          \"id\": 5390594,\n          \"name\": \"Dun & Bradstreet Inc\",\n          \"website\"\
-    : \"dnb.com\",\n          \"employeeCount\": 6000\n        },\n        {\n          \"rank\": 3,\n\
-    \          \"id\": 464190707,\n          \"name\": \"Clearbit\",\n          \"website\": \"clearbit.com\"\
-    ,\n          \"employeeCount\": 198\n        },\n        {\n          \"rank\": 4,\n          \"id\"\
-    : 357808721,\n          \"name\": \"SalesIntel Research Inc\",\n          \"website\": \"salesintel.io\"\
-    ,\n          \"employeeCount\": 27\n        },\n        {\n          \"rank\": 5,\n          \"id\"\
-    : 408702118,\n          \"name\": \"Lusha Ltd\",\n          \"website\": \"lusha.com\",\n        \
-    \  \"employeeCount\": 270\n        },\n        {\n          \"rank\": 6,\n          \"id\": 159335237,\n\
-    \          \"name\": \"Lead411\",\n          \"website\": \"lead411.com\",\n          \"employeeCount\"\
-    : 17\n        },\n        {\n          \"rank\": 7,\n          \"id\": 436418998,\n          \"name\"\
-    : \"UpLead LLC\",\n          \"website\": \"uplead.com\",\n          \"employeeCount\": 16\n     \
-    \   },\n        {\n          \"rank\": 8,\n          \"id\": 429601687,\n          \"name\": \"Seamless\
-    \ AI\",\n          \"website\": \"seamless.ai\",\n          \"employeeCount\": 175\n        },\n \
-    \       {\n          \"rank\": 9,\n          \"id\": 115098897,\n          \"name\": \"InsideView\
-    \ Inc\",\n          \"website\": \"insideview.com\",\n          \"employeeCount\": 312\n        },\n\
-    \        {\n          \"rank\": 10,\n          \"id\": 353571907,\n          \"name\": \"6sense Insights\
-    \ Inc\",\n          \"website\": \"6sense.com\",\n          \"employeeCount\": 1350\n        }\n \
-    \     ],\n      \"ultimateParentId\": 0,\n      \"ultimateParentRevenue\": 1210000,\n      \"ultimateParentEmployees\"\
-    : 3500,\n      \"primaryIndustry\":\n      [\n        \"Software\"\n      ],\n      \"primaryIndustryCode\"\
-    :\n      [\n        {\n          \"id\": \"software\",\n          \"name\": \"Software\"\n       \
-    \ }\n      ],\n      \"primarySubIndustryCode\":\n      [],\n      \"industries\":\n      [\n    \
-    \    \"Software\",\n        \"Data Collection & Internet Portals\",\n        \"Media & Internet\"\n\
-    \      ],\n      \"industryCodes\":\n      [\n        {\n          \"id\": \"software\",\n       \
-    \   \"name\": \"Software\"\n        },\n        {\n          \"id\": \"media.data\",\n          \"\
-    name\": \"Data Collection & Internet Portals\"\n        },\n        {\n          \"id\": \"media\"\
-    ,\n          \"name\": \"Media & Internet\"\n        }\n      ],\n      \"parentId\": 0,\n      \"\
-    locationCount\": 22,\n      \"metroArea\": \"Portland-Vancouver-Hillsboro OR-WA\",\n      \"certified\"\
-    : true,\n      \"revenueRange\": \"$1 bil. - $5 bil.\",\n      \"employeeRange\": \"1,000 - 5,000\"\
-    ,\n      \"companyFunding\":\n      [\n        {\n          \"date\": \"2020-06-04T07:00:00.000Z\"\
-    ,\n          \"type\": \"Stock Issuance/Offering\",\n          \"amount\": 935000,\n          \"investors\"\
-    :\n          [\n            \"\"\n          ]\n        },\n        {\n          \"date\": \"2021-06-18T07:00:00.000Z\"\
-    ,\n          \"type\": \"Corporate Investment\",\n          \"amount\": 555,\n          \"investors\"\
-    :\n          [\n            \"\"\n          ]\n        },\n        {\n          \"date\": \"2021-08-27T07:00:00.000Z\"\
-    ,\n          \"type\": \"Stock Issuance/Offering\",\n          \"amount\": 1200000,\n          \"\
-    investors\":\n          [\n            \"\"\n          ]\n        },\n        {\n          \"date\"\
-    : \"2017-08-14T00:00:00.000Z\",\n          \"type\": \"Private Equity\",\n          \"amount\": 240000,\n\
-    \          \"investors\":\n          [\n            \"Great Hill Partners\"\n          ]\n       \
-    \ },\n        {\n          \"date\": \"2004-07-19T00:00:00.000Z\",\n          \"type\": \"Series A\"\
-    ,\n          \"amount\": 7000,\n          \"investors\":\n          [\n            \"Ascent Venture\
-    \ Partners\",\n            \"Vulcan Capital Management\",\n            \"Venrock Associates\",\n \
-    \           \"Flagship Pioneering\",\n            \"Commonwealth Capital Ventures\"\n          ]\n\
-    \        },\n        {\n          \"date\": \"2014-05-30T07:00:00.000Z\",\n          \"type\": \"\
-    Private Equity\",\n          \"amount\": 0,\n          \"investors\":\n          [\n            \"\
-    TA Associates\"\n          ]\n        },\n        {\n          \"date\": \"2018-03-14T07:00:00.000Z\"\
-    ,\n          \"type\": \"Private Equity\",\n          \"amount\": 0,\n          \"investors\":\n \
-    \         [\n            \"The Carlyle Group\",\n            \"22C Capital\"\n          ]\n      \
-    \  }\n      ],\n      \"totalFundingAmount\": 2382555,\n      \"employeeGrowth\":\n      {\n     \
-    \   \"oneYearGrowthRate\": \"32.4\",\n        \"twoYearGrowthRate\": \"114.2\",\n        \"employeeGrowthDataPoints\"\
-    :\n        [\n          {\n            \"label\": \"'20 - Q3\",\n            \"employeeCount\": 1634\n\
-    \          },\n          {\n            \"label\": \"'20 - Q4\",\n            \"employeeCount\": 1821\n\
-    \          },\n          {\n            \"label\": \"'21 - Q1\",\n            \"employeeCount\": 2108\n\
-    \          },\n          {\n            \"label\": \"'21 - Q2\",\n            \"employeeCount\": 2267\n\
-    \          },\n          {\n            \"label\": \"'21 - Q3\",\n            \"employeeCount\": 2643\n\
-    \          },\n          {\n            \"label\": \"'21 - Q4\",\n            \"employeeCount\": 3077\n\
-    \          },\n          {\n            \"label\": \"'22 - Q1\",\n            \"employeeCount\": 3432\n\
-    \          },\n          {\n            \"label\": \"'22 - Q2\",\n            \"employeeCount\": 3503\n\
-    \          },\n          {\n            \"label\": \"'22 - Q3\",\n            \"employeeCount\": 3500\n\
-    \          }\n        ]\n      },\n      \"type\": \"PUBLIC\",\n      \"isDefunct\": false,\n    \
-    \  \"departmentBudgets\":\n      {\n        \"marketingBudget\": 158510,\n        \"itBudget\": 44770,\n\
-    \        \"financialBudget\": 12100,\n        \"hrBudget\": 7890\n      },\n      \"employeeCountByDepartment\"\
-    :\n      {\n        \"sales\": 1544,\n        \"engineeringAndTechnical\": 860,\n        \"marketing\"\
-    : 242,\n        \"informationTechnology\": 192,\n        \"humanResources\": 127,\n        \"finance\"\
-    : 95,\n        \"operations\": 86,\n        \"legal\": 32,\n        \"cSuite\": 14,\n        \"medicalAndHealth\"\
-    : 1\n      },\n      \"changedAttributes\": [\n        \"revenue\",\n        \"employeeCount\"\n \
-    \     ]\n    }\n  ]\n}\n\n ```\n\n**Example 4: Company record - changed attributes only (default)**\
-    \  \nIncludes only output fields with changed attributes\n\n``` json\n{\n  \"webhookDetails\":\n \
-    \ {\n    \"id\": \"xxxx\",\n    \"title\": \"webhook-title\",\n    \"objectType\": \"company\",\n\
-    \    \"eventType\": \"Update\"\n  },\n  \"data\":\n  [\n    {\n      \"id\": 344589814,\n      \"\
-    name\": \"ZoomInfo\",\n      \"website\": \"www.zoominfo.com\",\n      \"revenue\": 1210000,\n   \
-    \   \"employeeCount\": 3500,\n      \"changedAttributes\": [\n        \"revenue\",\n        \"employeeCount\"\
-    \n      ]\n    }\n  ]\n}\n\n ```"
+  description: "ZoomInfo data is highly dynamic, with contacts, companies and related data being constantly updated in real-time in our database.\
+    \ Naturally, our clients want these changes to be delivered in real-time for the records they've already purchased using the ZoomInfo API\
+    \ - that's where webhooks come in.\n\n## Why webhooks?\n\nOrganizations with ZoomInfo API access use the API's endpoints to search for, export,\
+    \ and enrich records to their integrated applications. While you can regularly poll for updates to contact and company records you've already\
+    \ enriched using the API, manually querying the entire database is not the best use of your time. A more efficient method is to configure\
+    \ webhooks to automatically update you when there is a change to a record youve purchased. Once configured, Webhooks will listen for events\
+    \ you subscribe to and automatically send over all (or only relevant) updates securely to your application.\n\n## Monitoring API/Webhooks\
+    \ basics\n\nAvailable to organizations with the Scaling API, the Monitoring API is a set of endpoints that allows for the configuration of\
+    \ webhooks subscriptions that specify:\n\n- **Webhook Title**: Name of the webhook.\n- **Subscription**: The events you are listening for,\
+    \ consisting of object types and event types.\n    - **Object types**: The types of records you want to update. Supported object types are\
+    \ Contact and Company.\n    - **Event types**: The events that trigger a webhook's response. Currently, the only supported event is Update.\n\
+    - **Changed attributes**: This is a JSON object that includes a list of fields that are changed as part of a payload.\n- **Payload types (full\
+    \ payload/changed attributes only)**:\n    - A full payload (all fields for a contact or company, including changed attributes)\n    - Only\
+    \ the changed attributes for a contact or company.\n- **Target URL**: The target URL to which the webhook JSON payloads are sent.\n- **Verification\
+    \ Token**: Signature token that will be part of the request we send to you.\n    \n\n## Securing the data transfer\n\nTo secure communication\
+    \ between ZoomInfo and your app, a _verification token_ is generated when you create the webhook. When data is sent to your target URL using\
+    \ a POST request, this verification token will be included in the request header (_x-zoominfo-token_) and can be used in your app to authorize\
+    \ receipt of the data from ZoomInfo.\n\nThe initial token is generated when you create a webhook. To maintain security for your webhook over\
+    \ time, you can periodically generate a new verification token using the [Generate Verification Token](#9cc75e99-622e-4aa2-b9a8-2d33d0ede2ed)\
+    \ webhook.\n\n## Considerations\n\nNote the following considerations:\n\n- To use the Monitoring API/webhooks, you must have access to the\
+    \ Scaling API.\n- To subscribe to events, you must have already enriched at least one contact or company record using the API.\n- You will\
+    \ only receive updates on records that you've purchased using the API within the past 12 months.\n- The default payload type for company or\
+    \ contact updates is the full payload with changed attributes.\n    \n- The maximum number of profiles delivered in a single webhook payload\
+    \ is 25.\n    \n\n## Payload examples\n\nHere are examples of the POST requests your webhook's target URL will receive.\n\nFor contact and\
+    \ company records, you can choose to receive a full payload of all possible fields for a record (including changed attributes), or a payload\
+    \ including only the changed attributes for a record.\n\nIn either case (full or changed attributes only), contact and company records will\
+    \ always include the following fields to support mapping the profile:\n\n**Contacts**: `id`, `firstName`, `lastName`, and `email`\n\n**Companies**:\
+    \ `id`, `name`, and `website`\n\nThe following examples are provided below:\n\n- Example 1: Contact record - full profile (default)\n- Example\
+    \ 2: Contact record - changed attributes only\n- Example 3: Company record - full profile (default)\n- Example 4: Company record - changed\
+    \ attributes only\n    \n\n**Example 1: Contact record - full profile (default)**  \nIncludes all output fields\n\n``` json\n{\n  \"webhookDetails\"\
+    :\n  {\n    \"id\": \"xxxx\",\n    \"title\": \"webhook-title\",\n    \"objectType\": \"Contact\",\n    \"eventType\": \"Update\"\n  },\n\
+    \  \"data\":\n  [\n    {\n      \"id\": 1260398587,\n      \"firstName\": \"Henry\",\n      \"middleName\": \"L.\",\n      \"lastName\": \"\
+    Schuck\",\n      \"email\": \"henry.schuck@zoominfo.com\",\n      \"hasCanadianEmail\": \"false\",\n      \"phone\": \"(360) 783-6816\",\n\
+    \      \"directPhoneDoNotCall\": false,\n      \"street\": \"805 Broadway St Ste 900\",\n      \"city\": \"Vancouver\",\n      \"region\"\
+    : \"Washington\",\n      \"metroArea\": \"Portland\",\n      \"zipCode\": \"98660\",\n      \"state\": \"Washington\",\n      \"country\"\
+    : \"United States\",\n      \"continent\": \"North America\",\n      \"personHasMoved\": \"Uncertain\",\n      \"withinEu\": false,\n    \
+    \  \"withinCalifornia\": true,\n      \"withinCanada\": false,\n      \"validDate\": \"01/09/2023 07:26 PM\",\n      \"lastUpdatedDate\":\
+    \ \"1/5/2020 7:59 PM\",\n      \"noticeProvidedDate\": \"06/27/2020\",\n      \"salutation\": \"\",\n      \"suffix\": \"\",\n      \"jobTitle\"\
+    : \"Founder & Chief Executive Officer\",\n      \"jobFunction\":\n      [\n        {\n          \"name\": \"Executive\",\n          \"department\"\
+    : \"C-Suite\"\n        }\n      ],\n      \"education\":\n      [\n        {\n          \"school\": \"University of Nevada , Las Vegas\",\n\
+    \          \"educationDegree\":\n          {\n            \"degree\": \"\",\n            \"areaOfStudy\": \"\"\n          }\n        },\n\
+    \        {\n          \"school\": \"Oxford University\",\n          \"educationDegree\":\n          {\n            \"degree\": \"comparative\
+    \ law\",\n            \"areaOfStudy\": \"\"\n          }\n        },\n        {\n          \"school\": \"The Ohio State University Moritz\
+    \ College of Law\",\n          \"educationDegree\":\n          {\n            \"degree\": \"\",\n            \"areaOfStudy\": \"juris doctorate\
+    \ degree cum laude\"\n          }\n        }\n      ],\n      \"picture\": \"https://www.zoominfo.com/wp-content/uploads/2020/06/henry.png\"\
+    ,\n      \"techSkills\":\n      [\n        {\n          \"id\": 92113,\n          \"name\": \"Microsoft Access\"\n        },\n        {\n\
+    \          \"id\": 112883,\n          \"name\": \"Forrester\"\n        },\n        {\n          \"id\": 31687,\n          \"name\": \"Wave\"\
+    \n        },\n        {\n          \"id\": 68842,\n          \"name\": \"engage\"\n        }\n      ],\n      \"mobile\": \"\",\n      \"\
+    personalEmail\": \"\",\n      \"mobilePhone\": \"(818) 679-4647\",\n      \"supplementalEmail\": \"henry.schuck@gmail.com\",\n      \"mobilePhoneDoNotCall\"\
+    : false,\n      \"externalUrls\":\n      [\n        {\n          \"type\": \"linkedin.com\",\n          \"url\": \"https://www.linkedin.com/in/hschuck\"\
+    \n        },\n        {\n          \"type\": \"twitter.com\",\n          \"url\": \"https://www.twitter.com/henrylschuck\"\n        }\n  \
+    \    ],\n      \"contactAccuracyScore\": 94.0,\n      \"isDefunct\": false,\n      \"employmentHistory\":\n      [\n        {\n          \"\
+    jobTitle\": \"Vice President of Data and Marketing\",\n          \"managementLevel\":\n          [\n            \"VP-Level\"\n          ],\n\
+    \          \"fromDate\": \"2002-01-02T00:00:00.000Z\",\n          \"toDate\": \"2006-01-02T00:00:00.000Z\",\n          \"company\":\n    \
+    \      {\n            \"companyId\": 0,\n            \"companyName\": \"iProfile\",\n            \"companyPhone\": \"\",\n            \"companyWebsite\"\
+    : \"\"\n          }\n        }\n      ],\n      \"managementLevel\":\n      [\n        \"C-Level\"\n      ],\n      \"locationCompanyId\"\
+    : 344589814,\n      \"positionStartDate\": \"\",\n      \"yearsOfExperience\": \"20-29\",\n      \"company\":\n      {\n        \"division\"\
+    : \"\",\n        \"id\": 344589814,\n        \"name\": \"ZoomInfo\",\n        \"descriptionList\":\n        [\n          {\n            \"\
+    description\": \"ZoomInfo was founded in 2000 and is headquartered in Vancouver, Washington. The company offers a business-to-business data\
+    \ platform utilized by sales and marketing teams,\nrecruiters, and other business professionals for lead generation and detailed information\
+    \ on people and companies.\"\n          }\n        ],\n        \"phone\": \"(866) 904-9666\",\n        \"fax\": \"(617) 507-8187\",\n    \
+    \    \"street\": \"805 Broadway St Ste 900\",\n        \"city\": \"Vancouver\",\n        \"state\": \"Washington\",\n        \"zipCode\":\
+    \ \"98660\",\n        \"country\": \"United States\",\n        \"continent\": \"North America\",\n        \"logo\": \"https://res.cloudinary.com/zoominfo-com/image/upload/w_100,h_100,c_fit/zoominfo.com\"\
+    ,\n        \"sicCodes\":\n        [\n          {\n            \"id\": \"27\",\n            \"name\": \"Printing, Publishing, And Allied Industries\"\
+    \n          },\n          {\n            \"id\": \"274\",\n            \"name\": \"Miscellaneous Publishing\"\n          },\n          {\n\
+    \            \"id\": \"2741\",\n            \"name\": \"Miscellaneous Publishing\"\n          },\n          {\n            \"id\": \"73\"\
+    ,\n            \"name\": \"Business Services\"\n          },\n          {\n            \"id\": \"738\",\n            \"name\": \"Miscellaneous\
+    \ Business Services\"\n          },\n          {\n            \"id\": \"7389\",\n            \"name\": \"Business Services, Not Elsewhere\
+    \ Classified\"\n          },\n          {\n            \"id\": \"737\",\n            \"name\": \"Computer Programming, Data Processing, And\
+    \ Other Computer Related Services\"\n          },\n          {\n            \"id\": \"7375\",\n            \"name\": \"Information Retrieval\
+    \ Services\"\n          },\n          {\n            \"id\": \"7374\",\n            \"name\": \"Computer Processing and Data Preparation and\
+    \ Processing Services\"\n          },\n          {\n            \"id\": \"89\",\n            \"name\": \"Miscellaneous Services\"\n      \
+    \    },\n          {\n            \"id\": \"899\",\n            \"name\": \"Miscellaneous Services\"\n          },\n          {\n        \
+    \    \"id\": \"8999\",\n            \"name\": \"Services, Not Elsewhere Classified\"\n          },\n          {\n            \"id\": \"7372\"\
+    ,\n            \"name\": \"Prepackaged Software\"\n          }\n        ],\n        \"naicsCodes\":\n        [\n          {\n            \"\
+    id\": \"54\",\n            \"name\": \"Professional, Scientific, and Technical Services\"\n          },\n          {\n            \"id\":\
+    \ \"541\",\n            \"name\": \"Professional, Scientific, and Technical Services\"\n          },\n          {\n            \"id\": \"\
+    5416\",\n            \"name\": \"Management, Scientific, and Technical Consulting Services\"\n          },\n          {\n            \"id\"\
+    : \"54161\",\n            \"name\": \"Management Consulting Services\"\n          },\n          {\n            \"id\": \"541613\",\n     \
+    \       \"name\": \"Marketing Consulting Services\"\n          },\n          {\n            \"id\": \"51\",\n            \"name\": \"Information\"\
+    \n          },\n          {\n            \"id\": \"519\",\n            \"name\": \"Other Information Services\"\n          },\n          {\n\
+    \            \"id\": \"5191\",\n            \"name\": \"Other Information Services\"\n          },\n          {\n            \"id\": \"51919\"\
+    ,\n            \"name\": \"All Other Information Services\"\n          },\n          {\n            \"id\": \"519190\",\n            \"name\"\
+    : \"All Other Information Services\"\n          },\n          {\n            \"id\": \"5415\",\n            \"name\": \"Computer Systems Design\
+    \ and Related Services\"\n          },\n          {\n            \"id\": \"54151\",\n            \"name\": \"Computer Systems Design and Related\
+    \ Services\"\n          },\n          {\n            \"id\": \"541511\",\n            \"name\": \"Custom Computer Programming Services\"\n\
+    \          },\n          {\n            \"id\": \"511\",\n            \"name\": \"Publishing Industries (except Internet)\"\n          },\n\
+    \          {\n            \"id\": \"5112\",\n            \"name\": \"Software Publishers\"\n          },\n          {\n            \"id\"\
+    : \"51121\",\n            \"name\": \"Software Publishers\"\n          },\n          {\n            \"id\": \"511210\",\n            \"name\"\
+    : \"Software Publishers\"\n          },\n          {\n            \"id\": \"51913\",\n            \"name\": \"Internet Publishing and Broadcasting\
+    \ and Web Search Portals\"\n          },\n          {\n            \"id\": \"519130\",\n            \"name\": \"Internet Publishing and Broadcasting\
+    \ and Web Search Portals\"\n          },\n          {\n            \"id\": \"517\",\n            \"name\": \"Telecommunications\"\n      \
+    \    },\n          {\n            \"id\": \"5173\",\n            \"name\": \"Wired and Wireless Telecommunications Carriers\"\n          },\n\
+    \          {\n            \"id\": \"51731\",\n            \"name\": \"Wired and Wireless Telecommunications Carriers\"\n          }\n    \
+    \    ],\n        \"website\": \"www.zoominfo.com\",\n        \"revenue\": \"$835.6 Million\",\n        \"revenueNumeric\": 835600000,\n  \
+    \      \"employeeCount\": 3546,\n        \"type\": \"PUBLIC\",\n        \"ticker\": \"NASDAQ: ZI\",\n        \"ranking\":\n        [],\n \
+    \       \"socialMediaUrls\":\n        [\n          {\n            \"type\": \"LINKED_IN\",\n            \"url\": \"http://www.linkedin.com/company/zoominfo\"\
+    ,\n            \"followerCount\": \"\"\n          },\n          {\n            \"type\": \"TWITTER\",\n            \"url\": \"http://www.twitter.com/zoominfo\"\
+    ,\n            \"followerCount\": \"14807\"\n          },\n          {\n            \"type\": \"FACEBOOK\",\n            \"url\": \"http://www.facebook.com/109325735758217\"\
+    ,\n            \"followerCount\": \"\"\n          }\n        ],\n        \"primaryIndustry\":\n        [\n          \"Software\"\n       \
+    \ ],\n        \"primaryIndustryCode\":\n        [\n          {\n            \"id\": \"software\",\n            \"name\": \"Software\"\n  \
+    \        }\n        ],\n        \"primarySubIndustryCode\":\n        [],\n        \"industries\":\n        [\n          \"Software\",\n  \
+    \        \"Data Collection & Internet Portals\",\n          \"Media & Internet\"\n        ],\n        \"industryCodes\":\n        [\n    \
+    \      {\n            \"id\": \"software\",\n            \"name\": \"Software\"\n          },\n          {\n            \"id\": \"media.data\"\
+    ,\n            \"name\": \"Data Collection & Internet Portals\"\n          },\n          {\n            \"id\": \"media\",\n            \"\
+    name\": \"Media & Internet\"\n          }\n        ],\n        \"revenueRange\": \"$500 mil. - $1 bil.\",\n        \"employeeRange\": \"1,000\
+    \ - 5,000\",\n        \"employeeGrowth\":\n        {\n          \"oneYearGrowthRate\": \"32.5\",\n          \"twoYearGrowthRate\": \"114.1\"\
+    ,\n          \"employeeGrowthDataPoints\":\n          [\n            {\n              \"label\": \"'20 - Q3\",\n              \"employeeCount\"\
+    : 1656\n            },\n            {\n              \"label\": \"'20 - Q4\",\n              \"employeeCount\": 1845\n            },\n   \
+    \         {\n              \"label\": \"'21 - Q1\",\n              \"employeeCount\": 2136\n            },\n            {\n              \"\
+    label\": \"'21 - Q2\",\n              \"employeeCount\": 2297\n            },\n            {\n              \"label\": \"'21 - Q3\",\n   \
+    \           \"employeeCount\": 2677\n            },\n            {\n              \"label\": \"'21 - Q4\",\n              \"employeeCount\"\
+    : 3117\n            },\n            {\n              \"label\": \"'22 - Q1\",\n              \"employeeCount\": 3477\n            },\n   \
+    \         {\n              \"label\": \"'22 - Q2\",\n              \"employeeCount\": 3549\n            },\n            {\n              \"\
+    label\": \"'22 - Q3\",\n              \"employeeCount\": 3546\n            }\n          ]\n        }\n      },\n      \"changedAttributes\"\
+    : [\n        \"jobTitle\",\n        \"department\"\n      ]\n    }\n  ]\n}\n\n ```\n\n**Example 2: Contact record - changed attributes only\
+    \ (default)**  \nIncludes only output fields with changed attributes\n\n``` json\n{\n  \"webhookDetails\":\n  {\n    \"id\": \"xxxx\",\n \
+    \   \"title\": \"webhook-title\",\n    \"objectType\": \"Contact\",\n    \"eventType\": \"Update\"\n  },\n  \"data\":\n  [\n    {\n      \"\
+    id\": 1260398587,\n      \"firstName\": \"Henry\",\n      \"lastName\": \"Schuck\",\n      \"email\": \"henry.schuck@zoominfo.com\",\n\"department\"\
+    :\"C-Suite\",      \n\"jobTitle\": \"Founder & Chief Executive Officer\",\n      \"changedAttributes\": [\n        \"jobTitle\",\n       \
+    \ \"department\"\n      ]\n    }\n\n ```\n\n**Example 3: Company record - full profile (default)**  \nIncludes all output fields\n\n``` json\n\
+    {\n  \"webhookDetails\":\n  {\n    \"id\": \"xxxx\",\n    \"title\": \"webhook-title\",\n    \"objectType\": \"company\",\n    \"eventType\"\
+    : \"Update\"\n  },\n  \"data\":\n  [\n    {\n      \"id\": 344589814,\n      \"ticker\": \"NASDAQ: ZI\",\n      \"name\": \"ZoomInfo\",\n\
+    \      \"website\": \"www.zoominfo.com\",\n      \"logo\": \"https://res.cloudinary.com/zoominfo-com/image/upload/w_100,h_100,c_fit/zoominfo.com\"\
+    ,\n      \"socialMediaUrls\":\n      [\n        {\n          \"type\": \"LINKED_IN\",\n          \"url\": \"http://www.linkedin.com/company/zoominfo\"\
+    ,\n          \"followerCount\": \"\"\n        },\n        {\n          \"type\": \"TWITTER\",\n          \"url\": \"http://www.twitter.com/zoominfo\"\
+    ,\n          \"followerCount\": \"3496\"\n        },\n        {\n          \"type\": \"FACEBOOK\",\n          \"url\": \"http://www.facebook.com/109325735758217\"\
+    ,\n          \"followerCount\": \"\"\n        }\n      ],\n      \"revenue\": 1210000,\n      \"employeeCount\": 3500,\n      \"phone\": \"\
+    (866) 904-9666\",\n      \"fax\": \"(617) 507-8187\",\n      \"street\": \"805 Broadway St Ste 900\",\n      \"city\": \"Vancouver\",\n  \
+    \    \"state\": \"Washington\",\n      \"zipCode\": \"98660\",\n      \"country\": \"United States\",\n      \"companyStatus\": \"ALIVE\"\
+    ,\n      \"companyStatusDate\": \"2022-08-23T00:00:00.000Z\",\n      \"sicCodes\":\n      [\n        {\n          \"id\": \"27\",\n      \
+    \    \"name\": \"Printing, Publishing, And Allied Industries\"\n        },\n        {\n          \"id\": \"274\",\n          \"name\": \"\
+    Miscellaneous Publishing\"\n        },\n        {\n          \"id\": \"2741\",\n          \"name\": \"Miscellaneous Publishing\"\n       \
+    \ },\n        {\n          \"id\": \"73\",\n          \"name\": \"Business Services\"\n        },\n        {\n          \"id\": \"738\",\n\
+    \          \"name\": \"Miscellaneous Business Services\"\n        },\n        {\n          \"id\": \"7389\",\n          \"name\": \"Business\
+    \ Services, Not Elsewhere Classified\"\n        },\n        {\n          \"id\": \"737\",\n          \"name\": \"Computer Programming, Data\
+    \ Processing, And Other Computer Related Services\"\n        },\n        {\n          \"id\": \"7375\",\n          \"name\": \"Information\
+    \ Retrieval Services\"\n        },\n        {\n          \"id\": \"7374\",\n          \"name\": \"Computer Processing and Data Preparation\
+    \ and Processing Services\"\n        },\n        {\n          \"id\": \"89\",\n          \"name\": \"Miscellaneous Services\"\n        },\n\
+    \        {\n          \"id\": \"899\",\n          \"name\": \"Miscellaneous Services\"\n        },\n        {\n          \"id\": \"8999\"\
+    ,\n          \"name\": \"Services, Not Elsewhere Classified\"\n        },\n        {\n          \"id\": \"7372\",\n          \"name\": \"\
+    Prepackaged Software\"\n        }\n      ],\n      \"naicsCodes\":\n      [\n        {\n          \"id\": \"54\",\n          \"name\": \"\
+    Professional, Scientific, and Technical Services\"\n        },\n        {\n          \"id\": \"541\",\n          \"name\": \"Professional,\
+    \ Scientific, and Technical Services\"\n        },\n        {\n          \"id\": \"5416\",\n          \"name\": \"Management, Scientific,\
+    \ and Technical Consulting Services\"\n        },\n        {\n          \"id\": \"54161\",\n          \"name\": \"Management Consulting Services\"\
+    \n        },\n        {\n          \"id\": \"541613\",\n          \"name\": \"Marketing Consulting Services\"\n        },\n        {\n   \
+    \       \"id\": \"51\",\n          \"name\": \"Information\"\n        },\n        {\n          \"id\": \"519\",\n          \"name\": \"Other\
+    \ Information Services\"\n        },\n        {\n          \"id\": \"5191\",\n          \"name\": \"Other Information Services\"\n       \
+    \ },\n        {\n          \"id\": \"51919\",\n          \"name\": \"All Other Information Services\"\n        },\n        {\n          \"\
+    id\": \"519190\",\n          \"name\": \"All Other Information Services\"\n        },\n        {\n          \"id\": \"5415\",\n          \"\
+    name\": \"Computer Systems Design and Related Services\"\n        },\n        {\n          \"id\": \"54151\",\n          \"name\": \"Computer\
+    \ Systems Design and Related Services\"\n        },\n        {\n          \"id\": \"541511\",\n          \"name\": \"Custom Computer Programming\
+    \ Services\"\n        },\n        {\n          \"id\": \"511\",\n          \"name\": \"Publishing Industries (except Internet)\"\n       \
+    \ },\n        {\n          \"id\": \"5112\",\n          \"name\": \"Software Publishers\"\n        },\n        {\n          \"id\": \"51121\"\
+    ,\n          \"name\": \"Software Publishers\"\n        },\n        {\n          \"id\": \"511210\",\n          \"name\": \"Software Publishers\"\
+    \n        },\n        {\n          \"id\": \"51913\",\n          \"name\": \"Internet Publishing and Broadcasting and Web Search Portals\"\
+    \n        },\n        {\n          \"id\": \"519130\",\n          \"name\": \"Internet Publishing and Broadcasting and Web Search Portals\"\
+    \n        },\n        {\n          \"id\": \"517\",\n          \"name\": \"Telecommunications\"\n        },\n        {\n          \"id\":\
+    \ \"5173\",\n          \"name\": \"Wired and Wireless Telecommunications Carriers\"\n        },\n        {\n          \"id\": \"51731\",\n\
+    \          \"name\": \"Wired and Wireless Telecommunications Carriers\"\n        }\n      ],\n      \"competitors\":\n      [\n        {\n\
+    \          \"rank\": 1,\n          \"id\": 168919661,\n          \"name\": \"LinkedIn Corp\",\n          \"website\": \"linkedin.com\",\n\
+    \          \"employeeCount\": 21000\n        },\n        {\n          \"rank\": 2,\n          \"id\": 5390594,\n          \"name\": \"Dun\
+    \ & Bradstreet Inc\",\n          \"website\": \"dnb.com\",\n          \"employeeCount\": 6000\n        },\n        {\n          \"rank\":\
+    \ 3,\n          \"id\": 464190707,\n          \"name\": \"Clearbit\",\n          \"website\": \"clearbit.com\",\n          \"employeeCount\"\
+    : 198\n        },\n        {\n          \"rank\": 4,\n          \"id\": 357808721,\n          \"name\": \"SalesIntel Research Inc\",\n   \
+    \       \"website\": \"salesintel.io\",\n          \"employeeCount\": 27\n        },\n        {\n          \"rank\": 5,\n          \"id\"\
+    : 408702118,\n          \"name\": \"Lusha Ltd\",\n          \"website\": \"lusha.com\",\n          \"employeeCount\": 270\n        },\n  \
+    \      {\n          \"rank\": 6,\n          \"id\": 159335237,\n          \"name\": \"Lead411\",\n          \"website\": \"lead411.com\",\n\
+    \          \"employeeCount\": 17\n        },\n        {\n          \"rank\": 7,\n          \"id\": 436418998,\n          \"name\": \"UpLead\
+    \ LLC\",\n          \"website\": \"uplead.com\",\n          \"employeeCount\": 16\n        },\n        {\n          \"rank\": 8,\n       \
+    \   \"id\": 429601687,\n          \"name\": \"Seamless AI\",\n          \"website\": \"seamless.ai\",\n          \"employeeCount\": 175\n\
+    \        },\n        {\n          \"rank\": 9,\n          \"id\": 115098897,\n          \"name\": \"InsideView Inc\",\n          \"website\"\
+    : \"insideview.com\",\n          \"employeeCount\": 312\n        },\n        {\n          \"rank\": 10,\n          \"id\": 353571907,\n  \
+    \        \"name\": \"6sense Insights Inc\",\n          \"website\": \"6sense.com\",\n          \"employeeCount\": 1350\n        }\n      ],\n\
+    \      \"ultimateParentId\": 0,\n      \"ultimateParentRevenue\": 1210000,\n      \"ultimateParentEmployees\": 3500,\n      \"primaryIndustry\"\
+    :\n      [\n        \"Software\"\n      ],\n      \"primaryIndustryCode\":\n      [\n        {\n          \"id\": \"software\",\n        \
+    \  \"name\": \"Software\"\n        }\n      ],\n      \"primarySubIndustryCode\":\n      [],\n      \"industries\":\n      [\n        \"Software\"\
+    ,\n        \"Data Collection & Internet Portals\",\n        \"Media & Internet\"\n      ],\n      \"industryCodes\":\n      [\n        {\n\
+    \          \"id\": \"software\",\n          \"name\": \"Software\"\n        },\n        {\n          \"id\": \"media.data\",\n          \"\
+    name\": \"Data Collection & Internet Portals\"\n        },\n        {\n          \"id\": \"media\",\n          \"name\": \"Media & Internet\"\
+    \n        }\n      ],\n      \"parentId\": 0,\n      \"locationCount\": 22,\n      \"metroArea\": \"Portland-Vancouver-Hillsboro OR-WA\",\n\
+    \      \"certified\": true,\n      \"revenueRange\": \"$1 bil. - $5 bil.\",\n      \"employeeRange\": \"1,000 - 5,000\",\n      \"companyFunding\"\
+    :\n      [\n        {\n          \"date\": \"2020-06-04T07:00:00.000Z\",\n          \"type\": \"Stock Issuance/Offering\",\n          \"amount\"\
+    : 935000,\n          \"investors\":\n          [\n            \"\"\n          ]\n        },\n        {\n          \"date\": \"2021-06-18T07:00:00.000Z\"\
+    ,\n          \"type\": \"Corporate Investment\",\n          \"amount\": 555,\n          \"investors\":\n          [\n            \"\"\n  \
+    \        ]\n        },\n        {\n          \"date\": \"2021-08-27T07:00:00.000Z\",\n          \"type\": \"Stock Issuance/Offering\",\n \
+    \         \"amount\": 1200000,\n          \"investors\":\n          [\n            \"\"\n          ]\n        },\n        {\n          \"\
+    date\": \"2017-08-14T00:00:00.000Z\",\n          \"type\": \"Private Equity\",\n          \"amount\": 240000,\n          \"investors\":\n\
+    \          [\n            \"Great Hill Partners\"\n          ]\n        },\n        {\n          \"date\": \"2004-07-19T00:00:00.000Z\",\n\
+    \          \"type\": \"Series A\",\n          \"amount\": 7000,\n          \"investors\":\n          [\n            \"Ascent Venture Partners\"\
+    ,\n            \"Vulcan Capital Management\",\n            \"Venrock Associates\",\n            \"Flagship Pioneering\",\n            \"Commonwealth\
+    \ Capital Ventures\"\n          ]\n        },\n        {\n          \"date\": \"2014-05-30T07:00:00.000Z\",\n          \"type\": \"Private\
+    \ Equity\",\n          \"amount\": 0,\n          \"investors\":\n          [\n            \"TA Associates\"\n          ]\n        },\n   \
+    \     {\n          \"date\": \"2018-03-14T07:00:00.000Z\",\n          \"type\": \"Private Equity\",\n          \"amount\": 0,\n          \"\
+    investors\":\n          [\n            \"The Carlyle Group\",\n            \"22C Capital\"\n          ]\n        }\n      ],\n      \"totalFundingAmount\"\
+    : 2382555,\n      \"employeeGrowth\":\n      {\n        \"oneYearGrowthRate\": \"32.4\",\n        \"twoYearGrowthRate\": \"114.2\",\n    \
+    \    \"employeeGrowthDataPoints\":\n        [\n          {\n            \"label\": \"'20 - Q3\",\n            \"employeeCount\": 1634\n  \
+    \        },\n          {\n            \"label\": \"'20 - Q4\",\n            \"employeeCount\": 1821\n          },\n          {\n         \
+    \   \"label\": \"'21 - Q1\",\n            \"employeeCount\": 2108\n          },\n          {\n            \"label\": \"'21 - Q2\",\n     \
+    \       \"employeeCount\": 2267\n          },\n          {\n            \"label\": \"'21 - Q3\",\n            \"employeeCount\": 2643\n  \
+    \        },\n          {\n            \"label\": \"'21 - Q4\",\n            \"employeeCount\": 3077\n          },\n          {\n         \
+    \   \"label\": \"'22 - Q1\",\n            \"employeeCount\": 3432\n          },\n          {\n            \"label\": \"'22 - Q2\",\n     \
+    \       \"employeeCount\": 3503\n          },\n          {\n            \"label\": \"'22 - Q3\",\n            \"employeeCount\": 3500\n  \
+    \        }\n        ]\n      },\n      \"type\": \"PUBLIC\",\n      \"isDefunct\": false,\n      \"departmentBudgets\":\n      {\n       \
+    \ \"marketingBudget\": 158510,\n        \"itBudget\": 44770,\n        \"financialBudget\": 12100,\n        \"hrBudget\": 7890\n      },\n\
+    \      \"employeeCountByDepartment\":\n      {\n        \"sales\": 1544,\n        \"engineeringAndTechnical\": 860,\n        \"marketing\"\
+    : 242,\n        \"informationTechnology\": 192,\n        \"humanResources\": 127,\n        \"finance\": 95,\n        \"operations\": 86,\n\
+    \        \"legal\": 32,\n        \"cSuite\": 14,\n        \"medicalAndHealth\": 1\n      },\n      \"changedAttributes\": [\n        \"revenue\"\
+    ,\n        \"employeeCount\"\n      ]\n    }\n  ]\n}\n\n ```\n\n**Example 4: Company record - changed attributes only (default)**  \nIncludes\
+    \ only output fields with changed attributes\n\n``` json\n{\n  \"webhookDetails\":\n  {\n    \"id\": \"xxxx\",\n    \"title\": \"webhook-title\"\
+    ,\n    \"objectType\": \"company\",\n    \"eventType\": \"Update\"\n  },\n  \"data\":\n  [\n    {\n      \"id\": 344589814,\n      \"name\"\
+    : \"ZoomInfo\",\n      \"website\": \"www.zoominfo.com\",\n      \"revenue\": 1210000,\n      \"employeeCount\": 3500,\n      \"changedAttributes\"\
+    : [\n        \"revenue\",\n        \"employeeCount\"\n      ]\n    }\n  ]\n}\n\n ```"
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -8338,18 +8577,15 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-news-enrich-api
   name: ZoomInfo News Enrich API
-  description: 'Use [News Enrich](#a04f60d9-353e-4eb1-9c37-0539ee6b8d13) to retrieve news data using valid
-    query parameters.
+  description: 'Use [News Enrich](#a04f60d9-353e-4eb1-9c37-0539ee6b8d13) to retrieve news data using valid query parameters.
 
 
     Refer to the examples provided to build a valid JSON request:
 
 
-    *   Use the [News Enrich Inputs](#d58425e5-a4a4-4af0-ad01-fa7bbf91ca84) endpoint to retrieve a list
-    of valid input parameters you can provide
+    *   Use the [News Enrich Inputs](#d58425e5-a4a4-4af0-ad01-fa7bbf91ca84) endpoint to retrieve a list of valid input parameters you can provide
 
-    *   Use the [News Enrich Outputs](#254b86e3-e51b-450d-8704-95e4da168874) endpoint to retrieve a list
-    of valid output fields returned'
+    *   Use the [News Enrich Outputs](#254b86e3-e51b-450d-8704-95e4da168874) endpoint to retrieve a list of valid output fields returned'
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -8875,8 +9111,7 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-news-search-api
   name: ZoomInfo News Search API
-  description: 'Use [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19) to retrieve news-related data
-    using valid query parameters.
+  description: 'Use [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19) to retrieve news-related data using valid query parameters.
 
 
     *   To build your request, retrieve a list of valid query parameters using [News Search Inputs](#90bfb6fb-2754-478b-b42d-f8c507ffffb2).
@@ -8884,8 +9119,8 @@ apis:
     *   For requests that require you to specify supported values (e.g., news categories), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055)
     endpoints.
 
-    *   Use [News Search Outputs](#354f6240-e3d3-4c8c-9684-86569fd71581) to retrieve a list of expected
-    response fields that will be returned from [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19).'
+    *   Use [News Search Outputs](#354f6240-e3d3-4c8c-9684-86569fd71581) to retrieve a list of expected response fields that will be returned
+    from [News Search](#4c4c979b-4495-4a17-8925-7d00c52c7e19).'
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -9411,18 +9646,16 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-orgchart-enrich-api
   name: ZoomInfo OrgChart Enrich API
-  description: 'Use [Org Chart Enrich](#763b3c10-41d1-4d52-9775-1712f712202e) to retrieve org chart detail
-    using valid query parameters.
+  description: 'Use [Org Chart Enrich](#763b3c10-41d1-4d52-9775-1712f712202e) to retrieve org chart detail using valid query parameters.
 
 
     Refer to the examples provided to build a valid JSON request:
 
 
-    *   Use the [Org Chart Enrich Inputs](#751a9156-1867-4033-a115-a44aa0ecbfad) endpoint to retrieve
-    a list of valid input parameters you can provide
+    *   Use the [Org Chart Enrich Inputs](#751a9156-1867-4033-a115-a44aa0ecbfad) endpoint to retrieve a list of valid input parameters you can
+    provide
 
-    *   Use the [Org Chart Enrich Outputs](#b2c219d2-df68-4ccd-9914-c7c58218f768) endpoint to retrieve
-    a list of output fields returned'
+    *   Use the [Org Chart Enrich Outputs](#b2c219d2-df68-4ccd-9914-c7c58218f768) endpoint to retrieve a list of output fields returned'
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -9948,18 +10181,15 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-scoop-enrich-api
   name: ZoomInfo Scoop Enrich API
-  description: 'Use [Scoop Enrich](#545c603a-fbe5-48b6-b4b4-bdca626fead0) to retrieve Scoop data using
-    valid query parameters.
+  description: 'Use [Scoop Enrich](#545c603a-fbe5-48b6-b4b4-bdca626fead0) to retrieve Scoop data using valid query parameters.
 
 
     Refer to the examples provided to build a valid JSON request:
 
 
-    *   Use the [Scoop Enrich Inputs](#4ebf5d05-d819-4336-977f-2fe72dc6ac19) endpoint to retrieve a list
-    of valid input parameters you can provide
+    *   Use the [Scoop Enrich Inputs](#4ebf5d05-d819-4336-977f-2fe72dc6ac19) endpoint to retrieve a list of valid input parameters you can provide
 
-    *   Use the [Scoop Enrich Outputs](#3af4b7ad-e694-4202-81c4-20b7bab73946) endpoint to retrieve a list
-    of valid output fields returned'
+    *   Use the [Scoop Enrich Outputs](#3af4b7ad-e694-4202-81c4-20b7bab73946) endpoint to retrieve a list of valid output fields returned'
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -10485,17 +10715,16 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-scoop-search-api
   name: ZoomInfo Scoop Search API
-  description: 'Use [Scoop Search](#3099d72f-6857-4432-89c2-736410680e60) to retrieve scoop-related data
-    using valid query parameters.
+  description: 'Use [Scoop Search](#3099d72f-6857-4432-89c2-736410680e60) to retrieve scoop-related data using valid query parameters.
 
 
     *   To build your request, retrieve a list of valid query parameters using [Scoop Search Inputs](#1888a5e1-6a96-4cc2-910b-70e574370996).
 
-    *   For requests that require you to specify supported values (e.g., job titles, industry codes and
-    so on), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055) endpoints.
+    *   For requests that require you to specify supported values (e.g., job titles, industry codes and so on), use the [Lookup](#efe7b4b8-1ef2-4fcd-a20f-9da68f6b2055)
+    endpoints.
 
-    *   Use [Scoop Search Outputs](#185aa18e-02fa-440e-a691-b8e2c391a456) to retrieve a list of expected
-    response fields that will be returned from [Scoop Search](#3099d72f-6857-4432-89c2-736410680e60).'
+    *   Use [Scoop Search Outputs](#185aa18e-02fa-440e-a691-b8e2c391a456) to retrieve a list of expected response fields that will be returned
+    from [Scoop Search](#3099d72f-6857-4432-89c2-736410680e60).'
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -11021,12 +11250,11 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-technology-enrich-api
   name: ZoomInfo Technology Enrich API
-  description: 'Use [Technology Enrich](#9fc40c02-fe95-448f-a6f4-e903c85c81a9) to retrieve company technology
-    detail using valid query parameters.
+  description: 'Use [Technology Enrich](#9fc40c02-fe95-448f-a6f4-e903c85c81a9) to retrieve company technology detail using valid query parameters.
 
 
-    Refer to the examples provided to build a valid JSON request. Use the [Technology Enrich Inputs](#2cc6abbc-e782-4ab4-80e8-ce29ed17ee4e)
-    endpoint to retrieve a list of valid input parameters you can provide.'
+    Refer to the examples provided to build a valid JSON request. Use the [Technology Enrich Inputs](#2cc6abbc-e782-4ab4-80e8-ce29ed17ee4e) endpoint
+    to retrieve a list of valid input parameters you can provide.'
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -12078,27 +12306,21 @@ apis:
     url: examples/zoominfo-webhook-example.json
 - aid: zoominfo:zoominfo-websights-api-api
   name: ZoomInfo WebSights API
-  description: "The Websights API identifies anonymous website traffic by resolving IP addresses (IPv4\
-    \ & IPv6) to return company and ISP profiles and IP geolocation details.\n\n**Company vs. ISP response\
-    \ data**\n\nIf the IP address belongs to a company, details about the company are returned including\
-    \ geolocation details. For example:\n\n```\n\"data\": {\n    \"company\": {\n        \"city\": \"\
-    Vancouver\",\n        \"country\": \"United States\",\n        \"employeeCount\": 1300,\n        \"\
-    id\": 344589814,\n        \"industries\": [\n            \"media.data\",\n            \"media\",\n\
-    \            \"software\"\n        ],\n        \"name\": \"Zoom Information, Inc.\",\n        \"revenue\"\
-    : 400000,\n        \"state\": \"Washington\",\n        \"street\": \"805 Broadway St Suite 900\",\n\
-    \        \"ticker\": \"\",\n        \"website\": \"www.zoominfo.com\",\n       \"zipCode\": \"98660\"\
-    \n    },\n    \"geoLocation\": {\n        \"location_long\": -122.672,\n        \"location_lat\":\
-    \ 45.627,\n        \"country_code\": \"US\",\n        \"province\": \"Washington\"\n    }\n\n```\n\
-    \nIf the IP address belongs to an internet service provider (ISP), details about the ISP are returned\
-    \ including geolocation details. For example:\n\n```\n    \"data\": {\n        \"geoLocation\": {\n\
-    \            \"location_long\": -71.06616,\n            \"location_lat\": 42.45843,\n            \"\
-    country_code\": \"US\",\n            \"province\": \"Massachusetts\"\n        },\n        \"ispInfo\"\
-    : {\n            \"domain\": \"comcast.com\",\n            \"ip_hi_string\": \"73.143.255.255\",\n\
-    \            \"ip_lo_string\": \"73.142.0.0\",\n            \"name\": \"Comcast Cable Communications,\
-    \ Inc.\",\n            \"type\": \"isp\"\n        }\n\n```\n\n**Charging mechanism**\n\nYour account\
-    \ is provisioned with an allocated number of records that you can retrieve over a 1-year period. A\
-    \ record is either a company for which ZoomInfo has data, or an Internet Service Provider (ISP). If\
-    \ a query does not match a company or ISP, no record is charged."
+  description: "The Websights API identifies anonymous website traffic by resolving IP addresses (IPv4 & IPv6) to return company and ISP profiles\
+    \ and IP geolocation details.\n\n**Company vs. ISP response data**\n\nIf the IP address belongs to a company, details about the company are\
+    \ returned including geolocation details. For example:\n\n```\n\"data\": {\n    \"company\": {\n        \"city\": \"Vancouver\",\n       \
+    \ \"country\": \"United States\",\n        \"employeeCount\": 1300,\n        \"id\": 344589814,\n        \"industries\": [\n            \"\
+    media.data\",\n            \"media\",\n            \"software\"\n        ],\n        \"name\": \"Zoom Information, Inc.\",\n        \"revenue\"\
+    : 400000,\n        \"state\": \"Washington\",\n        \"street\": \"805 Broadway St Suite 900\",\n        \"ticker\": \"\",\n        \"website\"\
+    : \"www.zoominfo.com\",\n       \"zipCode\": \"98660\"\n    },\n    \"geoLocation\": {\n        \"location_long\": -122.672,\n        \"location_lat\"\
+    : 45.627,\n        \"country_code\": \"US\",\n        \"province\": \"Washington\"\n    }\n\n```\n\nIf the IP address belongs to an internet\
+    \ service provider (ISP), details about the ISP are returned including geolocation details. For example:\n\n```\n    \"data\": {\n       \
+    \ \"geoLocation\": {\n            \"location_long\": -71.06616,\n            \"location_lat\": 42.45843,\n            \"country_code\": \"\
+    US\",\n            \"province\": \"Massachusetts\"\n        },\n        \"ispInfo\": {\n            \"domain\": \"comcast.com\",\n       \
+    \     \"ip_hi_string\": \"73.143.255.255\",\n            \"ip_lo_string\": \"73.142.0.0\",\n            \"name\": \"Comcast Cable Communications,\
+    \ Inc.\",\n            \"type\": \"isp\"\n        }\n\n```\n\n**Charging mechanism**\n\nYour account is provisioned with an allocated number\
+    \ of records that you can retrieve over a 1-year period. A record is either a company for which ZoomInfo has data, or an Internet Service\
+    \ Provider (ISP). If a query does not match a company or ISP, no record is charged."
   humanURL: https://www.zoominfo.com/
   baseURL: https://api.zoominfo.com
   tags:
@@ -12636,6 +12858,12 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-account-summary-question-request-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-account-summary-question-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-account-summary-response-schema.json
 - aid: zoominfo:zoominfo-agent-teams-api
   name: ZoomInfo Agent Teams API
   description: The Agent Teams API from ZoomInfo — 4 operation(s) for agent teams.
@@ -12650,6 +12878,16 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-agent-team-runs-list-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-agent-teams-list-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-agent-team-detail-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-run-agent-team-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-agent-team-run-response-schema.json
 - aid: zoominfo:zoominfo-audiences-api
   name: ZoomInfo Audiences API
   description: The Audiences API from ZoomInfo — 20 operation(s) for audiences.
@@ -12664,6 +12902,18 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-get-audiences-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-audiences-json-api-list-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-folder-json-api-list-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-get-rows-json-api-model-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-upsert-rows-json-api-model-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-row-upsert-list-api-model-schema.json
 - aid: zoominfo:zoominfo-customer-buyer-persona-api
   name: ZoomInfo Customer Buyer Persona API
   description: The Customer Buyer Persona API from ZoomInfo — 4 operation(s) for customer buyer persona.
@@ -12678,6 +12928,12 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-customer-buyer-persona-upsert-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-customer-buyer-persona-list-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-customer-buyer-persona-model-schema.json
 - aid: zoominfo:zoominfo-customer-competitors-api
   name: ZoomInfo Customer Competitors API
   description: The Customer Competitors API from ZoomInfo — 4 operation(s) for customer competitors.
@@ -12692,6 +12948,12 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-customer-competitor-upsert-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-customer-competitor-list-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-customer-competitor-model-schema.json
 - aid: zoominfo:zoominfo-customer-settings-api
   name: ZoomInfo Customer Settings API
   description: The Customer Settings API from ZoomInfo — 1 operation(s) for customer settings.
@@ -12706,6 +12968,10 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-customer-settings-model-create-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-customer-settings-model-schema.json
 - aid: zoominfo:zoominfo-engagements-api
   name: ZoomInfo Engagements API
   description: The Engagements API from ZoomInfo — 2 operation(s) for engagements.
@@ -12720,6 +12986,12 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-content-interaction-upsert-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-content-interaction-upsert-request-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-content-interaction-response-schema.json
 - aid: zoominfo:zoominfo-enrich-api
   name: ZoomInfo Enrich API
   description: The Enrich API from ZoomInfo — 9 operation(s) for enrich.
@@ -12734,6 +13006,18 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-intent-enrich-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-scoop-enrich-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-news-enrich-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-org-chart-enrich-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-technology-enrich-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-hashtag-enrich-response-schema.json
 - aid: zoominfo:zoominfo-entities-api
   name: ZoomInfo Entities API
   description: The entities API from ZoomInfo — 3 operation(s) for entities.
@@ -12750,6 +13034,14 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-gtm-entities-list-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-gtm-entity-fields-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-upsert-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-upsert-data-payload-schema.json
 - aid: zoominfo:zoominfo-entitlements-api
   name: ZoomInfo Entitlements API
   description: The Entitlements API from ZoomInfo — 1 operation(s) for entitlements.
@@ -12764,6 +13056,8 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-entitlements-response-schema.json
 - aid: zoominfo:zoominfo-ideal-customer-profile-api
   name: ZoomInfo Ideal Customer Profile API
   description: The Ideal Customer Profile API from ZoomInfo — 4 operation(s) for ideal customer profile.
@@ -12778,6 +13072,12 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-ideal-company-segment-upsert-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-ideal-company-segment-list-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-ideal-company-segment-model-schema.json
 - aid: zoominfo:zoominfo-insights-api
   name: ZoomInfo Insights API
   description: The Insights API from ZoomInfo — 1 operation(s) for insights.
@@ -12792,6 +13092,10 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-company-insights-by-type-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-company-insights-by-type-request-schema.json
 - aid: zoominfo:zoominfo-interact-experimental-api
   name: ZoomInfo Interact [Experimental] API
   description: The Interact [Experimental] API from ZoomInfo — 3 operation(s) for interact [experimental].
@@ -12806,6 +13110,14 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-agent-list-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-interact-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-thread-message-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-sse-response-body-schema.json
 - aid: zoominfo:zoominfo-products-and-services-api
   name: ZoomInfo Products and Services API
   description: The Products and Services API from ZoomInfo — 4 operation(s) for products and services.
@@ -12820,6 +13132,12 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-organization-offering-upsert-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-organization-offering-list-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-organization-offering-model-schema.json
 - aid: zoominfo:zoominfo-pulses-api
   name: ZoomInfo Pulses API
   description: The Pulses API from ZoomInfo — 1 operation(s) for pulses.
@@ -12834,6 +13152,8 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-pulses-list-response-schema.json
 - aid: zoominfo:zoominfo-recommendations-api
   name: ZoomInfo Recommendations API
   description: The Recommendations API from ZoomInfo — 3 operation(s) for recommendations.
@@ -12848,6 +13168,12 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-contact-recommendation-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-contact-lookalike-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-company-lookalikes-response-schema.json
 - aid: zoominfo:zoominfo-search-api
   name: ZoomInfo Search API
   description: The Search API from ZoomInfo — 5 operation(s) for search.
@@ -12862,6 +13188,18 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-company-search-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-intent-search-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-scoop-search-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-news-search-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-contact-search-response-schema.json
+  - type: JSONSchema
+    url: json-schema/zoominfo-company-search-request-schema.json
 - aid: zoominfo:zoominfo-user-api
   name: ZoomInfo User API
   description: The User API from ZoomInfo — 1 operation(s) for user.
@@ -12876,6 +13214,8 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
+  - type: JSONSchema
+    url: json-schema/zoominfo-usage-response-schema.json
 - aid: zoominfo:zoominfo-workflows-api
   name: ZoomInfo Workflows API
   description: The Workflows API from ZoomInfo — 3 operation(s) for workflows.
@@ -12890,22 +13230,9 @@ apis:
     url: https://docs.zoominfo.com
   - type: APIReference
     url: https://docs.zoominfo.com/reference/api-overview
-name: ZoomInfo
-tags:
-- B2B
-- B2B Data
-- Company Data
-- Contact Database
-- Contacts
-- Data
-- Lead Generation
-- Marketing Intelligence
-- Sales Intelligence
-- Intent Data
-- Go-To-Market
-- Data Enrichment
-- AI Agents
-- MCP
+  - type: JSONSchema
+    url: json-schema/zoominfo-workflows-list-response-schema.json
+
 tags_raw:
 - B2B
 - B2B Data
@@ -12921,312 +13248,8 @@ tags_raw:
 - Data Enrichment
 - AI Agents
 - MCP
-kind: contract
-deliveryModel:
-  model: saas
-  open_source: false
-  commercial: true
-  callable_host: true
-  label: Hosted service · you call their endpoint
-  confidence: high
-  source:
-  - openapi
-  - pricing
-  generated: '2026-08-28'
-  method: derived
-accessModel:
-  pricing: freemium
-  onboarding: self-serve
-  trial: false
-  try_now: true
-  public: false
-  label: Freemium · Self-serve signup
-  confidence: high
-  source:
-  - plans
-  - authentication
-  generated: '2026-07-22'
-  method: derived
-image: https://www.zoominfo.com/assets/img/zoominfo-logo.png
-access: 3rd-Party
-common:
-- type: FinOps
-  url: finops/zoominfo-finops.yml
-- type: Website
-  url: https://www.zoominfo.com/
-- type: CapabilityMap
-  url: capabilities/zoominfo-capability-edges.yml
-  name: ZoomInfo Business Capability Map
-- type: Overlay
-  url: overlays/zoominfo-gtm-data-v1-overlay.yaml
-- type: Overlay
-  url: overlays/zoominfo-gtm-copilot-v1-overlay.yaml
-- type: Overlay
-  url: overlays/zoominfo-gtm-gtm-studio-v1-overlay.yaml
-- type: Overlay
-  url: overlays/zoominfo-gtm-marketing-v1-overlay.yaml
-- type: Overlay
-  url: overlays/zoominfo-gtm-agent-v1-overlay.yaml
-- type: Overlay
-  url: overlays/zoominfo-gtm-platform-v1-overlay.yaml
-- type: Documentation
-  url: https://docs.zoominfo.com
-  title: ZoomInfo API Documentation
-- type: Packages
-  url: packages/zoominfo-packages.yml
-  title: Client Libraries
-- type: SDKs
-  url: packages/zoominfo-packages.yml
-  title: First-Party Client Libraries
-- type: CLI
-  url: cli/zoominfo-cli.yml
-  title: GTM AI CLI
-- type: MCPServer
-  url: mcp/zoominfo-mcp.yml
-  title: Hosted MCP Server
-- type: ToolCrosswalk
-  url: mcp/zoominfo-tool-crosswalk.yml
-  title: MCP Tool to REST Crosswalk
-- type: AgentSkill
-  url: skills/_index.yml
-  title: Provider-Published Agent Skills
-- type: LLMsTxt
-  url: llms/zoominfo-llms.txt
-  title: llms.txt
-- type: LLMsTxt
-  url: llms/zoominfo-docs-llms.txt
-  title: Developer Documentation llms.txt
-- type: WellKnown
-  url: well-known/zoominfo-well-known.yml
-  title: Well-Known Probe
-- type: Conventions
-  url: conventions/zoominfo-conventions.yml
-  title: API Conventions
-- type: ErrorCatalog
-  url: errors/zoominfo-problem-types.yml
-  title: Error Catalog
-- type: Lifecycle
-  url: lifecycle/zoominfo-lifecycle.yml
-  title: Lifecycle
-- type: Deprecation
-  url: lifecycle/zoominfo-lifecycle.yml
-  title: Deprecation Policy
-- type: ChangeLog
-  url: changelog/zoominfo-changelog.yml
-  title: API Release Notes
-- type: Conformance
-  url: conformance/zoominfo-conformance.yml
-  title: Standards Conformance
-- type: Compliance
-  url: security/zoominfo-trust-center.yml
-  title: Certifications and Compliance
-- type: TrustCenter
-  url: security/zoominfo-trust-center.yml
-  title: Trust Center
-- type: Security
-  url: security/zoominfo-vulnerability-disclosure.yml
-  title: Vulnerability Disclosure
-- type: VulnerabilityDisclosure
-  url: security/zoominfo-vulnerability-disclosure.yml
-  title: Bug Bounty Program
-- type: DataModel
-  url: data-model/zoominfo-data-model.yml
-  title: Data Model
-- type: Webhooks
-  url: asyncapi/zoominfo-webhooks.yml
-  title: Webhook and Event Surface
-- type: RateLimits
-  url: rate-limits/zoominfo-rate-limits.yml
-  title: Published Rate Limits
-- type: Plans
-  url: plans/zoominfo-plans-pricing.yml
-  title: Packages and Credit Model
-- type: Postman
-  url: https://api-docs.zoominfo.com
-  title: Public Postman Collection (Legacy Enterprise API)
-- type: SignUp
-  url: https://developer.zoominfo.com/
-  title: Developer Portal Sign In
-- type: Login
-  url: https://login.zoominfo.com
-  title: Login
-- type: OAuthScopes
-  url: scopes/zoominfo-scopes.yml
-- type: AgenticAccess
-  url: agentic-access/zoominfo-agentic-access.yml
-- type: DomainSecurity
-  url: security/zoominfo-domain-security.yml
-- type: Authentication
-  url: authentication/zoominfo-authentication.yml
-- type: PostmanWorkspace
-  url: https://www.postman.com/kinlaneapi/zoominfo/overview
-- type: Arazzo
-  url: arazzo/zoominfo-authenticate-contact-search-workflow.yml
-  name: ZoomInfo Authenticate and Search Contacts
-- type: Arazzo
-  url: arazzo/zoominfo-company-master-data-enrich-workflow.yml
-  name: ZoomInfo Resolve a Company from a URL
-- type: Arazzo
-  url: arazzo/zoominfo-company-search-enrich-workflow.yml
-  name: ZoomInfo Search and Enrich a Company
-- type: Arazzo
-  url: arazzo/zoominfo-company-search-intent-enrich-workflow.yml
-  name: ZoomInfo Search a Company and Pull Its Intent
-- type: Arazzo
-  url: arazzo/zoominfo-contact-search-enrich-workflow.yml
-  name: ZoomInfo Search and Enrich a Contact
-- type: Arazzo
-  url: arazzo/zoominfo-intent-search-enrich-company-workflow.yml
-  name: ZoomInfo Find Intent Signals and Enrich the Account
-- type: Arazzo
-  url: arazzo/zoominfo-scoop-search-enrich-company-workflow.yml
-  name: ZoomInfo Find Scoops and Enrich the Company
-- type: Arazzo
-  url: arazzo/zoominfo-scoop-search-then-enrich-workflow.yml
-  name: ZoomInfo Discover Scoops then Refine by Department
-- type: LinkedIn
-  url: https://www.linkedin.com/company/zoominfo
-- url: https://www.zoominfo.com/pricing
-  name: Pricing | ZoomInfo
-  type: Pricing
-- url: https://pipeline.zoominfo.com/
-  name: B2B Sales and Marketing Content | ZoomInfo Blog
-  type: Blog
-- url: https://www.zoominfo.com/about/case-studies
-  name: Case Studies | Customer Success | ZoomInfo
-  type: Customers
-- url: https://www.zoominfo.com/partner
-  name: Program Partnership Benefits | Partner with ZoomInfo
-  type: Partners
-- url: https://www.zoominfo.com/about/help-center
-  name: Help Center | ZoomInfo
-  type: Support
-- url: https://www.zoominfo.com/faqs/business
-  name: Frequently Asked Questions About ZoomInfos Business
-  type: FAQ
-- url: https://pipeline.zoominfo.com/glossary
-  name: Go-to-Market Glossary | ZoomInfo Blog
-  type: Glossary
-- url: https://docs.zoominfo.com/docs/authorization-code-flow-pkce
-  type: Authentication
-- url: https://docs.zoominfo.com/docs/overview
-  type: GettingStarted
-- url: https://docs.zoominfo.com/docs/rate-limits
-  type: RateLimits
-- url: https://www.zoominfo.com/legal/terms-of-use
-  type: TermsOfService
-- url: https://www.zoominfo.com/legal/privacy-policy
-  type: PrivacyPolicy
-- url: https://status.zoominfo.com
-  type: StatusPage
-- type: Features
-  data:
-  - name: Contact Search
-    description: Search for contacts by job title, company, location, industry, and other criteria
-  - name: Company Search
-    description: Search for companies by industry, revenue, employee count, location, and technology stack
-  - name: Contact Enrichment
-    description: Enrich contact records with verified email addresses, phone numbers, and professional
-      details
-  - name: Company Enrichment
-    description: Enrich company records with firmographic data including revenue, employee count, and
-      technographics
-  - name: Intent Data
-    description: Identify companies showing buying intent signals based on content consumption patterns
-  - name: Scoops
-    description: Access business intelligence scoops about company changes, hiring, and strategic initiatives
-  - name: News Intelligence
-    description: Search and enrich news articles related to companies and contacts
-  - name: Technology Tracking
-    description: Identify technologies used by companies across their tech stack
-  - name: Corporate Hierarchy
-    description: Map organizational structures including parent companies, subsidiaries, and divisions
-  - name: Org Chart
-    description: Access organizational chart data showing reporting relationships within companies
-  - name: Webhooks
-    description: Real-time notifications for data changes and updates via webhook subscriptions
-  - name: Bulk Operations
-    description: Submit batch search and enrichment jobs for large-scale data processing
-  - name: WebSights
-    description: Identify website visitors by IP address and enrich with company information
-  - name: Compliance
-    description: Access compliance data to support GDPR and privacy regulation requirements
-- type: UseCases
-  data:
-  - name: Sales Prospecting
-    description: Identify and prioritize ideal prospects using firmographic and intent data to build targeted
-      sales pipelines
-  - name: Lead Enrichment
-    description: Automatically enrich inbound leads with verified contact and company data for faster
-      qualification
-  - name: Account-Based Marketing
-    description: Build targeted account lists and personalize outreach using detailed company intelligence
-  - name: CRM Data Hygiene
-    description: Cleanse and update CRM records with accurate contact information and company details
-  - name: Market Research
-    description: Analyze market segments, technology adoption, and competitive landscapes using company
-      data
-  - name: Competitive Intelligence
-    description: Monitor competitor activities, technology changes, and strategic moves through scoops
-      and news
-  - name: Buyer Intent Analysis
-    description: Identify accounts actively researching solutions in your category based on intent signals
-  - name: Website Visitor Identification
-    description: Convert anonymous website traffic into identified company accounts using IP enrichment
-- type: Integrations
-  data:
-  - name: Salesforce
-    description: Native integration to enrich and sync contact and company data with Salesforce CRM
-  - name: HubSpot
-    description: Seamless integration to push enriched data into HubSpot CRM and marketing automation
-  - name: Microsoft Dynamics 365
-    description: Integration to enrich records and sync data with Microsoft Dynamics CRM
-  - name: Marketo
-    description: Marketing automation integration for lead enrichment and scoring with Marketo
-  - name: Outreach
-    description: Sales engagement platform integration for enriched prospect data in Outreach sequences
-  - name: Salesloft
-    description: Integration to power Salesloft cadences with verified contact information
-  - name: Slack
-    description: Notifications and alerts for intent signals and data updates delivered to Slack channels
-  - name: Snowflake
-    description: Data sharing integration to access ZoomInfo data directly in Snowflake data warehouse
-  - name: Google Ads
-    description: Audience targeting integration to reach ideal prospects with Google advertising campaigns
-  - name: LinkedIn
-    description: Integration to match and enrich LinkedIn profile data with ZoomInfo intelligence
-- type: GitHubOrganization
-  url: https://github.com/Zoominfo
-- type: DeveloperPortal
-  url: https://developer.zoominfo.com/
-- type: APIReference
-  url: https://docs.zoominfo.com/reference/api-overview
-- type: Hub
-  url: https://github.com/Zoominfo/zoominfo-mcp-plugin
-  title: MCP Server
-- type: SpectralRules
-  url: rules/zoominfo-spectral-rules.yml
-- type: Vocabulary
-  url: vocabulary/zoominfo-vocabulary.yaml
-- name: MCP Server
-  url: https://github.com/Zoominfo/zoominfo-mcp-plugin
-  type: MCPServer
-created: '2025-02-09'
-modified: '2026-09-16'
-position: Consuming
-description: 'ZoomInfo is a B2B go-to-market intelligence platform whose contact and company database,
-  buyer-intent signals, scoops and news feeds are sold to sales, marketing, operations and recruiting
-  teams. Its API estate is mid-migration: the legacy Enterprise API on api.zoominfo.com is documented
-  as deprecating, while the current GTM API on api.zoominfo.com/gtm ships six published OpenAPI specifications
-  covering data, Copilot, GTM Studio, marketing, agents and platform. ZoomInfo also operates a hosted,
-  OAuth-gated Model Context Protocol server at mcp.zoominfo.com and publishes 35 agent skills and a first-party
-  CLI that talks to that MCP server rather than to REST.'
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
-specificationVersion: '0.23'
 x-enrichment:
-  date: '2026-08-13'
+  date: '2026-10-12'
   status: enriched
-  artifacts_added: 67
-  pass: local-v1
+  artifacts_added: 8
+  pass: local-v5

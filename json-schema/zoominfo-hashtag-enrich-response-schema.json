@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-hashtag-enrich-response-schema.json",
+  "title": "HashtagEnrichResponse",
+  "description": "Hashtag enrich response.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-enrich-api-openapi.yml#/components/schemas/HashtagEnrichResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/HashtagEnrichResponseResource"
+      },
+      "description": "The primary data of the document"
+    },
+    "meta": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/NonPaginatedResultMeta"
+        }
+      ],
+      "description": "Non-standard meta information about the document"
+    }
+  },
+  "$defs": {
+    "HashtagEnrichResponseAttributes": {
+      "type": "object",
+      "properties": {
+        "searchString": {
+          "type": "string",
+          "description": "Search string for a hashtag."
+        },
+        "displayLabel": {
+          "type": "string",
+          "description": "Display label for a hashtag."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the data being returned."
+        },
+        "group": {
+          "type": "string",
+          "description": "Group associated with the hashtag."
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Priority of the hashtag."
+        },
+        "parentCategory": {
+          "type": "string",
+          "description": "Parent Category for the retrieved data."
+        },
+        "displayScore": {
+          "type": "string",
+          "description": "Display score for the hashtag."
+        },
+        "hidden": {
+          "type": "boolean",
+          "description": "Indicates whether the hashtag is hidden."
+        },
+        "categorizedFlag": {
+          "type": "boolean",
+          "description": "Indicates whether the hashtag is categorized."
+        },
+        "label": {
+          "type": "string",
+          "description": "Label for the hashtag."
+        }
+      },
+      "description": "Hashtag enrich response Attributes.",
+      "x-class-extra-annotation": "@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)"
+    },
+    "HashtagEnrichResponseResource": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "Hashtag",
+          "pattern": "Hashtag"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/HashtagEnrichResponseAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Hashtag enrich response resource."
+    },
+    "NonPaginatedResultMeta": {
+      "type": "object",
+      "required": [
+        "totalResults"
+      ],
+      "properties": {
+        "totalResults": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The total number of results based on the specified filters"
+        }
+      },
+      "description": "Metadata for non-paginated results, including the total number of results"
+    }
+  }
+}

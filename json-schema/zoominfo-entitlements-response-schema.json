@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-entitlements-response-schema.json",
+  "title": "EntitlementsResponse",
+  "description": "Response model containing a list of entitlements.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-entitlements-api-openapi.yml#/components/schemas/EntitlementsResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Entitlement"
+      },
+      "description": "The primary data of the document"
+    }
+  },
+  "$defs": {
+    "Entitlement": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "Entitlement",
+          "pattern": "Entitlement"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/EntitlementAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Entitlement resource model."
+    },
+    "EntitlementAttributes": {
+      "type": "object",
+      "required": [
+        "roleCode",
+        "roleName",
+        "roleType",
+        "value"
+      ],
+      "properties": {
+        "roleCode": {
+          "type": "string",
+          "description": "The role code."
+        },
+        "roleName": {
+          "type": "string",
+          "description": "The role name, description of the role."
+        },
+        "roleType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/RoleType"
+            }
+          ],
+          "description": "The role type."
+        },
+        "value": {
+          "type": "string",
+          "description": "The role value, 'Y' indicates entitlement is granted, a number indicates the limit."
+        }
+      },
+      "description": "Entitlement details."
+    },
+    "RoleType": {
+      "type": "string",
+      "enum": [
+        "feature",
+        "integration",
+        "data",
+        "dataset_detail",
+        "action",
+        "intent",
+        "limit",
+        "info",
+        "signal",
+        "vertical_dataset"
+      ],
+      "description": "Role type enumeration."
+    }
+  }
+}

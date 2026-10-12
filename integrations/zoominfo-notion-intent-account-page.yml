@@ -1,0 +1,131 @@
+arazzo: 1.0.1
+info:
+  title: ZoomInfo intent accounts to Notion pages
+  summary: Turn the top ZoomInfo intent company into an enriched Notion page.
+  description: Searches ZoomInfo intent for topics, enriches the top company by the id the intent result returns, and creates a Notion page in a database with the firmographics.
+  version: 1.0.0
+sourceDescriptions:
+- name: zoominfoAuth
+  url: https://raw.githubusercontent.com/api-evangelist/zoominfo/refs/heads/main/openapi/zoominfo-authentication-api-openapi.yml
+  type: openapi
+- name: zoominfoIntentSearch
+  url: https://raw.githubusercontent.com/api-evangelist/zoominfo/refs/heads/main/openapi/zoominfo-intent-search-api-openapi.yml
+  type: openapi
+- name: zoominfoCompanyEnrich
+  url: https://raw.githubusercontent.com/api-evangelist/zoominfo/refs/heads/main/openapi/zoominfo-company-enrich-api-openapi.yml
+  type: openapi
+- name: notionPages
+  url: https://raw.githubusercontent.com/api-evangelist/notion/refs/heads/main/openapi/notion-pages-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: zoominfo-notion-intent-account-page
+  summary: Turn the top ZoomInfo intent company into an enriched Notion page.
+  description: Searches ZoomInfo intent for topics, enriches the top company by the id the intent result returns, and creates a Notion page in a database with the firmographics.
+  inputs:
+    type: object
+    properties:
+      zoominfoUsername:
+        type: string
+      zoominfoPassword:
+        type: string
+      topics:
+        type: array
+        items:
+          type: string
+      databaseId:
+        type: string
+      notionVersion:
+        type: string
+        default: '2022-06-28'
+  steps:
+  - stepId: authenticate
+    description: Exchange ZoomInfo credentials for a 60-minute JWT.
+    operationId: $sourceDescriptions.zoominfoAuth.Authenticate
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.zoominfoUsername
+        password: $inputs.zoominfoPassword
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jwt: $response.body#/jwt
+  - stepId: search-intent
+    description: Find companies showing intent.
+    operationId: $sourceDescriptions.zoominfoIntentSearch.IntentSearch
+    parameters:
+    - &id001
+      name: Authorization
+      in: header
+      value: Bearer {$steps.authenticate.outputs.jwt}
+    requestBody:
+      contentType: application/json
+      payload:
+        topics: $inputs.topics
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      companyId: $response.body#/data/0/company/id
+      topic: $response.body#/data/0/topic
+  - stepId: enrich-company
+    description: Enrich the company by ZoomInfo company id.
+    operationId: $sourceDescriptions.zoominfoCompanyEnrich.CompanyEnrich
+    parameters:
+    - *id001
+    requestBody:
+      contentType: application/json
+      payload:
+        matchCompanyInput:
+        - companyId: $steps.search-intent.outputs.companyId
+        outputFields:
+        - id
+        - name
+        - website
+        - revenue
+        - employeeCount
+        - city
+        - state
+        - country
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      name: $response.body#/data/result/0/data/0/name
+      website: $response.body#/data/result/0/data/0/website
+      revenue: $response.body#/data/result/0/data/0/revenue
+      employeeCount: $response.body#/data/result/0/data/0/employeeCount
+  - stepId: create-page
+    description: Create the account page.
+    operationId: $sourceDescriptions.notionPages.createPage
+    parameters:
+    - name: Notion-Version
+      in: header
+      value: $inputs.notionVersion
+    requestBody:
+      contentType: application/json
+      payload:
+        parent:
+          database_id: $inputs.databaseId
+        properties:
+          Name:
+            title:
+            - text:
+                content: $steps.enrich-company.outputs.name
+          Website:
+            url: $steps.enrich-company.outputs.website
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      pageId: $response.body#/id
+  outputs:
+    pageId: $steps.create-page.outputs.pageId
+x-integration:
+  partner: notion
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-12'
+  generator: provider-integrations-arazzo (enrich local-v5)
+  edge_evidence: https://zapier.com/apps/zoominfo/integrations
+  guessed_steps:
+  - step: authenticate
+    cause: provider-contract
+    why: The Authenticate operation declares only a default response with no schema, so the 200 success code and the /jwt output path are not settled by the spec.

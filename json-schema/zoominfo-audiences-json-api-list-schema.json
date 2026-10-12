@@ -1,0 +1,776 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-audiences-json-api-list-schema.json",
+  "title": "AudiencesJsonApiList",
+  "description": "JSON API model for Audience list.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/AudiencesJsonApiList",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ReadAudience"
+      },
+      "description": "The primary data of the document"
+    },
+    "meta": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Pagination"
+        }
+      ],
+      "description": "Non-standard meta information about the document"
+    },
+    "links": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/AudiencesPagingLinks"
+        }
+      ],
+      "description": "Links related to the primary data"
+    }
+  },
+  "$defs": {
+    "AiTool": {
+      "type": "string",
+      "enum": [
+        "AI_DATA_ANALYSIS",
+        "AI_WEB_RESEARCH",
+        "AI_CONVERSATION_INTELLIGENCE",
+        "AI_EMAILER"
+      ],
+      "description": "Defines AI tool names used by AI columns and data dependency discovery."
+    },
+    "AudienceMeta": {
+      "type": "object",
+      "required": [
+        "createdAt",
+        "createdById",
+        "createdByName",
+        "updatedAt",
+        "updatedById",
+        "updatedByName"
+      ],
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the resource was created",
+          "readOnly": true
+        },
+        "createdById": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "Id of the user who created the resource",
+          "readOnly": true
+        },
+        "createdByName": {
+          "type": "string",
+          "description": "Name of the user who created the resource",
+          "readOnly": true
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the resource was last updated",
+          "readOnly": true
+        },
+        "updatedById": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "Id of the user who last updated the resource",
+          "readOnly": true
+        },
+        "updatedByName": {
+          "type": "string",
+          "description": "Name of the user who last updated the resource",
+          "readOnly": true
+        }
+      },
+      "description": "Metadata for Audience model."
+    },
+    "AudienceType": {
+      "type": "string",
+      "enum": [
+        "CONTACT",
+        "COMPANY"
+      ],
+      "description": "Determines the record type the audience holds. Set at creation and cannot be changed.",
+      "x-enumDescriptions": {
+        "CONTACT": "Person-level records (individuals/contacts).",
+        "COMPANY": "Account-level records (organizations/companies)."
+      }
+    },
+    "AudiencesPagingLinks": {
+      "type": "object",
+      "properties": {
+        "first": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the first page of data"
+        },
+        "last": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the last page of data"
+        },
+        "prev": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the previous page of data"
+        },
+        "next": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the next page of data"
+        }
+      },
+      "description": "Paging links for Audience list."
+    },
+    "ColumnContextInput": {
+      "type": "object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The `columnId` of an existing column in the audience whose values should be included as context for the AI when generating values for the column, OR the `id` of a knowledge base attribute configured."
+        },
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ColumnInputType"
+            }
+          ],
+          "description": "The type of context input. Can be either an existing column (`COLUMN`) or a knowledge base (`KNOWLEDGE_BASE`)."
+        }
+      },
+      "description": "Defines a context input for an AI column, referencing either an existing column in the audience or a knowledge base attribute. This context is used to inform the AI's analysis or generation when producing values for the column."
+    },
+    "ColumnDataType": {
+      "type": "string",
+      "enum": [
+        "TEXT",
+        "BOOLEAN",
+        "DATE",
+        "STRING_LIST",
+        "NUMBER_LIST",
+        "EMAIL_LIST",
+        "PHONE_LIST",
+        "PHONE",
+        "EMAIL",
+        "LARGE_TEXT",
+        "INTEGER",
+        "DECIMAL",
+        "OBJECT",
+        "URL",
+        "URL_LIST",
+        "CHECKBOX",
+        "PERCENT",
+        "OPAQUE_IDENTIFIER",
+        "ORDINAL_IDENTIFIER",
+        "REFERENCE",
+        "PICKLIST",
+        "MULTIPICKLIST",
+        "CURRENCY",
+        "ZI_CONTACT_ID",
+        "ZI_COMPANY_ID",
+        "MARKUP"
+      ],
+      "x-enumDescriptions": {
+        "TEXT": "Text data type representing short text values <2000 characters.",
+        "BOOLEAN": "Boolean data type representing true/false values.",
+        "DATE": "Date data type representing date values.",
+        "STRING_LIST": "String list data type representing a list of string values.",
+        "NUMBER_LIST": "Number list data type representing a list of numeric values.",
+        "EMAIL_LIST": "Email list data type representing a list of email addresses.",
+        "PHONE_LIST": "Phone list data type representing a list of phone numbers.",
+        "PHONE": "Phone data type representing a single phone number.",
+        "EMAIL": "Email data type representing a single email address.",
+        "LARGE_TEXT": "Large text data type representing long text values that could be more than 2000 characters also.",
+        "INTEGER": "Integer data type representing whole number values.",
+        "DECIMAL": "Decimal data type representing decimal number values.",
+        "OBJECT": "Object data type representing complex nested data structures.",
+        "URL": "URL data type representing web addresses.",
+        "URL_LIST": "List of URLs data type representing multiple web addresses.",
+        "CHECKBOX": "Checkbox data type representing boolean values.",
+        "PERCENT": "Percentage data type representing percentage values.",
+        "OPAQUE_IDENTIFIER": "Id Field data type representing identifiers in string format.",
+        "ORDINAL_IDENTIFIER": "Identifier data type representing identifiers in numeric format.",
+        "REFERENCE": "Datatype representing which is linked to another entity.",
+        "PICKLIST": "Picklist data type representing a predefined list of selectable options.",
+        "MULTIPICKLIST": "Multi-picklist data type representing multiple selectable options from a predefined list.",
+        "CURRENCY": "Currency data type representing monetary values.",
+        "ZI_CONTACT_ID": "ZoomInfo Contact ID data type representing unique identifiers for contacts.",
+        "ZI_COMPANY_ID": "ZoomInfo Company ID data type representing unique identifiers for companies.",
+        "MARKUP": "Markup data type representing formatted text or HTML content."
+      }
+    },
+    "ColumnInputType": {
+      "type": "string",
+      "enum": [
+        "COLUMN",
+        "KNOWLEDGE_BASE"
+      ],
+      "description": "Defines the type of context input used for AI column generation.",
+      "x-enumDescriptions": {
+        "COLUMN": "Input source is available in the Audience itself as a column.",
+        "KNOWLEDGE_BASE": "Input source is not available as an Audience column. It is for Account Intelligence or ZoomInfo data."
+      }
+    },
+    "ColumnMeta": {
+      "type": "object",
+      "required": [
+        "createdAt",
+        "createdById",
+        "createdByName",
+        "updatedAt",
+        "updatedById",
+        "updatedByName"
+      ],
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the resource was created",
+          "readOnly": true
+        },
+        "createdById": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "Id of the user who created the resource",
+          "readOnly": true
+        },
+        "createdByName": {
+          "type": "string",
+          "description": "Name of the user who created the resource",
+          "readOnly": true
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the resource was last updated",
+          "readOnly": true
+        },
+        "updatedById": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "Id of the user who last updated the resource",
+          "readOnly": true
+        },
+        "updatedByName": {
+          "type": "string",
+          "description": "Name of the user who last updated the resource",
+          "readOnly": true
+        }
+      },
+      "description": "Metadata for Column model."
+    },
+    "ColumnType": {
+      "type": "string",
+      "enum": [
+        "CUSTOM",
+        "CRM_SEARCH",
+        "CRM",
+        "CSV",
+        "FORMULA",
+        "ACCOUNT_AI",
+        "CONNECTORS",
+        "ROUTING",
+        "SNOWFLAKE",
+        "AI",
+        "ZOOMINFO_COPILOT_SIGNALS",
+        "ZOOMINFO_AUDIENCE",
+        "ZOOMINFO_JOB_POSTINGS",
+        "ZOOMINFO_WEBSIGHTS",
+        "ZOOMINFO_CONTACT_CHANGES",
+        "ZOOMINFO_TECHNOLOGIES",
+        "ZOOMINFO_INTENT",
+        "IN_MARKET_SCORE",
+        "ZOOMINFO_SCOOPS",
+        "ZOOMINFO_COMPANY",
+        "ZOOMINFO_CONTACT",
+        "ZOOMINFO_CUSTOM",
+        "ZOOMINFO_MATCH",
+        "ZOOMINFO_CONTACT_SEARCH",
+        "SIGNALS_AUDIENCE_DEFAULT",
+        "JSON_PARSER",
+        "REFERENCE_MAPPER",
+        "AUDIENCE_LOOKUP",
+        "GRAPHQL_AUDIENCE_DEFAULT",
+        "GRAPHQL",
+        "ACCOUNT_LOOK_ALIKE",
+        "CONTACT_LOOK_ALIKE",
+        "ZOOMINFO_FEDERATED_SEARCH"
+      ]
+    },
+    "FormulaExpressionLanguage": {
+      "type": "string",
+      "enum": [
+        "JAVASCRIPT"
+      ],
+      "description": "Supported expression languages for formula columns.",
+      "x-enumDescriptions": {
+        "JAVASCRIPT": "JavaScript expression language."
+      }
+    },
+    "MatchCriteria": {
+      "type": "object",
+      "required": [
+        "columnId",
+        "mappedTo"
+      ],
+      "properties": {
+        "columnId": {
+          "type": "string",
+          "description": "The `columnId` of the audience column whose value is used as the match input."
+        },
+        "mappedTo": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/MatchFields"
+            }
+          ],
+          "description": "The ZoomInfo attribute this column maps to. For company audiences use fields that are supported for company records; for contact audiences use fields that are supported for contact records."
+        }
+      },
+      "description": "Defines a single match criterion that maps an audience column to a ZoomInfo attribute for row matching during enrichment."
+    },
+    "MatchFields": {
+      "type": "string",
+      "enum": [
+        "COMPANY_WEBSITE",
+        "COMPANY_NAME",
+        "ZOOMINFO_COMPANY_ID",
+        "COMPANY_COUNTRY",
+        "COMPANY_STATE",
+        "COMPANY_CITY",
+        "COMPANY_ZIP_CODE",
+        "COMPANY_PHONE",
+        "COMPANY_TICKER",
+        "COMPANY_LINKEDIN_ID",
+        "COMPANY_IP_ADDRESSES",
+        "COMPANY_METRO_AREA",
+        "COMPANY_LINKEDIN_URL",
+        "COMPANY_FACEBOOK_URL",
+        "COMPANY_TWITTER_URL",
+        "COMPANY_GOOGLE_PLUS_URL",
+        "COMPANY_YOUTUBE_URL",
+        "COMPANY_LOCATION",
+        "COMPANY_LOCATION_CODE",
+        "CONTACT_FIRST_NAME",
+        "CONTACT_LAST_NAME",
+        "CONTACT_EMAIL",
+        "JOB_TITLE",
+        "DIRECT_PHONE",
+        "MOBILE_PHONE",
+        "CONTACT_STREET",
+        "CONTACT_CITY",
+        "CONTACT_STATE",
+        "CONTACT_COUNTRY",
+        "CONTACT_ZIP_CODE",
+        "ZOOMINFO_CONTACT_ID",
+        "CONTACT_MIDDLE_NAME",
+        "CONTACT_LINKEDIN_URL",
+        "CONTACT_TWITTER_URL",
+        "CONTACT_LINKEDIN_COMPANY_ID",
+        "CONTACT_ZOOMINFO_COMPANY_ID",
+        "CONTACT_PARENT_ID",
+        "CONTACT_HASHED_EMAILS",
+        "CONTACT_LINKEDIN_PRIVATE_IDS"
+      ],
+      "x-enumDescriptions": {
+        "COMPANY_WEBSITE": "The domain name associated with the company, e.g. `zoominfo.com`. Supported for both contact and company records.",
+        "COMPANY_NAME": "The name of the company. Supported for both company and contact records.",
+        "ZOOMINFO_COMPANY_ID": "The ZoomInfo unique identifier for the company. Supported for company records.",
+        "COMPANY_COUNTRY": "The country where the company is located. Supported for company records.",
+        "COMPANY_STATE": "The state or province where the company is located. Supported for company records.",
+        "COMPANY_CITY": "The city where the company is located. Supported for company records.",
+        "COMPANY_ZIP_CODE": "The postal or zip code for the company's location. Supported for company records.",
+        "COMPANY_PHONE": "The main phone number for the company. Supported for company records.",
+        "COMPANY_TICKER": "The stock ticker symbol for the company. Supported for company records.",
+        "COMPANY_LINKEDIN_ID": "The LinkedIn company ID for the company. Supported for company records.",
+        "COMPANY_IP_ADDRESSES": "The IP addresses associated with the company. Supported for company records.",
+        "COMPANY_METRO_AREA": "The metropolitan area where the company is located. Supported for company records.",
+        "COMPANY_LINKEDIN_URL": "The LinkedIn profile URL for the company. Supported for company records.",
+        "COMPANY_FACEBOOK_URL": "The Facebook profile URL for the company. Supported for company records.",
+        "COMPANY_TWITTER_URL": "The Twitter profile URL for the company. Supported for company records.",
+        "COMPANY_GOOGLE_PLUS_URL": "The Google Plus profile URL for the company. Supported for company records.",
+        "COMPANY_YOUTUBE_URL": "The YouTube channel URL for the company. Supported for company records.",
+        "COMPANY_LOCATION": "The full location of the company, combining address components. Supported for company records.",
+        "COMPANY_LOCATION_CODE": "The location code representing the company's geographic location. Supported for company records.",
+        "CONTACT_FIRST_NAME": "The first name of the contact. Supported for contact records.",
+        "CONTACT_LAST_NAME": "The last name of the contact. Supported for contact records.",
+        "CONTACT_EMAIL": "The email address of the contact. Supported for contact records.",
+        "JOB_TITLE": "The job title of the contact. Supported for contact records.",
+        "DIRECT_PHONE": "The direct phone number for the contact. Supported for contact records.",
+        "MOBILE_PHONE": "The mobile phone number for the contact. Supported for contact records.",
+        "CONTACT_STREET": "The street address of the contact. Supported for contact records.",
+        "CONTACT_CITY": "The city of the contact's address. Supported for contact records.",
+        "CONTACT_STATE": "The state or province of the contact's address. Supported for contact records.",
+        "CONTACT_COUNTRY": "The country of the contact's address. Supported for contact records.",
+        "CONTACT_ZIP_CODE": "The postal or zip code of the contact's address. Supported for contact records.",
+        "ZOOMINFO_CONTACT_ID": "The ZoomInfo unique identifier for the contact. Supported for contact records.",
+        "CONTACT_MIDDLE_NAME": "The middle name of the contact. Supported for contact records.",
+        "CONTACT_LINKEDIN_URL": "The LinkedIn profile URL for the contact. Supported for contact records.",
+        "CONTACT_TWITTER_URL": "The Twitter profile URL for the contact. Supported for contact records.",
+        "CONTACT_LINKEDIN_COMPANY_ID": "The LinkedIn company ID associated with the contact. Supported for contact records.",
+        "CONTACT_ZOOMINFO_COMPANY_ID": "The ZoomInfo company ID associated with the contact. Supported for contact records.",
+        "CONTACT_PARENT_ID": "The parent record ID for the contact. Supported for contact records.",
+        "CONTACT_HASHED_EMAILS": "The hashed email addresses for the contact. Supported for contact records.",
+        "CONTACT_LINKEDIN_PRIVATE_IDS": "The LinkedIn private IDs for the contact. Supported for contact records."
+      }
+    },
+    "Page": {
+      "type": "object",
+      "required": [
+        "size",
+        "number"
+      ],
+      "properties": {
+        "size": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "Number of items per page"
+        },
+        "number": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "Current page number"
+        }
+      },
+      "description": "Page details for paginated responses."
+    },
+    "Pagination": {
+      "type": "object",
+      "required": [
+        "page",
+        "total"
+      ],
+      "properties": {
+        "page": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Page"
+            }
+          ],
+          "description": "Field representing the current page number"
+        },
+        "total": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "Total number of items available"
+        }
+      },
+      "description": "Pagination details for paginated responses."
+    },
+    "ReadAudience": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "Audience",
+          "pattern": "Audience"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ReadAudienceAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        },
+        "meta": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AudienceMeta"
+            }
+          ],
+          "description": "Non-standard meta information about the resource",
+          "readOnly": true
+        }
+      },
+      "description": "Audience read request resource."
+    },
+    "ReadAudienceAttributes": {
+      "type": "object",
+      "required": [
+        "name",
+        "recordCount",
+        "type",
+        "origin"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the audience."
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional free-text description of the audience's purpose or contents."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional notes about the audience for internal reference."
+        },
+        "recordCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total number of rows currently in the audience. Read-only; updated automatically as rows are added or removed.",
+          "readOnly": true
+        },
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AudienceType"
+            }
+          ],
+          "description": "Record type for this audience. `CONTACT` for person-level records; `COMPANY` for account-level records. Set at creation and cannot be changed."
+        },
+        "folderId": {
+          "type": "string",
+          "description": "UUID of the folder that contains this audience. If omitted on create, a new folder matching the audience name is created automatically."
+        },
+        "origin": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SourceOrigin"
+            }
+          ],
+          "description": "The origin of the audience source",
+          "readOnly": true
+        },
+        "folderName": {
+          "type": "string",
+          "description": "Display name of the folder that contains this audience.",
+          "readOnly": true
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReadColumn"
+          },
+          "description": "The Columns in the audience",
+          "readOnly": true
+        }
+      },
+      "description": "Audience model representing audience details."
+    },
+    "ReadColumn": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "Column",
+          "pattern": "Column"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ReadColumnAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        },
+        "meta": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ColumnMeta"
+            }
+          ],
+          "description": "Non-standard meta information about the resource",
+          "readOnly": true
+        }
+      },
+      "description": "Column Read resource model."
+    },
+    "ReadColumnAttributes": {
+      "type": "object",
+      "required": [
+        "name",
+        "isDeletable",
+        "isEditable",
+        "isExportable",
+        "isFilterable",
+        "isSortable",
+        "columnType"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the column shown in the UI and returned in row responses."
+        },
+        "dataType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ColumnDataType"
+            }
+          ],
+          "description": "Data type of the column. Optional for AI columns; required for static and ZoomInfo match columns."
+        },
+        "isDeletable": {
+          "type": "boolean",
+          "description": "Whether this column can be deleted via the Delete Column endpoint. Read-only; set by the system.",
+          "readOnly": true
+        },
+        "isEditable": {
+          "type": "boolean",
+          "description": "Whether this column's value can be updated via the Update rows endpoint. Read-only; set by the system.",
+          "readOnly": true
+        },
+        "isExportable": {
+          "type": "boolean",
+          "description": "Whether this column's values can be included in data exports. Read-only; set by the system.",
+          "readOnly": true
+        },
+        "isFilterable": {
+          "type": "boolean",
+          "description": "Whether this column supports row filtering via the filterCriteria. Read-only; set by the system.",
+          "readOnly": true
+        },
+        "isFrozen": {
+          "type": "boolean",
+          "description": "Whether this column is pinned (frozen) to the left in grid views. Optional; defaults to `false`.",
+          "default": false
+        },
+        "isHidden": {
+          "type": "boolean",
+          "description": "Whether this column is hidden from grid views. Optional; defaults to `false`.",
+          "default": false
+        },
+        "isSortable": {
+          "type": "boolean",
+          "description": "Whether this column supports row sorting via the List Rows endpoint. Read-only; set by the system.",
+          "readOnly": true
+        },
+        "columnType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ColumnType"
+            }
+          ],
+          "description": "Column type indicating the source and type of this column."
+        },
+        "prompt": {
+          "type": "string",
+          "description": "Formula or AI prompt used to generate values for this column. Returned for `FORMULA` and `AI` columns."
+        },
+        "tool": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/AiTool"
+            }
+          ],
+          "description": "Optional AI tool used to process this AI column. Returned for `AI` columns if a tool was selected."
+        },
+        "dataDependencies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ColumnContextInput"
+          },
+          "description": "List of data dependencies that provide context to the AI model for this column. Returned for `AI` columns if data dependencies were specified."
+        },
+        "scriptConfiguration": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ScriptConfiguration"
+            }
+          ],
+          "description": "Optional script configuration for `FORMULA` columns. Includes generated formula language and expression."
+        },
+        "matchCriteria": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MatchCriteria"
+          },
+          "description": "List of match criteria defining how rows are matched against ZoomInfo data. Returned for `ZOOMINFO_MATCH` columns."
+        }
+      },
+      "description": "Base attributes shared by all column types in an audience."
+    },
+    "ScriptConfiguration": {
+      "type": "object",
+      "required": [
+        "language",
+        "expression"
+      ],
+      "properties": {
+        "language": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/FormulaExpressionLanguage"
+            }
+          ],
+          "description": "Expression language used for formula evaluation."
+        },
+        "expression": {
+          "type": "string",
+          "description": "Generated formula expression evaluated for this column."
+        }
+      },
+      "description": "Optional script configuration returned for `FORMULA` columns. Contains the generated expression and its language."
+    },
+    "SourceOrigin": {
+      "type": "string",
+      "enum": [
+        "CUSTOM",
+        "ZOOMINFO_PUBLIC_API",
+        "CRM",
+        "CSV",
+        "ZOOMINFO_SIGNALS",
+        "SNOWFLAKE",
+        "ZOOMINFO",
+        "DERIVED_ZOOMINFO_CONTACTS",
+        "DERIVED_CRM_CONTACTS",
+        "DERIVED_CRM_ACCOUNTS",
+        "DERIVED_CRM_OPPORTUNITIES",
+        "AUDIENCE_COPY",
+        "GRAPHQL"
+      ],
+      "description": "Indicates how the audience was originally populated. Read-only; set by the system based on the creation method.",
+      "x-enumDescriptions": {
+        "CUSTOM": "Manually created with no linked source dataset.",
+        "ZOOMINFO_PUBLIC_API": "Sourced from ZoomInfo based on search criteria.",
+        "CRM": "Synced from a CRM system.",
+        "CSV": "Imported via CSV file upload.",
+        "ZOOMINFO_SIGNALS": "Built from behavioral signal data.",
+        "SNOWFLAKE": "Sourced from Snowflake data warehouse.",
+        "ZOOMINFO": "Sourced directly from ZoomInfo's database.",
+        "DERIVED_ZOOMINFO_CONTACTS": "Derived from ZoomInfo contacts linked to Zoominfo companies.",
+        "DERIVED_CRM_CONTACTS": "Derived from CRM contact records.",
+        "DERIVED_CRM_ACCOUNTS": "Derived from CRM account records.",
+        "DERIVED_CRM_OPPORTUNITIES": "Derived from CRM opportunity records.",
+        "AUDIENCE_COPY": "Created by copying an existing audience.",
+        "GRAPHQL": "Created via GraphQL workflow."
+      }
+    }
+  }
+}

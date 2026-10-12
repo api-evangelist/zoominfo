@@ -1,0 +1,1803 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/zoominfo/integrations
+- https://n8n.io/integrations/zoominfo/
+- https://composio.dev/toolkits/zoominfo
+checked:
+- https://composio.dev/toolkits/zoominfo
+- https://ecosystem.hubspot.com/marketplace/apps/zoominfo
+- https://monid.ai/tools/zoominfo
+- https://n8n.io/integrations/zoominfo/
+- https://www.make.com/en/integrations/zoominfo (403)
+- https://www.workato.com/integrations/zoominfo
+- https://www.zoominfo.com/integrations
+- https://www.zoominfo.com/partner
+- https://zapier.com/apps/zoominfo/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: zoominfo
+  url: https://zapier.com/apps/zoominfo/integrations
+  external_url: https://zoominfo.com/
+  partner_tier: SILVER
+  triggers:
+  - key: intent_search
+    label: New Intent
+  actions:
+  - key: accountSummary
+    label: Account Summary
+  - key: company_corporate_hierarchy_enrich
+    label: Enrich Corporate Hierarchy
+  - key: company_enrich
+    label: Enrich Company
+  - key: company_ip_enrich
+    label: Reveal IP
+  - key: company_org_chart_enrich
+    label: Enrich Org Charts
+  - key: company_signals_search
+    label: Get Signals
+  - key: enrich_contact
+    label: Enrich Contact
+  - key: enrich_technology
+    label: Enrich Company Technology
+  - key: lookalike_companies
+    label: Find Lookalike Companies
+  - key: lookalike_contact
+    label: Find Lookalike Contacts
+  - key: search_companies
+    label: Search Companies
+  - key: search_contacts
+    label: Search for Contacts
+  - key: search_news
+    label: Search News
+  - key: search_scoops
+    label: Search Scoops
+  - key: _zap_raw_request
+    label: API Request (Beta)
+  searches: []
+- marketplace: n8n
+  channel: open-source-node
+  app: zoominfo
+  url: https://n8n.io/integrations/zoominfo/
+  identity: title
+  pair_pages: 0
+  pairs: []
+- marketplace: composio
+  channel: agent-gateway
+  app: zoominfo
+  url: https://composio.dev/toolkits/zoominfo
+  identity: action-prefix
+  actions:
+  - key: ZOOMINFO_ENRICH_COMPANY
+  - key: ZOOMINFO_ENRICH_CONTACT
+  - key: ZOOMINFO_ENRICH_INTENT
+  - key: ZOOMINFO_ENRICH_LOCATION
+  - key: ZOOMINFO_ENRICH_NEWS
+  - key: ZOOMINFO_ENRICH_SCOOP
+  - key: ZOOMINFO_ENRICH_TECHNOLOGY
+  - key: ZOOMINFO_SEARCH_COMPANY
+  - key: ZOOMINFO_SEARCH_COMPANY_INPUT
+  - key: ZOOMINFO_SEARCH_CONTACT
+  - key: ZOOMINFO_SEARCH_CONTACT_INPUT
+  - key: ZOOMINFO_SEARCH_INTENT_INPUT
+  - key: ZOOMINFO_SEARCH_NEWS
+  - key: ZOOMINFO_SEARCH_NEWS_INPUT
+  - key: ZOOMINFO_SEARCH_SCOOP
+  - key: ZOOMINFO_SEARCH_SCOOP_INPUT
+edges:
+- partner_name: 6sense
+  partner: 6sense
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/6sense
+  direction: unknown
+  relationship: connector-listing
+- partner_name: 8x8
+  partner: 8x8
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/8x8
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Aircall
+  partner: aircall
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/aircall
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Allegrow
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/allegrow
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Alysio
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/alysio
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Amazon Chime
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/amazon-chime
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Amazon Connect
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/amazon-connect
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Amazon Quick
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/amazon-quick
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Amazon Web Services
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/amazon-web-services
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Athean
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/athean
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Avaya
+  partner: avaya
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/avaya
+  direction: unknown
+  relationship: connector-listing
+- partner_name: 'BDO Digital '
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/bdo-digital
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Beyond Codes Inc.
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/beyond-codes-inc
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Bullhorn
+  partner: bullhorn
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/bullhorn
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Buzz
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/buzz
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Bytemine
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/bytemine
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Candid
+  partner: candid
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/candid
+  direction: unknown
+  relationship: connector-listing
+- partner_name: ChatGPT
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/chatgpt
+  direction: unknown
+  relationship: connector-listing
+- partner_name: 'Chili Piper '
+  partner: chili-piper
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/chili-piper
+  direction: unknown
+  relationship: connector-listing
+- partner_name: ChurnZero
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/churnzero
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Clari
+  partner: clari
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/clari
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Claude
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/claude
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Claude Code
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/claude-code
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Clay
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/clay
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Clearbit
+  partner: clearbit
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/clearbit
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Clearslide
+  partner: clearslide
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/clearslide
+  direction: unknown
+  relationship: connector-listing
+- partner_name: ClickUp
+  partner: clickup
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/clickup
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Cloudtalk
+  partner: cloudtalk
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/cloudtalk
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Codex
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/codex
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Compound Growth Marketing
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/compound-growth-marketing
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Conquer
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/conquer
+  direction: unknown
+  relationship: connector-listing
+- partner_name: ContactOut
+  partner: contactout
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/contactout
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Creatio
+  partner: creatio
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/creatio
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Crelate
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/crelate
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Crunchbase
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/crunchbase
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Databricks
+  partner: databricks
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/databricks
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Datagma
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/datagma
+  direction: unknown
+  relationship: connector-listing
+- partner_name: DataGroomr
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/datagroomr
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Delos Intelligence
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/delos-intelligence
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Demodesk
+  partner: demodesk
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/demodesk
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Dialpad Voice
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/dialpad-voice
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Dreamdata
+  partner: dreamdata
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/dreamdata
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Dust
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/dust
+  direction: unknown
+  relationship: connector-listing
+- partner_name: eCore Services
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/ecore-services
+  direction: unknown
+  relationship: connector-listing
+- partner_name: 'Epicbrief '
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/epicbrief
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Exa
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/exa
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Expert Marketing Advisors
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/expert-marketing-advisors
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Facebook
+  partner: facebook
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/facebook
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Findymail
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/findymail-806ed1fb-1900-449b-9cfd-d9dc36195a0a
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Firecrawl
+  partner: firecrawl
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/firecrawl
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Five9
+  partner: five9
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/five9
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Freshworks
+  partner: freshworks
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/freshworks
+  direction: unknown
+  relationship: connector-listing
+- partner_name: FrontSpin
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/frontspin
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Fuze (an 8x8 Company)
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/fuze-an-8x8-company
+  direction: unknown
+  relationship: connector-listing
+- partner_name: G2
+  partner: g2
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/g2
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Gainsight
+  partner: gainsight
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/gainsight
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Genesys
+  partner: genesys
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/genesys
+  direction: unknown
+  relationship: connector-listing
+- partner_name: GetProspect
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/getprospect
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Glean
+  partner: glean
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/glean
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Gmail
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/gmail
+  direction: unknown
+  relationship: connector-listing
+- partner_name: 'Gong '
+  partner: gong
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/gong
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Google Ads
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/google-ads
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Google Agent Development Kit (ADK)
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/google-agent-development-kit-adk
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Google BigQuery
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/google-bigquery
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Google Calendar
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/google-calendar
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Google Cloud Platform
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/google-cloud-platform
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Gemini
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/google-gemini
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Google Meet
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/google-meet
+  direction: unknown
+  relationship: connector-listing
+- partner_name: GoTo Meeting
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/goto-meeting
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Greenhouse
+  partner: greenhouse
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/greenhouse
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Harte Hanks
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/harte-hanks
+  direction: unknown
+  relationship: connector-listing
+- partner_name: HelixScale
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/helixscale
+  direction: unknown
+  relationship: connector-listing
+- partner_name: HG Insights
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/hg-insights
+  direction: unknown
+  relationship: connector-listing
+- partner_name: HitHorizons
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/hithorizons
+  direction: unknown
+  relationship: connector-listing
+- partner_name: HubSpot
+  partner: hubspot
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/hubspot
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Hunter
+  partner: hunter
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/hunter
+  direction: unknown
+  relationship: connector-listing
+- partner_name: IBM watsonx
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/ibm-watsonx
+  direction: unknown
+  relationship: connector-listing
+- partner_name: iCapture by Cvent
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/icapture-by-cvent
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Ignitium
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/ignitium
+  direction: unknown
+  relationship: connector-listing
+- partner_name: InsideSales.com
+  partner: insidesales-com
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/insidesales-com
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Instantly.ai
+  partner: instantly-ai
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/instantly-ai
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Integrate
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/integrate
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Iron Horse
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/iron-horse
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Iybiz Holdings dba Marketbetter
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/iybiz-holdings-dba-marketbetter
+  direction: unknown
+  relationship: connector-listing
+- partner_name: JazzHR
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/jazzhr
+  direction: unknown
+  relationship: connector-listing
+- partner_name: JETNET
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/jetnet
+  direction: unknown
+  relationship: connector-listing
+- partner_name: JobAdder
+  partner: jobadder
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/jobadder
+  direction: unknown
+  relationship: connector-listing
+- partner_name: JobDiva
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/jobdiva
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Klue Labs
+  partner: klue
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/klue
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Koncert
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/koncert
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Konnectify
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/konnectify
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Leadfeeder
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/leadfeeder
+  direction: unknown
+  relationship: connector-listing
+- partner_name: LeadIQ
+  partner: leadiq
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/leadiq
+  direction: unknown
+  relationship: connector-listing
+- partner_name: LeadMagic
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/leadmagic
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Leadsforge
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/leadsforge
+  direction: unknown
+  relationship: connector-listing
+- partner_name: LeanData
+  partner: leandata
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/leandata
+  direction: unknown
+  relationship: connector-listing
+- partner_name: lemlist
+  partner: lemlist
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/lemlist
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Lever
+  partner: lever
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/lever
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Linkedin
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/linkedin
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Make
+  partner: make
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/make
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Manus
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/manus
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Marketo
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/marketo
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Merge
+  partner: merge
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/merge
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Microsoft Copilot
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/microsoft-copilot
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Microsoft Dynamics 365
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/microsoft-dynamics-365
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Microsoft Outlook Calendar
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/microsoft-outlook-calendar
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Microsoft Outlook Email
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/microsoft-outlook-email
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Microsoft Teams
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/microsoft-teams
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Mitel
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/mitel
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Mixmax
+  partner: mixmax
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/mixmax
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Mutiny
+  partner: mutiny
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/mutiny
+  direction: unknown
+  relationship: connector-listing
+- partner_name: n8n
+  partner: n8n
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/n8n
+  direction: unknown
+  relationship: connector-listing
+- partner_name: NeverBounce
+  partner: neverbounce
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/neverbounce-16dc5a70-36d7-48f3-a045-966eb002a06e
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Nooks
+  partner: nooks
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/nooks
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Ocean.io
+  partner: ocean-io
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/ocean-io
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Oracle
+  partner: oracle
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/oracle
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Orum
+  partner: orum
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/orum
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Outreach
+  partner: outreach
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/outreach
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Owler
+  partner: owler
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/owler
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Parallel AI
+  partner: parallel-ai
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/parallel-ai
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Pardot
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/pardot
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Partner UP
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/partner-up
+  direction: unknown
+  relationship: connector-listing
+- partner_name: 'PathFactory '
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/pathfactory
+  direction: unknown
+  relationship: connector-listing
+- partner_name: PCRecruiter
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/pcrecruiter
+  direction: unknown
+  relationship: connector-listing
+- partner_name: People.ai
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/people-ai
+  direction: unknown
+  relationship: connector-listing
+- partner_name: People Data Labs
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/people-data-labs
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Perplexity
+  partner: perplexity
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/perplexity
+  direction: unknown
+  relationship: connector-listing
+- partner_name: PipeDrive
+  partner: pipedrive
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/pipedrive
+  direction: unknown
+  relationship: connector-listing
+- partner_name: PitchBook
+  partner: pitchbook
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/pitchbook
+  direction: unknown
+  relationship: connector-listing
+- partner_name: ProPublica
+  partner: propublica
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/propublica
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Qualified
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/qualified
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Qualified Partners
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/qualified-partners
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Quantum Business Solutions
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/quantum-business-solutions
+  direction: unknown
+  relationship: connector-listing
+- partner_name: RB2B
+  partner: rb2b
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/rb2b
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Reltio
+  partner: reltio
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/reltio
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Replit
+  partner: replit
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/replit
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Revenue.io - RingDNA Dialer
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/revenue-io-ringdna-dialer
+  direction: unknown
+  relationship: connector-listing
+- partner_name: RevenueHoop
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/revenuehoop
+  direction: unknown
+  relationship: connector-listing
+- partner_name: RFDM Solutions
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/rfdm-solutions
+  direction: unknown
+  relationship: connector-listing
+- partner_name: RingCentral
+  partner: ringcentral
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/ringcentral
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Sales Architects
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/sales-architects
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Salesforce
+  partner: salesforce
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/salesforce
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Salesloft
+  partner: salesloft
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/salesloft
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Semrush
+  partner: semrush
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/semrush
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Showpad
+  partner: showpad
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/showpad
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Similarweb
+  partner: similarweb
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/similarweb
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Skaled
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/skaled
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Slack
+  partner: slack
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/slack
+  direction: unknown
+  relationship: connector-listing
+- partner_name: SMARTe
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/smarte
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Smartlead.ai
+  partner: smartlead-ai
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/smartlead-ai
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Snowflake
+  partner: snowflake
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/snowflake
+  direction: unknown
+  relationship: connector-listing
+- partner_name: SourceWhale
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/sourcewhale
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Cursor by SpaceXAI
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/spacexai-cursor
+  direction: unknown
+  relationship: connector-listing
+- partner_name: SpringDB
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/springdb
+  direction: unknown
+  relationship: connector-listing
+- partner_name: SR Pro
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/sr-pro
+  direction: unknown
+  relationship: connector-listing
+- partner_name: SugarCRM
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/sugarcrm
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Sumble
+  partner: sumble
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/sumble
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Superhuman
+  partner: superhuman
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/superhuman
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Surfe
+  partner: surfe
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/surfe
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Talkdesk
+  partner: talkdesk
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/talkdesk
+  direction: unknown
+  relationship: connector-listing
+- partner_name: TechnologyAdvice
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/technologyadvice
+  direction: unknown
+  relationship: connector-listing
+- partner_name: The Alias Group
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/the-alias-group
+  direction: unknown
+  relationship: connector-listing
+- partner_name: TheirStack
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/theirstack
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Top Echelon
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/top-echelon
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Traction Complete
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/traction-complete
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Tray.ai
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/tray
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Trestle
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/trestle
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Truly
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/truly
+  direction: unknown
+  relationship: connector-listing
+- partner_name: TrustRadius
+  partner: trustradius
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/trustradius
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Typeform
+  partner: typeform
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/typeform
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Upcell
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/upcell
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Vercel
+  partner: vercel
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/vercel
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Von
+  partner: von
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/von
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Vonage
+  partner: vonage
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/vonage
+  direction: unknown
+  relationship: connector-listing
+- partner_name: VWO
+  partner: vwo
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/vwo
+  direction: unknown
+  relationship: connector-listing
+- partner_name: WealthEngine
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/wealthengine
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Webex by Cisco
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/webex-by-cisco
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Wiza
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/wiza
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Workato
+  partner: workato
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/workato
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Yelp
+  partner: yelp
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/yelp
+  direction: unknown
+  relationship: connector-listing
+- partner_name: YouCanBook.me
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/youcanbook-me
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Zapier
+  partner: zapier
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/zapier
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Zendesk Talk
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/zendesk-talk
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Zoho CRM
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/zoho-crm
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Zoho Recruit
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/zoho-recruit
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Zoom
+  partner: zoom
+  partner_match: domain
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/zoom
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Zoom Phone
+  partner: null
+  partner_match: null
+  type: claimed
+  evidence: https://www.zoominfo.com/integrations/zoom-phone
+  direction: unknown
+  relationship: connector-listing
+- partner_name: Marketo
+  partner: marketo
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/marketo
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://marketo.com/
+- partner_name: HubSpot
+  partner: hubspot
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/hubspot
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://www.hubspot.com/
+- partner_name: Google Sheets
+  partner: google-sheets
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/google-sheets
+  direction: third-party
+  category: Google
+  partner_url: http://sheets.google.com/
+- partner_name: PlusVibe.ai
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/plusvibeai
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://plusvibe.ai/
+- partner_name: Odoo CRM
+  partner: odoo
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/odoo
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://www.odoo.com/
+- partner_name: Pipedrive
+  partner: pipedrive
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/pipedrive
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://pipedrive.com/
+- partner_name: Google Ads
+  partner: google-ads
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/google-ads
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://ads.google.com/
+- partner_name: Google Drive
+  partner: google-drive
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/google-drive
+  direction: third-party
+  category: File Management & Storage
+  partner_url: https://www.google.com/drive/
+- partner_name: Salesforce
+  partner: salesforce
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/salesforce
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://www.salesforce.com/
+- partner_name: Manatal
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/manatal
+  direction: third-party
+  category: HR Talent & Recruitment
+  partner_url: https://www.manatal.com/
+- partner_name: monday.com
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/monday
+  direction: third-party
+  category: Project Management
+  partner_url: https://monday.com/
+- partner_name: Microsoft Excel
+  partner: null
+  partner_match: null
+  partner_candidate: zapier
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/excel
+  direction: third-party
+  category: Microsoft
+  partner_url: https://zapier.com/office.com
+- partner_name: Pardot
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/pardot
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://www.pardot.com/
+- partner_name: ConnectWise Manage
+  partner: null
+  partner_match: null
+  partner_candidate: skykick
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/connectwise-manage
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: http://www.connectwise.com/
+- partner_name: Zoho CRM
+  partner: zoho-crm
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/zoho-crm
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://go.zoho.com/wOk
+- partner_name: Clay
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/clay
+  direction: third-party
+  category: Spreadsheets
+  partner_url: https://clay.run/
+- partner_name: NetSuite
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/netsuite
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://netsuite.com/
+- partner_name: Notion
+  partner: notion
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/notion
+  direction: third-party
+  category: Task Management
+  partner_url: https://www.notion.so/
+- partner_name: Airtable
+  partner: airtable
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/airtable
+  direction: third-party
+  category: Databases
+  partner_url: https://airtable.com/
+- partner_name: ActiveCampaign
+  partner: activecampaign
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/activecampaign
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.activecampaign.com/?utm_source=unpaid_syndication_website&utm_medium=referral&utm_campaign=zapier_listing
+- partner_name: LinkedIn
+  partner: linkedin
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/linkedin
+  direction: third-party
+  category: Microsoft
+  partner_url: http://www.linkedin.com/
+- partner_name: Apollo
+  partner: apollo
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/apollo
+  direction: third-party
+  category: Sales & CRM
+  partner_url: https://www.apollo.io/
+- partner_name: Microsoft Dynamics 365 CRM
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/microsoft-dynamics-crm
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://dynamics.microsoft.com/
+- partner_name: Bigin by Zoho CRM
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/bigin
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://go.zoho.com/9DS
+- partner_name: Snowflake
+  partner: snowflake
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/snowflake
+  direction: third-party
+  category: Databases
+  partner_url: https://www.snowflake.com/
+- partner_name: Lead Forensics
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/lead-forensics
+  direction: third-party
+  category: Marketing
+  partner_url: https://www.leadforensics.com/
+- partner_name: Act!
+  partner: act
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/act-premium
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: http://www.act.com/
+- partner_name: SmartReach
+  partner: null
+  partner_match: null
+  partner_candidate: zapier
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/smartreach
+  direction: third-party
+  category: Email
+  partner_url: https://zapier.com/smartreach.io
+- partner_name: Followup CRM
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/followup-crm
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: http://app.followupcrm.com/
+- partner_name: GPT Chatbot
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/gpt-chatbot
+  direction: third-party
+  category: AI Chatbots
+  partner_url: https://gptchatbot.it/
+templates:
+- title: Get Slack channel notifications when new companies show intent in ZoomInfo
+  url: https://zapier.com/apps/slack/integrations/zoominfo/1809498/get-slack-channel-notifications-when-new-companies-show-intent-in-zoominfo
+  apps:
+  - zoominfo
+  - slack
+- title: Enrich ZoomInfo companies every time new items are created in your monday.com board
+  url: https://zapier.com/apps/monday/integrations/zoominfo/255598100/enrich-zoominfo-companies-every-time-new-items-are-created-in-your-mondaycom-board
+  apps:
+  - monday
+  - zoominfo
+- title: Create spreadsheet rows in Google Sheets for new intents in ZoomInfo
+  url: https://zapier.com/apps/google-sheets/integrations/zoominfo/255607304/create-spreadsheet-rows-in-google-sheets-for-new-intents-in-zoominfo
+  apps:
+  - zoominfo
+  - google-sheets
+- title: Add new Zoominfo intents to CueGrowth campaigns
+  url: https://zapier.com/apps/cuegrowth/integrations/zoominfo/255611095/add-new-zoominfo-intents-to-cuegrowth-campaigns
+  apps:
+  - zoominfo
+  - cuegrowth
+- title: '"enrich new Pardot prospects in ZoomInfo when added to a list"'
+  url: https://zapier.com/apps/pardot/integrations/zoominfo/255623075/enrich-new-pardot-prospects-in-zoominfo-when-added-to-a-list
+  apps:
+  - pardot
+  - zoominfo
+- title: Get Microsoft Teams channel notifications for new intent signals in ZoomInfo
+  url: https://zapier.com/apps/microsoft-teams/integrations/zoominfo/255638126/get-microsoft-teams-channel-notifications-for-new-intent-signals-in-zoominfo
+  apps:
+  - zoominfo
+  - microsoft-teams
+- title: Send Gmail emails when new companies show intent in ZoomInfo
+  url: https://zapier.com/apps/gmail/integrations/zoominfo/255638127/send-gmail-emails-when-new-companies-show-intent-in-zoominfo
+  apps:
+  - zoominfo
+  - gmail
+- title: Send Microsoft Outlook emails for new intent signals in ZoomInfo
+  url: https://zapier.com/apps/microsoft-outlook/integrations/zoominfo/255638131/send-microsoft-outlook-emails-for-new-intent-signals-in-zoominfo
+  apps:
+  - zoominfo
+  - microsoft-outlook
+- title: Enrich Google Ads lead form entries with ZoomInfo company data
+  url: https://zapier.com/apps/google-ads/integrations/zoominfo/255638134/enrich-google-ads-lead-form-entries-with-zoominfo-company-data
+  apps:
+  - google-ads
+  - zoominfo
+- title: Enhance Google Ads leads with ZoomInfo contact data
+  url: https://zapier.com/apps/google-ads/integrations/zoominfo/255638135/enhance-google-ads-leads-with-zoominfo-contact-data
+  apps:
+  - google-ads
+  - zoominfo
+- title: Enrich LinkedIn Ads lead gen responses with ZoomInfo company data
+  url: https://zapier.com/apps/linkedin-ads/integrations/zoominfo/255638138/enrich-linkedin-ads-lead-gen-responses-with-zoominfo-company-data
+  apps:
+  - linkedin-ads
+  - zoominfo
+- title: Add ZoomInfo contact details to LinkedIn Ads lead gen responses
+  url: https://zapier.com/apps/linkedin-ads/integrations/zoominfo/255638139/add-zoominfo-contact-details-to-linkedin-ads-lead-gen-responses
+  apps:
+  - linkedin-ads
+  - zoominfo
+skips:
+- label: Enrich ZoomInfo companies every time new items are created in your monday.com board
+  cause: partner-contract
+  why: The catalog monday.com contract is a single GraphQL operation (graphql); no REST item read/update operation
+    to bind.
+- label: Enrich Google Ads lead form entries with ZoomInfo company data
+  cause: partner-contract
+  why: No Google Ads operation in the catalog exposes lead-form submissions.
+- label: Enhance Google Ads leads with ZoomInfo contact data
+  cause: partner-contract
+  why: No Google Ads operation in the catalog exposes lead-form submissions.
+note: Partners named on ZoomInfo's own integrations directory (187 entries embedded in the page data; the directory
+  paginates 12 per page in JavaScript). Each evidence URL is that partner's detail page on zoominfo.com.
+template_total: 37

@@ -1,0 +1,263 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-get-rows-json-api-model-schema.json",
+  "title": "GetRowsJsonApiModel",
+  "description": "JSON API model for get Rows.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-audiences-api-openapi.yml#/components/schemas/GetRowsJsonApiModel",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Row"
+      },
+      "description": "The primary data of the document"
+    },
+    "meta": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Pagination"
+        }
+      ],
+      "description": "Non-standard meta information about the document"
+    },
+    "links": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/RowSearchPagingLinks"
+        }
+      ],
+      "description": "Links related to the primary data"
+    }
+  },
+  "$defs": {
+    "CellDetails": {
+      "type": "object",
+      "required": [
+        "columnId",
+        "value",
+        "state"
+      ],
+      "properties": {
+        "columnId": {
+          "type": "string",
+          "description": "The `columnId` identifying which column this cell belongs to."
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/$defs/StringArrayItem"
+            },
+            {
+              "$ref": "#/$defs/NumericArrayItem"
+            }
+          ],
+          "description": "The cell's current value. Type must match the column's `dataType`. Provide on create/update; returned on read. This could be of datatypes `string`, `number`, `boolean`, `string array`, `numeric array`, `JsonString(JsonObject, JsonArrayOfObjects)` depending on the column definition"
+        },
+        "state": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/CellState"
+            }
+          ],
+          "description": "Processing state of this cell. One of `RESULT`, `BLANK`, `LOADING`, `ERROR`, or `NO_RESULT`. Read-only.",
+          "readOnly": true
+        },
+        "errorDetails": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/CellErrorDetails"
+            }
+          ],
+          "description": "Populated only when `state` is `ERROR`. Contains the error reason and whether re-running enrichment is expected to succeed.",
+          "readOnly": true
+        }
+      },
+      "description": "Defines the data and processing state for a single cell within a row."
+    },
+    "CellErrorDetails": {
+      "type": "object",
+      "required": [
+        "summary",
+        "description",
+        "retryable"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "Short human-readable label for the error."
+        },
+        "description": {
+          "type": "string",
+          "description": "Full explanation of the error — what went wrong and why."
+        },
+        "retryable": {
+          "type": "boolean",
+          "description": "Whether re-running enrichment for this cell is expected to succeed. If `false`, the error is permanent until the underlying data issue is resolved."
+        }
+      },
+      "description": "Describes an error that occurred during enrichment for a specific cell."
+    },
+    "CellState": {
+      "type": "string",
+      "enum": [
+        "RESULT",
+        "BLANK",
+        "LOADING",
+        "ERROR",
+        "NO_RESULT"
+      ],
+      "description": "Processing state of a cell value within a row. Indicates whether enrichment has run and what the outcome was.",
+      "x-enumDescriptions": {
+        "RESULT": "A value was successfully retrieved — the cell holds valid data.",
+        "BLANK": "No value has been set — the cell is empty and enrichment has not been attempted.",
+        "LOADING": "Enrichment is currently in progress for this cell — the value is not yet available.",
+        "ERROR": "Enrichment failed for this cell — see `errorDetails` for the reason and whether it is retryable.",
+        "NO_RESULT": "Enrichment completed but returned no data — ZoomInfo found no data for this cell."
+      }
+    },
+    "NumericArrayItem": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "description": "Represents a list of numeric values for a field"
+    },
+    "Page": {
+      "type": "object",
+      "required": [
+        "size",
+        "number"
+      ],
+      "properties": {
+        "size": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "Number of items per page"
+        },
+        "number": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "Current page number"
+        }
+      },
+      "description": "Page details for paginated responses."
+    },
+    "Pagination": {
+      "type": "object",
+      "required": [
+        "page",
+        "total"
+      ],
+      "properties": {
+        "page": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Page"
+            }
+          ],
+          "description": "Field representing the current page number"
+        },
+        "total": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "Total number of items available"
+        }
+      },
+      "description": "Pagination details for paginated responses."
+    },
+    "Row": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "Row",
+          "pattern": "Row"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/RowAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Attributes defining Row."
+    },
+    "RowAttributes": {
+      "type": "object",
+      "required": [
+        "values"
+      ],
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CellDetails"
+          },
+          "description": "Array of cell details for this row. Each entry corresponds to one column identified by `columnId`."
+        }
+      },
+      "description": "Contains all cell data for a row, organized as an array of `CellDetails` objects — one per column."
+    },
+    "RowSearchPagingLinks": {
+      "type": "object",
+      "properties": {
+        "first": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the first page of data"
+        },
+        "last": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the last page of data"
+        },
+        "prev": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the previous page of data"
+        },
+        "next": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the next page of data"
+        }
+      },
+      "description": "Paging links for get Rows."
+    },
+    "StringArrayItem": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Represents a list of string values for a field"
+    }
+  }
+}

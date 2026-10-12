@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: ZoomInfo intent signals to Google Sheets
+  summary: Append new ZoomInfo intent signals as Google Sheets rows.
+  description: Searches ZoomInfo intent for a set of topics and appends the top signal (company, topic, score, date) as a row in a Google Sheet. Mirrors the Zapier template that creates spreadsheet rows
+    for new ZoomInfo intents.
+  version: 1.0.0
+sourceDescriptions:
+- name: zoominfoAuth
+  url: https://raw.githubusercontent.com/api-evangelist/zoominfo/refs/heads/main/openapi/zoominfo-authentication-api-openapi.yml
+  type: openapi
+- name: zoominfoIntentSearch
+  url: https://raw.githubusercontent.com/api-evangelist/zoominfo/refs/heads/main/openapi/zoominfo-intent-search-api-openapi.yml
+  type: openapi
+- name: googleSheetsValues
+  url: https://raw.githubusercontent.com/api-evangelist/google-sheets/refs/heads/main/openapi/google-sheets-values-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: zoominfo-google-sheets-intent-rows
+  summary: Append new ZoomInfo intent signals as Google Sheets rows.
+  description: Searches ZoomInfo intent for a set of topics and appends the top signal (company, topic, score, date) as a row in a Google Sheet. Mirrors the Zapier template that creates spreadsheet rows
+    for new ZoomInfo intents.
+  inputs:
+    type: object
+    properties:
+      zoominfoUsername:
+        type: string
+      zoominfoPassword:
+        type: string
+      topics:
+        type: array
+        items:
+          type: string
+      spreadsheetId:
+        type: string
+      range:
+        type: string
+  steps:
+  - stepId: authenticate
+    description: Exchange ZoomInfo credentials for a 60-minute JWT.
+    operationId: $sourceDescriptions.zoominfoAuth.Authenticate
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.zoominfoUsername
+        password: $inputs.zoominfoPassword
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jwt: $response.body#/jwt
+  - stepId: search-intent
+    description: Find companies showing intent on the topics.
+    operationId: $sourceDescriptions.zoominfoIntentSearch.IntentSearch
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer {$steps.authenticate.outputs.jwt}
+    requestBody:
+      contentType: application/json
+      payload:
+        topics: $inputs.topics
+        signalScoreMin: 60
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      companyName: $response.body#/data/0/company/name
+      topic: $response.body#/data/0/topic
+      signalScore: $response.body#/data/0/signalScore
+      signalDate: $response.body#/data/0/signalDate
+  - stepId: append-row
+    description: Append the signal as a sheet row.
+    operationId: $sourceDescriptions.googleSheetsValues.appendValues
+    parameters:
+    - name: spreadsheetId
+      in: path
+      value: $inputs.spreadsheetId
+    - name: range
+      in: path
+      value: $inputs.range
+    - name: valueInputOption
+      in: query
+      value: USER_ENTERED
+    requestBody:
+      contentType: application/json
+      payload:
+        values:
+        - - $steps.search-intent.outputs.companyName
+          - $steps.search-intent.outputs.topic
+          - $steps.search-intent.outputs.signalScore
+          - $steps.search-intent.outputs.signalDate
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      updatedRange: $response.body#/updates/updatedRange
+  outputs:
+    updatedRange: $steps.append-row.outputs.updatedRange
+x-integration:
+  partner: google-sheets
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-12'
+  generator: provider-integrations-arazzo (enrich local-v5)
+  template: https://zapier.com/apps/google-sheets/integrations/zoominfo/255607304/create-spreadsheet-rows-in-google-sheets-for-new-intents-in-zoominfo
+  edge_evidence: https://zapier.com/apps/zoominfo/integrations
+  guessed_steps:
+  - step: authenticate
+    cause: provider-contract
+    why: The Authenticate operation declares only a default response with no schema, so the 200 success code and the /jwt output path are not settled by the spec.

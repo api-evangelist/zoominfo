@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-news-search-response-schema.json",
+  "title": "NewsSearchResponse",
+  "description": "A list of News that match the criteria specified in the request",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-search-api-openapi.yml#/components/schemas/NewsSearchResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/NewsResponse"
+      },
+      "description": "The primary data of the document"
+    },
+    "meta": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ResultMeta"
+        }
+      ],
+      "description": "Non-standard meta information about the document"
+    },
+    "links": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Links"
+        }
+      ],
+      "description": "Links related to the primary data"
+    }
+  },
+  "$defs": {
+    "Links": {
+      "type": "object",
+      "properties": {
+        "first": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the first page of data"
+        },
+        "last": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the last page of data"
+        },
+        "prev": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the previous page of data"
+        },
+        "next": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the next page of data"
+        }
+      },
+      "description": "Helpful links for fetching different pages of data from the current result set. When using these links, please provide the exact same request body between requests"
+    },
+    "NewsCompany": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Unique ZoomInfo identifier for the company."
+        },
+        "name": {
+          "type": "string",
+          "description": "Company name."
+        }
+      },
+      "description": "Company related to the news article."
+    },
+    "NewsResponse": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "News",
+          "pattern": "News"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/NewsResponseAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "News"
+    },
+    "NewsResponseAttributes": {
+      "type": "object",
+      "properties": {
+        "domain": {
+          "type": "string",
+          "description": "Domain name of the news source."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the news article."
+        },
+        "url": {
+          "type": "string",
+          "description": "Full URL of the article."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the article image."
+        },
+        "pageDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Publish date of the article."
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Categories assigned to the article."
+        },
+        "description": {
+          "type": "string",
+          "description": "Summary or body of the article."
+        },
+        "company": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/NewsCompany"
+          },
+          "description": "Companies mentioned in the article."
+        }
+      },
+      "description": "Attributes of a single news result."
+    },
+    "Page": {
+      "type": "object",
+      "required": [
+        "total",
+        "number"
+      ],
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The total number of pages within the current result set"
+        },
+        "number": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The current page number of the results"
+        }
+      },
+      "description": "Meta information related to the current page and total number of pages"
+    },
+    "ResultMeta": {
+      "type": "object",
+      "required": [
+        "totalResults",
+        "page"
+      ],
+      "properties": {
+        "totalResults": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The total number of results based on the specified filters"
+        },
+        "page": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Page"
+            }
+          ],
+          "description": "Paging information for the current result set"
+        }
+      },
+      "description": "Metadata including paging information and the total number of records in the result set"
+    }
+  }
+}

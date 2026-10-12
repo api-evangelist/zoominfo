@@ -1,0 +1,252 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-content-interaction-response-schema.json",
+  "title": "ContentInteractionResponse",
+  "description": "Response model for getting a specific content interaction",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-engagements-api-openapi.yml#/components/schemas/ContentInteractionResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ContentInteraction"
+        }
+      ],
+      "description": "The primary data of the document"
+    }
+  },
+  "$defs": {
+    "Channel": {
+      "type": "string",
+      "enum": [
+        "Website",
+        "Email"
+      ]
+    },
+    "ContentInteraction": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "ContentInteraction",
+          "pattern": "ContentInteraction"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ContentInteractionAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Content interaction model"
+    },
+    "ContentInteractionAttributes": {
+      "type": "object",
+      "required": [
+        "engagementId",
+        "instanceId",
+        "channel",
+        "interactionType",
+        "contentType",
+        "actionPerformedAt",
+        "status",
+        "participant"
+      ],
+      "properties": {
+        "engagementId": {
+          "type": "string",
+          "description": "Unique content interaction identifier"
+        },
+        "instanceId": {
+          "type": "string",
+          "description": "Unique identifier of the customer's organization/tenant/instance in the external platform where the data originated (e.g. unique CRM Organization Id)"
+        },
+        "instanceUrl": {
+          "type": "string",
+          "description": "Unique URL of the customer's organization/tenant/instance in the external platform where the data originated (e.g. unique CRM Organization Url)"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Length of interaction in seconds (if applicable)"
+        },
+        "interactionProvider": {
+          "type": "string",
+          "description": "Name of the system where the interaction data originated",
+          "readOnly": true
+        },
+        "channel": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Channel"
+            }
+          ],
+          "description": "Source or medium through which the interaction occurred"
+        },
+        "interactionDetails": {
+          "type": "object",
+          "additionalProperties": {},
+          "description": "Include all attributes for this interaction that do not fit into the ContentInteraction schema (as key-value pairs)"
+        },
+        "interactionType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/InteractionType"
+            }
+          ],
+          "description": "Specific action performed during the interaction. Note: When interactionType = Send, email sends (contentType = Email) are not accepted here — email send events must be submitted via the dedicated Email object."
+        },
+        "contentType": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ContentType"
+            }
+          ],
+          "description": "Category or format of the content that received the interaction. Note: Email Sends (interactionType = Send and contentType = Email) are not accepted here — email send events must be submitted via the dedicated Email object."
+        },
+        "actionPerformedAt": {
+          "type": "string",
+          "description": "Timestamp when the interaction started (if duration is present, this is the start time)"
+        },
+        "endedAt": {
+          "type": "string",
+          "description": "Timestamp when the interaction ended (can be calculated from actionPerformedAt + duration if not explicitly provided)"
+        },
+        "targetUrl": {
+          "type": "string",
+          "description": "Target URL"
+        },
+        "targetName": {
+          "type": "string",
+          "description": "Target name"
+        },
+        "status": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Status"
+            }
+          ],
+          "description": "Interaction status"
+        },
+        "participant": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ParticipantAttributes"
+            }
+          ],
+          "description": "The participant associated with this content interaction"
+        }
+      },
+      "description": "Content interaction engagement record attributes"
+    },
+    "ContentType": {
+      "type": "string",
+      "enum": [
+        "Demo",
+        "Document",
+        "Email",
+        "Form",
+        "Video",
+        "Website"
+      ]
+    },
+    "InteractionType": {
+      "type": "string",
+      "enum": [
+        "Click",
+        "Save",
+        "Send",
+        "Sign",
+        "Submit",
+        "View"
+      ]
+    },
+    "ParticipantAttributes": {
+      "type": "object",
+      "required": [
+        "companyDomain"
+      ],
+      "properties": {
+        "participantId": {
+          "type": "string",
+          "description": "Unique participant identifier"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Phone number"
+        },
+        "ipAddress": {
+          "type": "string",
+          "description": "IP address"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name"
+        },
+        "firstName": {
+          "type": "string",
+          "description": "First name"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last name"
+        },
+        "title": {
+          "type": "string",
+          "description": "Job title"
+        },
+        "seniority": {
+          "type": "string",
+          "description": "Seniority level"
+        },
+        "companyDomain": {
+          "type": "string",
+          "description": "Company domain"
+        },
+        "companyName": {
+          "type": "string",
+          "description": "Company name"
+        },
+        "ziPersonId": {
+          "type": "string",
+          "description": "ZoomInfo person ID",
+          "readOnly": true
+        },
+        "ziCompanyId": {
+          "type": "string",
+          "description": "ZoomInfo company ID",
+          "readOnly": true
+        }
+      },
+      "description": "Participant model with common properties."
+    },
+    "Status": {
+      "type": "string",
+      "enum": [
+        "Completed"
+      ]
+    }
+  }
+}

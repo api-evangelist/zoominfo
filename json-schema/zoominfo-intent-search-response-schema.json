@@ -1,0 +1,260 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-intent-search-response-schema.json",
+  "title": "IntentSearchResponse",
+  "description": "A list of intents that match the criteria specified in the request",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-search-api-openapi.yml#/components/schemas/IntentSearchResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/IntentResponse"
+      },
+      "description": "The primary data of the document"
+    },
+    "meta": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ResultMeta"
+        }
+      ],
+      "description": "Non-standard meta information about the document"
+    },
+    "links": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Links"
+        }
+      ],
+      "description": "Links related to the primary data"
+    }
+  },
+  "$defs": {
+    "IntentCompany": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ZoomInfo unique identifier for the company."
+        },
+        "name": {
+          "type": "string",
+          "description": "Company name."
+        },
+        "website": {
+          "type": "string",
+          "description": "Company domain."
+        },
+        "hasOtherTopicConsumption": {
+          "type": "boolean",
+          "description": "Indicates whether a company has other topics with increased consumption. Values are true and false."
+        }
+      },
+      "description": "ZoomInfo Company"
+    },
+    "IntentResponse": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "Intent",
+          "pattern": "Intent"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/IntentSearchResponseAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "ZoomInfo Intent"
+    },
+    "IntentSearchResponseAttributes": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string",
+          "description": "Intent category."
+        },
+        "topic": {
+          "type": "string",
+          "description": "Intent topic."
+        },
+        "signalScore": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Signal score for the topic."
+        },
+        "audienceStrength": {
+          "type": "string",
+          "description": "Audience strength for the topic."
+        },
+        "signalDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date the signal was identified."
+        },
+        "company": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/IntentCompany"
+            }
+          ],
+          "description": "Company data for the intent topic."
+        },
+        "recommendedContacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecommendedContact"
+          },
+          "description": "Suggested contacts at the company that are related to the intent topic."
+        },
+        "spikesInDateRange": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The total number of intent signals detected during your specified timeframe."
+        }
+      },
+      "description": "Response attributes for intent search.",
+      "x-class-extra-annotation": "@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)"
+    },
+    "JobFunction": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the job function."
+        },
+        "department": {
+          "type": "string",
+          "description": "Department associated with the job function."
+        }
+      },
+      "description": "Contact job function at current place of employment."
+    },
+    "Links": {
+      "type": "object",
+      "properties": {
+        "first": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the first page of data"
+        },
+        "last": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the last page of data"
+        },
+        "prev": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the previous page of data"
+        },
+        "next": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the next page of data"
+        }
+      },
+      "description": "Helpful links for fetching different pages of data from the current result set. When using these links, please provide the exact same request body between requests"
+    },
+    "Page": {
+      "type": "object",
+      "required": [
+        "total",
+        "number"
+      ],
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The total number of pages within the current result set"
+        },
+        "number": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The current page number of the results"
+        }
+      },
+      "description": "Meta information related to the current page and total number of pages"
+    },
+    "RecommendedContact": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique ZoomInfo identifier for the contact."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "Contact first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Contact last name."
+        },
+        "jobTitle": {
+          "type": "string",
+          "description": "Contact job title at current place of employment."
+        },
+        "companyName": {
+          "type": "string",
+          "description": "Company name of the contact."
+        },
+        "jobFunctions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/JobFunction"
+          },
+          "description": "Contact's job functions. This is an array of job functions that the contact holds or has held."
+        }
+      },
+      "description": "Recommended contact for intent search response."
+    },
+    "ResultMeta": {
+      "type": "object",
+      "required": [
+        "totalResults",
+        "page"
+      ],
+      "properties": {
+        "totalResults": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The total number of results based on the specified filters"
+        },
+        "page": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Page"
+            }
+          ],
+          "description": "Paging information for the current result set"
+        }
+      },
+      "description": "Metadata including paging information and the total number of records in the result set"
+    }
+  }
+}

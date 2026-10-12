@@ -1,0 +1,18 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://www.zoominfo.com/legal/subprocessors
+signals:
+  subprocessors:
+    url: https://www.zoominfo.com/legal/subprocessors
+    note: Dated sub-processor table (third-party and affiliate sub-processors with location and processing description), "Updated July 17, 2026".
+    evidence:
+    - source: https://www.zoominfo.com/legal/subprocessors
+      http_status: 200
+      fetched: '2026-10-12'
+      quote: Wasabi Technologies LLC USA Data storage https://wasabi.com/ 111 Huntington Avenue Suite 2900 Boston, MA 02199
+checked:
+- url: https://www.zoominfo.com/legal/subprocessors
+  status: 200
+- url: https://www.zoominfo.com/accessibility
+  status: 404

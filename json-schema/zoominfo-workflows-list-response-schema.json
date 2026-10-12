@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-workflows-list-response-schema.json",
+  "title": "WorkflowsListResponse",
+  "description": "Response containing a list of workflows",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-workflows-api-openapi.yml#/components/schemas/WorkflowsListResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Workflow"
+      },
+      "description": "The primary data of the document"
+    },
+    "meta": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/GetWorkflowsMeta"
+        }
+      ],
+      "description": "Non-standard meta information about the document"
+    },
+    "links": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/GetWorkflowsLinks"
+        }
+      ],
+      "description": "Links related to the primary data"
+    }
+  },
+  "$defs": {
+    "GetWorkflowsLinks": {
+      "type": "object",
+      "properties": {
+        "first": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the first page of data"
+        },
+        "last": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the last page of data"
+        },
+        "prev": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the previous page of data"
+        },
+        "next": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the next page of data"
+        }
+      },
+      "description": "Links describing the various workflows paging options"
+    },
+    "GetWorkflowsMeta": {
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize",
+        "totalCount"
+      ],
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The current page of workflows being returned"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The page size as specified by the request"
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The total count of workflows within the current search parameters"
+        }
+      },
+      "description": "Metadata for the current page of workflows returned"
+    },
+    "Workflow": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "Workflow",
+          "pattern": "Workflow"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/WorkflowAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Workflow resource model"
+    },
+    "WorkflowAttributes": {
+      "type": "object",
+      "required": [
+        "name",
+        "active",
+        "runnableOnDemand",
+        "lastUpdated",
+        "createdAt"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the workflow"
+        },
+        "active": {
+          "type": "boolean",
+          "description": "Activation status of the workflow"
+        },
+        "runnableOnDemand": {
+          "type": "boolean",
+          "description": "Whether the workflow can be executed on demand"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp",
+          "readOnly": true
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Created timestamp",
+          "readOnly": true
+        }
+      },
+      "description": "Attributes for a workflow in the list response"
+    }
+  }
+}

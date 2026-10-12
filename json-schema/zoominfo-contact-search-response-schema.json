@@ -1,0 +1,287 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-contact-search-response-schema.json",
+  "title": "ContactSearchResponse",
+  "description": "A list of contacts that match the criteria specified in the request",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-search-api-openapi.yml#/components/schemas/ContactSearchResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Contact"
+      },
+      "description": "The primary data of the document"
+    },
+    "meta": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ResultMeta"
+        }
+      ],
+      "description": "Non-standard meta information about the document"
+    },
+    "links": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Links"
+        }
+      ],
+      "description": "Links related to the primary data"
+    }
+  },
+  "$defs": {
+    "Contact": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "Contact",
+          "pattern": "Contact"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ContactSearchResponseAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "ZoomInfo Contact"
+    },
+    "ContactCompanySearch": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Unique ZoomInfo identifier for a company."
+        },
+        "name": {
+          "type": "string",
+          "description": "Company Name."
+        }
+      },
+      "description": "Contact's company data."
+    },
+    "ContactSearchResponseAttributes": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "description": "Contact first name."
+        },
+        "middleName": {
+          "type": "string",
+          "description": "Contact middle name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Contact last name."
+        },
+        "validDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date on which the contact record was last validated."
+        },
+        "lastUpdatedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date on which the contact record was last updated."
+        },
+        "jobTitle": {
+          "type": "string",
+          "description": "Contact job title at current place of employment."
+        },
+        "contactAccuracyScore": {
+          "type": "number",
+          "format": "double",
+          "description": "This score indicates the likelihood that a contact is reachable and still employed by the company listed. Minimum score is 75 and maximum is 99."
+        },
+        "managementLevel": {
+          "type": "string",
+          "description": "Comma-separated list of contact management levels."
+        },
+        "school": {
+          "type": "string",
+          "description": "Get last Education information."
+        },
+        "hasEmail": {
+          "type": "boolean",
+          "description": "Indicates whether ZoomInfo has an email address for the contact."
+        },
+        "hasSupplementalEmail": {
+          "type": "boolean",
+          "description": "Indicates whether ZoomInfo has a supplemental email address for the contact."
+        },
+        "hasDirectPhone": {
+          "type": "boolean",
+          "description": "Indicates whether ZoomInfo has a direct phone number for the contact."
+        },
+        "hasMobilePhone": {
+          "type": "boolean",
+          "description": "Indicates whether ZoomInfo has a mobile phone number for the contact."
+        },
+        "hasCompanyIndustry": {
+          "type": "boolean",
+          "description": "Indicates whether ZoomInfo has company industry for the contact."
+        },
+        "hasCompanyPhone": {
+          "type": "boolean",
+          "description": "Indicates whether ZoomInfo has a company phone number for the contact."
+        },
+        "hasCompanyStreet": {
+          "type": "boolean",
+          "description": "Indicates whether ZoomInfo has a street address for the contact."
+        },
+        "hasCompanyState": {
+          "type": "boolean",
+          "description": "Indicates whether ZoomInfo has a state for the contact."
+        },
+        "hasCompanyZipCode": {
+          "type": "boolean",
+          "description": "Indicates whether ZoomInfo has a zip code or postal code for the contact."
+        },
+        "hasCompanyCountry": {
+          "type": "boolean",
+          "description": "Indicates whether ZoomInfo has a country for the contact."
+        },
+        "hasCompanyRevenue": {
+          "type": "boolean",
+          "description": "Indicates whether ZoomInfo has company revenue data for the contact."
+        },
+        "hasCompanyEmployeeCount": {
+          "type": "boolean",
+          "description": "Indicates whether ZoomInfo has company headcount data for the contact."
+        },
+        "directPhoneDoNotCall": {
+          "type": "boolean",
+          "description": "Contact flagged with do not call for direct phone."
+        },
+        "mobilePhoneDoNotCall": {
+          "type": "boolean",
+          "description": "Contact flagged with do not call for mobile phone."
+        },
+        "managementStatus": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ManagementStatus"
+            }
+          ],
+          "description": "Management status of the record."
+        },
+        "company": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ContactCompanySearch"
+            }
+          ],
+          "description": "Contact's company data for search request."
+        }
+      },
+      "description": "Response attributes for contact search.",
+      "x-class-extra-annotation": "@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)"
+    },
+    "Links": {
+      "type": "object",
+      "properties": {
+        "first": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the first page of data"
+        },
+        "last": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the last page of data"
+        },
+        "prev": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the previous page of data"
+        },
+        "next": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the next page of data"
+        }
+      },
+      "description": "Helpful links for fetching different pages of data from the current result set. When using these links, please provide the exact same request body between requests"
+    },
+    "ManagementStatus": {
+      "type": "object",
+      "properties": {
+        "underManagement": {
+          "type": "boolean",
+          "description": "Indicates whether record is under management within the contract period."
+        },
+        "purchaseDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Indicates when record was purchased if it is under management."
+        }
+      },
+      "description": "Management status of the record."
+    },
+    "Page": {
+      "type": "object",
+      "required": [
+        "total",
+        "number"
+      ],
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The total number of pages within the current result set"
+        },
+        "number": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The current page number of the results"
+        }
+      },
+      "description": "Meta information related to the current page and total number of pages"
+    },
+    "ResultMeta": {
+      "type": "object",
+      "required": [
+        "totalResults",
+        "page"
+      ],
+      "properties": {
+        "totalResults": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The total number of results based on the specified filters"
+        },
+        "page": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Page"
+            }
+          ],
+          "description": "Paging information for the current result set"
+        }
+      },
+      "description": "Metadata including paging information and the total number of records in the result set"
+    }
+  }
+}

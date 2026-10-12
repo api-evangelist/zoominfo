@@ -1,0 +1,201 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-company-search-response-schema.json",
+  "title": "CompanySearchResponse",
+  "description": "A list of companies that match the criteria specified in the request",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-search-api-openapi.yml#/components/schemas/CompanySearchResponse",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CompanyResponse"
+      },
+      "description": "The primary data of the document"
+    },
+    "meta": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ResultMeta"
+        }
+      ],
+      "description": "Non-standard meta information about the document"
+    },
+    "links": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Links"
+        }
+      ],
+      "description": "Links related to the primary data"
+    }
+  },
+  "$defs": {
+    "CompanyResponse": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "Company",
+          "pattern": "Company"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/CompanySearchResponseAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "ZoomInfo Company"
+    },
+    "CompanySearchResponseAttributes": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Company Name."
+        },
+        "city": {
+          "type": "string",
+          "description": "City of the company's primary address."
+        },
+        "state": {
+          "type": "string",
+          "description": "State or province of the company's primary address."
+        },
+        "country": {
+          "type": "string",
+          "description": "Country of the company's primary address."
+        },
+        "revenue": {
+          "type": "string",
+          "description": "Approximate yearly revenue for the company in 1000's. For example, a 100M company is expressed as 100000."
+        },
+        "employeeCount": {
+          "type": "string",
+          "description": "Approximate number of people employed by the company."
+        },
+        "website": {
+          "type": "string",
+          "description": "Company website URL."
+        },
+        "logo": {
+          "type": "string",
+          "description": "The URL which can be used to retrieve the logo for the company."
+        },
+        "managementStatus": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ManagementStatus"
+            }
+          ],
+          "description": "Management status of the record."
+        }
+      },
+      "description": "Response attributes for company search.",
+      "x-class-extra-annotation": "@com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)"
+    },
+    "Links": {
+      "type": "object",
+      "properties": {
+        "first": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the first page of data"
+        },
+        "last": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the last page of data"
+        },
+        "prev": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the previous page of data"
+        },
+        "next": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the next page of data"
+        }
+      },
+      "description": "Helpful links for fetching different pages of data from the current result set. When using these links, please provide the exact same request body between requests"
+    },
+    "ManagementStatus": {
+      "type": "object",
+      "properties": {
+        "underManagement": {
+          "type": "boolean",
+          "description": "Indicates whether record is under management within the contract period."
+        },
+        "purchaseDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Indicates when record was purchased if it is under management."
+        }
+      },
+      "description": "Management status of the record."
+    },
+    "Page": {
+      "type": "object",
+      "required": [
+        "total",
+        "number"
+      ],
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The total number of pages within the current result set"
+        },
+        "number": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The current page number of the results"
+        }
+      },
+      "description": "Meta information related to the current page and total number of pages"
+    },
+    "ResultMeta": {
+      "type": "object",
+      "required": [
+        "totalResults",
+        "page"
+      ],
+      "properties": {
+        "totalResults": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "The total number of results based on the specified filters"
+        },
+        "page": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Page"
+            }
+          ],
+          "description": "Paging information for the current result set"
+        }
+      },
+      "description": "Metadata including paging information and the total number of records in the result set"
+    }
+  }
+}

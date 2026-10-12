@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/zoominfo/main/json-schema/zoominfo-run-agent-team-request-body-schema.json",
+  "title": "RunAgentTeamRequestBody",
+  "description": "Request body for running an Agent Team.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/zoominfo-agent-teams-api-openapi.yml#/components/schemas/RunAgentTeamRequestBody",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/RunAgentTeamRequest"
+        }
+      ],
+      "description": "The primary data of the document"
+    }
+  },
+  "$defs": {
+    "AgentTeamInput": {
+      "type": "object",
+      "required": [
+        "name",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the Agent Team input."
+        },
+        "value": {
+          "type": "string",
+          "description": "Value supplied for the input."
+        }
+      },
+      "description": "Input parameter passed to an Agent Team run."
+    },
+    "RunAgentTeamRequest": {
+      "type": "object",
+      "required": [
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of the resource",
+          "default": "RunAgentTeamRequest",
+          "pattern": "RunAgentTeamRequest"
+        },
+        "attributes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/RunAgentTeamRequestAttributes"
+            }
+          ],
+          "description": "The attributes defining the resource"
+        }
+      },
+      "description": "Agent Team run request resource."
+    },
+    "RunAgentTeamRequestAttributes": {
+      "type": "object",
+      "properties": {
+        "inputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AgentTeamInput"
+          },
+          "description": "Optional list of named input values to pass to the Agent Team."
+        }
+      },
+      "description": "Attributes for an Agent Team run request."
+    }
+  }
+}
