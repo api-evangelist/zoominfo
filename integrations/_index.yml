@@ -44,6 +44,7 @@
   status: arazzo
 - slug: zoominfo-enrich-new-pardot-prospects-in-zoominfo-when-added-to-a-list
   label: '"enrich new Pardot prospects in ZoomInfo when added to a list"'
+  partner: pardot
   partner_name: Pardot
   category: Marketing Automation
   use_case: '"enrich new Pardot prospects in ZoomInfo when added to a list"'
@@ -53,8 +54,8 @@
   evidence: https://zapier.com/apps/pardot/integrations/zoominfo/255623075/enrich-new-pardot-prospects-in-zoominfo-when-added-to-a-list
   template: https://zapier.com/apps/pardot/integrations/zoominfo/255623075/enrich-new-pardot-prospects-in-zoominfo-when-added-to-a-list
   source: template
-  status: pending-partner-spec
-  arazzo: null
+  arazzo: zoominfo-pardot-enrich-prospect.yml
+  status: arazzo
 - slug: zoominfo-get-microsoft-teams-channel-notifications-for-new-intent-signals-in-zoominfo
   label: Get Microsoft Teams channel notifications for new intent signals in ZoomInfo
   partner_name: Microsoft Teams

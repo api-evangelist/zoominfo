@@ -928,8 +928,9 @@ edges:
   direction: unknown
   relationship: connector-listing
 - partner_name: Pardot
-  partner: null
-  partner_match: null
+  partner: pardot
+  partner_match: domain+verified
+  partner_note: "https://www.zoominfo.com/integrations/pardot links http://www.pardot.com, which redirects to https://www.salesforce.com/marketing/b2b-automation/ -- exactly the pardot Website; shared salesforce.com resolves to pardot (verified 2026-10-13)."
   type: claimed
   evidence: https://www.zoominfo.com/integrations/pardot
   direction: unknown
@@ -1529,8 +1530,9 @@ edges:
   category: Microsoft
   partner_url: https://zapier.com/office.com
 - partner_name: Pardot
-  partner: null
-  partner_match: null
+  partner: pardot
+  partner_match: domain+verified
+  partner_note: "zapier.com/apps/zoominfo/integrations/pardot links http://www.pardot.com/ -> salesforce.com/marketing/b2b-automation/, exactly the pardot Website (verified 2026-10-13)."
   partner_candidate: null
   type: marketplace
   marketplace: zapier
