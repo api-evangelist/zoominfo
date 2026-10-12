@@ -17,7 +17,6 @@
   arazzo: null
 - slug: zoominfo-enrich-zoominfo-companies-every-time-new-items-are-created-in-your-monday-com-boa
   label: Enrich ZoomInfo companies every time new items are created in your monday.com board
-  partner: monday-com
   partner_name: monday.com
   category: Project Management
   use_case: Enrich ZoomInfo companies every time new items are created in your monday.com board
@@ -27,7 +26,7 @@
   evidence: https://zapier.com/apps/monday/integrations/zoominfo/255598100/enrich-zoominfo-companies-every-time-new-items-are-created-in-your-mondaycom-board
   template: https://zapier.com/apps/monday/integrations/zoominfo/255598100/enrich-zoominfo-companies-every-time-new-items-are-created-in-your-mondaycom-board
   source: template
-  status: pending-generation
+  status: pending-partner-spec
   arazzo: null
 - slug: zoominfo-create-spreadsheet-rows-in-google-sheets-for-new-intents-in-zoominfo
   label: Create spreadsheet rows in Google Sheets for new intents in ZoomInfo
@@ -45,7 +44,6 @@
   status: arazzo
 - slug: zoominfo-enrich-new-pardot-prospects-in-zoominfo-when-added-to-a-list
   label: '"enrich new Pardot prospects in ZoomInfo when added to a list"'
-  partner: pardot
   partner_name: Pardot
   category: Marketing Automation
   use_case: '"enrich new Pardot prospects in ZoomInfo when added to a list"'
@@ -55,11 +53,10 @@
   evidence: https://zapier.com/apps/pardot/integrations/zoominfo/255623075/enrich-new-pardot-prospects-in-zoominfo-when-added-to-a-list
   template: https://zapier.com/apps/pardot/integrations/zoominfo/255623075/enrich-new-pardot-prospects-in-zoominfo-when-added-to-a-list
   source: template
-  arazzo: zoominfo-pardot-enrich-prospect.yml
-  status: arazzo
+  status: pending-partner-spec
+  arazzo: null
 - slug: zoominfo-get-microsoft-teams-channel-notifications-for-new-intent-signals-in-zoominfo
   label: Get Microsoft Teams channel notifications for new intent signals in ZoomInfo
-  partner: microsoft-teams
   partner_name: Microsoft Teams
   use_case: Get Microsoft Teams channel notifications for new intent signals in ZoomInfo
   type: claimed
@@ -167,7 +164,6 @@
   arazzo: null
 - slug: zoominfo-amazon-connect
   label: Amazon Connect
-  partner: amazon-connect
   partner_name: Amazon Connect
   type: claimed
   evidence: https://www.zoominfo.com/integrations/amazon-connect
@@ -186,7 +182,6 @@
   arazzo: null
 - slug: zoominfo-amazon-web-services
   label: Amazon Web Services
-  partner: amazon-web-services
   partner_name: Amazon Web Services
   type: claimed
   evidence: https://www.zoominfo.com/integrations/amazon-web-services
@@ -309,7 +304,6 @@
   arazzo: null
 - slug: zoominfo-claude
   label: Claude
-  partner: claude
   partner_name: Claude
   type: claimed
   evidence: https://www.zoominfo.com/integrations/claude
@@ -688,7 +682,6 @@
   arazzo: null
 - slug: zoominfo-google-bigquery
   label: Google BigQuery
-  partner: google-bigquery
   partner_name: Google BigQuery
   type: claimed
   evidence: https://www.zoominfo.com/integrations/google-bigquery
@@ -698,7 +691,6 @@
   arazzo: null
 - slug: zoominfo-google-calendar
   label: Google Calendar
-  partner: google-calendar
   partner_name: Google Calendar
   type: claimed
   evidence: https://www.zoominfo.com/integrations/google-calendar
@@ -708,7 +700,6 @@
   arazzo: null
 - slug: zoominfo-google-cloud-platform
   label: Google Cloud Platform
-  partner: google-cloud-platform
   partner_name: Google Cloud Platform
   type: claimed
   evidence: https://www.zoominfo.com/integrations/google-cloud-platform
@@ -718,7 +709,6 @@
   arazzo: null
 - slug: zoominfo-gemini
   label: Gemini
-  partner: google-gemini
   partner_name: Gemini
   type: claimed
   evidence: https://www.zoominfo.com/integrations/google-gemini
@@ -728,7 +718,6 @@
   arazzo: null
 - slug: zoominfo-google-meet
   label: Google Meet
-  partner: google-meet
   partner_name: Google Meet
   type: claimed
   evidence: https://www.zoominfo.com/integrations/google-meet
@@ -1019,7 +1008,6 @@
   arazzo: null
 - slug: zoominfo-linkedin
   label: Linkedin
-  partner: linkedin
   partner_name: Linkedin
   type: claimed
   evidence: https://www.zoominfo.com/integrations/linkedin
@@ -1048,7 +1036,6 @@
   arazzo: null
 - slug: zoominfo-marketo
   label: Marketo
-  partner: marketo
   partner_name: Marketo
   type: claimed
   evidence: https://www.zoominfo.com/integrations/marketo
@@ -1068,7 +1055,6 @@
   arazzo: null
 - slug: zoominfo-microsoft-copilot
   label: Microsoft Copilot
-  partner: microsoft-copilot
   partner_name: Microsoft Copilot
   type: claimed
   evidence: https://www.zoominfo.com/integrations/microsoft-copilot
@@ -1078,7 +1064,6 @@
   arazzo: null
 - slug: zoominfo-microsoft-dynamics-365
   label: Microsoft Dynamics 365
-  partner: microsoft-dynamics-365
   partner_name: Microsoft Dynamics 365
   type: claimed
   evidence: https://www.zoominfo.com/integrations/microsoft-dynamics-365
@@ -1631,7 +1616,6 @@
   arazzo: null
 - slug: zoominfo-tray-ai
   label: Tray.ai
-  partner: tray-ai
   partner_name: Tray.ai
   type: claimed
   evidence: https://www.zoominfo.com/integrations/tray
@@ -1641,7 +1625,6 @@
   arazzo: null
 - slug: zoominfo-trestle
   label: Trestle
-  partner: trestle
   partner_name: Trestle
   type: claimed
   evidence: https://www.zoominfo.com/integrations/trestle
@@ -1804,7 +1787,6 @@
   arazzo: null
 - slug: zoominfo-zoho-crm
   label: Zoho CRM
-  partner: zoho-crm
   partner_name: Zoho CRM
   type: claimed
   evidence: https://www.zoominfo.com/integrations/zoho-crm
@@ -1814,7 +1796,6 @@
   arazzo: null
 - slug: zoominfo-zoho-recruit
   label: Zoho Recruit
-  partner: zoho-recruit
   partner_name: Zoho Recruit
   type: claimed
   evidence: https://www.zoominfo.com/integrations/zoho-recruit
@@ -1834,7 +1815,6 @@
   arazzo: null
 - slug: zoominfo-zoom-phone
   label: Zoom Phone
-  partner: zoom-phone
   partner_name: Zoom Phone
   type: claimed
   evidence: https://www.zoominfo.com/integrations/zoom-phone
@@ -1902,7 +1882,6 @@
   arazzo: null
 - slug: zoominfo-microsoft-excel
   label: Microsoft Excel
-  partner: microsoft-excel
   partner_name: Microsoft Excel
   category: Microsoft
   type: marketplace
@@ -1910,7 +1889,7 @@
   channel: ipaas-usage
   evidence: https://zapier.com/apps/zoominfo/integrations/excel
   source: edge
-  status: pending-generation
+  status: pending-partner-spec
   arazzo: null
 - slug: zoominfo-connectwise-manage
   label: ConnectWise Manage
