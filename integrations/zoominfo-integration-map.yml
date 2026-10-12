@@ -1,0 +1,322 @@
+# DERIVED by derive-integration-map.py (roadmap#949): each integration workflow, step by step,
+# resolved to spec file -> tag -> business capability (Turbo EA, CC BY 4.0) and the operation's
+# phrasing intent. Read from our own files; an unmapped link says why.
+slug: zoominfo
+workflows:
+- file: zoominfo-airtable-enrich-record.yml
+  title: Enrich Airtable records with ZoomInfo company data
+  partner: airtable
+  template: null
+  repos:
+  - airtable
+  - zoominfo
+  steps:
+  - step: get-record
+    repo: airtable
+    spec_file: airtable-records-api-openapi.yml
+    operationId: getRecord
+    tag: Records
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  - step: authenticate
+    repo: zoominfo
+    spec_file: zoominfo-authentication-api-openapi.yml
+    operationId: Authenticate
+    tag: Authentication
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Get a JWT access token
+    effect: write
+    unmapped: no capability edge for this spec file
+  - step: enrich-company
+    repo: zoominfo
+    spec_file: zoominfo-company-enrich-api-openapi.yml
+    operationId: CompanyEnrich
+    tag: Company Enrich
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Enrich companies with firmographic data
+    effect: read
+    unmapped: no capability edge for this spec file
+  - step: update-record
+    repo: airtable
+    spec_file: airtable-records-api-openapi.yml
+    operationId: updateRecord
+    tag: Records
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  connects:
+    airtable:
+      capabilities: []
+      tags:
+      - Records
+    zoominfo:
+      capabilities: []
+      tags:
+      - Authentication
+      - Company Enrich
+  intents:
+  - Get a JWT access token
+  - Enrich companies with firmographic data
+- file: zoominfo-google-sheets-intent-rows.yml
+  title: ZoomInfo intent signals to Google Sheets
+  partner: google-sheets
+  template: https://zapier.com/apps/google-sheets/integrations/zoominfo/255607304/create-spreadsheet-rows-in-google-sheets-for-new-intents-in-zoominfo
+  repos:
+  - zoominfo
+  - google-sheets
+  steps:
+  - step: authenticate
+    repo: zoominfo
+    spec_file: zoominfo-authentication-api-openapi.yml
+    operationId: Authenticate
+    tag: Authentication
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Get a JWT access token
+    effect: write
+    unmapped: no capability edge for this spec file
+  - step: search-intent
+    repo: zoominfo
+    spec_file: zoominfo-intent-search-api-openapi.yml
+    operationId: IntentSearch
+    tag: Intent Search
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Find companies showing intent on topics
+    effect: read
+    unmapped: no capability edge for this spec file
+  - step: append-row
+    repo: google-sheets
+    spec_file: google-sheets-values-api-openapi.yml
+    operationId: appendValues
+    tag: Values
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  connects:
+    zoominfo:
+      capabilities: []
+      tags:
+      - Authentication
+      - Intent Search
+    google-sheets:
+      capabilities: []
+      tags:
+      - Values
+  intents:
+  - Get a JWT access token
+  - Find companies showing intent on topics
+- file: zoominfo-notion-intent-account-page.yml
+  title: ZoomInfo intent accounts to Notion pages
+  partner: notion
+  template: null
+  repos:
+  - zoominfo
+  - notion
+  steps:
+  - step: authenticate
+    repo: zoominfo
+    spec_file: zoominfo-authentication-api-openapi.yml
+    operationId: Authenticate
+    tag: Authentication
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Get a JWT access token
+    effect: write
+    unmapped: no capability edge for this spec file
+  - step: search-intent
+    repo: zoominfo
+    spec_file: zoominfo-intent-search-api-openapi.yml
+    operationId: IntentSearch
+    tag: Intent Search
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Find companies showing intent on topics
+    effect: read
+    unmapped: no capability edge for this spec file
+  - step: enrich-company
+    repo: zoominfo
+    spec_file: zoominfo-company-enrich-api-openapi.yml
+    operationId: CompanyEnrich
+    tag: Company Enrich
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Enrich companies with firmographic data
+    effect: read
+    unmapped: no capability edge for this spec file
+  - step: create-page
+    repo: notion
+    spec_file: notion-pages-api-openapi.yml
+    operationId: createPage
+    tag: Pages
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  connects:
+    zoominfo:
+      capabilities: []
+      tags:
+      - Authentication
+      - Company Enrich
+      - Intent Search
+    notion:
+      capabilities: []
+      tags:
+      - Pages
+  intents:
+  - Get a JWT access token
+  - Find companies showing intent on topics
+  - Enrich companies with firmographic data
+- file: zoominfo-pardot-enrich-prospect.yml
+  title: Enrich Pardot prospects with ZoomInfo contact data
+  partner: pardot
+  template: https://zapier.com/apps/pardot/integrations/zoominfo/255623075/enrich-new-pardot-prospects-in-zoominfo-when-added-to-a-list
+  repos:
+  - pardot
+  - zoominfo
+  steps:
+  - step: get-prospect
+    repo: pardot
+    spec_file: pardot-objects-api-openapi.yml
+    operationId: getObjectsProspectsById
+    tag: Objects
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  - step: authenticate
+    repo: zoominfo
+    spec_file: zoominfo-authentication-api-openapi.yml
+    operationId: Authenticate
+    tag: Authentication
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Get a JWT access token
+    effect: write
+    unmapped: no capability edge for this spec file
+  - step: enrich-contact
+    repo: zoominfo
+    spec_file: zoominfo-contact-enrich-api-openapi.yml
+    operationId: ContactEnrich
+    tag: Contact Enrich
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Enrich contacts with profile data
+    effect: read
+    unmapped: no capability edge for this spec file
+  - step: update-prospect
+    repo: pardot
+    spec_file: pardot-objects-api-openapi.yml
+    operationId: patchObjectsProspectsById
+    tag: Objects
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  connects:
+    pardot:
+      capabilities: []
+      tags:
+      - Objects
+    zoominfo:
+      capabilities: []
+      tags:
+      - Authentication
+      - Contact Enrich
+  intents:
+  - Get a JWT access token
+  - Enrich contacts with profile data
+- file: zoominfo-pipedrive-enrich-organization.yml
+  title: Enrich Pipedrive organizations with ZoomInfo company data
+  partner: pipedrive
+  template: null
+  repos:
+  - pipedrive
+  - zoominfo
+  steps:
+  - step: get-organization
+    repo: pipedrive
+    spec_file: pipedrive-organizations-api-openapi.yml
+    operationId: getOrganization
+    tag: Organizations
+    capability_id: BC-420.10
+    capability: Customer Data Management
+    capability_l1: BC-420
+    intent: null
+    effect: null
+    unmapped: null
+  - step: authenticate
+    repo: zoominfo
+    spec_file: zoominfo-authentication-api-openapi.yml
+    operationId: Authenticate
+    tag: Authentication
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Get a JWT access token
+    effect: write
+    unmapped: no capability edge for this spec file
+  - step: enrich-company
+    repo: zoominfo
+    spec_file: zoominfo-company-enrich-api-openapi.yml
+    operationId: CompanyEnrich
+    tag: Company Enrich
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Enrich companies with firmographic data
+    effect: read
+    unmapped: no capability edge for this spec file
+  - step: update-organization
+    repo: pipedrive
+    spec_file: pipedrive-organizations-api-openapi.yml
+    operationId: updateOrganization
+    tag: Organizations
+    capability_id: BC-420.10
+    capability: Customer Data Management
+    capability_l1: BC-420
+    intent: null
+    effect: null
+    unmapped: null
+  connects:
+    pipedrive:
+      capabilities:
+      - BC-420.10
+      tags:
+      - Organizations
+    zoominfo:
+      capabilities: []
+      tags:
+      - Authentication
+      - Company Enrich
+  intents:
+  - Get a JWT access token
+  - Enrich companies with firmographic data
