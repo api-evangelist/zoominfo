@@ -5,6 +5,7 @@ source:
 - https://n8n.io/integrations/zoominfo/
 - https://composio.dev/toolkits/zoominfo
 checked:
+- https://aws.amazon.com/marketplace/
 - https://composio.dev/toolkits/zoominfo
 - https://ecosystem.hubspot.com/marketplace/apps/zoominfo
 - https://monid.ai/tools/zoominfo
@@ -930,7 +931,8 @@ edges:
 - partner_name: Pardot
   partner: pardot
   partner_match: domain+verified
-  partner_note: "https://www.zoominfo.com/integrations/pardot links http://www.pardot.com, which redirects to https://www.salesforce.com/marketing/b2b-automation/ -- exactly the pardot Website; shared salesforce.com resolves to pardot (verified 2026-10-13)."
+  partner_note: https://www.zoominfo.com/integrations/pardot links http://www.pardot.com, which redirects to https://www.salesforce.com/marketing/b2b-automation/
+    -- exactly the pardot Website; shared salesforce.com resolves to pardot (verified 2026-10-13).
   type: claimed
   evidence: https://www.zoominfo.com/integrations/pardot
   direction: unknown
@@ -1532,7 +1534,8 @@ edges:
 - partner_name: Pardot
   partner: pardot
   partner_match: domain+verified
-  partner_note: "zapier.com/apps/zoominfo/integrations/pardot links http://www.pardot.com/ -> salesforce.com/marketing/b2b-automation/, exactly the pardot Website (verified 2026-10-13)."
+  partner_note: zapier.com/apps/zoominfo/integrations/pardot links http://www.pardot.com/ -> salesforce.com/marketing/b2b-automation/,
+    exactly the pardot Website (verified 2026-10-13).
   partner_candidate: null
   type: marketplace
   marketplace: zapier
@@ -1728,6 +1731,22 @@ edges:
   direction: third-party
   category: AI Chatbots
   partner_url: https://gptchatbot.it/
+- partner_name: AWS Marketplace
+  partner: amazon-web-services
+  partner_match: aggregator
+  type: marketplace
+  marketplace: aws-marketplace
+  channel: distribution
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://aws.amazon.com/marketplace/seller-profile?id=b5943d58-c0dd-4637-bbfa-db8f1072c101
+  listing_count: 2
+  apps:
+  - ZoomInfo
+  - ZoomInfo Sales Basic
+  seller_name: ZoomInfo
+  detected_by: sweep-cloud-marketplaces.py
+  detected: '2026-10-13'
 templates:
 - title: Get Slack channel notifications when new companies show intent in ZoomInfo
   url: https://zapier.com/apps/slack/integrations/zoominfo/1809498/get-slack-channel-notifications-when-new-companies-show-intent-in-zoominfo

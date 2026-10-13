@@ -2052,3 +2052,15 @@
   source: edge
   status: pending-partner-spec
   arazzo: null
+- slug: zoominfo-aws-marketplace
+  label: AWS Marketplace
+  partner: amazon-web-services
+  partner_name: AWS Marketplace
+  type: marketplace
+  marketplace: aws-marketplace
+  channel: distribution
+  evidence: https://aws.amazon.com/marketplace/seller-profile?id=b5943d58-c0dd-4637-bbfa-db8f1072c101
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
