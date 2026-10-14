@@ -15,6 +15,7 @@ checked:
 - https://www.zoominfo.com/integrations
 - https://www.zoominfo.com/partner
 - https://zapier.com/apps/zoominfo/integrations
+- okta/integrations/okta-integration-edges.yml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -1747,6 +1748,32 @@ edges:
   seller_name: ZoomInfo
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
+- partner_name: Okta (own)
+  partner: okta
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.okta.com/integrations/zoominfo/
+  mirror_of: okta/integrations/okta-integration-edges.yml
+  apps:
+  - ZoomInfo
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Lifecycle Management
+  badges:
+  - OKTA_VERIFIED
+  features:
+  - CREATE
+  - DEACTIVATE
+  - IDENTITY_SECURITY_POSTURE_MANAGEMENT
+  - SAML
+  - SWA
+  - UPDATE
 templates:
 - title: Get Slack channel notifications when new companies show intent in ZoomInfo
   url: https://zapier.com/apps/slack/integrations/zoominfo/1809498/get-slack-channel-notifications-when-new-companies-show-intent-in-zoominfo
