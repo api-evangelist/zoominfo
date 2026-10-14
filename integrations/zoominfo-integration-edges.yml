@@ -10,6 +10,7 @@ checked:
 - https://ecosystem.hubspot.com/marketplace/apps/zoominfo
 - https://monid.ai/tools/zoominfo
 - https://n8n.io/integrations/zoominfo/
+- https://registry.modelcontextprotocol.io/v0/servers
 - https://www.make.com/en/integrations/zoominfo (403)
 - https://www.workato.com/integrations/zoominfo
 - https://www.zoominfo.com/integrations
@@ -1748,6 +1749,37 @@ edges:
   seller_name: ZoomInfo
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
+- partner_name: MCP Registry
+  partner: mcp
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=io.github.Zoominfo
+  contract_reference:
+    register: registry.modelcontextprotocol.io
+    spec_file: null
+    role: mcp-server-listing
+    registered_name: io.github.Zoominfo/zoominfo-mcp
+    register_id: io.github.Zoominfo/zoominfo-mcp
+    detected_by: sweep-agent-tools.py
+    detected: '2026-10-14'
+  mcp_registry:
+    servers:
+    - io.github.Zoominfo/zoominfo-mcp
+    hosted_remote: 1
+    local_package: 0
+    transports:
+      streamable-http: 1
+    auth_declared: 1
+    catalog_declared: true
+    namespace_domains:
+    - zoominfo.com
+  matched_by:
+  - remote-domain
+  detected_by: sweep-agent-tools.py
+  first_seen: '2026-10-14'
 - partner_name: Okta (own)
   partner: okta
   partner_match: mirror
