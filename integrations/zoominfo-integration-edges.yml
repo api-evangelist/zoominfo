@@ -15,6 +15,7 @@ checked:
 - https://www.workato.com/integrations/zoominfo
 - https://www.zoominfo.com/integrations
 - https://www.zoominfo.com/partner
+- https://zapier.com/api/v4/apps/
 - https://zapier.com/apps/zoominfo/integrations
 - okta/integrations/okta-integration-edges.yml
 summary: null
@@ -1749,37 +1750,6 @@ edges:
   seller_name: ZoomInfo
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
-- partner_name: MCP Registry
-  partner: mcp
-  partner_match: register
-  type: register
-  channel: standard-directory
-  relationship: standard-participant
-  direction: partner-built
-  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=io.github.Zoominfo
-  contract_reference:
-    register: registry.modelcontextprotocol.io
-    spec_file: null
-    role: mcp-server-listing
-    registered_name: io.github.Zoominfo/zoominfo-mcp
-    register_id: io.github.Zoominfo/zoominfo-mcp
-    detected_by: sweep-agent-tools.py
-    detected: '2026-10-14'
-  mcp_registry:
-    servers:
-    - io.github.Zoominfo/zoominfo-mcp
-    hosted_remote: 1
-    local_package: 0
-    transports:
-      streamable-http: 1
-    auth_declared: 1
-    catalog_declared: true
-    namespace_domains:
-    - zoominfo.com
-  matched_by:
-  - remote-domain
-  detected_by: sweep-agent-tools.py
-  first_seen: '2026-10-14'
 - partner_name: Okta (own)
   partner: okta
   partner_match: mirror
@@ -1806,6 +1776,62 @@ edges:
   - SAML
   - SWA
   - UPDATE
+- partner_name: MCP Registry
+  partner: mcp
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=io.github.Zoominfo
+  contract_reference:
+    register: registry.modelcontextprotocol.io
+    spec_file: null
+    role: mcp-server-listing
+    registered_name: io.github.Zoominfo/zoominfo-mcp
+    register_id: io.github.Zoominfo/zoominfo-mcp
+    detected_by: sweep-agent-tools.py
+    detected: '2026-10-15'
+  mcp_registry:
+    servers:
+    - io.github.Zoominfo/zoominfo-mcp
+    hosted_remote: 1
+    local_package: 0
+    transports:
+      streamable-http: 1
+    auth_declared: 1
+    catalog_declared: true
+    namespace_domains:
+    - zoominfo.com
+  matched_by:
+  - remote-domain
+  detected_by: sweep-agent-tools.py
+  first_seen: '2026-10-14'
+- partner_name: Zapier
+  partner: zapier
+  partner_match: aggregator
+  type: marketplace
+  marketplace: zapier-directory
+  channel: ipaas-listing
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://zapier.com/apps/zoominfo/integrations
+  category: null
+  contract_reference:
+    register: Zapier app directory (zapier.com/api/v4/apps)
+    spec_file: null
+    role: ipaas-connector:zapier
+    registered_name: ZoomInfo
+    matched_domain: zoominfo.com
+    matched_by: domain
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: zoominfo
+    beta: false
+    builder: unknown (not in the directory record)
+  detected_by: sweep-workflow-automation.py
+  first_seen: '2026-10-15'
 templates:
 - title: Get Slack channel notifications when new companies show intent in ZoomInfo
   url: https://zapier.com/apps/slack/integrations/zoominfo/1809498/get-slack-channel-notifications-when-new-companies-show-intent-in-zoominfo
