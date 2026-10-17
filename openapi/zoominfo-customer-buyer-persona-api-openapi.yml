@@ -465,6 +465,59 @@ paths:
       - fea:gsa
 components:
   schemas:
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
+    GtmConfigSourceType:
+      type: string
+      enum:
+      - manual
+      - import
+      - system
+      - mcp
+      description: 'Source type indicating how a GTM configuration record was created or last modified.
+
+        Used across all customer-level entities for audit provenance tracking.
+
+        When source is explicitly set in a request, the corresponding created_by/updated_by must also be provided.
+
+        Defaults to ''manual'' when not specified.'
+      x-enumDescriptions:
+        MANUAL: Created or updated manually by a user through the GTM Studio UI.
+        IMPORT: Imported from an external data source such as CRM or CSV upload.
+        SYSTEM: Generated automatically by the platform (e.g., system enrichment or background jobs).
+        MCP: Created or updated via the GTM Config MCP integration by an AI agent.
+    CustomFieldItem:
+      type: object
+      required:
+      - title
+      - value
+      properties:
+        title:
+          type: string
+          description: The display title of the custom field.
+        description:
+          type: string
+          description: An optional description of the field. Defaults to an empty string in the backend.
+          default: ''
+        value:
+          type: string
+          description: The string value associated with this custom field.
+      description: Schema for a single custom field item.
     CustomerBuyerPersonaUpsert:
       type: object
       required:
@@ -495,66 +548,6 @@ components:
           x-discriminator-property: type
           description: The primary data of the document
       description: Customer Buyer Persona resource for upsert operations.
-    CustomerBuyerPersonaListResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomerBuyerPersona'
-          description: The primary data of the document
-      description: API model for a list of customer buyer personas.
-    CustomFieldItem:
-      type: object
-      required:
-      - title
-      - value
-      properties:
-        title:
-          type: string
-          description: The display title of the custom field.
-        description:
-          type: string
-          description: An optional description of the field. Defaults to an empty string in the backend.
-          default: ''
-        value:
-          type: string
-          description: The string value associated with this custom field.
-      description: Schema for a single custom field item.
-    ZoomInfo.Core.Foundations.ErrorSourceModel:
-      type: object
-      properties:
-        cookie:
-          type: string
-          description: Identifies the cookie name that caused the issue
-        header:
-          type: string
-          description: Identifies the header name that caused the error
-        pointer:
-          type: string
-          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
-        parameter:
-          type: string
-          description: The name of the path or query parameter that caused the error
-    ZoomInfo.Core.Foundations.ErrorResponseModel:
-      type: object
-      required:
-      - errors
-      properties:
-        detail:
-          type: string
-          description: A high-level detail of the error(s) that occurred during the request
-        title:
-          type: string
-          description: A high-level summary of the error(s) detected
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
-          description: The list of errors raised during the request
-      description: The standard error response body model for the ZoomInfo API.
     ZoomInfo.Core.Foundations.ErrorModel:
       type: object
       required:
@@ -592,25 +585,6 @@ components:
           - $ref: '#/components/schemas/CustomerBuyerPersona'
           description: The primary data of the document
       description: API model for a single customer buyer persona.
-    GtmConfigSourceType:
-      type: string
-      enum:
-      - manual
-      - import
-      - system
-      - mcp
-      description: 'Source type indicating how a GTM configuration record was created or last modified.
-
-        Used across all customer-level entities for audit provenance tracking.
-
-        When source is explicitly set in a request, the corresponding created_by/updated_by must also be provided.
-
-        Defaults to ''manual'' when not specified.'
-      x-enumDescriptions:
-        MANUAL: Created or updated manually by a user through the GTM Studio UI.
-        IMPORT: Imported from an external data source such as CRM or CSV upload.
-        SYSTEM: Generated automatically by the platform (e.g., system enrichment or background jobs).
-        MCP: Created or updated via the GTM Config MCP integration by an AI agent.
     CustomerBuyerPersonaAttributes:
       type: object
       properties:
@@ -654,31 +628,6 @@ components:
         that the customer''s sales team targets. Buyer personas capture who the ideal buyers are,
 
         what motivates them, and how to engage them effectively.'
-    CustomerBuyerPersona:
-      type: object
-      required:
-      - id
-      - type
-      - attributes
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the resource
-        type:
-          type: string
-          description: The type of the resource
-          default: CustomerBuyerPersona
-          pattern: CustomerBuyerPersona
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/CustomerBuyerPersonaAttributes'
-          description: The attributes defining the resource
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/GtmConfigAuditFields'
-          description: Non-standard meta information about the resource
-          readOnly: true
-      description: Customer Buyer Persona resource.
     GtmConfigAuditFields:
       type: object
       properties:
@@ -716,6 +665,57 @@ components:
         archival (temporary hiding), and soft deletion (permanent hiding for compliance).
 
         A record can be active, deleted only, or both.'
+    CustomerBuyerPersonaListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerBuyerPersona'
+          description: The primary data of the document
+      description: API model for a list of customer buyer personas.
+    ZoomInfo.Core.Foundations.ErrorSourceModel:
+      type: object
+      properties:
+        cookie:
+          type: string
+          description: Identifies the cookie name that caused the issue
+        header:
+          type: string
+          description: Identifies the header name that caused the error
+        pointer:
+          type: string
+          description: An RFC 6901 compliant JSON pointer to the entity in the request body that caused the error
+        parameter:
+          type: string
+          description: The name of the path or query parameter that caused the error
+    CustomerBuyerPersona:
+      type: object
+      required:
+      - id
+      - type
+      - attributes
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the resource
+        type:
+          type: string
+          description: The type of the resource
+          default: CustomerBuyerPersona
+          pattern: CustomerBuyerPersona
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/CustomerBuyerPersonaAttributes'
+          description: The attributes defining the resource
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/GtmConfigAuditFields'
+          description: Non-standard meta information about the resource
+          readOnly: true
+      description: Customer Buyer Persona resource.
   securitySchemes:
     OAuth2Auth:
       type: oauth2

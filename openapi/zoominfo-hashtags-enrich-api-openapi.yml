@@ -374,6 +374,27 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    GetHashtagEnrichInput:
+      title: GetHashtagEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        fieldType: String
+        description: The id of the company for which you want to view hashtags
     Data37:
       title: Data37
       required:
@@ -429,38 +450,6 @@ components:
         label:
           type: string
           example: example_value
-    HashtagsEnrichRequest:
-      title: HashtagsEnrichRequest
-      required:
-      - companyId
-      type: object
-      properties:
-        companyId:
-          type: string
-          example: '500123'
-      examples:
-      - companyId: '344589814'
-    GetHashtagEnrichInput:
-      title: GetHashtagEnrichInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: companyId
-        fieldType: String
-        description: The id of the company for which you want to view hashtags
     Enrichhashtagsforacompany:
       title: Enrichhashtagsforacompany
       required:
@@ -488,6 +477,17 @@ components:
             $ref: '#/components/schemas/Data37'
           description: ''
           example: []
+    HashtagsEnrichRequest:
+      title: HashtagsEnrichRequest
+      required:
+      - companyId
+      type: object
+      properties:
+        companyId:
+          type: string
+          example: '500123'
+      examples:
+      - companyId: '344589814'
   securitySchemes:
     httpBearer:
       type: http

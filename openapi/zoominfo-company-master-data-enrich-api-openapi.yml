@@ -2071,17 +2071,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    MatchReason:
-      title: MatchReason
-      required:
-      - zi_c_name
-      type: object
-      properties:
-        zi_c_name:
-          type: string
-          example: Acme Corporation
-      examples:
-      - zi_c_name: e
     Input9:
       title: Input9
       required:
@@ -2110,6 +2099,257 @@ components:
         match_reasons:
         - zi_c_name: e
         zi_c_name: capital one
+    ZiMatchReason:
+      title: ZiMatchReason
+      required:
+      - zi_match_name
+      - zi_match_reason_building_name
+      - zi_match_reason_building_number
+      - zi_match_reason_business_type
+      - zi_match_reason_city
+      - zi_match_reason_company_phone
+      - zi_match_reason_country
+      - zi_match_reason_directional
+      - zi_match_reason_name
+      - zi_match_reason_road_name
+      - zi_match_reason_road_type
+      - zi_match_reason_state
+      - zi_match_reason_unit
+      - zi_match_reason_website
+      - zi_match_reason_zip
+      - zi_match_score
+      type: object
+      properties:
+        zi_match_name:
+          type: string
+          example: Acme Corporation
+        zi_match_reason_building_name:
+          type: string
+          example: Acme Corporation
+        zi_match_reason_building_number:
+          type: string
+          example: example_value
+        zi_match_reason_business_type:
+          type: string
+          example: standard
+        zi_match_reason_city:
+          type: string
+          example: San Francisco
+        zi_match_reason_company_phone:
+          type: string
+          example: +1-555-555-1234
+        zi_match_reason_country:
+          type: string
+          example: US
+        zi_match_reason_directional:
+          type: string
+          example: example_value
+        zi_match_reason_name:
+          type: string
+          example: Acme Corporation
+        zi_match_reason_road_name:
+          type: string
+          example: Acme Corporation
+        zi_match_reason_road_type:
+          type: string
+          example: standard
+        zi_match_reason_state:
+          type: string
+          example: CA
+        zi_match_reason_unit:
+          type: string
+          example: example_value
+        zi_match_reason_website:
+          type: string
+          example: example_value
+        zi_match_reason_zip:
+          type: string
+          example: '94105'
+        zi_match_score:
+          type: string
+          example: example_value
+      examples:
+      - zi_match_name: Capital One Capital
+        zi_match_reason_building_name: M
+        zi_match_reason_building_number: M
+        zi_match_reason_business_type: M
+        zi_match_reason_city: E
+        zi_match_reason_company_phone: M
+        zi_match_reason_country: E
+        zi_match_reason_directional: M
+        zi_match_reason_name: E
+        zi_match_reason_road_name: M
+        zi_match_reason_road_type: M
+        zi_match_reason_state: E
+        zi_match_reason_unit: M
+        zi_match_reason_website: M
+        zi_match_reason_zip: E
+        zi_match_score: '5'
+    CompanyMasterDataEnrichInput:
+      title: CompanyMasterDataEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: zi_c_location_id
+        fieldType: Long
+        description: Unique ZoomInfo identifier for a company
+    CompanyMasterDataEnrichRequest:
+      title: CompanyMasterDataEnrichRequest
+      required:
+      - matchCompanyInput
+      - outputFields
+      type: object
+      properties:
+        matchCompanyInput:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchCompanyInput1'
+          description: ''
+          example: []
+        outputFields:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+      examples:
+      - matchCompanyInput:
+        - zi_c_url: zoominfo.com
+        outputFields:
+        - zi_c_location_id
+        - zi_es_ecid
+        - zi_es_location_id
+        - zi_c_is_hq
+        - zi_c_tier_grade
+        - zi_c_name
+        - zi_c_name_display
+        - zi_c_legal_entity_type
+        - zi_c_url
+        - zi_c_street
+        - zi_c_street_2
+        - zi_c_city
+        - zi_c_state
+        - zi_c_zip
+        - zi_c_country
+        - zi_match_reason
+    Data18:
+      title: Data18
+      required:
+      - outputFields
+      - result
+      type: object
+      properties:
+        outputFields:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result9'
+          description: ''
+          example: []
+      examples:
+      - outputFields:
+        - zi_c_location_id
+        - zi_es_ecid
+        - zi_es_location_id
+        - zi_c_is_hq
+        - zi_c_tier_grade
+        - zi_c_name
+        - zi_c_name_display
+        - zi_c_legal_entity_type
+        - zi_c_url
+        - zi_c_street
+        - zi_c_street_2
+        - zi_c_city
+        - zi_c_state
+        - zi_c_zip
+        - zi_c_country
+        - zi_match_reason
+        result:
+        - statusCode: 200
+          input:
+            address:
+              zi_c_city: mc lean
+              zi_c_country: united states
+              zi_c_state: virginia
+              zi_c_zip: '22102'
+            match_reasons:
+            - zi_c_name: e
+            zi_c_name: capital one
+          data:
+            zi_c_location_id: 2046129220
+            zi_es_ecid: 136461914
+            zi_es_location_id: 136461914NZOKIRXYRA
+            zi_c_is_hq: '1'
+            zi_c_tier_grade: A
+            zi_c_name: Capital One Financial
+            zi_c_name_display: Capital One Financial
+            zi_c_url: capitalone.com
+            zi_c_street: 1680 Capital One Dr
+            zi_c_city: Mc Lean
+            zi_c_state: Virginia
+            zi_c_zip: '22102'
+            zi_c_country: United States
+            zi_match_reason:
+              zi_match_name: Capital One Capital
+              zi_match_reason_building_name: M
+              zi_match_reason_building_number: M
+              zi_match_reason_business_type: M
+              zi_match_reason_city: E
+              zi_match_reason_company_phone: M
+              zi_match_reason_country: E
+              zi_match_reason_directional: M
+              zi_match_reason_name: E
+              zi_match_reason_road_name: M
+              zi_match_reason_road_type: M
+              zi_match_reason_state: E
+              zi_match_reason_unit: M
+              zi_match_reason_website: M
+              zi_match_reason_zip: E
+              zi_match_score: '5'
+    Matchbycompanyaddress1:
+      title: Matchbycompanyaddress1
+      required:
+      - responseCode
+      - message
+      - invalidOutputFields
+      type: object
+      properties:
+        responseCode:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        message:
+          type: string
+          example: example_value
+        invalidOutputFields:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+      examples:
+      - responseCode: 400
+        message: There are invalid fields in your request.
+        invalidOutputFields:
+        - zi_c_id
     Data19:
       title: Data19
       required:
@@ -2203,6 +2443,17 @@ components:
           zi_match_reason_website: M
           zi_match_reason_zip: E
           zi_match_score: '5'
+    MatchReason:
+      title: MatchReason
+      required:
+      - zi_c_name
+      type: object
+      properties:
+        zi_c_name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - zi_c_name: e
     CompanyMasterDataEnrichOutput:
       title: CompanyMasterDataEnrichOutput
       required:
@@ -2250,90 +2501,6 @@ components:
         zi_c_country: united states
         zi_c_state: virginia
         zi_c_zip: '22102'
-    Result9:
-      title: Result9
-      required:
-      - statusCode
-      - input
-      - data
-      type: object
-      properties:
-        statusCode:
-          type: integer
-          contentEncoding: int32
-          example: 100
-        input:
-          $ref: '#/components/schemas/Input9'
-        data:
-          $ref: '#/components/schemas/Data19'
-      examples:
-      - statusCode: 200
-        input:
-          address:
-            zi_c_city: mc lean
-            zi_c_country: united states
-            zi_c_state: virginia
-            zi_c_zip: '22102'
-          match_reasons:
-          - zi_c_name: e
-          zi_c_name: capital one
-        data:
-          zi_c_location_id: 2046129220
-          zi_es_ecid: 136461914
-          zi_es_location_id: 136461914NZOKIRXYRA
-          zi_c_is_hq: '1'
-          zi_c_tier_grade: A
-          zi_c_name: Capital One Financial
-          zi_c_name_display: Capital One Financial
-          zi_c_url: capitalone.com
-          zi_c_street: 1680 Capital One Dr
-          zi_c_city: Mc Lean
-          zi_c_state: Virginia
-          zi_c_zip: '22102'
-          zi_c_country: United States
-          zi_match_reason:
-            zi_match_name: Capital One Capital
-            zi_match_reason_building_name: M
-            zi_match_reason_building_number: M
-            zi_match_reason_business_type: M
-            zi_match_reason_city: E
-            zi_match_reason_company_phone: M
-            zi_match_reason_country: E
-            zi_match_reason_directional: M
-            zi_match_reason_name: E
-            zi_match_reason_road_name: M
-            zi_match_reason_road_type: M
-            zi_match_reason_state: E
-            zi_match_reason_unit: M
-            zi_match_reason_website: M
-            zi_match_reason_zip: E
-            zi_match_score: '5'
-    Matchbycompanyaddress1:
-      title: Matchbycompanyaddress1
-      required:
-      - responseCode
-      - message
-      - invalidOutputFields
-      type: object
-      properties:
-        responseCode:
-          type: integer
-          contentEncoding: int32
-          example: 100
-        message:
-          type: string
-          example: example_value
-        invalidOutputFields:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-      examples:
-      - responseCode: 400
-        message: There are invalid fields in your request.
-        invalidOutputFields:
-        - zi_c_id
     Nameaddressandmatchreason:
       title: Nameaddressandmatchreason
       required:
@@ -2408,131 +2575,6 @@ components:
                 zi_match_reason_website: M
                 zi_match_reason_zip: E
                 zi_match_score: '5'
-    ZiMatchReason:
-      title: ZiMatchReason
-      required:
-      - zi_match_name
-      - zi_match_reason_building_name
-      - zi_match_reason_building_number
-      - zi_match_reason_business_type
-      - zi_match_reason_city
-      - zi_match_reason_company_phone
-      - zi_match_reason_country
-      - zi_match_reason_directional
-      - zi_match_reason_name
-      - zi_match_reason_road_name
-      - zi_match_reason_road_type
-      - zi_match_reason_state
-      - zi_match_reason_unit
-      - zi_match_reason_website
-      - zi_match_reason_zip
-      - zi_match_score
-      type: object
-      properties:
-        zi_match_name:
-          type: string
-          example: Acme Corporation
-        zi_match_reason_building_name:
-          type: string
-          example: Acme Corporation
-        zi_match_reason_building_number:
-          type: string
-          example: example_value
-        zi_match_reason_business_type:
-          type: string
-          example: standard
-        zi_match_reason_city:
-          type: string
-          example: San Francisco
-        zi_match_reason_company_phone:
-          type: string
-          example: +1-555-555-1234
-        zi_match_reason_country:
-          type: string
-          example: US
-        zi_match_reason_directional:
-          type: string
-          example: example_value
-        zi_match_reason_name:
-          type: string
-          example: Acme Corporation
-        zi_match_reason_road_name:
-          type: string
-          example: Acme Corporation
-        zi_match_reason_road_type:
-          type: string
-          example: standard
-        zi_match_reason_state:
-          type: string
-          example: CA
-        zi_match_reason_unit:
-          type: string
-          example: example_value
-        zi_match_reason_website:
-          type: string
-          example: example_value
-        zi_match_reason_zip:
-          type: string
-          example: '94105'
-        zi_match_score:
-          type: string
-          example: example_value
-      examples:
-      - zi_match_name: Capital One Capital
-        zi_match_reason_building_name: M
-        zi_match_reason_building_number: M
-        zi_match_reason_business_type: M
-        zi_match_reason_city: E
-        zi_match_reason_company_phone: M
-        zi_match_reason_country: E
-        zi_match_reason_directional: M
-        zi_match_reason_name: E
-        zi_match_reason_road_name: M
-        zi_match_reason_road_type: M
-        zi_match_reason_state: E
-        zi_match_reason_unit: M
-        zi_match_reason_website: M
-        zi_match_reason_zip: E
-        zi_match_score: '5'
-    CompanyMasterDataEnrichRequest:
-      title: CompanyMasterDataEnrichRequest
-      required:
-      - matchCompanyInput
-      - outputFields
-      type: object
-      properties:
-        matchCompanyInput:
-          type: array
-          items:
-            $ref: '#/components/schemas/MatchCompanyInput1'
-          description: ''
-          example: []
-        outputFields:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-      examples:
-      - matchCompanyInput:
-        - zi_c_url: zoominfo.com
-        outputFields:
-        - zi_c_location_id
-        - zi_es_ecid
-        - zi_es_location_id
-        - zi_c_is_hq
-        - zi_c_tier_grade
-        - zi_c_name
-        - zi_c_name_display
-        - zi_c_legal_entity_type
-        - zi_c_url
-        - zi_c_street
-        - zi_c_street_2
-        - zi_c_city
-        - zi_c_state
-        - zi_c_zip
-        - zi_c_country
-        - zi_match_reason
     MatchCompanyInput1:
       title: MatchCompanyInput1
       required:
@@ -2544,106 +2586,64 @@ components:
           example: https://www.example.com/resource
       examples:
       - zi_c_url: zoominfo.com
-    CompanyMasterDataEnrichInput:
-      title: CompanyMasterDataEnrichInput
+    Result9:
+      title: Result9
       required:
-      - fieldName
-      - fieldType
-      - description
+      - statusCode
+      - input
+      - data
       type: object
       properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
+        statusCode:
+          type: integer
+          contentEncoding: int32
+          example: 100
+        input:
+          $ref: '#/components/schemas/Input9'
+        data:
+          $ref: '#/components/schemas/Data19'
       examples:
-      - fieldName: zi_c_location_id
-        fieldType: Long
-        description: Unique ZoomInfo identifier for a company
-    Data18:
-      title: Data18
-      required:
-      - outputFields
-      - result
-      type: object
-      properties:
-        outputFields:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result9'
-          description: ''
-          example: []
-      examples:
-      - outputFields:
-        - zi_c_location_id
-        - zi_es_ecid
-        - zi_es_location_id
-        - zi_c_is_hq
-        - zi_c_tier_grade
-        - zi_c_name
-        - zi_c_name_display
-        - zi_c_legal_entity_type
-        - zi_c_url
-        - zi_c_street
-        - zi_c_street_2
-        - zi_c_city
-        - zi_c_state
-        - zi_c_zip
-        - zi_c_country
-        - zi_match_reason
-        result:
-        - statusCode: 200
-          input:
-            address:
-              zi_c_city: mc lean
-              zi_c_country: united states
-              zi_c_state: virginia
-              zi_c_zip: '22102'
-            match_reasons:
-            - zi_c_name: e
-            zi_c_name: capital one
-          data:
-            zi_c_location_id: 2046129220
-            zi_es_ecid: 136461914
-            zi_es_location_id: 136461914NZOKIRXYRA
-            zi_c_is_hq: '1'
-            zi_c_tier_grade: A
-            zi_c_name: Capital One Financial
-            zi_c_name_display: Capital One Financial
-            zi_c_url: capitalone.com
-            zi_c_street: 1680 Capital One Dr
-            zi_c_city: Mc Lean
-            zi_c_state: Virginia
+      - statusCode: 200
+        input:
+          address:
+            zi_c_city: mc lean
+            zi_c_country: united states
+            zi_c_state: virginia
             zi_c_zip: '22102'
-            zi_c_country: United States
-            zi_match_reason:
-              zi_match_name: Capital One Capital
-              zi_match_reason_building_name: M
-              zi_match_reason_building_number: M
-              zi_match_reason_business_type: M
-              zi_match_reason_city: E
-              zi_match_reason_company_phone: M
-              zi_match_reason_country: E
-              zi_match_reason_directional: M
-              zi_match_reason_name: E
-              zi_match_reason_road_name: M
-              zi_match_reason_road_type: M
-              zi_match_reason_state: E
-              zi_match_reason_unit: M
-              zi_match_reason_website: M
-              zi_match_reason_zip: E
-              zi_match_score: '5'
+          match_reasons:
+          - zi_c_name: e
+          zi_c_name: capital one
+        data:
+          zi_c_location_id: 2046129220
+          zi_es_ecid: 136461914
+          zi_es_location_id: 136461914NZOKIRXYRA
+          zi_c_is_hq: '1'
+          zi_c_tier_grade: A
+          zi_c_name: Capital One Financial
+          zi_c_name_display: Capital One Financial
+          zi_c_url: capitalone.com
+          zi_c_street: 1680 Capital One Dr
+          zi_c_city: Mc Lean
+          zi_c_state: Virginia
+          zi_c_zip: '22102'
+          zi_c_country: United States
+          zi_match_reason:
+            zi_match_name: Capital One Capital
+            zi_match_reason_building_name: M
+            zi_match_reason_building_number: M
+            zi_match_reason_business_type: M
+            zi_match_reason_city: E
+            zi_match_reason_company_phone: M
+            zi_match_reason_country: E
+            zi_match_reason_directional: M
+            zi_match_reason_name: E
+            zi_match_reason_road_name: M
+            zi_match_reason_road_type: M
+            zi_match_reason_state: E
+            zi_match_reason_unit: M
+            zi_match_reason_website: M
+            zi_match_reason_zip: E
+            zi_match_score: '5'
   securitySchemes:
     httpBearer:
       type: http

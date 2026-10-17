@@ -1569,6 +1569,17 @@ components:
         subUnitType: Former_new_name
         locationName: DiscoverOrg
         locationEmployeeCount: 500
+    LocationEnrichRequest:
+      title: LocationEnrichRequest
+      required:
+      - companyId
+      type: object
+      properties:
+        companyId:
+          type: string
+          example: '500123'
+      examples:
+      - companyId: '344589814'
     Data35:
       title: Data35
       required:
@@ -1619,54 +1630,6 @@ components:
           subUnitType: Former_new_name
           locationName: DiscoverOrg
           locationEmployeeCount: 500
-    LocationEnrichOutput:
-      title: LocationEnrichOutput
-      required:
-      - fieldName
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: companyId
-        description: Unique ZoomInfo identifier for a company
-    GetLocationEnrichInput:
-      title: GetLocationEnrichInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: parentId
-        fieldType: String
-        description: The id of the parent company for which you want to find locations
-    LocationEnrichRequest:
-      title: LocationEnrichRequest
-      required:
-      - companyId
-      type: object
-      properties:
-        companyId:
-          type: string
-          example: '500123'
-      examples:
-      - companyId: '344589814'
     Enrichcompanylocation:
       title: Enrichcompanylocation
       required:
@@ -2167,6 +2130,43 @@ components:
             subUnitType: Location
             locationName: Zoom Information
             locationEmployeeCount: 1
+    LocationEnrichOutput:
+      title: LocationEnrichOutput
+      required:
+      - fieldName
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: companyId
+        description: Unique ZoomInfo identifier for a company
+    GetLocationEnrichInput:
+      title: GetLocationEnrichInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: parentId
+        fieldType: String
+        description: The id of the parent company for which you want to find locations
   securitySchemes:
     httpBearer:
       type: http

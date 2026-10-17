@@ -2030,67 +2030,54 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    IntentSearchRequest:
-      title: IntentSearchRequest
+    Company8:
+      title: Company8
       required:
-      - topics
-      - signalScoreMin
-      - signalScoreMax
-      - audienceStrengthMin
-      - audienceStrengthMax
-      - metroRegion
-      - industryCodes
-      - sortBy
-      - sortOrder
+      - id
+      - name
+      - website
+      - hasOtherTopicConsumption
       type: object
       properties:
-        topics:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-        signalScoreMin:
+        id:
           type: integer
           contentEncoding: int32
-          example: 85
-        signalScoreMax:
-          type: integer
-          contentEncoding: int32
-          example: 85
-        audienceStrengthMin:
+          example: 500123
+        name:
+          type: string
+          example: Acme Corporation
+        website:
           type: string
           example: example_value
-        audienceStrengthMax:
-          type: string
-          example: example_value
-        metroRegion:
-          type: string
-          example: example_value
-        industryCodes:
-          type: string
-          example: Software
-        sortBy:
-          type: string
-          example: example_value
-        sortOrder:
-          type: string
-          example: example_value
+        hasOtherTopicConsumption:
+          type: boolean
+          example: true
       examples:
-      - topics:
-        - Cloud Applications
-        - Cloud Computing
-        - Cloud Infrastructure
-        - Mobile Apps
-        - Mobile Security
-        signalScoreMin: 80
-        signalScoreMax: 100
-        audienceStrengthMin: C
-        audienceStrengthMax: A
-        metroRegion: usa.california.sanfrancisco
-        industryCodes: education.university
-        sortBy: topic
-        sortOrder: desc
+      - id: 118998385
+        name: Golden Gate University
+        website: www.ggu.edu
+        hasOtherTopicConsumption: true
+    IntentSearchInput:
+      title: IntentSearchInput
+      required:
+      - fieldName
+      - fieldType
+      - description
+      type: object
+      properties:
+        fieldName:
+          type: string
+          example: Acme Corporation
+        fieldType:
+          type: string
+          example: standard
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - fieldName: topics
+        fieldType: ArrayList
+        description: Intent topics. Accepts an Array of String. See the 'Intent Topics' endpoint for values.
     IntentSearch:
       title: IntentSearch
       required:
@@ -2728,38 +2715,6 @@ components:
         jobFunction:
         - name: Executive
           department: C-Suite
-    JobFunction:
-      title: JobFunction
-      required:
-      - name
-      - department
-      type: object
-      properties:
-        name:
-          type: string
-          example: Acme Corporation
-        department:
-          type: string
-          example: example_value
-      examples:
-      - name: Executive
-        department: C-Suite
-    IntentSearchOutput:
-      title: IntentSearchOutput
-      required:
-      - fieldName
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: id
-        description: Unique ZoomInfo identifier for a topic
     Datum11:
       title: Datum11
       required:
@@ -2831,54 +2786,99 @@ components:
           name: Golden Gate University
           website: www.ggu.edu
           hasOtherTopicConsumption: true
-    Company8:
-      title: Company8
-      required:
-      - id
-      - name
-      - website
-      - hasOtherTopicConsumption
-      type: object
-      properties:
-        id:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-        name:
-          type: string
-          example: Acme Corporation
-        website:
-          type: string
-          example: example_value
-        hasOtherTopicConsumption:
-          type: boolean
-          example: true
-      examples:
-      - id: 118998385
-        name: Golden Gate University
-        website: www.ggu.edu
-        hasOtherTopicConsumption: true
-    IntentSearchInput:
-      title: IntentSearchInput
+    IntentSearchOutput:
+      title: IntentSearchOutput
       required:
       - fieldName
-      - fieldType
       - description
       type: object
       properties:
         fieldName:
           type: string
           example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
         description:
           type: string
           example: Enterprise software company
       examples:
-      - fieldName: topics
-        fieldType: ArrayList
-        description: Intent topics. Accepts an Array of String. See the 'Intent Topics' endpoint for values.
+      - fieldName: id
+        description: Unique ZoomInfo identifier for a topic
+    IntentSearchRequest:
+      title: IntentSearchRequest
+      required:
+      - topics
+      - signalScoreMin
+      - signalScoreMax
+      - audienceStrengthMin
+      - audienceStrengthMax
+      - metroRegion
+      - industryCodes
+      - sortBy
+      - sortOrder
+      type: object
+      properties:
+        topics:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+        signalScoreMin:
+          type: integer
+          contentEncoding: int32
+          example: 85
+        signalScoreMax:
+          type: integer
+          contentEncoding: int32
+          example: 85
+        audienceStrengthMin:
+          type: string
+          example: example_value
+        audienceStrengthMax:
+          type: string
+          example: example_value
+        metroRegion:
+          type: string
+          example: example_value
+        industryCodes:
+          type: string
+          example: Software
+        sortBy:
+          type: string
+          example: example_value
+        sortOrder:
+          type: string
+          example: example_value
+      examples:
+      - topics:
+        - Cloud Applications
+        - Cloud Computing
+        - Cloud Infrastructure
+        - Mobile Apps
+        - Mobile Security
+        signalScoreMin: 80
+        signalScoreMax: 100
+        audienceStrengthMin: C
+        audienceStrengthMax: A
+        metroRegion: usa.california.sanfrancisco
+        industryCodes: education.university
+        sortBy: topic
+        sortOrder: desc
+    JobFunction:
+      title: JobFunction
+      required:
+      - name
+      - department
+      type: object
+      properties:
+        name:
+          type: string
+          example: Acme Corporation
+        department:
+          type: string
+          example: example_value
+      examples:
+      - name: Executive
+        department: C-Suite
   securitySchemes:
     httpBearer:
       type: http

@@ -1749,143 +1749,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    MatchPersonInput1:
-      title: MatchPersonInput1
-      required:
-      - personId
-      type: object
-      properties:
-        personId:
-          type: string
-          example: '500123'
-      examples:
-      - personId: '-1021613465'
-    BulkCompanyEnrich:
-      title: BulkCompanyEnrich
-      required:
-      - jobId
-      type: object
-      properties:
-        jobId:
-          type: string
-          example: '500123'
-      examples:
-      - jobId: add665cc35af4dcbbbe0b4c2d472dfcab15b55d7
-    BulkContactEnrichRequest:
-      title: BulkContactEnrichRequest
-      required:
-      - matchPersonInput
-      - outputFields
-      type: object
-      properties:
-        matchPersonInput:
-          type: array
-          items:
-            $ref: '#/components/schemas/MatchPersonInput1'
-          description: ''
-          example: []
-        outputFields:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-      examples:
-      - matchPersonInput:
-        - personId: '-1021613465'
-        - personId: '1850882609'
-        - personId: '1085252979'
-        - personId: '1340258275'
-        - personId: '1211397553'
-        - personId: '7076615179'
-        - personId: '10456376'
-        - personId: '7057643986'
-        - personId: '3068831069'
-        - personId: '1237124890'
-        - personId: '-1268761639'
-        - personId: '1298772762'
-        - personId: '-2137560815'
-        - personId: '1122625695'
-        - personId: '2560362'
-        - personId: '295038088'
-        - personId: '249554924'
-        - personId: '4086996027'
-        - personId: '128559379'
-        - personId: '78327053'
-        outputFields:
-        - id
-        - firstName
-        - middleName
-        - lastName
-        - email
-        - phone
-        - directPhoneDoNotCall
-        - street
-        - city
-        - region
-        - metroArea
-        - zipCode
-        - state
-        - country
-        - continent
-        - personHasMoved
-        - withinEu
-        - withinCalifornia
-        - withinCanada
-        - lastUpdatedDate
-        - validDate
-        - noticeProvidedDate
-        - salutation
-        - suffix
-        - jobTitle
-        - jobFunction
-        - companyDivision
-        - education
-        - hashedEmails
-        - picture
-        - mobilePhoneDoNotCall
-        - externalUrls
-        - companyId
-        - companyName
-        - companyPhone
-        - companyFax
-        - companyStreet
-        - companyCity
-        - companyState
-        - companyZipCode
-        - companyCountry
-        - companyContinent
-        - companyLogo
-        - companySicCodes
-        - companyNaicsCodes
-        - contactAccuracyScore
-        - companyWebsite
-        - companyRevenue
-        - companyRevenueNumeric
-        - companyEmployeeCount
-        - companyType
-        - companyTicker
-        - companyRanking
-        - isDefunct
-        - companySocialMediaUrls
-        - companyPrimaryIndustry
-        - companyIndustries
-        - companyRevenueRange
-        - companyEmployeeRange
-        - employmentHistory
-        - managementLevel
-        - locationCompanyId
-    BulkContactEnrich:
-      title: BulkContactEnrich
-      required:
-      - jobId
-      type: object
-      properties:
-        jobId:
-          type: string
-          example: '500123'
-      examples:
-      - jobId: de5c557935a221c2bc2fa612bf2d8768ade9572c
     BulkContactSearchRequest:
       title: BulkContactSearchRequest
       required:
@@ -1903,6 +1766,50 @@ components:
         query:
           firstName: Mike
           companyName: Zoominfo
+    MatchPersonInput1:
+      title: MatchPersonInput1
+      required:
+      - personId
+      type: object
+      properties:
+        personId:
+          type: string
+          example: '500123'
+      examples:
+      - personId: '-1021613465'
+    BulkJobStatusRequest:
+      title: BulkJobStatusRequest
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
+    Query1:
+      title: Query1
+      required:
+      - address
+      type: object
+      properties:
+        address:
+          type: string
+          example: 123 Main Street
+      examples:
+      - address: '01775'
+    BulkCompanySearch-Preview:
+      title: BulkCompanySearch-Preview
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: fa2b51864e1b29a7dceecd149402d6c3441ba34b
     BulkCompanySearchRequest:
       title: BulkCompanySearchRequest
       required:
@@ -1928,6 +1835,17 @@ components:
           address: '01775'
         outputFields:
         - id
+    BulkContactSearch-Preview:
+      title: BulkContactSearch-Preview
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: d1cecb828a0f2a13ffbc1f97faa06af31945ef89
     BulkJobStatus:
       title: BulkJobStatus
       required:
@@ -2037,28 +1955,110 @@ components:
         - name
         - website
         - domainList
-    BulkContactSearch-Preview:
-      title: BulkContactSearch-Preview
+    BulkContactEnrichRequest:
+      title: BulkContactEnrichRequest
       required:
-      - jobId
+      - matchPersonInput
+      - outputFields
       type: object
       properties:
-        jobId:
-          type: string
-          example: '500123'
+        matchPersonInput:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchPersonInput1'
+          description: ''
+          example: []
+        outputFields:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
       examples:
-      - jobId: d1cecb828a0f2a13ffbc1f97faa06af31945ef89
-    BulkCompanySearch-Preview:
-      title: BulkCompanySearch-Preview
-      required:
-      - jobId
-      type: object
-      properties:
-        jobId:
-          type: string
-          example: '500123'
-      examples:
-      - jobId: fa2b51864e1b29a7dceecd149402d6c3441ba34b
+      - matchPersonInput:
+        - personId: '-1021613465'
+        - personId: '1850882609'
+        - personId: '1085252979'
+        - personId: '1340258275'
+        - personId: '1211397553'
+        - personId: '7076615179'
+        - personId: '10456376'
+        - personId: '7057643986'
+        - personId: '3068831069'
+        - personId: '1237124890'
+        - personId: '-1268761639'
+        - personId: '1298772762'
+        - personId: '-2137560815'
+        - personId: '1122625695'
+        - personId: '2560362'
+        - personId: '295038088'
+        - personId: '249554924'
+        - personId: '4086996027'
+        - personId: '128559379'
+        - personId: '78327053'
+        outputFields:
+        - id
+        - firstName
+        - middleName
+        - lastName
+        - email
+        - phone
+        - directPhoneDoNotCall
+        - street
+        - city
+        - region
+        - metroArea
+        - zipCode
+        - state
+        - country
+        - continent
+        - personHasMoved
+        - withinEu
+        - withinCalifornia
+        - withinCanada
+        - lastUpdatedDate
+        - validDate
+        - noticeProvidedDate
+        - salutation
+        - suffix
+        - jobTitle
+        - jobFunction
+        - companyDivision
+        - education
+        - hashedEmails
+        - picture
+        - mobilePhoneDoNotCall
+        - externalUrls
+        - companyId
+        - companyName
+        - companyPhone
+        - companyFax
+        - companyStreet
+        - companyCity
+        - companyState
+        - companyZipCode
+        - companyCountry
+        - companyContinent
+        - companyLogo
+        - companySicCodes
+        - companyNaicsCodes
+        - contactAccuracyScore
+        - companyWebsite
+        - companyRevenue
+        - companyRevenueNumeric
+        - companyEmployeeCount
+        - companyType
+        - companyTicker
+        - companyRanking
+        - isDefunct
+        - companySocialMediaUrls
+        - companyPrimaryIndustry
+        - companyIndustries
+        - companyRevenueRange
+        - companyEmployeeRange
+        - employmentHistory
+        - managementLevel
+        - locationCompanyId
     MatchCompanyInput3:
       title: MatchCompanyInput3
       required:
@@ -2070,33 +2070,6 @@ components:
           example: '500123'
       examples:
       - companyId: '7783252'
-    Query1:
-      title: Query1
-      required:
-      - address
-      type: object
-      properties:
-        address:
-          type: string
-          example: 123 Main Street
-      examples:
-      - address: '01775'
-    Query:
-      title: Query
-      required:
-      - firstName
-      - companyName
-      type: object
-      properties:
-        firstName:
-          type: string
-          example: Acme Corporation
-        companyName:
-          type: string
-          example: Acme Corporation
-      examples:
-      - firstName: Mike
-        companyName: Zoominfo
     BulkJobResultsRequest:
       title: BulkJobResultsRequest
       required:
@@ -2114,8 +2087,8 @@ components:
       examples:
       - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
         page: 5
-    BulkJobStatusRequest:
-      title: BulkJobStatusRequest
+    BulkContactEnrich:
+      title: BulkContactEnrich
       required:
       - jobId
       type: object
@@ -2124,7 +2097,34 @@ components:
           type: string
           example: '500123'
       examples:
-      - jobId: 0675ee17f800db0333f7541859d7d1db67fd7037
+      - jobId: de5c557935a221c2bc2fa612bf2d8768ade9572c
+    BulkCompanyEnrich:
+      title: BulkCompanyEnrich
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          example: '500123'
+      examples:
+      - jobId: add665cc35af4dcbbbe0b4c2d472dfcab15b55d7
+    Query:
+      title: Query
+      required:
+      - firstName
+      - companyName
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: Acme Corporation
+        companyName:
+          type: string
+          example: Acme Corporation
+      examples:
+      - firstName: Mike
+        companyName: Zoominfo
   securitySchemes:
     httpBearer:
       type: http

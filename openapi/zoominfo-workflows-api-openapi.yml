@@ -215,6 +215,35 @@ paths:
         - api:workflows:execute
 components:
   schemas:
+    WorkflowAttributes:
+      type: object
+      required:
+      - name
+      - active
+      - runnableOnDemand
+      - lastUpdated
+      - createdAt
+      properties:
+        name:
+          type: string
+          description: Name of the workflow
+        active:
+          type: boolean
+          description: Activation status of the workflow
+        runnableOnDemand:
+          type: boolean
+          description: Whether the workflow can be executed on demand
+        lastUpdated:
+          type: string
+          format: date-time
+          description: Last update timestamp
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          description: Created timestamp
+          readOnly: true
+      description: Attributes for a workflow in the list response
     WorkflowExecutionAttributes:
       type: object
       required:
@@ -228,6 +257,23 @@ components:
           type: string
           description: Current status of the execution
       description: Attributes for workflow execution response
+    ZoomInfo.Core.Foundations.ErrorResponseModel:
+      type: object
+      required:
+      - errors
+      properties:
+        detail:
+          type: string
+          description: A high-level detail of the error(s) that occurred during the request
+        title:
+          type: string
+          description: A high-level summary of the error(s) detected
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
+          description: The list of errors raised during the request
+      description: The standard error response body model for the ZoomInfo API.
     ExecuteWorkflowAttributes:
       type: object
       properties:
@@ -235,25 +281,16 @@ components:
           type: string
           description: URL to call back with execution results
       description: Attributes for workflow execution request
-    WorkflowsListResponse:
+    ExecuteWorkflowRequestBody:
       type: object
       required:
       - data
       properties:
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Workflow'
+          allOf:
+          - $ref: '#/components/schemas/ExecuteWorkflowRequest'
           description: The primary data of the document
-        meta:
-          allOf:
-          - $ref: '#/components/schemas/GetWorkflowsMeta'
-          description: Non-standard meta information about the document
-        links:
-          allOf:
-          - $ref: '#/components/schemas/GetWorkflowsLinks'
-          description: Links related to the primary data
-      description: Response containing a list of workflows
+      description: Workflow execution request body
     Workflow:
       type: object
       required:
@@ -274,6 +311,118 @@ components:
           - $ref: '#/components/schemas/WorkflowAttributes'
           description: The attributes defining the resource
       description: Workflow resource model
+    WorkflowsListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workflow'
+          description: The primary data of the document
+        meta:
+          allOf:
+          - $ref: '#/components/schemas/GetWorkflowsMeta'
+          description: Non-standard meta information about the document
+        links:
+          allOf:
+          - $ref: '#/components/schemas/GetWorkflowsLinks'
+          description: Links related to the primary data
+      description: Response containing a list of workflows
+    WorkflowExecutionResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/WorkflowExecution'
+          description: The primary data of the document
+      description: Response for workflow execution
+    ExecuteWorkflowRequest:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: The type of the resource
+          default: ExecuteWorkflowRequest
+          pattern: ExecuteWorkflowRequest
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ExecuteWorkflowAttributes'
+          description: The attributes defining the resource
+      description: Workflow execution request model
+    GetWorkflowsLinks:
+      type: object
+      properties:
+        first:
+          type: string
+          format: uri
+          description: A link to the first page of data
+        last:
+          type: string
+          format: uri
+          description: A link to the last page of data
+        prev:
+          type: string
+          format: uri
+          description: A link to the previous page of data
+        next:
+          type: string
+          format: uri
+          description: A link to the next page of data
+      description: Links describing the various workflows paging options
+    GetWorkflowsMeta:
+      type: object
+      required:
+      - page
+      - pageSize
+      - totalCount
+      properties:
+        page:
+          type: integer
+          format: uint32
+          description: The current page of workflows being returned
+        pageSize:
+          type: integer
+          format: uint32
+          description: The page size as specified by the request
+        totalCount:
+          type: integer
+          format: uint32
+          description: The total count of workflows within the current search parameters
+      description: Metadata for the current page of workflows returned
+    ZoomInfo.Core.Foundations.ErrorModel:
+      type: object
+      required:
+      - id
+      - code
+      - status
+      properties:
+        id:
+          type: string
+          description: The unique id used to identify this specific error instance
+        code:
+          type: string
+          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
+        detail:
+          type: string
+          description: Message containing the specific details about this occurrence of the error
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
+          description: An optional object identifying which part of the request caused the error
+        status:
+          type: string
+          description: The HTTP status code for the error
+        title:
+          type: string
+          description: The error name that describes this type of error
+      description: The object describing a specific error from the API
     WorkflowExecution:
       type: object
       required:
@@ -309,155 +458,6 @@ components:
         parameter:
           type: string
           description: The name of the path or query parameter that caused the error
-    GetWorkflowsLinks:
-      type: object
-      properties:
-        first:
-          type: string
-          format: uri
-          description: A link to the first page of data
-        last:
-          type: string
-          format: uri
-          description: A link to the last page of data
-        prev:
-          type: string
-          format: uri
-          description: A link to the previous page of data
-        next:
-          type: string
-          format: uri
-          description: A link to the next page of data
-      description: Links describing the various workflows paging options
-    WorkflowAttributes:
-      type: object
-      required:
-      - name
-      - active
-      - runnableOnDemand
-      - lastUpdated
-      - createdAt
-      properties:
-        name:
-          type: string
-          description: Name of the workflow
-        active:
-          type: boolean
-          description: Activation status of the workflow
-        runnableOnDemand:
-          type: boolean
-          description: Whether the workflow can be executed on demand
-        lastUpdated:
-          type: string
-          format: date-time
-          description: Last update timestamp
-          readOnly: true
-        createdAt:
-          type: string
-          format: date-time
-          description: Created timestamp
-          readOnly: true
-      description: Attributes for a workflow in the list response
-    ZoomInfo.Core.Foundations.ErrorResponseModel:
-      type: object
-      required:
-      - errors
-      properties:
-        detail:
-          type: string
-          description: A high-level detail of the error(s) that occurred during the request
-        title:
-          type: string
-          description: A high-level summary of the error(s) detected
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorModel'
-          description: The list of errors raised during the request
-      description: The standard error response body model for the ZoomInfo API.
-    ZoomInfo.Core.Foundations.ErrorModel:
-      type: object
-      required:
-      - id
-      - code
-      - status
-      properties:
-        id:
-          type: string
-          description: The unique id used to identify this specific error instance
-        code:
-          type: string
-          description: The error code describing the error category. A full list of error codes can be found in the documentation for each service
-        detail:
-          type: string
-          description: Message containing the specific details about this occurrence of the error
-        source:
-          allOf:
-          - $ref: '#/components/schemas/ZoomInfo.Core.Foundations.ErrorSourceModel'
-          description: An optional object identifying which part of the request caused the error
-        status:
-          type: string
-          description: The HTTP status code for the error
-        title:
-          type: string
-          description: The error name that describes this type of error
-      description: The object describing a specific error from the API
-    ExecuteWorkflowRequestBody:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/ExecuteWorkflowRequest'
-          description: The primary data of the document
-      description: Workflow execution request body
-    GetWorkflowsMeta:
-      type: object
-      required:
-      - page
-      - pageSize
-      - totalCount
-      properties:
-        page:
-          type: integer
-          format: uint32
-          description: The current page of workflows being returned
-        pageSize:
-          type: integer
-          format: uint32
-          description: The page size as specified by the request
-        totalCount:
-          type: integer
-          format: uint32
-          description: The total count of workflows within the current search parameters
-      description: Metadata for the current page of workflows returned
-    ExecuteWorkflowRequest:
-      type: object
-      required:
-      - type
-      - attributes
-      properties:
-        type:
-          type: string
-          description: The type of the resource
-          default: ExecuteWorkflowRequest
-          pattern: ExecuteWorkflowRequest
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/ExecuteWorkflowAttributes'
-          description: The attributes defining the resource
-      description: Workflow execution request model
-    WorkflowExecutionResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/WorkflowExecution'
-          description: The primary data of the document
-      description: Response for workflow execution
   securitySchemes:
     OAuth2Auth:
       type: oauth2

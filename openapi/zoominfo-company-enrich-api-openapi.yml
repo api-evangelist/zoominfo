@@ -967,102 +967,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Result6:
-      title: Result6
-      required:
-      - input
-      - data
-      type: object
-      properties:
-        input:
-          $ref: '#/components/schemas/Input6'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Data13'
-          description: ''
-          example: []
-    CompanyEnrichInput:
-      title: CompanyEnrichInput
-      required:
-      - fieldName
-      - fieldType
-      - description
-      type: object
-      properties:
-        fieldName:
-          type: string
-          example: Acme Corporation
-        fieldType:
-          type: string
-          example: standard
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - fieldName: companyId
-        fieldType: Long
-        description: Unique ZoomInfo identifier for a company
-    MatchCompanyInput:
-      title: MatchCompanyInput
-      required:
-      - companyId
-      type: object
-      properties:
-        companyId:
-          type: integer
-          contentEncoding: int32
-          example: 500123
-      examples:
-      - companyId: 344589814
-    CompanyEnrichRequest:
-      title: CompanyEnrichRequest
-      required:
-      - matchCompanyInput
-      - outputFields
-      type: object
-      properties:
-        matchCompanyInput:
-          type: array
-          items:
-            $ref: '#/components/schemas/MatchCompanyInput'
-          description: ''
-          example: []
-        outputFields:
-          type: array
-          items:
-            type: string
-          description: ''
-          example: []
-      examples:
-      - matchCompanyInput:
-        - companyId: 344589814
-        outputFields:
-        - id
-        - ticker
-        - name
-        - website
-        - domainList
-    Data12:
-      title: Data12
-      required:
-      - outputFields
-      - result
-      type: object
-      properties:
-        outputFields:
-          type: array
-          items:
-            type: array
-            items:
-              type: string
-          example: []
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result6'
-          description: ''
-          example: []
     EmployeeGrowth:
       title: EmployeeGrowth
       required:
@@ -1105,105 +1009,27 @@ components:
           employeeCount: 1100
         - label: '''20 - Q1'
           employeeCount: 1300
-    Input6:
-      title: Input6
+    SocialMediaUrl:
+      title: SocialMediaUrl
       required:
-      - companyid
+      - type
+      - url
+      - followerCount
       type: object
       properties:
-        companyid:
-          type: integer
-          contentEncoding: int32
-          example: 500123
+        type:
+          type: string
+          example: standard
+        url:
+          type: string
+          example: https://www.example.com/resource
+        followerCount:
+          type: string
+          example: example_value
       examples:
-      - companyid: 344589814
-    EmployeeGrowthDataPoint:
-      title: EmployeeGrowthDataPoint
-      required:
-      - label
-      - employeeCount
-      type: object
-      properties:
-        label:
-          type: string
-          example: example_value
-        employeeCount:
-          type: integer
-          contentEncoding: int32
-          example: 250
-      examples:
-      - label: '''18 - Q1'
-        employeeCount: 300
-    TechAttribute:
-      title: TechAttribute
-      required:
-      - tag
-      - categoryParent
-      - category
-      - vendor
-      - product
-      - attribute
-      - website
-      - logo
-      - domain
-      - createdTime
-      - modifiedTime
-      - description
-      type: object
-      properties:
-        tag:
-          type: string
-          example: example_value
-        categoryParent:
-          type: string
-          example: example_value
-        category:
-          type: string
-          example: example_value
-        vendor:
-          type: string
-          example: example_value
-        product:
-          type: string
-          example: example_value
-        attribute:
-          type: string
-          example: example_value
-        website:
-          type: string
-          example: example_value
-        logo:
-          type:
-          - string
-          - 'null'
-          example: example_value
-        domain:
-          type:
-          - string
-          - 'null'
-          example: example_value
-        createdTime:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        modifiedTime:
-          type: string
-          example: '2025-03-15T14:30:00Z'
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - tag: '25420'
-        categoryParent: IT Infrastructure
-        category: Infrastructures as a Service
-        vendor: Google LLC
-        product: Google Compute Engine
-        attribute: 334.194.1
-        website: https://cloud.google.com/compute/
-        logo: https://res.cloudinary.com/zoominfo-com/image/upload/w_100,h_100,c_fit/cloud.google.com
-        domain: cloud.google.com
-        createdTime: '2016-08-11T14:14:27.000Z'
-        modifiedTime: '2018-10-10T06:45:20.000Z'
-        description: Google Compute Engine is the Infrastructure as a service component of google cloud platform which is built on the global infrastructure that runs googles search engine, gmail, youtube and other services. It offers high performance virtual machines, customer-friendly pricing, fast networking, and carbon-neutral impact.
+      - type: FACEBOOK
+        url: http://www.facebook.com/ZoomInformation
+        followerCount: ''
     Data13:
       title: Data13
       required:
@@ -1469,6 +1295,34 @@ components:
           example: 100
         employeeGrowth:
           $ref: '#/components/schemas/EmployeeGrowth'
+    DescriptionList:
+      title: DescriptionList
+      required:
+      - description
+      type: object
+      properties:
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - description: ZoomInfo was founded in 2000 and is headquartered in Vancouver, Washington. The company offers a business-to-business data platform utilized by sales and marketing teams, recruiters, and other business professionals for lead generation and detailed information on people and companies.
+    EmployeeGrowthDataPoint:
+      title: EmployeeGrowthDataPoint
+      required:
+      - label
+      - employeeCount
+      type: object
+      properties:
+        label:
+          type: string
+          example: example_value
+        employeeCount:
+          type: integer
+          contentEncoding: int32
+          example: 250
+      examples:
+      - label: '''18 - Q1'
+        employeeCount: 300
     Hashtag:
       title: Hashtag
       required:
@@ -1556,28 +1410,27 @@ components:
         categorizedFlag:
           type: boolean
           example: true
-    CompanyFunding:
-      title: CompanyFunding
+    CompanyEnrichInput:
+      title: CompanyEnrichInput
       required:
-      - date
-      - type
-      - amount
+      - fieldName
+      - fieldType
+      - description
       type: object
       properties:
-        date:
+        fieldName:
           type: string
-          example: '2025-03-15T14:30:00Z'
-        type:
+          example: Acme Corporation
+        fieldType:
           type: string
           example: standard
-        amount:
-          type: integer
-          contentEncoding: int32
-          example: 100
+        description:
+          type: string
+          example: Enterprise software company
       examples:
-      - date: '2020-06-04T07:00:00.000Z'
-        type: Stock Issuance/Offering
-        amount: 935000
+      - fieldName: companyId
+        fieldType: Long
+        description: Unique ZoomInfo identifier for a company
     Competitor:
       title: Competitor
       required:
@@ -1612,33 +1465,6 @@ components:
         name: DiscoverOrg LLC
         website: www.discoverorg.com
         employeeCount: 866
-    NaicsCode:
-      title: NaicsCode
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-          example: '500123'
-        name:
-          type: string
-          example: Acme Corporation
-      examples:
-      - id: '541613'
-        name: Marketing Consulting Services
-    DescriptionList:
-      title: DescriptionList
-      required:
-      - description
-      type: object
-      properties:
-        description:
-          type: string
-          example: Enterprise software company
-      examples:
-      - description: ZoomInfo was founded in 2000 and is headquartered in Vancouver, Washington. The company offers a business-to-business data platform utilized by sales and marketing teams, recruiters, and other business professionals for lead generation and detailed information on people and companies.
     CompanyEnrichOutput:
       title: CompanyEnrichOutput
       required:
@@ -1660,39 +1486,46 @@ components:
       - fieldName: id
         description: Unique ZoomInfo identifier for a company
         accessGranted: 'true'
-    EnrichcompanybyID:
-      title: EnrichcompanybyID
+    Input6:
+      title: Input6
       required:
-      - success
-      - data
+      - companyid
       type: object
       properties:
-        success:
-          type: boolean
-          example: true
-        data:
-          $ref: '#/components/schemas/Data12'
-    SocialMediaUrl:
-      title: SocialMediaUrl
-      required:
-      - type
-      - url
-      - followerCount
-      type: object
-      properties:
-        type:
-          type: string
-          example: standard
-        url:
-          type: string
-          example: https://www.example.com/resource
-        followerCount:
-          type: string
-          example: example_value
+        companyid:
+          type: integer
+          contentEncoding: int32
+          example: 500123
       examples:
-      - type: FACEBOOK
-        url: http://www.facebook.com/ZoomInformation
-        followerCount: ''
+      - companyid: 344589814
+    CompanyEnrichRequest:
+      title: CompanyEnrichRequest
+      required:
+      - matchCompanyInput
+      - outputFields
+      type: object
+      properties:
+        matchCompanyInput:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchCompanyInput'
+          description: ''
+          example: []
+        outputFields:
+          type: array
+          items:
+            type: string
+          description: ''
+          example: []
+      examples:
+      - matchCompanyInput:
+        - companyId: 344589814
+        outputFields:
+        - id
+        - ticker
+        - name
+        - website
+        - domainList
     SicCode:
       title: SicCode
       required:
@@ -1709,6 +1542,173 @@ components:
       examples:
       - id: '73'
         name: Business Services
+    Data12:
+      title: Data12
+      required:
+      - outputFields
+      - result
+      type: object
+      properties:
+        outputFields:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          example: []
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result6'
+          description: ''
+          example: []
+    CompanyFunding:
+      title: CompanyFunding
+      required:
+      - date
+      - type
+      - amount
+      type: object
+      properties:
+        date:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        type:
+          type: string
+          example: standard
+        amount:
+          type: integer
+          contentEncoding: int32
+          example: 100
+      examples:
+      - date: '2020-06-04T07:00:00.000Z'
+        type: Stock Issuance/Offering
+        amount: 935000
+    EnrichcompanybyID:
+      title: EnrichcompanybyID
+      required:
+      - success
+      - data
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/Data12'
+    Result6:
+      title: Result6
+      required:
+      - input
+      - data
+      type: object
+      properties:
+        input:
+          $ref: '#/components/schemas/Input6'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data13'
+          description: ''
+          example: []
+    NaicsCode:
+      title: NaicsCode
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          example: '500123'
+        name:
+          type: string
+          example: Acme Corporation
+      examples:
+      - id: '541613'
+        name: Marketing Consulting Services
+    MatchCompanyInput:
+      title: MatchCompanyInput
+      required:
+      - companyId
+      type: object
+      properties:
+        companyId:
+          type: integer
+          contentEncoding: int32
+          example: 500123
+      examples:
+      - companyId: 344589814
+    TechAttribute:
+      title: TechAttribute
+      required:
+      - tag
+      - categoryParent
+      - category
+      - vendor
+      - product
+      - attribute
+      - website
+      - logo
+      - domain
+      - createdTime
+      - modifiedTime
+      - description
+      type: object
+      properties:
+        tag:
+          type: string
+          example: example_value
+        categoryParent:
+          type: string
+          example: example_value
+        category:
+          type: string
+          example: example_value
+        vendor:
+          type: string
+          example: example_value
+        product:
+          type: string
+          example: example_value
+        attribute:
+          type: string
+          example: example_value
+        website:
+          type: string
+          example: example_value
+        logo:
+          type:
+          - string
+          - 'null'
+          example: example_value
+        domain:
+          type:
+          - string
+          - 'null'
+          example: example_value
+        createdTime:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        modifiedTime:
+          type: string
+          example: '2025-03-15T14:30:00Z'
+        description:
+          type: string
+          example: Enterprise software company
+      examples:
+      - tag: '25420'
+        categoryParent: IT Infrastructure
+        category: Infrastructures as a Service
+        vendor: Google LLC
+        product: Google Compute Engine
+        attribute: 334.194.1
+        website: https://cloud.google.com/compute/
+        logo: https://res.cloudinary.com/zoominfo-com/image/upload/w_100,h_100,c_fit/cloud.google.com
+        domain: cloud.google.com
+        createdTime: '2016-08-11T14:14:27.000Z'
+        modifiedTime: '2018-10-10T06:45:20.000Z'
+        description: Google Compute Engine is the Infrastructure as a service component of google cloud platform which is built on the global infrastructure that runs googles search engine, gmail, youtube and other services. It offers high performance virtual machines, customer-friendly pricing, fast networking, and carbon-neutral impact.
   securitySchemes:
     httpBearer:
       type: http
