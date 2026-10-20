@@ -8,11 +8,16 @@ checked:
 - google-workspace/integrations/google-workspace-integration-edges.yml
 - https://api.nuget.org/v3
 - https://aws.amazon.com/marketplace/
+- https://cdn.winget.microsoft.com/cache
 - https://cloudsecurityalliance.org/star/registry
 - https://composio.dev/toolkits/zoominfo
 - https://crates.io/api/v1
 - https://ecosystem.hubspot.com/marketplace/apps/zoominfo
 - https://eucoc.cloud/en/public-register/list-of-adherent-services
+- https://formulae.brew.sh/api/cask.json
+- https://formulae.brew.sh/api/formula.json
+- https://github.com/ScoopInstaller/Extras
+- https://github.com/ScoopInstaller/Main
 - https://monid.ai/tools/zoominfo
 - https://n8n.io/integrations/zoominfo/
 - https://proxy.golang.org
@@ -2033,6 +2038,36 @@ edges:
   direction: third-party
   category: Email
   partner_url: https://zapier.com/smartreach.io
+- partner_name: npm registry
+  partner: npm
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official CLI (npm registry)
+  evidence: https://www.npmjs.com/package/@zoominfo/gtm-ai-cli
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public package index)
+    spec_file: null
+    packages:
+    - name: '@zoominfo/gtm-ai-cli'
+      version: 2.1.1
+      released: '2026-10-02'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@zoominfo/gtm-ai-cli
+      cli: bin gtm, zoominfo
+      repo_leg: github-org:zoominfo
+      publisher_leg: email:zoominfo.com
+      matched_by: domain
+    current: true
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  detected_by: sweep-official-clis.py
+  first_seen: '2026-10-20'
 templates:
 - title: Get Slack channel notifications when new companies show intent in ZoomInfo
   url: https://zapier.com/apps/slack/integrations/zoominfo/1809498/get-slack-channel-notifications-when-new-companies-show-intent-in-zoominfo
