@@ -8,16 +8,11 @@ checked:
 - google-workspace/integrations/google-workspace-integration-edges.yml
 - https://api.nuget.org/v3
 - https://aws.amazon.com/marketplace/
-- https://cdn.winget.microsoft.com/cache
 - https://cloudsecurityalliance.org/star/registry
 - https://composio.dev/toolkits/zoominfo
 - https://crates.io/api/v1
 - https://ecosystem.hubspot.com/marketplace/apps/zoominfo
 - https://eucoc.cloud/en/public-register/list-of-adherent-services
-- https://formulae.brew.sh/api/cask.json
-- https://formulae.brew.sh/api/formula.json
-- https://github.com/ScoopInstaller/Extras
-- https://github.com/ScoopInstaller/Main
 - https://monid.ai/tools/zoominfo
 - https://n8n.io/integrations/zoominfo/
 - https://proxy.golang.org
@@ -36,6 +31,18 @@ checked:
 - okta/integrations/okta-integration-edges.yml
 - slack/integrations/slack-integration-edges.yml
 - zoom/integrations/zoom-integration-edges.yml
+- https://cdn.winget.microsoft.com/cache
+- https://formulae.brew.sh/api/cask.json
+- https://formulae.brew.sh/api/formula.json
+- https://github.com/ScoopInstaller/Extras
+- https://github.com/ScoopInstaller/Main
+- https://api.github.com
+- https://claude-plugins.dev/sitemap.xml
+- https://github.com/VoltAgent/awesome-agent-skills
+- https://officialskills.sh/sitemap.xml
+- https://skillsmp.com/sitemap.xml
+- https://www.skills.sh/sitemap.xml
+- https://marketplace.databricks.com/
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -2068,6 +2075,67 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-official-clis.py
   first_seen: '2026-10-20'
+- partner_name: Agent Skills (own GitHub org)
+  partner: null
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: Agent Skills package
+  evidence: https://github.com/Zoominfo/zoominfo-mcp-plugin
+  channel: provider-built
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: own-repo
+  degree: skill-repo
+  report_only: true
+  agent_skills:
+    org: zoominfo
+    current: true
+    repos:
+    - repo: Zoominfo/zoominfo-mcp-plugin
+      archived: false
+      lapsed: false
+      pushed: '2026-09-30'
+  contract_reference:
+    register: 'provider''s own GitHub org (GitHub REST API: repo + git tree holds SKILL.md)'
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-repo
+    matched_org: zoominfo
+    matched_by: org-profile-domain:zoominfo.com
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
+  first_seen: '2026-10-20'
+- partner_name: Databricks Marketplace
+  partner: databricks
+  partner_match: aggregator
+  type: marketplace
+  marketplace: databricks-marketplace
+  channel: distribution
+  relationship: distribution-channel
+  direction: third-party
+  evidence: https://marketplace.databricks.com/provider/7b188ec5-4695-43ac-a955-f6486e1ab53c
+  category: data product listing
+  contract_reference:
+    register: Databricks Marketplace (marketplace.databricks.com/api/2.0/public-marketplace-providers + public-marketplace-listings)
+    spec_file: null
+    role: data-marketplace-seller
+    registered_name: ZoomInfo
+    matched_domain: zoominfo.com
+    matched_by: domain
+    listings: 5
+    sample_listings:
+    - B2B Commercial Data (Contact)
+    - B2B Commercial Data (Firmographic, Hierarchy, Technology)
+    - B2B Commercial Data (Intent)
+    - First Mover Advantage Dataset
+    - Licensed Contractors Dataset
+    signal_note: 'participation: the provider lists data products on this marketplace; counts are context'
+    detected_by: sweep-data-marketplaces.py
+    detected: '2026-10-20'
+  detected_by: sweep-data-marketplaces.py
+  detected: '2026-10-20'
 templates:
 - title: Get Slack channel notifications when new companies show intent in ZoomInfo
   url: https://zapier.com/apps/slack/integrations/zoominfo/1809498/get-slack-channel-notifications-when-new-companies-show-intent-in-zoominfo
