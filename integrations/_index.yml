@@ -17,6 +17,7 @@
   arazzo: null
 - slug: zoominfo-enrich-zoominfo-companies-every-time-new-items-are-created-in-your-monday-com-boa
   label: Enrich ZoomInfo companies every time new items are created in your monday.com board
+  partner: monday-com
   partner_name: monday.com
   category: Project Management
   use_case: Enrich ZoomInfo companies every time new items are created in your monday.com board
@@ -26,7 +27,8 @@
   evidence: https://zapier.com/apps/monday/integrations/zoominfo/255598100/enrich-zoominfo-companies-every-time-new-items-are-created-in-your-mondaycom-board
   template: https://zapier.com/apps/monday/integrations/zoominfo/255598100/enrich-zoominfo-companies-every-time-new-items-are-created-in-your-mondaycom-board
   source: template
-  status: pending-partner-spec
+  relationship: ipaas-bridge
+  status: pending-generation
   arazzo: null
 - slug: zoominfo-create-spreadsheet-rows-in-google-sheets-for-new-intents-in-zoominfo
   label: Create spreadsheet rows in Google Sheets for new intents in ZoomInfo
@@ -40,11 +42,11 @@
   evidence: https://zapier.com/apps/google-sheets/integrations/zoominfo/255607304/create-spreadsheet-rows-in-google-sheets-for-new-intents-in-zoominfo
   template: https://zapier.com/apps/google-sheets/integrations/zoominfo/255607304/create-spreadsheet-rows-in-google-sheets-for-new-intents-in-zoominfo
   source: template
+  relationship: ipaas-bridge
   arazzo: zoominfo-google-sheets-intent-rows.yml
   status: arazzo
 - slug: zoominfo-enrich-new-pardot-prospects-in-zoominfo-when-added-to-a-list
   label: '"enrich new Pardot prospects in ZoomInfo when added to a list"'
-  partner: pardot
   partner_name: Pardot
   category: Marketing Automation
   use_case: '"enrich new Pardot prospects in ZoomInfo when added to a list"'
@@ -54,8 +56,9 @@
   evidence: https://zapier.com/apps/pardot/integrations/zoominfo/255623075/enrich-new-pardot-prospects-in-zoominfo-when-added-to-a-list
   template: https://zapier.com/apps/pardot/integrations/zoominfo/255623075/enrich-new-pardot-prospects-in-zoominfo-when-added-to-a-list
   source: template
-  arazzo: zoominfo-pardot-enrich-prospect.yml
-  status: arazzo
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
 - slug: zoominfo-get-microsoft-teams-channel-notifications-for-new-intent-signals-in-zoominfo
   label: Get Microsoft Teams channel notifications for new intent signals in ZoomInfo
   partner_name: Microsoft Teams
@@ -90,6 +93,7 @@
   evidence: https://zapier.com/apps/google-ads/integrations/zoominfo/255638134/enrich-google-ads-lead-form-entries-with-zoominfo-company-data
   template: https://zapier.com/apps/google-ads/integrations/zoominfo/255638134/enrich-google-ads-lead-form-entries-with-zoominfo-company-data
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: zoominfo-enhance-google-ads-leads-with-zoominfo-contact-data
@@ -104,6 +108,7 @@
   evidence: https://zapier.com/apps/google-ads/integrations/zoominfo/255638135/enhance-google-ads-leads-with-zoominfo-contact-data
   template: https://zapier.com/apps/google-ads/integrations/zoominfo/255638135/enhance-google-ads-leads-with-zoominfo-contact-data
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: zoominfo-6sense
@@ -1823,235 +1828,6 @@
   relationship: connector-listing
   status: not-a-workflow
   arazzo: null
-- slug: zoominfo-plusvibe-ai
-  label: PlusVibe.ai
-  partner_name: PlusVibe.ai
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/plusvibeai
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: zoominfo-odoo-crm
-  label: Odoo CRM
-  partner: odoo
-  partner_name: Odoo CRM
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/odoo
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: zoominfo-pipedrive
-  label: Pipedrive
-  partner: pipedrive
-  partner_name: Pipedrive
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/pipedrive
-  source: edge
-  arazzo: zoominfo-pipedrive-enrich-organization.yml
-  status: arazzo
-- slug: zoominfo-google-drive
-  label: Google Drive
-  partner: google-drive
-  partner_name: Google Drive
-  category: File Management & Storage
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/google-drive
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: zoominfo-manatal
-  label: Manatal
-  partner_name: Manatal
-  category: HR Talent & Recruitment
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/manatal
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: zoominfo-microsoft-excel
-  label: Microsoft Excel
-  partner_name: Microsoft Excel
-  category: Microsoft
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/excel
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: zoominfo-connectwise-manage
-  label: ConnectWise Manage
-  partner_name: ConnectWise Manage
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/connectwise-manage
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: zoominfo-netsuite
-  label: NetSuite
-  partner_name: NetSuite
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/netsuite
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: zoominfo-notion
-  label: Notion
-  partner: notion
-  partner_name: Notion
-  category: Task Management
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/notion
-  source: edge
-  arazzo: zoominfo-notion-intent-account-page.yml
-  status: arazzo
-- slug: zoominfo-airtable
-  label: Airtable
-  partner: airtable
-  partner_name: Airtable
-  category: Databases
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/airtable
-  source: edge
-  arazzo: zoominfo-airtable-enrich-record.yml
-  status: arazzo
-- slug: zoominfo-activecampaign
-  label: ActiveCampaign
-  partner: activecampaign
-  partner_name: ActiveCampaign
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/activecampaign
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: zoominfo-linkedin
-  label: LinkedIn
-  partner: linkedin
-  partner_name: LinkedIn
-  category: Microsoft
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/linkedin
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: zoominfo-apollo
-  label: Apollo
-  partner: apollo
-  partner_name: Apollo
-  category: Sales & CRM
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/apollo
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: zoominfo-microsoft-dynamics-365-crm
-  label: Microsoft Dynamics 365 CRM
-  partner_name: Microsoft Dynamics 365 CRM
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/microsoft-dynamics-crm
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: zoominfo-bigin-by-zoho-crm
-  label: Bigin by Zoho CRM
-  partner_name: Bigin by Zoho CRM
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/bigin
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: zoominfo-lead-forensics
-  label: Lead Forensics
-  partner_name: Lead Forensics
-  category: Marketing
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/lead-forensics
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: zoominfo-act
-  label: Act!
-  partner: act
-  partner_name: Act!
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/act-premium
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: zoominfo-smartreach
-  label: SmartReach
-  partner_name: SmartReach
-  category: Email
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/smartreach
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: zoominfo-followup-crm
-  label: Followup CRM
-  partner_name: Followup CRM
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/followup-crm
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: zoominfo-gpt-chatbot
-  label: GPT Chatbot
-  partner_name: GPT Chatbot
-  category: AI Chatbots
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/gpt-chatbot
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
 - slug: zoominfo-aws-marketplace
   label: AWS Marketplace
   partner: amazon-web-services
@@ -2075,25 +1851,6 @@
   evidence: https://www.okta.com/integrations/zoominfo/
   source: edge
   relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: zoominfo-mcp-registry
-  label: MCP Registry
-  partner: mcp
-  partner_name: MCP Registry
-  type: register
-  channel: standard-directory
-  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=io.github.Zoominfo
-  source: edge
-  relationship: standard-participant
-  contract_reference:
-    register: registry.modelcontextprotocol.io
-    spec_file: null
-    role: mcp-server-listing
-    registered_name: io.github.Zoominfo/zoominfo-mcp
-    register_id: io.github.Zoominfo/zoominfo-mcp
-    detected_by: sweep-agent-tools.py
-    detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null
 - slug: zoominfo-google-workspace-own
@@ -2209,4 +1966,306 @@
     detected_by: sweep-official-sdks.py
     detected: '2026-10-18'
   status: not-a-workflow
+  arazzo: null
+- slug: zoominfo-mcp-registry
+  label: MCP Registry
+  partner: mcp
+  partner_name: MCP Registry
+  type: register
+  channel: standard-directory
+  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=io.github.Zoominfo
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: registry.modelcontextprotocol.io
+    spec_file: null
+    role: mcp-server-listing
+    registered_name: io.github.Zoominfo/zoominfo-mcp
+    register_id: io.github.Zoominfo/zoominfo-mcp
+    detected_by: sweep-agent-tools.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: zoominfo-cloud-security-alliance-star-registry
+  label: Cloud Security Alliance STAR Registry
+  partner_name: Cloud Security Alliance STAR Registry
+  category: Cloud security assurance
+  type: register
+  channel: standard-directory
+  evidence: https://cloudsecurityalliance.org/star/registry/zoominfo-technologies-inc/services/salesos
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: CSA STAR Registry (cloudsecurityalliance.org/star/registry)
+    spec_file: null
+    standard: CSA STAR
+    role: star-level-1
+    registered_name: ZoomInfo Technologies Inc.
+    registry_id: zoominfo-technologies-inc
+    service_url: https://www.zoominfo.com/solutions/sales
+    matched_domain: zoominfo.com
+    matched_by: domain
+    identity_source: the service URL the organisation filed on its STAR listing (no lookup)
+    levels:
+    - STAR Level 1
+    certified_products: []
+    signal_note: STAR Level 1 (CAIQ self-assessment) = participation; certified_products = one entry per STAR Level
+      2 / STAR for AI Level 2 assessment TYPE (third-party certification, attestation, C-STAR, ValidAIted); lapsed
+      = every instance marked (Deprecated) by the registry; service counts never recorded
+    detected_by: sweep-compliance-assurance.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: zoominfo-plusvibe-ai
+  label: PlusVibe.ai
+  partner_name: PlusVibe.ai
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/plusvibeai
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: zoominfo-odoo-crm
+  label: Odoo CRM
+  partner: odoo
+  partner_name: Odoo CRM
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/odoo
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: zoominfo-google-drive
+  label: Google Drive
+  partner: google-drive
+  partner_name: Google Drive
+  category: File Management & Storage
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/google-drive
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: zoominfo-manatal
+  label: Manatal
+  partner_name: Manatal
+  category: HR Talent & Recruitment
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/manatal
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: zoominfo-pipedrive
+  label: Pipedrive
+  partner: pipedrive
+  partner_name: Pipedrive
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/pipedrive
+  source: edge
+  relationship: ipaas-bridge
+  arazzo: zoominfo-pipedrive-enrich-organization.yml
+  status: arazzo
+- slug: zoominfo-microsoft-excel
+  label: Microsoft Excel
+  partner_name: Microsoft Excel
+  category: Microsoft
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/excel
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: zoominfo-connectwise-manage
+  label: ConnectWise Manage
+  partner_name: ConnectWise Manage
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/connectwise-manage
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: zoominfo-netsuite
+  label: NetSuite
+  partner: netsuite
+  partner_name: NetSuite
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/netsuite
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: zoominfo-notion
+  label: Notion
+  partner: notion
+  partner_name: Notion
+  category: Task Management
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/notion
+  source: edge
+  relationship: ipaas-bridge
+  arazzo: zoominfo-notion-intent-account-page.yml
+  status: arazzo
+- slug: zoominfo-airtable
+  label: Airtable
+  partner: airtable
+  partner_name: Airtable
+  category: Databases
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/airtable
+  source: edge
+  relationship: ipaas-bridge
+  arazzo: zoominfo-airtable-enrich-record.yml
+  status: arazzo
+- slug: zoominfo-activecampaign
+  label: ActiveCampaign
+  partner: activecampaign
+  partner_name: ActiveCampaign
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/activecampaign
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: zoominfo-constant-contact
+  label: Constant Contact
+  partner: constant-contact
+  partner_name: Constant Contact
+  category: Email Newsletters
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/constant-contact
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: zoominfo-linkedin
+  label: LinkedIn
+  partner: linkedin-ads
+  partner_name: LinkedIn
+  category: Microsoft
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/linkedin
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: zoominfo-apollo
+  label: Apollo
+  partner: apollo-io
+  partner_name: Apollo
+  category: Sales & CRM
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/apollo
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: zoominfo-microsoft-dynamics-365-crm
+  label: Microsoft Dynamics 365 CRM
+  partner: microsoft-dynamics-365
+  partner_name: Microsoft Dynamics 365 CRM
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/microsoft-dynamics-crm
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: zoominfo-bigin-by-zoho-crm
+  label: Bigin by Zoho CRM
+  partner: zoho-crm
+  partner_name: Bigin by Zoho CRM
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/bigin
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: zoominfo-lead-forensics
+  label: Lead Forensics
+  partner_name: Lead Forensics
+  category: Marketing
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/lead-forensics
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: zoominfo-pipeline-crm
+  label: Pipeline CRM
+  partner_name: Pipeline CRM
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/pipelinedeals
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: zoominfo-act
+  label: Act!
+  partner: act
+  partner_name: Act!
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/act-premium
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: zoominfo-smartreach
+  label: SmartReach
+  partner_name: SmartReach
+  category: Email
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/zoominfo/integrations/smartreach
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
   arazzo: null

@@ -1,4 +1,4 @@
-generated: '2026-10-12'
+generated: '2026-10-20'
 method: searched
 source:
 - https://zapier.com/apps/zoominfo/integrations
@@ -1415,338 +1415,6 @@ edges:
   evidence: https://www.zoominfo.com/integrations/zoom-phone
   direction: unknown
   relationship: connector-listing
-- partner_name: Marketo
-  partner: marketo
-  partner_match: name-exact
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/marketo
-  direction: third-party
-  category: Marketing Automation
-  partner_url: https://marketo.com/
-- partner_name: HubSpot
-  partner: hubspot
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/hubspot
-  direction: third-party
-  category: Marketing Automation
-  partner_url: http://www.hubspot.com/
-- partner_name: Google Sheets
-  partner: google-sheets
-  partner_match: name-exact
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/google-sheets
-  direction: third-party
-  category: Google
-  partner_url: http://sheets.google.com/
-- partner_name: PlusVibe.ai
-  partner: null
-  partner_match: null
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/plusvibeai
-  direction: third-party
-  category: Marketing Automation
-  partner_url: https://plusvibe.ai/
-- partner_name: Odoo CRM
-  partner: odoo
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/odoo
-  direction: third-party
-  category: CRM (Customer Relationship Management)
-  partner_url: https://www.odoo.com/
-- partner_name: Pipedrive
-  partner: pipedrive
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/pipedrive
-  direction: third-party
-  category: CRM (Customer Relationship Management)
-  partner_url: https://pipedrive.com/
-- partner_name: Google Ads
-  partner: google-ads
-  partner_match: name-exact
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/google-ads
-  direction: third-party
-  category: Ads & Conversion
-  partner_url: https://ads.google.com/
-- partner_name: Google Drive
-  partner: google-drive
-  partner_match: name-exact
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/google-drive
-  direction: third-party
-  category: File Management & Storage
-  partner_url: https://www.google.com/drive/
-- partner_name: Salesforce
-  partner: salesforce
-  partner_match: name-exact
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/salesforce
-  direction: third-party
-  category: CRM (Customer Relationship Management)
-  partner_url: https://www.salesforce.com/
-- partner_name: Manatal
-  partner: null
-  partner_match: null
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/manatal
-  direction: third-party
-  category: HR Talent & Recruitment
-  partner_url: https://www.manatal.com/
-- partner_name: monday.com
-  partner: null
-  partner_match: null
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/monday
-  direction: third-party
-  category: Project Management
-  partner_url: https://monday.com/
-- partner_name: Microsoft Excel
-  partner: null
-  partner_match: null
-  partner_candidate: zapier
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/excel
-  direction: third-party
-  category: Microsoft
-  partner_url: https://zapier.com/office.com
-- partner_name: Pardot
-  partner: pardot
-  partner_match: domain+verified
-  partner_note: zapier.com/apps/zoominfo/integrations/pardot links http://www.pardot.com/ -> salesforce.com/marketing/b2b-automation/,
-    exactly the pardot Website (verified 2026-10-13).
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/pardot
-  direction: third-party
-  category: Marketing Automation
-  partner_url: http://www.pardot.com/
-- partner_name: ConnectWise Manage
-  partner: null
-  partner_match: null
-  partner_candidate: skykick
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/connectwise-manage
-  direction: third-party
-  category: CRM (Customer Relationship Management)
-  partner_url: http://www.connectwise.com/
-- partner_name: Zoho CRM
-  partner: zoho-crm
-  partner_match: name-exact
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/zoho-crm
-  direction: third-party
-  category: CRM (Customer Relationship Management)
-  partner_url: https://go.zoho.com/wOk
-- partner_name: Clay
-  partner: null
-  partner_match: null
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/clay
-  direction: third-party
-  category: Spreadsheets
-  partner_url: https://clay.run/
-- partner_name: NetSuite
-  partner: null
-  partner_match: null
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/netsuite
-  direction: third-party
-  category: CRM (Customer Relationship Management)
-  partner_url: https://netsuite.com/
-- partner_name: Notion
-  partner: notion
-  partner_match: name-exact
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/notion
-  direction: third-party
-  category: Task Management
-  partner_url: https://www.notion.so/
-- partner_name: Airtable
-  partner: airtable
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/airtable
-  direction: third-party
-  category: Databases
-  partner_url: https://airtable.com/
-- partner_name: ActiveCampaign
-  partner: activecampaign
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/activecampaign
-  direction: third-party
-  category: Marketing Automation
-  partner_url: https://www.activecampaign.com/?utm_source=unpaid_syndication_website&utm_medium=referral&utm_campaign=zapier_listing
-- partner_name: LinkedIn
-  partner: linkedin
-  partner_match: name-exact
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/linkedin
-  direction: third-party
-  category: Microsoft
-  partner_url: http://www.linkedin.com/
-- partner_name: Apollo
-  partner: apollo
-  partner_match: name-exact
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/apollo
-  direction: third-party
-  category: Sales & CRM
-  partner_url: https://www.apollo.io/
-- partner_name: Microsoft Dynamics 365 CRM
-  partner: null
-  partner_match: null
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/microsoft-dynamics-crm
-  direction: third-party
-  category: CRM (Customer Relationship Management)
-  partner_url: https://dynamics.microsoft.com/
-- partner_name: Bigin by Zoho CRM
-  partner: null
-  partner_match: null
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/bigin
-  direction: third-party
-  category: CRM (Customer Relationship Management)
-  partner_url: https://go.zoho.com/9DS
-- partner_name: Snowflake
-  partner: snowflake
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/snowflake
-  direction: third-party
-  category: Databases
-  partner_url: https://www.snowflake.com/
-- partner_name: Lead Forensics
-  partner: null
-  partner_match: null
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/lead-forensics
-  direction: third-party
-  category: Marketing
-  partner_url: https://www.leadforensics.com/
-- partner_name: Act!
-  partner: act
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/act-premium
-  direction: third-party
-  category: CRM (Customer Relationship Management)
-  partner_url: http://www.act.com/
-- partner_name: SmartReach
-  partner: null
-  partner_match: null
-  partner_candidate: zapier
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/smartreach
-  direction: third-party
-  category: Email
-  partner_url: https://zapier.com/smartreach.io
-- partner_name: Followup CRM
-  partner: null
-  partner_match: null
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/followup-crm
-  direction: third-party
-  category: CRM (Customer Relationship Management)
-  partner_url: http://app.followupcrm.com/
-- partner_name: GPT Chatbot
-  partner: null
-  partner_match: null
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/zoominfo/integrations/gpt-chatbot
-  direction: third-party
-  category: AI Chatbots
-  partner_url: https://gptchatbot.it/
 - partner_name: AWS Marketplace
   partner: amazon-web-services
   partner_match: aggregator
@@ -1944,6 +1612,37 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
+- partner_name: MCP Registry
+  partner: mcp
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=io.github.Zoominfo
+  contract_reference:
+    register: registry.modelcontextprotocol.io
+    spec_file: null
+    role: mcp-server-listing
+    registered_name: io.github.Zoominfo/zoominfo-mcp
+    register_id: io.github.Zoominfo/zoominfo-mcp
+    detected_by: sweep-agent-tools.py
+    detected: '2026-10-19'
+  mcp_registry:
+    servers:
+    - io.github.Zoominfo/zoominfo-mcp
+    hosted_remote: 1
+    local_package: 0
+    transports:
+      streamable-http: 1
+    auth_declared: 1
+    catalog_declared: true
+    namespace_domains:
+    - zoominfo.com
+  matched_by:
+  - remote-domain
+  detected_by: sweep-agent-tools.py
+  first_seen: '2026-10-14'
 - partner_name: Cloud Security Alliance STAR Registry
   partner: null
   partner_match: register
@@ -1974,37 +1673,366 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-compliance-assurance.py
   first_seen: '2026-10-20'
-- partner_name: MCP Registry
-  partner: mcp
-  partner_match: register
-  type: register
-  channel: standard-directory
-  relationship: standard-participant
-  direction: partner-built
-  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=io.github.Zoominfo
-  contract_reference:
-    register: registry.modelcontextprotocol.io
-    spec_file: null
-    role: mcp-server-listing
-    registered_name: io.github.Zoominfo/zoominfo-mcp
-    register_id: io.github.Zoominfo/zoominfo-mcp
-    detected_by: sweep-agent-tools.py
-    detected: '2026-10-15'
-  mcp_registry:
-    servers:
-    - io.github.Zoominfo/zoominfo-mcp
-    hosted_remote: 1
-    local_package: 0
-    transports:
-      streamable-http: 1
-    auth_declared: 1
-    catalog_declared: true
-    namespace_domains:
-    - zoominfo.com
-  matched_by:
-  - remote-domain
-  detected_by: sweep-agent-tools.py
-  first_seen: '2026-10-14'
+- partner_name: Marketo
+  partner: marketo
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/marketo
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://marketo.com/
+- partner_name: HubSpot
+  partner: hubspot
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/hubspot
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://www.hubspot.com/
+- partner_name: Google Sheets
+  partner: google-sheets
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/google-sheets
+  direction: third-party
+  category: Google
+  partner_url: http://sheets.google.com/
+- partner_name: PlusVibe.ai
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/plusvibeai
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://plusvibe.ai/
+- partner_name: Odoo CRM
+  partner: odoo
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/odoo
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://www.odoo.com/
+- partner_name: monday.com
+  partner: monday-com
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/monday
+  direction: third-party
+  category: Project Management
+  partner_url: https://monday.com/
+- partner_name: Google Ads
+  partner: google-ads
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/google-ads
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://ads.google.com/
+- partner_name: Google Drive
+  partner: google-drive
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/google-drive
+  direction: third-party
+  category: File Management & Storage
+  partner_url: https://www.google.com/drive/
+- partner_name: Salesforce
+  partner: salesforce
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/salesforce
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://www.salesforce.com/
+- partner_name: Manatal
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/manatal
+  direction: third-party
+  category: HR Talent & Recruitment
+  partner_url: https://www.manatal.com/
+- partner_name: Pipedrive
+  partner: pipedrive
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/pipedrive
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://pipedrive.com/
+- partner_name: Microsoft Excel
+  partner: null
+  partner_match: null
+  partner_candidate: zapier
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/excel
+  direction: third-party
+  category: Microsoft
+  partner_url: https://zapier.com/office.com
+- partner_name: Pardot
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/pardot
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://www.pardot.com/
+- partner_name: ConnectWise Manage
+  partner: null
+  partner_match: null
+  partner_candidate: skykick
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/connectwise-manage
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: http://www.connectwise.com/
+- partner_name: Zoho CRM
+  partner: zoho-crm
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/zoho-crm
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://go.zoho.com/wOk
+- partner_name: Clay
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/clay
+  direction: third-party
+  category: Spreadsheets
+  partner_url: https://clay.run/
+- partner_name: NetSuite
+  partner: netsuite
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/netsuite
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://netsuite.com/
+- partner_name: Notion
+  partner: notion
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/notion
+  direction: third-party
+  category: Task Management
+  partner_url: https://www.notion.so/
+- partner_name: Airtable
+  partner: airtable
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/airtable
+  direction: third-party
+  category: Databases
+  partner_url: https://airtable.com/
+- partner_name: ActiveCampaign
+  partner: activecampaign
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/activecampaign
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.activecampaign.com/?utm_source=unpaid_syndication_website&utm_medium=referral&utm_campaign=zapier_listing
+- partner_name: Constant Contact
+  partner: constant-contact
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/constant-contact
+  direction: third-party
+  category: Email Newsletters
+  partner_url: http://www.constantcontact.com/signup.jsp?pn=zapier
+- partner_name: LinkedIn
+  partner: linkedin-ads
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/linkedin
+  direction: third-party
+  category: Microsoft
+  partner_url: http://www.linkedin.com/
+- partner_name: Apollo
+  partner: apollo-io
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/apollo
+  direction: third-party
+  category: Sales & CRM
+  partner_url: https://www.apollo.io/
+- partner_name: Microsoft Dynamics 365 CRM
+  partner: microsoft-dynamics-365
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/microsoft-dynamics-crm
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://dynamics.microsoft.com/
+- partner_name: Bigin by Zoho CRM
+  partner: zoho-crm
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/bigin
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://go.zoho.com/9DS
+- partner_name: Snowflake
+  partner: snowflake
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/snowflake
+  direction: third-party
+  category: Databases
+  partner_url: https://www.snowflake.com/
+- partner_name: Lead Forensics
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/lead-forensics
+  direction: third-party
+  category: Marketing
+  partner_url: https://www.leadforensics.com/
+- partner_name: Pipeline CRM
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/pipelinedeals
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://pipelinecrm.com/
+- partner_name: Act!
+  partner: act
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/act-premium
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: http://www.act.com/
+- partner_name: SmartReach
+  partner: null
+  partner_match: null
+  partner_candidate: zapier
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/zoominfo/integrations/smartreach
+  direction: third-party
+  category: Email
+  partner_url: https://zapier.com/smartreach.io
 templates:
 - title: Get Slack channel notifications when new companies show intent in ZoomInfo
   url: https://zapier.com/apps/slack/integrations/zoominfo/1809498/get-slack-channel-notifications-when-new-companies-show-intent-in-zoominfo
