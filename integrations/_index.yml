@@ -2289,3 +2289,33 @@
     detected: '2026-10-20'
   status: not-a-workflow
   arazzo: null
+- slug: zoominfo-databricks-marketplace
+  label: Databricks Marketplace
+  partner: databricks
+  partner_name: Databricks Marketplace
+  category: data product listing
+  type: marketplace
+  marketplace: databricks-marketplace
+  channel: distribution
+  evidence: https://marketplace.databricks.com/provider/7b188ec5-4695-43ac-a955-f6486e1ab53c
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Databricks Marketplace (marketplace.databricks.com/api/2.0/public-marketplace-providers + public-marketplace-listings)
+    spec_file: null
+    role: data-marketplace-seller
+    registered_name: ZoomInfo
+    matched_domain: zoominfo.com
+    matched_by: domain
+    listings: 5
+    sample_listings:
+    - B2B Commercial Data (Contact)
+    - B2B Commercial Data (Firmographic, Hierarchy, Technology)
+    - B2B Commercial Data (Intent)
+    - First Mover Advantage Dataset
+    - Licensed Contractors Dataset
+    signal_note: 'participation: the provider lists data products on this marketplace; counts are context'
+    detected_by: sweep-data-marketplaces.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
