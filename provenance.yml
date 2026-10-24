@@ -7,29 +7,29 @@ artifacts:
     method: generated
     evidence: declared in the artifact
   arazzo/zoominfo-authenticate-contact-search-workflow.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
   arazzo/zoominfo-company-master-data-enrich-workflow.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
   arazzo/zoominfo-company-search-enrich-workflow.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
   arazzo/zoominfo-company-search-intent-enrich-workflow.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
   arazzo/zoominfo-contact-search-enrich-workflow.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
   arazzo/zoominfo-intent-search-enrich-company-workflow.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
   arazzo/zoominfo-scoop-search-enrich-company-workflow.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
   arazzo/zoominfo-scoop-search-then-enrich-workflow.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
   asyncapi/zoominfo-webhooks.yml:
     method: searched
     evidence: declared in the artifact
@@ -1047,7 +1047,58 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
+  hosts/zoominfo-hosts.yml:
+    method: derived
+    evidence: declared in the artifact
+  integrations/_index.yml:
+    method: generated
+    evidence: carries an API Evangelist house phrase
+  integrations/zoominfo-airtable-enrich-record-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  integrations/zoominfo-airtable-enrich-record.yml:
+    method: unknown
+    evidence: no authorship recorded
+  integrations/zoominfo-google-sheets-intent-rows-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  integrations/zoominfo-google-sheets-intent-rows.yml:
+    method: generated
+    evidence: declared in the artifact
+  integrations/zoominfo-integration-edges.yml:
+    method: searched
+    evidence: declared in the artifact
+  integrations/zoominfo-integration-map.yml:
+    method: unknown
+    evidence: no authorship recorded
+  integrations/zoominfo-notion-intent-account-page-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  integrations/zoominfo-notion-intent-account-page.yml:
+    method: unknown
+    evidence: no authorship recorded
+  integrations/zoominfo-pardot-enrich-prospect-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  integrations/zoominfo-pardot-enrich-prospect.yml:
+    method: generated
+    evidence: declared in the artifact
+  integrations/zoominfo-pipedrive-enrich-organization-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  integrations/zoominfo-pipedrive-enrich-organization.yml:
+    method: generated
+    evidence: declared in the artifact
   json-ld/zoominfo-context.jsonld:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-account-summary-question-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-account-summary-question-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-account-summary-response-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-addanobject-typetoasubscription-schema.json:
@@ -1060,6 +1111,24 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-address2-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-agent-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-agent-team-detail-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-agent-team-run-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-agent-team-runs-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-agent-teams-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-audiences-json-api-list-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-authenticate-request-schema.json:
@@ -1125,6 +1194,15 @@ artifacts:
   json-schema/zoominfo-company-funding-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/zoominfo-company-insights-by-type-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-company-insights-by-type-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-company-lookalikes-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/zoominfo-company-master-data-enrich-input-schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -1141,6 +1219,9 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-company-search-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-company-search-response-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-company10-schema.json:
@@ -1197,6 +1278,12 @@ artifacts:
   json-schema/zoominfo-contact-enrich-request-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/zoominfo-contact-lookalike-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-contact-recommendation-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/zoominfo-contact-search-input-schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -1204,6 +1291,18 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-contact-search-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-contact-search-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-content-interaction-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-content-interaction-upsert-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-content-interaction-upsert-response-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-corporate-hierarchy-enrich-request-schema.json:
@@ -1216,6 +1315,30 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-createawebhook-multipleobjecttypes-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-customer-buyer-persona-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-customer-buyer-persona-model-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-customer-buyer-persona-upsert-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-customer-competitor-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-customer-competitor-model-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-customer-competitor-upsert-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-customer-settings-model-create-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-customer-settings-model-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-data-schema.json:
@@ -1455,6 +1578,9 @@ artifacts:
   json-schema/zoominfo-enrichtechnologyforacompany-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/zoominfo-entitlements-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/zoominfo-external-url-schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -1470,10 +1596,16 @@ artifacts:
   json-schema/zoominfo-family-tree-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/zoominfo-folder-json-api-list-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/zoominfo-generate-verification-token-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-geo-location-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-get-audiences-response-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-get-company-ranking-schema.json:
@@ -1497,6 +1629,9 @@ artifacts:
   json-schema/zoominfo-get-location-enrich-input-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/zoominfo-get-rows-json-api-model-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/zoominfo-get-subscription-types-schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -1507,6 +1642,15 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-getaspecificwebhook-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-gtm-entities-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-gtm-entity-fields-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-hashtag-enrich-response-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-hashtag-schema.json:
@@ -1522,6 +1666,15 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-i-pbelongstoacompany-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-ideal-company-segment-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-ideal-company-segment-model-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-ideal-company-segment-upsert-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-input-schema.json:
@@ -1578,6 +1731,9 @@ artifacts:
   json-schema/zoominfo-intent-enrich-request-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/zoominfo-intent-enrich-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/zoominfo-intent-enrich-schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -1590,10 +1746,16 @@ artifacts:
   json-schema/zoominfo-intent-search-request-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/zoominfo-intent-search-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/zoominfo-intent-search-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-intent-topic-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-interact-request-body-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-ip-enrich-output-schema.json:
@@ -1671,6 +1833,9 @@ artifacts:
   json-schema/zoominfo-news-enrich-request-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/zoominfo-news-enrich-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/zoominfo-news-enrich-schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -1681,6 +1846,9 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-news-search-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-news-search-response-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-news-searchusingallinputs-schema.json:
@@ -1698,7 +1866,19 @@ artifacts:
   json-schema/zoominfo-org-chart-enrich-request-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/zoominfo-org-chart-enrich-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/zoominfo-org-chart-enrich-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-organization-offering-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-organization-offering-model-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-organization-offering-upsert-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-parentage-schema.json:
@@ -1708,6 +1888,9 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-phone-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-pulses-list-response-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-query-schema.json:
@@ -1779,6 +1962,12 @@ artifacts:
   json-schema/zoominfo-result9-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/zoominfo-row-upsert-list-api-model-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-run-agent-team-request-body-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/zoominfo-scoop-enrich-input-schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -1786,6 +1975,9 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-scoop-enrich-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-scoop-enrich-response-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-scoop-enrich-schema.json:
@@ -1798,6 +1990,9 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-scoop-search-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-scoop-search-response-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-scoop-search-schema.json:
@@ -1833,6 +2028,9 @@ artifacts:
   json-schema/zoominfo-social-media-url-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/zoominfo-sse-response-body-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/zoominfo-sub-unit-type-info-schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -1854,6 +2052,12 @@ artifacts:
   json-schema/zoominfo-technology-enrich-request-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/zoominfo-technology-enrich-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-thread-message-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/zoominfo-type-schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -1864,6 +2068,18 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-updateawebhooktoenableit-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-upsert-data-payload-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-upsert-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-upsert-rows-json-api-model-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-usage-response-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-usage-schema.json:
@@ -1882,6 +2098,9 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-webhook-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/zoominfo-workflows-list-response-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/zoominfo-zi-match-reason-schema.json:
@@ -2730,127 +2949,7 @@ artifacts:
   json-structure/zoominfo-zi-match-reason2-structure.json:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T125852.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T133943.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T143147.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T154045.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-26T215308.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T094438.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T103455.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T123021.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T132314.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T140727.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-28T221322.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T213958.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T230545.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T203505.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T220315.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-31T223420.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T063623.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T210448.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T222808.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T224043.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T161828.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T174231.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T062714.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T212454.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T224856.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T055819.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T144739.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T195450.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T211839.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T011047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T224210.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T200636.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T213054.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T214843.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T232836.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T204815.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T222408.yml:
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-12T062655.yml:
@@ -2934,10 +3033,28 @@ artifacts:
   kin/score-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/zoominfo-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
   llms/zoominfo-docs-llms.txt:
+    method: searched
+    evidence: 'derive-llms-provenance.py: harvested'
+  llms/zoominfo-llms-provenance.yml:
     method: searched
     evidence: 'derive-llms-provenance.py: harvested'
   llms/zoominfo-llms.txt:
@@ -3106,22 +3223,148 @@ artifacts:
   openapi/zoominfo-workflows-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  overlays/zoominfo-account-summary-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-agent-teams-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-audiences-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-authentication-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-bulk-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-company-enrich-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-company-location-enrich-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-company-master-data-enrich-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-company-search-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-compliance-api-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-contact-enrich-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-contact-search-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-corporate-hierarchy-enrich-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-customer-buyer-persona-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-customer-competitors-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-customer-settings-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-engagements-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-enrich-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-entities-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-entitlements-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/zoominfo-gtm-agent-v1-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/zoominfo-gtm-copilot-v1-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/zoominfo-gtm-data-v1-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/zoominfo-gtm-gtm-studio-v1-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/zoominfo-gtm-marketing-v1-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/zoominfo-gtm-platform-v1-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/zoominfo-hashtags-enrich-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
-  overlays/zoominfo-gtm-platform-v1-overlay.yaml:
+  overlays/zoominfo-ideal-customer-profile-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-insights-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-intent-enrich-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-intent-search-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-interact-experimental-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-lookup-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-monitoring-api-webhooks-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-news-enrich-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-news-search-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-orgchart-enrich-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-products-and-services-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-pulses-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-recommendations-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-scoop-enrich-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-scoop-search-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-search-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-technology-enrich-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-usage-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-user-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-websights-api-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/zoominfo-workflows-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   packages/zoominfo-packages.yml:
@@ -3136,7 +3379,13 @@ artifacts:
   rate-limits/zoominfo-rate-limits.yml:
     method: searched
     evidence: declared in the artifact
+  regulatory/zoominfo-regulatory-posture.yml:
+    method: searched
+    evidence: declared in the artifact
   rules/zoominfo-jsonschema-spectral-rules.yml:
+    method: generated
+    evidence: declared in the artifact
+  rules/zoominfo-rules.yml:
     method: generated
     evidence: declared in the artifact
   rules/zoominfo-spectral-rules.yml:
@@ -3262,9 +3511,15 @@ artifacts:
   skills/zoominfo-why-now.md:
     method: unknown
     evidence: no authorship recorded
+  vendors/zoominfo-vendors.yml:
+    method: unknown
+    evidence: no authorship recorded
   vocabulary/zoominfo-vocabulary.yaml:
     method: unknown
     evidence: no authorship recorded
+  vocabulary/zoominfo-vocabulary.yml:
+    method: derived
+    evidence: declared in the artifact
   well-known/zoominfo-mcp-oauth-authorization-server.json:
     method: unknown
     evidence: no authorship recorded
